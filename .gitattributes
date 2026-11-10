@@ -1,0 +1,10 @@
+# Keep shared workflow assets stable across Windows clones.
+* text=auto eol=lf
+*.ps1 text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Preserve the user-supplied prompt byte for byte, including original line endings.
+prompts/NoteLens_Codex_SpecKit_prompt_00.md -text

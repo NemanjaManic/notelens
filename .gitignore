@@ -1,0 +1,54 @@
+# Secrets and machine-local state
+.env
+.env.*
+!.env.example
+.codex/
+.aws/
+.agents/*
+!.agents/skills/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Dependencies and build/test caches
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.next/
+out/
+dist/
+build/
+coverage/
+htmlcov/
+*.egg-info/
+.cache/
+*.log
+
+# Local datasets, public-corpus indexes and trained binary artifacts
+/data/mtsamples/raw/
+/data/knowledge/raw/
+/data/knowledge/indexes/
+/data/knowledge/chroma/
+/services/classifier/artifacts/*
+!/services/classifier/artifacts/manifests/
+*.sqlite
+*.sqlite3
+*.db
+
+# Evaluation caches/local outputs; curated versioned references/reports are not blanket-ignored
+/eval/.cache/
+/eval/.promptfoo/
+/eval/node_modules/
+
+# Editor/OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
