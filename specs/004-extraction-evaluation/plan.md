@@ -1,11 +1,33 @@
 # Implementation Plan: Python Extraction and Shared Evaluation
 
-**Branch**: main (no feature branch created) | **Date**: 2026-11-10 | **Spec**: [spec.md](spec.md)
+**Branch**: member-d/extraction-evaluation | **Original plan date**: 2026-11-10 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/004-extraction-evaluation/spec.md`.
 **Owner**: D. **Status**: Draft local design and executable backlog proposal.
 Constitution text remains a draft; confirmed source/user requirements are binding.
-This stage does not authorize business implementation, paid calls, publication or deployment.
+The original planning stage did not authorize business implementation. The explicit
+2026-11-11 continuation now authorizes a D-owned provisional local implementation;
+paid calls, publication and deployment remain outside this package.
+
+## Authorized local continuation (2026-11-11)
+
+Implement D-004/D-005 and the first D-010/D-006 evaluation slice behind a provisional
+adapter while B's shared-contract/foundation gates are pending. Map completed local
+subtasks to the existing backlog; do not mark frozen integration or real-data work
+complete. Reuse the training checker and dependency-free evidence logic. The same
+shared draft JSON Schema is read directly, not copied into competing models.
+
+Actual local setup is Python 3.11.7 with extraction/eval uv locks and independent
+environments; 3.13 was proposed but is not present. Node 24.20.0 and eval-local
+Promptfoo 0.125.1 support a key-free HTTP smoke. The provider is a deterministic
+catalog fake behind a replaceable interface; no live provider/model is selected.
+
+See [state and evidence](../../docs/extraction-eval/milestone-state.md),
+[integration commands](../../docs/extraction-eval/integration.md) and
+[remaining requests](../../docs/extraction-eval/milestone-requests.md). Annotation
+selection/blank templates/adjudication run on synthetic fixtures; actual C-002
+manifests, human submissions and team review remain required. No global setup,
+shared schema, another service or another member's annotation paths are edited.
 
 ## Summary
 

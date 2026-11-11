@@ -136,6 +136,19 @@ to D for a team review before freezing any real annotation rules.
 These examples include proposed answers, so they are appropriate for training and
 rule discussion only. Do not score them as an independent or final benchmark.
 
+To check the synthetic file locally from the repository root, run:
+
+```powershell
+python -B docs/extraction-eval/check_training_examples.py
+```
+
+The check needs only Python 3.11 or newer and its standard library. It verifies draft
+record fields, document hashes, exact code-point slices, distinct mention spans and
+source-present ICD evidence. It reports counts and error locations without printing
+the text or quotes. It does not verify clinical correctness, semantic support, the
+shared API schema, real annotations or a running extraction service. Use it only for
+the accompanying synthetic training file; do not use user-submitted reports as input.
+
 ### Practice scenario index
 
 | Example ID | What to examine | Proposed answer or discussion point |

@@ -1,0 +1,17 @@
+{
+  "kind": "synthetic",
+  "assignment": {
+    "assignment_id": "synthetic-pending-only",
+    "doc_id": "synthetic-merge-demo",
+    "text_sha256": "a61a5d2a91cdd78e9a5ca2adaf224b92d16aa88c0ce0a3d93c40e57ac1ec6ead",
+    "primary": "member-d",
+    "reviewer": null
+  },
+  "document": {
+    "doc_id": "synthetic-merge-demo",
+    "text": "Synthetic exercise. No clinical findings are stated.",
+    "text_sha256": "a61a5d2a91cdd78e9a5ca2adaf224b92d16aa88c0ce0a3d93c40e57ac1ec6ead"
+  },
+  "submissions": [],
+  "decision": null
+}
