@@ -1,61 +1,65 @@
-# Synthetic failure review by case
+﻿# Synthetic failure review by case
 
-Date: 2026-11-12. Source: local run of `d-extraction-qa-synthetic-v1` using the unchanged deterministic mock catalog.
+Date: 2026-11-12. Source: local run of `d-extraction-qa-synthetic-v2` using the unchanged deterministic mock catalog.
 
-This is a regression review of authored synthetic cases. It does not describe clinical risk or general model performance. Multiple records can occur for one case when extraction and QA both miss expected behavior. Full expected/actual values and limitation notes are generated in `eval/reports/local/synthetic-v1/report.md` (ignored local output).
+This is a regression review of authored synthetic cases. It does not describe clinical risk or general model performance. Multiple records can occur for one case when extraction and QA both miss expected behavior. Full expected/actual values are in the ignored local `eval/reports/local/synthetic-v3/report.md`.
 
-Reference cases: 24; questions: 48; unique annotated source mentions: 29; validation or relationship errors: 0; technical generation errors: 0.
+Reference cases: 24; questions: 48; unique source mentions: 29; invalid/technical output errors: 0.
 
 | Failure class | Records | Interpretation |
 | --- | ---: | --- |
-| `missing_entity` | 15 | The small literal fake does not recognize a reference mention. |
-| `qa_state` | 11 | The fake returned an evidence state different from the authored expectation. |
-| `qa_support` | 13 | The fake omitted a required literal supporting sentence. |
+| `expected_gap_not_disclosed` | 25 | The question has an expected information gap that is absent verbatim from answer text and warnings. |
+| `missing_entity` | 15 | The fake catalog does not recognize a reference mention. |
+| `qa_state` | 11 | Returned evidence state differs from authored expectation. |
+| `required_fact_missing` | 13 | One or more required source passages, or all claims for an answerable question, are missing. |
 
-Each case below lists observed evaluator failure categories. A missing category means this run recorded no discrepancy for that check; it does not establish semantic correctness.
+## Completeness checks
+
+- Required facts complete: 35/48.
+- Expected gap phrases disclosed: 1/26.
+- Questions with all expected gaps disclosed (including questions with no expected gap): 23/48.
+- No extra source quotes: 48/48.
+- All required facts, gaps and extra-quote checks: 10/48.
+
+Each case below lists observed categories. No failure means only that these narrow literal checks recorded no discrepancy.
 
 | Case | Group | Failure categories | Follow-up |
 | --- | --- | --- | --- |
-| `confirmed-01` | confirmed | None recorded | Keep; mock pass is not a semantic-quality finding. |
-| `confirmed-02` | confirmed | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `confirmed-03` | confirmed | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `confirmed-04` | confirmed | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `negation-01` | negation | None recorded | Keep; mock pass is not a semantic-quality finding. |
-| `negation-02` | negation | None recorded | Keep; mock pass is not a semantic-quality finding. |
-| `negation-03` | negation | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `negation-04` | negation | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `history-01` | history | None recorded | Keep; mock pass is not a semantic-quality finding. |
-| `history-02` | history | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `history-03` | history | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `history-04` | history | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `procedure-01` | procedures | None recorded | Keep; mock pass is not a semantic-quality finding. |
-| `procedure-02` | procedures | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `procedure-03` | procedures | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `procedure-04` | procedures | missing_entity, qa_state, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `complex-01` | complex | None recorded | Keep; mock pass is not a semantic-quality finding. |
-| `complex-02` | complex | None recorded | Keep; mock pass is not a semantic-quality finding. |
-| `complex-03` | complex | missing_entity, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `complex-04` | complex | None recorded | Keep; mock pass is not a semantic-quality finding. |
-| `limited-01` | limited | None recorded | Keep; mock pass is not a semantic-quality finding. |
-| `limited-02` | limited | missing_entity, qa_support | Retain as a regression; review with an approved provider and human reference review. |
-| `limited-03` | limited | None recorded | Keep; mock pass is not a semantic-quality finding. |
-| `limited-04` | limited | None recorded | Keep; mock pass is not a semantic-quality finding. |
+| `confirmed-01` | confirmed | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
+| `confirmed-02` | confirmed | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `confirmed-03` | confirmed | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `confirmed-04` | confirmed | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `negation-01` | negation | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
+| `negation-02` | negation | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
+| `negation-03` | negation | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `negation-04` | negation | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `history-01` | history | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
+| `history-02` | history | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `history-03` | history | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `history-04` | history | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `procedure-01` | procedures | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
+| `procedure-02` | procedures | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `procedure-03` | procedures | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `procedure-04` | procedures | expected_gap_not_disclosed, missing_entity, qa_state, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `complex-01` | complex | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
+| `complex-02` | complex | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
+| `complex-03` | complex | expected_gap_not_disclosed, missing_entity, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `complex-04` | complex | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
+| `limited-01` | limited | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
+| `limited-02` | limited | expected_gap_not_disclosed, missing_entity, required_fact_missing | Retain and inspect with human references and an approved provider. |
+| `limited-03` | limited | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
+| `limited-04` | limited | expected_gap_not_disclosed | Retain and inspect with human references and an approved provider. |
 
-## Cases for focused review
+## Focused review
 
-- `confirmed-04`: mock misses the second symptom in a two-symptom sentence.
-- `negation-03`: the fake catalog does not model contrastive negation scope.
-- `history-03` and `history-04`: family subject and historical context outside catalog patterns are missed.
-- `procedure-02` and `procedure-03`: planned/cancelled status is not represented by the current shared enums; reference attributes remain unresolved.
-- `complex-03`: QA state is acceptable but one of two required symptom sentences is omitted.
-- `limited-02`: one side of a contradictory source is omitted. The evaluator does not reconcile the conflict.
-- `limited-03`: the targeted injected instruction case is retained; a passing instance is not a general prompt-injection guarantee.
+- `confirmed-04`, `complex-03`: multi-fact answers miss one required symptom passage.
+- `limited-02`: conflicting source statements are not both included.
+- All 25 insufficient questions fail the named-gap phrase check; the controlled mock refusal does not identify the missing age/diagnosis explicitly.
+- The partial age question includes its gap phrase, but completeness can still fail due to other checks.
+- `procedure-02` and `procedure-03` retain unresolved annotation status because the shared draft enums cannot model planned/cancelled states.
 
-## Metrics from this run
+## Entity metrics
 
-- Exact entity: TP=14, FP=0, FN=15, recall=0.4828, F1=0.6512.
-- QA expected evidence state: 37/48.
-- Required literal support plus state: 35/48.
-- Valid extraction and answer records: 24/24 and 48/48.
+Exact mentions: TP=14, FP=0, FN=15, recall=0.4828, F1=0.6512.
 
-These are deterministic mock coverage counts on a small author-created suite. They are not quality targets, not a held-out score and not evidence of clinical accuracy.
+These are deterministic mock coverage measurements only, not quality targets, a held-out score, a clinical measure, or general language understanding.

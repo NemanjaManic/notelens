@@ -1,4 +1,4 @@
-# Member D: expanded synthetic extraction and QA evaluation
+﻿# Member D: expanded synthetic extraction and QA evaluation
 
 Date: 2026-11-12. Author/reviewer: Codex agent working for Member D (Milica).
 Status: implemented and checked locally; human/team review pending.
@@ -138,7 +138,7 @@ Agent-authored development fixtures; no human, clinical or live-model validation
 
 Documents: 24; questions: 48.
 
-Reference version: `d-extraction-qa-synthetic-v1`.
+Reference version: `d-extraction-qa-synthetic-v2`.
 Reference normalized JSON SHA-256: `517b78e8a842e1adc0cf55432801cc17dbffa0999e1b71203d6b1eeceb217785`.
 
 | Group | Documents | Exact TP | FP | FN | QA states correct |
@@ -582,6 +582,14 @@ Likely cause: Limited literal mock catalog or a candidate behavior mismatch; ins
 Proposed next action: Retain the regression case for the approved real provider; review reference semantics with the team.
 
 ## Limitations
+
+The evaluator now also records required literal facts and expected gaps for every
+question. In run `d-v3`, required facts were complete for 35/48 questions, the expected
+gap phrase appeared for 1/26 gap labels, 48/48 answers avoided extra source quotes,
+and all four completeness checks passed for 10/48 answers. The fake's controlled
+refusal does not name the missing age or diagnosis in 25 insufficient cases. These
+checks compare authored strings; they do not judge whether evidence is semantically
+relevant or whether a limitation is explained naturally. See the [failure review](synthetic-failure-review-v1.md).
 
 - semantic_support: Requires independent human review or an approved calibrated judge.
 - english_output_quality: The en declaration and English catalog do not prove language compliance.

@@ -15,7 +15,7 @@ EVAL_ROOT = Path(__file__).resolve().parents[2]
 
 
 def produce(cases: dict) -> dict:
-    if cases.get("version") == "d-extraction-qa-synthetic-v1":
+    if cases.get("version") in {"d-extraction-qa-synthetic-v1", "d-extraction-qa-synthetic-v2"}:
         from .suite import validate_references
         validate_references(cases)
     # Only the public/synthetic request is passed. References never enter providers.

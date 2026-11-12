@@ -26,7 +26,7 @@ def test_fixture_has_balanced_unique_documents_and_traceable_references():
                for group in {c["group"] for c in refs["cases"]})
 
 
-@pytest.mark.parametrize("corruption", ["hash", "span", "duplicate", "qa", "support"])
+@pytest.mark.parametrize("corruption", ["hash", "span", "duplicate", "qa", "support", "gap"])
 def test_bad_references_fail_before_generation(corruption):
     refs = references()
     case = refs["cases"][0]
@@ -38,6 +38,8 @@ def test_bad_references_fail_before_generation(corruption):
         refs["cases"][1]["id"] = case["id"]
     elif corruption == "qa":
         case["qa"][1]["id"] = case["qa"][0]["id"]
+    elif corruption == "gap":
+        case["qa"][1].pop("expected_gaps")
     else:
         case["qa"][0]["expected_support"][0] = "Not in the document."
     with pytest.raises(ValueError):
@@ -83,7 +85,42 @@ def test_correct_state_with_wrong_supported_topic_is_flagged():
     response["text"] = response["claims"][0]["text"]
     predictions["cases"][0]["qa"][0]["result"] = response
     report = evaluate_suite(subset, predictions)
-    assert any(f["category"] == "qa_support" for f in report["failures"])
+    assert any(f["category"] == "required_fact_missing" for f in report["failures"])
+
+
+def test_gap_disclosure_is_checked_separately_from_correct_partial_state():
+    refs = references()
+    case = next(c for c in refs["cases"] if c["id"] == "limited-04")
+    subset = {**refs, "cases": [case]}
+    predictions = produce(subset)
+    answer = predictions["cases"][0]["qa"][0]["result"]
+    assert answer["evidence_state"] == "partial"
+    answer["warnings"] = ["Deterministic synthetic response."]
+    report = evaluate_suite(subset, predictions)
+    assert any(f["category"] == "expected_gap_not_disclosed" for f in report["failures"])
+
+
+def test_extra_source_claim_is_flagged_even_when_required_quote_is_present():
+    refs = references()
+    case = next(c for c in refs["cases"] if c["id"] == "complex-04")
+    subset = {**refs, "cases": [case]}
+    predictions = produce(subset)
+    from notelens_extraction.service import run
+    broad, _ = run({**case["request"], "question": "What diagnoses or symptoms are mentioned?"}, "answer")
+    predictions["cases"][0]["qa"][0]["result"] = broad
+    report = evaluate_suite(subset, predictions)
+    assert any(f["category"] == "unexpected_answer_fact" for f in report["failures"])
+
+
+def test_fixture_facts_and_gaps_are_evaluator_metadata_only():
+    refs = references()
+    case = refs["cases"][0]
+    qa = case["qa"][0]
+    assert len(qa["required_facts"]) == 1 and qa["expected_gaps"] == []
+    assert refs["cases"][0]["qa"][1]["expected_gaps"] == ["age"]
+    predictions = produce({**refs, "cases": [case]})
+    assert "required_facts" not in json.dumps(predictions)
+    assert "expected_gaps" not in json.dumps(predictions)
 
 
 def test_cli_generates_and_rescores_the_same_results(tmp_path):

@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import re
 
 from notelens_extraction.contracts import validate_extraction, validate_generation, validate_schema
 from notelens_extraction.evidence import validate_span, validate_text
@@ -45,10 +46,19 @@ def validate_references(references: dict) -> None:
             qa_ids.add(qa["id"])
             validate_schema({**case["request"], "question": qa["question"]}, "DocumentQuestionRequest")
             state, support = qa["expected_evidence_state"], qa["expected_support"]
+            facts = qa.get("required_facts")
+            gaps = qa.get("expected_gaps")
             if state not in {"sufficient", "partial", "insufficient"} or type(qa["answerable"]) is not bool:
                 raise ValueError("Invalid QA expectation.")
             if qa["answerable"] != bool(support) or (state == "insufficient") != (not support):
                 raise ValueError("Inconsistent QA answerability and support.")
+            if (not isinstance(facts, list) or [f.get("required_quote") for f in facts] != support
+                    or len({f.get("fact_id") for f in facts}) != len(facts)
+                    or not isinstance(gaps, list) or len(set(gaps)) != len(gaps)
+                    or any(not isinstance(g, str) or not g.strip() for g in gaps)):
+                raise ValueError("Required facts and expected gaps must be explicit and consistent.")
+            if (state == "sufficient") != (not gaps):
+                raise ValueError("Sufficient answers have no expected gaps; partial/insufficient answers must state them.")
             if any(not isinstance(s, str) or not s or s not in document["text"] for s in support):
                 raise ValueError("Expected support must occur verbatim in the source.")
 
@@ -71,7 +81,7 @@ def evaluate_suite(references: dict, predictions: dict) -> dict:
             "counts", "entities_exact", "entities_relaxed", "answerability", "record_validation")}
     failures, per_case = [], []
     by_id = {p["id"]: p for p in predictions["cases"]}
-    support_correct = 0
+    support_correct = required_facts_complete = gap_disclosed = expected_gap_count = gap_questions_complete = no_unexpected_support = complete_answers = 0
 
     def fail(case, category, expected, actual, *, qa_id=None, technical=False):
         failures.append({"case_id": case["id"], "group": case["group"], "qa_id": qa_id,
@@ -122,11 +132,29 @@ def evaluate_suite(references: dict, predictions: dict) -> dict:
             # Literal fixture support coverage is narrower than semantic answer correctness.
             linked = {source_id for claim in answer["claims"] for source_id in claim["source_ids"]}
             quotes = {s["evidence"]["quote"] for s in answer["sources"] if s["source_id"] in linked}
-            missing = [s for s in qa["expected_support"] if s not in quotes]
+            required = [fact["required_quote"] for fact in qa["required_facts"]]
+            missing = [quote for quote in required if quote not in quotes]
+            unexpected = sorted(quotes - set(required))
             support_ok = not missing and (bool(answer["claims"]) == qa["answerable"])
+            required_facts_complete += int(support_ok)
             support_correct += int(support_ok and answer["evidence_state"] == qa["expected_evidence_state"])
             if not support_ok:
-                fail(case, "qa_support", qa["expected_support"], sorted(quotes), qa_id=qa["id"])
+                fail(case, "required_fact_missing", missing or (required if not answer["claims"] else []),
+                     sorted(quotes), qa_id=qa["id"])
+            no_unexpected_support += int(not unexpected)
+            if unexpected:
+                fail(case, "unexpected_answer_fact", required, unexpected, qa_id=qa["id"])
+            disclosed_text = " ".join([answer["text"], *answer["warnings"]]).casefold()
+            undisclosed_gaps = [gap for gap in qa["expected_gaps"]
+                                if not re.search(rf"\b{re.escape(gap.casefold())}\b", disclosed_text)]
+            expected_gap_count += len(qa["expected_gaps"])
+            gap_disclosed += len(qa["expected_gaps"]) - len(undisclosed_gaps)
+            gap_questions_complete += int(not undisclosed_gaps)
+            if undisclosed_gaps:
+                fail(case, "expected_gap_not_disclosed", qa["expected_gaps"], answer["warnings"], qa_id=qa["id"])
+            complete_answers += int(not missing and not unexpected and not undisclosed_gaps
+                                    and bool(answer["claims"]) == qa["answerable"]
+                                    and answer["evidence_state"] == qa["expected_evidence_state"])
         per_case.append({"case_id": case["id"], "group": case["group"],
                          "failure_count": len(failures) - first_failure,
                          "unresolved_reference_attributes": sum(e[a] is None for e in case["entities"]
@@ -135,7 +163,15 @@ def evaluate_suite(references: dict, predictions: dict) -> dict:
                   unique_texts=len({c["request"]["document"]["text_sha256"] for c in references["cases"]}),
                   qa_literal_support={"state_and_required_quotes_correct": support_correct,
                                       "evaluated": report["counts"]["qa"],
-                                      "limitation": "Exact required source-quote coverage, not semantic or clinical correctness; extra relevant/irrelevant claims need review."})
+                                      "limitation": "Exact required source-quote coverage, not semantic or clinical correctness."},
+                  answer_completeness={"all_required_facts_gaps_and_no_extra_supported_quotes": complete_answers,
+                                       "required_facts_complete": required_facts_complete,
+                                       "no_unexpected_source_quotes": no_unexpected_support,
+                                       "expected_gap_mentions_disclosed": gap_disclosed,
+                                       "expected_gap_mentions": expected_gap_count,
+                                       "questions_with_all_gaps_disclosed": gap_questions_complete,
+                                       "evaluated": report["counts"]["qa"],
+                                       "limitation": "Fixture-authored literal checks; a matching source quote can still be irrelevant or semantically misunderstood."})
     return report
 
 
@@ -152,14 +188,15 @@ def render_report(report: dict) -> str:
         lines.append(f"| {group} | {result['counts']['documents']} | {score.get('tp', 'withheld')} | {score.get('fp', 'withheld')} | {score.get('fn', 'withheld')} | {result['answerability']['expected_state_correct']}/{result['counts']['qa']} |")
     lines += ["", f"Exact entity scores: `{json.dumps(report['entities_exact'], sort_keys=True)}`.", "",
               f"Record validation: `{json.dumps(report['record_validation'], sort_keys=True)}`.", "",
-              f"Required literal support and expected state: {report['qa_literal_support']['state_and_required_quotes_correct']}/{report['counts']['qa']}.", "",
+              f"Required literal support and expected state: {report['qa_literal_support']['state_and_required_quotes_correct']}/{report['counts']['qa']}.",
+              f"Complete literal answer checks: {report['answer_completeness']['all_required_facts_gaps_and_no_extra_supported_quotes']}/{report['counts']['qa']}.", "",
               "State matching and exact quote coverage do not establish semantic completeness or clinical accuracy.", "",
               "## Case outcomes", "", "| Case | Group | Failure records | Unresolved reference attributes |",
               "| --- | --- | ---: | ---: |"]
     for case in report["cases"]:
         lines.append(f"| {case['case_id']} | {case['group']} | {case['failure_count']} | {case['unresolved_reference_attributes']} |")
     lines += ["", "## Failure analysis", "",
-              "Failure records can overlap: one answer may fail both state and required-support checks.", ""]
+            "Failure records can overlap: one answer may fail state, required-fact, gap-disclosure and extra-claim checks.", ""]
     for failure in report["failures"]:
         lines += [f"### {failure['case_id']} / {failure['qa_id'] or 'extraction'} / {failure['category']}", "",
                   f"Expected: `{json.dumps(failure['expected'], ensure_ascii=True)}`.", "",

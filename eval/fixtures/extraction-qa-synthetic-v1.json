@@ -1,6 +1,6 @@
 {
   "kind": "synthetic_reference_proposal",
-  "version": "d-extraction-qa-synthetic-v1",
+  "version": "d-extraction-qa-synthetic-v2",
   "human_reviewed": false,
   "reference_author": "Codex agent for Member D",
   "usage": "Inspectable development/regression fixtures, not a held-out or clinical benchmark.",
@@ -47,7 +47,14 @@
           "expected_support": [
             "The patient currently has asthma."
           ],
-          "rationale": "Explicit current patient diagnosis."
+          "rationale": "Explicit current patient diagnosis.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient currently has asthma."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -55,7 +62,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -100,7 +111,14 @@
           "expected_support": [
             "The patient reports cough."
           ],
-          "rationale": "Reported symptom without an explicit onset time."
+          "rationale": "Reported symptom without an explicit onset time.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient reports cough."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -108,7 +126,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -153,7 +175,14 @@
           "expected_support": [
             "The patient has hypertension."
           ],
-          "rationale": "Present-tense patient condition."
+          "rationale": "Present-tense patient condition.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient has hypertension."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -161,7 +190,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -217,7 +250,14 @@
           "expected_support": [
             "The patient reports nausea and dizziness."
           ],
-          "rationale": "Two separate symptom mentions."
+          "rationale": "Two separate symptom mentions.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient reports nausea and dizziness."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -225,7 +265,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -270,7 +314,14 @@
           "expected_support": [
             "The patient denies chest pain."
           ],
-          "rationale": "Denial is evidence of negation, not a positive symptom."
+          "rationale": "Denial is evidence of negation, not a positive symptom.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient denies chest pain."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -278,7 +329,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -323,7 +378,14 @@
           "expected_support": [
             "Pneumonia is suspected."
           ],
-          "rationale": "Suspicion does not establish a confirmed diagnosis or explicit subject."
+          "rationale": "Suspicion does not establish a confirmed diagnosis or explicit subject.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "Pneumonia is suspected."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -331,7 +393,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -387,7 +453,14 @@
           "expected_support": [
             "The patient denies fever but reports cough."
           ],
-          "rationale": "Negation applies to fever only."
+          "rationale": "Negation applies to fever only.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient denies fever but reports cough."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -395,7 +468,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -440,7 +517,14 @@
           "expected_support": [
             "The patient may have migraine."
           ],
-          "rationale": "A supported answer preserves uncertainty."
+          "rationale": "A supported answer preserves uncertainty.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient may have migraine."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -448,7 +532,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -493,7 +581,14 @@
           "expected_support": [
             "The patient's mother has diabetes."
           ],
-          "rationale": "Family diagnosis must not become a patient diagnosis."
+          "rationale": "Family diagnosis must not become a patient diagnosis.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient's mother has diabetes."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -501,7 +596,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -546,7 +645,14 @@
           "expected_support": [
             "The patient had pneumonia in 2019."
           ],
-          "rationale": "Past diagnosis without a current-status inference."
+          "rationale": "Past diagnosis without a current-status inference.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient had pneumonia in 2019."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -554,7 +660,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -599,7 +709,14 @@
           "expected_support": [
             "The patient's father denies chest pain."
           ],
-          "rationale": "Family subject and negation are independent attributes."
+          "rationale": "Family subject and negation are independent attributes.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient's father denies chest pain."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -607,7 +724,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -652,7 +773,14 @@
           "expected_support": [
             "The patient's sister had asthma in childhood."
           ],
-          "rationale": "Historical family condition."
+          "rationale": "Historical family condition.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient's sister had asthma in childhood."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -660,7 +788,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -705,7 +837,14 @@
           "expected_support": [
             "The patient had an appendectomy in 2018."
           ],
-          "rationale": "Completed historical procedure."
+          "rationale": "Completed historical procedure.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient had an appendectomy in 2018."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -713,7 +852,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -758,7 +901,14 @@
           "expected_support": [
             "The patient is scheduled for colonoscopy next week."
           ],
-          "rationale": "Planned procedure: assertion and temporality remain unresolved because the draft enums do not express planned status."
+          "rationale": "Planned procedure: assertion and temporality remain unresolved because the draft enums do not express planned status.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient is scheduled for colonoscopy next week."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -766,7 +916,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -811,7 +965,14 @@
           "expected_support": [
             "The patient's biopsy was cancelled before it occurred."
           ],
-          "rationale": "Cancelled procedure mention is retained with unresolved status; do not mark performed."
+          "rationale": "Cancelled procedure mention is retained with unresolved status; do not mark performed.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient's biopsy was cancelled before it occurred."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -819,7 +980,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -864,7 +1029,14 @@
           "expected_support": [
             "The patient underwent an ultrasound yesterday."
           ],
-          "rationale": "Explicitly completed procedure."
+          "rationale": "Explicitly completed procedure.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient underwent an ultrasound yesterday."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -872,7 +1044,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -928,7 +1104,14 @@
           "expected_support": [
             "No chest pain."
           ],
-          "rationale": "Both distinct occurrences require distinct offsets."
+          "rationale": "Both distinct occurrences require distinct offsets.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "No chest pain."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -936,7 +1119,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -981,7 +1168,14 @@
           "expected_support": [
             "The patient denies chest pain."
           ],
-          "rationale": "Non-BMP prefix tests code-point rather than UTF-16 offsets."
+          "rationale": "Non-BMP prefix tests code-point rather than UTF-16 offsets.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient denies chest pain."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -989,7 +1183,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -1046,7 +1244,18 @@
             "No chest pain.",
             "The patient reports cough."
           ],
-          "rationale": "A generic symptom question requires both source facts."
+          "rationale": "A generic symptom question requires both source facts.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "No chest pain."
+            },
+            {
+              "fact_id": "supported-fact-2",
+              "required_quote": "The patient reports cough."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -1054,7 +1263,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -1110,7 +1323,14 @@
           "expected_support": [
             "The patient denies chest pain."
           ],
-          "rationale": "Answer must select the requested topic rather than another supported fact."
+          "rationale": "Answer must select the requested topic rather than another supported fact.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient denies chest pain."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -1118,7 +1338,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -1149,7 +1373,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Nonempty document with no diagnosis or symptom mentions."
+          "rationale": "Nonempty document with no diagnosis or symptom mentions.",
+          "required_facts": [],
+          "expected_gaps": [
+            "diagnosis"
+          ]
         },
         {
           "id": "absent",
@@ -1157,7 +1385,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -1214,7 +1446,18 @@
             "The patient denies chest pain.",
             "The patient reports chest pain."
           ],
-          "rationale": "Both conflicting statements must be reported without choosing one; sufficient means available evidence for describing the conflict, not certainty about the clinical state."
+          "rationale": "Both conflicting statements must be reported without choosing one; sufficient means available evidence for describing the conflict, not certainty about the clinical state.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient denies chest pain."
+            },
+            {
+              "fact_id": "supported-fact-2",
+              "required_quote": "The patient reports chest pain."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -1222,7 +1465,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -1267,7 +1514,14 @@
           "expected_support": [
             "The patient denies chest pain."
           ],
-          "rationale": "Document instruction is untrusted content; answer the clinical question."
+          "rationale": "Document instruction is untrusted content; answer the clinical question.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient denies chest pain."
+            }
+          ],
+          "expected_gaps": []
         },
         {
           "id": "absent",
@@ -1275,7 +1529,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     },
@@ -1320,7 +1578,16 @@
           "expected_support": [
             "The patient denies chest pain."
           ],
-          "rationale": "Chest-pain evidence is present; requested age is absent."
+          "rationale": "Chest-pain evidence is present; requested age is absent.",
+          "required_facts": [
+            {
+              "fact_id": "supported-fact-1",
+              "required_quote": "The patient denies chest pain."
+            }
+          ],
+          "expected_gaps": [
+            "age"
+          ]
         },
         {
           "id": "absent",
@@ -1328,7 +1595,11 @@
           "answerable": false,
           "expected_evidence_state": "insufficient",
           "expected_support": [],
-          "rationale": "Age is absent; do not infer it."
+          "rationale": "Age is absent; do not infer it.",
+          "required_facts": [],
+          "expected_gaps": [
+            "age"
+          ]
         }
       ]
     }
