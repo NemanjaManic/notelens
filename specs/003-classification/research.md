@@ -2,6 +2,11 @@
 
 **Owner**: C. **Checked**: 2026-11-10. **Status**: proposed design, not experiment results.
 
+**2026-11-11 audit update**: [C-001 evidence](../../docs/ml/data-audit.md) now records the
+supplied CSV checksum, measured mapping/counts and readable Kaggle/upstream reuse sources.
+The historical unknowns below describe the original planning state; split parameters,
+near-duplicate analysis and model experiments remain unexecuted.
+
 Primary source details and retrieval limitations are recorded in the
 [shared feasibility review](../../docs/decisions/technical-feasibility.md).
 

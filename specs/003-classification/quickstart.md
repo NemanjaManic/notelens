@@ -1,7 +1,8 @@
 # Quickstart Validation: Python Classification
 
-**Status**: design-stage guide. Commands labeled future are not available yet.
-Run from the repository root. No command here authorizes paid calls or business implementation.
+**Status**: C-001 audit commands are available; commands labeled future are not available yet.
+Run from the repository root. C-001 is authorized; no command here authorizes paid calls
+or bypasses the remaining task dependencies.
 
 ## Available now: correct feature selection
 
@@ -14,6 +15,23 @@ $env:SPECIFY_FEATURE_NO_PERSIST = '1'
 Expected: FEATURE_DIR selects this feature regardless of Git branch. This checks paths,
 not whether an application, plan/task tests or services execute successfully.
 The installed script exists and has been verified; no feature-state file is overwritten.
+
+## Available now: local dataset audit
+
+The user-supplied CSV is in ignored `data/mtsamples/raw/mtsamples.csv`. With Python 3.11.9,
+these commands passed on 2026-11-11; they need only the standard library:
+
+```powershell
+python -B data/mtsamples/audit.py --check
+python -B -m unittest discover -s data/mtsamples/tests -v
+python -B -m json.tool data/mtsamples/manifests/source.json
+```
+
+On a new working copy, supply the authorized CSV locally and run
+`python -B data/mtsamples/audit.py` to generate the ignored nonempty target subset.
+Review its checksum against the committed manifest before accepting a new source.
+The subset is not ready for training: duplicate/conflict processing and grouped splits
+remain C-002 work. See [the measured audit](../../docs/ml/data-audit.md).
 
 ## Future: after foundation prerequisites
 
@@ -41,6 +59,6 @@ No npm run script is assumed; B must document and verify actual package scripts 
 
 ## Exit and review
 
-[Tasks](tasks.md) provide owner/path/dependency/acceptance details. All business work remains
-unchecked. Do not declare the shared foundation ready until the runnable mock flow,
+[Tasks](tasks.md) provide owner/path/dependency/acceptance details. Only C-001 is complete;
+all later classifier tasks remain unchecked. Do not declare the shared foundation ready until the runnable mock flow,
 handoffs, separate-working-copy commands and checkpoint evidence have passed.

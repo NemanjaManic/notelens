@@ -2,7 +2,7 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [contract references](contracts/README.md).
-**Owner**: C. **Status**: executable backlog proposal; no business task is complete.
+**Owner**: C. **Status**: C-001 local data audit complete (2026-11-11); remaining tasks blocked by their listed prerequisites.
 **Tests**: Required where the source specifications explicitly require structural, semantic,
 leakage, security or independent module checks. This is not blanket TDD for documentation.
 **Organization**: Setup, foundational, story increments, polish. Every task has one owner
@@ -18,8 +18,8 @@ start now; business prerequisites and unchecked implementation tasks remain unch
 
 No task is marked [P]: dependencies or shared files make an unconditional parallel claim
 unwarranted. Different workstreams can progress independently after the shared base.
-Only foundation F-001/F-002 are checked, because their actual documentation/tooling work
-was completed and recorded. Writing plans/mocks does not close a business task.
+Foundation F-001/F-002 have recorded documentation/tooling completion. This feature now
+also records C-001's actual local data audit. Writing plans/mocks does not close later tasks.
 
 ## Path Conventions and Command Availability
 
@@ -43,11 +43,12 @@ they are not silently assigned defaults.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T001 C-001: Audit authorized MTSamples input, provenance and measured class mapping in `data/mtsamples/**`, `docs/ml/data-audit.md`
+- [x] T001 C-001: Audit authorized MTSamples input, provenance and measured class mapping in `data/mtsamples/**`, `docs/ml/data-audit.md`
   - **Owner / story**: C / US2.
   - **Dependencies**: None; may start after the approved specification, within this task's stated scope.
   - **Acceptance**: Support local CSV; review release/upstream reuse before redistribution; measure before/after counts for exact five targets, remove empties, reject broad-label merging. Never request credentials in chat.
   - **Verify**: `python -B -m json.tool data/mtsamples/manifests/source.json`.
+  - **Evidence (2026-11-11)**: [Data audit](../../docs/ml/data-audit.md): 4,999 source rows; 1,338 target rows, 9 target empties removed, 1,329 retained. Eight synthetic audit tests and actual-source byte-for-byte regeneration passed. Raw/derived text stays ignored; no redistribution or live-provider check. Exact-conflict inventory is preliminary, not C-002 completion.
   - **Coverage**: FR-001, FR-002, FR-003, FR-004, SC-001.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
