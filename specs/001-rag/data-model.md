@@ -18,11 +18,35 @@ future B-owned contract-freeze deliverable.
 | Entity | Attributes and relationships | Validation/lifecycle |
 | --- | --- | --- |
 | Corpus snapshot | Snapshot date, checksums, topic IDs, language, titles, URLs, synonyms and attribution. | Source/licensing review before redistribution; counts measured after acquisition. |
+| Prepared corpus artifact (A-002) | Selected topic records, cleaned summaries and stable passages linked to the source snapshot; preparation version, counts and checksums. | Owner-local standard-library pipeline; no API/schema freeze is required to prepare data. Extraction, cleaning and passage increments require their applicable approvals. |
 | Passage/index manifest | Stable topic/passage IDs, source text, embedding model/dimensions and index version. | A changed space requires a distinct index build. |
 | Relevance proposal | Question, source reference, necessary unique topics/passages and answerability. | D owns canonical development/final QA; A submits proposals, never indexes QA. |
 | Retrieval experiment | Frozen settings, development dataset version, ranking/evidence/rejection metrics and costs. | Only development chooses settings; final questions remain held out. |
 
 ## Invariants
+
+The original A-002 extraction artifact is UTF-8 JSONL with original logical
+`full-summary` HTML, topic identity/title/URL/language, source creation date,
+available synonyms, groups and per-topic source attribution/digests. It contains
+no site records or evaluation references. The small prepared-corpus manifest
+records source/selection/extractor identity, artifact size/checksum and measured
+counts. It remains unchanged as the extraction record; its cleaning and passage
+counts remain null rather than being rewritten retrospectively.
+
+The separate cleaned artifact retains every original field and adds
+`cleaned_summary` and `cleaning` (version, plain-text format, UTF-8 text SHA-256,
+table/image/comment counts). The cleaning manifest records 401 cleaned topics,
+input manifest/artifact digests, cleaner/script identity, output size/checksum,
+and affected topic IDs for tables and omissions. Passage count remains null.
+Plain text preserves headings, paragraphs, lists and table cell/row order;
+cells are separated by ` | ` and rows by newlines. Lists within a cell retain
+`- ` markers on that row, with cell whitespace collapsed. Original HTML remains
+available for inspection. Image tags/comments are omitted and counted, without
+fetching or inferring image content. HTML character references are decoded once.
+No case-folding, stemming, deduplication, translation or medical rewriting occurs.
+These are A-owned local formats and do not change the shared API contract.
+Original HTML and cleaned plain text must not be inserted as trusted HTML in a UI;
+render the cleaned field as text. This package does not define passage offsets.
 
 - Canonical text is unchanged downstream; SHA256 and doc_id bind document results.
 - Source spans use code points and exact quote slices; English declarations do not prove language.

@@ -1,11 +1,27 @@
 # Implementation Plan: Python RAG
 
-**Branch**: main (no feature branch created) | **Date**: 2026-11-10 | **Spec**: [spec.md](spec.md)
+**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-12 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/001-rag/spec.md`.
 **Owner**: A. **Status**: Draft local design and executable backlog proposal.
 Constitution text remains a draft; confirmed source/user requirements are binding.
-This stage does not authorize business implementation, paid calls, publication or deployment.
+The plan alone does not authorize implementation, paid calls, publication or deployment.
+
+**Approved dependency correction (2026-11-11)**: Nemanja (A) approved making local
+corpus preparation independent of the shared service foundation. This package
+updates documentation only. A-001 is complete, but A-002 implementation requires
+its own approval. See the boundaries and dependency graph below.
+
+**Approved extraction increment (2026-11-11)**: The user subsequently approved the
+standalone script, tests and actual local extraction. That increment now exists
+and extracted 401 source records with checked provenance.
+
+**Approved cleaning increment (2026-11-12)**: The user approved plain-text summary
+cleaning, tests and actual local processing, then explicitly approved preserving
+table rows/cells and recording omitted image tags. All 401 topics are cleaned;
+35 offline tests and the actual source-text/provenance comparisons passed on Python
+3.14.2. Passage construction and all service work remain unimplemented and require
+their applicable approvals. See [cleaning evidence](../../docs/rag/sources.md#a-002-cleaning-increment).
 
 ## Summary
 
@@ -14,6 +30,8 @@ Inspect permitted Health Topics, parse/chunk with stable identifiers, establish 
 ## Technical Context
 
 **Language/Version**: Python 3.13 proposed; independent services/rag project and uv.lock.
+The standalone corpus-preparation script uses only Python's standard library and
+does not require the service project, its lockfile or third-party installations.
 **Primary Dependencies**: FastAPI/Uvicorn; narrow Google Gen AI, embedding and Chroma adapters; lexical/hybrid candidate; pytest. Real model IDs/prices remain activation decisions.
 **Storage**: Versioned permitted English MedlinePlus metadata/manifests; ignored public corpus/index caches. No submitted documents enter this corpus or disk cache.
 **Testing**: Contract/schema/semantic tests, deterministic fixtures and owner-local tests;
@@ -66,7 +84,8 @@ specs/001-rag/
 
 ### Source Code (repository root)
 
-Proposed owned paths; currently only contributor documentation exists:
+Owned workstream paths. Offline extraction code now exists under data/knowledge;
+service implementation remains a future deliverable:
 
 ```text
 services/rag/**
@@ -80,6 +99,48 @@ eval/annotations/member-a/**
 The shared [allowed-path matrix](../../docs/team/allowed-paths.md) controls exceptions.
 Initial coordinator scaffolding across service paths is allowed only before the checkpoint.
 Root configs/global Spec Kit files and canonical bindings remain B-owned.
+
+### Offline corpus preparation and service integration
+
+Keep A-002 as an owner-local data pipeline under `data/knowledge/**`:
+
+- Implemented extraction/cleaning increments: `data/knowledge/scripts/prepare_corpus.py` and standard-library
+  tests in `data/knowledge/tests/test_prepare_corpus.py`.
+- Input: the acquired local MedlinePlus ZIP and approved 401-ID selection recorded
+  in `data/knowledge/manifests/snapshot.json`.
+- First separately approved increment, now executed: extract the selected English topic records,
+  including summaries and attributable metadata, without cleaning/chunking or calls
+  to the web, another service or a provider.
+- Second separately approved increment, now executed: preserve original records and add
+  plain-text summaries, with headings/paragraphs/lists and table rows/cells preserved.
+  Decode HTML character references once; normalize whitespace; retain visible link text
+  without URLs/attributes or fetching. Omit image tags/comments and record counts/affected
+  topic IDs. Unknown, unbalanced or unsupported table markup fails before output.
+- Later separately approved increment: build deterministic, stable passages using
+  documented approved chunk settings. No chunk values are chosen by cleaning.
+- Extraction output now exists: Git-ignored artifacts under `data/knowledge/.cache/corpus/**` and
+  a small version/count/checksum manifest at `data/knowledge/manifests/prepared-corpus.json`.
+  These are A-owned internal artifacts, not a competing shared API schema.
+- Separate cleaned output: `data/knowledge/.cache/corpus/cleaned-topics.jsonl`, with
+  `data/knowledge/manifests/cleaned-corpus.json` linking input identities and output checksum.
+  Existing extraction inputs/manifests remain unchanged; original HTML is retained per record.
+- Available extraction/cleaning checks: `python -B -m unittest discover -s data/knowledge/tests -p "test_prepare_corpus.py"`.
+  All 35 checks passed on Python 3.14.2; these do not establish clinical validity,
+  later passage acceptance, retrieval quality or service/Python 3.13 compatibility.
+
+A-002 depends only on completed A-001 and the applicable user approval. Its
+extraction CLI is `python -B data/knowledge/scripts/prepare_corpus.py extract`.
+Its cleaning CLI is `python -B data/knowledge/scripts/prepare_corpus.py clean`.
+The script refuses to overwrite existing outputs and makes no network calls. It does not
+create HTTP routes, install the service scaffold, modify shared contracts or touch
+root configuration. A-002 remains unchecked until stable passages and their checks
+are complete; extraction and cleaning alone do not close the task.
+
+A-003 subsequently consumes the prepared artifacts through the service adapter
+`services/rag/src/notelens_rag/ingestion.py`; parsing/cleaning is not independently
+reimplemented there. A-003 requires A-002, A-010 and F-014. A-010 still requires
+F-003/F-004, preserving contract, generated-binding and scaffold checks before
+service integration. The shared runnable-foundation checkpoint remains pending.
 
 ## Research and Design Phases
 
@@ -118,6 +179,11 @@ configuration freeze and locked final checks on 2026-11-22/23 -> delivery 2026-1
 A may inspect corpus sources, C audit data, D draft guidelines/evaluator and B prepare mocks
 without waiting for complete real modules. First development measurement/threshold review
 remains targeted for 2026-11-14. No available hours or velocity are assumed.
+
+The offline branch of this dependency graph is now `A-001 -> A-002`; it can run
+independently of B's shared service preparation after separate implementation
+approval. Both branches meet at `A-003 <- A-002, A-010, F-014`, followed by A-004
+retrieval and later generation/evaluation. All other task dependencies are preserved.
 
 ## Complexity Tracking
 

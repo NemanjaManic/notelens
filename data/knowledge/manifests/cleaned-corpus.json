@@ -1,0 +1,81 @@
+{
+  "manifest_version": 1,
+  "owner": "Nemanja (A)",
+  "task": "A-002",
+  "stage": "summary_cleaning",
+  "status": "cleaned_not_chunked",
+  "created_at_utc": "2026-11-12T10:31:27.444837Z",
+  "cleaner": {
+    "version": "summary-html-to-text-v1",
+    "python_version": "3.14.2",
+    "script_sha256": "8d3c892a16583ce9050212d085cb828437db4bb605ec0bc5f52384a93c16515e"
+  },
+  "input": {
+    "extraction_manifest": "data/knowledge/manifests/prepared-corpus.json",
+    "extraction_manifest_sha256": "dece58d5fca104126a62e0125c8a4230eb4d0487fc9242392e37cee98ba6f45b",
+    "artifact": {
+      "local_path": "data/knowledge/.cache/corpus/selected-topics.jsonl",
+      "format": "jsonl-utf8",
+      "size_bytes": 1602715,
+      "sha256": "e29f7943cec01d428db10dcee8287b799d116edc64b7b713ef75a4fe68ab17ed"
+    }
+  },
+  "source": {
+    "snapshot_manifest": "data/knowledge/manifests/snapshot.json",
+    "snapshot_manifest_sha256": "ed7dbae0b3326c562c6460a27256d0ed52516d8b5ca323e352733a70de49f3d2",
+    "archive_path": "data/knowledge/raw/2026-11-10/mplus_topics_compressed_2026-11-10.zip",
+    "archive_sha256": "d9ad993d2d277060c31ab2bb17144b1a85bdfadf47bf9aba197c58a849e9a501",
+    "xml_member": "mplus_topics_2026-11-10.xml",
+    "xml_sha256": "53ac4b07603a8a23c90d7ec338296d9398a2d2d371bf038906df1e2796730e32",
+    "download_url": "https://medlineplus.gov/xml/mplus_topics_compressed_2026-11-10.zip",
+    "snapshot_date": "2026-11-10",
+    "attribution": "Source: MedlinePlus, National Library of Medicine.",
+    "selection_rule_version": "medlineplus-en-topics-v1"
+  },
+  "artifact": {
+    "local_path": "data/knowledge/.cache/corpus/cleaned-topics.jsonl",
+    "format": "jsonl-utf8",
+    "size_bytes": 2631848,
+    "sha256": "2d12d44f9be4f09db3ebaeb969a0335beb621ded7cdb793ccbafdbbfc0658639"
+  },
+  "counts": {
+    "cleaned_topics": 401,
+    "passages": null,
+    "tables": 14,
+    "omitted_images": 4,
+    "omitted_comments": 2
+  },
+  "affected_topic_ids": {
+    "tables": [
+      "34",
+      "299",
+      "1095",
+      "4119",
+      "4277",
+      "6450",
+      "6781",
+      "6783",
+      "6785",
+      "6807",
+      "6907"
+    ],
+    "omitted_images": [
+      "6681"
+    ],
+    "omitted_comments": [
+      "1095"
+    ]
+  },
+  "checks": {
+    "input_checksums": "passed",
+    "exact_selected_id_set": "passed",
+    "english_and_source_provenance": "passed",
+    "nonempty_cleaned_summaries": "passed"
+  },
+  "limitations": [
+    "Plain text is not sanitized HTML and must be displayed as text.",
+    "Image tags are omitted and recorded; image content is neither fetched nor inferred.",
+    "No semantic or clinical validation, passages, indexing or provider calls.",
+    "A-002 remains incomplete until the separately approved passage increment passes."
+  ]
+}
