@@ -1,0 +1,1506 @@
+{
+  "catalog_version": 1,
+  "cases": [
+    {
+      "id": "span-second-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "unicode-offsets",
+        "repeated-span"
+      ],
+      "definition": "EvidenceSpan",
+      "document": "offset",
+      "reference": "second-occurrence"
+    },
+    {
+      "id": "document-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "PreparedDocument"
+    },
+    {
+      "id": "classification-score-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "ClassificationScore"
+    },
+    {
+      "id": "classification-supported",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "classification-states"
+      ],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "document-source-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "DocumentSource",
+      "document": "offset"
+    },
+    {
+      "id": "literature-source-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "LiteratureSource"
+    },
+    {
+      "id": "source-document-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "Source",
+      "document": "offset"
+    },
+    {
+      "id": "source-literature-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "Source"
+    },
+    {
+      "id": "claim-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "Claim"
+    },
+    {
+      "id": "summary-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "Summary",
+      "document": "offset"
+    },
+    {
+      "id": "extraction-item-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "ExtractionItem",
+      "document": "offset"
+    },
+    {
+      "id": "extraction-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "ExtractionResult",
+      "document": "offset"
+    },
+    {
+      "id": "retrieval-request-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "RetrievalRequest"
+    },
+    {
+      "id": "retrieval-passage-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "RetrievalPassage"
+    },
+    {
+      "id": "retrieval-sufficient",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "retrieval-states"
+      ],
+      "definition": "RetrievalResult"
+    },
+    {
+      "id": "answer-document",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "answer-routes"
+      ],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "classification-request-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "ClassificationRequest"
+    },
+    {
+      "id": "extraction-request-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "ExtractionRequest"
+    },
+    {
+      "id": "document-question-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "DocumentQuestionRequest"
+    },
+    {
+      "id": "literature-question-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "LiteratureAnswerRequest"
+    },
+    {
+      "id": "error-detail-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "ErrorDetail"
+    },
+    {
+      "id": "error-envelope-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "ErrorEnvelope"
+    },
+    {
+      "id": "health-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "HealthResult"
+    },
+    {
+      "id": "classification-uncertain",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "classification-states"
+      ],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "classification-unsupported",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "classification-states"
+      ],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "classification-probability",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "extraction-historical",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "historical-assertion"
+      ],
+      "definition": "ExtractionItem",
+      "document": "history",
+      "reference": "historical-facts"
+    },
+    {
+      "id": "extraction-family",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "family-subject"
+      ],
+      "definition": "ExtractionItem",
+      "document": "history",
+      "reference": "family-facts"
+    },
+    {
+      "id": "extraction-explicit-icd",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "source-only-icd"
+      ],
+      "definition": "ExtractionItem",
+      "document": "history"
+    },
+    {
+      "id": "span-first-valid",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "EvidenceSpan",
+      "document": "offset"
+    },
+    {
+      "id": "retrieval-insufficient",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "retrieval-states"
+      ],
+      "definition": "RetrievalResult"
+    },
+    {
+      "id": "retrieval-error",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        },
+        {
+          "rule": "STRUCTURE",
+          "path": "/state"
+        }
+      ],
+      "scenarios": [
+        "retrieval-states"
+      ],
+      "definition": "RetrievalResult"
+    },
+    {
+      "id": "answer-literature",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "answer-routes"
+      ],
+      "definition": "AnswerResult"
+    },
+    {
+      "id": "answer-mixed-sufficient",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "answer-routes"
+      ],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "answer-mixed-partial",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "answer-routes"
+      ],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "answer-none",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [
+        "answer-routes"
+      ],
+      "definition": "AnswerResult"
+    },
+    {
+      "id": "extraction-empty",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "ExtractionResult",
+      "document": "offset"
+    },
+    {
+      "id": "schema-invalid-type",
+      "kind": "schema",
+      "expected": [
+        {
+          "rule": "SCHEMA_INVALID",
+          "path": ""
+        }
+      ],
+      "scenarios": [
+        "invalid-schema"
+      ]
+    },
+    {
+      "id": "openapi-missing-info",
+      "kind": "openapi",
+      "expected": [
+        {
+          "rule": "OPENAPI_INVALID",
+          "path": ""
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "document-missing-version",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": [],
+      "definition": "PreparedDocument"
+    },
+    {
+      "id": "document-extra-property",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": [],
+      "definition": "PreparedDocument"
+    },
+    {
+      "id": "document-wrong-digest",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "TEXT_DIGEST",
+          "path": "/text_sha256"
+        }
+      ],
+      "scenarios": [
+        "wrong-digest"
+      ],
+      "definition": "PreparedDocument"
+    },
+    {
+      "id": "document-empty",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/text"
+        }
+      ],
+      "scenarios": [],
+      "definition": "PreparedDocument"
+    },
+    {
+      "id": "document-whitespace",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "TEXT_CANONICAL",
+          "path": "/text"
+        }
+      ],
+      "scenarios": [],
+      "definition": "PreparedDocument"
+    },
+    {
+      "id": "document-crlf",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "TEXT_CANONICAL",
+          "path": "/text"
+        }
+      ],
+      "scenarios": [],
+      "definition": "PreparedDocument"
+    },
+    {
+      "id": "document-nfd",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "TEXT_CANONICAL",
+          "path": "/text"
+        }
+      ],
+      "scenarios": [],
+      "definition": "PreparedDocument"
+    },
+    {
+      "id": "document-preserved-leading-bom",
+      "kind": "payload",
+      "expected": [],
+      "scenarios": [],
+      "definition": "PreparedDocument"
+    },
+    {
+      "id": "document-surrogate",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "TEXT_UNICODE",
+          "path": "/text"
+        }
+      ],
+      "scenarios": [],
+      "definition": "PreparedDocument"
+    },
+    {
+      "id": "span-reversed",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "SPAN_BOUNDS",
+          "path": ""
+        }
+      ],
+      "scenarios": [],
+      "definition": "EvidenceSpan",
+      "document": "offset"
+    },
+    {
+      "id": "span-beyond-text",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "SPAN_BOUNDS",
+          "path": ""
+        }
+      ],
+      "scenarios": [],
+      "definition": "EvidenceSpan",
+      "document": "offset"
+    },
+    {
+      "id": "span-negative-start",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/start"
+        }
+      ],
+      "scenarios": [],
+      "definition": "EvidenceSpan",
+      "document": "offset"
+    },
+    {
+      "id": "span-wrong-quote",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "SPAN_QUOTE",
+          "path": ""
+        }
+      ],
+      "scenarios": [
+        "wrong-quote"
+      ],
+      "definition": "EvidenceSpan",
+      "document": "offset"
+    },
+    {
+      "id": "span-utf16-offsets",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "SPAN_BOUNDS",
+          "path": ""
+        }
+      ],
+      "scenarios": [
+        "unicode-offsets"
+      ],
+      "definition": "EvidenceSpan",
+      "document": "offset"
+    },
+    {
+      "id": "span-wrong-repeated-occurrence",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "REFERENCE_SPAN",
+          "path": ""
+        }
+      ],
+      "scenarios": [
+        "repeated-span"
+      ],
+      "definition": "EvidenceSpan",
+      "document": "offset",
+      "reference": "second-occurrence"
+    },
+    {
+      "id": "classification-duplicate-category",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "CATEGORY_UNIQUE",
+          "path": "/scores"
+        }
+      ],
+      "scenarios": [],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "classification-supported-null",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/category"
+        }
+      ],
+      "scenarios": [],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "classification-uncertain-category",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/category"
+        }
+      ],
+      "scenarios": [],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "classification-missing-score",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/scores"
+        }
+      ],
+      "scenarios": [],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "classification-invalid-category",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/category"
+        }
+      ],
+      "scenarios": [],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "classification-probability-out-of-range",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/scores/0/score"
+        }
+      ],
+      "scenarios": [],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "classification-stale-document",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "DOCUMENT_IDENTITY",
+          "path": ""
+        }
+      ],
+      "scenarios": [],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "classification-stale-digest",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "DOCUMENT_IDENTITY",
+          "path": ""
+        }
+      ],
+      "scenarios": [],
+      "definition": "ClassificationResult",
+      "document": "offset"
+    },
+    {
+      "id": "historical-assertion-overwritten",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "REFERENCE_ATTRIBUTE",
+          "path": "/assertion"
+        }
+      ],
+      "scenarios": [
+        "historical-assertion"
+      ],
+      "definition": "ExtractionItem",
+      "document": "history",
+      "reference": "historical-facts"
+    },
+    {
+      "id": "historical-temporality-overwritten",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "REFERENCE_ATTRIBUTE",
+          "path": "/temporality"
+        }
+      ],
+      "scenarios": [],
+      "definition": "ExtractionItem",
+      "document": "history",
+      "reference": "historical-facts"
+    },
+    {
+      "id": "family-attributed-to-patient",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "REFERENCE_ATTRIBUTE",
+          "path": "/subject"
+        }
+      ],
+      "scenarios": [
+        "family-subject"
+      ],
+      "definition": "ExtractionItem",
+      "document": "history",
+      "reference": "family-facts"
+    },
+    {
+      "id": "extraction-invalid-assertion",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/assertion"
+        }
+      ],
+      "scenarios": [],
+      "definition": "ExtractionItem",
+      "document": "offset"
+    },
+    {
+      "id": "icd-invented-code",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "ICD_SOURCE",
+          "path": "/icd/code"
+        }
+      ],
+      "scenarios": [
+        "source-only-icd"
+      ],
+      "definition": "ExtractionItem",
+      "document": "history"
+    },
+    {
+      "id": "icd-unrelated-evidence",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "ICD_SOURCE",
+          "path": "/icd/code"
+        }
+      ],
+      "scenarios": [
+        "source-only-icd"
+      ],
+      "definition": "ExtractionItem",
+      "document": "history"
+    },
+    {
+      "id": "extraction-duplicate-entity",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "DUPLICATE_ID",
+          "path": "/items"
+        }
+      ],
+      "scenarios": [],
+      "definition": "ExtractionResult",
+      "document": "offset"
+    },
+    {
+      "id": "answer-dangling-citation",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "CITATION_MISSING",
+          "path": "/claims/0/source_ids"
+        }
+      ],
+      "scenarios": [
+        "dangling-citation"
+      ],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "answer-duplicate-claim",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "DUPLICATE_ID",
+          "path": "/claims"
+        }
+      ],
+      "scenarios": [],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "answer-duplicate-source",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "DUPLICATE_ID",
+          "path": "/sources"
+        }
+      ],
+      "scenarios": [],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "answer-patient-fact-from-literature",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "CLAIM_PROVENANCE",
+          "path": "/claims/0/source_ids"
+        }
+      ],
+      "scenarios": [],
+      "definition": "AnswerResult"
+    },
+    {
+      "id": "answer-document-with-literature",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/sources/0"
+        },
+        {
+          "rule": "STRUCTURE",
+          "path": "/sources/0/kind"
+        }
+      ],
+      "scenarios": [],
+      "definition": "AnswerResult"
+    },
+    {
+      "id": "answer-none-with-claims",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/claims"
+        }
+      ],
+      "scenarios": [],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "answer-mixed-missing-literature",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/sources"
+        }
+      ],
+      "scenarios": [],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "answer-partial-without-gap",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "PARTIAL_GAP",
+          "path": "/warnings"
+        }
+      ],
+      "scenarios": [],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "answer-stale-source",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "DOCUMENT_IDENTITY",
+          "path": "/sources/0"
+        }
+      ],
+      "scenarios": [],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "answer-nonenglish-declaration",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/language"
+        }
+      ],
+      "scenarios": [],
+      "definition": "AnswerResult",
+      "document": "offset"
+    },
+    {
+      "id": "literature-bad-date",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/snapshot_date"
+        }
+      ],
+      "scenarios": [],
+      "definition": "LiteratureSource"
+    },
+    {
+      "id": "literature-nonhttps",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/url"
+        }
+      ],
+      "scenarios": [],
+      "definition": "LiteratureSource"
+    },
+    {
+      "id": "retrieval-error-without-detail",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/state"
+        }
+      ],
+      "scenarios": [],
+      "definition": "RetrievalResult"
+    },
+    {
+      "id": "retrieval-success-with-error",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": [],
+      "definition": "RetrievalResult"
+    },
+    {
+      "id": "retrieval-sufficient-empty",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/passages"
+        }
+      ],
+      "scenarios": [],
+      "definition": "RetrievalResult"
+    },
+    {
+      "id": "retrieval-duplicate-source",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "DUPLICATE_ID",
+          "path": "/passages"
+        }
+      ],
+      "scenarios": [],
+      "definition": "RetrievalResult"
+    },
+    {
+      "id": "question-invalid-history-role",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/history/0/role"
+        }
+      ],
+      "scenarios": [],
+      "definition": "DocumentQuestionRequest"
+    },
+    {
+      "id": "error-unknown-code",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/code"
+        }
+      ],
+      "scenarios": [],
+      "definition": "ErrorDetail"
+    },
+    {
+      "id": "error-missing-retryable",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": [],
+      "definition": "ErrorDetail"
+    },
+    {
+      "id": "health-invalid-mode",
+      "kind": "payload",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/mode"
+        }
+      ],
+      "scenarios": [],
+      "definition": "HealthResult"
+    },
+    {
+      "id": "icd-truncated-source-code",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "document": "history",
+      "expected": [
+        {
+          "rule": "ICD_SOURCE",
+          "path": "/icd/code"
+        }
+      ],
+      "scenarios": [
+        "source-only-icd"
+      ]
+    },
+    {
+      "id": "request-id-valid",
+      "kind": "payload",
+      "definition": "RequestId",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "language-accepted",
+      "kind": "payload",
+      "definition": "LanguageValidation",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "language-inconclusive",
+      "kind": "payload",
+      "definition": "LanguageValidation",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "language-rejected",
+      "kind": "payload",
+      "definition": "LanguageValidation",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "component-extraction",
+      "kind": "payload",
+      "definition": "ComponentProvenance",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "component-literature",
+      "kind": "payload",
+      "definition": "ComponentProvenance",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "summary-outcome-completed",
+      "kind": "payload",
+      "definition": "SummaryOutcome",
+      "expected": [],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "summary-outcome-failed",
+      "kind": "payload",
+      "definition": "SummaryOutcome",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "clarification-valid",
+      "kind": "payload",
+      "definition": "Clarification",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "liveness-valid",
+      "kind": "payload",
+      "definition": "LivenessResult",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "health-not-ready",
+      "kind": "payload",
+      "definition": "HealthResult",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "health-live-ready",
+      "kind": "payload",
+      "definition": "HealthResult",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "health-false-live-ready",
+      "kind": "payload",
+      "definition": "HealthResult",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/model_version"
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "document-language-inconclusive",
+      "kind": "payload",
+      "definition": "PreparedDocument",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/language_validation/outcome"
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "classification-uncertain-empty",
+      "kind": "payload",
+      "definition": "ClassificationResult",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/scores"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "classification-skipped-fake-model",
+      "kind": "payload",
+      "definition": "ClassificationResult",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/model_version"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "classification-skipped-fake-scores",
+      "kind": "payload",
+      "definition": "ClassificationResult",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/scores"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "classification-wrong-order",
+      "kind": "payload",
+      "definition": "ClassificationResult",
+      "expected": [
+        {
+          "rule": "CATEGORY_ORDER",
+          "path": "/scores"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "classification-named-state-not-status",
+      "kind": "payload",
+      "definition": "ClassificationResult",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "classification-unsupported-performed",
+      "kind": "payload",
+      "definition": "ClassificationResult",
+      "expected": [],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "classification-real-unsupported-unapproved",
+      "kind": "payload",
+      "definition": "ClassificationResult",
+      "expected": [
+        {
+          "rule": "SCOPE_POLICY_UNAPPROVED",
+          "path": "/scope_policy_version"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "extraction-unknown-assertion",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "mention-wrong-quote",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [
+        {
+          "rule": "SPAN_QUOTE",
+          "path": "/mention"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "mention-outside-evidence",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [
+        {
+          "rule": "MENTION_EVIDENCE",
+          "path": "/mention"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "procedure-planned",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [],
+      "scenarios": [],
+      "document": "procedure",
+      "reference": "planned-procedure"
+    },
+    {
+      "id": "procedure-plan-not-performed",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [
+        {
+          "rule": "REFERENCE_ATTRIBUTE",
+          "path": "/procedure_status"
+        }
+      ],
+      "scenarios": [],
+      "document": "procedure",
+      "reference": "planned-procedure"
+    },
+    {
+      "id": "procedure-ordered",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [],
+      "scenarios": [],
+      "document": "procedure-ordered"
+    },
+    {
+      "id": "procedure-performed",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [],
+      "scenarios": [],
+      "document": "procedure-performed"
+    },
+    {
+      "id": "procedure-cancelled",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [],
+      "scenarios": [],
+      "document": "procedure-cancelled"
+    },
+    {
+      "id": "procedure-hypothetical",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [],
+      "scenarios": [],
+      "document": "procedure-hypothetical"
+    },
+    {
+      "id": "procedure-unknown",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [],
+      "scenarios": [],
+      "document": "procedure-unknown"
+    },
+    {
+      "id": "symptom-with-procedure-status",
+      "kind": "payload",
+      "definition": "ExtractionItem",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/procedure_status"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "analysis-summary-failed-findings-kept",
+      "kind": "payload",
+      "definition": "ExtractionResult",
+      "expected": [],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "analysis-extraction-partial",
+      "kind": "payload",
+      "definition": "ExtractionResult",
+      "expected": [],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "analysis-extraction-failed-summary-kept",
+      "kind": "payload",
+      "definition": "ExtractionResult",
+      "expected": [],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "analysis-both-sections-failed",
+      "kind": "payload",
+      "definition": "ExtractionResult",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "analysis-missing-extraction-provenance",
+      "kind": "payload",
+      "definition": "ExtractionResult",
+      "expected": [
+        {
+          "rule": "ITEM_COMPONENT",
+          "path": "/extraction_provenance"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "summary-unclaimed-text",
+      "kind": "payload",
+      "definition": "Summary",
+      "expected": [
+        {
+          "rule": "TEXT_CLAIMS",
+          "path": "/text"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-unclaimed-text",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "TEXT_CLAIMS",
+          "path": "/text"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-clarification",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "answer-mixed-origins",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-mixed-origins-hidden",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "MODE_PROVENANCE",
+          "path": "/mode"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-dangling-component",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "CLAIM_COMPONENT",
+          "path": "/claims/0/component_id"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-conflicting-prompt-version",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "ROOT_VERSION",
+          "path": "/prompt_version"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-prefixed-local-id-collisions",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-cross-component-citation",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "CLAIM_COMPONENT",
+          "path": "/claims/0/component_id"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-missing-corpus-version",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/components/0/corpus_version"
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "question-whitespace",
+      "kind": "payload",
+      "definition": "RetrievalRequest",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/question"
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "request-id-invalid",
+      "kind": "payload",
+      "definition": "RequestId",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": []
+    }
+  ]
+}

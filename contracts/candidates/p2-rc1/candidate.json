@@ -1,0 +1,44 @@
+{
+  "candidate_id": "p2-rc1",
+  "wire_version": "1.0.0",
+  "status": "awaiting_review",
+  "p1_files": {
+    "contracts/v1/fixtures/documents.json": "13ceebf3e9c42796f4d24c7ef390e53d9889024d8dd719e919ec3a496682cb55",
+    "contracts/v1/fixtures/manifest.json": "41f942f9cdb124ca4a371d3ae82e4862cd792dbedbac54312444bf1e2799e8c8",
+    "contracts/v1/fixtures/payloads.json": "21d320dd6e34f6bec070d290d0e61b76ca8e3955334a0b00b13eb52dfaa874fe",
+    "contracts/v1/fixtures/README.md": "14843ab0525f2310a245694fb6954b577b697fc1615866f19c56deeededdbd27",
+    "contracts/v1/fixtures/references.json": "83ae7fb62cb84641701b7a5abebb87a19186c7b46ae69590ced96e51a67d4fd5",
+    "contracts/v1/openapi.json": "c158cb7ba342d54ca82a0bd84833db87e1b9b4faa36a4c6cbcf70f6883bf1263",
+    "contracts/v1/README.md": "a2e0a9e0e87180c8aebddf9a61460ccea06f9b9df50ad42b3d30a403aa062fb5",
+    "contracts/v1/schema.json": "27a0eaceaa910d9feb93299179217ffd24554198428a36631aea77dad62757bf"
+  },
+  "generated_files": {
+    "fixtures/documents.json": "89a7debd3e095650bf1289da43604618c3cca95e64690d8a8e361df1ed368f94",
+    "fixtures/manifest.json": "05903d292621bb260139826b57733b1344d03d0a9ab3cafdbabd158730225edf",
+    "fixtures/payloads.json": "eca68eafaaec587876bdf224419d9fca9a885f421a2e95d681266750c1e25505",
+    "fixtures/references.json": "d3a65bab114731ada4165d7b9f920c3e5272ae5980a7458215fb374399a11db9",
+    "openapi.json": "5fb9770f13a297a43dba6961664000fcfd9b823e2100efb1fde2ea1cdb1c6725",
+    "schema.json": "6e2557c1f3f4147537c73326bf45ac0c603c0d134e4dd557408b34b65ce219f4",
+    "transport-cases.json": "997c9609e255f5905c43be2f1ef98437ab5a797a11698f9d302819dfe6e3e999"
+  },
+  "review_files": {
+    "scripts/project/build_candidate.py": "e5cabbf33ff0200cb3342f223249bdad4f76c5cd3e7eed9ac177a3a7bcded452",
+    "scripts/project/check_candidate.py": "128f80659a957120f6b0f7758da80d79f29133908035c3a0ac6969a75094e152",
+    "scripts/project/tests/test_candidate.py": "c0d8cc288e27da19df67530a42a2604abf75be4845137815cae16c9dc77a7935",
+    "docs/team/classifier-scaffold-p2.md": "1713ec6fa2cd41d16f354ab464bee647ec8928a203cd642d8cf6c632f6fbe440",
+    "scripts/project/check_contracts.py": "1c4a00f8f77434c8d8e184574d1492de0e7a9e5e97bb8206a5ec613c0fd33a1e",
+    "scripts/project/tests/test_contracts.py": "de4ddb58da63c9815398555f0a6c78f28ca858e18740db004c769bdd366648a9",
+    "scripts/project/README.md": "03a1eaa711aff80557cd0d4556337c66b8a369689526898dfbf3cbdbc752e891",
+    "scripts/project/pyproject.toml": "71ed3e41964ff9f1ad7e163be32a29b42fe11d52d70b8399203da57ccbd3a57b",
+    "scripts/project/uv.lock": "18fdd2b1da535d470ab722323b6ecfd1e22e81abb12f9f296a82082f2c69051f",
+    "docs/decisions/contract-p2-proposal.md": "ac7f5a87aef5d49fd38e12750199771475c192ca01ec0f14ea8d0244a156e52a",
+    "docs/platform/interface-review.md": "4511453853084296437c82bcc12d3bbb65df7b5c89cc0ef328d9a21e5e2fdb9f",
+    "docs/team/contract-reviews/p1/README.md": "f5ff69ef3da669e85146cb6aef9a44e83ac6f722b5636f23c7da2f241e477863",
+    "docs/team/contract-reviews/p1/member-a-response-to-b.md": "21168f48333e2e318dc1976a960e5da60ca0e09bf05f4f9dc14e606e8f4f4d4a",
+    "docs/team/contract-reviews/p1/member-c-response-to-b.md": "a61319dd7a5086a9a84dab8dfce851d2ad2713d209dc60f0500ed998b7bf01b2",
+    "docs/team/contract-reviews/p1/member-d-response-to-b.md": "b80b8febcd4d52e29b9e831d79154ca8e44d2d8fa65266e0886abbb75633cb00",
+    "contracts/candidates/p2-rc1/README.md": "96d68bb294b0b57e44ffe672adcc13007a67604d3129a928488c7580f49d1eff",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-review-and-next-dependencies.md": "9670af63758521741e01c3d145759d4cf199ef6eca7bf3920cf7adbd6fe6be24",
+    "contracts/candidates/p2-rc1/reviews/member-c-response-to-b-p2-clarifications.md": "3cd08993e233be9587f9e264bbaabce07dfc067bb2b479da5fd99bd9cad89293"
+  }
+}

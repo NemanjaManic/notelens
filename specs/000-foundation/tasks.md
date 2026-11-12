@@ -18,16 +18,18 @@ start now; business prerequisites and unchecked implementation tasks remain unch
 
 No task is marked [P]: dependencies or shared files make an unconditional parallel claim
 unwarranted. Different workstreams can progress independently after the shared base.
-Only foundation F-001/F-002 are checked, because their actual documentation/tooling work
-was completed and recorded. Writing plans/mocks does not close a business task.
+Foundation F-001/F-002 and F-008 are checked, reflecting recorded documentation/tooling
+and offline contract-fixture work. F-008 does not freeze contracts or complete a runtime
+foundation. Writing plans/mocks does not close a business task.
 
 ## Path Conventions and Command Availability
 
 All paths below are repository-relative and limited by the [ownership matrix](../../docs/team/allowed-paths.md).
 Initial foundation scaffolding is the coordinator exception; afterward owners stay in scope.
-The command targets named below are **planned deliverables of the named tasks**, not
-existing npm scripts or claims of current execution. After F-004 dependencies and the task's
-listed test/CLI file exist, its command must actually pass before closing it.
+Commands for unchecked tasks are **planned deliverables of the named tasks**, not existing
+npm scripts or claims of current execution. F-008's contract command now exists in its own
+B-owned tooling environment. Runtime commands remain unavailable until their prerequisites
+create the dependencies and listed files; each command must actually pass before closure.
 `uv run --directory` intentionally changes the working directory to the service/eval
 project; do not replace it with --project while leaving relative test paths at the repo root.
 
@@ -63,12 +65,13 @@ they are not silently assigned defaults.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T003 F-008: Create representative positive/negative contract fixtures and validators in `contracts/v1/**`, `scripts/project/check_contracts.py`, `scripts/project/pyproject.toml`, `scripts/project/uv.lock`
+- [x] T003 F-008: Create representative positive/negative contract fixtures and validators in `contracts/v1/**`, `scripts/project/check_contracts.py`, `scripts/project/pyproject.toml`, `scripts/project/uv.lock`
   - **Owner / story**: B / US2.
   - **Dependencies**: 000-foundation/T002 (F-002)
   - **Acceptance**: Include invalid schema, wrong digest/quote, non-BMP UTF-16 mistakes, repeated spans, dangling citations, historical assertion/subject and source-only ICD negatives. Require 100% structural/span validity on the defined suite. The validator defines the later --require-freeze guard. Create a B-owned tooling environment with pinned validators; scripts resolve repo paths from their own file location.
   - **Verify**: `uv run --directory scripts/project python check_contracts.py`.
   - **Coverage**: FR-004, FR-005, FR-006, FR-007, FR-008, FR-009, FR-011, SC-003.
+  - **Completion evidence (2026-11-11)**: [Tooling/workflow record](../../scripts/project/README.md): 90/90 fixture outcomes (38 positive, 52 negative), 29 regression tests passing, locked/offline execution. `--require-freeze` fails with FREEZE_PENDING as expected. No schema changes, owner agreement, HTTP/business-module checks, or live-provider/deployment requirement; F-003 and later tasks remain open.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T004 F-003: Collect A/C/D feedback and record the reviewed contracts/v1 freeze in `contracts/v1/**`, `docs/decisions/contract-freeze.md`

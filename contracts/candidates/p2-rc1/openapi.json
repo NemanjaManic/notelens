@@ -1,0 +1,1478 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "NoteLens P2 RC1 review candidate",
+    "version": "1.0.0",
+    "description": "REVIEW ONLY: not frozen; P1 is unchanged. No HTTP implementation is supplied."
+  },
+  "paths": {
+    "/v1/classify": {
+      "post": {
+        "operationId": "classifier_classify",
+        "tags": [
+          "classifier"
+        ],
+        "summary": "classifier operation, owned by C; proposal only",
+        "servers": [
+          {
+            "url": "{classifierBaseUrl}",
+            "variables": {
+              "classifierBaseUrl": {
+                "default": "http://127.0.0.1:8002",
+                "description": "Proposed local origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/ClassificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Valid result; evidence insufficiency is a domain outcome.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ClassificationResult"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure; safe English internal_error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Request-ID",
+            "in": "header",
+            "required": true,
+            "description": "Canonical lowercase UUID. Reject missing, malformed or duplicate headers before processing.",
+            "schema": {
+              "$ref": "./schema.json#/$defs/RequestId"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/extract": {
+      "post": {
+        "operationId": "extraction_extract",
+        "tags": [
+          "extraction"
+        ],
+        "summary": "extraction operation, owned by D; proposal only",
+        "servers": [
+          {
+            "url": "{extractionBaseUrl}",
+            "variables": {
+              "extractionBaseUrl": {
+                "default": "http://127.0.0.1:8003",
+                "description": "Proposed local origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/ExtractionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Valid result; evidence insufficiency is a domain outcome.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ExtractionResult"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure; safe English internal_error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Request-ID",
+            "in": "header",
+            "required": true,
+            "description": "Canonical lowercase UUID. Reject missing, malformed or duplicate headers before processing.",
+            "schema": {
+              "$ref": "./schema.json#/$defs/RequestId"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/document-answer": {
+      "post": {
+        "operationId": "extraction_document_answer",
+        "tags": [
+          "extraction"
+        ],
+        "summary": "extraction operation, owned by D; proposal only",
+        "servers": [
+          {
+            "url": "{extractionBaseUrl}",
+            "variables": {
+              "extractionBaseUrl": {
+                "default": "http://127.0.0.1:8003",
+                "description": "Proposed local origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/DocumentQuestionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Valid result; evidence insufficiency is a domain outcome.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AnswerResult"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure; safe English internal_error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Request-ID",
+            "in": "header",
+            "required": true,
+            "description": "Canonical lowercase UUID. Reject missing, malformed or duplicate headers before processing.",
+            "schema": {
+              "$ref": "./schema.json#/$defs/RequestId"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/retrieve": {
+      "post": {
+        "operationId": "rag_retrieve",
+        "tags": [
+          "rag"
+        ],
+        "summary": "rag operation, owned by A; proposal only",
+        "servers": [
+          {
+            "url": "{ragBaseUrl}",
+            "variables": {
+              "ragBaseUrl": {
+                "default": "http://127.0.0.1:8001",
+                "description": "Proposed local origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/RetrievalRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Valid result; evidence insufficiency is a domain outcome.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RetrievalResult"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure; safe English internal_error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Request-ID",
+            "in": "header",
+            "required": true,
+            "description": "Canonical lowercase UUID. Reject missing, malformed or duplicate headers before processing.",
+            "schema": {
+              "$ref": "./schema.json#/$defs/RequestId"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/literature-answer": {
+      "post": {
+        "operationId": "rag_literature_answer",
+        "tags": [
+          "rag"
+        ],
+        "summary": "rag operation, owned by A; proposal only",
+        "servers": [
+          {
+            "url": "{ragBaseUrl}",
+            "variables": {
+              "ragBaseUrl": {
+                "default": "http://127.0.0.1:8001",
+                "description": "Proposed local origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/LiteratureAnswerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Valid result; evidence insufficiency is a domain outcome.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AnswerResult"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected internal failure; safe English internal_error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            },
+            "headers": {
+              "X-Request-ID": {
+                "description": "Echo the valid request ID. Invalid-input-ID errors use a new diagnostic UUID matching the error envelope.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Request-ID",
+            "in": "header",
+            "required": true,
+            "description": "Canonical lowercase UUID. Reject missing, malformed or duplicate headers before processing.",
+            "schema": {
+              "$ref": "./schema.json#/$defs/RequestId"
+            }
+          }
+        ]
+      }
+    },
+    "/health/live": {
+      "get": {
+        "operationId": "service_liveness",
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "{serviceBaseUrl}",
+            "variables": {
+              "serviceBaseUrl": {
+                "default": "http://127.0.0.1:8002",
+                "description": "Select the local service origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "description": "Shared health shape for all three services. No request ID required; no model/provider calls or request-body retention.",
+        "responses": {
+          "200": {
+            "description": "Process liveness.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/LivenessResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "operationId": "service_readiness",
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "{serviceBaseUrl}",
+            "variables": {
+              "serviceBaseUrl": {
+                "default": "http://127.0.0.1:8002",
+                "description": "Select the local service origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "description": "Shared health shape for all three services. No request ID required; no model/provider calls or request-body retention.",
+        "responses": {
+          "200": {
+            "description": "Ready in the explicitly declared mode.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/HealthResult"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Not ready; this health endpoint returns HealthResult, not a business ErrorEnvelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/HealthResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ServiceToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Server-only token on exposed environments; key-free loopback mock exception must not be public."
+      }
+    }
+  },
+  "x-candidate-id": "p2-rc1"
+}
