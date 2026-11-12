@@ -157,6 +157,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T009 [US4] D-006: Implement shared Promptfoo API adapters and deterministic scorers in `eval/providers/**`, `eval/scorers/**`, `eval/profiles/**`, `eval/src/notelens_eval/run.py`, `eval/tests/test_metrics.py`
   - [x] Synthetic prediction-file runner, actual-service Promptfoo HTTP adapter, exact/relaxed one-to-one scoring, context-label accuracy and QA state/abstention counts implemented. Unsupported semantic/risk/English-quality metrics are explicitly unavailable.
+  - [x] Authorized 2026-11-12 extension: 24 synthetic documents / 48 questions, six groups, validated references, grouped and per-case failure reporting, required literal QA support checks, and reproducible generation/rescoring CLI. See `docs/extraction-eval/synthetic-evaluation-v1.md` and `eval/tests/test_synthetic_suite.py`. Mock provider unchanged; this does not close the parent task.
   - [ ] Remaining: complete agreed A/C adapters, retrieval/coverage/risk metrics, frozen records and separately gated live profiles. Initial tests are in `eval/tests/test_slice.py`.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T002 (D-010); 000-foundation/T014 (F-014)

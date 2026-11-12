@@ -15,6 +15,9 @@ EVAL_ROOT = Path(__file__).resolve().parents[2]
 
 
 def produce(cases: dict) -> dict:
+    if cases.get("version") == "d-extraction-qa-synthetic-v1":
+        from .suite import validate_references
+        validate_references(cases)
     # Only the public/synthetic request is passed. References never enter providers.
     predictions = []
     for case in cases["cases"]:
@@ -34,7 +37,7 @@ def produce(cases: dict) -> dict:
                 answer, stats = None, {**vars(trace), "technical_error": exc.code}
             answers.append({"id": qa["id"], "result": answer, "diagnostics": stats})
         predictions.append({"id": case["id"], "result": result, "diagnostics": diagnostics, "qa": answers})
-    return {"kind": "synthetic_mock_predictions", "version": "d-smoke-v1", "cases": predictions}
+    return {"kind": "synthetic_mock_predictions", "version": "d-mock-predictions-v1", "cases": predictions}
 
 
 def evaluate(references: dict, predictions: dict) -> dict:
@@ -154,17 +157,22 @@ def evaluate(references: dict, predictions: dict) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="D's first synthetic/offline evaluation slice")
-    parser.add_argument("--profile", choices=["smoke"], default="smoke")
-    parser.add_argument("--references", type=Path, default=EVAL_ROOT / "fixtures/smoke-references.json")
+    parser.add_argument("--profile", choices=["smoke", "synthetic-suite"], default="smoke")
+    parser.add_argument("--references", type=Path)
     parser.add_argument("--predictions", type=Path)
     parser.add_argument("--output", type=Path, default=EVAL_ROOT / "reports/local")
     args = parser.parse_args()
-    references = json.loads(args.references.read_text(encoding="utf-8"))
+    reference_path = args.references or EVAL_ROOT / "fixtures" / (
+        "extraction-qa-synthetic-v1.json" if args.profile == "synthetic-suite" else "smoke-references.json")
+    references = json.loads(reference_path.read_text(encoding="utf-8"))
     # Generation/writing is limited to public synthetic smoke data in this milestone.
     if references.get("kind") != "synthetic_reference_proposal":
         parser.error("This CLI profile currently accepts synthetic benchmark fixtures only.")
+    if args.profile == "synthetic-suite":
+        from .suite import evaluate_suite, render_report, validate_references
+        validate_references(references)
     predictions = (json.loads(args.predictions.read_text(encoding="utf-8")) if args.predictions else produce(references))
-    report = evaluate(references, predictions)
+    report = evaluate_suite(references, predictions) if args.profile == "synthetic-suite" else evaluate(references, predictions)
     args.output.mkdir(parents=True, exist_ok=True)
     (args.output / "predictions.json").write_text(json.dumps(predictions, indent=2) + "\n", encoding="utf-8")
     (args.output / "results.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
@@ -174,6 +182,8 @@ def main() -> int:
             f"Raw failures/repairs: {report['generation']}.\n\n"
             "The fake intentionally misses the cough mention; returned validity is not model accuracy.\n\n"
             + "\n".join(f"- {key}: {value}" for key, value in report["unavailable"].items()) + "\n")
+    if args.profile == "synthetic-suite":
+        text = render_report(report)
     (args.output / "report.md").write_text(text, encoding="utf-8")
     print(json.dumps({"label": report["label"], "counts": report["counts"],
                       "entities_exact": report["entities_exact"], "output": str(args.output)}))
