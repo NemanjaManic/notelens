@@ -100,6 +100,107 @@ def templates(manifest: dict) -> list[dict]:
     return result
 
 
+def lint_submission(assignment: dict, document: dict, submission: dict) -> dict:
+    """Check an annotator draft before review; never certifies semantic completeness."""
+    errors, questions = [], []
+
+    def issue(code: str):
+        errors.append(code)
+
+    try:
+        validate_text(document.get("text"), document.get("text_sha256"))
+    except (ValueError, TypeError):
+        issue("invalid_canonical_document")
+    identity = (assignment.get("assignment_id"), assignment.get("doc_id"), assignment.get("text_sha256"))
+    if not all(isinstance(value, str) and value for value in identity):
+        issue("invalid_assignment_identity")
+    if (document.get("doc_id"), document.get("text_sha256")) != identity[1:]:
+        issue("assignment_document_mismatch")
+    if (submission.get("assignment_id"), submission.get("doc_id"), submission.get("text_sha256")) != identity:
+        issue("submission_identity_mismatch")
+    role = submission.get("role")
+    expected_annotator = assignment.get("primary") if role == "primary" else assignment.get("reviewer") if role == "secondary" else None
+    if not expected_annotator or submission.get("annotator") != expected_annotator:
+        issue("annotator_role_mismatch")
+    if not isinstance(submission.get("submission_id"), str) or not submission["submission_id"].strip():
+        issue("missing_submission_id")
+    if submission.get("complete_document_review") is not True:
+        issue("document_review_not_marked_complete")
+    entities = submission.get("entities")
+    if not isinstance(entities, list):
+        issue("entities_must_be_explicit_list")
+        entities = []
+    unresolved = submission.get("unresolved_questions", [])
+    if not isinstance(unresolved, list):
+        issue("unresolved_questions_must_be_list")
+        unresolved = []
+    else:
+        questions.extend(f"unresolved_question_{index + 1}" for index, value in enumerate(unresolved) if value)
+    seen = set()
+    text = document.get("text", "") if isinstance(document.get("text", ""), str) else ""
+    for index, entity in enumerate(entities):
+        prefix = f"entity_{index + 1}"
+        if not isinstance(entity, dict):
+            issue(prefix + "_must_be_object")
+            continue
+        if entity.get("type") not in {"diagnosis", "symptom", "procedure"}:
+            issue(prefix + "_invalid_type")
+        mention = entity.get("mention")
+        try:
+            validate_span(text, mention)
+            occurrence = (entity["type"], mention["start"], mention["end"])
+            if occurrence in seen:
+                issue(prefix + "_duplicate_occurrence")
+            seen.add(occurrence)
+        except (ValueError, TypeError, KeyError):
+            issue(prefix + "_invalid_mention_span")
+            mention = None
+        if entity.get("assertion") not in {"confirmed", "suspected", "negated"}:
+            if entity.get("assertion") is None or entity.get("assertion_unresolved"):
+                questions.append(prefix + "_assertion_unresolved")
+            else:
+                issue(prefix + "_invalid_assertion")
+        if entity.get("temporality") not in {"current", "historical", "unknown"}:
+            issue(prefix + "_invalid_temporality")
+        if entity.get("subject") not in {"patient", "family", "other", "unknown"}:
+            issue(prefix + "_invalid_subject")
+        evidence = entity.get("evidence")
+        valid_evidence = []
+        if not isinstance(evidence, list) or not evidence:
+            issue(prefix + "_evidence_required")
+        else:
+            for span in evidence:
+                try:
+                    validate_span(text, span)
+                    valid_evidence.append(span)
+                except (ValueError, TypeError):
+                    issue(prefix + "_invalid_evidence_span")
+        if mention and valid_evidence and not any(span["start"] <= mention["start"] and span["end"] >= mention["end"] for span in valid_evidence):
+            questions.append(prefix + "_mention_not_covered_by_evidence")
+        if entity.get("procedure_status_note"):
+            questions.append(prefix + "_procedure_status_requires_team_mapping")
+        icd = entity.get("icd")
+        if icd is not None:
+            try:
+                validate_span(text, icd["evidence"])
+                if icd["code"] != icd["evidence"]["quote"]:
+                    issue(prefix + "_icd_not_literal")
+            except (ValueError, TypeError, KeyError):
+                issue(prefix + "_invalid_icd_evidence")
+    if errors:
+        status = "needs_correction"
+    elif questions:
+        status = "needs_clarification"
+    else:
+        status = "ready_for_independent_review"
+    return {"kind": "annotation_lint_report", "status": status,
+            "assignment_id": assignment.get("assignment_id"), "doc_id": document.get("doc_id"),
+            "submission_id": submission.get("submission_id"), "annotator": submission.get("annotator"),
+            "entity_count": len(entities), "errors": errors, "questions": questions,
+            "human_reviewed": False,
+            "limitation": "Structural and workflow checks only; this does not certify annotation completeness, agreement, semantic support or clinical correctness."}
+
+
 def merge(assignment: dict, document: dict, submissions: list[dict], decision: dict | None,
           *, synthetic: bool) -> dict:
     """Never infer human review. Resolve only an explicitly recorded decision.
@@ -163,6 +264,9 @@ def main() -> int:
     adjudication = commands.add_parser("merge")
     adjudication.add_argument("bundle", type=Path, help="Permitted assignment, document, submissions and explicit decision")
     adjudication.add_argument("--output", type=Path, required=True)
+    lint = commands.add_parser("lint")
+    lint.add_argument("bundle", type=Path, help="One assignment, canonical document and one draft submission")
+    lint.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.command == "select":
         source = json.loads(args.manifest.read_text(encoding="utf-8"))
@@ -171,7 +275,7 @@ def main() -> int:
         (args.output / "assignments.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
         (args.output / "blank-templates.json").write_text(json.dumps(templates(result), indent=2) + "\n", encoding="utf-8")
         print(f"Prepared {len(result['assignments'])} proposal assignments and pending templates; no human annotations generated.")
-    else:
+    elif args.command == "merge":
         bundle = json.loads(args.bundle.read_text(encoding="utf-8"))
         if bundle.get("kind") not in {"synthetic", "permitted_benchmark"}:
             parser.error("Only permitted benchmark or synthetic bundles may be merged.")
@@ -180,6 +284,14 @@ def main() -> int:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
         print(f"Prepared reference state: {result['review_state']}.")
+    else:
+        bundle = json.loads(args.bundle.read_text(encoding="utf-8"))
+        if bundle.get("kind") not in {"synthetic", "permitted_benchmark"}:
+            parser.error("Only explicitly synthetic or permitted benchmark bundles may be linted.")
+        result = lint_submission(bundle["assignment"], bundle["document"], bundle["submission"])
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+        print(f"Submission lint status: {result['status']} ({len(result['errors'])} structural issue(s), {len(result['questions'])} question(s)).")
     return 0
 
 

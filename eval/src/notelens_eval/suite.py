@@ -159,7 +159,30 @@ def evaluate_suite(references: dict, predictions: dict) -> dict:
                          "failure_count": len(failures) - first_failure,
                          "unresolved_reference_attributes": sum(e[a] is None for e in case["entities"]
                                                                  for a in ("assertion", "temporality", "subject"))})
-    report.update(failures=failures, cases=per_case,
+    coverage = {"groups": {}, "qa_states": {state: 0 for state in ("sufficient", "partial", "insufficient")},
+                "answerable_questions": 0, "questions_with_expected_gaps": 0,
+                "required_fact_count": 0, "entity_types": {kind: 0 for kind in ("diagnosis", "symptom", "procedure")},
+                "unresolved_entity_attributes": 0}
+    for case in references["cases"]:
+        group = coverage["groups"].setdefault(case["group"], {"documents": 0, "questions": 0, "answerable": 0,
+                                                                "required_facts": 0, "expected_gaps": 0,
+                                                                "entities": 0})
+        group["documents"] += 1
+        for entity in case["entities"]:
+            coverage["entity_types"][entity["type"]] += 1
+            coverage["unresolved_entity_attributes"] += sum(entity[a] is None for a in ("assertion", "temporality", "subject"))
+            group["entities"] += 1
+        for qa in case["qa"]:
+            state = qa["expected_evidence_state"]
+            coverage["qa_states"][state] += 1
+            coverage["answerable_questions"] += qa["answerable"]
+            coverage["questions_with_expected_gaps"] += bool(qa["expected_gaps"])
+            coverage["required_fact_count"] += len(qa["required_facts"])
+            group["questions"] += 1
+            group["answerable"] += qa["answerable"]
+            group["required_facts"] += len(qa["required_facts"])
+            group["expected_gaps"] += bool(qa["expected_gaps"])
+    report.update(coverage=coverage, failures=failures, cases=per_case,
                   unique_texts=len({c["request"]["document"]["text_sha256"] for c in references["cases"]}),
                   qa_literal_support={"state_and_required_quotes_correct": support_correct,
                                       "evaluated": report["counts"]["qa"],
@@ -186,6 +209,14 @@ def render_report(report: dict) -> str:
     for group, result in report["groups"].items():
         score = result["entities_exact"]
         lines.append(f"| {group} | {result['counts']['documents']} | {score.get('tp', 'withheld')} | {score.get('fp', 'withheld')} | {score.get('fn', 'withheld')} | {result['answerability']['expected_state_correct']}/{result['counts']['qa']} |")
+    lines += ["", "## Reference coverage profile", "",
+              f"QA state counts: `{json.dumps(report['coverage']['qa_states'], sort_keys=True)}`.",
+              f"Answerable: {report['coverage']['answerable_questions']}/{report['counts']['qa']}; questions with explicit gaps: {report['coverage']['questions_with_expected_gaps']}/{report['counts']['qa']}; required facts: {report['coverage']['required_fact_count']}.",
+              f"Entity types: `{json.dumps(report['coverage']['entity_types'], sort_keys=True)}`; unresolved entity attributes: {report['coverage']['unresolved_entity_attributes']}.", "",
+              "| Group | Documents | Questions | Answerable | Required facts | Questions with gaps | Entities |",
+              "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
+    for group, counts in report["coverage"]["groups"].items():
+        lines.append(f"| {group} | {counts['documents']} | {counts['questions']} | {counts['answerable']} | {counts['required_facts']} | {counts['expected_gaps']} | {counts['entities']} |")
     lines += ["", f"Exact entity scores: `{json.dumps(report['entities_exact'], sort_keys=True)}`.", "",
               f"Record validation: `{json.dumps(report['record_validation'], sort_keys=True)}`.", "",
               f"Required literal support and expected state: {report['qa_literal_support']['state_and_required_quotes_correct']}/{report['counts']['qa']}.",

@@ -141,6 +141,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T008 [US3] D-013: Adjudicate preserved primary/secondary submissions into canonical references in `eval/references/**`, `docs/extraction-eval/adjudication.md`, `eval/tests/test_annotation_integrity.py`
   - [x] Explicit-decision merge/pending workflow implemented and tested; preserves input-record provenance and never promotes synthetic decisions to human review.
+  - [x] Independent exact-boundary comparison report is prepared as a separate pre-adjudication aid; no human submissions have been compared and no winner is selected automatically.
   - [ ] Remaining: actual independent submissions and human adjudication. No completed A/B/C annotations were generated.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T006 (D-003); 004-extraction-evaluation/T007 (D-012); 001-rag/T009 (A-007); 002-platform/T006 (B-011); 003-classification/T004 (C-010)
@@ -157,8 +158,10 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T009 [US4] D-006: Implement shared Promptfoo API adapters and deterministic scorers in `eval/providers/**`, `eval/scorers/**`, `eval/profiles/**`, `eval/src/notelens_eval/run.py`, `eval/tests/test_metrics.py`
   - [x] Synthetic prediction-file runner, actual-service Promptfoo HTTP adapter, exact/relaxed one-to-one scoring, context-label accuracy and QA state/abstention counts implemented. Unsupported semantic/risk/English-quality metrics are explicitly unavailable.
+  - [x] Full 24-document/48-question loopback HTTP runner added in `eval/src/notelens_eval/http_suite.py`; local run: 72 HTTP 200 responses, 0 technical failures, all request IDs matched, and 72 schema-valid outputs. Mock scorer misses are recorded separately; local outputs are ignored under `eval/reports/local/http-suite/`.
   - [x] Authorized 2026-11-12 extension: 24 synthetic documents / 48 questions, six groups, validated references, grouped and per-case failure reporting, required literal QA support checks, and reproducible generation/rescoring CLI. See `docs/extraction-eval/synthetic-evaluation-v1.md` and `eval/tests/test_synthetic_suite.py`. Mock provider unchanged; this does not close the parent task.
   - [x] Follow-up answer-completeness evaluation: versioned per-question required facts and expected gaps; detects missing required evidence, extra source quotes, and undisclosed gaps. Latest synthetic run is recorded in `docs/extraction-eval/synthetic-failure-review-v1.md`; evaluation-only labels never enter provider requests.
+  - [x] Five additional D-local increments prepared 2026-11-12: full synthetic HTTP suite; annotation draft linter; independent submission comparison; human answer-review rubric/form draft; and reference coverage profile. See `docs/extraction-eval/independent-d-work-2026-11-12.md`. Parent remains open for A/C integration, human review and frozen records.
   - [x] Authorized 2026-11-12 local integration readiness tool checks D's draft contract bindings, demo fixtures, loopback HTTP schemas/evidence/errors/headers and reports missing cross-service gates; see `docs/extraction-eval/readiness-v1.md`.
   - [x] Follow-up negative boundary suite covers malformed JSON, invalid/oversized/non-English requests, authentication, independent document IDs versus text digests, no-source claims and document-text log/response leakage. Per-case fake misses are summarized in `docs/extraction-eval/synthetic-failure-review-v1.md`; no real-model interpretation is claimed.
   - [ ] Remaining: complete agreed A/C adapters, retrieval/coverage/risk metrics, frozen records and separately gated live profiles. Initial tests are in `eval/tests/test_slice.py`.
@@ -180,6 +183,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T011 [US4] D-008: Calibrate judge rubrics and coordinate separate generated-output human review in `eval/rubrics/**`, `eval/reviews/**`, `docs/extraction-eval/judge-calibration.md`, `eval/tests/test_review_integrity.py`
+  - [x] Draft seven-dimension answer rubric and blank independent-review form prepared in `docs/extraction-eval/answer-review-rubric.md` and `eval/fixtures/answer-review-template-v1.json`; calibration, reviewers and human records remain pending.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T004 (D-005); 004-extraction-evaluation/T010 (D-007); 004-extraction-evaluation/T008 (D-013)
   - **Acceptance**: Calibrate on development examples, record judge versions/disagreements; plan ~40 answer reviews (10 each) and >=20 entity-evidence pairs separate from annotations. Final review is for reporting, not prompt tuning; live judges need budget approval.

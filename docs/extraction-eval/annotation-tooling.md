@@ -44,6 +44,57 @@ declared team-approved. Review feasibility/balance and final-set access before f
 
 ## Submission and adjudication path
 
+### Draft lint before independent review
+
+The new `lint` command checks one draft against its assignment and exact prepared
+document before an independent review. It verifies the assigned annotator/role,
+document ID and hash, complete-document-review flag, explicit entity list, enum fields,
+distinct mention offsets, exact code-point mention/evidence spans and literal ICD
+evidence. It returns `needs_correction`, `needs_clarification`, or
+`ready_for_independent_review` with issue codes, never document text.
+
+Run it using an explicit bundle:
+
+```powershell
+./eval/.venv/Scripts/python.exe -m notelens_eval.annotations lint path/to/annotation-lint-bundle.json --output eval/reports/local/annotation-lint.json
+```
+
+The included invented input can be inspected with:
+
+```powershell
+./eval/.venv/Scripts/python.exe -m notelens_eval.annotations lint eval/fixtures/annotation-lint-synthetic-v1.json --output eval/reports/local/annotation-lint-demo.json
+```
+
+An invented demonstration bundle is provided at
+`eval/fixtures/annotation-lint-synthetic-v1.json`. A ready result means only that the
+record passed these structural/workflow checks. It does not establish that the annotator
+found every mention or that labels are supported. An unresolved assertion, procedure
+status note, or unresolved question blocks readiness for independent review and stays a
+question for the team; the linter cannot add enum values or adjudicate it.
+
+### Independent submission comparison
+
+The comparison command aligns primary and secondary mentions by exact type and exact
+half-open offsets. It lists missing/extra occurrences, attribute differences and
+whether each matched mention has identical evidence-span intervals. It reports
+attribute agreement only among exact-boundary matched mentions; boundary disagreements
+remain visible as missing/extra records.
+
+```powershell
+./eval/.venv/Scripts/python.exe -m notelens_eval.review path/to/review-comparison-bundle.json --output eval/reports/local/annotation-comparison.json
+```
+
+Synthetic comparison example:
+
+```powershell
+./eval/.venv/Scripts/python.exe -m notelens_eval.review eval/fixtures/review-comparison-synthetic-v1.json --output eval/reports/local/review-comparison-demo.json
+```
+
+The synthetic pair in `eval/fixtures/review-comparison-synthetic-v1.json` illustrates a
+single disagreement. The report is descriptive and never chooses a winner, creates a
+canonical label, or claims corpus-level annotator reliability. Human adjudication remains
+a separate, explicit decision in `merge` after independent inputs are preserved.
+
 Each annotator fills only their own primary/review record in their own annotation
 path after assignments and permissions are agreed. The blank template needs a unique
 `submission_id` when filled. Primary and secondary records remain separate; a second

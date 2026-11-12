@@ -124,6 +124,12 @@ occurrences in the repeated-denial example. They are a draft exercise and answer
 not measured model output, human-reviewed ground truth, a shared API contract or a
 real assignment.
 
+Before an assigned record is sent for independent review, run the D-owned structural
+draft linter and inspect unresolved questions. After the independent record is
+preserved, the [comparison tool](annotation-tooling.md#independent-submission-comparison)
+can organize exact-boundary and attribute differences for human adjudication. Neither
+tool decides semantic completeness or clinical truth.
+
 For practice, read each `canonical_text` and identify the mentions, type, assertion,
 temporality, subject and evidence before comparing with `mentions`. For each span,
 check that slicing the text with the listed code-point offsets returns its `quote`.
