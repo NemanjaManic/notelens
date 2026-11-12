@@ -5,8 +5,8 @@
 **Status**: Source review, source-archive acquisition, metadata inspection and initial
 topic selection are approved and recorded. The initial selection has 401 topics.
 A-001 acquisition/provenance acceptance passed and its task is checked complete.
-The A-002 extraction and summary-cleaning increments are implemented and verified.
-Passage construction and RAG service implementation are not complete.
+All A-002 preparation increments are implemented and verified: 401 selected topics
+and 617 candidate passages. A-002 is complete; RAG service/retrieval work remains.
 
 ## Reviewed official sources
 
@@ -387,15 +387,48 @@ rendered as text rather than inserted as trusted HTML.
 
 No passages, embeddings, index, HTTP service, provider call, installation,
 commit/push or deployment is part of this increment. A-002 remains unchecked.
-Next propose and approve chunk settings before the passage-building increment.
+At the end of cleaning, passage settings and implementation still required their
+separate approval; the subsequently approved candidate is recorded below.
+
+## A-002 passage increment and closure
+
+On 2026-11-12, the user continued after the proposed 2500-code-point maximum and
+up-to-300 overlap were explained as an initial candidate rather than a measured
+optimum. The scoped `speckit-implement` workflow selected `specs/001-rag` through
+the official PowerShell prerequisite script; its specification checklist had
+16 checked and zero unchecked items. No extension hooks are configured. This
+workflow/checklist status is agent evidence, not human/team interface acceptance.
+
+The script now provides `python -B data/knowledge/scripts/prepare_corpus.py chunk`.
+It verifies input digests, the approved ID set and extraction/cleaning provenance.
+Source block parsing verifies boundaries against the already cleaned text;
+passages use only exact slices of that existing field. Tables and list items
+stay whole; long paragraphs split between words. Optional overlap uses whole
+trailing paragraphs/items that fit alongside new content. A final NIH attribution
+stays with the preceding unit when the combined unit fits the same ceiling.
+See [the full policy and measured results](chunking.md).
+
+The final artifact has **617 passages over all 401 topics**. All 52 offline tests
+passed on Python 3.14.2. Independent checks verified all 617 exact code-point
+slices, stable IDs and carried metadata, complete non-whitespace coverage,
+14 whole tables and 4,947 complete rendered list lines. All 14 excerpts in the
+earlier exploratory review are contained in passages; that containment is not a
+retrieval or answer-quality measurement. Existing source/extraction/cleaning
+artifacts/manifests and the supplied prompt remain unchanged.
+
+The [passage manifest](../../data/knowledge/manifests/passages.json) records the
+candidate configuration, input/output identities, corpus version, measured counts,
+actual time and script digest. The actual artifact is Git-ignored. Prior manifest
+null counts remain historical stage values. This closes A-002 offline preparation;
+service, embedding/index, model/provider and deployment behavior are not established.
 
 ## Current evidence and remaining work
 
 - The source ZIP is acquired and locally integrity-checked; it remains outside Git.
 - Source, base-candidate, approved selected-topic and actual extraction counts are
-  measured as reported above. All 401 selected topics are cleaned; passage count
-  remains unmeasured/null. Snapshot and prepared-corpus manifests remain acquisition
-  and extraction records; cleaned-corpus records the separate cleaning stage.
+  measured as reported above. All 401 selected topics are cleaned and produce 617
+  passages. Snapshot, prepared-corpus and cleaned-corpus remain historical stage
+  records; actual passage counts/configuration are in the new passage manifest.
 - The initial topic selection is approved. Further scope changes require another
   applicable approval. No corpus size target has been invented.
 - XML parsing was used for the earlier local inspection and the approved standalone
@@ -403,10 +436,10 @@ Next propose and approve chunk settings before the passage-building increment.
   provider calls or retrieval evaluation ran.
   Evaluation questions/reference answers must remain outside the retrieval index.
 - A-001 is complete for source review, source-archive acquisition, provenance and
-  the approved initial selection. A-002 has verified extraction/cleaning progress;
-  no other task was marked complete. The user-approved 2026-11-11 dependency
+  the approved initial selection. A-002 is complete for all three offline stages;
+  no service/evaluation task was marked complete. The user-approved 2026-11-11 dependency
   correction makes standalone local A-002 preparation dependent only on A-001.
-  Extraction and cleaning are separately approved and executed; passages are pending.
+  Extraction, cleaning and candidate passages are separately approved and executed.
   See the [revised plan](../../specs/001-rag/plan.md) and
   [task boundaries](../../specs/001-rag/tasks.md). Service integration retains
   A-010/F-014 prerequisites at A-003; separate implementation approvals still apply.

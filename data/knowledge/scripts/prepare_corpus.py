@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 import platform
 import re
+import statistics
 import xml.etree.ElementTree as ET
 import zipfile
 
@@ -20,6 +21,11 @@ EXTRACTOR_VERSION = "source-topic-extraction-v1"
 CLEAN_OUTPUT = "data/knowledge/.cache/corpus/cleaned-topics.jsonl"
 CLEAN_REPORT = "data/knowledge/manifests/cleaned-corpus.json"
 CLEANER_VERSION = "summary-html-to-text-v1"
+PASSAGE_OUTPUT = "data/knowledge/.cache/corpus/passages.jsonl"
+PASSAGE_REPORT = "data/knowledge/manifests/passages.json"
+CHUNKER_VERSION = "source-block-passages-v1"
+MAX_CODE_POINTS = 2500
+OVERLAP_CODE_POINTS = 300
 
 
 class CorpusPreparationError(ValueError):
@@ -463,6 +469,246 @@ def clean_corpus(repository_root=REPOSITORY_ROOT, *, extraction_manifest=REPORT,
     return report
 
 
+def passage_configuration(max_code_points=MAX_CODE_POINTS, overlap_code_points=OVERLAP_CODE_POINTS):
+    if (type(max_code_points) is not int or type(overlap_code_points) is not int
+            or max_code_points <= 0 or not 0 <= overlap_code_points < max_code_points):
+        raise CorpusPreparationError("Passage limits must be integers with 0 <= overlap < maximum.")
+    return {"version": CHUNKER_VERSION, "unit": "unicode_code_points",
+            "max_code_points": max_code_points, "overlap_code_points": overlap_code_points,
+            "packing": "greedy_source_blocks", "tables": "whole",
+            "long_paragraphs": "word_boundaries", "lists": "whole_items",
+            "trailing_nih_attribution": "group_with_previous_unit_when_within_maximum",
+            "overlap": "whole_trailing_paragraphs_or_items_when_next_unit_fits"}
+
+
+def source_units(topic, maximum):
+    """Recover source block boundaries and verify them against the existing canonical text."""
+    text = topic["cleaned_summary"]
+    cleaning = topic["cleaning"]
+    if (cleaning["version"] != CLEANER_VERSION or cleaning["format"] != "plain_text"
+            or hashlib.sha256(text.encode("utf-8")).hexdigest() != cleaning["text_sha256"]):
+        raise CorpusPreparationError("Unsupported cleaner version or canonical text checksum.")
+    parser = SummaryTextParser()
+    parser.feed(topic["full_summary"])
+    parser.close()
+    if parser.stack:
+        raise CorpusPreparationError("Unclosed source block structure.")
+    parser.flush()
+    if not parser.has_visible_text or any(cleaning[key] != count for key, count in parser.stats.items()):
+        raise CorpusPreparationError("Source structure or cleaning counts do not match canonical text.")
+    units = []
+    cursor, previous_kind = 0, None
+    for kind, block in parser.blocks:
+        separator = ("\n" if kind == previous_kind == "list" else "\n\n") if cursor else ""
+        expected = separator + block
+        if text[cursor:cursor + len(expected)] != expected:
+            raise CorpusPreparationError("Source block structure does not match canonical text.")
+        start, end = cursor + len(separator), cursor + len(expected)
+        cursor, previous_kind = end, kind
+        if end - start <= maximum:
+            units.append({"start": start, "end": end, "kind": kind})
+        elif kind in {"table", "list"}:
+            raise CorpusPreparationError("A table or single list item exceeds the passage maximum.")
+        else:
+            # Only paragraph fragments may split, always between complete whitespace-delimited words.
+            position = start
+            while position < end:
+                limit = min(position + maximum, end)
+                if limit < end and not text[limit].isspace():
+                    boundaries = [match.start() + position for match in re.finditer(r"\s+", text[position:limit])]
+                    if not boundaries:
+                        raise CorpusPreparationError("An unbreakable word exceeds the passage maximum.")
+                    limit = boundaries[-1]
+                units.append({"start": position, "end": limit, "kind": "paragraph_fragment"})
+                position = limit
+                while position < end and text[position].isspace():
+                    position += 1
+    if cursor != len(text) or not units:
+        raise CorpusPreparationError("Source structure does not cover the canonical text.")
+    if len(units) > 1 and re.fullmatch(r"NIH: [^\n]+", text[units[-1]["start"]:units[-1]["end"]]):
+        preceding, attribution = units[-2:]
+        if attribution["end"] - preceding["start"] <= maximum:
+            units[-2:] = [{"start": preceding["start"], "end": attribution["end"], "kind": "block_group"}]
+    return units
+
+
+def build_passages(topic, *, max_code_points=MAX_CODE_POINTS, overlap_code_points=OVERLAP_CODE_POINTS):
+    """Greedily pack exact source slices, protecting tables/items and bounded optional overlap."""
+    configuration = passage_configuration(max_code_points, overlap_code_points)
+    units = source_units(topic, max_code_points)
+    metadata = {key: topic[key] for key in ("topic_id", "title", "url", "language", "date_created",
+                                           "synonyms", "groups", "source")}
+    passages = []
+    begin, previous_end = 0, 0
+    while begin < len(units):
+        last = begin
+        start = units[begin]["start"]
+        while last + 1 < len(units) and units[last + 1]["end"] - start <= max_code_points:
+            last += 1
+        end = units[last]["end"]
+        if end <= previous_end or topic["cleaned_summary"][previous_end:start].strip():
+            raise CorpusPreparationError("Passage packing failed to advance or left uncovered text.")
+        identity = {"configuration": configuration, "topic": metadata,
+                    "topic_text_sha256": topic["cleaning"]["text_sha256"], "start": start, "end": end}
+        passage_hash = hashlib.sha256(json.dumps(identity, ensure_ascii=False, sort_keys=True,
+                                                 allow_nan=False).encode("utf-8")).hexdigest()
+        passages.append({"record_format_version": 1, **metadata,
+                         "passage_id": f"mplus-{topic['topic_id']}-{passage_hash}",
+                         "topic_text_sha256": topic["cleaning"]["text_sha256"],
+                         "cleaning_version": topic["cleaning"]["version"],
+                         "chunking": configuration, "start": start, "end": end,
+                         "overlap_code_points": max(0, previous_end - start),
+                         "text": topic["cleaned_summary"][start:end]})
+        previous_end = end
+        following = last + 1
+        if following == len(units):
+            break
+        for candidate in range(begin + 1, last + 1):
+            suffix = units[candidate:last + 1]
+            if (end - suffix[0]["start"] <= overlap_code_points
+                    and units[following]["end"] - suffix[0]["start"] <= max_code_points
+                    and all(unit["kind"] in {"paragraph", "list"} for unit in suffix)):
+                following = candidate
+                break
+        begin = following
+    if topic["cleaned_summary"][previous_end:].strip():
+        raise CorpusPreparationError("Passages left uncovered canonical text.")
+    return passages
+
+
+def verified_bytes(path, description):
+    payload = path.read_bytes()
+    if (("size_bytes" in description and len(payload) != description["size_bytes"])
+            or hashlib.sha256(payload).hexdigest() != description["sha256"]):
+        raise CorpusPreparationError("Input checksum or size mismatch.")
+    return payload
+
+
+def load_cleaned_topics(root, manifest):
+    """Validate the existing extraction/cleaning chain without rewriting an upstream artifact."""
+    if manifest["stage"] != "summary_cleaning" or manifest["cleaner"]["version"] != CLEANER_VERSION:
+        raise CorpusPreparationError("A supported summary-cleaning manifest is required.")
+    source = manifest["source"]
+    snapshot_path = owned_path(root, source["snapshot_manifest"], "data/knowledge/manifests")
+    snapshot = json.loads(verified_bytes(snapshot_path, {"sha256": source["snapshot_manifest_sha256"]}))
+    selection = snapshot["selection"]
+    expected_ids = selection["selected_topic_ids"]
+    if (selection["status"] != "approved_initial_selection" or not expected_ids
+            or len(set(expected_ids)) != len(expected_ids)
+            or any(not isinstance(value, str) or not re.fullmatch(r"[0-9]+", value) for value in expected_ids)
+            or len(expected_ids) != snapshot["counts"]["selected_unique_topics"]):
+        raise CorpusPreparationError("The selected source IDs or approval are invalid.")
+    input_record = manifest["input"]
+    extraction_path = owned_path(root, input_record["extraction_manifest"], "data/knowledge/manifests")
+    extraction = json.loads(verified_bytes(extraction_path, {"sha256": input_record["extraction_manifest_sha256"]}))
+    if (extraction["stage"] != "extraction_only" or extraction["source"] != source
+            or extraction["artifact"] != input_record["artifact"]):
+        raise CorpusPreparationError("Extraction/cleaning provenance chain mismatch.")
+    extracted_path = owned_path(root, extraction["artifact"]["local_path"], "data/knowledge/.cache/corpus")
+    extracted = [json.loads(line) for line in verified_bytes(extracted_path, extraction["artifact"]).decode("utf-8").splitlines()]
+    artifact_path = owned_path(root, manifest["artifact"]["local_path"], "data/knowledge/.cache/corpus")
+    topics = [json.loads(line) for line in verified_bytes(artifact_path, manifest["artifact"]).decode("utf-8").splitlines()]
+    for records in (extracted, topics):
+        ids = [row["topic_id"] for row in records]
+        if len(ids) != len(set(ids)) or set(ids) != set(expected_ids):
+            raise CorpusPreparationError("Input IDs do not match the approved selected topic set.")
+    if (manifest["counts"]["cleaned_topics"] != len(topics)
+            or extraction["counts"]["extracted_topics"] != len(topics)):
+        raise CorpusPreparationError("Input manifest topic counts do not match the records.")
+    originals = {row["topic_id"]: row for row in extracted}
+    original_fields = {"record_format_version", "topic_id", "title", "url", "language", "date_created",
+                       "synonyms", "groups", "summary_format", "full_summary", "source"}
+    expected_source = {"name": snapshot["source"]["name"], "snapshot_date": snapshot["source"]["release_date"],
+                       "attribution": snapshot["source"]["attribution"], "archive_sha256": snapshot["archive"]["sha256"],
+                       "xml_sha256": snapshot["archive"]["members"][0]["sha256"],
+                       "selection_rule_version": selection["selection_rule_version"]}
+    for topic in topics:
+        original = originals[topic["topic_id"]]
+        if (set(original) != original_fields or set(topic) != original_fields | {"cleaned_summary", "cleaning"}
+                or any(topic[key] != value for key, value in original.items())
+                or topic["source"] != expected_source or topic["language"] != "English"
+                or topic["record_format_version"] != 1 or topic["summary_format"] != "source_html"
+                or not all(isinstance(topic[key], str) and topic[key].strip() for key in ("title", "url", "cleaned_summary"))):
+            raise CorpusPreparationError("An input record has unexpected fields, metadata or source provenance.")
+    return sorted(topics, key=lambda row: (int(row["topic_id"]), row["topic_id"]))
+
+
+def chunk_corpus(repository_root=REPOSITORY_ROOT, *, cleaned_manifest=CLEAN_REPORT,
+                 output=PASSAGE_OUTPUT, output_manifest=PASSAGE_REPORT):
+    """Prepare the approved candidate passages with checked inputs and exclusive new outputs."""
+    root = Path(repository_root).resolve()
+    input_path = owned_path(root, cleaned_manifest, "data/knowledge/manifests")
+    output_path = owned_path(root, output, "data/knowledge/.cache/corpus")
+    report_path = owned_path(root, output_manifest, "data/knowledge/manifests")
+    for target in (output_path, report_path):
+        if target.exists():
+            raise FileExistsError(f"Refusing to overwrite an existing output: {target.relative_to(root)}")
+    manifest_bytes = input_path.read_bytes()
+    manifest = json.loads(manifest_bytes)
+    topics = load_cleaned_topics(root, manifest)
+    rows, counts = [], {}
+    for topic in topics:
+        try:
+            passages = build_passages(topic)
+        except CorpusPreparationError as error:
+            raise CorpusPreparationError(f"Topic {topic['topic_id']}: {error}") from error
+        counts[topic["topic_id"]] = len(passages)
+        rows.extend(passages)
+    if len({row["passage_id"] for row in rows}) != len(rows):
+        raise CorpusPreparationError("Passage identifiers are not unique.")
+    output_bytes = b"".join((json.dumps(row, ensure_ascii=False, sort_keys=True, allow_nan=False)
+                             + "\n").encode("utf-8") for row in rows)
+    artifact_hash = hashlib.sha256(output_bytes).hexdigest()
+    configuration = passage_configuration()
+    corpus_identity = {"cleaned_artifact_sha256": manifest["artifact"]["sha256"],
+                       "passage_artifact_sha256": artifact_hash, "configuration": configuration}
+    corpus_version = hashlib.sha256(json.dumps(corpus_identity, sort_keys=True).encode("utf-8")).hexdigest()
+    lengths = [len(row["text"]) for row in rows]
+    overlaps = [row["overlap_code_points"] for row in rows]
+    report = {
+        "manifest_version": 1, "owner": "Nemanja (A)", "task": "A-002",
+        "stage": "passage_preparation", "status": "prepared_candidate_not_retrieval_validated",
+        "created_at_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "configuration": configuration, "configuration_basis": "User-approved initial candidate; retrieval quality unmeasured.",
+        "builder": {"python_version": platform.python_version(),
+                    "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()},
+        "corpus_version": corpus_version,
+        "input": {"cleaned_manifest": input_path.relative_to(root).as_posix(),
+                  "cleaned_manifest_sha256": hashlib.sha256(manifest_bytes).hexdigest(), "artifact": manifest["artifact"]},
+        "source": manifest["source"],
+        "artifact": {"local_path": output_path.relative_to(root).as_posix(), "format": "jsonl-utf8",
+                     "size_bytes": len(output_bytes), "sha256": artifact_hash},
+        "counts": {"topics": len(topics), "passages": len(rows), "passages_by_topic_id": counts,
+                   "whole_tables": sum(topic["cleaning"]["tables"] for topic in topics),
+                   "passages_with_overlap": sum(value > 0 for value in overlaps),
+                   "attribution_only_passages": sum(bool(re.fullmatch(r"NIH: [^\n]+", row["text"])) for row in rows)},
+        "observed_code_points": {"passage_min": min(lengths), "passage_median": statistics.median(lengths),
+                                 "passage_max": max(lengths), "overlap_max": max(overlaps)},
+        "checks": {"input_hash_chain_and_selected_ids": "passed", "source_structure_matches_canonical_text": "passed",
+                   "non_whitespace_text_coverage": "passed", "exact_code_point_slices": "passed",
+                   "table_and_item_boundaries": "passed", "bounded_progressive_overlap": "passed",
+                   "unique_passage_ids": "passed"},
+        "limitations": ["The size/overlap policy is an initial candidate, not a measured optimum.",
+                        "Oversized tables/list items and unbreakable words fail rather than silently splitting or truncating.",
+                        "Source block parsing verifies existing text; passage text is sliced only from cleaned_summary.",
+                        "No API contract, tokenizer budget, embedding model, index or retrieval metric is established.",
+                        "Prior extraction/cleaning manifests remain unchanged historical stage records."],
+    }
+    report_bytes = (json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n").encode("utf-8")
+    created = []
+    try:
+        for target, content in ((output_path, output_bytes), (report_path, report_bytes)):
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with target.open("xb") as destination:
+                created.append(target)
+                destination.write(content)
+    except OSError:
+        for target in reversed(created):
+            target.unlink()
+        raise
+    return report
+
+
 def main():
     parser = argparse.ArgumentParser(description="Prepare approved local public-corpus artifacts.")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -474,17 +720,25 @@ def main():
     clean.add_argument("--extraction-manifest", default=REPORT)
     clean.add_argument("--output", default=CLEAN_OUTPUT)
     clean.add_argument("--output-manifest", default=CLEAN_REPORT)
+    chunk = commands.add_parser("chunk", help="Build exact passages with the approved 2500/300 candidate policy.")
+    chunk.add_argument("--cleaned-manifest", default=CLEAN_REPORT)
+    chunk.add_argument("--output", default=PASSAGE_OUTPUT)
+    chunk.add_argument("--output-manifest", default=PASSAGE_REPORT)
     arguments = parser.parse_args()
     try:
         if arguments.command == "extract":
             report = extract_corpus(snapshot_manifest=arguments.snapshot_manifest, output=arguments.output,
                                     output_manifest=arguments.output_manifest)
-        else:
+        elif arguments.command == "clean":
             report = clean_corpus(extraction_manifest=arguments.extraction_manifest, output=arguments.output,
+                                  output_manifest=arguments.output_manifest)
+        else:
+            report = chunk_corpus(cleaned_manifest=arguments.cleaned_manifest, output=arguments.output,
                                   output_manifest=arguments.output_manifest)
     except (OSError, ValueError, KeyError, TypeError, zipfile.BadZipFile, ET.ParseError) as error:
         parser.exit(1, f"Corpus preparation failed: {error}\n")
-    print(json.dumps({"stage": report["stage"], "counts": report["counts"],
+    print(json.dumps({"stage": report["stage"],
+                      "counts": {key: value for key, value in report["counts"].items() if not isinstance(value, dict)},
                       "artifact": report["artifact"], "manifest": arguments.output_manifest}))
 
 

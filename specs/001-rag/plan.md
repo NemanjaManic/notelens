@@ -20,8 +20,14 @@ and extracted 401 source records with checked provenance.
 cleaning, tests and actual local processing, then explicitly approved preserving
 table rows/cells and recording omitted image tags. All 401 topics are cleaned;
 35 offline tests and the actual source-text/provenance comparisons passed on Python
-3.14.2. Passage construction and all service work remain unimplemented and require
-their applicable approvals. See [cleaning evidence](../../docs/rag/sources.md#a-002-cleaning-increment).
+3.14.2. See [cleaning evidence](../../docs/rag/sources.md#a-002-cleaning-increment).
+
+**Approved passage increment (2026-11-12)**: After the 2500-code-point ceiling and
+up-to-300 overlap were proposed and explained as an unmeasured candidate, the user
+approved continuing. All 401 topics now produce 617 exact, attributable passages.
+All 52 offline tests and actual coverage/offset/table checks passed; A-002 is
+complete for offline preparation. See [policy and evidence](../../docs/rag/chunking.md).
+This does not establish retrieval quality, a tokenizer budget or service readiness.
 
 ## Summary
 
@@ -116,25 +122,32 @@ Keep A-002 as an owner-local data pipeline under `data/knowledge/**`:
   Decode HTML character references once; normalize whitespace; retain visible link text
   without URLs/attributes or fetching. Omit image tags/comments and record counts/affected
   topic IDs. Unknown, unbalanced or unsupported table markup fails before output.
-- Later separately approved increment: build deterministic, stable passages using
-  documented approved chunk settings. No chunk values are chosen by cleaning.
+- Third approved increment, now executed: pack exact canonical slices with a
+  2500-code-point ceiling and optional whole-unit overlap up to 300. Keep tables
+  and individual list items whole; split oversized paragraphs between words.
+  Group a trailing NIH attribution with the previous unit when both fit, so
+  attribution need not become a standalone passage. See [the full policy](../../docs/rag/chunking.md).
 - Extraction output now exists: Git-ignored artifacts under `data/knowledge/.cache/corpus/**` and
   a small version/count/checksum manifest at `data/knowledge/manifests/prepared-corpus.json`.
   These are A-owned internal artifacts, not a competing shared API schema.
 - Separate cleaned output: `data/knowledge/.cache/corpus/cleaned-topics.jsonl`, with
   `data/knowledge/manifests/cleaned-corpus.json` linking input identities and output checksum.
   Existing extraction inputs/manifests remain unchanged; original HTML is retained per record.
-- Available extraction/cleaning checks: `python -B -m unittest discover -s data/knowledge/tests -p "test_prepare_corpus.py"`.
-  All 35 checks passed on Python 3.14.2; these do not establish clinical validity,
-  later passage acceptance, retrieval quality or service/Python 3.13 compatibility.
+- Separate passage output: `data/knowledge/.cache/corpus/passages.jsonl`, with
+  `data/knowledge/manifests/passages.json` recording stable IDs, configuration,
+  corpus version, measured counts and checksums. Earlier artifacts remain unchanged.
+- Available preparation checks: `python -B -m unittest discover -s data/knowledge/tests -p "test_prepare_corpus.py"`.
+  All 52 checks passed on Python 3.14.2; these do not establish clinical validity,
+  retrieval quality, token budgets or service/Python 3.13 compatibility.
 
 A-002 depends only on completed A-001 and the applicable user approval. Its
 extraction CLI is `python -B data/knowledge/scripts/prepare_corpus.py extract`.
 Its cleaning CLI is `python -B data/knowledge/scripts/prepare_corpus.py clean`.
+Its passage CLI is `python -B data/knowledge/scripts/prepare_corpus.py chunk`.
 The script refuses to overwrite existing outputs and makes no network calls. It does not
 create HTTP routes, install the service scaffold, modify shared contracts or touch
-root configuration. A-002 remains unchecked until stable passages and their checks
-are complete; extraction and cleaning alone do not close the task.
+root configuration. A-002 is complete after all three increments and actual checks;
+the passage settings remain a candidate for later development measurements.
 
 A-003 subsequently consumes the prepared artifacts through the service adapter
 `services/rag/src/notelens_rag/ingestion.py`; parsing/cleaning is not independently

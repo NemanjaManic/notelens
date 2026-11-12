@@ -46,7 +46,25 @@ fetching or inferring image content. HTML character references are decoded once.
 No case-folding, stemming, deduplication, translation or medical rewriting occurs.
 These are A-owned local formats and do not change the shared API contract.
 Original HTML and cleaned plain text must not be inserted as trusted HTML in a UI;
-render the cleaned field as text. This package does not define passage offsets.
+render the cleaned field as text.
+
+The separate passage artifact now contains 617 records over 401 topics. Each
+record has topic ID/title/URL/language, creation date, synonyms/groups/source
+provenance, a stable `passage_id`, cleaning version, topic-text SHA-256,
+`chunking` configuration, `start`, `end`, actual `overlap_code_points` and `text`.
+Offsets are half-open Unicode code points in the unchanged `cleaned_summary`;
+`text` equals that exact slice. Original HTML and review QA are not copied into
+passage records. Source block parsing verifies positions against canonical text;
+it does not replace the canonical field with newly normalized text.
+
+Passage IDs hash the configuration/version, complete carried topic metadata,
+topic-text digest and offsets, including a topic-ID prefix. Repeated text at
+different positions has distinct IDs. The passage manifest links its input
+manifest/artifact, script digest, measured counts/checksums and a corpus version
+derived from input/output identities and policy. These are local preparation
+records, not frozen API bindings, an embedding/index version or retrieval scores.
+See [the candidate policy](../../docs/rag/chunking.md). Historical cleaning counts
+remain unchanged; actual passage counts live in the new passage manifest.
 
 - Canonical text is unchanged downstream; SHA256 and doc_id bind document results.
 - Source spans use code points and exact quote slices; English declarations do not prove language.

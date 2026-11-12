@@ -388,5 +388,232 @@ class CorpusCleaningTests(unittest.TestCase):
         self.assertIn('--extraction-manifest', result.stdout)
 
 
+def passage_topic(html, topic_id="3"):
+    text, stats = corpus.clean_summary(html)
+    return {"record_format_version": 1, "topic_id": topic_id, "title": "Synthetic topic",
+            "url": "https://medlineplus.gov/synthetic.html", "language": "English",
+            "date_created": "01/02/2020", "synonyms": ["Synthetic synonym"], "groups": [],
+            "summary_format": "source_html", "full_summary": html,
+            "source": {"name": "Synthetic public fixture", "snapshot_date": "2026-11-10",
+                       "attribution": "Synthetic test content", "selection_rule_version": "test-v1",
+                       "archive_sha256": "a" * 64, "xml_sha256": "b" * 64},
+            "cleaned_summary": text,
+            "cleaning": {"version": corpus.CLEANER_VERSION, "format": "plain_text",
+                         "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(), **stats}}
+
+
+class PassageBoundaryTests(unittest.TestCase):
+    def assert_coverage(self, topic, passages, maximum, overlap):
+        text = topic['cleaned_summary']
+        covered = set()
+        previous_end = 0
+        for passage in passages:
+            start, end = passage['start'], passage['end']
+            self.assertEqual(passage['text'], text[start:end])
+            self.assertGreater(end, previous_end)
+            self.assertLessEqual(end - start, maximum)
+            self.assertLessEqual(passage['overlap_code_points'], overlap)
+            self.assertEqual(passage['overlap_code_points'], max(0, previous_end - start))
+            self.assertFalse(text[previous_end:start].strip())
+            covered.update(range(start, end))
+            previous_end = end
+        self.assertFalse(text[previous_end:].strip())
+        self.assertTrue(all(i in covered for i, value in enumerate(text) if not value.isspace()))
+        self.assertEqual(len({value['passage_id'] for value in passages}), len(passages))
+
+    def test_short_unicode_summary_is_one_exact_passage_with_source_metadata(self):
+        topic = passage_topic('<p>Demo \U0001fa7a. No pain.</p><p>No pain.</p>')
+        passages = corpus.build_passages(topic)
+        self.assertEqual(len(passages), 1)
+        self.assertEqual(passages[0]['text'], 'Demo \U0001fa7a. No pain.\n\nNo pain.')
+        self.assertEqual(passages[0]['end'], len(topic['cleaned_summary']))
+        self.assertEqual(passages[0]['source'], topic['source'])
+        for key in ('title', 'url', 'language', 'date_created', 'synonyms', 'groups'):
+            self.assertEqual(passages[0][key], topic[key])
+        self.assertEqual(passages[0]['topic_text_sha256'], topic['cleaning']['text_sha256'])
+        self.assertNotIn('full_summary', passages[0])
+        self.assert_coverage(topic, passages, 2500, 300)
+
+    def test_paragraph_overlap_is_bounded_and_new_content_always_advances(self):
+        topic = passage_topic('<p>' + 'Alpha ' * 8 + '</p><p>Short context.</p><p>' + 'Beta ' * 8 + '</p>')
+        passages = corpus.build_passages(topic, max_code_points=70, overlap_code_points=20)
+        self.assertGreater(len(passages), 1)
+        self.assertTrue(any(value['overlap_code_points'] for value in passages[1:]))
+        self.assert_coverage(topic, passages, 70, 20)
+
+    def test_zero_overlap_when_whole_context_cannot_fit(self):
+        topic = passage_topic('<p>' + 'Alpha ' * 10 + '</p><p>' + 'Beta ' * 12 + '</p>')
+        passages = corpus.build_passages(topic, max_code_points=70, overlap_code_points=20)
+        self.assertTrue(all(value['overlap_code_points'] == 0 for value in passages))
+        self.assert_coverage(topic, passages, 70, 20)
+
+    def test_trailing_attribution_stays_with_preceding_content_when_both_fit(self):
+        topic = passage_topic('<p>' + 'Opening ' * 8 + '</p><p>' + 'Body ' * 7 + '</p>'
+                              '<p>NIH: Synthetic source</p>')
+        passages = corpus.build_passages(topic, max_code_points=100, overlap_code_points=20)
+        self.assertEqual(len(passages), 2)
+        self.assertIn('Body ', passages[-1]['text'])
+        self.assertTrue(passages[-1]['text'].endswith('NIH: Synthetic source'))
+        self.assert_coverage(topic, passages, 100, 20)
+
+    def test_long_paragraph_splits_between_words_without_changing_numbers_or_negation(self):
+        topic = passage_topic('<p>' + 'No pain 1.5 \U0001fa7a. ' * 80 + '</p>')
+        passages = corpus.build_passages(topic, max_code_points=90, overlap_code_points=20)
+        self.assertGreater(len(passages), 2)
+        self.assert_coverage(topic, passages, 90, 20)
+        for value in passages:
+            start, end = value['start'], value['end']
+            self.assertTrue(start == 0 or topic['cleaned_summary'][start-1].isspace())
+            self.assertTrue(end == len(topic['cleaned_summary']) or topic['cleaned_summary'][end].isspace())
+
+    def test_long_lists_split_between_complete_items_including_nested_lists(self):
+        html = '<p>Items:</p><ul>' + ''.join('<li>Item ' + str(i) + ' has no pain.</li>' for i in range(30)) + '</ul>'
+        html += '<ul><li>Parent<ul><li>Nested value.</li></ul></li></ul>'
+        topic = passage_topic(html)
+        passages = corpus.build_passages(topic, max_code_points=110, overlap_code_points=30)
+        self.assert_coverage(topic, passages, 110, 30)
+        for line in topic['cleaned_summary'].splitlines():
+            if line.lstrip().startswith('- '):
+                start = topic['cleaned_summary'].index(line)
+                self.assertTrue(any(value['start'] <= start and value['end'] >= start+len(line)
+                                    for value in passages), line)
+
+    def test_tables_keep_headers_rows_and_comparators_together(self):
+        table = '<table><tr><th>Type</th><th>Range</th></tr>' + ''.join(
+            f'<tr><td>Group {i}</td><td>Less than 80 and not 90.</td></tr>' for i in range(40)) + '</table>'
+        topic = passage_topic('<p>' + 'Before ' * 150 + '</p>' + table + '<p>' + 'After ' * 150 + '</p>')
+        passages = corpus.build_passages(topic)
+        text = topic['cleaned_summary']
+        start = text.index('Type | Range')
+        end = text.index('\n\n', start)
+        self.assertTrue(any(value['start'] <= start and value['end'] >= end for value in passages))
+        self.assert_coverage(topic, passages, 2500, 300)
+
+    def test_repeated_identical_tables_get_correct_distinct_source_positions(self):
+        table = '<table><tr><td>Same</td><td>Value</td></tr></table>'
+        topic = passage_topic(table + '<p>Middle.</p>' + table)
+        passages = corpus.build_passages(topic, max_code_points=22, overlap_code_points=5)
+        self.assert_coverage(topic, passages, 22, 5)
+        starts = [value['start'] for value in passages if value['text'].startswith('Same | Value')]
+        self.assertEqual(len(starts), 2)
+        self.assertNotEqual(starts[0], starts[1])
+
+    def test_stable_ids_distinguish_repeated_text_and_change_with_policy_or_provenance(self):
+        topic = passage_topic('<p>No pain.</p>' * 4)
+        baseline = corpus.build_passages(topic, max_code_points=12, overlap_code_points=0)
+        self.assertEqual(baseline, corpus.build_passages(topic, max_code_points=12, overlap_code_points=0))
+        self.assertEqual(len({value['passage_id'] for value in baseline}), 4)
+        other = corpus.build_passages(topic, max_code_points=13, overlap_code_points=0)
+        self.assertNotEqual(baseline[0]['passage_id'], other[0]['passage_id'])
+        changed = dict(topic, source=dict(topic['source'], snapshot_date='2026-11-11'))
+        self.assertNotEqual(baseline[0]['passage_id'], corpus.build_passages(changed, max_code_points=12, overlap_code_points=0)[0]['passage_id'])
+
+    def test_oversized_table_list_item_and_unbreakable_word_fail_explicitly(self):
+        for html in ('<table><tr><td>' + 'Cell ' * 80 + '</td></tr></table>',
+                     '<ul><li>' + 'Item ' * 80 + '</li></ul>', '<p>' + 'x' * 100 + '</p>'):
+            with self.subTest(html=html[:20]), self.assertRaises(corpus.CorpusPreparationError):
+                corpus.build_passages(passage_topic(html), max_code_points=50, overlap_code_points=10)
+
+    def test_invalid_limits_changed_canonical_text_or_cleaner_version_are_rejected(self):
+        topic = passage_topic('<p>Content.</p>')
+        for maximum, overlap in ((0, 0), (10, -1), (10, 10), (10.5, 2), (True, 0)):
+            with self.subTest(maximum=maximum, overlap=overlap), self.assertRaises(corpus.CorpusPreparationError):
+                corpus.build_passages(topic, max_code_points=maximum, overlap_code_points=overlap)
+        changed = dict(topic, cleaned_summary='Changed content.')
+        changed['cleaning'] = dict(topic['cleaning'], text_sha256=hashlib.sha256(b'Changed content.').hexdigest())
+        with self.assertRaisesRegex(corpus.CorpusPreparationError, 'structure|canonical'):
+            corpus.build_passages(changed)
+        changed = dict(topic, cleaning=dict(topic['cleaning'], version='unknown-v99'))
+        with self.assertRaises(corpus.CorpusPreparationError): corpus.build_passages(changed)
+
+
+class PassagePreparationTests(unittest.TestCase):
+    def setUp(self):
+        fixture = ExtractionTests(methodName='test_cli_help_is_available_without_reading_corpus')
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        self.fixture = fixture
+        fixture.extract()
+        self.root = fixture.root
+        self.cleaned_report = corpus.clean_corpus(self.root)
+        self.cleaned_manifest = self.root / corpus.CLEAN_REPORT
+        self.cleaned_artifact = self.root / corpus.CLEAN_OUTPUT
+        self.output = self.root / corpus.PASSAGE_OUTPUT
+        self.report = self.root / corpus.PASSAGE_REPORT
+
+    def test_end_to_end_is_offline_attributable_and_keeps_all_inputs_and_qa_out(self):
+        paths = (self.fixture.snapshot, self.fixture.archive, self.fixture.output,
+                 self.fixture.report, self.cleaned_manifest, self.cleaned_artifact)
+        before = {path: path.read_bytes() for path in paths}
+        qa = self.root / 'docs/rag/corpus-quality-review.md'
+        qa.parent.mkdir(parents=True)
+        qa.write_text('DO NOT INDEX QA QUESTIONS OR ANSWERS', encoding='utf-8')
+        with mock.patch('socket.socket', side_effect=AssertionError('Network access is forbidden')):
+            report = corpus.chunk_corpus(self.root)
+        rows = [json.loads(line) for line in self.output.read_text(encoding='utf-8').splitlines()]
+        self.assertEqual({row['topic_id'] for row in rows}, {'3', '20'})
+        self.assertEqual(report['counts']['topics'], 2)
+        self.assertEqual(report['counts']['passages'], len(rows))
+        self.assertEqual(report['configuration']['max_code_points'], 2500)
+        self.assertEqual(report['configuration']['overlap_code_points'], 300)
+        self.assertEqual(report['artifact']['sha256'], hashlib.sha256(self.output.read_bytes()).hexdigest())
+        self.assertNotIn('DO NOT INDEX', self.output.read_text(encoding='utf-8'))
+        self.assertNotIn('DO NOT INGEST', self.output.read_text(encoding='utf-8'))
+        for path, content in before.items(): self.assertEqual(path.read_bytes(), content)
+
+    def test_repeated_full_preparation_has_identical_passage_bytes_and_corpus_version(self):
+        first = corpus.chunk_corpus(self.root)
+        second = corpus.chunk_corpus(self.root, output='data/knowledge/.cache/corpus/passages-second.jsonl',
+                                     output_manifest='data/knowledge/manifests/passages-second.json')
+        self.assertEqual(self.output.read_bytes(), (self.root / second['artifact']['local_path']).read_bytes())
+        self.assertEqual(first['corpus_version'], second['corpus_version'])
+
+    def test_tampered_cleaned_artifact_or_upstream_manifests_fail_before_outputs(self):
+        for path in (self.cleaned_artifact, self.fixture.snapshot, self.fixture.report):
+            before = path.read_bytes()
+            path.write_bytes(before + b' ')
+            with self.subTest(path=path.name), self.assertRaisesRegex(corpus.CorpusPreparationError, 'checksum|size'):
+                corpus.chunk_corpus(self.root)
+            self.assertFalse(self.output.exists())
+            self.assertFalse(self.report.exists())
+            path.write_bytes(before)
+
+    def test_foreign_fields_or_changed_original_records_fail_even_with_updated_artifact_digest(self):
+        original = self.cleaned_artifact.read_bytes()
+        for change in ('qa_field', 'title', 'duplicate', 'provenance'):
+            rows = [json.loads(line) for line in original.decode('utf-8').splitlines()]
+            if change == 'qa_field': rows[0]['evaluation_answer'] = 'DO NOT INDEX'
+            elif change == 'title': rows[0]['title'] = 'Changed title'
+            elif change == 'duplicate': rows.append(rows[0])
+            else: rows[0]['source']['snapshot_date'] = '1999-01-01'
+            payload = ''.join(json.dumps(row) + '\n' for row in rows).encode('utf-8')
+            self.cleaned_artifact.write_bytes(payload)
+            manifest = dict(self.cleaned_report)
+            manifest['artifact'] = dict(manifest['artifact'], size_bytes=len(payload), sha256=hashlib.sha256(payload).hexdigest())
+            self.cleaned_manifest.write_text(json.dumps(manifest), encoding='utf-8')
+            with self.subTest(change=change), self.assertRaises(corpus.CorpusPreparationError):
+                corpus.chunk_corpus(self.root)
+            self.assertFalse(self.output.exists())
+
+    def test_existing_outputs_and_out_of_scope_paths_are_protected(self):
+        for path in (self.output, self.report):
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b'existing')
+            with self.assertRaises(FileExistsError): corpus.chunk_corpus(self.root)
+            self.assertEqual(path.read_bytes(), b'existing')
+            path.unlink()
+        for kwargs in ({'output': '../outside.jsonl'}, {'output_manifest': 'other.json'},
+                       {'cleaned_manifest': '../outside.json'}):
+            with self.subTest(kwargs=kwargs), self.assertRaises(corpus.CorpusPreparationError):
+                corpus.chunk_corpus(self.root, **kwargs)
+
+    def test_cli_chunk_help_documents_only_the_approved_candidate(self):
+        result = subprocess.run([sys.executable, '-B', str(SCRIPT), 'chunk', '--help'],
+                                text=True, capture_output=True, check=False)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('--cleaned-manifest', result.stdout)
+        self.assertNotIn('--max-code-points', result.stdout)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,8 +1,8 @@
 # Quickstart Validation: Python RAG
 
-**Status**: A-001 completed; the approved A-002 extraction and cleaning increments are
-implemented and verified. Passages and service commands remain future
-work. Run from the repository root. No command here authorizes paid calls or
+**Status**: A-001 and A-002 offline corpus preparation are complete: 401 topics and
+617 candidate passages. Service commands remain future work.
+Run from the repository root. No command here authorizes paid calls or
 implementation beyond the user's approved package.
 
 ## Available now: correct feature selection
@@ -27,9 +27,8 @@ the documentation correction.
 The standard-library script `data/knowledge/scripts/prepare_corpus.py` reads the
 local source ZIP and `data/knowledge/manifests/snapshot.json`. Its first increment extracts the 401
 approved English topic records with summaries and source metadata. The separately
-approved cleaning increment is also implemented, as described below. Passage
-construction remains a later increment; A-002 is not complete. Chunk settings
-are not chosen by this guide.
+approved cleaning and passage increments are also implemented, as described below.
+The approved passage settings are an initial candidate for later measurement.
 
 The extracted artifact is `data/knowledge/.cache/corpus/selected-topics.jsonl`,
 which is Git-ignored. The small provenance/count/checksum record is
@@ -56,13 +55,13 @@ Run the available extraction/cleaning checks:
 python -B -m unittest discover -s data/knowledge/tests -p "test_prepare_corpus.py"
 ```
 
-All 35 current checks passed on Python 3.14.2. They use synthetic XML/ZIP fixtures and
+All 52 current offline checks passed on Python 3.14.2. They use synthetic XML/ZIP fixtures and
 cover faithful Unicode/repeated-text preservation, IDs/language, source integrity,
 excluded content, no network access, output path constraints and overwrite refusal.
 An additional actual-source check compared all 401 extracted summaries and metadata
 to the acquired XML. This does not establish retrieval quality, clinical validity,
-or future service/Python 3.13 compatibility. A-002 remains unchecked until the
-passage increment is implemented and checked.
+or future service/Python 3.13 compatibility. A-002 closes offline preparation
+after the separately approved passage increment and its checks described below.
 
 ## Available now: approved local summary cleaning
 
@@ -90,6 +89,34 @@ repeat run must select fresh owned `--output` and `--output-manifest` paths.
 Use `--extraction-manifest` to select another verified extraction record.
 This command does not create passages or approve chunk settings. Render its
 plain-text field as text, not trusted HTML.
+
+## Available now: approved candidate passages
+
+After the candidate settings and their non-empirical basis were explained, the
+user approved continuing with 2500 code points maximum and optional overlap up
+to 300. The actual command was:
+
+```powershell
+python -B data/knowledge/scripts/prepare_corpus.py chunk
+```
+
+The command verifies the cleaning/extraction/snapshot manifest chain and selected
+topic set, then checks source block positions against the existing canonical
+text. Output text always comes from exact `cleaned_summary[start:end]` slices.
+It creates the Git-ignored `data/knowledge/.cache/corpus/passages.jsonl` and the
+small `data/knowledge/manifests/passages.json`. All upstream files remain unchanged.
+
+Measured result: 401 topics, 617 passages, 14 whole tables, maximum length 2500,
+201 passages with nonzero overlap, maximum overlap 300. All 52 tests and the
+independent actual-output checks passed. See [the policy and limitations](../../docs/rag/chunking.md).
+
+Tables/items exceeding the ceiling and unbreakable words fail explicitly rather
+than silently splitting or truncating. A trailing NIH attribution is grouped
+with its preceding unit when it fits. Default outputs now exist and cannot be
+overwritten. A separately approved repeat run must use fresh owned `--output`
+and `--output-manifest` paths; `--cleaned-manifest` can select another verified
+input. The CLI does not expose alternative size/overlap choices. Approval of
+this candidate does not approve a new corpus configuration or provider activation.
 
 ## Future: service integration after foundation prerequisites
 
@@ -120,7 +147,7 @@ No npm run script is assumed; B must document and verify actual package scripts 
 
 ## Exit and review
 
-[Tasks](tasks.md) provide owner/path/dependency/acceptance details. Only A-001 is
-checked in this backlog; A-002 and all service tasks remain unchecked. Do not
+[Tasks](tasks.md) provide owner/path/dependency/acceptance details. A-001 and A-002
+are checked; A-010 and all service tasks remain unchecked. Do not
 declare the shared foundation ready until the runnable mock flow,
 handoffs, separate-working-copy commands and checkpoint evidence have passed.

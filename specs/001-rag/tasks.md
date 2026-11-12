@@ -2,9 +2,9 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [contract references](contracts/README.md).
-**Owner**: A. **Status**: A-001 source acquisition/provenance is complete. The first
-A-002 extraction and cleaning increments are implemented and checked; A-002 itself
-and all later tasks remain unchecked. Passages and RAG service implementation are incomplete.
+**Owner**: A. **Status**: A-001 source acquisition/provenance and A-002 offline corpus
+preparation are complete. The corpus has 401 topics and 617 checked candidate
+passages. A-010 and all service/retrieval/evaluation tasks remain unchecked.
 **Tests**: Required where the source specifications explicitly require structural, semantic,
 leakage, security or independent module checks. This is not blanket TDD for documentation.
 **Organization**: Setup, foundational, story increments, polish. Every task has one owner
@@ -84,14 +84,15 @@ they are not silently assigned defaults.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T003 [US1] A-002: Prepare the standalone local English corpus and stable attributed passages in `data/knowledge/scripts/prepare_corpus.py`, `data/knowledge/tests/test_prepare_corpus.py`, `data/knowledge/.cache/corpus/**`, `data/knowledge/manifests/prepared-corpus.json`, `data/knowledge/manifests/cleaned-corpus.json`
+- [x] T003 [US1] A-002: Prepare the standalone local English corpus and stable attributed passages in `data/knowledge/scripts/prepare_corpus.py`, `data/knowledge/tests/test_prepare_corpus.py`, `data/knowledge/.cache/corpus/**`, `data/knowledge/manifests/prepared-corpus.json`, `data/knowledge/manifests/cleaned-corpus.json`, `data/knowledge/manifests/passages.json`
   - **Owner / story**: A / US1.
   - **Dependencies**: 001-rag/T001 (A-001)
   - **Acceptance**: Use Python's standard library and the approved local snapshot/selection only. First extract the 401 selected English topic records with full summaries, IDs, titles, URLs, available synonyms, snapshot and attribution into a Git-ignored local artifact; reject missing/duplicate/extra IDs. In later separately approved increments, clean summary markup without fetching links and produce deterministic, versioned passages. Preserve source provenance, record actual counts and artifact checksums, and test stable output, non-BMP/repeated text and exclusion of site records, licensed/outbound content and evaluation QA. This task completes only when extraction, cleaning and passages all pass; extraction alone is a partial increment. Chunk settings require a documented proposal and approval before the passage-building increment.
   - **Boundary**: No HTTP service, frontend, shared schemas/bindings, service dependencies, embeddings, vector store or provider calls. A-010/F-003/F-004/F-014 are not dependencies of this standalone task. No root/shared files are changed; local artifact structure is A-owned and is not an API contract.
-  - **Verify**: `python -B -m unittest discover -s data/knowledge/tests -p "test_prepare_corpus.py"`. The script and test file now exist; the current suite covers extraction and cleaning. Extend it for the later passage increment before closing the whole task.
+  - **Verify**: `python -B -m unittest discover -s data/knowledge/tests -p "test_prepare_corpus.py"`. The script and test file exist; all 52 offline checks cover extraction, cleaning and passages. Actual stage commands have also been run against the approved snapshot.
   - **Partial progress (2026-11-11)**: User-approved extraction implemented and run with `python -B data/knowledge/scripts/prepare_corpus.py extract`. All 19 synthetic/offline tests passed on Python 3.14.2. Actual output contains exactly the approved 401 IDs; an independent comparison matched every summary and extracted metadata field to the acquired XML. See [extraction evidence](../../docs/rag/sources.md#a-002-extraction-increment) and the [prepared manifest](../../data/knowledge/manifests/prepared-corpus.json). Original snapshot/ZIP are unchanged. Cleaning, passage construction, embedding/indexing and service checks were not run; A-002 remains unchecked.
   - **Partial progress (2026-11-12)**: Separately approved cleaning implemented and run with `python -B data/knowledge/scripts/prepare_corpus.py clean`. All 35 offline tests passed on Python 3.14.2. All 401 topics were cleaned into a separate ignored artifact, with 14 tables preserved and four image tags omitted from topic 6681 as explicitly approved; two comments were also omitted. Independent checks confirmed unchanged original fields/inputs, digests and visible non-formatting character order (ignoring whitespace and formatting characters `-`/`|`, not a semantic check). See [cleaning evidence](../../docs/rag/sources.md#a-002-cleaning-increment) and the [cleaning manifest](../../data/knowledge/manifests/cleaned-corpus.json). No passages, providers or service checks; A-002 remains unchecked.
+  - **Completion (2026-11-12)**: After the 2500/300 proposal and its heuristic basis were discussed, the user approved continuing with this initial candidate. `python -B data/knowledge/scripts/prepare_corpus.py chunk` produced 617 passages over all 401 selected topics. All 52 offline tests passed on Python 3.14.2; independent checks verified every passage's exact Unicode slice, stable ID, metadata, limits, forward coverage and unchanged inputs. All 14 tables and 4,947 rendered list lines stay whole; all 14 earlier review excerpts remain contained. Trailing NIH attribution stays with the preceding unit when it fits; zero passages contain only that attribution. See the [policy and measured evidence](../../docs/rag/chunking.md) and [passage manifest](../../data/knowledge/manifests/passages.json). This closes offline preparation only. The candidate has no measured retrieval optimum or tokenizer/model compatibility; service, live-provider and deployment checks were not applicable and were not run.
   - **Coverage**: FR-001, FR-002, FR-003, FR-004, SC-005.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -213,9 +214,9 @@ For D, assignment publication (D-003) precedes member submissions; canonical adj
 
 ## Implementation Strategy
 
-Extraction and cleaning increments are checked. Next propose the owner-local
-A-002 passage increment and obtain approval for chunk settings before implementation.
-Do not close A-002 until passage construction and checks pass. Then preserve
+A-001 and A-002 are checked, including the approved initial passage candidate.
+Next inspect A-010 and its actual F-003/F-004 prerequisites before service work;
+A-003 additionally requires F-014. Preserve
 the story's independent contract/mock scenario before service integration and replace its
 own stub with real behavior and validate source support. Add measured improvements only
 on development data. Optional reranking/extra data/ONNX/ICD must not block the core.
