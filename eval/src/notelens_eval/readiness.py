@@ -16,8 +16,7 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator, FormatChecker
 from notelens_extraction.contracts import SCHEMA_PATH, schema, validate_extraction, validate_generation, validate_schema
-from notelens_extraction.demo import request as demo_answer
-from notelens_extraction.evidence import validate_span, validate_text
+from notelens_extraction.evidence import digest, validate_text
 
 ROOT = Path(__file__).resolve().parents[3]
 OPENAPI_PATH = ROOT / "contracts/v1/openapi.json"
@@ -103,7 +102,7 @@ def inspect_contracts() -> dict:
             "contract_status": "draft-provisional; no freeze implied"}
 
 
-def _validate_fixture(request: dict, expected_input: str, operation: str) -> dict:
+def _validate_fixture(request: dict, expected_input: str) -> dict:
     validate_schema(request, expected_input)
     document = request["document"]
     validate_text(document["text"], document["text_sha256"])
@@ -120,7 +119,8 @@ def _validate_success(payload: dict, document: dict, operation: str) -> None:
 
 def _http_json(base: str, path: str, *, payload: dict | None = None, headers: dict | None = None):
     body = None if payload is None else json.dumps(payload, ensure_ascii=False).encode("utf-8")
-    req = urllib.request.Request(base + path, data=body, headers={"Content-Type": "application/json", **(headers or {})})
+    req = urllib.request.Request(base + path, data=body,
+                                 headers={"Content-Type": "application/json", "Authorization": "Bearer readiness-test-token", **(headers or {})})
     try:
         with urllib.request.urlopen(req, timeout=4) as response:
             return response.status, {k.lower(): v for k, v in response.headers.items()}, json.load(response)
@@ -131,16 +131,15 @@ def _http_json(base: str, path: str, *, payload: dict | None = None, headers: di
 def probe_http() -> dict:
     extract_request = json.loads(FIXTURE_EXTRACT.read_text(encoding="utf-8"))
     answer_request = json.loads(FIXTURE_ANSWER.read_text(encoding="utf-8"))
-    extract_doc = _validate_fixture(extract_request, "ExtractionRequest", "extract")
-    answer_doc = _validate_fixture(answer_request, "DocumentQuestionRequest", "answer")
+    extract_doc = _validate_fixture(extract_request, "ExtractionRequest")
+    answer_doc = _validate_fixture(answer_request, "DocumentQuestionRequest")
     if extract_doc != answer_doc:
         raise ValueError("The D extraction demo request and question must use the same prepared document.")
     document = extract_doc
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
         port = sock.getsockname()[1]
-    env = {**os.environ, "NOTELENS_MODE": "mock"}
-    env.pop("NOTELENS_SERVICE_TOKEN", None)
+    env = {**os.environ, "NOTELENS_MODE": "mock", "NOTELENS_SERVICE_TOKEN": "readiness-test-token"}
     process = subprocess.Popen([sys.executable, "-m", "notelens_extraction.cli", "serve", "--port", str(port)],
                                cwd=ROOT, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     base = f"http://127.0.0.1:{port}"
@@ -193,6 +192,53 @@ def probe_http() -> dict:
         validate_schema(bad, "ErrorEnvelope")
         record("invalid_question_error_envelope", status == 422 and bad["error"]["code"] == "validation_failure"
                and headers.get("x-request-id") == bad["request_id"], "422 safe error envelope and correlation")
+
+        oversized = json.loads(json.dumps(extract_request))
+        oversized["document"]["text"] = "x" * 100_001
+        oversized["document"]["text_sha256"] = digest(oversized["document"]["text"])
+        status, _, bad = _http_json(base, "/v1/extract", payload=oversized)
+        validate_schema(bad, "ErrorEnvelope")
+        record("oversized_text_rejected", status == 413 and bad["error"]["code"] == "validation_failure",
+               "100,001-code-point document rejected without truncation")
+
+        unsupported_language = json.loads(json.dumps(answer_request))
+        unsupported_language["document"]["language"] = "sr"
+        status, _, bad = _http_json(base, "/v1/document-answer", payload=unsupported_language)
+        validate_schema(bad, "ErrorEnvelope")
+        record("unsupported_language_rejected", status == 422 and bad["error"]["code"] == "unsupported_language",
+               "non-English language rejected with the service's explicit error code")
+
+        malformed_request = urllib.request.Request(base + "/v1/extract", data=b"{",
+                                                   headers={"Content-Type": "application/json", "Authorization": "Bearer readiness-test-token"})
+        try:
+            with urllib.request.urlopen(malformed_request, timeout=4) as response:
+                malformed_status, malformed_headers, malformed = response.status, {k.lower(): v for k, v in response.headers.items()}, json.load(response)
+        except urllib.error.HTTPError as exc:
+            malformed_status, malformed_headers, malformed = exc.code, {k.lower(): v for k, v in exc.headers.items()}, json.loads(exc.read())
+        validate_schema(malformed, "ErrorEnvelope")
+        record("malformed_json_rejected", malformed_status == 400 and malformed["error"]["code"] == "validation_failure"
+               and malformed_headers.get("cache-control") == "no-store", "malformed JSON maps to safe 400 error envelope")
+
+        status, auth_headers, auth_error = _http_json(base, "/health", headers={"Authorization": "Bearer wrong-token"})
+        validate_schema(auth_error, "ErrorEnvelope")
+        record("invalid_token_rejected", status == 401 and auth_error["error"]["code"] == "unauthorized"
+               and auth_headers.get("cache-control") == "no-store", "configured test token rejects invalid credentials safely")
+
+        changed_document = json.loads(json.dumps(answer_request))
+        changed_document["document"]["text"] += " Additional synthetic text."
+        status, _, bad = _http_json(base, "/v1/document-answer", payload=changed_document)
+        validate_schema(bad, "ErrorEnvelope")
+        record("stale_digest_pair_rejected", status == 422 and bad["error"]["code"] == "validation_failure",
+               "changed canonical text with original digest is rejected")
+
+        reidentified = json.loads(json.dumps(answer_request))
+        reidentified["document"]["doc_id"] = "readiness-independent-document-id"
+        status, _, answer = _http_json(base, "/v1/document-answer", payload=reidentified)
+        _validate_success(answer, reidentified["document"], "answer")
+        record("opaque_document_id_propagated", status == 200 and answer["sources"]
+               and all(source["doc_id"] == "readiness-independent-document-id" for source in answer["sources"]),
+               "document ID may change independently of text digest and is echoed by document sources")
+
         status, headers, bad = _http_json(base, "/v1/extract", payload=extract_request,
                                            headers={"x-request-id": "bad id with spaces"})
         # The valid request succeeds; an invalid inbound correlation ID is replaced safely.
@@ -201,7 +247,9 @@ def probe_http() -> dict:
                "untrusted request ID replaced by generated correlation ID")
         return {"status": "pass", "mode": "mock", "checks": checks,
                 "contract_status": "draft-provisional", "documents": 1,
-                "request_text_included": False, "provider": "deterministic synthetic fake"}
+                "request_text_included": False, "provider": "deterministic synthetic fake",
+                "known_contract_questions": ["Confirm whether top-level AnswerResult should echo document ID/hash; current results carry document identity through document sources only."],
+                "observed_provisional_behavior": {"unsupported_language": "422 unsupported_language"}}
     finally:
         process.terminate()
         process.wait(timeout=10)

@@ -154,6 +154,27 @@ def test_source_free_invented_medical_text_cannot_pass_as_insufficient():
     assert failure.value.status == 502
 
 
+def test_answer_with_claim_but_no_source_is_rejected():
+    payload = request("What does the document say about chest pain?")
+    answer = json.loads(FakeProvider().generate("answer", payload, "", repair=False))
+    answer["sources"] = []
+    with pytest.raises(ServiceError) as failure:
+        run(payload, "answer", Scripted([json.dumps(answer)] * 2))
+    assert failure.value.status == 502
+
+
+def test_http_validation_does_not_log_or_echo_submitted_document(caplog):
+    marker = "PRIVATE_SYNTHETIC_LOG_SENTINEL_68d43"
+    payload = request()
+    payload["document"]["text"] += " " + marker
+    payload["document"]["text_sha256"] = digest(payload["document"]["text"])
+    payload["document"]["language"] = "sr"
+    response = TestClient(create_app()).post("/v1/extract", json=payload)
+    assert response.status_code == 422
+    assert marker not in response.text
+    assert marker not in caplog.text
+
+
 def test_health_does_not_invoke_generation():
     provider = Scripted([])
     client = TestClient(create_app(provider))

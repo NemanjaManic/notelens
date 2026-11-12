@@ -25,18 +25,26 @@ service. It writes the detailed machine-readable result to the ignored
   schema file.
 - The extraction request and question fixtures have the same prepared document ID,
   canonical text and digest and both pass their draft request schemas.
-- The local service passed 8 HTTP checks: health/schema/mock mode; no-store and draft
+- The local service passed 14 HTTP checks: health/schema/mock mode; no-store and draft
   headers; extraction schema, document identity and exact evidence; document-answer
   schema and source identity; generation diagnostics; correlation IDs; safe 422 error
-  envelope; and replacement of a malformed incoming correlation ID.
+  envelope; oversized text rejection; unsupported language; malformed JSON; invalid
+  configured token; changed text with stale digest; and opaque document ID propagation.
 - `python -m pytest eval/tests -q`: 25 passed.
-- `python -m pytest services/extraction/tests -q`: 40 passed, one existing
+- `python -m pytest services/extraction/tests -q`: 42 passed, one existing
   Starlette/httpx deprecation warning.
 - `git diff --check`: passed.
 
 The local check confirms D's mock transport conforms to the currently available
 provisional schema for these fixtures. It does not prove general semantic support,
 production readiness or agreement by B/A/C.
+
+The negative cases also confirm that `doc_id` is an opaque identifier independent of
+the text SHA-256: a replacement ID with unchanged text is accepted and echoed in
+document sources; changed text with the old digest is rejected. Non-English text
+returns the service-specific `unsupported_language` code; malformed JSON, invalid
+question, oversized text and invalid configured credentials use draft error codes.
+These mappings still require B's contract review.
 
 ## Findings and open integration items
 

@@ -25,7 +25,10 @@ def test_versioned_demo_requests_match_the_draft_contract(fixture, schema_name):
 def test_http_readiness_exercises_demos_errors_and_safe_headers():
     report = probe_http()
     assert report["status"] == "pass"
-    assert len(report["checks"]) == 8
+    names = {item["check"] for item in report["checks"]}
+    assert len(names) == len(report["checks"])
+    assert {"oversized_text_rejected", "unsupported_language_rejected", "malformed_json_rejected",
+            "invalid_token_rejected", "stale_digest_pair_rejected", "opaque_document_id_propagated"} <= names
     assert all(item["status"] == "pass" for item in report["checks"])
     assert report["request_text_included"] is False
 

@@ -27,6 +27,8 @@ No third-party text, credentials or real personal data were added.
   `smoke` profile remains available. Optional prediction-file rescoring still works.
 - [Regression tests](../../eval/tests/test_synthetic_suite.py): malformed references,
   isolation of labels from generation, technical errors, wrong-topic answers and CLI reproducibility.
+- [Per-case failure review](synthetic-failure-review-v1.md): concise category counts and
+  observed failure classes for each of the 24 documents from the recorded mock run.
 
 From the repository root in PowerShell, using the existing evaluation environment:
 
