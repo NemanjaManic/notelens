@@ -1,8 +1,10 @@
 # Frozen Contract and Binding Handoff
 
 **Prepared:** 2026-11-13. **Coordinator:** B.
-**Local result:** F-003/F-009 completed and checked. **Publication:** pending separate
-commit/push authorization on member-b/task-contract-freeze-bindings; no published hash is invented.
+**Result:** F-003/F-009 completed and checked. **Publication:** committed and pushed
+with explicit user authorization to member-b/task-contract-freeze-bindings.
+**Verified package commit:** [`aabbfc7844a8092194b4ab1cae561563e83ae13d`](https://github.com/NemanjaManic/notelens/commit/aabbfc7844a8092194b4ab1cae561563e83ae13d).
+This publishes the contract/binding prerequisites; F-004/F-014 remain incomplete.
 
 All human approvals are recorded in [the decision](../decisions/contract-freeze.md).
 Wire/schema version is 1.0.0; canonical sources are contracts/v1/schema.json and openapi.json,
@@ -15,7 +17,7 @@ TypeScript imports **@notelens/contracts/v1** from contracts/generated/typescrip
 package versions are 1.0.0. B owns root/workspace configuration; each Python service owner
 declares the local package and generates its own lockfile. No service files were edited.
 
-## Exact next owner contributions after publication
+## Exact next owner contributions from the published package
 
 | Owner | F-004 contribution |
 | --- | --- |
@@ -58,4 +60,5 @@ The official resolver returned the foundation documents. The requirements checkl
 16 checked items and zero unchecked; no pre/post extension hooks existed. Existing ignore
 rules cover environments, generated caches and dependency directories. No templates were
 generated, no global configuration changed, and no repository-wide formatter was run.
-The local scope is recorded/checkable; publication remains a separate authorized action.
+The package publication was separately authorized by the user and its remote commit was verified.
+No main merge, service migration, paid activation or F-014 completion is implied.

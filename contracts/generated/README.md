@@ -90,5 +90,6 @@ ajv-formats 3.0.1, TypeScript 7.0.2, Hatchling build backend 1.33.0, jsonschema 
   Both npm locks passed offline ci. No registry publication was performed.
 
 No HTTP, model, provider, web application build, real submitted-input pipeline or semantic
-medical-quality checks ran. This does not complete F-004/F-014. Publication of this new
-freeze/binding branch needs separate commit/push authorization.
+medical-quality checks ran. This does not complete F-004/F-014. The user separately
+authorized publication: the checked package is published at [aabbfc7844a8092194b4ab1cae561563e83ae13d](https://github.com/NemanjaManic/notelens/commit/aabbfc7844a8092194b4ab1cae561563e83ae13d)
+on member-b/task-contract-freeze-bindings. See the [owner handoff](../../docs/team/frozen-contracts-handoff.md).
