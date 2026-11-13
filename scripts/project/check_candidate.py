@@ -261,7 +261,7 @@ def validate_exchange(case, contracts):
 
 
 def check_transport(contracts):
-    catalog = read_json(contracts.directory / "transport-cases.json")
+    catalog = read_json((contracts.directory / "fixtures/transport-cases.json" if (contracts.directory / "fixtures/transport-cases.json").exists() else contracts.directory / "transport-cases.json"))
     if not isinstance(catalog, dict) or set(catalog) != {"cases"} or not catalog["cases"]:
         raise CheckError("TRANSPORT_CATALOG: expected nonempty case list")
     counts = Counter(case["id"] for case in catalog["cases"])
@@ -287,6 +287,9 @@ def verify_candidate():
 
 
 def main(argv=None):
+    if (ROOT / "contracts/v1/freeze.json").exists():
+        print("HISTORICAL_CANDIDATE: use pinned commit 92626f5 for review reproduction; validate canonical v1 with check_contracts.py --require-freeze")
+        return 1
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--require-freeze", action="store_true")
     args = parser.parse_args(argv)

@@ -521,6 +521,9 @@ def assets():
 
 
 def main(argv=None):
+    if (ROOT / "contracts/v1/freeze.json").exists():
+        print("HISTORICAL_CANDIDATE: use pinned commit 92626f5 for candidate regeneration; current canonical bindings use generate_contracts.py")
+        return 1
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check",action="store_true",help="verify reproducibility without writing")
     args=parser.parse_args(argv)

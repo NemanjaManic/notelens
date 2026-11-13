@@ -35,5 +35,10 @@
         "quote": "The patient's mother had diabetes in 2018."
       }
     }
+  },
+  "planned-procedure": {
+    "attributes": {
+      "/procedure_status": "planned"
+    }
   }
 }

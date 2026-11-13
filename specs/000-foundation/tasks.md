@@ -18,9 +18,9 @@ start now; business prerequisites and unchecked implementation tasks remain unch
 
 No task is marked [P]: dependencies or shared files make an unconditional parallel claim
 unwarranted. Different workstreams can progress independently after the shared base.
-Foundation F-001/F-002 and F-008 are checked, reflecting recorded documentation/tooling
-and offline contract-fixture work. F-008 does not freeze contracts or complete a runtime
-foundation. Writing plans/mocks does not close a business task.
+Foundation F-001/F-002/F-008 and F-003/F-009 are checked, reflecting recorded
+documentation/tooling, the user-confirmed contract freeze and generated-binding checks.
+The runnable mock foundation and its publication remain incomplete. Writing plans/mocks does not close a business task.
 
 ## Path Conventions and Command Availability
 
@@ -34,7 +34,7 @@ create the dependencies and listed files; each command must actually pass before
 project; do not replace it with --project while leaving relative test paths at the repo root.
 
 Contract constraints apply verbatim: evidence is a half-open Unicode code-point
-[start,end) interval with an exact canonical quote; assertion is confirmed|suspected|negated,
+[start,end) interval with an exact canonical quote; assertion is confirmed|suspected|negated|unknown,
 temporality is current|historical|unknown, subject is patient|family|other|unknown.
 Approved PDF/text/retention limits are 2,097,152 bytes, 100,000 code points and at most
 60 minutes. Model scores/retrieval scores are not clinical confidence.
@@ -74,19 +74,21 @@ they are not silently assigned defaults.
   - **Completion evidence (2026-11-11)**: [Tooling/workflow record](../../scripts/project/README.md): 90/90 fixture outcomes (38 positive, 52 negative), 29 regression tests passing, locked/offline execution. `--require-freeze` fails with FREEZE_PENDING as expected. No schema changes, owner agreement, HTTP/business-module checks, or live-provider/deployment requirement; F-003 and later tasks remain open.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T004 F-003: Collect A/C/D feedback and record the reviewed contracts/v1 freeze in `contracts/v1/**`, `docs/decisions/contract-freeze.md`
+- [x] T004 F-003: Collect A/C/D feedback and record the reviewed contracts/v1 freeze in `contracts/v1/**`, `docs/decisions/contract-freeze.md`
   - **Owner / story**: B / US2.
   - **Dependencies**: 000-foundation/T003 (F-008)
   - **Acceptance**: B records all owner proposals/agreement, schema version, enums/canonicalization and fixture checks. Draft files alone do not satisfy this task.
   - **Verify**: `uv run --directory scripts/project python check_contracts.py --require-freeze`.
+  - **Completion evidence (2026-11-13)**: [Owner freeze](../../docs/decisions/contract-freeze.md) records user-confirmed approvals for Nemanja (A), B, Sara (C), Milica (D) of p2-rc1 revision 3. Canonical metadata promotion preserves all approved definitions/operations. Actual checks: 155/155 fixture outcomes, 22/22 simulated exchanges and recorded digest/owner consistency. No runnable foundation or publication completion is implied.
   - **Coverage**: FR-003, FR-004, FR-005, FR-006, FR-007, FR-008, FR-009, FR-016.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T005 F-009: Generate shared Python and TypeScript bindings from the one schema in `contracts/generated/**`, `scripts/project/generate_contracts.py`, `contracts/v1/**`
+- [x] T005 F-009: Generate shared Python and TypeScript bindings from the one schema in `contracts/generated/**`, `scripts/project/generate_contracts.py`, `contracts/v1/**`
   - **Owner / story**: B / US2.
   - **Dependencies**: 000-foundation/T004 (F-003)
   - **Acceptance**: Regeneration produces no diff; both languages validate the same fixtures; no competing handwritten schema.
   - **Verify**: `uv run --directory scripts/project python generate_contracts.py --check`.
+  - **Completion evidence (2026-11-13)**: [Generated binding guide](../../contracts/generated/README.md): reproducible Python/TypeScript packages for all 29 definitions; each runtime passed the same 153/153 wire payloads and 22/22 correlation cases, native non-finite/strict-JSON checks; installed imports, TypeScript consumer compile and Python wheel build passed. Canonical suite: 57 tests. Two schema/API-tooling cases stay in the 155-case canonical checker. No HTTP/model/web-framework build or F-014 claim.
   - **Coverage**: FR-003, FR-004, FR-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 

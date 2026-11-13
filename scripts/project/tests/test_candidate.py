@@ -16,35 +16,37 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import build_candidate as build
 import check_candidate as candidate
 import check_contracts as p1
+from frozen_contracts import FrozenContracts
+import generate_contracts as generation
 
 
 class CandidateTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.contracts=candidate.CandidateContracts()
+        cls.contracts=FrozenContracts()
         cls.cases,cls.payloads,cls.documents,cls.references=p1.load_suite(cls.contracts)
 
     def test_regeneration_matches_reviewed_files(self):
-        candidate.verify_candidate()
-        for name,data in build.assets().items():
-            self.assertEqual((build.CANDIDATE/name).read_bytes(),data,name)
+        with redirect_stdout(io.StringIO()):
+            self.assertEqual(generation.main(['--check']),0)
 
     def test_candidate_suite_and_correlation_outcomes(self):
         self.assertEqual(p1.run_suite(self.contracts)[2],[])
         self.assertEqual(candidate.check_transport(self.contracts)[1],[])
 
-    def test_p1_still_passes_unchanged(self):
-        self.assertEqual(p1.run_suite(p1.Contracts())[2],[])
+    def test_p1_historical_inputs_are_preserved(self):
         manifest=p1.read_json(build.CANDIDATE/'candidate.json')
         for name,digest in manifest['p1_files'].items():
-            self.assertEqual(hashlib.sha256((p1.ROOT/name).read_bytes()).hexdigest(),digest,name)
+            archived=name.replace('contracts/v1/','contracts/history/p1/')
+            self.assertEqual(hashlib.sha256((p1.ROOT/archived).read_bytes()).hexdigest(),digest,name)
+        approved=p1.read_json(build.CANDIDATE/'schema.json')
+        self.assertEqual(self.contracts.schema['$defs'],approved['$defs'])
 
-    def test_no_freeze_even_when_candidate_passes(self):
-        output=io.StringIO()
-        with redirect_stdout(output):
-            self.assertEqual(candidate.main(['--require-freeze']),1)
-        self.assertIn('CANDIDATE_NOT_CANONICAL',output.getvalue())
-        self.assertFalse((p1.ROOT/'contracts/v1/freeze.json').exists())
+    def test_real_freeze_records_confirmed_owner_approvals(self):
+        p1.require_freeze(self.contracts)
+        record=p1.read_json(p1.ROOT/'contracts/v1/freeze.json')
+        self.assertEqual({item['member'] for item in record['approvals']},set('ABCD'))
+        self.assertTrue(all(item['decision']=='approved' for item in record['approvals']))
 
     def test_unknown_assertion_and_procedure_plan_are_separate(self):
         self.assertEqual(self.contracts.validate(self.payloads['extraction-unknown-assertion'],'ExtractionItem',self.documents['offset']),[])
@@ -196,17 +198,18 @@ class CandidateTests(unittest.TestCase):
         case=deepcopy(case);case['status']=200
         self.assertEqual(candidate.validate_exchange(case,self.contracts),['INVALID_REQUEST_SUCCESS'])
 
-    def test_candidate_drift_is_rejected(self):
-        original=build.assets
+    def test_generated_binding_drift_is_rejected(self):
+        original=generation.assets
         def altered():
-            values=original();values['schema.json']+=b'\n';return values
-        with patch.object(build,'assets',side_effect=altered):
-            with self.assertRaisesRegex(p1.CheckError,'CANDIDATE_DRIFT'):
-                candidate.verify_candidate()
+            values=original();values['contracts/generated/python/src/notelens_contracts/v1.py']+=b'\n';return values
+        output=io.StringIO()
+        with patch.object(generation,'assets',side_effect=altered),redirect_stdout(output):
+            self.assertEqual(generation.main(['--check']),1)
+        self.assertIn('GENERATION_DRIFT',output.getvalue())
 
     def test_validator_runs_outside_repository(self):
         with tempfile.TemporaryDirectory() as directory:
-            result=subprocess.run([sys.executable,str(p1.ROOT/'scripts/project/check_candidate.py')],cwd=directory,capture_output=True,text=True,check=False)
+            result=subprocess.run([sys.executable,str(p1.ROOT/'scripts/project/check_contracts.py')],cwd=directory,capture_output=True,text=True,check=False)
         self.assertEqual(result.returncode,0,result.stdout)
         self.assertNotIn('Traceback',result.stderr)
 

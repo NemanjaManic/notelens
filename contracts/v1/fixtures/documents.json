@@ -9,7 +9,13 @@
       "kind": "synthetic_text",
       "name": "Synthetic contract fixture"
     },
-    "language": "en"
+    "language": "en",
+    "language_validation": {
+      "outcome": "accepted",
+      "language": "en",
+      "policy_version": "fixture-language-policy-v0",
+      "reason": null
+    }
   },
   "history": {
     "schema_version": "1.0.0",
@@ -21,6 +27,120 @@
       "kind": "synthetic_text",
       "name": "Synthetic contract fixture"
     },
-    "language": "en"
+    "language": "en",
+    "language_validation": {
+      "outcome": "accepted",
+      "language": "en",
+      "policy_version": "fixture-language-policy-v0",
+      "reason": null
+    }
+  },
+  "procedure": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-procedure",
+    "text": "Colonoscopy is planned for next week.",
+    "text_sha256": "12370bb156d81bb231cd54fdca47563314f62ec6597ec45dbc9350c4452d4a09",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en",
+    "language_validation": {
+      "outcome": "accepted",
+      "language": "en",
+      "policy_version": "fixture-language-policy-v0",
+      "reason": null
+    }
+  },
+  "procedure-ordered": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-procedure-ordered",
+    "text": "Procedure mention: Colonoscopy. Recorded procedure status: ordered.",
+    "text_sha256": "5e0f1fa45f0be6f3064ed822e2f0d154ab02d255b9495a58c625c7776773c2ac",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en",
+    "language_validation": {
+      "outcome": "accepted",
+      "language": "en",
+      "policy_version": "fixture-language-policy-v0",
+      "reason": null
+    }
+  },
+  "procedure-performed": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-procedure-performed",
+    "text": "Procedure mention: Colonoscopy. Recorded procedure status: performed.",
+    "text_sha256": "5d0e4339e691484e59ddee26372180d197cee65e8523accb81baa1a51824e323",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en",
+    "language_validation": {
+      "outcome": "accepted",
+      "language": "en",
+      "policy_version": "fixture-language-policy-v0",
+      "reason": null
+    }
+  },
+  "procedure-cancelled": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-procedure-cancelled",
+    "text": "Procedure mention: Colonoscopy. Recorded procedure status: cancelled.",
+    "text_sha256": "7e6440d95f84b39714c882a8abf7df2c6096a6726ab4b03c079a118ebc58f3c0",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en",
+    "language_validation": {
+      "outcome": "accepted",
+      "language": "en",
+      "policy_version": "fixture-language-policy-v0",
+      "reason": null
+    }
+  },
+  "procedure-hypothetical": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-procedure-hypothetical",
+    "text": "Procedure mention: Colonoscopy. Recorded procedure status: hypothetical.",
+    "text_sha256": "68ff183de9b410178e29b27e1de5f69d96baf91a4b3e7be7d853aba6e7eb3dd5",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en",
+    "language_validation": {
+      "outcome": "accepted",
+      "language": "en",
+      "policy_version": "fixture-language-policy-v0",
+      "reason": null
+    }
+  },
+  "procedure-unknown": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-procedure-unknown",
+    "text": "Procedure mention: Colonoscopy. Recorded procedure status: unknown.",
+    "text_sha256": "c11ecc1886dd99cd29e92dfc53a3bfdedacc2afecb37a966a64e24b5b200c796",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en",
+    "language_validation": {
+      "outcome": "accepted",
+      "language": "en",
+      "policy_version": "fixture-language-policy-v0",
+      "reason": null
+    }
   }
 }

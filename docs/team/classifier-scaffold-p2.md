@@ -1,3 +1,18 @@
+# Current classifier handoff after F-003/F-009
+
+Human owner confirmations are recorded and canonical v1.0.0 is frozen. The shared
+Python package now exists at contracts/generated/python and exports TypedDicts and
+validate_json/validate_record/validate_exchange from notelens_contracts.v1. These are
+not Pydantic BaseModel classes; use explicit runtime validation at the HTTP boundary.
+See [the checked binding guide](../../contracts/generated/README.md) and
+[the current handoff](frozen-contracts-handoff.md). C (Sara) owns the next mock scaffold
+contribution after this checked package is published; B has edited no classifier files.
+C-009 still requires completed F-004; C-002 retains its reviewed published F-014 gate.
+
+The original approved scaffold requirements below remain historical design details.
+Their earlier pending-freeze/package statements are superseded by this current section;
+the service implementation commands below are still planned and have not been run by B.
+
 # Classifier Scaffold Brief: P2 RC1
 
 **Prepared:** 2026-11-12. **Coordinator:** B. **Implementation owner:** C.

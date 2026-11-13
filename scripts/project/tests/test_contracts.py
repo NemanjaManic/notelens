@@ -19,12 +19,13 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import check_contracts as checks
+from frozen_contracts import FrozenContracts
 
 
 class ContractTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.contracts = checks.Contracts()
+        cls.contracts = FrozenContracts()
         cls.cases, cls.payloads, cls.documents, cls.references = checks.load_suite(cls.contracts)
         cache = checks.ROOT / ".cache/contract-tests"
         cache.mkdir(parents=True, exist_ok=True)
@@ -35,7 +36,8 @@ class ContractTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         shutil.copytree(checks.ROOT / "contracts/v1", self.root / "contracts/v1")
-        self.copy = checks.Contracts(self.root)
+        self.copy = FrozenContracts(self.root)
+        (self.root / "contracts/v1/freeze.json").unlink(missing_ok=True)
 
     def save(self, relative, value):
         path = self.root / relative
@@ -216,7 +218,7 @@ class ContractTests(unittest.TestCase):
     def test_synthetic_freeze_record_consistency(self):
         self.synthetic_freeze()
         checks.require_freeze(self.copy)
-        self.assertFalse((checks.ROOT / "contracts/v1/freeze.json").exists())
+        self.assertTrue((checks.ROOT / "contracts/v1/freeze.json").exists())
 
     def test_freeze_rejects_missing_duplicate_and_pending_owner(self):
         for mutation in ("missing", "duplicate", "pending", "date", "version"):
@@ -254,7 +256,7 @@ class ContractTests(unittest.TestCase):
 
     def test_guarded_cli_fails_without_leaking_payload(self):
         output = io.StringIO()
-        with redirect_stdout(output):
+        with patch.object(checks, "canonical_contracts", return_value=self.copy), redirect_stdout(output):
             code = checks.main(["--require-freeze"])
         self.assertEqual(code, 1)
         self.assertIn("FREEZE_PENDING", output.getvalue())
@@ -263,7 +265,7 @@ class ContractTests(unittest.TestCase):
 
     def test_failure_diagnostics_omit_third_party_exception_details(self):
         output = io.StringIO()
-        with patch.object(checks, "Contracts", side_effect=RuntimeError("sensitive request body")), redirect_stdout(output):
+        with patch.object(checks, "canonical_contracts", side_effect=RuntimeError("sensitive request body")), redirect_stdout(output):
             self.assertEqual(checks.main([]), 1)
         self.assertIn("CHECK_INFRASTRUCTURE", output.getvalue())
         self.assertNotIn("sensitive", output.getvalue())

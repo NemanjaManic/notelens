@@ -1,3 +1,5 @@
+> **Historical context:** This historical P2 proposal is superseded by the accepted revision-3 canonical freeze in docs/decisions/contract-freeze.md. Live activation decisions remain gated; current consumers use contracts/v1 and the generated packages.
+
 # P2 Contract Decision Proposal
 
 **Prepared**: 2026-11-12. **Maintainer**: B. **Status**: proposal for affected-owner review.

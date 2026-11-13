@@ -1,3 +1,13 @@
+# Current canonical workflow: F-003/F-009
+
+The accepted revision-3 protocol is now frozen in contracts/v1. Use
+`check_contracts.py --require-freeze` and `generate_contracts.py --check` through this
+locked environment. See [generated package usage and actual checks](../../contracts/generated/README.md)
+and [the owner handoff](../../docs/team/frozen-contracts-handoff.md).
+The F-008 history below records the earlier P1 tooling checkpoint; its 90-case/draft
+freeze statements are historical, not current canonical status. Candidate generation
+is historical and requires pinned checkout 92626f5. No runnable foundation is claimed.
+
 # Member B Project Checks
 
 **Package**: F-008 only. **Recorded**: 2026-11-11. **Owner**: B.

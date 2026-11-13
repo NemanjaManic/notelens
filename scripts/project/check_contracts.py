@@ -462,13 +462,18 @@ def require_freeze(contracts: Contracts):
             raise CheckError("FREEZE_EVIDENCE: owner decision section does not resolve")
 
 
+def canonical_contracts():
+    from frozen_contracts import FrozenContracts
+    return FrozenContracts()
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--require-freeze", action="store_true", help="also require recorded owner agreement")
     args = parser.parse_args(argv)
     try:
         with offline():
-            contracts = Contracts()
+            contracts = canonical_contracts()
             total, positives, failures = run_suite(contracts)
             for case_id, actual, expected in failures:
                 describe = lambda issues: ",".join(item.rule + "@" + (item.path or "/") for item in issues) or "valid"
@@ -479,9 +484,14 @@ def main(argv=None) -> int:
             print(f"PASS: schema/OpenAPI and {total}/{total} fixture outcomes ({positives} positive, {total-positives} negative)")
             if args.require_freeze:
                 require_freeze(contracts)
+                from check_candidate import check_transport
+                count, failures = check_transport(contracts)
+                if failures:
+                    raise CheckError("TRANSPORT: correlation outcome mismatch")
+                print(f"PASS: {count} simulated correlation outcomes; no HTTP server called")
                 print("PASS: recorded freeze consistency; human consent must still be reviewed")
             else:
-                print("DRAFT: owner agreement/freeze not asserted; no HTTP, model, or clinical evaluation")
+                print("CHECKED: payloads only; use --require-freeze for recorded owner/digest consistency; no HTTP/model evaluation")
     except CheckError as error:
         print("FAIL: " + str(error))
         return 1
@@ -492,4 +502,6 @@ def main(argv=None) -> int:
 
 
 if __name__ == "__main__":
+    # Canonical validators import this shared module; preserve exception/Issue identity.
+    sys.modules["check_contracts"] = sys.modules[__name__]
     sys.exit(main())

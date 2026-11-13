@@ -1,3 +1,5 @@
+> **Historical context:** This is the historical P1 interface review and its worked examples. Current canonical contracts are frozen v1.0.0; use contracts/v1/README.md, contracts/generated/README.md and docs/team/frozen-contracts-handoff.md. Do not implement these old example shapes as current contracts.
+
 # Member B Interface Review
 
 **Prepared**: 2026-11-11. **Owner**: B. **Status**: documentation for team review.
