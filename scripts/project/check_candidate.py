@@ -6,6 +6,7 @@ import argparse
 from collections import Counter
 import hashlib
 import json
+import math
 from pathlib import Path
 import sys
 from uuid import UUID
@@ -57,8 +58,30 @@ class CandidateContracts(Contracts):
                 raise CheckError("HEALTH_BINDING: missing health operation") from None
             if output != {"$ref": "./schema.json#/$defs/" + definition}:
                 raise CheckError("HEALTH_BINDING: wrong health record")
+            auth = api["paths"][path]["get"]["responses"].get("401", {})
+            if auth.get("content", {}).get("application/json", {}).get("schema") != {"$ref": "./schema.json#/$defs/ErrorEnvelope"}:
+                raise CheckError("HEALTH_AUTH_BINDING: missing health authentication envelope")
+            for name, schema in [("X-Request-ID", {"$ref": "./schema.json#/$defs/RequestId"}), ("WWW-Authenticate", {"const": "Bearer"})]:
+                header = auth.get("headers", {}).get(name, {})
+                if not header.get("required") or header.get("schema") != schema:
+                    raise CheckError("HEALTH_AUTH_BINDING: missing diagnostic ID or authentication challenge")
 
     def validate(self, payload, definition, document=None, reference=None):
+        # JSON syntax excludes these values; direct Python model results need the same guard.
+        finite_issues = []
+        def finite_numbers(value, path=""):
+            if isinstance(value, float) and not math.isfinite(value):
+                finite_issues.append(Issue("NUMBER_FINITE", path))
+            elif isinstance(value, dict):
+                for key, child in value.items():
+                    token = str(key).replace("~", "~0").replace("/", "~1")
+                    finite_numbers(child, path + "/" + token)
+            elif isinstance(value, list):
+                for index, child in enumerate(value):
+                    finite_numbers(child, path + f"/{index}")
+        finite_numbers(payload)
+        if finite_issues:
+            return sorted(set(finite_issues))
         issues = super().validate(payload, definition, document, reference)
         if issues:
             return issues
@@ -188,6 +211,23 @@ def validate_exchange(case, contracts):
     outgoing = request_id(case["response_headers"])
     if outgoing is None:
         return ["RESPONSE_ID"]
+    # Health fixtures cover authentication errors; business-header admission does not apply.
+    if case.get("path") in {"/health/live", "/health/ready"}:
+        if case["status"] != 401:
+            return ["HEALTH_AUTH_STATUS"]
+        challenges = [value for name, value in case["response_headers"] if name.lower() == "www-authenticate"]
+        if challenges != ["Bearer"]:
+            return ["AUTH_CHALLENGE"]
+        body = case["body"]
+        if contracts.validate(body, "ErrorEnvelope"):
+            return ["ERROR_ENVELOPE"]
+        if body["request_id"] != outgoing:
+            return ["ERROR_CORRELATION"]
+        if body["error"]["code"] != "unauthorized" or body["error"]["retryable"]:
+            return ["HEALTH_AUTH_ERROR"]
+        if any(name.lower() == "x-request-id" and value == outgoing for name, value in case["request_headers"]):
+            return ["HEALTH_AUTH_ID_REUSED"]
+        return [] if case["disposition"] == "failed_call" else ["CALL_DISPOSITION"]
     if incoming is None:
         if case["status"] == 200:
             return ["INVALID_REQUEST_SUCCESS"]

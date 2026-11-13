@@ -2,6 +2,7 @@
 
 **Prepared:** 2026-11-12. **Owner:** B. **Candidate ID:** `p2-rc1`.
 **Proposed wire version:** `1.0.0`. **Status:** awaiting actual owner review.
+**Current revision:** 2, prepared 2026-11-13 in response to C's artifact review.
 
 Start here for the final artifact review. The generated `schema.json`, `openapi.json`,
 fixtures, and simulated correlation cases are concrete proposals. They are **not** a
@@ -9,6 +10,48 @@ second accepted contract: [P1](../../v1/README.md) remains unchanged and canonic
 No application/service should switch to this candidate until it is approved and promoted.
 F-003, F-009, F-004 and F-014 remain open. No bindings, mock services, providers or
 deployment are delivered by this package.
+
+## Revision 2: C artifact-review corrections
+
+This revision supersedes commit `4ad602712bb23df6077cb252e1dd18b8cf8b9288` and manifest
+`45a74a22a2ccb3f581edc74acc212f0cc94f54f9de1590b6bdd541013b84f0b5` for further review.
+The candidate ID and proposed wire version remain unchanged; revision and byte hashes
+identify the new review target. The old commit preserves revision 1 exactly.
+
+- Direct Python validation rejects NaN and both infinities with NUMBER_FINITE and the
+  exact field path, before schema comparisons. The guard applies to all floating-point
+  numbers, including standalone scores and nested results. Strict JSON parsing remains
+  unchanged. Runtime checks in future F-009 bindings and C's service must preserve this
+  rule before serialization; passing JSON-only fixtures is insufficient.
+- Both health GETs declare 401 ErrorEnvelope, code unauthorized, retryable false,
+  WWW-Authenticate: Bearer, and a fresh server-generated canonical UUID in both response
+  X-Request-ID and body request_id. Incoming health IDs are optional and ignored, even
+  when malformed/duplicated; they neither cause 400 nor get echoed. Health 200/503 bodies
+  remain LivenessResult/HealthResult without required IDs. Business POST rules are unchanged.
+- The outside-repository test uses its own temporary working directory and requires no
+  pre-existing .cache directory.
+
+Read the byte-preserved [C artifact review](reviews/member-c-p2-rc1-artifact-review.md)
+and [B's point-by-point response](reviews/member-b-response-to-c-rc1.md). C's reviewer was
+a coding agent; human confirmation was explicitly pending. Support for revision 1 does
+not approve these revised bytes. A/C/D must review the current revision before F-003.
+
+### Revision-2 verification: 2026-11-13
+
+Executed in PowerShell with the unchanged locked Python 3.13.7 environment, uv 0.13.7
+and Node.js v24.22.1. The commands in the next section passed: regeneration check,
+139/139 payload outcomes (63 positive/76 negative), 22/22 simulated correlation outcomes,
+and 51 unittest tests. No HTTP server was called. The new native-number and health-auth
+regression tests were first observed failing before the fixes.
+
+The same 51-test suite also passed in a fresh temporary review copy containing the
+manifest-listed files, with no .cache directory present at startup. It reused the locked
+interpreter/dependencies; this was not a new installation. The incoming C review was
+byte-compared with the supplied source. All P1 files, original tooling/tests/lock and
+foundation task markers are unchanged. The scoped speckit-implement resolver selected
+specs/000-foundation, its requirements checklist passed 16/16, and no extension hooks
+were registered. These checks do not provide HTTP, generated-binding, live-model or
+human-acceptance evidence. The earlier checkpoint below describes revision 1.
 
 ## Reproduce and check on Windows
 
@@ -33,7 +76,8 @@ after an intentional revision, omit `--check`, then recheck and obtain review of
 new manifest hash. Do not edit generated JSON to make a test pass.
 
 `candidate.json` fingerprints P1 inputs, generated assets, review documentation, checker,
-builder, tests, and the two supplied C responses. Give reviewers the candidate ID and
+builder, tests, archived reviews and B's response. Give reviewers the candidate ID,
+revision and
 SHA256 of that manifest. Approval of an older hash is not approval of revised bytes.
 `check_candidate.py --require-freeze` must fail with `CANDIDATE_NOT_CANONICAL` even when
 all checks pass. It cannot manufacture an F-003 freeze or owner consent.
@@ -156,11 +200,13 @@ that response as a failed call, never a successful correlated classification. A 
 response ID for a valid incoming ID remains an upstream protocol failure. UUIDs do not
 authorize access. B independently binds calls to session, question, doc_id/hash and expiry.
 
-Health GETs do not require a correlation header, so local process checks can run without
+Health GETs do not require an incoming correlation header, so local process checks can run without
 business request context; their contract explicitly says so. Exposed health/business
 services use the agreed server-only authentication; key-free mock exceptions are limited
 to loopback. Readiness describes configured mode; a live classifier needs a real usable
 pipeline to report ready, while liveness only says that the process runs.
+For authenticated health calls, 401 uses the diagnostic envelope/challenge/ID rules in
+the revision-2 section. It does not use the business POST header-validation rules.
 
 B owns its outgoing deadline and late/stale rejection. C checks cancellation before work
 and releases transient references when work ends; immediate interruption of synchronous

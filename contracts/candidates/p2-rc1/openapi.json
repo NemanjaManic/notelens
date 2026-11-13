@@ -1405,7 +1405,7 @@
             }
           }
         ],
-        "description": "Shared health shape for all three services. No request ID required; no model/provider calls or request-body retention.",
+        "description": "Shared health shape for all three services. Incoming request IDs are optional and ignored, including malformed/duplicate values. Authentication errors return 401 with a fresh diagnostic ID; successful and not-ready health results need no ID. No model/provider calls or request-body retention.",
         "responses": {
           "200": {
             "description": "Process liveness.",
@@ -1413,6 +1413,41 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schema.json#/$defs/LivenessResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid service authentication. Generate a fresh diagnostic UUID, ignoring all incoming X-Request-ID values; return unauthorized with retryable=false. The response header and envelope IDs must match.",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Server-generated diagnostic UUID; never echo an incoming health request ID.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              },
+              "WWW-Authenticate": {
+                "description": "Service bearer authentication challenge.",
+                "required": true,
+                "schema": {
+                  "const": "Bearer"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                },
+                "example": {
+                  "schema_version": "1.0.0",
+                  "request_id": "22222222-2222-4222-8222-222222222222",
+                  "error": {
+                    "code": "unauthorized",
+                    "message": "Service authentication is required.",
+                    "retryable": false
+                  }
                 }
               }
             }
@@ -1439,7 +1474,7 @@
             }
           }
         ],
-        "description": "Shared health shape for all three services. No request ID required; no model/provider calls or request-body retention.",
+        "description": "Shared health shape for all three services. Incoming request IDs are optional and ignored, including malformed/duplicate values. Authentication errors return 401 with a fresh diagnostic ID; successful and not-ready health results need no ID. No model/provider calls or request-body retention.",
         "responses": {
           "200": {
             "description": "Ready in the explicitly declared mode.",
@@ -1460,6 +1495,41 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing or invalid service authentication. Generate a fresh diagnostic UUID, ignoring all incoming X-Request-ID values; return unauthorized with retryable=false. The response header and envelope IDs must match.",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Server-generated diagnostic UUID; never echo an incoming health request ID.",
+                "required": true,
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RequestId"
+                }
+              },
+              "WWW-Authenticate": {
+                "description": "Service bearer authentication challenge.",
+                "required": true,
+                "schema": {
+                  "const": "Bearer"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                },
+                "example": {
+                  "schema_version": "1.0.0",
+                  "request_id": "22222222-2222-4222-8222-222222222222",
+                  "error": {
+                    "code": "unauthorized",
+                    "message": "Service authentication is required.",
+                    "retryable": false
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1474,5 +1544,6 @@
       }
     }
   },
-  "x-candidate-id": "p2-rc1"
+  "x-candidate-id": "p2-rc1",
+  "x-candidate-revision": 2
 }

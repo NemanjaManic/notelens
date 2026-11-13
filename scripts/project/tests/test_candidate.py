@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -72,6 +73,45 @@ class CandidateTests(unittest.TestCase):
         result['model_version']='configured-but-unused'
         self.assertIn(p1.Issue('STRUCTURE','/model_version'),self.contracts.validate(result,'ClassificationResult',self.documents['offset']))
 
+    def test_nonfinite_classification_scores_are_rejected_in_memory(self):
+        for fixture in ['classification-supported','classification-probability']:
+            for number in [float('nan'),float('inf'),float('-inf')]:
+                with self.subTest(fixture=fixture,number=repr(number)):
+                    result=deepcopy(self.payloads[fixture])
+                    result['scores'][0]['score']=number
+                    self.assertEqual(self.contracts.validate(result,'ClassificationResult'),[p1.Issue('NUMBER_FINITE','/scores/0/score')])
+
+    def test_nonfinite_standalone_scores_are_rejected_in_memory(self):
+        for number in [float('nan'),float('inf'),float('-inf')]:
+            result=deepcopy(self.payloads['classification-score-valid'])
+            result['score']=number
+            self.assertEqual(self.contracts.validate(result,'ClassificationScore'),[p1.Issue('NUMBER_FINITE','/score')])
+
+    def test_finite_decision_scores_and_probability_boundaries_remain_valid(self):
+        for fixture,numbers in [('classification-supported',[-1e300,0.0,1e300]),('classification-probability',[0.0,1.0])]:
+            for number in numbers:
+                result=deepcopy(self.payloads[fixture]);result['scores'][0]['score']=number
+                self.assertEqual(self.contracts.validate(result,'ClassificationResult'),[])
+
+    def test_health_authentication_contract_is_required(self):
+        for path in ['/health/live','/health/ready']:
+            with self.subTest(path=path):
+                api=deepcopy(self.contracts.api)
+                api['paths'][path]['get']['responses'].pop('401',None)
+                with self.assertRaisesRegex(p1.CheckError,'HEALTH_AUTH_BINDING'):
+                    self.contracts.check_openapi(api)
+
+    def test_health_authentication_ignores_request_ids_but_correlates_error(self):
+        body={'schema_version':'1.0.0','request_id':build.FALLBACK_ID,'error':{'code':'unauthorized','message':'Service authentication is required.','retryable':False}}
+        case={'id':'health-auth-test','path':'/health/live','request_headers':[['X-Request-ID',build.REQUEST_ID]],
+              'response_headers':[['X-Request-ID',build.FALLBACK_ID],['WWW-Authenticate','Bearer']],
+              'status':401,'body':body,'disposition':'failed_call'}
+        self.assertEqual(candidate.validate_exchange(case,self.contracts),[])
+        broken=deepcopy(case);broken['body']['request_id']=build.REQUEST_ID
+        self.assertEqual(candidate.validate_exchange(broken,self.contracts),['ERROR_CORRELATION'])
+        broken=deepcopy(case);broken['response_headers']=broken['response_headers'][:1]
+        self.assertEqual(candidate.validate_exchange(broken,self.contracts),['AUTH_CHALLENGE'])
+
     def test_no_live_scope_detector_is_implied_by_mock(self):
         result=deepcopy(self.payloads['classification-unsupported'])
         result['mode']='live'
@@ -119,7 +159,8 @@ class CandidateTests(unittest.TestCase):
                 candidate.verify_candidate()
 
     def test_validator_runs_outside_repository(self):
-        result=subprocess.run([sys.executable,str(p1.ROOT/'scripts/project/check_candidate.py')],cwd=p1.ROOT/'.cache',capture_output=True,text=True,check=False)
+        with tempfile.TemporaryDirectory() as directory:
+            result=subprocess.run([sys.executable,str(p1.ROOT/'scripts/project/check_candidate.py')],cwd=directory,capture_output=True,text=True,check=False)
         self.assertEqual(result.returncode,0,result.stdout)
         self.assertNotIn('Traceback',result.stderr)
 

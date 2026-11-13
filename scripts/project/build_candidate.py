@@ -32,6 +32,8 @@ REVIEW_FILES = [
     "contracts/candidates/p2-rc1/README.md",
     "contracts/candidates/p2-rc1/reviews/member-c-p2-review-and-next-dependencies.md",
     "contracts/candidates/p2-rc1/reviews/member-c-response-to-b-p2-clarifications.md",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-rc1-artifact-review.md",
+    "contracts/candidates/p2-rc1/reviews/member-b-response-to-c-rc1.md",
 ]
 
 
@@ -59,7 +61,7 @@ def schemas():
     schema = deepcopy(read_json(ROOT / "contracts/v1/schema.json"))
     schema["$id"] = "urn:notelens:contracts:candidates:p2-rc1"
     schema["title"] = "NoteLens P2 RC1 review candidate"
-    schema["$comment"] = "REVIEW ONLY. P1 remains canonical; no owner approval, freeze, or activation is asserted."
+    schema["$comment"] = "REVIEW ONLY, revision 2. P1 remains canonical. All JSON numbers must be finite, including direct in-memory Python validation before serialization. No owner approval, freeze, or activation is asserted."
     d = schema["$defs"]
     d["RequestId"] = {"type": "string", "format": "uuid", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
     d["LanguageValidation"] = obj({
@@ -182,6 +184,7 @@ def schemas():
     api["info"]["title"] = "NoteLens P2 RC1 review candidate"
     api["info"]["description"] = "REVIEW ONLY: not frozen; P1 is unchanged. No HTTP implementation is supplied."
     api["x-candidate-id"] = "p2-rc1"
+    api["x-candidate-revision"] = 2
     parameter = {"name": "X-Request-ID", "in": "header", "required": True,
                  "description": "Canonical lowercase UUID. Reject missing, malformed or duplicate headers before processing.",
                  "schema": {"$ref": "./schema.json#/$defs/RequestId"}}
@@ -200,10 +203,20 @@ def schemas():
         if definition == "HealthResult":
             responses["503"] = {"description": "Not ready; this health endpoint returns HealthResult, not a business ErrorEnvelope.",
                                 "content": {"application/json": {"schema": {"$ref": "./schema.json#/$defs/HealthResult"}}}}
+        responses["401"] = {
+            "description": "Missing or invalid service authentication. Generate a fresh diagnostic UUID, ignoring all incoming X-Request-ID values; return unauthorized with retryable=false. The response header and envelope IDs must match.",
+            "headers": {
+                "X-Request-ID": {"description": "Server-generated diagnostic UUID; never echo an incoming health request ID.", "required": True, "schema": {"$ref": "./schema.json#/$defs/RequestId"}},
+                "WWW-Authenticate": {"description": "Service bearer authentication challenge.", "required": True, "schema": {"const": "Bearer"}},
+            },
+            "content": {"application/json": {"schema": {"$ref": "./schema.json#/$defs/ErrorEnvelope"}, "example": {
+                "schema_version": "1.0.0", "request_id": FALLBACK_ID,
+                "error": {"code": "unauthorized", "message": "Service authentication is required.", "retryable": False}}}},
+        }
         api["paths"][route] = {"get": {"operationId": "service_liveness" if definition == "LivenessResult" else "service_readiness",
             "security": [{"ServiceToken": []}],
             "servers": [{"url": "{serviceBaseUrl}", "variables": {"serviceBaseUrl": {"default": "http://127.0.0.1:8002", "description": "Select the local service origin; not a deployed URL."}}}],
-            "description": "Shared health shape for all three services. No request ID required; no model/provider calls or request-body retention.",
+            "description": "Shared health shape for all three services. Incoming request IDs are optional and ignored, including malformed/duplicate values. Authentication errors return 401 with a fresh diagnostic ID; successful and not-ready health results need no ID. No model/provider calls or request-body retention.",
             "responses": responses}}
     return schema, api
 
@@ -424,6 +437,28 @@ def transport_fixtures():
            case("invalid-request-success",[],fallback,expected=["INVALID_REQUEST_SUCCESS"]),
            case("unsafe-response-id",[],[["X-Request-ID","invalid"]],400,fallback_error,expected=["RESPONSE_ID"]),
            case("error-body-id-mismatch",valid,valid,422,fallback_error,expected=["ERROR_CORRELATION"])]
+    auth_error=deepcopy(fallback_error)
+    auth_error["error"]={"code":"unauthorized","message":"Service authentication is required.","retryable":False}
+    auth_headers=fallback+[["WWW-Authenticate","Bearer"]]
+    def health(name,path,request=None,response=None,body=None,expected=None):
+        record=case(name,request or [],auth_headers if response is None else response,401,auth_error if body is None else body,expected)
+        record["path"]=path
+        cases.append(record)
+    health("health-live-auth-no-request-id","/health/live")
+    health("health-ready-auth-no-request-id","/health/ready")
+    health("health-auth-valid-request-id-ignored","/health/live",valid)
+    health("health-auth-malformed-request-id-ignored","/health/ready",[["X-Request-ID","invalid"]])
+    health("health-auth-duplicate-request-id-ignored","/health/ready",valid+[["x-request-id",REQUEST_ID]])
+    health("health-auth-missing-response-id","/health/live",response=[["WWW-Authenticate","Bearer"]],expected=["RESPONSE_ID"])
+    health("health-auth-unsafe-response-id","/health/live",response=[["X-Request-ID","invalid"],["WWW-Authenticate","Bearer"]],expected=["RESPONSE_ID"])
+    mismatched=deepcopy(auth_error);mismatched["request_id"]=REQUEST_ID
+    health("health-auth-body-id-mismatch","/health/ready",body=mismatched,expected=["ERROR_CORRELATION"])
+    health("health-auth-request-id-echoed","/health/live",valid,valid+[["WWW-Authenticate","Bearer"]],mismatched,["HEALTH_AUTH_ID_REUSED"])
+    health("health-auth-missing-challenge","/health/ready",response=fallback,expected=["AUTH_CHALLENGE"])
+    wrong_code=deepcopy(auth_error);wrong_code["error"]["code"]="validation_failure"
+    health("health-auth-wrong-error-code","/health/live",body=wrong_code,expected=["HEALTH_AUTH_ERROR"])
+    retryable=deepcopy(auth_error);retryable["error"]["retryable"]=True
+    health("health-auth-wrong-retryable","/health/live",body=retryable,expected=["HEALTH_AUTH_ERROR"])
     return {"cases":cases}
 
 
@@ -438,7 +473,8 @@ def assets():
     result["transport-cases.json"]=encoded(transport_fixtures())
     base={path.relative_to(ROOT).as_posix():hashlib.sha256(path.read_bytes()).hexdigest()
           for path in sorted((ROOT/"contracts/v1").rglob("*")) if path.is_file()}
-    manifest={"candidate_id":"p2-rc1","wire_version":"1.0.0","status":"awaiting_review",
+    manifest={"candidate_id":"p2-rc1","revision":2,"wire_version":"1.0.0","status":"awaiting_review",
+              "supersedes_review":{"commit":"4ad602712bb23df6077cb252e1dd18b8cf8b9288","manifest_sha256":"45a74a22a2ccb3f581edc74acc212f0cc94f54f9de1590b6bdd541013b84f0b5"},
               "p1_files":base,"generated_files":{name:hashlib.sha256(data).hexdigest() for name,data in sorted(result.items())},
               "review_files":{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in REVIEW_FILES}}
     result["candidate.json"]=encoded(manifest)

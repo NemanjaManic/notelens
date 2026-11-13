@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:notelens:contracts:candidates:p2-rc1",
   "title": "NoteLens P2 RC1 review candidate",
-  "$comment": "REVIEW ONLY. P1 remains canonical; no owner approval, freeze, or activation is asserted.",
+  "$comment": "REVIEW ONLY, revision 2. P1 remains canonical. All JSON numbers must be finite, including direct in-memory Python validation before serialization. No owner approval, freeze, or activation is asserted.",
   "$defs": {
     "EvidenceSpan": {
       "type": "object",

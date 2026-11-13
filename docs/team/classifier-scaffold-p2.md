@@ -5,6 +5,9 @@
 actual F-003/F-009 deliverables. This document does not start C's implementation or
 complete C-009, F-004, F-011, F-014, or any classifier business task.
 
+**Candidate revision:** `p2-rc1`, revision 2 (2026-11-13). Review the exact new manifest
+and commit; C's revision-1 agent review did not provide final human acceptance.
+
 Review with the [executable candidate](../../contracts/candidates/p2-rc1/README.md).
 The candidate's schema/API and complete examples define the proposed service wire shape;
 P1 remains canonical until actual owner approval. The current classifier is not built.
@@ -41,6 +44,15 @@ not a claim that the package exists today. C selects and verifies compatible Pyt
 FastAPI/Uvicorn/test versions in its own environment. No version is silently inherited
 from A's Python 3.14.2 preparation or B's Python 3.13.7 tooling.
 
+F-009 runtime validation must reject NaN, positive infinity and negative infinity for
+Python objects in memory, including classification decision/probability scores, before
+serialization. JSON Schema's number type and JSON-file parsing alone do not enforce this
+on every language runtime. Reproduce the candidate's native-number tests against generated
+bindings and the service boundary. Preserve valid finite decision scores without adding
+probability bounds; probability scores remain in [0,1]. Keep strict JSON handling for
+nonstandard constants and overflowed numeric literals. This is an explicit F-009 acceptance
+requirement, not a claim that bindings were generated or tested here.
+
 ## Service entry point and endpoints
 
 Proposed importable app: `src/notelens_classifier/main.py`, exporting `app` as
@@ -54,6 +66,14 @@ required for the mock scaffold. Keep inputs and results transient, without body 
 | POST /v1/classify | Validate headers and frozen request/document contracts, digest and canonical invariants; return the selected deterministic mock scenario or the agreed real-mode configuration failure. |
 | GET /health/live | 200 LivenessResult means the process is alive; it does not assert inference/model readiness. No business request-ID header is required. |
 | GET /health/ready | 200 HealthResult with status ok when ready for the explicitly configured mode; 503 HealthResult/status not_ready with a safe reason otherwise. This health-specific payload is documented in the candidate API. |
+
+Both health endpoints return 401 ErrorEnvelope for missing/invalid authentication where
+service authentication is enabled: code unauthorized, retryable false, a safe English
+message, WWW-Authenticate: Bearer, and a newly generated canonical diagnostic UUID shared
+by the response X-Request-ID header and body request_id. Ignore all incoming health
+X-Request-ID values, including malformed/duplicate IDs; do not echo them or reject them
+with 400. No request ID is required for health 200/503 responses. Preserve the loopback-only
+key-free mock exception; this proposal does not create an unauthenticated public endpoint.
 
 Proposed server-only configuration: `NOTELENS_CLASSIFIER_MODE=mock` and
 `NOTELENS_CLASSIFIER_MOCK_SCENARIO=supported` (or uncertain, unsupported_skipped,
@@ -104,7 +124,9 @@ C creates the following future test targets:
 - `tests/test_http.py`: valid and invalid/missing/duplicate header handling, matching
   response/envelope IDs, safe status mappings and dynamic input doc_id/hash binding.
 - `tests/test_health.py`: liveness/readiness separation, mock-ready without a real model,
-  real missing-model not-ready/configuration failure, no fallback or model download.
+  real missing-model not-ready/configuration failure, no fallback or model download;
+  authenticated-mode 401 envelope/challenge/fresh-ID behavior with absent, valid,
+  malformed and duplicate incoming IDs.
 - `tests/test_privacy.py`: no submitted text or credential leakage in errors/logs, and
   no storage side effects in mock processing.
 

@@ -1,7 +1,12 @@
 {
   "candidate_id": "p2-rc1",
+  "revision": 2,
   "wire_version": "1.0.0",
   "status": "awaiting_review",
+  "supersedes_review": {
+    "commit": "4ad602712bb23df6077cb252e1dd18b8cf8b9288",
+    "manifest_sha256": "45a74a22a2ccb3f581edc74acc212f0cc94f54f9de1590b6bdd541013b84f0b5"
+  },
   "p1_files": {
     "contracts/v1/fixtures/documents.json": "13ceebf3e9c42796f4d24c7ef390e53d9889024d8dd719e919ec3a496682cb55",
     "contracts/v1/fixtures/manifest.json": "41f942f9cdb124ca4a371d3ae82e4862cd792dbedbac54312444bf1e2799e8c8",
@@ -17,15 +22,15 @@
     "fixtures/manifest.json": "05903d292621bb260139826b57733b1344d03d0a9ab3cafdbabd158730225edf",
     "fixtures/payloads.json": "eca68eafaaec587876bdf224419d9fca9a885f421a2e95d681266750c1e25505",
     "fixtures/references.json": "d3a65bab114731ada4165d7b9f920c3e5272ae5980a7458215fb374399a11db9",
-    "openapi.json": "5fb9770f13a297a43dba6961664000fcfd9b823e2100efb1fde2ea1cdb1c6725",
-    "schema.json": "6e2557c1f3f4147537c73326bf45ac0c603c0d134e4dd557408b34b65ce219f4",
-    "transport-cases.json": "997c9609e255f5905c43be2f1ef98437ab5a797a11698f9d302819dfe6e3e999"
+    "openapi.json": "3029fdb368f48fdb736dcda4649f5420803371cfb998f2abc6401fa54cca98cd",
+    "schema.json": "02c7b6877b6465b4ed8d349194b6b0b9697378ac55f002c6a1c52caa7289630b",
+    "transport-cases.json": "d83a4c799767b5e72aa84add0a1d5d5d8b23fda14d60c2be42727aa3a743de43"
   },
   "review_files": {
-    "scripts/project/build_candidate.py": "e5cabbf33ff0200cb3342f223249bdad4f76c5cd3e7eed9ac177a3a7bcded452",
-    "scripts/project/check_candidate.py": "128f80659a957120f6b0f7758da80d79f29133908035c3a0ac6969a75094e152",
-    "scripts/project/tests/test_candidate.py": "c0d8cc288e27da19df67530a42a2604abf75be4845137815cae16c9dc77a7935",
-    "docs/team/classifier-scaffold-p2.md": "1713ec6fa2cd41d16f354ab464bee647ec8928a203cd642d8cf6c632f6fbe440",
+    "scripts/project/build_candidate.py": "111c561b0a5b317181b2d957331fb1ecd2f39197a6084b1f981fcc6110f4cdc3",
+    "scripts/project/check_candidate.py": "68898651df1cd0a5ad7a94d27f7bddedaaf13e826f47980869dc574ce98c5cdf",
+    "scripts/project/tests/test_candidate.py": "101a908c262afb3a0de4fc7d181a12c9252cae58452e9df74ca7b661a4b416dd",
+    "docs/team/classifier-scaffold-p2.md": "aff5a48a33abb4d52f8619616ea5087653d0a591edcaede347f75ba997a81a2a",
     "scripts/project/check_contracts.py": "1c4a00f8f77434c8d8e184574d1492de0e7a9e5e97bb8206a5ec613c0fd33a1e",
     "scripts/project/tests/test_contracts.py": "de4ddb58da63c9815398555f0a6c78f28ca858e18740db004c769bdd366648a9",
     "scripts/project/README.md": "03a1eaa711aff80557cd0d4556337c66b8a369689526898dfbf3cbdbc752e891",
@@ -37,8 +42,10 @@
     "docs/team/contract-reviews/p1/member-a-response-to-b.md": "21168f48333e2e318dc1976a960e5da60ca0e09bf05f4f9dc14e606e8f4f4d4a",
     "docs/team/contract-reviews/p1/member-c-response-to-b.md": "a61319dd7a5086a9a84dab8dfce851d2ad2713d209dc60f0500ed998b7bf01b2",
     "docs/team/contract-reviews/p1/member-d-response-to-b.md": "b80b8febcd4d52e29b9e831d79154ca8e44d2d8fa65266e0886abbb75633cb00",
-    "contracts/candidates/p2-rc1/README.md": "96d68bb294b0b57e44ffe672adcc13007a67604d3129a928488c7580f49d1eff",
+    "contracts/candidates/p2-rc1/README.md": "ad2f9446b6b92f9115aee982bef40e7f2b099e66700b800ced928fb6c6d6f6b5",
     "contracts/candidates/p2-rc1/reviews/member-c-p2-review-and-next-dependencies.md": "9670af63758521741e01c3d145759d4cf199ef6eca7bf3920cf7adbd6fe6be24",
-    "contracts/candidates/p2-rc1/reviews/member-c-response-to-b-p2-clarifications.md": "3cd08993e233be9587f9e264bbaabce07dfc067bb2b479da5fd99bd9cad89293"
+    "contracts/candidates/p2-rc1/reviews/member-c-response-to-b-p2-clarifications.md": "3cd08993e233be9587f9e264bbaabce07dfc067bb2b479da5fd99bd9cad89293",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-rc1-artifact-review.md": "020e7028bb4f2c375fe01dfaaafaeb867568ff9a879b2503726be2c5da9f100c",
+    "contracts/candidates/p2-rc1/reviews/member-b-response-to-c-rc1.md": "5b68b14625c8ea3432e2f218c1fcc80cadc18013e5468a8dc3bcf5048e45ee89"
   }
 }
