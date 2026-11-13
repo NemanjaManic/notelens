@@ -1,0 +1,187 @@
+{
+  "kind": "synthetic",
+  "source_version": "synthetic-source-v1",
+  "note": "Invented candidates to exercise selection, not C production splits or real assignments. Specialty labels are fixture metadata.",
+  "documents": [
+    {
+      "doc_id": "synthetic-source-00",
+      "group_id": "synthetic-group-00",
+      "specialty": "Cardiovascular / Pulmonary",
+      "split": "validation",
+      "text_sha256": "6bd53104b026ee093ba6f66df2c9e66ed9185db96f91529e7386a8d8fc95225a",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 00. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-01",
+      "group_id": "synthetic-group-01",
+      "specialty": "Orthopedic",
+      "split": "validation",
+      "text_sha256": "fd25a8846ca8740b3a96557b10ff5fc84c39823260b35319102f7cc9f84b8cf4",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 01. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-02",
+      "group_id": "synthetic-group-02",
+      "specialty": "Gastroenterology",
+      "split": "validation",
+      "text_sha256": "9bdeac2e3aa5dc76b7090a9558425b5b5cdcdb1d924f5d4be3e6e93579315d35",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 02. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-03",
+      "group_id": "synthetic-group-03",
+      "specialty": "Neurology",
+      "split": "validation",
+      "text_sha256": "e038fedde5ab88cbb9561c4e809fc90019a8ae9839b5bc2ad95da4b28761e970",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 03. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-04",
+      "group_id": "synthetic-group-04",
+      "specialty": "Urology",
+      "split": "validation",
+      "text_sha256": "931f35201334ff4355834d820bd8ae8711871c4f4df43e55068ba87cd9a91ed4",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 04. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-05",
+      "group_id": "synthetic-group-05",
+      "specialty": "Cardiovascular / Pulmonary",
+      "split": "validation",
+      "text_sha256": "9f9ca96af94bdbb54af851c211b04379e62c21df4b755b975d09e669cbba52a6",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 05. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-06",
+      "group_id": "synthetic-group-06",
+      "specialty": "Orthopedic",
+      "split": "validation",
+      "text_sha256": "34f98f7f70588a80963b027e73c7cd0cded1581a8f22e3b28c4299bbddaa4d46",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 06. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-07",
+      "group_id": "synthetic-group-07",
+      "specialty": "Gastroenterology",
+      "split": "validation",
+      "text_sha256": "d9f292f3f2f4e943873d39b545ff4a7d749d2a275f62ff0ab63b1bcb92e52c4c",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 07. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-08",
+      "group_id": "synthetic-group-08",
+      "specialty": "Neurology",
+      "split": "validation",
+      "text_sha256": "e677e8c4d1df6e3c1436433de2825c9081a664758b6c77a0a5e0f1dcaf83297e",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 08. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-09",
+      "group_id": "synthetic-group-09",
+      "specialty": "Urology",
+      "split": "validation",
+      "text_sha256": "a9ddad7a6c8f5167a62f60958becbd2b69522b2b73601066cddca5c79c7697d2",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 09. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-10",
+      "group_id": "synthetic-group-10",
+      "specialty": "Cardiovascular / Pulmonary",
+      "split": "validation",
+      "text_sha256": "efbbf5fa583d65c985908fd9affe56c01d14bcac429aba6fcb6ecae5226e125f",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 10. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-11",
+      "group_id": "synthetic-group-11",
+      "specialty": "Orthopedic",
+      "split": "validation",
+      "text_sha256": "ea95181602718206d5d82826c879299297a9a465b70f9902407fa939c3843c67",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 11. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-12",
+      "group_id": "synthetic-group-12",
+      "specialty": "Gastroenterology",
+      "split": "test",
+      "text_sha256": "d008cbe8c424eb6e3f16fe81d71fccececf95bcb630f42924a3e0235ed9c30b1",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 12. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-13",
+      "group_id": "synthetic-group-13",
+      "specialty": "Neurology",
+      "split": "test",
+      "text_sha256": "5a66db73beaba2c84e270de8bb4ce1d49984de96b59ba2b272bdd9e9972fb703",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 13. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-14",
+      "group_id": "synthetic-group-14",
+      "specialty": "Urology",
+      "split": "test",
+      "text_sha256": "6b9fffda476f61cd01db021098719de231c876bff2f0f3d4617b83cbc160c291",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 14. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-15",
+      "group_id": "synthetic-group-15",
+      "specialty": "Cardiovascular / Pulmonary",
+      "split": "test",
+      "text_sha256": "6cf277b3732a466f79cd5cea60d8ab9af5b677d1f6bc0432f9a20eda487297f0",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 15. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-16",
+      "group_id": "synthetic-group-16",
+      "specialty": "Orthopedic",
+      "split": "test",
+      "text_sha256": "20872c7a8e290f13ba46a268cd1aa22a8376455efd9cd05750a99062718da98c",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 16. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-17",
+      "group_id": "synthetic-group-17",
+      "specialty": "Gastroenterology",
+      "split": "test",
+      "text_sha256": "34a7fde9a9085904bb908eb0e3159962801f2d8d327e4b16fb62f7e98674a506",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 17. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-18",
+      "group_id": "synthetic-group-18",
+      "specialty": "Neurology",
+      "split": "test",
+      "text_sha256": "115ab4813b9ede3b62c16576e9ac823e3cfc55a7f98fbeca1e1ac6f9817a442e",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 18. No real patient content."
+    },
+    {
+      "doc_id": "synthetic-source-19",
+      "group_id": "synthetic-group-19",
+      "specialty": "Urology",
+      "split": "test",
+      "text_sha256": "cda4e1e735db4a924bfd0cb1175579d27586dce20bbaaa3e003dc939b5590153",
+      "permitted_for_annotation": true,
+      "canonical_text": "Synthetic annotation exercise 19. No real patient content."
+    }
+  ]
+}

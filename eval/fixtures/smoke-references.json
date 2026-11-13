@@ -1,0 +1,108 @@
+{
+  "kind": "synthetic_reference_proposal",
+  "version": "d-smoke-reference-v1",
+  "human_reviewed": false,
+  "cases": [
+    {
+      "id": "synthetic-demo-case",
+      "request": {
+        "schema_version": "1.0.0",
+        "document": {
+          "schema_version": "1.0.0",
+          "doc_id": "synthetic-demo-v1",
+          "text": "Demo \ud83e\ude7a\nThe patient denies chest pain.\nPneumonia is suspected.\nThe patient's mother has diabetes.\nThe patient had an appendectomy in 2018.\nThe patient reports cough.",
+          "text_sha256": "daae237d2f93825409f8c23fed141ea6b863f269576bed84b60970ddd8f56b4e",
+          "canonicalization_version": "nfc-lf-v1",
+          "source": {
+            "kind": "synthetic_text",
+            "name": "D offline demo"
+          },
+          "language": "en",
+          "language_validation": {
+            "outcome": "accepted",
+            "language": "en",
+            "policy_version": "synthetic-fixture-language-v1",
+            "reason": null
+          }
+        }
+      },
+      "entities": [
+        {
+          "type": "symptom",
+          "mention": {
+            "start": 26,
+            "end": 36,
+            "quote": "chest pain"
+          },
+          "assertion": "negated",
+          "temporality": "unknown",
+          "subject": "patient"
+        },
+        {
+          "type": "diagnosis",
+          "mention": {
+            "start": 38,
+            "end": 47,
+            "quote": "Pneumonia"
+          },
+          "assertion": "suspected",
+          "temporality": "unknown",
+          "subject": "unknown"
+        },
+        {
+          "type": "diagnosis",
+          "mention": {
+            "start": 87,
+            "end": 95,
+            "quote": "diabetes"
+          },
+          "assertion": "confirmed",
+          "temporality": "unknown",
+          "subject": "family"
+        },
+        {
+          "type": "procedure",
+          "mention": {
+            "start": 116,
+            "end": 128,
+            "quote": "appendectomy"
+          },
+          "assertion": "confirmed",
+          "temporality": "historical",
+          "subject": "patient"
+        },
+        {
+          "type": "symptom",
+          "mention": {
+            "start": 158,
+            "end": 163,
+            "quote": "cough"
+          },
+          "assertion": "confirmed",
+          "temporality": "unknown",
+          "subject": "patient"
+        }
+      ],
+      "qa": [
+        {
+          "id": "supported",
+          "question": "What does the document say about chest pain?",
+          "answerable": true,
+          "expected_evidence_state": "sufficient"
+        },
+        {
+          "id": "absent",
+          "question": "What is the patient's age?",
+          "answerable": false,
+          "expected_evidence_state": "insufficient"
+        },
+        {
+          "id": "partial",
+          "question": "What does the document say about chest pain and the patient's age?",
+          "answerable": true,
+          "expected_evidence_state": "partial"
+        }
+      ]
+    }
+  ]
+}

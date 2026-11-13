@@ -1,0 +1,512 @@
+{
+  "format": "notelens-draft-annotation-training-v1",
+  "status": "synthetic illustration for discussion; not approved ground truth or API contract",
+  "offset_convention": "zero-based Unicode code points, half-open [start,end)",
+  "examples": [
+    {
+      "id": "denial",
+      "canonical_text": "The patient denies chest pain.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "0b2eabc5bf2ab8cb78984644218441b84220f6859ce2a98a3d2d90a7f53cb6c8",
+      "mentions": [
+        {
+          "type": "symptom",
+          "mention": {
+            "start": 19,
+            "end": 29,
+            "quote": "chest pain"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 30,
+              "quote": "The patient denies chest pain."
+            }
+          ],
+          "assertion": "negated",
+          "temporality": "unknown",
+          "subject": "patient",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "family_history",
+      "canonical_text": "The patient's mother has diabetes.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "c01d8a830c4aa40bd343fd266f0646790d2b7ec8c904babe6b936255b1470df6",
+      "mentions": [
+        {
+          "type": "diagnosis",
+          "mention": {
+            "start": 25,
+            "end": 33,
+            "quote": "diabetes"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 34,
+              "quote": "The patient's mother has diabetes."
+            }
+          ],
+          "assertion": "confirmed",
+          "temporality": "unknown",
+          "subject": "family",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "historical_procedure",
+      "canonical_text": "The patient had an appendectomy in 2018.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "42bf8223431e8b5c9352f85750d130750c6b564aff0b2ee07473c82c0929def7",
+      "mentions": [
+        {
+          "type": "procedure",
+          "mention": {
+            "start": 19,
+            "end": 31,
+            "quote": "appendectomy"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 40,
+              "quote": "The patient had an appendectomy in 2018."
+            }
+          ],
+          "assertion": "confirmed",
+          "temporality": "historical",
+          "subject": "patient",
+          "unresolved_question": null,
+          "procedure_status": "performed"
+        }
+      ]
+    },
+    {
+      "id": "suspected_diagnosis",
+      "canonical_text": "Pneumonia is suspected.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "e6225d5d78c5372b3642e3cf9449e439b21e1e576a93cf9fc1f34f1053a94b32",
+      "mentions": [
+        {
+          "type": "diagnosis",
+          "mention": {
+            "start": 0,
+            "end": 9,
+            "quote": "Pneumonia"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 23,
+              "quote": "Pneumonia is suspected."
+            }
+          ],
+          "assertion": "suspected",
+          "temporality": "unknown",
+          "subject": "unknown",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "planned_procedure",
+      "canonical_text": "Colonoscopy is planned for next week.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "12370bb156d81bb231cd54fdca47563314f62ec6597ec45dbc9350c4452d4a09",
+      "mentions": [
+        {
+          "type": "procedure",
+          "mention": {
+            "start": 0,
+            "end": 11,
+            "quote": "Colonoscopy"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 37,
+              "quote": "Colonoscopy is planned for next week."
+            }
+          ],
+          "assertion": "confirmed",
+          "temporality": "unknown",
+          "subject": "unknown",
+          "unresolved_question": null,
+          "procedure_status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "repeated_denial",
+      "canonical_text": "🩺 No chest pain. No chest pain.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "a8047ca9816529aa5202fe5fe3dbef86e71978c7726d8857f62e4edc0120c724",
+      "mentions": [
+        {
+          "type": "symptom",
+          "mention": {
+            "start": 5,
+            "end": 15,
+            "quote": "chest pain"
+          },
+          "evidence": [
+            {
+              "start": 2,
+              "end": 16,
+              "quote": "No chest pain."
+            }
+          ],
+          "assertion": "negated",
+          "temporality": "unknown",
+          "subject": "unknown",
+          "unresolved_question": null,
+          "procedure_status": null
+        },
+        {
+          "type": "symptom",
+          "mention": {
+            "start": 20,
+            "end": 30,
+            "quote": "chest pain"
+          },
+          "evidence": [
+            {
+              "start": 17,
+              "end": 31,
+              "quote": "No chest pain."
+            }
+          ],
+          "assertion": "negated",
+          "temporality": "unknown",
+          "subject": "unknown",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "current_condition",
+      "canonical_text": "The patient currently has asthma.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "7df452a89aefd394084359510375dbc80ae5426d066657f859ee309dd068f3dd",
+      "discussion_note": "Current time is explicit; do not add a code.",
+      "mentions": [
+        {
+          "type": "diagnosis",
+          "mention": {
+            "start": 26,
+            "end": 32,
+            "quote": "asthma"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 33,
+              "quote": "The patient currently has asthma."
+            }
+          ],
+          "assertion": "confirmed",
+          "temporality": "current",
+          "subject": "patient",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "historical_diagnosis",
+      "canonical_text": "The patient had pneumonia in 2018.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "9cc91afc52344cceff7798ca5b4da1386adc01a1c0d53657b5b6df3ea7b148f7",
+      "discussion_note": "The condition is historical; do not change it into a current diagnosis.",
+      "mentions": [
+        {
+          "type": "diagnosis",
+          "mention": {
+            "start": 16,
+            "end": 25,
+            "quote": "pneumonia"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 34,
+              "quote": "The patient had pneumonia in 2018."
+            }
+          ],
+          "assertion": "confirmed",
+          "temporality": "historical",
+          "subject": "patient",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "family_negation",
+      "canonical_text": "The patient's father denies diabetes.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "05b67f9ab437684541a593545c3265d56a27467653d92d22a55bd2b298109441",
+      "discussion_note": "The negation and subject apply to the family member.",
+      "mentions": [
+        {
+          "type": "diagnosis",
+          "mention": {
+            "start": 28,
+            "end": 36,
+            "quote": "diabetes"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 37,
+              "quote": "The patient's father denies diabetes."
+            }
+          ],
+          "assertion": "negated",
+          "temporality": "unknown",
+          "subject": "family",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "negation_scope",
+      "canonical_text": "The patient denies fever but reports cough.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "6044269561cf39f78d72ea2fb2e6f5774b30573fac1def734033056ba79a0924",
+      "discussion_note": "The denial applies to fever, not automatically to cough.",
+      "mentions": [
+        {
+          "type": "symptom",
+          "mention": {
+            "start": 19,
+            "end": 24,
+            "quote": "fever"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 43,
+              "quote": "The patient denies fever but reports cough."
+            }
+          ],
+          "assertion": "negated",
+          "temporality": "unknown",
+          "subject": "patient",
+          "unresolved_question": null,
+          "procedure_status": null
+        },
+        {
+          "type": "symptom",
+          "mention": {
+            "start": 37,
+            "end": 42,
+            "quote": "cough"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 43,
+              "quote": "The patient denies fever but reports cough."
+            }
+          ],
+          "assertion": "confirmed",
+          "temporality": "unknown",
+          "subject": "patient",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "contradictory_mentions",
+      "canonical_text": "No chest pain. The patient reports chest pain.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "bea65fc56e068939e0bc4ab4e5a55bdbf32df6e1c34c92e1ae0d3fa76d206ca6",
+      "discussion_note": "Preserve both statements; do not decide which is clinically true.",
+      "mentions": [
+        {
+          "type": "symptom",
+          "mention": {
+            "start": 3,
+            "end": 13,
+            "quote": "chest pain"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 14,
+              "quote": "No chest pain."
+            }
+          ],
+          "assertion": "negated",
+          "temporality": "unknown",
+          "subject": "unknown",
+          "unresolved_question": null,
+          "procedure_status": null
+        },
+        {
+          "type": "symptom",
+          "mention": {
+            "start": 35,
+            "end": 45,
+            "quote": "chest pain"
+          },
+          "evidence": [
+            {
+              "start": 15,
+              "end": 46,
+              "quote": "The patient reports chest pain."
+            }
+          ],
+          "assertion": "confirmed",
+          "temporality": "unknown",
+          "subject": "patient",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "cancelled_procedure",
+      "canonical_text": "The planned biopsy was cancelled.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "038c07d2ad7150db3f858bb7ecc9c845af496b4989b878bd35d1adc7c2254edc",
+      "discussion_note": "Cancelled is not the same as performed.",
+      "mentions": [
+        {
+          "type": "procedure",
+          "mention": {
+            "start": 12,
+            "end": 18,
+            "quote": "biopsy"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 33,
+              "quote": "The planned biopsy was cancelled."
+            }
+          ],
+          "assertion": "confirmed",
+          "temporality": "unknown",
+          "subject": "unknown",
+          "unresolved_question": null,
+          "procedure_status": "cancelled"
+        }
+      ]
+    },
+    {
+      "id": "explicit_icd",
+      "canonical_text": "The chart lists asthma (ICD-10 code J45.909).",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "462ca768d8d68c47082b6066f7502e13e01b8482ec90b39e78a8590053ceded1",
+      "discussion_note": "Copy the source-present code only; this example does not validate clinical correctness.",
+      "mentions": [
+        {
+          "type": "diagnosis",
+          "mention": {
+            "start": 16,
+            "end": 22,
+            "quote": "asthma"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 45,
+              "quote": "The chart lists asthma (ICD-10 code J45.909)."
+            }
+          ],
+          "assertion": "confirmed",
+          "temporality": "unknown",
+          "subject": "unknown",
+          "unresolved_question": null,
+          "icd": {
+            "code": "J45.909",
+            "evidence": {
+              "start": 36,
+              "end": 43,
+              "quote": "J45.909"
+            }
+          },
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "no_inferred_icd",
+      "canonical_text": "The report lists asthma.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "41717c2fbd67c3a57d58af4627a8ecb54d2c28c8efb06deb57bb0ea27af60669",
+      "discussion_note": "The source has no code; do not invent or attach one.",
+      "mentions": [
+        {
+          "type": "diagnosis",
+          "mention": {
+            "start": 17,
+            "end": 23,
+            "quote": "asthma"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 24,
+              "quote": "The report lists asthma."
+            }
+          ],
+          "assertion": "confirmed",
+          "temporality": "unknown",
+          "subject": "unknown",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    },
+    {
+      "id": "no_supported_mentions",
+      "canonical_text": "The patient arrived for a visit.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "2663235dc63b684f59cba2895fbcf87f07fa12484c4b1ec2b94c09756637f459",
+      "discussion_note": "A complete review of this synthetic sentence finds no diagnosis, symptom or procedure mention.",
+      "mentions": []
+    },
+    {
+      "id": "uncertain_subject",
+      "canonical_text": "The report mentions a headache.",
+      "canonicalization_version": "nfc-lf-v1",
+      "text_sha256": "3cc9bd3d95acc9a34ce944bcbe7f0aa4fbb7e33413876d499ffb8747fc0c4411",
+      "discussion_note": "A bare mention does not identify the subject; assertion interpretation is provisional.",
+      "mentions": [
+        {
+          "type": "symptom",
+          "mention": {
+            "start": 22,
+            "end": 30,
+            "quote": "headache"
+          },
+          "evidence": [
+            {
+              "start": 0,
+              "end": 31,
+              "quote": "The report mentions a headache."
+            }
+          ],
+          "assertion": "unknown",
+          "temporality": "unknown",
+          "subject": "unknown",
+          "unresolved_question": null,
+          "procedure_status": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,31 @@
 # Quickstart Validation: Python Extraction and Shared Evaluation
 
-**Status**: design-stage guide. Commands labeled future are not available yet.
-Run from the repository root. No command here authorizes paid calls or business implementation.
+**Status**: provisional local slice authorized 2026-11-11; frozen shared integration
+and live generation remain pending. Run from the repository root. Full setup and
+limits are in [integration](../../docs/extraction-eval/integration.md).
+
+## Available now: local mock service and evaluation
+
+After the service/eval-local locked environments have been synced:
+
+```powershell
+./services/extraction/.venv/Scripts/python.exe -m notelens_extraction.cli serve
+```
+
+In another terminal:
+
+```powershell
+./services/extraction/.venv/Scripts/python.exe -m notelens_extraction.cli demo
+./services/extraction/.venv/Scripts/python.exe -m notelens_extraction.cli demo --question "What does the document say about chest pain?"
+./eval/.venv/Scripts/python.exe -m notelens_eval.run --profile smoke
+./eval/.venv/Scripts/python.exe eval/smoke_http.py
+./services/extraction/.venv/Scripts/python.exe -m pytest services/extraction/tests -q
+./eval/.venv/Scripts/python.exe -m pytest eval/tests -q
+```
+
+These commands exercise synthetic/mock behavior. General real-model extraction,
+human annotations and shared foundation acceptance are not claimed. Existing future
+acceptance filenames below remain planned until parent tasks are actually completed.
 
 ## Available now: correct feature selection
 
@@ -44,4 +68,5 @@ No npm run script is assumed; B must document and verify actual package scripts 
 
 [Tasks](tasks.md) provide owner/path/dependency/acceptance details. All business work remains
 unchecked. Do not declare the shared foundation ready until the runnable mock flow,
-handoffs, separate-working-copy commands and checkpoint evidence have passed.
+handoffs, separate-working-copy commands and checkpoint evidence have passed. The
+checked local subtasks in the continuation do not satisfy those shared gates.

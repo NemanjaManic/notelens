@@ -1,0 +1,754 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "NoteLens internal service contract proposal",
+    "version": "1.0.0",
+    "description": "Draft for cross-owner review. No business endpoints implemented; services have independent origins and lockfiles."
+  },
+  "paths": {
+    "/v1/classify": {
+      "post": {
+        "operationId": "classifier_classify",
+        "tags": [
+          "classifier"
+        ],
+        "summary": "classifier operation, owned by C; proposal only",
+        "servers": [
+          {
+            "url": "{classifierBaseUrl}",
+            "variables": {
+              "classifierBaseUrl": {
+                "default": "http://127.0.0.1:8002",
+                "description": "Proposed local origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/ClassificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Valid result; evidence insufficiency is a domain outcome.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ClassificationResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/extract": {
+      "post": {
+        "operationId": "extraction_extract",
+        "tags": [
+          "extraction"
+        ],
+        "summary": "extraction operation, owned by D; proposal only",
+        "servers": [
+          {
+            "url": "{extractionBaseUrl}",
+            "variables": {
+              "extractionBaseUrl": {
+                "default": "http://127.0.0.1:8003",
+                "description": "Proposed local origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/ExtractionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Valid result; evidence insufficiency is a domain outcome.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ExtractionResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/document-answer": {
+      "post": {
+        "operationId": "extraction_document_answer",
+        "tags": [
+          "extraction"
+        ],
+        "summary": "extraction operation, owned by D; proposal only",
+        "servers": [
+          {
+            "url": "{extractionBaseUrl}",
+            "variables": {
+              "extractionBaseUrl": {
+                "default": "http://127.0.0.1:8003",
+                "description": "Proposed local origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/DocumentQuestionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Valid result; evidence insufficiency is a domain outcome.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AnswerResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/retrieve": {
+      "post": {
+        "operationId": "rag_retrieve",
+        "tags": [
+          "rag"
+        ],
+        "summary": "rag operation, owned by A; proposal only",
+        "servers": [
+          {
+            "url": "{ragBaseUrl}",
+            "variables": {
+              "ragBaseUrl": {
+                "default": "http://127.0.0.1:8001",
+                "description": "Proposed local origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/RetrievalRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Valid result; evidence insufficiency is a domain outcome.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RetrievalResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/literature-answer": {
+      "post": {
+        "operationId": "rag_literature_answer",
+        "tags": [
+          "rag"
+        ],
+        "summary": "rag operation, owned by A; proposal only",
+        "servers": [
+          {
+            "url": "{ragBaseUrl}",
+            "variables": {
+              "ragBaseUrl": {
+                "default": "http://127.0.0.1:8001",
+                "description": "Proposed local origin; not a deployed URL."
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "ServiceToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/LiteratureAnswerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Valid result; evidence insufficiency is a domain outcome.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AnswerResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Redacted English error envelope; see README mapping.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ServiceToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Server-only token on exposed environments; key-free loopback mock exception must not be public."
+      }
+    }
+  }
+}

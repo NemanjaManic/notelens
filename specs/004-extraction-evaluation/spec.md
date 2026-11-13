@@ -10,6 +10,11 @@
 
 **Status**: Draft for user review
 
+**Continuation (2026-11-11):** The user explicitly authorized D-owned local business
+implementation and the first offline evaluation/annotation-tooling slice. Shared
+contract freeze and real-data gates remain pending; the local adapter is provisional.
+This does not approve paid/live configuration or claim human/clinical acceptance.
+
 **Input**: User description: "Extract source-supported diagnoses, symptoms and procedures, summarize and answer from the document in English, and coordinate human-reviewed annotations plus honest shared evaluation across all workstreams."
 
 **Governing requirements**: [Constitution](../../.specify/memory/constitution.md) and

@@ -3,6 +3,12 @@
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [contract references](contracts/README.md).
 **Owner**: D. **Status**: executable backlog proposal; no business task is complete.
+
+**Authorized continuation (2026-11-11):** The user explicitly requested the runnable
+D-owned local slice despite missing shared gates. Completed local subtasks below do
+not close their parent task's frozen-contract, real-model, real-data or human-review
+requirements. No A/B/C task or shared prerequisite is self-approved by D. Actual
+commands/results: [integration](../../docs/extraction-eval/integration.md).
 **Tests**: Required where the source specifications explicitly require structural, semantic,
 leakage, security or independent module checks. This is not blanket TDD for documentation.
 **Organization**: Setup, foundational, story increments, polish. Every task has one owner
@@ -14,12 +20,27 @@ now and deferred runnable mocks/UI. The current initial commit is a documentatio
 not the later F-014 runnable-foundation publication. Inspection and owned proposals can
 start now; business prerequisites and unchecked implementation tasks remain unchanged.
 
+## Frozen D local evidence (2026-11-13)
+
+- [x] D-001: practice records/linter use frozen assertion and independent procedure
+  status values; exact code-point spans remain checked. Team adoption remains open.
+- [x] D-004/D-005: generated frozen binding, independent extraction/summary outcomes,
+  literal supported/partial/insufficient answers and safe transport implemented locally.
+- [x] D-006: locked installed contracts dependency, language-validation fixtures,
+  canonical UUID HTTP adapters and authenticated health readiness checks updated.
+- [x] D-008 preparation: read-only review validator, separate blank/incomplete/U/error
+  reporting and blank form prepared. No real human review or calibration performed.
+
+See [verification and remaining gates](../../docs/extraction-eval/d-local-completion-2026-11-13.md).
+F-003/F-009 are complete upstream. No parent D checkbox, F-004/F-014 completion,
+live activation or human acceptance follows from these local mock checks.
+
 ## Format: `[ID] [P?] [Story] Description`
 
 No task is marked [P]: dependencies or shared files make an unconditional parallel claim
 unwarranted. Different workstreams can progress independently after the shared base.
-Only foundation F-001/F-002 are checked, because their actual documentation/tooling work
-was completed and recorded. Writing plans/mocks does not close a business task.
+Only foundation F-001/F-002 were checked at the original handoff. The local continuation
+adds subtask checkboxes with explicit limits; no D parent task is closed from mocks.
 
 ## Path Conventions and Command Availability
 
@@ -32,7 +53,7 @@ listed test/CLI file exist, its command must actually pass before closing it.
 project; do not replace it with --project while leaving relative test paths at the repo root.
 
 Contract constraints apply verbatim: evidence is a half-open Unicode code-point
-[start,end) interval with an exact canonical quote; assertion is confirmed|suspected|negated,
+[start,end) interval with an exact canonical quote; assertion is confirmed|suspected|negated|unknown,
 temporality is current|historical|unknown, subject is patient|family|other|unknown.
 Approved PDF/text/retention limits are 2,097,152 bytes, 100,000 code points and at most
 60 minutes. Model scores/retrieval scores are not clinical confidence.
@@ -44,10 +65,12 @@ they are not silently assigned defaults.
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
 - [ ] T001 D-001: Draft annotation ontology, evidence rules and extraction interface proposals in `docs/extraction-eval/annotation-guide.md`, `specs/004-extraction-evaluation/contracts/**`
+  - [x] Local draft guide, synthetic practice labels and interface proposals prepared; existing training command preserved and its eight negative cases made persistent tests.
+  - [ ] Remaining: team resolution of the proposed annotation/matching representation and source-support rubric; no human acceptance is inferred.
   - **Owner / story**: D / US1.
   - **Dependencies**: None; may start after the approved specification, within this task's stated scope.
   - **Acceptance**: Define diagnosis/symptom/procedure, confirmed|suspected|negated, current|historical|unknown, subject, exact/relaxed repeated-mention matching, code copying only and source-support rubrics. Submit shared changes to B.
-  - **Verify**: `python -B -c "from pathlib import Path; assert Path('docs/extraction-eval/annotation-guide.md').is_file()"`.
+  - **Verify local draft**: `python -B docs/extraction-eval/check_training_examples.py`; human/team decisions remain separate.
   - **Coverage**: FR-001, FR-002, FR-003, FR-004, FR-005, FR-017.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -56,10 +79,12 @@ they are not silently assigned defaults.
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
 - [ ] T002 D-010: Create D's independent offline evaluation packages, fixtures and mock adapters in `eval/pyproject.toml`, `eval/uv.lock`, `eval/package.json`, `eval/package-lock.json`, `eval/providers/**`, `eval/tests/test_offline_adapter.py`
+  - [x] Local eval package/environment/locks, Promptfoo HTTP provider/config and synthetic smoke implemented and exercised without paid calls. Actual tests are in `eval/tests/test_slice.py`.
+  - [ ] Remaining: reviewed frozen records/bindings and shared scaffold compatibility; this is a provisional adapter.
   - **Owner / story**: D / US4.
   - **Dependencies**: 000-foundation/T004 (F-003); 000-foundation/T006 (F-004)
   - **Acceptance**: Own local eval locks without changing root lock; API adapters consume agreed records and never perform a paid call in offline/smoke mode.
-  - **Verify**: `uv run --directory eval python -m pytest tests/test_offline_adapter.py`.
+  - **Verify local slice**: `./eval/.venv/Scripts/python.exe -m pytest eval/tests/test_slice.py`; Promptfoo command is documented in integration.md.
   - **Coverage**: FR-013, FR-025, SC-004.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -70,10 +95,12 @@ they are not silently assigned defaults.
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T003 [US1] D-004: Implement structured Python extraction and bounded semantic/span validation in `services/extraction/src/notelens_extraction/**`, `services/extraction/prompts/**`, `services/extraction/tests/test_evidence.py`, `services/extraction/tests/test_contract.py`
+  - [x] Local request/schema/evidence validation, provider/config boundary, versioned prompts, bounded repair diagnostics, FastAPI/CLI and deterministic fake implemented. Checks live in `tests/test_service.py`, `tests/test_training_checker.py` and `tests/test_http_smoke.py`.
+  - [ ] Remaining: B's freeze/bindings/foundation compatibility, approved live provider/model and evaluated semantic support beyond the narrow catalog guards.
   - **Owner / story**: D / US1.
   - **Dependencies**: 004-extraction-evaluation/T001 (D-001); 000-foundation/T004 (F-003); 000-foundation/T006 (F-004); 000-foundation/T014 (F-014)
   - **Acceptance**: POST /v1/extract preserves canonical text/status/subject and validates exact offsets/quotes, unsupported items and source-only ICD. Bounded repair; no inferred diagnoses. Live activation requires approved provider policy.
-  - **Verify**: `uv run --directory services/extraction python -m pytest tests/test_evidence.py tests/test_contract.py`.
+  - **Verify local slice**: `./services/extraction/.venv/Scripts/python.exe -m pytest services/extraction/tests -q`.
   - **Coverage**: FR-002, FR-003, FR-004, FR-005, FR-007, FR-008, SC-001.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -84,10 +111,12 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T004 [US2] D-005: Generate English summaries and document answers with supported claims in `services/extraction/src/notelens_extraction/answers.py`, `services/extraction/prompts/**`, `services/extraction/tests/test_answers.py`, `docs/extraction-eval/integration.md`
+  - [x] Local literal summaries, supported/partial/insufficient document answers, exact citation checks, source-free output guard and targeted injection case pass in mock mode; B handoff prepared.
+  - [ ] Remaining: approved real-provider generation, general support/language evaluation and frozen integration. The literal mock is not a general medical QA model.
   - **Owner / story**: D / US2.
   - **Dependencies**: 004-extraction-evaluation/T003 (D-004)
   - **Acceptance**: POST /v1/document-answer and extraction summary explicitly request English, link claims to selected-document evidence and reject unsupported/injected/non-English output; literature cannot fill patient facts. Deliver HTTP checks/startup to B.
-  - **Verify**: `uv run --directory services/extraction python -m pytest tests/test_answers.py tests/test_contract.py`.
+  - **Verify local slice**: `./services/extraction/.venv/Scripts/python.exe -m pytest services/extraction/tests/test_service.py -q`.
   - **Coverage**: FR-006, FR-007, FR-008, SC-001.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -98,6 +127,8 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T005 [US3] D-002: Select and freeze representative annotation assignment candidates in `eval/datasets/annotation-assignments.json`, `docs/extraction-eval/selection.md`
+  - [x] Seeded selector and input validation tested on synthetic fixtures, including 40-group algorithm tests.
+  - [ ] Blocked actual selection: C-002 permitted canonical document/group/split manifests and access policy are absent. No actual IDs or dev/final proportions are invented.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T001 (D-001); 003-classification/T003 (C-002)
   - **Acceptance**: Target 40 approximately balanced documents; dev/final document/group disjoint, align ML validation/test where feasible. Reserve C's pre-selection annotations to development; report infeasible targets for review.
@@ -106,6 +137,8 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T006 [US3] D-003: Publish ten primary assignments per member and independent-review workflow in `eval/datasets/annotation-assignments.json`, `docs/extraction-eval/review-workflow.md`
+  - [x] Pending-only templates and distinct primary/reviewer allocation implemented under D-owned paths; C remains development-only in the demonstration.
+  - [ ] Blocked actual assignments/publication: D-002, agreed source access and human review workflow. Synthetic allocation is not the real 40-document assignment.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T005 (D-002)
   - **Acceptance**: Freeze each member's own submission paths and ten primary IDs; allocate distinct reviewers for at least ten documents. D must not edit A/B/C submissions. Canonical adjudication is D-013 after submissions arrive.
@@ -122,10 +155,13 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T008 [US3] D-013: Adjudicate preserved primary/secondary submissions into canonical references in `eval/references/**`, `docs/extraction-eval/adjudication.md`, `eval/tests/test_annotation_integrity.py`
+  - [x] Explicit-decision merge/pending workflow implemented and tested; preserves input-record provenance and never promotes synthetic decisions to human review.
+  - [x] Independent exact-boundary comparison report is prepared as a separate pre-adjudication aid; no human submissions have been compared and no winner is selected automatically.
+  - [ ] Remaining: actual independent submissions and human adjudication. No completed A/B/C annotations were generated.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T006 (D-003); 004-extraction-evaluation/T007 (D-012); 001-rag/T009 (A-007); 002-platform/T006 (B-011); 003-classification/T004 (C-010)
   - **Acceptance**: Keep all submissions immutable; adjudicate disagreements with provenance and >=10 independent secondary reviews; confirm group-separated development/final references. Call references human-reviewed, not clinically validated.
-  - **Verify**: `uv run --directory eval python -m pytest tests/test_annotation_integrity.py`.
+  - **Verify local tooling**: `./eval/.venv/Scripts/python.exe -m pytest eval/tests/test_slice.py -k merge`; actual adjudication needs human submissions.
   - **Coverage**: FR-009, FR-010, FR-011, FR-012, SC-002.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -136,14 +172,24 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T009 [US4] D-006: Implement shared Promptfoo API adapters and deterministic scorers in `eval/providers/**`, `eval/scorers/**`, `eval/profiles/**`, `eval/src/notelens_eval/run.py`, `eval/tests/test_metrics.py`
+  - [x] Synthetic prediction-file runner, actual-service Promptfoo HTTP adapter, exact/relaxed one-to-one scoring, context-label accuracy and QA state/abstention counts implemented. Unsupported semantic/risk/English-quality metrics are explicitly unavailable.
+  - [x] Full 24-document/48-question loopback HTTP runner added in `eval/src/notelens_eval/http_suite.py`; local run: 72 HTTP 200 responses, 0 technical failures, all request IDs matched, and 72 schema-valid outputs. Mock scorer misses are recorded separately; local outputs are ignored under `eval/reports/local/http-suite/`.
+  - [x] Authorized 2026-11-12 extension: 24 synthetic documents / 48 questions, six groups, validated references, grouped and per-case failure reporting, required literal QA support checks, and reproducible generation/rescoring CLI. See `docs/extraction-eval/synthetic-evaluation-v1.md` and `eval/tests/test_synthetic_suite.py`. Mock provider unchanged; this does not close the parent task.
+  - [x] Follow-up answer-completeness evaluation: versioned per-question required facts and expected gaps; detects missing required evidence, extra source quotes, and undisclosed gaps. Latest synthetic run is recorded in `docs/extraction-eval/synthetic-failure-review-v1.md`; evaluation-only labels never enter provider requests.
+  - [x] Five additional D-local increments prepared 2026-11-12: full synthetic HTTP suite; annotation draft linter; independent submission comparison; human answer-review rubric/form draft; and reference coverage profile. See `docs/extraction-eval/independent-d-work-2026-11-12.md`. Parent remains open for A/C integration, human review and frozen records.
+  - [x] Authorized 2026-11-12 local integration readiness tool checks D's draft contract bindings, demo fixtures, loopback HTTP schemas/evidence/errors/headers and reports missing cross-service gates; see `docs/extraction-eval/readiness-v1.md`.
+  - [x] Follow-up negative boundary suite covers malformed JSON, invalid/oversized/non-English requests, authentication, independent document IDs versus text digests, no-source claims and document-text log/response leakage. Per-case fake misses are summarized in `docs/extraction-eval/synthetic-failure-review-v1.md`; no real-model interpretation is claimed.
+  - [ ] Remaining: complete agreed A/C adapters, retrieval/coverage/risk metrics, frozen records and separately gated live profiles. Initial tests are in `eval/tests/test_slice.py`.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T002 (D-010); 000-foundation/T014 (F-014)
   - **Acceptance**: Offline/smoke/live profiles are separate. Unit fixtures verify schema/spans, exact/relaxed entity matching, assertion/temporality, unique-topic Recall@5/MRR/all-required, evidence coverage, error-versus-rejection and risk/coverage; real providers remain off.
-  - **Verify**: `uv run --directory eval python -m pytest tests/test_metrics.py`.
+  - **Verify local slice**: `./eval/.venv/Scripts/python.exe -m pytest eval/tests/test_slice.py -q`.
   - **Coverage**: FR-013, FR-016, FR-017, FR-018, FR-019, FR-020, FR-025, SC-001, SC-004.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T010 [US4] D-007: Assemble source-reviewed development/final QA and relevance manifests in `eval/datasets/qa/**`, `eval/references/qa/**`, `eval/tests/test_qa_integrity.py`
+  - [x] Initial versioned document-only synthetic case with three QA expectations exists separately from generated predictions; references never enter provider inputs.
+  - [ ] Remaining: actual corpus-reviewed QA, development/final portions and the approximately 80-case cross-module benchmark with A/B.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T009 (D-006); 001-rag/T003 (A-002)
   - **Acceptance**: Target ~80 QA including ~30 multi-source and ~10 lacking required-source answers plus out-of-scope. Publish exact counts/overlap, necessary topics/passages and answerability against actual corpus; flag >5 topics; no QA indexing.
@@ -152,6 +198,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T011 [US4] D-008: Calibrate judge rubrics and coordinate separate generated-output human review in `eval/rubrics/**`, `eval/reviews/**`, `docs/extraction-eval/judge-calibration.md`, `eval/tests/test_review_integrity.py`
+  - [x] Draft seven-dimension answer rubric and blank independent-review form prepared in `docs/extraction-eval/answer-review-rubric.md` and `eval/fixtures/answer-review-template-v1.json`; calibration, reviewers and human records remain pending.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T004 (D-005); 004-extraction-evaluation/T010 (D-007); 004-extraction-evaluation/T008 (D-013)
   - **Acceptance**: Calibrate on development examples, record judge versions/disagreements; plan ~40 answer reviews (10 each) and >=20 entity-evidence pairs separate from annotations. Final review is for reporting, not prompt tuning; live judges need budget approval.

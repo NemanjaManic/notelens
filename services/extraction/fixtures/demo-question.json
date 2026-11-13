@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "document": {
+    "schema_version": "1.0.0",
+    "doc_id": "synthetic-demo-v1",
+    "text": "Demo \ud83e\ude7a\nThe patient denies chest pain.\nPneumonia is suspected.\nThe patient's mother has diabetes.\nThe patient had an appendectomy in 2018.\nThe patient reports cough.",
+    "text_sha256": "daae237d2f93825409f8c23fed141ea6b863f269576bed84b60970ddd8f56b4e",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "D offline demo"
+    },
+    "language": "en",
+    "language_validation": {
+      "outcome": "accepted",
+      "language": "en",
+      "policy_version": "known-english-fixture-v1",
+      "reason": null
+    }
+  },
+  "question": "What does the document say about chest pain?"
+}

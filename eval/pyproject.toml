@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "notelens-eval"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["notelens-extraction", "notelens-contracts"]
+
+[project.scripts]
+notelens-d-readiness = "notelens_eval.readiness:main"
+
+[tool.uv.sources]
+notelens-extraction = {path = "../services/extraction", editable = true}
+notelens-contracts = {path = "../contracts/generated/python"}
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "httpx>=0.28,<1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/notelens_eval"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
