@@ -22,7 +22,7 @@ from notelens_extraction.evidence import EvidenceError, validate_span
 EXAMPLES_PATH = Path(__file__).resolve().with_name("annotation-training-examples.json")
 FORMAT = "notelens-draft-annotation-training-v1"
 TYPES = {"diagnosis", "symptom", "procedure"}
-ASSERTIONS = {"confirmed", "suspected", "negated"}
+ASSERTIONS = {"confirmed", "suspected", "negated", "unknown"}
 TEMPORALITIES = {"current", "historical", "unknown"}
 SUBJECTS = {"patient", "family", "other", "unknown"}
 
@@ -112,15 +112,14 @@ def validate(data: Any) -> tuple[list[str], dict[str, int]]:
             if not isinstance(kind, str) or kind not in TYPES:
                 errors.append(f"{location}: invalid type")
             assertion = item.get("assertion")
-            if "assertion" not in item or (
-                assertion is not None and (not isinstance(assertion, str) or assertion not in ASSERTIONS)
-            ):
+            if not isinstance(assertion, str) or assertion not in ASSERTIONS:
                 errors.append(f"{location}: invalid assertion")
-            if assertion is None and not (
-                isinstance(item.get("unresolved_question"), str)
-                and item["unresolved_question"].strip()
-            ):
-                errors.append(f"{location}: unresolved assertion needs a review question")
+            status = item.get("procedure_status")
+            if kind == "procedure":
+                if not isinstance(status, str) or status not in {"planned", "ordered", "performed", "cancelled", "hypothetical", "unknown"}:
+                    errors.append(f"{location}: invalid procedure status")
+            elif status is not None:
+                errors.append(f"{location}: non-procedure status must be null")
             if not isinstance(item.get("temporality"), str) or item["temporality"] not in TEMPORALITIES:
                 errors.append(f"{location}: invalid temporality")
             if not isinstance(item.get("subject"), str) or item["subject"] not in SUBJECTS:

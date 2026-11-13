@@ -6,13 +6,14 @@ build-backend = "hatchling.build"
 name = "notelens-eval"
 version = "0.1.0"
 requires-python = ">=3.11"
-dependencies = ["notelens-extraction"]
+dependencies = ["notelens-extraction", "notelens-contracts"]
 
 [project.scripts]
 notelens-d-readiness = "notelens_eval.readiness:main"
 
 [tool.uv.sources]
 notelens-extraction = {path = "../services/extraction", editable = true}
+notelens-contracts = {path = "../contracts/generated/python"}
 
 [dependency-groups]
 dev = ["pytest>=8,<10", "httpx>=0.28,<1"]

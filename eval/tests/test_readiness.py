@@ -12,7 +12,7 @@ def test_d_openapi_and_shared_draft_schema_are_structurally_bound():
     assert result["status"] == "pass", result["errors"]
     assert set(result["checked_d_operations"]) == {"extraction_extract", "extraction_document_answer"}
     assert result["openapi_refs"] == result["resolved_refs"]
-    assert result["contract_status"].startswith("draft")
+    assert result["contract_status"] == "frozen-v1.0.0"
 
 
 @pytest.mark.parametrize("fixture, schema_name", [(FIXTURE_EXTRACT, "ExtractionRequest"),
@@ -28,7 +28,7 @@ def test_http_readiness_exercises_demos_errors_and_safe_headers():
     names = {item["check"] for item in report["checks"]}
     assert len(names) == len(report["checks"])
     assert {"oversized_text_rejected", "unsupported_language_rejected", "malformed_json_rejected",
-            "invalid_token_rejected", "stale_digest_pair_rejected", "opaque_document_id_propagated"} <= names
+            "/health/live_401_fresh_id_0", "/health/ready_401_fresh_id_1", "stale_digest_pair_rejected", "opaque_document_id_propagated"} <= names
     assert all(item["status"] == "pass" for item in report["checks"])
     assert report["request_text_included"] is False
 
@@ -51,5 +51,5 @@ def test_demo_fixture_tampering_is_caught_by_request_hash_validation(monkeypatch
         fixture = Path(folder) / "tampered.json"
         fixture.write_text(json.dumps(request), encoding="utf-8")
         monkeypatch.setattr(readiness, "FIXTURE_EXTRACT", fixture)
-        with pytest.raises(EvidenceError, match="digest"):
+        with pytest.raises(EvidenceError, match="TEXT_DIGEST"):
             readiness.probe_http()

@@ -8,6 +8,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+import uuid
 
 from notelens_extraction.contracts import validate_schema
 from notelens_extraction.demo import request
@@ -15,7 +16,7 @@ from notelens_extraction.demo import request
 
 def test_actual_cli_and_http_process():
     demo = subprocess.run([sys.executable, "-m", "notelens_extraction.cli", "demo"], capture_output=True, text=True, check=True)
-    validate_schema(json.loads(demo.stdout), "ExtractionResult")
+    validate_schema(json.loads(demo.stdout), "ExtractionResult", document=request()["document"])
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
         port = sock.getsockname()[1]
@@ -27,7 +28,7 @@ def test_actual_cli_and_http_process():
     try:
         for _ in range(100):
             try:
-                with urllib.request.urlopen(base + "/health", timeout=0.3) as response:
+                with urllib.request.urlopen(base + "/health/ready", timeout=0.3) as response:
                     assert json.load(response)["mode"] == "mock"
                 break
             except (OSError, urllib.error.URLError):
@@ -37,13 +38,14 @@ def test_actual_cli_and_http_process():
         else:
             raise AssertionError("Local service process did not become ready.")
         payload = request("What does the document say about chest pain?")
+        request_id = str(uuid.uuid4())
         call = urllib.request.Request(base + "/v1/document-answer", data=json.dumps(payload).encode(),
-                                      headers={"Content-Type": "application/json", "X-Request-ID": "http-smoke"})
+                                      headers={"Content-Type": "application/json", "X-Request-ID": request_id})
         with urllib.request.urlopen(call, timeout=3) as response:
             answer = json.load(response)
             assert answer["evidence_state"] == "sufficient"
-            assert response.headers["X-Request-ID"] == "http-smoke"
-            validate_schema(answer, "AnswerResult")
+            assert response.headers["X-Request-ID"] == request_id
+            validate_schema(answer, "AnswerResult", document=payload["document"])
     finally:
         process.terminate()
         stdout, stderr = process.communicate(timeout=10)

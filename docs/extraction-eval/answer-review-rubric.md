@@ -53,8 +53,8 @@ Use these outcome flags independently from dimension scores:
 
 - `answerable_from_document`: `yes`, `partly`, `no`, or `unclear`;
 - `response_action`: `answer`, `partial_answer`, `abstain`, or `unclear`;
-- `critical_error`: `yes` or `no`, with rationale if yes;
-- `needs_adjudication`: `yes` when reviewers disagree or the rule is unresolved.
+- `critical_error`: boolean, with rationale when true;
+- `needs_adjudication`: true when reviewers disagree or the rule is unresolved.
 
 An operational error (timeout, invalid response, unavailable service) is recorded as
 an operational failure, never as a correct abstention. Record the error code and run
@@ -83,3 +83,5 @@ clinical validation. Do not tune prompts on final-reference reviews.
 
 The blank machine-readable form is [answer-review-template-v1.json](../../eval/fixtures/answer-review-template-v1.json).
 Its nulls are empty fields, not negative findings.
+
+Executable integrity checks and read-only reporting are documented in [judge-calibration.md](judge-calibration.md). The rubric remains a draft until actual calibration.

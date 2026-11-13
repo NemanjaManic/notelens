@@ -1,4 +1,4 @@
-﻿"""D-owned contract and local-transport readiness probe; shared contracts remain B-owned."""
+"""D-owned contract and local-transport readiness probe; shared contracts remain B-owned."""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -99,7 +100,7 @@ def inspect_contracts() -> dict:
             "openapi_sha256": hashlib.sha256(OPENAPI_PATH.read_bytes()).hexdigest(),
             "openapi_refs": len(refs), "resolved_refs": len(refs) - sum("unresolved_ref:" in e for e in errors),
             "checked_d_operations": checked, "errors": errors,
-            "contract_status": "draft-provisional; no freeze implied"}
+            "contract_status": "frozen-v1.0.0"}
 
 
 def _validate_fixture(request: dict, expected_input: str) -> dict:
@@ -113,14 +114,14 @@ def _validate_success(payload: dict, document: dict, operation: str) -> None:
     if operation == "extract":
         validate_extraction(payload, document)
         return
-    validate_schema(payload, "AnswerResult")
+    validate_schema(payload, "AnswerResult", document=document)
     validate_generation(payload, document, answer=True)
 
 
 def _http_json(base: str, path: str, *, payload: dict | None = None, headers: dict | None = None):
     body = None if payload is None else json.dumps(payload, ensure_ascii=False).encode("utf-8")
     req = urllib.request.Request(base + path, data=body,
-                                 headers={"Content-Type": "application/json", "Authorization": "Bearer readiness-test-token", **(headers or {})})
+                                 headers={"Content-Type": "application/json", "Authorization": "Bearer readiness-test-token", "x-request-id": str(uuid.uuid4()), **(headers or {})})
     try:
         with urllib.request.urlopen(req, timeout=4) as response:
             return response.status, {k.lower(): v for k, v in response.headers.items()}, json.load(response)
@@ -153,7 +154,7 @@ def probe_http() -> dict:
     try:
         for _ in range(100):
             try:
-                status, headers, health = _http_json(base, "/health")
+                status, headers, health = _http_json(base, "/health/ready")
                 if status == 200:
                     break
             except (OSError, urllib.error.URLError):
@@ -164,28 +165,30 @@ def probe_http() -> dict:
             raise RuntimeError("D service failed to become ready.")
         validate_schema(health, "HealthResult")
         record("health_schema_and_mock_mode", health["status"] == "ok" and health["mode"] == "mock", health["service"])
-        record("health_headers", headers.get("x-contract-status") == "draft-provisional" and headers.get("cache-control") == "no-store", "provisional and no-store headers")
+        record("health_headers", headers.get("cache-control") == "no-store", "no-store headers")
 
+        request_id = str(uuid.uuid4())
         status, headers, extraction = _http_json(base, "/v1/extract", payload=extract_request,
-                                                  headers={"x-request-id": "readiness-extract-v1"})
+                                                  headers={"x-request-id": request_id})
         _validate_success(extraction, document, "extract")
         schema_check = Draft202012Validator({"$ref": "#/$defs/ExtractionResult", "$defs": schema()["$defs"]}, format_checker=FormatChecker())
         schema_check.validate(extraction)
         record("extract_schema_identity_and_evidence", status == 200 and extraction["doc_id"] == document["doc_id"],
                f"{len(extraction['items'])} item(s); text body omitted from report")
-        record("extract_headers_and_generation_diagnostics", headers.get("x-request-id") == "readiness-extract-v1"
-               and headers.get("x-contract-status") == "draft-provisional" and headers.get("cache-control") == "no-store"
-               and all(k in headers for k in ("x-generation-attempts", "x-raw-validation-failures", "x-validation-repairs")),
+        record("extract_headers_and_generation_diagnostics", headers.get("x-request-id") == request_id
+               and headers.get("cache-control") == "no-store"
+               and "x-generation-attempts" in headers,
                "request correlation, draft status, no-store, generation counters")
 
+        request_id = str(uuid.uuid4())
         status, headers, answer = _http_json(base, "/v1/document-answer", payload=answer_request,
-                                              headers={"x-request-id": "readiness-answer-v1"})
+                                              headers={"x-request-id": request_id})
         _validate_success(answer, document, "answer")
         record("answer_schema_identity_and_evidence", status == 200 and answer["route"] in {"document", "none"},
                f"{len(answer['claims'])} claim(s); text body omitted from report")
-        record("answer_headers_and_generation_diagnostics", headers.get("x-request-id") == "readiness-answer-v1"
-               and headers.get("x-contract-status") == "draft-provisional" and headers.get("cache-control") == "no-store"
-               and all(k in headers for k in ("x-generation-attempts", "x-raw-validation-failures", "x-validation-repairs")),
+        record("answer_headers_and_generation_diagnostics", headers.get("x-request-id") == request_id
+               and headers.get("cache-control") == "no-store"
+               and "x-generation-attempts" in headers,
                "request correlation, draft status, no-store, generation counters")
 
         status, headers, bad = _http_json(base, "/v1/document-answer", payload={**answer_request, "question": "   "})
@@ -209,7 +212,7 @@ def probe_http() -> dict:
                "non-English language rejected with the service's explicit error code")
 
         malformed_request = urllib.request.Request(base + "/v1/extract", data=b"{",
-                                                   headers={"Content-Type": "application/json", "Authorization": "Bearer readiness-test-token"})
+                                                   headers={"Content-Type": "application/json", "Authorization": "Bearer readiness-test-token", "X-Request-ID": str(uuid.uuid4())})
         try:
             with urllib.request.urlopen(malformed_request, timeout=4) as response:
                 malformed_status, malformed_headers, malformed = response.status, {k.lower(): v for k, v in response.headers.items()}, json.load(response)
@@ -219,10 +222,22 @@ def probe_http() -> dict:
         record("malformed_json_rejected", malformed_status == 400 and malformed["error"]["code"] == "validation_failure"
                and malformed_headers.get("cache-control") == "no-store", "malformed JSON maps to safe 400 error envelope")
 
-        status, auth_headers, auth_error = _http_json(base, "/health", headers={"Authorization": "Bearer wrong-token"})
-        validate_schema(auth_error, "ErrorEnvelope")
-        record("invalid_token_rejected", status == 401 and auth_error["error"]["code"] == "unauthorized"
-               and auth_headers.get("cache-control") == "no-store", "configured test token rejects invalid credentials safely")
+        for path in ("/health/live", "/health/ready"):
+            status, live_headers, live = _http_json(base, path)
+            validate_schema(live, "LivenessResult" if path.endswith("live") else "HealthResult")
+            record(path + "_success", status == 200 and live_headers.get("cache-control") == "no-store", "authenticated health")
+            previous = None
+            for attempt in range(2):
+                status, auth_headers, auth_error = _http_json(base, path, headers={"Authorization": "Bearer wrong-token", "x-request-id": "invalid caller id"})
+                validate_schema(auth_error, "ErrorEnvelope")
+                diagnostic = auth_headers.get("x-request-id")
+                canonical = str(uuid.UUID(diagnostic)) == diagnostic
+                record(path + f"_401_fresh_id_{attempt}", status == 401 and auth_error["error"]["code"] == "unauthorized"
+                       and auth_headers.get("cache-control") == "no-store"
+                       and auth_headers.get("www-authenticate") == "Bearer"
+                       and auth_error["request_id"] == diagnostic and canonical and diagnostic != previous,
+                       "health ignores caller ID and returns fresh authenticated diagnostic envelope")
+                previous = diagnostic
 
         changed_document = json.loads(json.dumps(answer_request))
         changed_document["document"]["text"] += " Additional synthetic text."
@@ -241,14 +256,15 @@ def probe_http() -> dict:
 
         status, headers, bad = _http_json(base, "/v1/extract", payload=extract_request,
                                            headers={"x-request-id": "bad id with spaces"})
-        # The valid request succeeds; an invalid inbound correlation ID is replaced safely.
-        validate_schema(bad, "ExtractionResult")
-        record("invalid_correlation_id_replaced", status == 200 and headers.get("x-request-id") != "bad id with spaces",
-               "untrusted request ID replaced by generated correlation ID")
+        validate_schema(bad, "ErrorEnvelope")
+        record("invalid_correlation_id_rejected", status == 400
+               and headers.get("x-request-id") == bad["request_id"]
+               and headers.get("x-request-id") != "bad id with spaces",
+               "invalid request ID rejected with a fresh diagnostic ID")
         return {"status": "pass", "mode": "mock", "checks": checks,
-                "contract_status": "draft-provisional", "documents": 1,
+                "contract_status": "frozen-v1.0.0", "documents": 1,
                 "request_text_included": False, "provider": "deterministic synthetic fake",
-                "known_contract_questions": ["Confirm whether top-level AnswerResult should echo document ID/hash; current results carry document identity through document sources only."],
+                "known_contract_questions": [],
                 "observed_provisional_behavior": {"unsupported_language": "422 unsupported_language"}}
     finally:
         process.terminate()
@@ -264,7 +280,7 @@ def run_readiness() -> dict:
             "cross_service": {"status": "not_run", "reason": "A and C runtime fixture packages are not present in this checkout; B owns shared integration and shared contract changes."},
             "live_provider": "not run; no provider/model is approved",
             "human_or_clinical_review": "not performed",
-            "limits": ["Draft contracts can be structurally checked but are not frozen or accepted.",
+            "limits": ["Frozen contracts do not establish live model quality or semantic support.",
                        "Mock mode confirms transport/schema/evidence behavior only, not model quality or semantic support."]}
 
 

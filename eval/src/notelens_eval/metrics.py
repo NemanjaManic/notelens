@@ -60,7 +60,7 @@ def entity_scores(predictions: list[dict], references: list[dict], *, relaxed: b
               "precision": tp / (tp + fp) if tp + fp else None,
               "recall": tp / (tp + fn) if tp + fn else None,
               "f1": 2 * tp / (2 * tp + fp + fn) if 2 * tp + fp + fn else None}
-    for attribute in ("assertion", "temporality", "subject"):
+    for attribute in ("assertion", "temporality", "subject", "procedure_status"):
         eligible = [(p, r) for p, r in pairs if references[r].get(attribute) is not None]
         correct = sum(predictions[p].get(attribute) == references[r][attribute] for p, r in eligible)
         result[attribute] = {"correct": correct, "matched_evaluated": len(eligible),
@@ -70,20 +70,10 @@ def entity_scores(predictions: list[dict], references: list[dict], *, relaxed: b
 
 
 def prediction_mentions(document: dict, items: list[dict]) -> list[dict]:
-    """Provisional adapter: infer exact name interval within item evidence.
-
-    Ambiguous names fail instead of picking a repeated occurrence arbitrarily.
-    This adapter must be replaced/reviewed if B adopts a mention span field.
-    """
+    """Adapt frozen ExtractionItems using their explicit exact mention span."""
     result = []
     for item in items:
-        span = item["evidence"][0]
-        quote, name = span["quote"], item["name"]
-        start = quote.casefold().find(name.casefold())
-        # Case folding may change length; require the original substring too.
-        if start < 0 or quote[start:start + len(name)].casefold() != name.casefold() or quote.casefold().find(name.casefold(), start + 1) >= 0:
-            raise ValueError("Cannot resolve a unique entity mention from evidence.")
         result.append({"doc_id": document["doc_id"], "type": item["type"],
-                       "mention": {"start": span["start"] + start, "end": span["start"] + start + len(name)},
-                       **{a: item[a] for a in ("assertion", "temporality", "subject")}})
+                       "mention": {"start": item["mention"]["start"], "end": item["mention"]["end"]},
+                       **{a: item[a] for a in ("assertion", "temporality", "subject", "procedure_status")}})
     return result

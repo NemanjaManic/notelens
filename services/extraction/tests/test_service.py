@@ -1,5 +1,6 @@
 import copy
 import json
+import uuid
 
 import pytest
 from fastapi.testclient import TestClient
@@ -31,15 +32,15 @@ class Scripted:
 def test_full_extraction_and_summary():
     payload = request()
     result, diagnostics = run(payload, "extract")
-    validate_schema(result, "ExtractionResult")
+    validate_schema(result, "ExtractionResult", document=payload["document"])
     assert len(result["items"]) == 4  # fake intentionally misses cough
     by_name = {i["name"].casefold(): i for i in result["items"]}
     assert by_name["chest pain"]["assertion"] == "negated"
     assert by_name["pneumonia"]["assertion"] == "suspected"
     assert by_name["diabetes"]["subject"] == "family"
     assert by_name["appendectomy"]["temporality"] == "historical"
-    assert result["summary"]["language"] == "en"
-    assert result["summary"]["claims"]
+    assert result["summary"]["result"]["language"] == "en"
+    assert result["summary"]["result"]["claims"]
     assert diagnostics == {"attempts": 1, "raw_validation_failures": 0, "repairs": 0}
 
 
@@ -51,7 +52,7 @@ def test_full_extraction_and_summary():
 ])
 def test_answers(question, state):
     answer, _ = run(request(question), "answer")
-    validate_schema(answer, "AnswerResult")
+    validate_schema(answer, "AnswerResult", document=request(question)["document"])
     assert answer["evidence_state"] == state
     if state == "insufficient":
         assert answer["claims"] == answer["sources"] == [] and answer["route"] == "none"
@@ -111,8 +112,8 @@ def test_repair_and_raw_failures_are_separate():
 @pytest.mark.parametrize("corrupt", [
     lambda r: r["items"][0]["evidence"][0].update(quote="unsupported"),
     lambda r: r.update(doc_id="another-document"),
-    lambda r: r["summary"]["claims"][0].update(source_ids=["missing"]),
-    lambda r: r["summary"]["claims"][0].update(text="A correct quote does not support this invented conclusion."),
+    lambda r: r["summary"]["result"]["claims"][0].update(source_ids=["missing"]),
+    lambda r: r["summary"]["result"]["claims"][0].update(text="A correct quote does not support this invented conclusion."),
     lambda r: r["items"][0].update(icd={"code": "invented", "evidence": r["items"][0]["evidence"][0]}),
     lambda r: r["items"][0].update(assertion="confirmed"),
     lambda r: r["items"][2].update(subject="patient"),
@@ -169,7 +170,8 @@ def test_http_validation_does_not_log_or_echo_submitted_document(caplog):
     payload["document"]["text"] += " " + marker
     payload["document"]["text_sha256"] = digest(payload["document"]["text"])
     payload["document"]["language"] = "sr"
-    response = TestClient(create_app()).post("/v1/extract", json=payload)
+    response = TestClient(create_app()).post("/v1/extract", json=payload,
+                                             headers={"X-Request-ID": str(uuid.uuid4())})
     assert response.status_code == 422
     assert marker not in response.text
     assert marker not in caplog.text
@@ -178,7 +180,7 @@ def test_http_validation_does_not_log_or_echo_submitted_document(caplog):
 def test_health_does_not_invoke_generation():
     provider = Scripted([])
     client = TestClient(create_app(provider))
-    assert client.get("/health").json()["status"] == "ok"
+    assert client.get("/health/ready").json()["status"] == "ok"
     assert not provider.calls
 
 
@@ -197,14 +199,16 @@ def test_provider_cannot_rewrite_canonical_request():
 
 def test_transport_health_auth_errors_and_correlation():
     client = TestClient(create_app(token="test-only-token"))
-    assert client.get("/health").status_code == 401
-    headers = {"Authorization": "Bearer test-only-token", "X-Request-ID": "test-request-1"}
-    health = client.get("/health", headers=headers)
+    unauthorized = client.get("/health/ready")
+    assert unauthorized.status_code == 401
+    assert unauthorized.headers["WWW-Authenticate"] == "Bearer"
+    headers = {"Authorization": "Bearer test-only-token", "X-Request-ID": str(uuid.uuid4())}
+    health = client.get("/health/ready", headers=headers)
     validate_schema(health.json(), "HealthResult")
     assert health.json()["mode"] == "mock"
     response = client.post("/v1/extract", json=request(), headers=headers)
-    assert response.status_code == 200 and response.headers["X-Request-ID"] == "test-request-1"
-    validate_schema(response.json(), "ExtractionResult")
+    assert response.status_code == 200 and response.headers["X-Request-ID"] == headers["X-Request-ID"]
+    validate_schema(response.json(), "ExtractionResult", document=request()["document"])
     malformed = client.post("/v1/extract", content="{", headers=headers)
     assert malformed.status_code == 400
     validate_schema(malformed.json(), "ErrorEnvelope")

@@ -26,8 +26,8 @@
           "assertion": "negated",
           "temporality": "unknown",
           "subject": "patient",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     },
@@ -54,8 +54,8 @@
           "assertion": "confirmed",
           "temporality": "unknown",
           "subject": "family",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     },
@@ -82,8 +82,8 @@
           "assertion": "confirmed",
           "temporality": "historical",
           "subject": "patient",
-          "procedure_status_note": "performed",
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": "performed"
         }
       ]
     },
@@ -110,8 +110,8 @@
           "assertion": "suspected",
           "temporality": "unknown",
           "subject": "unknown",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     },
@@ -135,17 +135,17 @@
               "quote": "Colonoscopy is planned for next week."
             }
           ],
-          "assertion": null,
+          "assertion": "confirmed",
           "temporality": "unknown",
           "subject": "unknown",
-          "procedure_status_note": "planned",
-          "unresolved_question": "assertion and future procedure representation require team agreement"
+          "unresolved_question": null,
+          "procedure_status": "planned"
         }
       ]
     },
     {
       "id": "repeated_denial",
-      "canonical_text": "\ud83e\ude7a No chest pain. No chest pain.",
+      "canonical_text": "🩺 No chest pain. No chest pain.",
       "canonicalization_version": "nfc-lf-v1",
       "text_sha256": "a8047ca9816529aa5202fe5fe3dbef86e71978c7726d8857f62e4edc0120c724",
       "mentions": [
@@ -166,8 +166,8 @@
           "assertion": "negated",
           "temporality": "unknown",
           "subject": "unknown",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         },
         {
           "type": "symptom",
@@ -186,8 +186,8 @@
           "assertion": "negated",
           "temporality": "unknown",
           "subject": "unknown",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     },
@@ -215,8 +215,8 @@
           "assertion": "confirmed",
           "temporality": "current",
           "subject": "patient",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     },
@@ -244,8 +244,8 @@
           "assertion": "confirmed",
           "temporality": "historical",
           "subject": "patient",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     },
@@ -273,8 +273,8 @@
           "assertion": "negated",
           "temporality": "unknown",
           "subject": "family",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     },
@@ -302,8 +302,8 @@
           "assertion": "negated",
           "temporality": "unknown",
           "subject": "patient",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         },
         {
           "type": "symptom",
@@ -322,8 +322,8 @@
           "assertion": "confirmed",
           "temporality": "unknown",
           "subject": "patient",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     },
@@ -351,8 +351,8 @@
           "assertion": "negated",
           "temporality": "unknown",
           "subject": "unknown",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         },
         {
           "type": "symptom",
@@ -371,8 +371,8 @@
           "assertion": "confirmed",
           "temporality": "unknown",
           "subject": "patient",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     },
@@ -397,11 +397,11 @@
               "quote": "The planned biopsy was cancelled."
             }
           ],
-          "assertion": null,
+          "assertion": "confirmed",
           "temporality": "unknown",
           "subject": "unknown",
-          "procedure_status_note": "cancelled",
-          "unresolved_question": "The P1 assertion and procedure-status representation need team agreement."
+          "unresolved_question": null,
+          "procedure_status": "cancelled"
         }
       ]
     },
@@ -429,7 +429,6 @@
           "assertion": "confirmed",
           "temporality": "unknown",
           "subject": "unknown",
-          "procedure_status_note": null,
           "unresolved_question": null,
           "icd": {
             "code": "J45.909",
@@ -438,7 +437,8 @@
               "end": 43,
               "quote": "J45.909"
             }
-          }
+          },
+          "procedure_status": null
         }
       ]
     },
@@ -466,8 +466,8 @@
           "assertion": "confirmed",
           "temporality": "unknown",
           "subject": "unknown",
-          "procedure_status_note": null,
-          "unresolved_question": null
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     },
@@ -500,11 +500,11 @@
               "quote": "The report mentions a headache."
             }
           ],
-          "assertion": null,
+          "assertion": "unknown",
           "temporality": "unknown",
           "subject": "unknown",
-          "procedure_status_note": null,
-          "unresolved_question": "Whether a bare mention warrants confirmed assertion needs team review."
+          "unresolved_question": null,
+          "procedure_status": null
         }
       ]
     }

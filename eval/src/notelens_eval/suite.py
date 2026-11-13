@@ -16,7 +16,7 @@ def validate_references(references: dict) -> None:
     seen, docs = set(), set()
     for case in references["cases"]:
         document = case["request"]["document"]
-        validate_schema(case["request"], "ExtractionRequest")
+        validate_schema(case["request"], "ExtractionRequest", document=document)
         validate_text(document["text"], document["text_sha256"])
         if case["id"] in seen or document["doc_id"] in docs:
             raise ValueError("Duplicate case or document identity.")
@@ -33,7 +33,7 @@ def validate_references(references: dict) -> None:
                 raise ValueError("Duplicate or invalid reference entity.")
             mentions.add(key)
             for attribute, allowed in {
-                "assertion": {"confirmed", "suspected", "negated", None},
+                "assertion": {"confirmed", "suspected", "negated", "unknown", None},
                 "temporality": {"current", "historical", "unknown", None},
                 "subject": {"patient", "family", "other", "unknown", None},
             }.items():
@@ -44,7 +44,8 @@ def validate_references(references: dict) -> None:
             if qa["id"] in qa_ids or not qa.get("rationale"):
                 raise ValueError("Duplicate QA identity or missing rationale.")
             qa_ids.add(qa["id"])
-            validate_schema({**case["request"], "question": qa["question"]}, "DocumentQuestionRequest")
+            validate_schema({**case["request"], "question": qa["question"]},
+                            "DocumentQuestionRequest", document=document)
             state, support = qa["expected_evidence_state"], qa["expected_support"]
             facts = qa.get("required_facts")
             gaps = qa.get("expected_gaps")
@@ -121,7 +122,7 @@ def evaluate_suite(references: dict, predictions: dict) -> dict:
             try:
                 if answer is None:
                     raise ValueError("Unavailable answer.")
-                validate_schema(answer, "AnswerResult")
+                validate_schema(answer, "AnswerResult", document=document)
                 validate_generation(answer, document, answer=True)
             except ValueError as exc:
                 fail(case, "technical_error" if answer is None else "invalid_answer", "Valid answer",

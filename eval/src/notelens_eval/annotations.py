@@ -155,7 +155,7 @@ def lint_submission(assignment: dict, document: dict, submission: dict) -> dict:
         except (ValueError, TypeError, KeyError):
             issue(prefix + "_invalid_mention_span")
             mention = None
-        if entity.get("assertion") not in {"confirmed", "suspected", "negated"}:
+        if entity.get("assertion") not in {"confirmed", "suspected", "negated", "unknown"}:
             if entity.get("assertion") is None or entity.get("assertion_unresolved"):
                 questions.append(prefix + "_assertion_unresolved")
             else:
@@ -177,8 +177,12 @@ def lint_submission(assignment: dict, document: dict, submission: dict) -> dict:
                     issue(prefix + "_invalid_evidence_span")
         if mention and valid_evidence and not any(span["start"] <= mention["start"] and span["end"] >= mention["end"] for span in valid_evidence):
             questions.append(prefix + "_mention_not_covered_by_evidence")
-        if entity.get("procedure_status_note"):
-            questions.append(prefix + "_procedure_status_requires_team_mapping")
+        status = entity.get("procedure_status")
+        if entity.get("type") == "procedure":
+            if status not in {"planned", "ordered", "performed", "cancelled", "hypothetical", "unknown"}:
+                issue(prefix + "_invalid_procedure_status")
+        elif status is not None:
+            issue(prefix + "_nonprocedure_status")
         icd = entity.get("icd")
         if icd is not None:
             try:
@@ -223,7 +227,7 @@ def merge(assignment: dict, document: dict, submissions: list[dict], decision: d
         if identifier in by_id:
             raise ValueError("Duplicate submission ID.")
         for entity in submission["entities"]:
-            if entity.get("type") not in {"diagnosis", "symptom", "procedure"} or entity.get("assertion") not in {"confirmed", "suspected", "negated"}:
+            if entity.get("type") not in {"diagnosis", "symptom", "procedure"} or entity.get("assertion") not in {"confirmed", "suspected", "negated", "unknown"}:
                 raise ValueError("Unresolved entity labels cannot become a canonical reference.")
             if entity.get("temporality") not in {"current", "historical", "unknown"} or entity.get("subject") not in {"patient", "family", "other", "unknown"}:
                 raise ValueError("Invalid reference context labels.")

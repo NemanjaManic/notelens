@@ -5,7 +5,7 @@ import copy
 from dataclasses import dataclass, asdict
 from pathlib import Path
 
-from .contracts import schema, validate_extraction, validate_generation, validate_request
+from .contracts import validate_extraction, validate_generation, validate_request
 from .errors import ServiceError
 from .evidence import EvidenceError
 from .providers import FakeProvider, Provider
@@ -38,13 +38,14 @@ def run(request: dict, operation: str, provider: Provider | None = None,
     document = copy.deepcopy(document)
     instructions = (Path(__file__).parent / "prompts" / f"{operation}-v1.txt").read_text(encoding="utf-8")
     definition = "ExtractionResult" if operation == "extract" else "AnswerResult"
-    instructions += "\nShared output schema (read-only provisional P1):\n" + json.dumps(
-        {"$ref": f"#/$defs/{definition}", "$defs": schema()["$defs"]})
+    instructions += "\nReturn the frozen NoteLens 1.0.0 " + definition + " record."
     for attempt in range(max_attempts):
         diagnostics.attempts += 1
         try:
             raw = provider.generate(operation, copy.deepcopy(request), instructions, repair=attempt > 0)
             result = json.loads(raw)
+            if request["document"] != document:
+                raise EvidenceError("Canonical request was modified.")
             if operation == "extract":
                 validate_extraction(result, document)
             else:

@@ -9,6 +9,7 @@ from notelens_extraction.contracts import SCHEMA_PATH, validate_extraction, vali
 from notelens_extraction.evidence import EvidenceError, validate_span, validate_text
 from notelens_extraction.errors import ServiceError
 from notelens_extraction.service import Diagnostics, run as generate
+from notelens_contracts.v1 import ContractValidationError, validate_record
 from .metrics import entity_scores, prediction_mentions
 
 EVAL_ROOT = Path(__file__).resolve().parents[2]
@@ -66,7 +67,7 @@ def evaluate(references: dict, predictions: dict) -> dict:
             if result is None:
                 technical_errors += 1
                 raise EvidenceError("Technical extraction failure.")
-            validate_schema(result, "ExtractionResult")
+            validate_schema(result, "ExtractionResult", document=document)
             schema_valid += 1
             validate_extraction(result, document)
             extraction_valid += 1
@@ -75,10 +76,13 @@ def evaluate(references: dict, predictions: dict) -> dict:
             invalid_extractions += 1
             if result is not None:
                 try:
-                    validate_schema(result, "ExtractionResult")
+                    validate_record("ExtractionResult", result, document=document)
                     invalid_evidence += 1
-                except EvidenceError:
-                    invalid_schema += 1
+                except ContractValidationError as exc:
+                    if any(issue.rule == "STRUCTURE" for issue in exc.issues):
+                        invalid_schema += 1
+                    else:
+                        invalid_evidence += 1
             validation_issues.append({"case_id": case["id"], "operation": "extract", "issue": "Invalid or unavailable extraction; entity metrics withheld."})
         reference_entities.extend({**r, "doc_id": document["doc_id"]} for r in case["entities"])
         stats = prediction["diagnostics"]
@@ -99,17 +103,20 @@ def evaluate(references: dict, predictions: dict) -> dict:
                 technical_errors += 1
             else:
                 try:
-                    validate_schema(answer, "AnswerResult")
+                    validate_schema(answer, "AnswerResult", document=document)
                     schema_valid += 1
                     validate_generation(answer, document, answer=True)
                     answer_valid += 1
                     valid_answer = True
                 except EvidenceError:
                     try:
-                        validate_schema(answer, "AnswerResult")
+                        validate_record("AnswerResult", answer, document=document)
                         invalid_evidence += 1
-                    except EvidenceError:
-                        invalid_schema += 1
+                    except ContractValidationError as exc:
+                        if any(issue.rule == "STRUCTURE" for issue in exc.issues):
+                            invalid_schema += 1
+                        else:
+                            invalid_evidence += 1
             if not valid_answer:
                 validation_issues.append({"case_id": case["id"], "qa_id": qa["id"], "issue": "Invalid or unavailable answer; not counted as a correct abstention."})
             qa_count += 1
@@ -130,7 +137,7 @@ def evaluate(references: dict, predictions: dict) -> dict:
                             "prompt_version": result.get("prompt_version") if isinstance(result, dict) else None,
                             "mode": result.get("mode") if isinstance(result, dict) else None})
     return {"label": "synthetic/mock structural and scoring demonstration; not real-model quality",
-            "schema_sha256": hashlib.sha256(SCHEMA_PATH.read_bytes()).hexdigest(), "contract_status": "draft-provisional",
+            "schema_sha256": hashlib.sha256(SCHEMA_PATH.read_bytes()).hexdigest(), "contract_status": "frozen-v1.0.0",
             "reference_version": references["version"], "prediction_version": predictions["version"],
             "human_reviewed": False, "trace": cases_trace,
             "counts": {"documents": len(expected_ids), "qa": qa_count},

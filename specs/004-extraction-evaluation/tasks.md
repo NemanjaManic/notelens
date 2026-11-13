@@ -20,6 +20,21 @@ now and deferred runnable mocks/UI. The current initial commit is a documentatio
 not the later F-014 runnable-foundation publication. Inspection and owned proposals can
 start now; business prerequisites and unchecked implementation tasks remain unchanged.
 
+## Frozen D local evidence (2026-11-13)
+
+- [x] D-001: practice records/linter use frozen assertion and independent procedure
+  status values; exact code-point spans remain checked. Team adoption remains open.
+- [x] D-004/D-005: generated frozen binding, independent extraction/summary outcomes,
+  literal supported/partial/insufficient answers and safe transport implemented locally.
+- [x] D-006: locked installed contracts dependency, language-validation fixtures,
+  canonical UUID HTTP adapters and authenticated health readiness checks updated.
+- [x] D-008 preparation: read-only review validator, separate blank/incomplete/U/error
+  reporting and blank form prepared. No real human review or calibration performed.
+
+See [verification and remaining gates](../../docs/extraction-eval/d-local-completion-2026-11-13.md).
+F-003/F-009 are complete upstream. No parent D checkbox, F-004/F-014 completion,
+live activation or human acceptance follows from these local mock checks.
+
 ## Format: `[ID] [P?] [Story] Description`
 
 No task is marked [P]: dependencies or shared files make an unconditional parallel claim
@@ -38,7 +53,7 @@ listed test/CLI file exist, its command must actually pass before closing it.
 project; do not replace it with --project while leaving relative test paths at the repo root.
 
 Contract constraints apply verbatim: evidence is a half-open Unicode code-point
-[start,end) interval with an exact canonical quote; assertion is confirmed|suspected|negated,
+[start,end) interval with an exact canonical quote; assertion is confirmed|suspected|negated|unknown,
 temporality is current|historical|unknown, subject is patient|family|other|unknown.
 Approved PDF/text/retention limits are 2,097,152 bytes, 100,000 code points and at most
 60 minutes. Model scores/retrieval scores are not clinical confidence.

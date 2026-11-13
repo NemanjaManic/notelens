@@ -2,13 +2,36 @@
 
 - **Owner:** D / Milica
 - **Date:** 2026-11-11
-**Status:** Draft for team review; synthetic training examples only. No assignments,
+**Status:** D's completed proposal for team review; synthetic training examples only. No assignments,
 annotations, clinical validation, frozen references or team approval are implied.
 
-This guide is the initial D-001 deliverable for the four-person NoteLens team. Its
-procedures and proposed annotation format need a team walkthrough and must be frozen
-before actual assignments. The shared API is a separate draft owned by B. Where this
-guide proposes more detail than `contracts/v1`, it does not change that API.
+This guide is D's D-001 proposal for the four-person NoteLens team. The team must review
+and adopt the procedures before actual assignments. The frozen shared API is owned by B;
+annotation rules below do not change that API.
+
+## Frozen contract mapping (2026-11-13)
+
+The frozen `contracts/v1` ExtractionItem has a required exact `mention` span and separate
+supporting `evidence` spans, each using half-open Unicode code-point offsets and exact
+canonical quotes. Annotate one record per contiguous mention occurrence. The mention
+span identifies the named concept; evidence includes the context needed to judge
+assertion, time, subject and procedure state. Repeated mentions remain separate records.
+Discontinuous mentions are not represented as one mention span; record supported
+contiguous occurrences separately and raise unresolved cases for review.
+
+The API assertion values are `confirmed`, `suspected`, `negated`, and `unknown`.
+Use `unknown` only when the source cannot justify one of the other values; do not use it
+for a processing or annotation failure. Procedure items require `procedure_status` from
+`planned`, `ordered`, `performed`, `cancelled`, `hypothetical`, or `unknown`; non-procedure
+items require null. Procedure state is independent of assertion, temporality, and subject.
+For example, a confirmed plan remains planned, not performed.
+
+The D-owned practice data and linter still contain historical proposal wording from
+before this freeze. Treat this guide as the proposed annotation policy and the canonical
+schema as the wire definition; update the practice set before using it to train annotators.
+The matching convention for relaxed boundaries and the semantic source-support rubric
+remain proposals for the team to adopt. No team agreement, actual assignment, annotation,
+or clinical validation is implied here.
 
 ## 1. Purpose and boundaries
 
@@ -60,26 +83,26 @@ mentions, record each distinct supported concept when needed and flag the bounda
 for review; do not create duplicates merely by selecting a longer version of the same
 concept. Ambiguous category or boundary: record a question and ask D; do not guess.
 
-The annotation unit is **proposed for reference creation**, not an assertion that
-P1's `ExtractionItem` already has a separate mention-span field. Agreement on how
-individual annotations map to API items and how overlaps are scored remains open.
+The annotation unit follows the frozen `ExtractionItem`: each contiguous occurrence
+has a separate mention span. Distinct overlapping concepts may have separate records;
+do not duplicate the same concept occurrence by extending its boundary. How relaxed
+overlap scoring handles nested mentions remains a team decision.
 
 ## 4. Assertion, time, subject and procedure state
 
 Record the three dimensions independently, based on the source context. They are
-attributes of the mention, not a statement about medical truth. The labels below
-reflect P1 except where explicitly described as an annotation-only flag.
+attributes of the mention, not a statement about medical truth. Use the frozen API
+values below; an unresolved annotation question is kept separately from model failure.
 
 | Dimension | Values and guidance |
 | --- | --- |
-| `assertion` | `confirmed`: explicitly stated as present or performed; `suspected`: explicitly uncertain, possible, probable or being considered; `negated`: explicitly denied or ruled out. If none fits, flag `assertion_unresolved`; do not invent `confirmed`. |
+| `assertion` | `confirmed`: explicitly stated as present or performed; `suspected`: explicitly uncertain, possible, probable or being considered; `negated`: explicitly denied or ruled out; `unknown`: source context cannot justify one of those three values. Do not use `unknown` for a processing failure. |
 | `temporality` | `current`: explicitly current in the relevant narrative context; `historical`: explicitly prior/history; `unknown`: timing is not established. Past tense alone may need surrounding context: flag ambiguity. |
 | `subject` | `patient`, `family`, `other`, or `unknown`. Do not turn a relative's condition into the patient's. Do not infer a subject when the context is insufficient. |
-| Procedure status | Record source-supported `planned`, `performed`, `cancelled`, `hypothetical`, or `unclear` as an **annotation-only draft note**. P1 does not yet expose these values; do not invent a shared API field. |
+| Procedure status | For procedure items use `planned`, `ordered`, `performed`, `cancelled`, `hypothetical`, or `unknown`; for non-procedure items use null. This is independent of assertion, time and subject. |
 
-`assertion_unresolved` and procedure status are review flags in this guide, not new
-P1 enum values. Submit these cases for D/B resolution; do not force them into an
-unsupported API representation. Evidence must include enough context to support all
+Keep annotator questions in the separate unresolved-question field; do not encode them
+as an entity label. Evidence must include enough context to support all
 assigned attributes, which may require multiple exact spans if the context is separate.
 The meaning of uncertain and overlapping status cues remains subject to team review.
 
@@ -107,9 +130,9 @@ punctuation and spaces. Evidence is the complete sentence unless otherwise state
 | --- | --- | --- |
 | `The patient denies chest pain.` | `chest pain` `[19,29)` | `symptom`, `negated`, subject `patient`; timing is `unknown` unless context establishes current. Evidence `[0,30)` includes `denies`. |
 | `The patient's mother has diabetes.` | `diabetes` `[25,33)` | `diagnosis`, `confirmed`, subject `family`; `unknown` timing unless context establishes it. Evidence is the complete sentence. |
-| `The patient had an appendectomy in 2018.` | `appendectomy` `[19,31)` | `procedure`, `confirmed`, `historical`, `patient`; performed is an annotation-only note. Evidence is the complete sentence. |
+| `The patient had an appendectomy in 2018.` | `appendectomy` `[19,31)` | `procedure`, `confirmed`, `historical`, `patient`; `procedure_status=performed`. Evidence is the complete sentence. |
 | `Pneumonia is suspected.` | `Pneumonia` `[0,9)` | `diagnosis`, `suspected`; subject and time are `unknown` without additional context. Evidence `[0,23)`. |
-| `Colonoscopy is planned for next week.` | `Colonoscopy` `[0,11)` | `procedure`, planned annotation-only note. Do not call it performed; flag API assertion/time representation for review. |
+| `Colonoscopy is planned for next week.` | `Colonoscopy` `[0,11)` | `procedure`, `confirmed`, `unknown` temporality, `unknown` subject, `procedure_status=planned`. A confirmed plan is not a performed procedure. |
 | `🩺 No chest pain. No chest pain.` | first `No chest pain.` `[2,16)`; second `[17,31)` | Two evidence occurrences, each negated. The emoji is one Unicode code point; a browser uses a different UTF-16 position. Mention `chest pain` boundaries must be recorded separately for each occurrence. |
 
 If the input contains contradictory statements, annotate both with their own spans and
@@ -134,10 +157,7 @@ For practice, read each `canonical_text` and identify the mentions, type, assert
 temporality, subject and evidence before comparing with `mentions`. For each span,
 check that slicing the text with the listed code-point offsets returns its `quote`.
 The SHA-256 identifies the exact UTF-8 bytes of that synthetic canonical text. The
-`procedure_status_note` and `unresolved_question` are annotation-only review notes;
-they are not P1 API fields. A `null` assertion on the planned-procedure example
-marks an unresolved representation, not an accepted API value. Bring disagreements
-to D for a team review before freezing any real annotation rules.
+practice records use frozen assertion and procedure-status values. Bare ambiguous mentions use `unknown`; plans and cancellations retain independent procedure status. Bring policy disagreements to the team.
 
 These examples include proposed answers, so they are appropriate for training and
 rule discussion only. Do not score them as an independent or final benchmark.
@@ -163,14 +183,14 @@ the accompanying synthetic training file; do not use user-submitted reports as i
 | `family_history` | A condition stated about the patient's mother. | Attribute the condition to family, not the patient. |
 | `historical_procedure` | A procedure explicitly performed in 2018. | Keep historical time and the performed note separate. |
 | `suspected_diagnosis` | A diagnosis explicitly described as suspected. | Preserve suspicion; do not infer patient or time. |
-| `planned_procedure` | A colonoscopy planned for next week. | Do not call it performed; assertion/time representation remains unresolved. |
+| `planned_procedure` | A colonoscopy planned for next week. | Do not call it performed; use confirmed assertion, unknown temporality and planned procedure status. |
 | `repeated_denial` | Two identical statements after an emoji. | Record two separate occurrences with code-point positions. |
 | `current_condition` | An explicitly current condition. | Preserve the word `currently`; do not invent an ICD code. |
 | `historical_diagnosis` | An illness explicitly mentioned in 2018. | Keep it historical; do not present it as current. |
 | `family_negation` | A family member denies a diagnosis. | Negation and family subject both apply. |
 | `negation_scope` | A denied symptom and a reported symptom in the same sentence. | The denial applies to fever, not automatically to cough. |
 | `contradictory_mentions` | A denial followed by a reported symptom. | Preserve both claims and their different evidence; do not clinically reconcile them. |
-| `cancelled_procedure` | A planned procedure that was cancelled. | Record the cancellation note; the API representation is unresolved. |
+| `cancelled_procedure` | A planned procedure that was cancelled. | Use confirmed assertion and cancelled procedure status; do not infer that the procedure occurred. |
 | `explicit_icd` | A code explicitly present beside a diagnosis. | Copy only the source code and its exact evidence; code presence is not clinical validation. |
 | `no_inferred_icd` | A diagnosis with no source code. | Leave ICD absent rather than guessing one. |
 | `no_supported_mentions` | A sentence with no diagnosis, symptom or procedure. | A completed synthetic review may return no mentions; that differs from a failed or incomplete review. |
@@ -281,8 +301,9 @@ This is an arithmetic example only, not a measurement of NoteLens.
 
 ## 9. Items requiring team decisions
 
-- D/B: planned or hypothetical procedure representation and missing assertion value.
-- D/B: separate mention-span representation and item grouping in the shared API.
+- D/team: approve definitions for unknown assertion and procedure states, including
+  contradictory, missing-context and transition cases.
+- D/team: approve exact/relaxed matching rules for overlapping and nested mentions.
 - D/C: permitted source access, actual assignment IDs, split/group mapping and how
   C's development-only access will be enforced and checked.
 - D/team: review the draft matching policy, annotation format, primary/reviewer

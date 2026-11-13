@@ -1,24 +1,24 @@
 # Member D local integration handoff
 
-**Date:** 2026-11-11. **Status:** runnable provisional offline vertical slice.
-The user's continuation authorizes D-owned implementation before the shared gates,
-behind a provisional adapter. The shared foundation and contract freeze are not
-complete. No commit/push, deployment, teammate messages or live calls were made.
+**Updated:** 2026-11-13. **Status:** frozen-contract D mock scaffold.
+F-003/F-009 are complete. D's local service now consumes the generated Python package;
+F-004 requires B's coordinated checks and A/C/B contributions. F-014 remains open.
+No provider was activated or deployment performed.
 
 ## What runs
 
 - FastAPI extraction plus summary at `POST /v1/extract` and document QA at
-  `POST /v1/document-answer`; summary stays inside ExtractionResult. `GET /health`
-  returns a HealthResult without invoking a provider.
-- A deterministic **mock catalog** recognizes six explicit sentence templates. It
+  `POST /v1/document-answer`; summary stays inside ExtractionResult as an independent
+  SummaryOutcome. `GET /health/live` and `GET /health/ready` do not invoke generation.
+- A deterministic **mock catalog** recognizes explicit sentence templates. It
   returns literal supported source sentences and conservative evidence states. It is
   not a general-purpose extractor or measured real-model implementation. Unknown
   questions abstain; one demo cough mention is intentionally missed.
 - The provider interface, English versioned prompts, request validation, orchestration,
   bounded repair and failure mapping are separate. No provider/model is approved in
   the checkout. Non-mock configuration returns a controlled 503, never a mock fallback.
-- The single repository JSON Schema is loaded read-only for actual request/response
-  validation. There are no copied competing API schemas. Exact spans, IDs, hashes,
+- The frozen generated Python package validates actual request/response records.
+  There are no copied competing API schemas. Exact spans, IDs, hashes,
   citations and source-present ICD checks run separately. Literal generation checks
   and narrow catalog guards are not general semantic-entailment judgments.
 - Synthetic reference/prediction evaluation and selection/template/adjudication tools
@@ -62,7 +62,8 @@ The same fixture can be POSTed from another PowerShell terminal:
 
 ```powershell
 $requestBody = Get-Content -Raw services/extraction/fixtures/demo-request.json
-Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8003/v1/extract -ContentType 'application/json' -Body $requestBody
+$requestId = [guid]::NewGuid().ToString().ToLowerInvariant()
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8003/v1/extract -ContentType 'application/json' -Headers @{ 'X-Request-ID' = $requestId } -Body $requestBody
 ```
 
 The CLI and actual loopback HTTP flow were exercised in the process smoke test.
@@ -106,24 +107,24 @@ without changing machine policy or using a live model.
 
 ## Contract and operational behavior
 
-Inputs and outputs validate against draft P1 (`schema_version: 1.0.0`) in
-`contracts/v1`. Each response includes `X-Contract-Status: draft-provisional` and
-`Cache-Control: no-store`. Success/error calls echo a validated `X-Request-ID` or
-generate one. B must bind it to the session, selected document/hash and question;
+Inputs and outputs validate against frozen `contracts/v1` (`schema_version: 1.0.0`).
+Responses include `Cache-Control: no-store`. Business POSTs require one canonical UUID
+`X-Request-ID` and echo it on success/error. Invalid or absent IDs receive 400 with a
+fresh diagnostic ID. Health 401 responses use a fresh diagnostic ID and Bearer challenge;
+incoming health IDs are ignored. B must bind IDs to session, document/hash and question;
 reject expired/stale results before display. D keeps no document store/history/cache.
 The service never normalizes or truncates supplied canonical text.
 
-Mock repair permits at most two generation attempts. `X-Generation-Attempts`,
-`X-Raw-Validation-Failures` and `X-Validation-Repairs` expose counts without raw text.
+Mock repair permits at most two generation attempts. `X-Generation-Attempts`
+exposes the count on successful responses without raw text.
 The retry count is an explicit **offline prototype** limit, not an approved live
 policy. Structural invalidity triggers bounded repair; outages, rate limits and
 timeouts return their own errors. No production timeout/rate/budget capacity is claimed.
 
-Provisional errors: malformed JSON 400, invalid fields/digest 422, oversized canonical
+Frozen errors: malformed JSON or request ID 400, invalid fields/digest 422, oversized canonical
 text 413, configured auth failure 401, malformed generation 502 after bounded repair,
 rate limit 429, timeout 504, unavailable provider/configuration 503 and safe unexpected
-failure 500. Safe ErrorEnvelope messages omit input bodies and stack traces. 500 and
-the exact error/code mapping still need B's canonical decision. PDF handling, common
+failure 500. Safe ErrorEnvelope messages omit input bodies and stack traces. PDF handling, common
 language detection, browser sessions and expired-document 404 remain B's boundaries.
 
 Set `NOTELENS_SERVICE_TOKEN` server-side to enforce bearer authentication. Without a
@@ -134,15 +135,17 @@ are disabled by the CLI, and no routine document/provider-body logs are produced
 
 ## Current results and limits
 
-The synthetic evaluation contains one document and three QA cases. The fake returns
+The following results are from the earlier provisional adapter and have not been
+remeasured against the frozen contract. The synthetic evaluation contained one document
+and three QA cases. The fake returned
 four of five authored reference entities: TP=4, FP=0, FN=1, precision=1.0, recall=0.8,
 F1=0.8889. This measures the fixture/catalog demonstration, not real extraction quality.
-Supported, unanswerable and partial QA state expectations pass. Promptfoo's three
-HTTP cases passed. Semantic support, English quality beyond declarations/catalog
+Supported, unanswerable and partial QA state expectations passed then. Promptfoo's three
+HTTP cases passed then. Semantic support, English quality beyond declarations/catalog
 fixtures, unsupported-item rate, risk/coverage and real-model quality are explicitly
 unavailable with reasons. No human/clinical review or real dataset run took place.
 
-Shared-contract freeze/generated bindings, C's permitted canonical document manifests,
+The coordinated F-004/F-014 foundation, C's permitted canonical document manifests,
 the final-set access policy and a provider/model/spending decision remain external
 dependencies. See [the concrete requests](milestone-requests.md) and
 [annotation commands](annotation-tooling.md). The full 80-QA A/B/C benchmark remains

@@ -10,7 +10,13 @@
       "kind": "synthetic_text",
       "name": "D offline demo"
     },
-    "language": "en"
+    "language": "en",
+    "language_validation": {
+      "outcome": "accepted",
+      "language": "en",
+      "policy_version": "known-english-fixture-v1",
+      "reason": null
+    }
   },
   "question": "What does the document say about chest pain?"
 }

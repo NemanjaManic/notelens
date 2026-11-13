@@ -3,6 +3,7 @@
 import argparse
 import json
 import sys
+import uuid
 from pathlib import Path
 
 from .demo import request as demo_request
@@ -38,7 +39,7 @@ def main() -> int:
         print(json.dumps({"mode": result["mode"], "diagnostics": diagnostics}), file=sys.stderr)
         return 0
     except ServiceError as exc:
-        print(json.dumps(exc.envelope("local-cli")), file=sys.stderr)
+        print(json.dumps(exc.envelope(str(uuid.uuid4()))), file=sys.stderr)
         return 1
     except (OSError, UnicodeError, json.JSONDecodeError):
         print("Could not read a valid fixture request.", file=sys.stderr)

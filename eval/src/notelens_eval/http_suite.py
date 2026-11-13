@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import uuid
 import os
 import socket
 import subprocess
@@ -62,7 +63,7 @@ def produce_http(references: dict) -> dict:
     try:
         for _ in range(100):
             try:
-                request = urllib.request.Request(base + "/health", headers={"Authorization": f"Bearer {TEST_TOKEN}"})
+                request = urllib.request.Request(base + "/health/ready", headers={"Authorization": f"Bearer {TEST_TOKEN}"})
                 with urllib.request.urlopen(request, timeout=0.5) as response:
                     health = json.load(response)
                 if health.get("mode") == "mock" and health.get("service") == "extraction":
@@ -79,12 +80,12 @@ def produce_http(references: dict) -> dict:
             extract_request = {"schema_version": case["request"]["schema_version"],
                                "document": case["request"]["document"]}
             extraction, extraction_stats = _call(base, "/v1/extract", extract_request,
-                                                  f"http-extract-{case['id']}")
+                                                  str(uuid.uuid4()))
             answers = []
             for qa in case["qa"]:
                 answer_request = {**extract_request, "question": qa["question"]}
                 answer, stats = _call(base, "/v1/document-answer", answer_request,
-                                      f"http-answer-{case['id']}-{qa['id']}")
+                                      str(uuid.uuid4()))
                 answers.append({"id": qa["id"], "result": answer, "diagnostics": stats})
             predictions.append({"id": case["id"], "result": extraction,
                                 "diagnostics": extraction_stats, "qa": answers})

@@ -1,12 +1,22 @@
 {
   "kind": "human_answer_review_template",
-  "rating_scale": {"2": "meets", "1": "partial_or_minor_issue", "0": "fails_or_major_issue", "U": "unable_to_judge"},
+  "rating_scale": {
+    "2": "meets",
+    "1": "partial_or_minor_issue",
+    "0": "fails_or_major_issue",
+    "U": "unable_to_judge"
+  },
   "rubric_version": "d-answer-review-rubric-v1",
   "review_id": null,
   "reviewer_alias": null,
   "independent_review": true,
   "human_reviewed": false,
-  "valid_dimension_scores": [0, 1, 2, "U"],
+  "valid_dimension_scores": [
+    0,
+    1,
+    2,
+    "U"
+  ],
   "case_id": null,
   "doc_id": null,
   "text_sha256": null,
@@ -30,5 +40,6 @@
   "claim_source_notes": [],
   "needs_adjudication": null,
   "rationale": null,
-  "completed_at": null
+  "completed_at": null,
+  "response_sha256": null
 }

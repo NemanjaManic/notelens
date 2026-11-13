@@ -17,7 +17,13 @@
             "kind": "synthetic_text",
             "name": "D offline demo"
           },
-          "language": "en"
+          "language": "en",
+          "language_validation": {
+            "outcome": "accepted",
+            "language": "en",
+            "policy_version": "synthetic-fixture-language-v1",
+            "reason": null
+          }
         }
       },
       "entities": [

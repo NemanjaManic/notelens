@@ -2,6 +2,7 @@
 
 import json
 import os
+import uuid
 import urllib.error
 import urllib.request
 
@@ -14,7 +15,7 @@ def call_api(prompt: str, options: dict, context: dict) -> dict:
     if not 1 <= port <= 65535:
         return {"error": "Invalid loopback smoke port."}
     payload = request(prompt)
-    headers = {"Content-Type": "application/json"}
+    headers = {"Content-Type": "application/json", "X-Request-ID": str(uuid.uuid4())}
     if os.getenv("NOTELENS_SERVICE_TOKEN"):
         headers["Authorization"] = f"Bearer {os.environ['NOTELENS_SERVICE_TOKEN']}"
     call = urllib.request.Request(f"http://127.0.0.1:{port}/v1/document-answer",
