@@ -1,0 +1,51 @@
+{
+  "candidate_id": "p2-rc1",
+  "revision": 2,
+  "wire_version": "1.0.0",
+  "status": "awaiting_review",
+  "supersedes_review": {
+    "commit": "4ad602712bb23df6077cb252e1dd18b8cf8b9288",
+    "manifest_sha256": "45a74a22a2ccb3f581edc74acc212f0cc94f54f9de1590b6bdd541013b84f0b5"
+  },
+  "p1_files": {
+    "contracts/v1/fixtures/documents.json": "13ceebf3e9c42796f4d24c7ef390e53d9889024d8dd719e919ec3a496682cb55",
+    "contracts/v1/fixtures/manifest.json": "41f942f9cdb124ca4a371d3ae82e4862cd792dbedbac54312444bf1e2799e8c8",
+    "contracts/v1/fixtures/payloads.json": "21d320dd6e34f6bec070d290d0e61b76ca8e3955334a0b00b13eb52dfaa874fe",
+    "contracts/v1/fixtures/README.md": "14843ab0525f2310a245694fb6954b577b697fc1615866f19c56deeededdbd27",
+    "contracts/v1/fixtures/references.json": "83ae7fb62cb84641701b7a5abebb87a19186c7b46ae69590ced96e51a67d4fd5",
+    "contracts/v1/openapi.json": "c158cb7ba342d54ca82a0bd84833db87e1b9b4faa36a4c6cbcf70f6883bf1263",
+    "contracts/v1/README.md": "a2e0a9e0e87180c8aebddf9a61460ccea06f9b9df50ad42b3d30a403aa062fb5",
+    "contracts/v1/schema.json": "27a0eaceaa910d9feb93299179217ffd24554198428a36631aea77dad62757bf"
+  },
+  "generated_files": {
+    "fixtures/documents.json": "89a7debd3e095650bf1289da43604618c3cca95e64690d8a8e361df1ed368f94",
+    "fixtures/manifest.json": "05903d292621bb260139826b57733b1344d03d0a9ab3cafdbabd158730225edf",
+    "fixtures/payloads.json": "eca68eafaaec587876bdf224419d9fca9a885f421a2e95d681266750c1e25505",
+    "fixtures/references.json": "d3a65bab114731ada4165d7b9f920c3e5272ae5980a7458215fb374399a11db9",
+    "openapi.json": "3029fdb368f48fdb736dcda4649f5420803371cfb998f2abc6401fa54cca98cd",
+    "schema.json": "02c7b6877b6465b4ed8d349194b6b0b9697378ac55f002c6a1c52caa7289630b",
+    "transport-cases.json": "d83a4c799767b5e72aa84add0a1d5d5d8b23fda14d60c2be42727aa3a743de43"
+  },
+  "review_files": {
+    "scripts/project/build_candidate.py": "111c561b0a5b317181b2d957331fb1ecd2f39197a6084b1f981fcc6110f4cdc3",
+    "scripts/project/check_candidate.py": "68898651df1cd0a5ad7a94d27f7bddedaaf13e826f47980869dc574ce98c5cdf",
+    "scripts/project/tests/test_candidate.py": "101a908c262afb3a0de4fc7d181a12c9252cae58452e9df74ca7b661a4b416dd",
+    "docs/team/classifier-scaffold-p2.md": "aff5a48a33abb4d52f8619616ea5087653d0a591edcaede347f75ba997a81a2a",
+    "scripts/project/check_contracts.py": "1c4a00f8f77434c8d8e184574d1492de0e7a9e5e97bb8206a5ec613c0fd33a1e",
+    "scripts/project/tests/test_contracts.py": "de4ddb58da63c9815398555f0a6c78f28ca858e18740db004c769bdd366648a9",
+    "scripts/project/README.md": "03a1eaa711aff80557cd0d4556337c66b8a369689526898dfbf3cbdbc752e891",
+    "scripts/project/pyproject.toml": "71ed3e41964ff9f1ad7e163be32a29b42fe11d52d70b8399203da57ccbd3a57b",
+    "scripts/project/uv.lock": "18fdd2b1da535d470ab722323b6ecfd1e22e81abb12f9f296a82082f2c69051f",
+    "docs/decisions/contract-p2-proposal.md": "ac7f5a87aef5d49fd38e12750199771475c192ca01ec0f14ea8d0244a156e52a",
+    "docs/platform/interface-review.md": "4511453853084296437c82bcc12d3bbb65df7b5c89cc0ef328d9a21e5e2fdb9f",
+    "docs/team/contract-reviews/p1/README.md": "f5ff69ef3da669e85146cb6aef9a44e83ac6f722b5636f23c7da2f241e477863",
+    "docs/team/contract-reviews/p1/member-a-response-to-b.md": "21168f48333e2e318dc1976a960e5da60ca0e09bf05f4f9dc14e606e8f4f4d4a",
+    "docs/team/contract-reviews/p1/member-c-response-to-b.md": "a61319dd7a5086a9a84dab8dfce851d2ad2713d209dc60f0500ed998b7bf01b2",
+    "docs/team/contract-reviews/p1/member-d-response-to-b.md": "b80b8febcd4d52e29b9e831d79154ca8e44d2d8fa65266e0886abbb75633cb00",
+    "contracts/candidates/p2-rc1/README.md": "ad2f9446b6b92f9115aee982bef40e7f2b099e66700b800ced928fb6c6d6f6b5",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-review-and-next-dependencies.md": "9670af63758521741e01c3d145759d4cf199ef6eca7bf3920cf7adbd6fe6be24",
+    "contracts/candidates/p2-rc1/reviews/member-c-response-to-b-p2-clarifications.md": "3cd08993e233be9587f9e264bbaabce07dfc067bb2b479da5fd99bd9cad89293",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-rc1-artifact-review.md": "020e7028bb4f2c375fe01dfaaafaeb867568ff9a879b2503726be2c5da9f100c",
+    "contracts/candidates/p2-rc1/reviews/member-b-response-to-c-rc1.md": "5b68b14625c8ea3432e2f218c1fcc80cadc18013e5468a8dc3bcf5048e45ee89"
+  }
+}

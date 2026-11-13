@@ -76,6 +76,14 @@ remain unchanged; actual passage counts live in the new passage manifest.
 
 ## Configuration and measured values
 
+The owner-local service reader now exposes immutable PreparedCorpus/PreparedPassage
+records with lookups by passage and topic ID. It verifies the prepared artifacts and
+reuses their exact text/offsets/identities; it does not reconstruct canonical text.
+Specialty tags come from the snapshot's explicit selected-topic mapping, including
+the approved overrides, and do not create a hard retrieval filter. Optional startup
+loading is server-controlled. These are internal preparation records, not additions
+to shared API schemas or evidence of a built embedding/index pipeline.
+
 Approved limits are 2,097,152 PDF bytes, 100,000 Unicode code points and at most 60 minutes
 from preparation. Exact live budgets/models/timeouts/retries/history/rates remain approval
 gates; unset configuration disables dependent live behavior. Data distribution, split/duplicate

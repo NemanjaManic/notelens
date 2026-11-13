@@ -1,6 +1,6 @@
 # Implementation Plan: Python RAG
 
-**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-12 | **Spec**: [spec.md](spec.md)
+**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-13 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/001-rag/spec.md`.
 **Owner**: A. **Status**: Draft local design and executable backlog proposal.
@@ -29,13 +29,31 @@ All 52 offline tests and actual coverage/offset/table checks passed; A-002 is
 complete for offline preparation. See [policy and evidence](../../docs/rag/chunking.md).
 This does not establish retrieval quality, a tokenizer budget or service readiness.
 
+**Owner-local scaffold continuation (2026-11-13)**: The user explicitly requested
+advancing A's work rather than waiting for another B response. This authorizes the
+provisional local mock scaffold under `services/rag`, pinned to the reviewed P2 RC1
+revision-2 bytes. It is a preparation exception before shared promotion, not a
+contract freeze, generated-binding substitute or completion of A-010/F-004/F-014.
+All 39 service tests and 52 corpus tests passed on Python 3.13.5. See
+[the runnable service instructions](../../services/rag/README.md). No live provider,
+real retrieval, shared file or root configuration is activated by this contribution.
+
+**Owner-local reader continuation (2026-11-13)**: The user approved loading/checking
+the real prepared corpus before indexing or provider calls. The service now has a
+read-only ingestion adapter and optional server-controlled startup loading. All 75
+service tests passed on Python 3.13.5, and actual loading verified 401 topics/617
+passages. The adapter does not import preparation code or alter canonical content.
+This extends local preparation, not the formal completion of A-003 or its shared
+integration dependencies. See [reader commands](../../services/rag/README.md#verify-and-load-the-prepared-corpus).
+
 ## Summary
 
 Inspect permitted Health Topics, parse/chunk with stable identifiers, establish embedding-only retrieval, compare lexical/hybrid on fixed development questions, and generate literature answers in Python with claim-linked evidence. Keep ranking, semantic support and abstention measurements separate.
 
 ## Technical Context
 
-**Language/Version**: Python 3.13 proposed; independent services/rag project and uv.lock.
+**Language/Version**: Python 3.13.5 verified for the provisional independent services/rag
+project and uv.lock. Python 3.14.2 was used for earlier corpus preparation.
 The standalone corpus-preparation script uses only Python's standard library and
 does not require the service project, its lockfile or third-party installations.
 **Primary Dependencies**: FastAPI/Uvicorn; narrow Google Gen AI, embedding and Chroma adapters; lexical/hybrid candidate; pytest. Real model IDs/prices remain activation decisions.

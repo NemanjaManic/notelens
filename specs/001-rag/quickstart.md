@@ -1,7 +1,8 @@
 # Quickstart Validation: Python RAG
 
 **Status**: A-001 and A-002 offline corpus preparation are complete: 401 topics and
-617 candidate passages. Service commands remain future work.
+617 candidate passages. A provisional owner-local mock service is runnable;
+real retrieval/generation and shared-foundation integration remain future work.
 Run from the repository root. No command here authorizes paid calls or
 implementation beyond the user's approved package.
 
@@ -117,6 +118,46 @@ overwritten. A separately approved repeat run must use fresh owned `--output`
 and `--output-manifest` paths; `--cleaned-manifest` can select another verified
 input. The CLI does not expose alternative size/overlap choices. Approval of
 this candidate does not approve a new corpus configuration or provider activation.
+
+## Available now: provisional owner-local RAG mock
+
+On 2026-11-13 the user authorized local scaffold work while the candidate review and
+shared promotion remain pending. The A-owned service pins P2 RC1 revision 2 and has
+an independent pyproject/uv.lock. See [its README](../../services/rag/README.md) for
+verified Windows installation/startup and the exact synthetic question.
+
+```powershell
+$env:UV_CACHE_DIR = Join-Path (Get-Location).Path '.cache/uv'
+$env:UV_PYTHON_DOWNLOADS = 'never'
+uv --system-certs sync --locked --directory services/rag --python 3.13 --dev
+uv run --locked --offline --directory services/rag python -m pytest
+```
+
+All 39 service checks passed on Python 3.13.5, including actual loopback HTTP startup
+and shutdown. The existing 52 corpus checks also passed on that interpreter. Mock
+readiness does not load the 617 passages or a model. Live mode remains unavailable;
+there are no provider calls or silent fallbacks. A-010 and the shared foundation
+are not complete; the active canonical contract and generated-binding handoff are
+not changed by this local preparation exception.
+
+## Available now: read-only prepared corpus adapter
+
+```powershell
+uv run --locked --offline --directory services/rag python -m notelens_rag.ingestion
+```
+
+Actual result: verified 401 topics and 617 passages with corpus version
+`2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b`.
+The CLI checks prepared-file integrity/identity and prints counts/versions only.
+All 75 service checks passed, including 36 reader checks. The actual corpus was
+also loaded into an app instance without claiming model/index readiness.
+
+See [the reader setup](../../services/rag/README.md#verify-and-load-the-prepared-corpus)
+for optional startup loading and explicit corpus-version pinning. The loader needs
+the two local prepared JSONL artifacts and their passage/cleaning/snapshot manifests,
+not raw ZIP/XML, a preparation script or provider credentials. It neither searches
+nor re-cleans/re-chunks the text. The approved local preparation increment does not
+complete A-003, create test_index_version.py or change shared integration gates.
 
 ## Future: service integration after foundation prerequisites
 
