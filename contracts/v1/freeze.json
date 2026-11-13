@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "schema_sha256": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+  "openapi_sha256": "e83ddda18a03040e4092e5f1113dbb82d296471c30acc105928f6bd8114143af",
+  "fixtures_sha256": "d0117ea3150455b2d852a846ba02843c0ed37180c73bdcbc8c4249ba64da9c4a",
+  "approvals": [
+    {
+      "member": "A",
+      "decision": "approved",
+      "date": "2026-11-13",
+      "evidence": "docs/decisions/contract-freeze.md#member-a"
+    },
+    {
+      "member": "B",
+      "decision": "approved",
+      "date": "2026-11-13",
+      "evidence": "docs/decisions/contract-freeze.md#member-b"
+    },
+    {
+      "member": "C",
+      "decision": "approved",
+      "date": "2026-11-13",
+      "evidence": "docs/decisions/contract-freeze.md#member-c"
+    },
+    {
+      "member": "D",
+      "decision": "approved",
+      "date": "2026-11-13",
+      "evidence": "docs/decisions/contract-freeze.md#member-d"
+    }
+  ]
+}

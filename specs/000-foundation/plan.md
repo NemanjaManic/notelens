@@ -11,6 +11,11 @@ This stage does not authorize business implementation, paid calls, publication o
 
 Define one draft schema/OAS source, validate positive/negative examples and Unicode semantics, collect owner agreement, generate bindings, then scaffold only key-free stubs and a minimal English mock UI. Prepare isolated work instructions/handoffs and a checked checkpoint without business implementations.
 
+**Execution update (2026-11-13):** user-confirmed P2 revision-3 agreement is recorded,
+F-003 canonical freeze and F-009 generated packages are checked locally. See
+[the handoff](../../docs/team/frozen-contracts-handoff.md). F-004 and later runtime/checkpoint
+tasks remain incomplete; this update does not ratify the whole constitution or activate providers.
+
 ## Technical Context
 
 **Language/Version**: TypeScript on existing Node 24; propose Python 3.13 for independent services; JSON Schema 2020-12/OpenAPI 3.1.1.

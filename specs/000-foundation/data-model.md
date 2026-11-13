@@ -1,10 +1,10 @@
 # Data Model: Shared Foundation
 
-**Owner**: B. **Status**: proposal pending cross-owner review.
+**Owner**: B. **Status**: shared v1 contracts frozen and bindings checked on 2026-11-13; runtime foundation remains pending.
 
 ## Shared records
 
-Use [contracts/v1](../../contracts/v1/README.md) as the only proposed canonical boundary.
+Use [contracts/v1](../../contracts/v1/README.md) as the single frozen canonical boundary.
 - `PreparedDocument` is defined once in `contracts/v1/schema.json#/$defs/PreparedDocument`.
 - `ClassificationResult` is defined once in `contracts/v1/schema.json#/$defs/ClassificationResult`.
 - `ExtractionResult` is defined once in `contracts/v1/schema.json#/$defs/ExtractionResult`.
@@ -13,7 +13,7 @@ Use [contracts/v1](../../contracts/v1/README.md) as the only proposed canonical 
 - `AnswerResult` is defined once in `contracts/v1/schema.json#/$defs/AnswerResult`.
 - `ErrorEnvelope` is defined once in `contracts/v1/schema.json#/$defs/ErrorEnvelope`.
 Do not introduce a second hand-maintained language schema. Generated bindings are a
-future B-owned contract-freeze deliverable.
+checked B-owned F-009 deliverable; see contracts/generated/README.md.
 
 ## Owned entities and states
 

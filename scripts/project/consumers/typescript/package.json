@@ -1,0 +1,8 @@
+{
+  "name": "notelens-typescript-contract-consumer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": { "@notelens/contracts": "file:../../../../contracts/generated/typescript" },
+  "devDependencies": { "typescript": "7.0.2" }
+}
