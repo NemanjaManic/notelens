@@ -138,7 +138,20 @@ class CandidateContracts(Contracts):
                 if "components" in value:
                     records = value["components"]
                     graph(value, records, path)
-                    mode_matches(value["mode"], records, path)
+                    retrieval = value["retrieval_provenance"]
+                    mode_matches(value["mode"], records + ([retrieval] if retrieval else []), path)
+                    rag_records = [(index, record) for index, record in enumerate(records) if record["service"] == "rag"]
+                    if rag_records and retrieval is None:
+                        issue("RETRIEVAL_PROVENANCE", path + "/retrieval_provenance")
+                    if retrieval:
+                        if "literature" not in value["attempted_routes"]:
+                            issue("RETRIEVAL_ATTEMPT", path + "/attempted_routes")
+                        if retrieval["state"] == "insufficient" and rag_records:
+                            issue("RETRIEVAL_GENERATION", path + "/components")
+                        for index, record in rag_records:
+                            for key in ("corpus_version", "index_version", "retriever_version"):
+                                if record[key] != retrieval[key]:
+                                    issue("RETRIEVAL_VERSION", path + f"/components/{index}/{key}")
                     expected = value["clarification"]["message"] if value["clarification"] else builder.NO_ANSWER
                     if value["route"] != "none" and not value["claims"]:
                         issue("ROUTE_SUPPORT", path + "/route")

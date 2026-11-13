@@ -2,7 +2,7 @@
 
 **Prepared:** 2026-11-12. **Owner:** B. **Candidate ID:** `p2-rc1`.
 **Proposed wire version:** `1.0.0`. **Status:** awaiting actual owner review.
-**Current revision:** 2, prepared 2026-11-13 in response to C's artifact review.
+**Current revision:** 3, prepared 2026-11-13 in response to the supplied A/C/D reviews.
 
 Start here for the final artifact review. The generated `schema.json`, `openapi.json`,
 fixtures, and simulated correlation cases are concrete proposals. They are **not** a
@@ -10,6 +10,63 @@ second accepted contract: [P1](../../v1/README.md) remains unchanged and canonic
 No application/service should switch to this candidate until it is approved and promoted.
 F-003, F-009, F-004 and F-014 remain open. No bindings, mock services, providers or
 deployment are delivered by this package.
+
+## Revision 3: preserve retrieval without generation
+
+This revision supersedes commit `01e96ab6c6a676efb43073a2eca711e89e419030` and manifest
+`2c5043aa375a5aef1b0fa3806e8204284218d7b671c48bd8474ac74330c8affa` as the review target.
+A's sole technical blocker was missing search provenance after insufficient retrieval
+without answer generation. AnswerResult now requires nullable retrieval_provenance:
+
+```json
+{
+  "service": "rag",
+  "mode": "mock",
+  "state": "insufficient",
+  "corpus_version": "fixture-corpus-version",
+  "index_version": "fixture-index-version",
+  "retriever_version": "fixture-retriever-version",
+  "score_note": "Synthetic ranking scores; higher is better within this retriever version."
+}
+```
+
+Copy actual values from the completed RetrievalResult. This record has no generator,
+provider, model or prompt fields. For completed insufficient retrieval, keep the record
+even with empty generation components and null prompt_version. For pre-search clarification
+it is null; configuration/operational failures use the existing error channel and do not
+fabricate a completed search. B retains a supported D answer plus the actual literature
+gap or outage warning. A completed insufficient search and a failed search stay distinct.
+
+Overall mode now includes both completed retrieval and generation. A mock document answer
+plus live insufficient retrieval is mixed; a live retrieval-only response is live. These
+fixture values illustrate the protocol only. Literature generation requires a sufficient
+retrieval record with matching corpus/index/retriever versions.
+
+Start with answer-literature-insufficient-no-generation,
+answer-document-supported-literature-insufficient, answer-document-with-retrieval-unavailable,
+and answer-clarification in fixtures/payloads.json. The shared suite rejects missing or
+fabricated history, mismatched versions, generation after insufficient retrieval and
+hidden execution modes. Classification, input, health, extraction/summary definitions
+and the classifier scaffold brief are unchanged from revision 2. The answer-level
+clarification condition additionally requires zero components and null retrieval history.
+
+**Approval status:** [C provided human approval of revision 2](reviews/member-c-p2-rc1-revision-2-approval.md).
+[A's revision-2 agent review](reviews/member-a-p2-revision-2-response.md) requested the
+implemented retrieval-only fix and explicitly lacked Nemanja's human approval.
+[D's supplied response](reviews/member-d-p2-proposal-review.md), identified by the user,
+reviewed the older prose proposal and expressly excluded the executable revision.
+Neither response completes current owner acceptance. C's exact revision-2 approval is
+retained; approval of revision 3 is not inferred.
+
+Read [B's resolution and exact remaining confirmations](reviews/revision-3-resolution.md)
+and the [focused review request](../../../docs/team/p2-revision-3-review-request.md).
+The proposed closure of D's language/clarification questions keeps the foundation on
+known English fixtures and leaves live validation-method evaluation at B-001/B-003's
+activation gates. D's confirmation of that separation remains required. No detector,
+budget, provider, operational limit or reviewer acceptance has been invented.
+
+Revision-3 executed verification is recorded in the resolution document. Older counts
+below describe their respective historical revisions.
 
 ## Revision 2: C artifact-review corrections
 
@@ -32,8 +89,8 @@ identify the new review target. The old commit preserves revision 1 exactly.
   pre-existing .cache directory.
 
 Read the byte-preserved [C artifact review](reviews/member-c-p2-rc1-artifact-review.md)
-and [B's point-by-point response](reviews/member-b-response-to-c-rc1.md). C's reviewer was
-a coding agent; human confirmation was explicitly pending. Support for revision 1 does
+and [B's point-by-point response](reviews/member-b-response-to-c-rc1.md). At that stage C's reviewer was
+a coding agent and human confirmation was pending; C's later revision-2 approval is linked above. Support for revision 1 does
 not approve these revised bytes. A/C/D must review the current revision before F-003.
 
 ### Revision-2 verification: 2026-11-13
@@ -261,20 +318,22 @@ explicitly planned, not verified runnable commands. C owns the future implementa
 
 | Reviewer | Review this exact candidate |
 | --- | --- |
-| A | Score direction, corpus/index/retriever metadata, stateless requests/clarification, request UUIDs, operational error channel, and composed provenance/IDs. |
-| C | status/execution/scope fields, null unused-model metadata, ordered scores, UUID fallback, language-policy record and health/scaffold requirements. |
+| A | Confirm the revision-3 retrieval-only provenance fix and preserve the previously reviewed score, stateless-request, error and composed-source behavior; record actual owner approval. |
+| C | Confirm the revision-3 answer-metadata delta; classification/input/health definitions and scaffold requirements remain unchanged from the revision-2 human approval. |
 | D | procedure_status, unknown assertion, mention/evidence boundaries, independent section states, deterministic claims/text, component provenance and semantic/evaluation limits. |
 | B/user | Confirm candidate choices and any remaining product/scope concerns; authorize canonical promotion only after actual affected-owner agreement. |
 
-Respond with candidate ID plus manifest SHA256, actual reviewer/date, accepted issues or
+Use the current revision-3 focused request above. Respond with candidate ID/revision plus manifest SHA256, actual reviewer/date, accepted issues or
 specific objections, and human/agent distinction. Do not repeat the broad P2 questionnaire.
-The [two C responses](reviews/member-c-response-to-b-p2-clarifications.md) provide detailed
-agent recommendations; the latest explicitly says human confirmation is pending.
+The [earlier C responses](reviews/member-c-response-to-b-p2-clarifications.md) provide detailed
+agent recommendations; their pending-human status was superseded by C's exact revision-2
+human approval linked above, not by inferred acceptance of revision 3.
 The [earlier C response](reviews/member-c-p2-review-and-next-dependencies.md) accepts the
 stated behavior and ownership split, not final schema bytes. [P1 responses](../../../docs/team/contract-reviews/p1/README.md)
 and the [P2 proposal](../../../docs/decisions/contract-p2-proposal.md) remain historical context.
 
 After agreement: apply the approved candidate to the single canonical contract, update
 affected owner requirements/consumers, rerun checks, record the exact freeze, execute
-F-009 generation/compatibility, and hand off scaffolds. There is no freeze.json, final
-human acceptance, published B commit/PR, paid activation, or F-014 checkpoint here.
+F-009 generation/compatibility, and hand off scaffolds. No freeze.json or complete set
+of current owner approvals exists. Publishing this review branch does not complete
+F-014, generate bindings, activate a provider or authorize deployment.

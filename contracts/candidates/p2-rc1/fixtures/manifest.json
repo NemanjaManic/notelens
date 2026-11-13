@@ -1501,6 +1501,171 @@
         }
       ],
       "scenarios": []
+    },
+    {
+      "id": "retrieval-provenance-completed",
+      "kind": "payload",
+      "definition": "RetrievalProvenance",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "retrieval-provenance-from-result",
+      "kind": "payload",
+      "definition": "RetrievalProvenance",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "answer-literature-insufficient-no-generation",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "answer-document-supported-literature-insufficient",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-document-with-retrieval-unavailable",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-missing-retrieval-field",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "answer-generation-without-retrieval",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "RETRIEVAL_PROVENANCE",
+          "path": "/retrieval_provenance"
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "answer-retrieval-version-mismatch",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "RETRIEVAL_VERSION",
+          "path": "/components/0/corpus_version"
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "answer-insufficient-retrieval-with-generation",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "RETRIEVAL_GENERATION",
+          "path": "/components"
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "answer-retrieval-without-attempt",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "RETRIEVAL_ATTEMPT",
+          "path": "/attempted_routes"
+        }
+      ],
+      "scenarios": [],
+      "document": "offset"
+    },
+    {
+      "id": "answer-retrieval-mode-hidden",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "MODE_PROVENANCE",
+          "path": "/mode"
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "answer-clarification-fabricated-retrieval",
+      "kind": "payload",
+      "definition": "AnswerResult",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/retrieval_provenance"
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "retrieval-provenance-fabricated-generator",
+      "kind": "payload",
+      "definition": "RetrievalProvenance",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "retrieval-provenance-missing-index",
+      "kind": "payload",
+      "definition": "RetrievalProvenance",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": []
+    },
+    {
+      "id": "retrieval-configuration-error-no-provenance",
+      "kind": "payload",
+      "definition": "ErrorEnvelope",
+      "expected": [],
+      "scenarios": []
+    },
+    {
+      "id": "retrieval-configuration-error-fabricated-history",
+      "kind": "payload",
+      "definition": "ErrorEnvelope",
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": ""
+        }
+      ],
+      "scenarios": []
     }
   ]
 }

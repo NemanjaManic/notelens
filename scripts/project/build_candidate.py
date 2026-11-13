@@ -34,6 +34,11 @@ REVIEW_FILES = [
     "contracts/candidates/p2-rc1/reviews/member-c-response-to-b-p2-clarifications.md",
     "contracts/candidates/p2-rc1/reviews/member-c-p2-rc1-artifact-review.md",
     "contracts/candidates/p2-rc1/reviews/member-b-response-to-c-rc1.md",
+    "contracts/candidates/p2-rc1/reviews/member-a-p2-revision-2-response.md",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-rc1-revision-2-approval.md",
+    "contracts/candidates/p2-rc1/reviews/member-d-p2-proposal-review.md",
+    "contracts/candidates/p2-rc1/reviews/revision-3-resolution.md",
+    "docs/team/p2-revision-3-review-request.md",
 ]
 
 
@@ -61,7 +66,7 @@ def schemas():
     schema = deepcopy(read_json(ROOT / "contracts/v1/schema.json"))
     schema["$id"] = "urn:notelens:contracts:candidates:p2-rc1"
     schema["title"] = "NoteLens P2 RC1 review candidate"
-    schema["$comment"] = "REVIEW ONLY, revision 2. P1 remains canonical. All JSON numbers must be finite, including direct in-memory Python validation before serialization. No owner approval, freeze, or activation is asserted."
+    schema["$comment"] = "REVIEW ONLY, revision 3. P1 remains canonical. All JSON numbers must be finite, including direct in-memory Python validation before serialization. No owner approval, freeze, or activation is asserted."
     d = schema["$defs"]
     d["RequestId"] = {"type": "string", "format": "uuid", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
     d["LanguageValidation"] = obj({
@@ -151,15 +156,22 @@ def schemas():
         {"not": {"properties": {"extraction_status": {"const": "failed"}, "summary": {"properties": {"status": {"const": "failed"}}}}, "required": ["extraction_status", "summary"]}},
     ]
     d["Clarification"] = obj({"code": {"const": "ambiguous_reference"}, "message": string()})
+    d["RetrievalProvenance"] = obj({
+        "service": {"const": "rag"}, "mode": {"enum": ["mock", "live"]},
+        "state": {"enum": ["sufficient", "insufficient"]},
+        **{key: string() for key in ("corpus_version", "index_version", "retriever_version", "score_note")},
+    })
+    d["RetrievalProvenance"]["description"] = "Actual completed retrieval, independent of generation. Copy mode, state, versions and score_note from the completed RetrievalResult. No generator/provider/model/prompt metadata belongs here."
     answer = d["AnswerResult"]
     answer["properties"].update({"mode": {"enum": ["mock", "live", "mixed"]},
         "prompt_version": nullable(string()),
         "components": {"type": "array", "items": ref("ComponentProvenance")},
         "attempted_routes": {"type": "array", "items": {"enum": ["document", "literature"]}, "minItems": 1, "uniqueItems": True},
-        "clarification": nullable(ref("Clarification"))})
-    answer["required"].extend(["components", "attempted_routes", "clarification"])
+        "clarification": nullable(ref("Clarification")),
+        "retrieval_provenance": nullable(ref("RetrievalProvenance"))})
+    answer["required"].extend(["components", "attempted_routes", "clarification", "retrieval_provenance"])
     answer["allOf"].extend([
-        condition({"clarification": {"type": "object"}}, {"properties": {"route": {"const": "none"}, "evidence_state": {"const": "insufficient"}, "claims": {"maxItems": 0}, "sources": {"maxItems": 0}}}),
+        condition({"clarification": {"type": "object"}}, {"properties": {"route": {"const": "none"}, "evidence_state": {"const": "insufficient"}, "claims": {"maxItems": 0}, "sources": {"maxItems": 0}, "components": {"maxItems": 0}, "retrieval_provenance": {"const": None}}}),
         condition({"route": {"const": "mixed"}}, {"properties": {"attempted_routes": {"minItems": 2}}}),
     ])
     d["RetrievalResult"]["properties"]["state"]["enum"] = ["sufficient", "insufficient"]
@@ -184,7 +196,7 @@ def schemas():
     api["info"]["title"] = "NoteLens P2 RC1 review candidate"
     api["info"]["description"] = "REVIEW ONLY: not frozen; P1 is unchanged. No HTTP implementation is supplied."
     api["x-candidate-id"] = "p2-rc1"
-    api["x-candidate-revision"] = 2
+    api["x-candidate-revision"] = 3
     parameter = {"name": "X-Request-ID", "in": "header", "required": True,
                  "description": "Canonical lowercase UUID. Reject missing, malformed or duplicate headers before processing.",
                  "schema": {"$ref": "./schema.json#/$defs/RequestId"}}
@@ -231,6 +243,13 @@ def component(service="extraction", operation="document-answer", component_id="d
 def language(outcome="accepted"):
     return {"outcome": outcome, "language": "en" if outcome == "accepted" else None,
             "policy_version": "fixture-language-policy-v0", "reason": {"accepted": None, "rejected": "unsupported_language", "inconclusive": "language_inconclusive"}[outcome]}
+
+
+def retrieval_provenance(state="sufficient", mode="mock"):
+    """Construct synthetic review data, without running retrieval or generation."""
+    return {"service": "rag", "mode": mode, "state": state,
+            **{key: "fixture-" + key.replace("_", "-") for key in ("corpus_version", "index_version", "retriever_version")},
+            "score_note": "Synthetic ranking scores; higher is better within this retriever version."}
 
 
 def rendered(value, fallback):
@@ -297,6 +316,8 @@ def upgrade(payload, definition):
             value["components"] = [component("rag", "literature-answer", key) if key == "a-answer" else component(component_id=key) for key in sorted(ids)]
             value["attempted_routes"] = ["document", "literature"] if value["route"] in {"mixed", "none"} else [value["route"]]
             value["clarification"] = None
+            has_rag = any(record["service"] == "rag" for record in value["components"])
+            value["retrieval_provenance"] = retrieval_provenance("sufficient" if has_rag else "insufficient") if "literature" in value["attempted_routes"] else None
             value["text"] = rendered(value, NO_ANSWER)
             if value["route"]=="mixed":
                 namespace_mixed(value)
@@ -399,7 +420,7 @@ def fixtures():
     changed("extraction-valid", "analysis-missing-extraction-provenance", "ExtractionResult", lambda x: x.update(extraction_provenance=None,prompt_version=None), rule="ITEM_COMPONENT", path="/extraction_provenance", document="offset")
     changed("summary-valid", "summary-unclaimed-text", "Summary", lambda x: x.update(text=x["text"]+" An additional statement."), rule="TEXT_CLAIMS", path="/text", document="offset")
     changed("answer-document", "answer-unclaimed-text", "AnswerResult", lambda x: x.update(text=x["text"]+" An additional statement."), rule="TEXT_CLAIMS", path="/text", document="offset")
-    changed("answer-none", "answer-clarification", "AnswerResult", lambda x: x.update(clarification=clarification,text=clarification["message"]))
+    changed("answer-none", "answer-clarification", "AnswerResult", lambda x: x.update(clarification=clarification,text=clarification["message"],retrieval_provenance=None))
     changed("answer-mixed-sufficient", "answer-mixed-origins", "AnswerResult", lambda x: (x["components"][0].update(mode="live"),x.update(mode="mixed")), document="offset")
     changed("answer-mixed-origins", "answer-mixed-origins-hidden", "AnswerResult", lambda x: x.update(mode="live"), rule="MODE_PROVENANCE", path="/mode", document="offset")
     changed("answer-document", "answer-dangling-component", "AnswerResult", lambda x: x["claims"][0].update(component_id="missing"), rule="CLAIM_COMPONENT", path="/claims/0/component_id", document="offset")
@@ -418,6 +439,24 @@ def fixtures():
     changed("answer-literature", "answer-missing-corpus-version", "AnswerResult", lambda x: x["components"][0].update(corpus_version=None), rule="STRUCTURE", path="/components/0/corpus_version")
     changed("retrieval-request-valid", "question-whitespace", "RetrievalRequest", lambda x: x.update(question=" \t\n"), rule="STRUCTURE", path="/question")
     add("request-id-invalid", "RequestId", "not-a-uuid", rule="STRUCTURE")
+    add("retrieval-provenance-completed", "RetrievalProvenance", retrieval_provenance())
+    from_result = {"service": "rag", **{key: payloads["retrieval-insufficient"][key] for key in ("mode", "state", "corpus_version", "index_version", "retriever_version", "score_note")}}
+    add("retrieval-provenance-from-result", "RetrievalProvenance", from_result)
+    changed("answer-none", "answer-literature-insufficient-no-generation", "AnswerResult", lambda x: x.update(attempted_routes=["literature"],mode="live",retrieval_provenance=retrieval_provenance("insufficient","live")))
+    changed("answer-mixed-partial", "answer-document-supported-literature-insufficient", "AnswerResult", lambda x: x.update(mode="mixed",retrieval_provenance=retrieval_provenance("insufficient","live"),warnings=["Literature retrieval completed with insufficient evidence; only the document-supported part is returned."]), document="offset")
+    changed("answer-mixed-partial", "answer-document-with-retrieval-unavailable", "AnswerResult", lambda x: x.update(retrieval_provenance=None,warnings=["Literature retrieval is unavailable because configuration is missing; only the document-supported part is returned."]), document="offset")
+    changed("answer-literature", "answer-missing-retrieval-field", "AnswerResult", lambda x: x.pop("retrieval_provenance"), rule="STRUCTURE")
+    changed("answer-literature", "answer-generation-without-retrieval", "AnswerResult", lambda x: x.update(retrieval_provenance=None), rule="RETRIEVAL_PROVENANCE", path="/retrieval_provenance")
+    changed("answer-literature", "answer-retrieval-version-mismatch", "AnswerResult", lambda x: x["retrieval_provenance"].update(corpus_version="different-corpus"), rule="RETRIEVAL_VERSION", path="/components/0/corpus_version")
+    changed("answer-literature", "answer-insufficient-retrieval-with-generation", "AnswerResult", lambda x: x["retrieval_provenance"].update(state="insufficient"), rule="RETRIEVAL_GENERATION", path="/components")
+    changed("answer-document", "answer-retrieval-without-attempt", "AnswerResult", lambda x: x.update(retrieval_provenance=retrieval_provenance("insufficient")), rule="RETRIEVAL_ATTEMPT", path="/attempted_routes", document="offset")
+    changed("answer-literature-insufficient-no-generation", "answer-retrieval-mode-hidden", "AnswerResult", lambda x: x.update(mode="mock"), rule="MODE_PROVENANCE", path="/mode")
+    changed("answer-clarification", "answer-clarification-fabricated-retrieval", "AnswerResult", lambda x: x.update(retrieval_provenance=retrieval_provenance("insufficient")), rule="STRUCTURE", path="/retrieval_provenance")
+    changed("retrieval-provenance-completed", "retrieval-provenance-fabricated-generator", "RetrievalProvenance", lambda x: x.update(provider="unused-provider"), rule="STRUCTURE")
+    changed("retrieval-provenance-completed", "retrieval-provenance-missing-index", "RetrievalProvenance", lambda x: x.pop("index_version"), rule="STRUCTURE")
+    configuration_error = {"schema_version": "1.0.0", "request_id": REQUEST_ID, "error": {"code": "configuration_required", "message": "Retrieval is not configured.", "retryable": False}}
+    add("retrieval-configuration-error-no-provenance", "ErrorEnvelope", configuration_error)
+    changed("retrieval-configuration-error-no-provenance", "retrieval-configuration-error-fabricated-history", "ErrorEnvelope", lambda x: x.update(retrieval_provenance=retrieval_provenance()), rule="STRUCTURE")
     return {"manifest.json": manifest, "payloads.json": payloads, "documents.json": documents, "references.json": references}
 
 
@@ -473,8 +512,8 @@ def assets():
     result["transport-cases.json"]=encoded(transport_fixtures())
     base={path.relative_to(ROOT).as_posix():hashlib.sha256(path.read_bytes()).hexdigest()
           for path in sorted((ROOT/"contracts/v1").rglob("*")) if path.is_file()}
-    manifest={"candidate_id":"p2-rc1","revision":2,"wire_version":"1.0.0","status":"awaiting_review",
-              "supersedes_review":{"commit":"4ad602712bb23df6077cb252e1dd18b8cf8b9288","manifest_sha256":"45a74a22a2ccb3f581edc74acc212f0cc94f54f9de1590b6bdd541013b84f0b5"},
+    manifest={"candidate_id":"p2-rc1","revision":3,"wire_version":"1.0.0","status":"awaiting_review",
+              "supersedes_review":{"commit":"01e96ab6c6a676efb43073a2eca711e89e419030","manifest_sha256":"2c5043aa375a5aef1b0fa3806e8204284218d7b671c48bd8474ac74330c8affa"},
               "p1_files":base,"generated_files":{name:hashlib.sha256(data).hexdigest() for name,data in sorted(result.items())},
               "review_files":{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in REVIEW_FILES}}
     result["candidate.json"]=encoded(manifest)

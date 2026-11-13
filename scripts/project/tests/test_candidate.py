@@ -143,6 +143,52 @@ class CandidateTests(unittest.TestCase):
         document['language_validation']=build.language('inconclusive')
         self.assertIn(p1.Issue('STRUCTURE','/language_validation/outcome'),self.contracts.validate(document,'PreparedDocument'))
 
+    def retrieval_record(self, state='insufficient', mode='mock'):
+        return {'service':'rag','mode':mode,'state':state,'corpus_version':'fixture-corpus-version',
+                'index_version':'fixture-index-version','retriever_version':'fixture-retriever-version',
+                'score_note':'Synthetic ranking scores; higher is better within this retriever version.'}
+
+    def test_retrieval_without_generation_retains_actual_search_history(self):
+        result=deepcopy(self.payloads['answer-none'])
+        result.update(attempted_routes=['literature'],mode='live',retrieval_provenance=self.retrieval_record(mode='live'))
+        self.assertEqual(result['components'],[])
+        self.assertIsNone(result['prompt_version'])
+        self.assertEqual(self.contracts.validate(result,'AnswerResult'),[])
+        self.assertFalse({'provider','model','prompt_version'} & result['retrieval_provenance'].keys())
+
+    def test_document_answer_survives_insufficient_literature_with_search_provenance(self):
+        result=deepcopy(self.payloads['answer-mixed-partial'])
+        result.update(mode='mixed',retrieval_provenance=self.retrieval_record(mode='live'))
+        self.assertEqual({record['service'] for record in result['components']},{'extraction'})
+        self.assertEqual(self.contracts.validate(result,'AnswerResult',self.documents['offset']),[])
+
+    def test_literature_generation_needs_matching_retrieval_versions(self):
+        result=deepcopy(self.payloads['answer-literature'])
+        result['retrieval_provenance']=self.retrieval_record('sufficient')
+        result['retrieval_provenance']['corpus_version']='different-corpus'
+        self.assertEqual(self.contracts.validate(result,'AnswerResult'),[p1.Issue('RETRIEVAL_VERSION','/components/0/corpus_version')])
+        result['retrieval_provenance']=None
+        self.assertEqual(self.contracts.validate(result,'AnswerResult'),[p1.Issue('RETRIEVAL_PROVENANCE','/retrieval_provenance')])
+
+    def test_insufficient_retrieval_cannot_invent_literature_generation(self):
+        result=deepcopy(self.payloads['answer-literature'])
+        result['retrieval_provenance']=self.retrieval_record()
+        self.assertEqual(self.contracts.validate(result,'AnswerResult'),[p1.Issue('RETRIEVAL_GENERATION','/components')])
+
+    def test_pre_retrieval_clarification_has_no_execution_metadata(self):
+        result=deepcopy(self.payloads['answer-clarification'])
+        result['retrieval_provenance']=None
+        self.assertEqual(self.contracts.validate(result,'AnswerResult'),[])
+        result['retrieval_provenance']=self.retrieval_record()
+        self.assertIn(p1.Issue('STRUCTURE','/retrieval_provenance'),self.contracts.validate(result,'AnswerResult'))
+
+    def test_operational_configuration_error_has_no_retrieval_metadata(self):
+        result={'schema_version':'1.0.0','request_id':build.REQUEST_ID,
+                'error':{'code':'configuration_required','message':'Retrieval is not configured.','retryable':False}}
+        self.assertEqual(self.contracts.validate(result,'ErrorEnvelope'),[])
+        result['retrieval_provenance']=self.retrieval_record()
+        self.assertEqual(self.contracts.validate(result,'ErrorEnvelope'),[p1.Issue('STRUCTURE','')])
+
     def test_correlation_fallback_is_failure_not_success(self):
         case=next(case for case in p1.read_json(build.CANDIDATE/'transport-cases.json')['cases'] if case['id']=='missing-id-fallback')
         self.assertEqual(case['disposition'],'failed_call')
