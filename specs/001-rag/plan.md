@@ -57,6 +57,16 @@ Those approvals do not cover LLM generation, push, deployment or completion of s
 integration gates. The adapter/preflight checkpoint has not run a paid request or
 built an index. See [embedding decisions and evidence](../../docs/rag/embeddings.md).
 
+**Local index implementation and first live attempt (2026-11-14)**: Chroma 1.5.9,
+versioned index/usage state, exact canonical-text checks, stored-vector integrity,
+exclusive builds and explicit recovery now exist. All 126 service tests passed on
+Python 3.13.5. The approved 7-token probe was rejected by the official OpenAI endpoint
+for authentication/permissions. No retry or corpus embedding batch ran; zero passages
+were stored and the attempted index remains interrupted. The user has a tutor-supplied
+key. A read-only official OpenAI model-list request succeeded, but did not list the
+approved embedding model. Embedding access therefore needs the tutor/project owner's
+confirmation before further execution. See [run evidence](../../docs/rag/indexing.md).
+
 ## Summary
 
 Inspect permitted Health Topics, parse/chunk with stable identifiers, establish embedding-only retrieval, compare lexical/hybrid on fixed development questions, and generate literature answers in Python with claim-linked evidence. Keep ranking, semantic support and abstention measurements separate.

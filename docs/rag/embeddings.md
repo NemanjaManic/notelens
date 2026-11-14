@@ -126,6 +126,14 @@ Its budget is per adapter/run; it cannot cap other processes or dashboard usage.
 
 ## Sources
 
+The subsequent initial paid attempt was rejected for provider authentication or
+permissions before any corpus batch; see [the exact index/run evidence](indexing.md).
+The key was confirmed as tutor-supplied. An official OpenAI read-only model-list
+request succeeded but did not list the selected embedding model. The tutor/project
+owner must confirm embedding permissions before another paid attempt. The price
+above is a reference estimate, not measured billing. The adapter/preflight checkpoint's
+zero-call evidence above remains historical and does not hide the later failed attempt.
+
 - [OpenAI developer quickstart](https://developers.openai.com/api/docs/quickstart).
 - [Embedding guide and dimensions](https://developers.openai.com/api/docs/guides/embeddings).
 - [Model and current pricing](https://developers.openai.com/api/docs/models/text-embedding-3-small).

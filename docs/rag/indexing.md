@@ -83,6 +83,36 @@ The CLI emits only counts, versions, safe statuses and usage amounts. Index comp
 does not implement a live retrieval HTTP route, a sufficiency threshold, generation,
 medical validation or deployment.
 
+## Initial live attempt, 2026-11-14
+
+After the complete 126-test suite passed, the approved initial run loaded the key
+from the local .env and attempted one 7-token public-text probe. The official OpenAI
+endpoint rejected authentication or permissions (`provider_authentication`). No
+retry was made, no corpus batch was sent and zero passage vectors were stored.
+
+The attempted index identity is
+`209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146`.
+Its local status is interrupted, probe status attempted, reserved tokens 7 and
+confirmed successful tokens 0. The retained reference-price reservation is USD
+0.00000014; this is conservative bookkeeping, not an actual invoice or confirmed
+charge. No ready index, live retrieval quality or generation result is claimed.
+
+The user confirmed that the key came from a tutor and has no additional endpoint
+instructions. Local checks confirmed correct .env loading, no process override
+and no whitespace, without printing any secret value. A subsequent read-only
+model-list request to the official OpenAI API succeeded, but the returned IDs did
+not include text-embedding-3-small. This establishes model-list access, not access
+to embeddings, and suggests a model/project permission limitation. The exact
+embedding permission still requires confirmation from the key/project owner.
+
+No second embedding probe or generation request was made. Ask the tutor to enable
+or confirm text-embedding-3-small and the embeddings endpoint for this key/project,
+or supply the intended supported embedding model/configuration. Do not infer that
+LLM access grants embeddings, change the selected model without agreement, redirect
+the key to another host or repeat paid execution without resolving access. The API
+origin remains fixed to official OpenAI in the current adapter. Provider billing
+and successful embedding usage have not been independently confirmed.
+
 ## Sources
 
 - [Chroma Python clients](https://docs.trychroma.com/reference/python/client).
