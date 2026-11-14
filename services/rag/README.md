@@ -1,11 +1,16 @@
-# NoteLens RAG Local Mock Scaffold
+# NoteLens RAG Local Development
 
-Owner: Nemanja (A). Verified on Windows, 2026-11-13, with Python 3.13.5 and uv 0.12.5.
+Owner: Nemanja (A). Verified on Windows with Python 3.13.5 and uv 0.12.5.
 
 This is a runnable, owner-local mock scaffold against the pinned P2 review candidate.
 It is not a production RAG implementation or a canonical-contract freeze. The prepared
 401-topic/617-passage corpus is unchanged. A read-only adapter can now load it for future
 indexing; the synthetic HTTP routes still return their explicit mock examples.
+
+The 2026-11-14 local continuation adds an OpenAI embedding adapter and a key-free
+token/cost preflight. See [embedding configuration and evidence](../../docs/rag/embeddings.md).
+Store the server-side key only in the ignored `services/rag/.env`, using the empty
+`.env.example` template. An API key alone does not activate paid calls.
 
 Educational demo. Not a doctor. Do not submit real personal medical reports.
 
@@ -177,4 +182,11 @@ binding compatibility, live retrieval/generation, clinical support, performance,
 provider retention and operational policies were not verified here. The reader is an
 explicit 2026-11-13 owner-local preparation increment; A-003 remains open for its later
 integration, embedding/store and index work. Submitted document endpoints, model SDKs,
-embedding libraries and a vector store are absent.
+generation and a vector store were absent at that reader checkpoint. The separate
+2026-11-14 embedding increment now provides the SDK adapter and offline planning;
+it does not enable live HTTP answers or close A-003.
+
+Embedding-increment verification, 2026-11-14: all 114 service tests passed, including
+39 new configuration/embedding checks. Provider requests were simulated through the
+real SDK with fixture credentials and local HTTP transport. Actual offline planning
+counted 207,790 corpus tokens; no paid request was made for that checkpoint.

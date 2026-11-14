@@ -1,6 +1,6 @@
 # Implementation Plan: Python RAG
 
-**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-13 | **Spec**: [spec.md](spec.md)
+**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-14 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/001-rag/spec.md`.
 **Owner**: A. **Status**: Draft local design and executable backlog proposal.
@@ -46,6 +46,17 @@ passages. The adapter does not import preparation code or alter canonical conten
 This extends local preparation, not the formal completion of A-003 or its shared
 integration dependencies. See [reader commands](../../services/rag/README.md#verify-and-load-the-prepared-corpus).
 
+**Owner-local embedding continuation (2026-11-14)**: The user requested continuation,
+selected OpenAI `text-embedding-3-small` with 1,536 dimensions, required ignored `.env`
+storage and authorized small local commits. The SDK adapter and offline preflight now
+exist; all 114 service tests passed without paid calls. The user separately approved
+the initial public-corpus embedding run plus one small probe, with a cumulative USD 0.10
+limit for that step, batches of at most 32, 30-second request timeout and no automatic
+retries. Local Chroma is approved, without Cloud/account/subscription activation.
+Those approvals do not cover LLM generation, push, deployment or completion of shared
+integration gates. The adapter/preflight checkpoint has not run a paid request or
+built an index. See [embedding decisions and evidence](../../docs/rag/embeddings.md).
+
 ## Summary
 
 Inspect permitted Health Topics, parse/chunk with stable identifiers, establish embedding-only retrieval, compare lexical/hybrid on fixed development questions, and generate literature answers in Python with claim-linked evidence. Keep ranking, semantic support and abstention measurements separate.
@@ -56,7 +67,10 @@ Inspect permitted Health Topics, parse/chunk with stable identifiers, establish 
 project and uv.lock. Python 3.14.2 was used for earlier corpus preparation.
 The standalone corpus-preparation script uses only Python's standard library and
 does not require the service project, its lockfile or third-party installations.
-**Primary Dependencies**: FastAPI/Uvicorn; narrow Google Gen AI, embedding and Chroma adapters; lexical/hybrid candidate; pytest. Real model IDs/prices remain activation decisions.
+**Primary Dependencies**: FastAPI/Uvicorn; OpenAI SDK, tiktoken and python-dotenv;
+narrow embedding and approved local Chroma adapters; lexical/hybrid candidate; pytest.
+The initial embedding model/dimensions are approved. Generative models and further live
+budgets remain activation decisions; Google Gen AI was an earlier candidate, not activated.
 **Storage**: Versioned permitted English MedlinePlus metadata/manifests; ignored public corpus/index caches. No submitted documents enter this corpus or disk cache.
 **Testing**: Contract/schema/semantic tests, deterministic fixtures and owner-local tests;
 live and frozen final evaluation run only under separate approved gates.

@@ -188,6 +188,11 @@ No npm run script is assumed; B must document and verify actual package scripts 
 
 ## Exit and review
 
+For the approved owner-local OpenAI embedding preparation, use the service's
+[ignored .env configuration and offline preflight](../../docs/rag/embeddings.md).
+The preflight command exists now; paid activation, index completion and live HTTP
+answers are distinct steps and must not be inferred from an API key being present.
+
 [Tasks](tasks.md) provide owner/path/dependency/acceptance details. A-001 and A-002
 are checked; A-010 and all service tasks remain unchecked. Do not
 declare the shared foundation ready until the runnable mock flow,
