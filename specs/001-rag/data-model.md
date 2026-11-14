@@ -76,6 +76,15 @@ remain unchanged; actual passage counts live in the new passage manifest.
 
 ## Configuration and measured values
 
+The local embedding space identifies provider/model, 1,536 dimensions and unchanged
+canonical-text input policy. The plan binds that space to corpus/manifests; the
+Chroma index additionally binds backend version, cosine configuration and mock/live
+origin. Local manifests record completeness and exact stored float32 vector hashes.
+A persistent usage ledger reserves tokens before requests and survives explicit
+resume. These internal artifacts live under ignored data/knowledge/indexes and
+do not alter API schemas or establish live retrieval/answer readiness. See
+[index behavior](../../docs/rag/indexing.md).
+
 The owner-local service reader now exposes immutable PreparedCorpus/PreparedPassage
 records with lookups by passage and topic ID. It verifies the prepared artifacts and
 reuses their exact text/offsets/identities; it does not reconstruct canonical text.

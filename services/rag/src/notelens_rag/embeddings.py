@@ -9,6 +9,7 @@ import json
 import math
 import os
 from pathlib import Path
+import ssl
 import sys
 import threading
 
@@ -157,6 +158,8 @@ class EmbeddingBatch:
 
 
 class OpenAIEmbedder:
+    mode = 'live'
+
     def __init__(self, *, api_key, enabled, timeout_seconds, budget, encoder=None, http_client=None):
         require(type(enabled) is bool, 'Paid embedding activation must be explicit.')
         require(isinstance(api_key, str) and bool(api_key.strip()), 'The server-side API key is not configured.')
@@ -165,8 +168,10 @@ class OpenAIEmbedder:
         require(isinstance(budget, TokenBudget), 'An explicit embedding budget is required.')
         self.enabled, self.budget = enabled, budget
         self.encoder = encoder if encoder is not None else local_tokenizer()
+        # Use verified OS trust (including Windows roots); never disable TLS verification.
+        transport = http_client if http_client is not None else openai.DefaultHttpxClient(verify=ssl.create_default_context())
         self.client = openai.OpenAI(api_key=api_key, base_url='https://api.openai.com/v1',
-                                    timeout=timeout_seconds, max_retries=0, http_client=http_client)
+                                    timeout=timeout_seconds, max_retries=0, http_client=transport)
 
     def close(self):
         self.client.close()

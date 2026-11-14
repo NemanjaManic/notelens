@@ -12,6 +12,10 @@ token/cost preflight. See [embedding configuration and evidence](../../docs/rag/
 Store the server-side key only in the ignored `services/rag/.env`, using the empty
 `.env.example` template. An API key alone does not activate paid calls.
 
+The [local Chroma index CLI](../../docs/rag/indexing.md) now provides versioned public
+data persistence, integrity verification and explicit interrupted-run handling.
+Index activation is separate from these still-synthetic HTTP endpoints.
+
 Educational demo. Not a doctor. Do not submit real personal medical reports.
 
 ## Install and verify
