@@ -1,0 +1,125 @@
+{
+  "classification-supported": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "supported",
+    "category": "Cardiovascular / Pulmonary",
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Orthopedic",
+        "score": 1.0
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.0
+      },
+      {
+        "category": "Neurology",
+        "score": -1.0
+      },
+      {
+        "category": "Urology",
+        "score": -2.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0",
+    "classification_execution": "performed",
+    "scope_policy_version": null,
+    "scope_reason": null
+  },
+  "classification-uncertain": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "uncertain",
+    "category": null,
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 0.0
+      },
+      {
+        "category": "Orthopedic",
+        "score": 1.0
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 2.0
+      },
+      {
+        "category": "Neurology",
+        "score": 3.0
+      },
+      {
+        "category": "Urology",
+        "score": 4.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0",
+    "classification_execution": "performed",
+    "scope_policy_version": null,
+    "scope_reason": null
+  },
+  "classification-unsupported": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "unsupported",
+    "category": null,
+    "scores": [],
+    "score_kind": null,
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": null,
+    "classification_execution": "skipped",
+    "scope_policy_version": "fixture-scope-policy-v0",
+    "scope_reason": "outside_supported_scope"
+  },
+  "classification-unsupported-performed": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "unsupported",
+    "category": null,
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Orthopedic",
+        "score": 1.0
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.0
+      },
+      {
+        "category": "Neurology",
+        "score": -1.0
+      },
+      {
+        "category": "Urology",
+        "score": -2.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0",
+    "classification_execution": "performed",
+    "scope_policy_version": "fixture-scope-policy-v0",
+    "scope_reason": "outside_supported_scope"
+  }
+}

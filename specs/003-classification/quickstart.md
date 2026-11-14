@@ -1,6 +1,6 @@
 # Quickstart Validation: Python Classification
 
-**Status**: C-001 audit commands are available; commands labeled future are not available yet.
+**Status**: C-001 audit and C-011 local F-004 scaffold commands are available; commands labeled future remain gated.
 Run from the repository root. C-001 is authorized; no command here authorizes paid calls
 or bypasses the remaining task dependencies.
 
@@ -33,6 +33,25 @@ Review its checksum against the committed manifest before accepting a new source
 The subset is not ready for training: duplicate/conflict processing and grouped splits
 remain C-002 work. See [the measured audit](../../docs/ml/data-audit.md).
 
+## Available now: local classifier mock scaffold
+
+Follow the [service setup/start/check commands](../../services/classifier/README.md).
+The local uv executable is `.cache/classifier-tooling/Scripts/uv.exe` after setup.
+F-003/F-009 are published; the scaffold consumes their installed frozen Python package.
+
+```powershell
+$env:UV_CACHE_DIR = Join-Path (Get-Location).Path '.cache/uv'
+$env:UV_PYTHON_DOWNLOADS = 'never'
+& ./.cache/classifier-tooling/Scripts/uv.exe run --locked --offline --directory services/classifier python -B -m pytest -q
+$env:NOTELENS_CLASSIFIER_MODE = 'mock'
+$env:NOTELENS_CLASSIFIER_MOCK_SCENARIO = 'supported'
+& ./.cache/classifier-tooling/Scripts/uv.exe run --locked --offline --directory services/classifier python -m notelens_classifier
+```
+
+The launcher is loopback-only at port 8002. Tests include real local HTTP and process
+cleanup; health/readiness remains F-011 work after the shared F-004 checkpoint. The
+local contribution does not complete the whole F-004 or C-009. See the [handoff](../../docs/ml/classifier-scaffold-handoff.md).
+
 ## Future: after foundation prerequisites
 
 The later F-003/F-004/F-005 tasks must create frozen contracts/fixtures, dependency locks,
@@ -59,6 +78,7 @@ No npm run script is assumed; B must document and verify actual package scripts 
 
 ## Exit and review
 
-[Tasks](tasks.md) provide owner/path/dependency/acceptance details. Only C-001 is complete;
-all later classifier tasks remain unchecked. Do not declare the shared foundation ready until the runnable mock flow,
+[Tasks](tasks.md) provide owner/path/dependency/acceptance details. C-001 and the local
+C-011 scaffold contribution are checked; C-009, C-002 and business tasks remain gated.
+Do not declare the shared foundation ready until the runnable mock flow,
 handoffs, separate-working-copy commands and checkpoint evidence have passed.

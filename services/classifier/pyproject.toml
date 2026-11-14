@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling==1.33.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "notelens-classifier"
+version = "0.1.0"
+description = "Key-free classifier mock scaffold; no trained model"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "fastapi==0.162.7",
+    "uvicorn==0.54.0",
+    "notelens-contracts==1.0.0",
+]
+
+[dependency-groups]
+dev = ["pytest==9.2.0", "httpx==0.28.1"]
+
+[tool.uv.sources]
+notelens-contracts = { path = "../../contracts/generated/python" }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/notelens_classifier"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

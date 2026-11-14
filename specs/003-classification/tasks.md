@@ -2,7 +2,7 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [contract references](contracts/README.md).
-**Owner**: C. **Status**: C-001 local data audit complete (2026-11-11); remaining tasks blocked by their listed prerequisites.
+**Owner**: C. **Status**: C-001 audit complete locally; C-011 local F-004 scaffold contribution checked (2026-11-14). F-003/F-009 are available; C-009 still waits for the complete shared F-004 and C-002 also requires F-014.
 **Tests**: Required where the source specifications explicitly require structural, semantic,
 leakage, security or independent module checks. This is not blanket TDD for documentation.
 **Organization**: Setup, foundational, story increments, polish. Every task has one owner
@@ -32,7 +32,7 @@ listed test/CLI file exist, its command must actually pass before closing it.
 project; do not replace it with --project while leaving relative test paths at the repo root.
 
 Contract constraints apply verbatim: evidence is a half-open Unicode code-point
-[start,end) interval with an exact canonical quote; assertion is confirmed|suspected|negated,
+[start,end) interval with an exact canonical quote; frozen assertion is confirmed|suspected|negated|unknown,
 temporality is current|historical|unknown, subject is patient|family|other|unknown.
 Approved PDF/text/retention limits are 2,097,152 bytes, 100,000 code points and at most
 60 minutes. Model scores/retrieval scores are not clinical confidence.
@@ -150,6 +150,21 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Coverage**: FR-010, FR-011, FR-019, FR-020, FR-021, SC-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
+## Approved Foundation Contribution (2026-11-14)
+
+The user authorized continuing from the published F-003/F-009 handoff. This bounded
+owner contribution is appended to preserve the existing task IDs. It is part of shared
+F-004, not a replacement for C-009 or permission to mark the whole foundation complete.
+
+- [x] T011 C-011: Deliver C's local F-004 classifier mock scaffold in `services/classifier/**`, with owner evidence in `docs/ml/classifier-scaffold-handoff.md`
+  - **Owner / story**: C / US1 and US3 scaffold contribution; B coordinates shared F-004.
+  - **Dependencies**: 000-foundation/T004 (F-003); 000-foundation/T005 (F-009); published classifier brief and user authorization to continue within C's scope.
+  - **Acceptance**: Independent manifest/lock and installed frozen TypedDict/validator package; supported/uncertain/unsupported deterministic mocks with actual input identity; five ordered finite scores or honest skipped metadata; strict JSON/document validation; safe errors and business request correlation; local-only key-free launcher and no document storage/logging. F-011 health remains behind the shared F-004 checkpoint.
+  - **Verify**: `uv run --locked --offline --directory services/classifier python -B -m pytest -q`; see the service README for the verified local uv executable.
+  - **Evidence (2026-11-14)**: 51 tests passed, including an actual loopback Uvicorn HTTP smoke and process cleanup. Installed Python contracts passed 153 payload/22 simulated exchange cases. [Handoff](../../docs/ml/classifier-scaffold-handoff.md) records versions, actual workflow, commands and limitations.
+  - **Coverage**: FR-012, FR-014, FR-015, FR-016; scaffold support for SC-004/SC-005, not completion of real inference.
+  - **Done**: Local mock contribution checked; shared integration and human/team acceptance remain pending. No trained model, live inference, F-004/F-011/C-009/F-014 completion or publication is implied.
+
 ## Dependencies & Execution Order
 
 Follow explicit dependency edges, not checkbox proximity. A story phase can start when
@@ -160,6 +175,7 @@ published shared base for distributed business implementation. A remote clone is
 before an actual foundation commit/push.
 
 - C-001 (T001) <- no task prerequisite.
+- C-011 (T011) <- F-003, F-009, published owner brief and authorized package; contributes to F-004.
 - C-009 (T002) <- F-003, F-004.
 - C-002 (T003) <- C-001, C-009, F-014.
 - C-010 (T004) <- D-003.
