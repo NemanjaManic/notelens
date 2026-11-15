@@ -1,0 +1,1759 @@
+{
+  "span-second-valid": {
+    "start": 47,
+    "end": 61,
+    "quote": "No chest pain."
+  },
+  "document-valid": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-offset",
+    "text": "Demo \ud83e\ude7a\nNo chest pain.\nChest pain is suspected.\nNo chest pain.",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en"
+  },
+  "classification-score-valid": {
+    "category": "Cardiovascular / Pulmonary",
+    "score": 2.0
+  },
+  "classification-supported": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "supported",
+    "category": "Cardiovascular / Pulmonary",
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Orthopedic",
+        "score": 1.0
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.0
+      },
+      {
+        "category": "Neurology",
+        "score": -1.0
+      },
+      {
+        "category": "Urology",
+        "score": -2.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "document-source-valid": {
+    "source_id": "doc-source",
+    "kind": "document",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "evidence": {
+      "start": 47,
+      "end": 61,
+      "quote": "No chest pain."
+    }
+  },
+  "literature-source-valid": {
+    "source_id": "literature-source",
+    "kind": "literature",
+    "topic_id": "synthetic-topic",
+    "passage_id": "synthetic-passage",
+    "title": "Synthetic terminology fixture",
+    "url": "https://example.invalid/notelens/fixture-topic",
+    "text": "In this synthetic passage, suspected expresses uncertainty.",
+    "snapshot_date": "2026-11-11"
+  },
+  "source-document-valid": {
+    "source_id": "doc-source",
+    "kind": "document",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "evidence": {
+      "start": 47,
+      "end": 61,
+      "quote": "No chest pain."
+    }
+  },
+  "source-literature-valid": {
+    "source_id": "literature-source",
+    "kind": "literature",
+    "topic_id": "synthetic-topic",
+    "passage_id": "synthetic-passage",
+    "title": "Synthetic terminology fixture",
+    "url": "https://example.invalid/notelens/fixture-topic",
+    "text": "In this synthetic passage, suspected expresses uncertainty.",
+    "snapshot_date": "2026-11-11"
+  },
+  "claim-valid": {
+    "claim_id": "doc-claim",
+    "text": "The text contains a denial of chest pain.",
+    "scope": "document_fact",
+    "source_ids": [
+      "doc-source"
+    ]
+  },
+  "summary-valid": {
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ]
+  },
+  "extraction-item-valid": {
+    "entity_id": "denial",
+    "type": "symptom",
+    "name": "Chest pain",
+    "assertion": "negated",
+    "temporality": "unknown",
+    "subject": "unknown",
+    "evidence": [
+      {
+        "start": 47,
+        "end": 61,
+        "quote": "No chest pain."
+      }
+    ]
+  },
+  "extraction-valid": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "items": [
+      {
+        "entity_id": "denial",
+        "type": "symptom",
+        "name": "Chest pain",
+        "assertion": "negated",
+        "temporality": "unknown",
+        "subject": "unknown",
+        "evidence": [
+          {
+            "start": 47,
+            "end": 61,
+            "quote": "No chest pain."
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "language": "en",
+      "text": "The text contains a denial of chest pain.",
+      "claims": [
+        {
+          "claim_id": "doc-claim",
+          "text": "The text contains a denial of chest pain.",
+          "scope": "document_fact",
+          "source_ids": [
+            "doc-source"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "source_id": "doc-source",
+          "kind": "document",
+          "doc_id": "fixture-offset",
+          "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+          "evidence": {
+            "start": 47,
+            "end": 61,
+            "quote": "No chest pain."
+          }
+        }
+      ],
+      "evidence_state": "sufficient",
+      "warnings": [
+        "Synthetic repeated-text example; no clinical conclusion is implied."
+      ]
+    },
+    "extractor_version": "fixture-extractor-v0",
+    "prompt_version": "fixture-extraction-prompt-v0"
+  },
+  "retrieval-request-valid": {
+    "schema_version": "1.0.0",
+    "question": "What does suspected mean in this synthetic example?",
+    "concepts": [
+      "suspected"
+    ],
+    "specialty_hint": null
+  },
+  "retrieval-passage-valid": {
+    "source_id": "literature-source",
+    "kind": "literature",
+    "topic_id": "synthetic-topic",
+    "passage_id": "synthetic-passage",
+    "title": "Synthetic terminology fixture",
+    "url": "https://example.invalid/notelens/fixture-topic",
+    "text": "In this synthetic passage, suspected expresses uncertainty.",
+    "snapshot_date": "2026-11-11",
+    "score": 0.25
+  },
+  "retrieval-sufficient": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "state": "sufficient",
+    "passages": [
+      {
+        "source_id": "literature-source",
+        "kind": "literature",
+        "topic_id": "synthetic-topic",
+        "passage_id": "synthetic-passage",
+        "title": "Synthetic terminology fixture",
+        "url": "https://example.invalid/notelens/fixture-topic",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "snapshot_date": "2026-11-11",
+        "score": 0.25
+      }
+    ],
+    "retriever_version": "fixture-retriever-v0",
+    "index_version": "fixture-index-v0",
+    "score_note": "Arbitrary fixture score; no corpus, retriever, or threshold was measured."
+  },
+  "answer-document": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "document",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "classification-request-valid": {
+    "schema_version": "1.0.0",
+    "document": {
+      "schema_version": "1.0.0",
+      "doc_id": "fixture-offset",
+      "text": "Demo \ud83e\ude7a\nNo chest pain.\nChest pain is suspected.\nNo chest pain.",
+      "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+      "canonicalization_version": "nfc-lf-v1",
+      "source": {
+        "kind": "synthetic_text",
+        "name": "Synthetic contract fixture"
+      },
+      "language": "en"
+    }
+  },
+  "extraction-request-valid": {
+    "schema_version": "1.0.0",
+    "document": {
+      "schema_version": "1.0.0",
+      "doc_id": "fixture-offset",
+      "text": "Demo \ud83e\ude7a\nNo chest pain.\nChest pain is suspected.\nNo chest pain.",
+      "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+      "canonicalization_version": "nfc-lf-v1",
+      "source": {
+        "kind": "synthetic_text",
+        "name": "Synthetic contract fixture"
+      },
+      "language": "en"
+    }
+  },
+  "document-question-valid": {
+    "schema_version": "1.0.0",
+    "document": {
+      "schema_version": "1.0.0",
+      "doc_id": "fixture-offset",
+      "text": "Demo \ud83e\ude7a\nNo chest pain.\nChest pain is suspected.\nNo chest pain.",
+      "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+      "canonicalization_version": "nfc-lf-v1",
+      "source": {
+        "kind": "synthetic_text",
+        "name": "Synthetic contract fixture"
+      },
+      "language": "en"
+    },
+    "question": "What statements appear?",
+    "history": []
+  },
+  "literature-question-valid": {
+    "schema_version": "1.0.0",
+    "question": "What does suspected mean in this synthetic example?",
+    "concepts": [
+      "suspected"
+    ],
+    "specialty_hint": null
+  },
+  "error-detail-valid": {
+    "code": "timeout",
+    "message": "The requested service did not respond in time.",
+    "retryable": true
+  },
+  "error-envelope-valid": {
+    "schema_version": "1.0.0",
+    "request_id": "fixture-request",
+    "error": {
+      "code": "timeout",
+      "message": "The requested service did not respond in time.",
+      "retryable": true
+    }
+  },
+  "health-valid": {
+    "schema_version": "1.0.0",
+    "service": "rag",
+    "status": "ok",
+    "mode": "mock",
+    "version": "fixture-v0"
+  },
+  "classification-uncertain": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "uncertain",
+    "category": null,
+    "scores": [],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "classification-unsupported": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "unsupported",
+    "category": null,
+    "scores": [],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "classification-probability": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "supported",
+    "category": "Cardiovascular / Pulmonary",
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 0.2
+      },
+      {
+        "category": "Orthopedic",
+        "score": 0.2
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.2
+      },
+      {
+        "category": "Neurology",
+        "score": 0.2
+      },
+      {
+        "category": "Urology",
+        "score": 0.2
+      }
+    ],
+    "score_kind": "probability",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "extraction-historical": {
+    "entity_id": "historical-asthma",
+    "type": "diagnosis",
+    "name": "Asthma",
+    "assertion": "confirmed",
+    "temporality": "historical",
+    "subject": "patient",
+    "evidence": [
+      {
+        "start": 0,
+        "end": 32,
+        "quote": "In 2019, the patient had asthma."
+      }
+    ]
+  },
+  "extraction-family": {
+    "entity_id": "family-diabetes",
+    "type": "diagnosis",
+    "name": "Diabetes",
+    "assertion": "confirmed",
+    "temporality": "historical",
+    "subject": "family",
+    "evidence": [
+      {
+        "start": 33,
+        "end": 75,
+        "quote": "The patient's mother had diabetes in 2018."
+      }
+    ]
+  },
+  "extraction-explicit-icd": {
+    "entity_id": "explicit-code",
+    "type": "symptom",
+    "name": "Chest pain",
+    "assertion": "confirmed",
+    "temporality": "current",
+    "subject": "patient",
+    "evidence": [
+      {
+        "start": 76,
+        "end": 113,
+        "quote": "The patient reports chest pain today."
+      }
+    ],
+    "icd": {
+      "code": "R07.9",
+      "evidence": {
+        "start": 119,
+        "end": 124,
+        "quote": "R07.9"
+      }
+    }
+  },
+  "span-first-valid": {
+    "start": 7,
+    "end": 21,
+    "quote": "No chest pain."
+  },
+  "retrieval-insufficient": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "state": "insufficient",
+    "passages": [],
+    "retriever_version": "fixture-retriever-v0",
+    "index_version": "fixture-index-v0",
+    "score_note": "Arbitrary fixture score; no corpus, retriever, or threshold was measured."
+  },
+  "retrieval-error": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "state": "error",
+    "passages": [],
+    "retriever_version": "fixture-retriever-v0",
+    "index_version": "fixture-index-v0",
+    "score_note": "Arbitrary fixture score; no corpus, retriever, or threshold was measured.",
+    "error": {
+      "code": "timeout",
+      "message": "The requested service did not respond in time.",
+      "retryable": true
+    }
+  },
+  "answer-literature": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "In this synthetic passage, suspected expresses uncertainty.",
+    "claims": [
+      {
+        "claim_id": "literature-claim",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "scope": "general_information",
+        "source_ids": [
+          "literature-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "literature-source",
+        "kind": "literature",
+        "topic_id": "synthetic-topic",
+        "passage_id": "synthetic-passage",
+        "title": "Synthetic terminology fixture",
+        "url": "https://example.invalid/notelens/fixture-topic",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "snapshot_date": "2026-11-11"
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "literature",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-mixed-sufficient": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain. In this synthetic passage, suspected expresses uncertainty.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      },
+      {
+        "claim_id": "literature-claim",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "scope": "general_information",
+        "source_ids": [
+          "literature-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      },
+      {
+        "source_id": "literature-source",
+        "kind": "literature",
+        "topic_id": "synthetic-topic",
+        "passage_id": "synthetic-passage",
+        "title": "Synthetic terminology fixture",
+        "url": "https://example.invalid/notelens/fixture-topic",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "snapshot_date": "2026-11-11"
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "mixed",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-mixed-partial": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      }
+    ],
+    "evidence_state": "partial",
+    "warnings": [
+      "No literature evidence was returned; the document-supported portion remains available."
+    ],
+    "route": "mixed",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-none": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The sources do not support an answer.",
+    "claims": [],
+    "sources": [],
+    "evidence_state": "insufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "none",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "extraction-empty": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "items": [],
+    "summary": {
+      "language": "en",
+      "text": "No supported summary is available.",
+      "claims": [],
+      "sources": [],
+      "evidence_state": "insufficient",
+      "warnings": [
+        "Synthetic repeated-text example; no clinical conclusion is implied."
+      ]
+    },
+    "extractor_version": "fixture-extractor-v0",
+    "prompt_version": "fixture-extraction-prompt-v0"
+  },
+  "schema-invalid-type": {
+    "type": "not-a-json-schema-type"
+  },
+  "openapi-missing-info": {
+    "openapi": "3.1.1",
+    "paths": {}
+  },
+  "document-missing-version": {
+    "doc_id": "fixture-offset",
+    "text": "Demo \ud83e\ude7a\nNo chest pain.\nChest pain is suspected.\nNo chest pain.",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en"
+  },
+  "document-extra-property": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-offset",
+    "text": "Demo \ud83e\ude7a\nNo chest pain.\nChest pain is suspected.\nNo chest pain.",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en",
+    "unexpected": true
+  },
+  "document-wrong-digest": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-offset",
+    "text": "Demo \ud83e\ude7a\nNo chest pain.\nChest pain is suspected.\nNo chest pain.",
+    "text_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en"
+  },
+  "document-empty": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-offset",
+    "text": "",
+    "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en"
+  },
+  "document-whitespace": {
+    "schema_version": "1.0.0",
+    "doc_id": "noncanonical",
+    "text": "  \t",
+    "text_sha256": "27114b393999e684595f3c6868342a134fff543c8e43500351b36031bf5c3844",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en"
+  },
+  "document-crlf": {
+    "schema_version": "1.0.0",
+    "doc_id": "noncanonical",
+    "text": "Line one.\r\nLine two.",
+    "text_sha256": "46e506f226e8cb9e4542bca67e28552bfe4b177748bf7c70893bc2e7c99937dc",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en"
+  },
+  "document-nfd": {
+    "schema_version": "1.0.0",
+    "doc_id": "noncanonical",
+    "text": "Cafe\u0301.",
+    "text_sha256": "426190b5ed01b188a3fe99ba4dabe05540989fbf2a1eda9a3cfdc63634df837c",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en"
+  },
+  "document-surrogate": {
+    "schema_version": "1.0.0",
+    "doc_id": "fixture-offset",
+    "text": "\ud800",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en"
+  },
+  "span-reversed": {
+    "start": 61,
+    "end": 47,
+    "quote": "No chest pain."
+  },
+  "span-beyond-text": {
+    "start": 47,
+    "end": 62,
+    "quote": "No chest pain."
+  },
+  "span-negative-start": {
+    "start": -1,
+    "end": 61,
+    "quote": "No chest pain."
+  },
+  "span-wrong-quote": {
+    "start": 47,
+    "end": 61,
+    "quote": "Invented quote"
+  },
+  "span-utf16-offsets": {
+    "start": 48,
+    "end": 62,
+    "quote": "No chest pain."
+  },
+  "span-wrong-repeated-occurrence": {
+    "start": 7,
+    "end": 21,
+    "quote": "No chest pain."
+  },
+  "classification-duplicate-category": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "supported",
+    "category": "Cardiovascular / Pulmonary",
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "classification-supported-null": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "supported",
+    "category": null,
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Orthopedic",
+        "score": 1.0
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.0
+      },
+      {
+        "category": "Neurology",
+        "score": -1.0
+      },
+      {
+        "category": "Urology",
+        "score": -2.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "classification-uncertain-category": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "uncertain",
+    "category": "Cardiovascular / Pulmonary",
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Orthopedic",
+        "score": 1.0
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.0
+      },
+      {
+        "category": "Neurology",
+        "score": -1.0
+      },
+      {
+        "category": "Urology",
+        "score": -2.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "classification-missing-score": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "supported",
+    "category": "Cardiovascular / Pulmonary",
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Orthopedic",
+        "score": 1.0
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.0
+      },
+      {
+        "category": "Neurology",
+        "score": -1.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "classification-invalid-category": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "supported",
+    "category": "Surgery",
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Orthopedic",
+        "score": 1.0
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.0
+      },
+      {
+        "category": "Neurology",
+        "score": -1.0
+      },
+      {
+        "category": "Urology",
+        "score": -2.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "classification-probability-out-of-range": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "supported",
+    "category": "Cardiovascular / Pulmonary",
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 1.1
+      },
+      {
+        "category": "Orthopedic",
+        "score": 0.2
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.2
+      },
+      {
+        "category": "Neurology",
+        "score": 0.2
+      },
+      {
+        "category": "Urology",
+        "score": 0.2
+      }
+    ],
+    "score_kind": "probability",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "classification-stale-document": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "another-document",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "status": "supported",
+    "category": "Cardiovascular / Pulmonary",
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Orthopedic",
+        "score": 1.0
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.0
+      },
+      {
+        "category": "Neurology",
+        "score": -1.0
+      },
+      {
+        "category": "Urology",
+        "score": -2.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "classification-stale-digest": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "status": "supported",
+    "category": "Cardiovascular / Pulmonary",
+    "scores": [
+      {
+        "category": "Cardiovascular / Pulmonary",
+        "score": 2.0
+      },
+      {
+        "category": "Orthopedic",
+        "score": 1.0
+      },
+      {
+        "category": "Gastroenterology",
+        "score": 0.0
+      },
+      {
+        "category": "Neurology",
+        "score": -1.0
+      },
+      {
+        "category": "Urology",
+        "score": -2.0
+      }
+    ],
+    "score_kind": "decision_score",
+    "confidence_note": "Invented fixture scores; no model ran and no calibration or clinical certainty is implied.",
+    "model_version": "fixture-classifier-v0"
+  },
+  "historical-assertion-overwritten": {
+    "entity_id": "historical-asthma",
+    "type": "diagnosis",
+    "name": "Asthma",
+    "assertion": "suspected",
+    "temporality": "historical",
+    "subject": "patient",
+    "evidence": [
+      {
+        "start": 0,
+        "end": 32,
+        "quote": "In 2019, the patient had asthma."
+      }
+    ]
+  },
+  "historical-temporality-overwritten": {
+    "entity_id": "historical-asthma",
+    "type": "diagnosis",
+    "name": "Asthma",
+    "assertion": "confirmed",
+    "temporality": "current",
+    "subject": "patient",
+    "evidence": [
+      {
+        "start": 0,
+        "end": 32,
+        "quote": "In 2019, the patient had asthma."
+      }
+    ]
+  },
+  "family-attributed-to-patient": {
+    "entity_id": "family-diabetes",
+    "type": "diagnosis",
+    "name": "Diabetes",
+    "assertion": "confirmed",
+    "temporality": "historical",
+    "subject": "patient",
+    "evidence": [
+      {
+        "start": 33,
+        "end": 75,
+        "quote": "The patient's mother had diabetes in 2018."
+      }
+    ]
+  },
+  "extraction-invalid-assertion": {
+    "entity_id": "denial",
+    "type": "symptom",
+    "name": "Chest pain",
+    "assertion": "historical",
+    "temporality": "unknown",
+    "subject": "unknown",
+    "evidence": [
+      {
+        "start": 47,
+        "end": 61,
+        "quote": "No chest pain."
+      }
+    ]
+  },
+  "icd-invented-code": {
+    "entity_id": "explicit-code",
+    "type": "symptom",
+    "name": "Chest pain",
+    "assertion": "confirmed",
+    "temporality": "current",
+    "subject": "patient",
+    "evidence": [
+      {
+        "start": 76,
+        "end": 113,
+        "quote": "The patient reports chest pain today."
+      }
+    ],
+    "icd": {
+      "code": "R99",
+      "evidence": {
+        "start": 119,
+        "end": 124,
+        "quote": "R07.9"
+      }
+    }
+  },
+  "icd-unrelated-evidence": {
+    "entity_id": "explicit-code",
+    "type": "symptom",
+    "name": "Chest pain",
+    "assertion": "confirmed",
+    "temporality": "current",
+    "subject": "patient",
+    "evidence": [
+      {
+        "start": 76,
+        "end": 113,
+        "quote": "The patient reports chest pain today."
+      }
+    ],
+    "icd": {
+      "code": "R07.9",
+      "evidence": {
+        "start": 76,
+        "end": 113,
+        "quote": "The patient reports chest pain today."
+      }
+    }
+  },
+  "extraction-duplicate-entity": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "doc_id": "fixture-offset",
+    "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+    "items": [
+      {
+        "entity_id": "denial",
+        "type": "symptom",
+        "name": "Chest pain",
+        "assertion": "negated",
+        "temporality": "unknown",
+        "subject": "unknown",
+        "evidence": [
+          {
+            "start": 47,
+            "end": 61,
+            "quote": "No chest pain."
+          }
+        ]
+      },
+      {
+        "entity_id": "denial",
+        "type": "symptom",
+        "name": "Chest pain",
+        "assertion": "negated",
+        "temporality": "unknown",
+        "subject": "unknown",
+        "evidence": [
+          {
+            "start": 47,
+            "end": 61,
+            "quote": "No chest pain."
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "language": "en",
+      "text": "The text contains a denial of chest pain.",
+      "claims": [
+        {
+          "claim_id": "doc-claim",
+          "text": "The text contains a denial of chest pain.",
+          "scope": "document_fact",
+          "source_ids": [
+            "doc-source"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "source_id": "doc-source",
+          "kind": "document",
+          "doc_id": "fixture-offset",
+          "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+          "evidence": {
+            "start": 47,
+            "end": 61,
+            "quote": "No chest pain."
+          }
+        }
+      ],
+      "evidence_state": "sufficient",
+      "warnings": [
+        "Synthetic repeated-text example; no clinical conclusion is implied."
+      ]
+    },
+    "extractor_version": "fixture-extractor-v0",
+    "prompt_version": "fixture-extraction-prompt-v0"
+  },
+  "answer-dangling-citation": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "missing"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "document",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-duplicate-claim": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      },
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "document",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-duplicate-source": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      },
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "document",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-patient-fact-from-literature": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "literature-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "literature-source",
+        "kind": "literature",
+        "topic_id": "synthetic-topic",
+        "passage_id": "synthetic-passage",
+        "title": "Synthetic terminology fixture",
+        "url": "https://example.invalid/notelens/fixture-topic",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "snapshot_date": "2026-11-11"
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "literature",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-document-with-literature": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "literature-claim",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "scope": "general_information",
+        "source_ids": [
+          "literature-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "literature-source",
+        "kind": "literature",
+        "topic_id": "synthetic-topic",
+        "passage_id": "synthetic-passage",
+        "title": "Synthetic terminology fixture",
+        "url": "https://example.invalid/notelens/fixture-topic",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "snapshot_date": "2026-11-11"
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "document",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-none-with-claims": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      }
+    ],
+    "sources": [],
+    "evidence_state": "insufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "none",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-mixed-missing-literature": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "mixed",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-partial-without-gap": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      }
+    ],
+    "evidence_state": "partial",
+    "warnings": [],
+    "route": "mixed",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-stale-source": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "en",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "another-document",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "document",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "answer-nonenglish-declaration": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "language": "sr",
+    "text": "The text contains a denial of chest pain.",
+    "claims": [
+      {
+        "claim_id": "doc-claim",
+        "text": "The text contains a denial of chest pain.",
+        "scope": "document_fact",
+        "source_ids": [
+          "doc-source"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "doc-source",
+        "kind": "document",
+        "doc_id": "fixture-offset",
+        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+        "evidence": {
+          "start": 47,
+          "end": 61,
+          "quote": "No chest pain."
+        }
+      }
+    ],
+    "evidence_state": "sufficient",
+    "warnings": [
+      "Synthetic repeated-text example; no clinical conclusion is implied."
+    ],
+    "route": "document",
+    "answer_version": "fixture-answer-v0",
+    "prompt_version": "fixture-answer-prompt-v0"
+  },
+  "literature-bad-date": {
+    "source_id": "literature-source",
+    "kind": "literature",
+    "topic_id": "synthetic-topic",
+    "passage_id": "synthetic-passage",
+    "title": "Synthetic terminology fixture",
+    "url": "https://example.invalid/notelens/fixture-topic",
+    "text": "In this synthetic passage, suspected expresses uncertainty.",
+    "snapshot_date": "2026-02-30"
+  },
+  "literature-nonhttps": {
+    "source_id": "literature-source",
+    "kind": "literature",
+    "topic_id": "synthetic-topic",
+    "passage_id": "synthetic-passage",
+    "title": "Synthetic terminology fixture",
+    "url": "http://example.invalid/source",
+    "text": "In this synthetic passage, suspected expresses uncertainty.",
+    "snapshot_date": "2026-11-11"
+  },
+  "retrieval-error-without-detail": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "state": "error",
+    "passages": [],
+    "retriever_version": "fixture-retriever-v0",
+    "index_version": "fixture-index-v0",
+    "score_note": "Arbitrary fixture score; no corpus, retriever, or threshold was measured."
+  },
+  "retrieval-success-with-error": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "state": "sufficient",
+    "passages": [
+      {
+        "source_id": "literature-source",
+        "kind": "literature",
+        "topic_id": "synthetic-topic",
+        "passage_id": "synthetic-passage",
+        "title": "Synthetic terminology fixture",
+        "url": "https://example.invalid/notelens/fixture-topic",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "snapshot_date": "2026-11-11",
+        "score": 0.25
+      }
+    ],
+    "retriever_version": "fixture-retriever-v0",
+    "index_version": "fixture-index-v0",
+    "score_note": "Arbitrary fixture score; no corpus, retriever, or threshold was measured.",
+    "error": {
+      "code": "timeout",
+      "message": "The requested service did not respond in time.",
+      "retryable": true
+    }
+  },
+  "retrieval-sufficient-empty": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "state": "sufficient",
+    "passages": [],
+    "retriever_version": "fixture-retriever-v0",
+    "index_version": "fixture-index-v0",
+    "score_note": "Arbitrary fixture score; no corpus, retriever, or threshold was measured."
+  },
+  "retrieval-duplicate-source": {
+    "schema_version": "1.0.0",
+    "mode": "mock",
+    "state": "sufficient",
+    "passages": [
+      {
+        "source_id": "literature-source",
+        "kind": "literature",
+        "topic_id": "synthetic-topic",
+        "passage_id": "synthetic-passage",
+        "title": "Synthetic terminology fixture",
+        "url": "https://example.invalid/notelens/fixture-topic",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "snapshot_date": "2026-11-11",
+        "score": 0.25
+      },
+      {
+        "source_id": "literature-source",
+        "kind": "literature",
+        "topic_id": "synthetic-topic",
+        "passage_id": "synthetic-passage",
+        "title": "Synthetic terminology fixture",
+        "url": "https://example.invalid/notelens/fixture-topic",
+        "text": "In this synthetic passage, suspected expresses uncertainty.",
+        "snapshot_date": "2026-11-11",
+        "score": 0.25
+      }
+    ],
+    "retriever_version": "fixture-retriever-v0",
+    "index_version": "fixture-index-v0",
+    "score_note": "Arbitrary fixture score; no corpus, retriever, or threshold was measured."
+  },
+  "question-invalid-history-role": {
+    "schema_version": "1.0.0",
+    "document": {
+      "schema_version": "1.0.0",
+      "doc_id": "fixture-offset",
+      "text": "Demo \ud83e\ude7a\nNo chest pain.\nChest pain is suspected.\nNo chest pain.",
+      "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
+      "canonicalization_version": "nfc-lf-v1",
+      "source": {
+        "kind": "synthetic_text",
+        "name": "Synthetic contract fixture"
+      },
+      "language": "en"
+    },
+    "question": "What is stated?",
+    "history": [
+      {
+        "role": "system",
+        "text": "Untrusted instructions"
+      }
+    ]
+  },
+  "error-unknown-code": {
+    "code": "custom_error",
+    "message": "The requested service did not respond in time.",
+    "retryable": true
+  },
+  "error-missing-retryable": {
+    "code": "timeout",
+    "message": "The requested service did not respond in time."
+  },
+  "health-invalid-mode": {
+    "schema_version": "1.0.0",
+    "service": "rag",
+    "status": "ok",
+    "mode": "automatic",
+    "version": "fixture-v0"
+  },
+  "document-preserved-leading-bom": {
+    "schema_version": "1.0.0",
+    "doc_id": "noncanonical",
+    "text": "\ufeffText.",
+    "text_sha256": "1846ff96e5c186340f5381aed8262426e2a84063602d78affcb6724b56114241",
+    "canonicalization_version": "nfc-lf-v1",
+    "source": {
+      "kind": "synthetic_text",
+      "name": "Synthetic contract fixture"
+    },
+    "language": "en"
+  },
+  "icd-truncated-source-code": {
+    "entity_id": "explicit-code",
+    "type": "symptom",
+    "name": "Chest pain",
+    "assertion": "confirmed",
+    "temporality": "current",
+    "subject": "patient",
+    "evidence": [
+      {
+        "start": 76,
+        "end": 113,
+        "quote": "The patient reports chest pain today."
+      }
+    ],
+    "icd": {
+      "code": "R07",
+      "evidence": {
+        "start": 119,
+        "end": 124,
+        "quote": "R07.9"
+      }
+    }
+  }
+}

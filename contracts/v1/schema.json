@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:notelens:contracts:v1",
-  "title": "NoteLens v1 contract proposal",
-  "$comment": "DRAFT FOR A/B/C/D REVIEW. No contract freeze or implementation acceptance is implied.",
+  "title": "NoteLens canonical v1.0.0 contracts",
+  "$comment": "Frozen from accepted p2-rc1 revision 3. All JSON numbers, including in-memory runtime values, must be finite. See docs/decisions/contract-freeze.md.",
   "$defs": {
     "EvidenceSpan": {
       "type": "object",
@@ -73,6 +73,9 @@
         },
         "language": {
           "const": "en"
+        },
+        "language_validation": {
+          "$ref": "#/$defs/LanguageValidation"
         }
       },
       "required": [
@@ -82,9 +85,23 @@
         "text",
         "canonicalization_version",
         "source",
-        "language"
+        "language",
+        "language_validation"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "properties": {
+            "language_validation": {
+              "properties": {
+                "outcome": {
+                  "const": "accepted"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "ClassificationScore": {
       "type": "object",
@@ -162,10 +179,16 @@
           }
         },
         "score_kind": {
-          "type": "string",
-          "enum": [
-            "probability",
-            "decision_score"
+          "anyOf": [
+            {
+              "enum": [
+                "probability",
+                "decision_score"
+              ]
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "confidence_note": {
@@ -173,8 +196,43 @@
           "minLength": 1
         },
         "model_version": {
-          "type": "string",
-          "minLength": 1
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "classification_execution": {
+          "enum": [
+            "skipped",
+            "performed"
+          ]
+        },
+        "scope_policy_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scope_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -187,7 +245,10 @@
         "scores",
         "score_kind",
         "confidence_note",
-        "model_version"
+        "model_version",
+        "classification_execution",
+        "scope_policy_version",
+        "scope_reason"
       ],
       "additionalProperties": false,
       "allOf": [
@@ -197,12 +258,14 @@
               "status": {
                 "const": "supported"
               }
-            }
+            },
+            "required": [
+              "status"
+            ]
           },
           "then": {
             "properties": {
               "category": {
-                "type": "string",
                 "enum": [
                   "Cardiovascular / Pulmonary",
                   "Orthopedic",
@@ -210,17 +273,138 @@
                   "Neurology",
                   "Urology"
                 ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "uncertain",
+                  "unsupported"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "category": {
+                "const": null
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification_execution": {
+                "const": "performed"
+              }
+            },
+            "required": [
+              "classification_execution"
+            ]
+          },
+          "then": {
+            "properties": {
+              "model_version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "score_kind": {
+                "enum": [
+                  "probability",
+                  "decision_score"
+                ]
               },
               "scores": {
                 "minItems": 5,
                 "maxItems": 5
               }
             }
-          },
-          "else": {
+          }
+        },
+        {
+          "if": {
             "properties": {
-              "category": {
-                "type": "null"
+              "classification_execution": {
+                "const": "skipped"
+              }
+            },
+            "required": [
+              "classification_execution"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "unsupported"
+              },
+              "model_version": {
+                "const": null
+              },
+              "score_kind": {
+                "const": null
+              },
+              "scores": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unsupported"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "scope_policy_version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope_reason": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]*$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "supported",
+                  "uncertain"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "classification_execution": {
+                "const": "performed"
+              },
+              "scope_policy_version": {
+                "const": null
+              },
+              "scope_reason": {
+                "const": null
               }
             }
           }
@@ -231,7 +415,10 @@
               "score_kind": {
                 "const": "probability"
               }
-            }
+            },
+            "required": [
+              "score_kind"
+            ]
           },
           "then": {
             "properties": {
@@ -277,6 +464,10 @@
         },
         "evidence": {
           "$ref": "#/$defs/EvidenceSpan"
+        },
+        "component_id": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
@@ -284,7 +475,8 @@
         "kind",
         "doc_id",
         "text_sha256",
-        "evidence"
+        "evidence",
+        "component_id"
       ],
       "additionalProperties": false
     },
@@ -322,6 +514,10 @@
         "snapshot_date": {
           "type": "string",
           "format": "date"
+        },
+        "component_id": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
@@ -332,7 +528,8 @@
         "title",
         "url",
         "text",
-        "snapshot_date"
+        "snapshot_date",
+        "component_id"
       ],
       "additionalProperties": false
     },
@@ -372,13 +569,18 @@
           },
           "minItems": 1,
           "uniqueItems": true
+        },
+        "component_id": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
         "claim_id",
         "text",
         "scope",
-        "source_ids"
+        "source_ids",
+        "component_id"
       ],
       "additionalProperties": false
     },
@@ -417,6 +619,16 @@
             "type": "string",
             "minLength": 1
           }
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ComponentProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -425,7 +637,8 @@
         "claims",
         "sources",
         "evidence_state",
-        "warnings"
+        "warnings",
+        "provenance"
       ],
       "additionalProperties": false,
       "allOf": [
@@ -447,6 +660,28 @@
               },
               "text": {
                 "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "evidence_state": {
+                "enum": [
+                  "sufficient",
+                  "partial"
+                ]
+              }
+            },
+            "required": [
+              "evidence_state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "provenance": {
+                "$ref": "#/$defs/ComponentProvenance"
               }
             }
           }
@@ -477,7 +712,8 @@
           "enum": [
             "confirmed",
             "suspected",
-            "negated"
+            "negated",
+            "unknown"
           ]
         },
         "temporality": {
@@ -520,6 +756,24 @@
             "evidence"
           ],
           "additionalProperties": false
+        },
+        "mention": {
+          "$ref": "#/$defs/EvidenceSpan"
+        },
+        "component_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "procedure_status": {
+          "enum": [
+            null,
+            "planned",
+            "ordered",
+            "performed",
+            "cancelled",
+            "hypothetical",
+            "unknown"
+          ]
         }
       },
       "required": [
@@ -529,9 +783,37 @@
         "assertion",
         "temporality",
         "subject",
-        "evidence"
+        "evidence",
+        "mention",
+        "component_id",
+        "procedure_status"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "procedure"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "procedure_status": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "procedure_status": {
+                "const": null
+              }
+            }
+          }
+        }
+      ]
     },
     "ExtractionResult": {
       "type": "object",
@@ -540,10 +822,10 @@
           "const": "1.0.0"
         },
         "mode": {
-          "type": "string",
           "enum": [
             "mock",
-            "live"
+            "live",
+            "mixed"
           ]
         },
         "doc_id": {
@@ -561,15 +843,56 @@
           }
         },
         "summary": {
-          "$ref": "#/$defs/Summary"
+          "$ref": "#/$defs/SummaryOutcome"
         },
         "extractor_version": {
           "type": "string",
           "minLength": 1
         },
         "prompt_version": {
-          "type": "string",
-          "minLength": 1
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "extraction_status": {
+          "enum": [
+            "completed",
+            "partial",
+            "failed"
+          ]
+        },
+        "extraction_error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ErrorDetail"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "extraction_provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ComponentProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -580,9 +903,98 @@
         "items",
         "summary",
         "extractor_version",
-        "prompt_version"
+        "prompt_version",
+        "extraction_status",
+        "extraction_error",
+        "warnings",
+        "extraction_provenance"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "extraction_status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "extraction_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "maxItems": 0
+              },
+              "extraction_error": {
+                "$ref": "#/$defs/ErrorDetail"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "extraction_status": {
+                "const": "completed"
+              }
+            },
+            "required": [
+              "extraction_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "extraction_error": {
+                "const": null
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "extraction_status": {
+                "const": "partial"
+              }
+            },
+            "required": [
+              "extraction_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "minItems": 1
+              },
+              "warnings": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "not": {
+            "properties": {
+              "extraction_status": {
+                "const": "failed"
+              },
+              "summary": {
+                "properties": {
+                  "status": {
+                    "const": "failed"
+                  }
+                }
+              }
+            },
+            "required": [
+              "extraction_status",
+              "summary"
+            ]
+          }
+        }
+      ]
     },
     "RetrievalRequest": {
       "type": "object",
@@ -592,7 +1004,8 @@
         },
         "question": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "\\S"
         },
         "concepts": {
           "type": "array",
@@ -695,8 +1108,7 @@
           "type": "string",
           "enum": [
             "sufficient",
-            "insufficient",
-            "error"
+            "insufficient"
           ]
         },
         "passages": {
@@ -717,8 +1129,9 @@
           "type": "string",
           "minLength": 1
         },
-        "error": {
-          "$ref": "#/$defs/ErrorDetail"
+        "corpus_version": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
@@ -728,7 +1141,8 @@
         "passages",
         "retriever_version",
         "index_version",
-        "score_note"
+        "score_note",
+        "corpus_version"
       ],
       "additionalProperties": false,
       "allOf": [
@@ -736,30 +1150,12 @@
           "if": {
             "properties": {
               "state": {
-                "const": "error"
-              }
-            }
-          },
-          "then": {
-            "required": [
-              "error"
-            ]
-          },
-          "else": {
-            "not": {
-              "required": [
-                "error"
-              ]
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "state": {
                 "const": "sufficient"
               }
-            }
+            },
+            "required": [
+              "state"
+            ]
           },
           "then": {
             "properties": {
@@ -778,10 +1174,10 @@
           "const": "1.0.0"
         },
         "mode": {
-          "type": "string",
           "enum": [
             "mock",
-            "live"
+            "live",
+            "mixed"
           ]
         },
         "language": {
@@ -831,8 +1227,52 @@
           "minLength": 1
         },
         "prompt_version": {
-          "type": "string",
-          "minLength": 1
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ComponentProvenance"
+          }
+        },
+        "attempted_routes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "document",
+              "literature"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "clarification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Clarification"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrieval_provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RetrievalProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -846,7 +1286,11 @@
         "warnings",
         "route",
         "answer_version",
-        "prompt_version"
+        "prompt_version",
+        "components",
+        "attempted_routes",
+        "clarification",
+        "retrieval_provenance"
       ],
       "additionalProperties": false,
       "allOf": [
@@ -959,6 +1403,59 @@
               }
             }
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "clarification": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "clarification"
+            ]
+          },
+          "then": {
+            "properties": {
+              "route": {
+                "const": "none"
+              },
+              "evidence_state": {
+                "const": "insufficient"
+              },
+              "claims": {
+                "maxItems": 0
+              },
+              "sources": {
+                "maxItems": 0
+              },
+              "components": {
+                "maxItems": 0
+              },
+              "retrieval_provenance": {
+                "const": null
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "route": {
+                "const": "mixed"
+              }
+            },
+            "required": [
+              "route"
+            ]
+          },
+          "then": {
+            "properties": {
+              "attempted_routes": {
+                "minItems": 2
+              }
+            }
+          }
         }
       ]
     },
@@ -1005,7 +1502,8 @@
         },
         "question": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "\\S"
         },
         "history": {
           "type": "array",
@@ -1084,8 +1582,7 @@
           "const": "1.0.0"
         },
         "request_id": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/$defs/RequestId"
         },
         "error": {
           "$ref": "#/$defs/ErrorDetail"
@@ -1121,6 +1618,576 @@
         },
         "mode": {
           "type": "string",
+          "enum": [
+            "mock",
+            "live"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "service",
+        "status",
+        "mode",
+        "version",
+        "model_version",
+        "reason"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_ready"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "const": null
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "mock"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "model_version": {
+                "const": null
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "live"
+              },
+              "service": {
+                "const": "classifier"
+              },
+              "status": {
+                "const": "ok"
+              }
+            },
+            "required": [
+              "mode",
+              "service",
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "model_version": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "RequestId": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "LanguageValidation": {
+      "type": "object",
+      "properties": {
+        "outcome": {
+          "enum": [
+            "accepted",
+            "rejected",
+            "inconclusive"
+          ]
+        },
+        "language": {
+          "anyOf": [
+            {
+              "const": "en"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "enum": [
+            null,
+            "unsupported_language",
+            "language_inconclusive"
+          ]
+        }
+      },
+      "required": [
+        "outcome",
+        "language",
+        "policy_version",
+        "reason"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "accepted"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "language": {
+                "const": "en"
+              },
+              "reason": {
+                "const": null
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "rejected"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "language": {
+                "const": null
+              },
+              "reason": {
+                "const": "unsupported_language"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "inconclusive"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "language": {
+                "const": null
+              },
+              "reason": {
+                "const": "language_inconclusive"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ComponentProvenance": {
+      "type": "object",
+      "properties": {
+        "component_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "service": {
+          "enum": [
+            "rag",
+            "extraction"
+          ]
+        },
+        "operation": {
+          "enum": [
+            "extract",
+            "summarize",
+            "document-answer",
+            "literature-answer"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "mock",
+            "live"
+          ]
+        },
+        "output_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prompt_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "configuration_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "corpus_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "index_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retriever_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "component_id",
+        "service",
+        "operation",
+        "mode",
+        "output_version",
+        "prompt_version",
+        "provider",
+        "model",
+        "configuration_version",
+        "corpus_version",
+        "index_version",
+        "retriever_version"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "service": {
+                "const": "rag"
+              }
+            },
+            "required": [
+              "service"
+            ]
+          },
+          "then": {
+            "properties": {
+              "operation": {
+                "const": "literature-answer"
+              },
+              "corpus_version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "index_version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "retriever_version": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "service": {
+                "const": "extraction"
+              }
+            },
+            "required": [
+              "service"
+            ]
+          },
+          "then": {
+            "properties": {
+              "operation": {
+                "enum": [
+                  "extract",
+                  "summarize",
+                  "document-answer"
+                ]
+              },
+              "corpus_version": {
+                "const": null
+              },
+              "index_version": {
+                "const": null
+              },
+              "retriever_version": {
+                "const": null
+              }
+            }
+          }
+        }
+      ]
+    },
+    "SummaryOutcome": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "completed",
+            "failed"
+          ]
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Summary"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ErrorDetail"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "result",
+        "error"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "completed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "$ref": "#/$defs/Summary"
+              },
+              "error": {
+                "const": null
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "const": null
+              },
+              "error": {
+                "$ref": "#/$defs/ErrorDetail"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Clarification": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "const": "ambiguous_reference"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "additionalProperties": false
+    },
+    "RetrievalProvenance": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "const": "rag"
+        },
+        "mode": {
+          "enum": [
+            "mock",
+            "live"
+          ]
+        },
+        "state": {
+          "enum": [
+            "sufficient",
+            "insufficient"
+          ]
+        },
+        "corpus_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "index_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retriever_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "score_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "service",
+        "mode",
+        "state",
+        "corpus_version",
+        "index_version",
+        "retriever_version",
+        "score_note"
+      ],
+      "additionalProperties": false,
+      "description": "Actual completed retrieval, independent of generation. Copy mode, state, versions and score_note from the completed RetrievalResult. No generator/provider/model/prompt metadata belongs here."
+    },
+    "LivenessResult": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0.0"
+        },
+        "service": {
+          "enum": [
+            "rag",
+            "classifier",
+            "extraction"
+          ]
+        },
+        "status": {
+          "const": "alive"
+        },
+        "mode": {
           "enum": [
             "mock",
             "live"
