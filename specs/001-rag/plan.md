@@ -80,6 +80,16 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Agent passage-content review (2026-11-15)**: The user approved reviewing the
+actual retrieved text before further implementation. All fifty passages from
+the existing ten public questions were inspected without new API calls. Agent
+judgments found eight full, one partial and one missing-evidence case; thirteen
+supporting quotes have exact canonical topic/passage offsets. A related disease's
+duration cannot fill CQ-02's gap, and CQ-08 lacks its requested location/year rate.
+Scores overlap support categories, so no rejection threshold or runtime policy
+was chosen. See [review and limitations](../../docs/rag/retrieval-content-review.md).
+This exploratory A-004 preparation leaves formal task/dependency gates unchanged.
+
 **Completed public retrieval trial (2026-11-15)**: All ten separately approved public
 development queries completed, returning five candidates each. Ten requests confirmed
 143 query tokens (USD 0.00000286 reference-price cost) under the separate USD 0.01 cap.

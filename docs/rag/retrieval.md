@@ -140,3 +140,16 @@ The prior partial/data-gap probes CQ-02/CQ-08 also return related candidates. A
 topic match or high score therefore remains separate from evidence that answers
 the question. No semantic benchmark, calibrated rejection policy, clinical validity
 or automatic answerability result is claimed here.
+
+## Agent content review, 2026-11-15
+
+All fifty actual passage bodies have subsequently been read against their ten
+questions. The agent found evidence covering eight complete questions, one
+partial question and one missing requested statistic. Thirteen exact supporting
+quotes have checked topic/passage offsets. CQ-02 must not borrow RSV transmission
+timing; CQ-08's related topic does not supply Serbia-specific 2025 incidence.
+The observed scores overlap these support categories, so no automatic sufficiency
+cutoff was selected. See the [review and limits](retrieval-content-review.md) and
+[structured evidence](retrieval-content-review.json). This offline review made
+no API calls, changed no runtime policy and does not complete A-004 or human
+evaluation. The original trial's not_assessed output remains historical evidence.

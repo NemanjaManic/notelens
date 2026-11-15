@@ -1,0 +1,882 @@
+{
+  "record_format_version": "rag-agent-content-review-v1",
+  "date": "2026-11-15",
+  "reviewer": "Codex coding agent for Nemanja (A)",
+  "review_status": "Agent development review only; no human or clinical acceptance.",
+  "runtime_policy_changed": false,
+  "runtime_answerability": "not_assessed",
+  "source_results": "docs/rag/retrieval-smoke-results.json",
+  "source_results_sha256": "0255dc55a6f648bc369453853a0327b6530cbe7077d43c9f937fd62a3f99a55e",
+  "registry_identity": "686f74530f9ab77a2e686fb6956bc4dccac81b2c1285ee7569c4407470e810f5",
+  "question_registry_file_sha256": "d22ccc30da77fbe20e3540aba71d3281c23f7377af35c1c4ec68c157786aadb6",
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+  "retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+  "model": "text-embedding-3-small",
+  "dimensions": 1536,
+  "top_k": 5,
+  "scope": "All fifty passages from the ten already executed public development queries; content read against each question.",
+  "new_provider_calls": 0,
+  "llm_generation_calls": 0,
+  "offset_unit": "Unicode code points; half-open [start, end). Topic offsets refer to canonical cleaned_summary; passage offsets refer to its unchanged retrieved slice.",
+  "case_counts": {
+    "fully_supported": 8,
+    "partially_supported": 1,
+    "missing_in_retrieved_evidence": 1
+  },
+  "passage_counts": {
+    "fully_supports_question": 13,
+    "related_not_answer_support": 26,
+    "partially_supports_question": 11
+  },
+  "supporting_quote_count": 13,
+  "limitations": [
+    "Questions were previously selected by inspecting this corpus and prior support assessments were visible; this is not blinded or held-out evaluation.",
+    "No second reviewer, human gold labels, clinical validation, answer-generation measurement, calibrated threshold, or topic-recall metric is claimed.",
+    "Missing support means absent from the five inspected passages, not proven absent from the entire corpus or external literature.",
+    "Review labels are A-owned research annotations, not canonical API states or D-owned evaluation annotations.",
+    "Quote/offset validity establishes traceability; semantic labels remain coding-agent judgments requiring independent review."
+  ],
+  "cases": [
+    {
+      "assessment": "fully_supported",
+      "required_parts": [
+        "Meaning of systolic pressure",
+        "Meaning of diastolic pressure"
+      ],
+      "covered_parts": [
+        "Meaning of systolic pressure",
+        "Meaning of diastolic pressure"
+      ],
+      "missing_parts": [],
+      "expected_behavior": "Explain the two phases using the source; do not infer a patient diagnosis or interpret an individual reading.",
+      "question_id": "CQ-01",
+      "question": "What is the difference between systolic and diastolic blood pressure?",
+      "passage_reviews": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+          "topic_id": "34",
+          "title": "High Blood Pressure",
+          "url": "https://medlineplus.gov/highbloodpressure.html",
+          "score": 0.4854106903076172,
+          "assessment": "fully_supports_question",
+          "rationale": "Explicitly defines both systolic and diastolic pressure."
+        },
+        {
+          "rank": 2,
+          "passage_id": "mplus-1225-6d4949953cb698d8145ce038dc4557e30724518687ca27e01331ea135c731f4a",
+          "topic_id": "1225",
+          "title": "Low Blood Pressure",
+          "url": "https://medlineplus.gov/lowbloodpressure.html",
+          "score": 0.4821220636367798,
+          "assessment": "fully_supports_question",
+          "rationale": "Independently defines both pressure phases."
+        },
+        {
+          "rank": 3,
+          "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+          "topic_id": "6450",
+          "title": "How to Prevent High Blood Pressure",
+          "url": "https://medlineplus.gov/howtopreventhighbloodpressure.html",
+          "score": 0.42763006687164307,
+          "assessment": "fully_supports_question",
+          "rationale": "The two bullet points explicitly distinguish the pressure phases."
+        },
+        {
+          "rank": 4,
+          "passage_id": "mplus-4939-4eb0e7f3efa78e8302f7d5795f7461a7726ffb3df1f324fe2ee84e6fbdd32a45",
+          "topic_id": "4939",
+          "title": "Blood Pressure Medicines",
+          "url": "https://medlineplus.gov/bloodpressuremedicines.html",
+          "score": 0.3374955654144287,
+          "assessment": "related_not_answer_support",
+          "rationale": "Discusses hypertension and medicines, not the requested distinction."
+        },
+        {
+          "rank": 5,
+          "passage_id": "mplus-6450-f98ec222244835649927fab00e0aa26d4aacba513bad83b88f8a2cc496a645da",
+          "topic_id": "6450",
+          "title": "How to Prevent High Blood Pressure",
+          "url": "https://medlineplus.gov/howtopreventhighbloodpressure.html",
+          "score": 0.32299888134002686,
+          "assessment": "related_not_answer_support",
+          "rationale": "Risk factors and prevention do not explain the two terms."
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+          "topic_id": "34",
+          "field": "cleaned_summary",
+          "role": "both_definitions",
+          "topic_start": 173,
+          "topic_end": 384,
+          "passage_start": 173,
+          "passage_end": 384,
+          "quote": "Your blood pressure is highest when your heart beats, pumping the blood. This is called systolic pressure. When your heart is at rest, between beats, your blood pressure falls. This is called diastolic pressure."
+        }
+      ]
+    },
+    {
+      "assessment": "partially_supported",
+      "required_parts": [
+        "Cause of COVID-19",
+        "Duration of infectiousness for COVID-19"
+      ],
+      "covered_parts": [
+        "Cause of COVID-19"
+      ],
+      "missing_parts": [
+        "Duration of infectiousness for COVID-19"
+      ],
+      "expected_behavior": "Name SARS-CoV-2 and explicitly state that the retrieved evidence does not specify the requested transmission duration. Do not transfer a duration from another disease.",
+      "question_id": "CQ-02",
+      "question": "What causes COVID-19, and how long can an infected person transmit it to others?",
+      "passage_reviews": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+          "topic_id": "3181",
+          "title": "COVID-19 (Coronavirus Disease 2019)",
+          "url": "https://medlineplus.gov/covid19coronavirusdisease2019.html",
+          "score": 0.5618729591369629,
+          "assessment": "partially_supports_question",
+          "rationale": "Names SARS-CoV-2 and describes transmission, but gives no duration of infectiousness."
+        },
+        {
+          "rank": 2,
+          "passage_id": "mplus-299-ddad4f171ca2f16e0ede75cb8dfd4d1776e8a946226d38240b01277d7f8fb0b8",
+          "topic_id": "299",
+          "title": "Flu",
+          "url": "https://medlineplus.gov/flu.html",
+          "score": 0.394137978553772,
+          "assessment": "related_not_answer_support",
+          "rationale": "Influenza evidence cannot establish the cause or infectious period of COVID-19."
+        },
+        {
+          "rank": 3,
+          "passage_id": "mplus-461-7fb358bfabdac1a3530aa1e613a5e40e587270e8badd61342ba5d44d80775256",
+          "topic_id": "461",
+          "title": "Whooping Cough",
+          "url": "https://medlineplus.gov/whoopingcough.html",
+          "score": 0.38897740840911865,
+          "assessment": "related_not_answer_support",
+          "rationale": "Whooping-cough timing and treatment statements concern another disease."
+        },
+        {
+          "rank": 4,
+          "passage_id": "mplus-3101-dc714fd88f63e588e9cb284bc89ca6aad5defdac4bc7c94c4b9907a6413e08b6",
+          "topic_id": "3101",
+          "title": "Respiratory Syncytial Virus Infections",
+          "url": "https://medlineplus.gov/respiratorysyncytialvirusinfections.html",
+          "score": 0.3850717544555664,
+          "assessment": "related_not_answer_support",
+          "rationale": "The 3-to-8-day and up-to-4-week infectious periods explicitly concern RSV, not COVID-19."
+        },
+        {
+          "rank": 5,
+          "passage_id": "mplus-41-9131fbe97a8b9bc905c394e49ac50e1da5966a89ad4460fa17130fb79329878d",
+          "topic_id": "41",
+          "title": "Tuberculosis",
+          "url": "https://medlineplus.gov/tuberculosis.html",
+          "score": 0.3816516399383545,
+          "assessment": "related_not_answer_support",
+          "rationale": "TB transmission and latent/active disease statements do not establish COVID-19 duration."
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+          "topic_id": "3181",
+          "field": "cleaned_summary",
+          "role": "cause_only",
+          "topic_start": 0,
+          "topic_end": 115,
+          "passage_start": 0,
+          "passage_end": 115,
+          "quote": "COVID-19 (coronavirus disease 2019) is an illness caused by a virus. This virus is a coronavirus called SARS-CoV-2."
+        }
+      ]
+    },
+    {
+      "assessment": "fully_supported",
+      "required_parts": [
+        "Definition of carpal tunnel syndrome",
+        "Name of affected nerve"
+      ],
+      "covered_parts": [
+        "Definition of carpal tunnel syndrome",
+        "Name of affected nerve"
+      ],
+      "missing_parts": [],
+      "expected_behavior": "Explain wrist nerve compression and name the median nerve; omit unrelated treatment details.",
+      "question_id": "CQ-03",
+      "question": "What is carpal tunnel syndrome, and which nerve is affected?",
+      "passage_reviews": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+          "topic_id": "179",
+          "title": "Carpal Tunnel Syndrome",
+          "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+          "score": 0.6935513615608215,
+          "assessment": "fully_supports_question",
+          "rationale": "Defines the syndrome, wrist compression and the median nerve."
+        },
+        {
+          "rank": 2,
+          "passage_id": "mplus-179-82f9719e2c4fd2b072e4ba01a0b839b8fb6f7eb9bacacf0adc63be2e4e185938",
+          "topic_id": "179",
+          "title": "Carpal Tunnel Syndrome",
+          "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+          "score": 0.6076474189758301,
+          "assessment": "related_not_answer_support",
+          "rationale": "Symptoms, diagnosis and treatment are related but the requested nerve is not named here."
+        },
+        {
+          "rank": 3,
+          "passage_id": "mplus-179-83e6e8e70588af11c4fb55f02989a56f6e51292b769ec4bd4991681fa3edfd4f",
+          "topic_id": "179",
+          "title": "Carpal Tunnel Syndrome",
+          "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+          "score": 0.6010414958000183,
+          "assessment": "related_not_answer_support",
+          "rationale": "Surgery and prevention are related but do not supply the requested definition and nerve name."
+        },
+        {
+          "rank": 4,
+          "passage_id": "mplus-507-e46340a96e50ab9bcaffa22ddfb6785543ee4f119ae7ea9ea5383b051eac86a7",
+          "topic_id": "507",
+          "title": "Hand Injuries and Disorders",
+          "url": "https://medlineplus.gov/handinjuriesanddisorders.html",
+          "score": 0.40612733364105225,
+          "assessment": "partially_supports_question",
+          "rationale": "Defines the syndrome as wrist nerve compression but does not identify the median nerve."
+        },
+        {
+          "rank": 5,
+          "passage_id": "mplus-1251-f8512bdc6b4f71259eef6e69bbe956ddac983d2d092f86a40052fbcb5ce7dce0",
+          "topic_id": "1251",
+          "title": "Thoracic Outlet Syndrome",
+          "url": "https://medlineplus.gov/thoracicoutletsyndrome.html",
+          "score": 0.40357714891433716,
+          "assessment": "related_not_answer_support",
+          "rationale": "Describes thoracic outlet syndrome, a different compression condition."
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+          "topic_id": "179",
+          "field": "cleaned_summary",
+          "role": "definition",
+          "topic_start": 33,
+          "topic_end": 253,
+          "passage_start": 33,
+          "passage_end": 253,
+          "quote": "Carpal tunnel syndrome is the name for a group of problems that includes numbness, tingling, weakness, or pain in your wrist or hand. It's a very common condition that happens when a nerve in your wrist becomes squeezed."
+        },
+        {
+          "rank": 1,
+          "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+          "topic_id": "179",
+          "field": "cleaned_summary",
+          "role": "nerve_name",
+          "topic_start": 368,
+          "topic_end": 472,
+          "passage_start": 368,
+          "passage_end": 472,
+          "quote": "A nerve, called the median nerve, runs from your lower arm through the carpal tunnel and into your hand."
+        }
+      ]
+    },
+    {
+      "assessment": "fully_supported",
+      "required_parts": [
+        "Tissue affected by a sprain",
+        "Tissue affected by a strain"
+      ],
+      "covered_parts": [
+        "Tissue affected by a sprain",
+        "Tissue affected by a strain"
+      ],
+      "missing_parts": [],
+      "expected_behavior": "Distinguish ligament injury from muscle or tendon injury, without adding treatment recommendations.",
+      "question_id": "CQ-04",
+      "question": "What is the difference between a sprain and a strain?",
+      "passage_reviews": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-417-e02370451decc433299fb578533c56b0321a403d9ca81e58f53a52d9a48a1f7a",
+          "topic_id": "417",
+          "title": "Sprains and Strains",
+          "url": "https://medlineplus.gov/sprainsandstrains.html",
+          "score": 0.6648241281509399,
+          "assessment": "fully_supports_question",
+          "rationale": "Explicitly contrasts torn or stretched ligaments with muscles or tendons."
+        },
+        {
+          "rank": 2,
+          "passage_id": "mplus-4621-cecc409bed945e6b55b8d59b46871fdbdeb4212244e6bbeee4bd49e0b7e7a9fa",
+          "topic_id": "4621",
+          "title": "Joint Disorders",
+          "url": "https://medlineplus.gov/jointdisorders.html",
+          "score": 0.33254218101501465,
+          "assessment": "fully_supports_question",
+          "rationale": "Defines sprains and acute strains with the same tissue distinction."
+        },
+        {
+          "rank": 3,
+          "passage_id": "mplus-339-f679d342b9924a9762117e51958a547d27b8363e5ccaee0120fa813b23513c0f",
+          "topic_id": "339",
+          "title": "Neck Injuries and Disorders",
+          "url": "https://medlineplus.gov/neckinjuriesanddisorders.html",
+          "score": 0.3259698748588562,
+          "assessment": "related_not_answer_support",
+          "rationale": "Neck strain examples do not provide the requested tissue distinction."
+        },
+        {
+          "rank": 4,
+          "passage_id": "mplus-1612-34933ed26fbf5d774da0486ce489dce389ef5257dbd8d05637fbfa8afded2550",
+          "topic_id": "1612",
+          "title": "Ankle Injuries and Disorders",
+          "url": "https://medlineplus.gov/ankleinjuriesanddisorders.html",
+          "score": 0.3209034204483032,
+          "assessment": "partially_supports_question",
+          "rationale": "Defines a sprain as ligament injury but does not define a strain."
+        },
+        {
+          "rank": 5,
+          "passage_id": "mplus-412-0801afec9302e3bb7b60a3d33e48a44930cf4351e8ef7b9e2f1abd796d9797e6",
+          "topic_id": "412",
+          "title": "Spinal Stenosis",
+          "url": "https://medlineplus.gov/spinalstenosis.html",
+          "score": 0.3159736394882202,
+          "assessment": "related_not_answer_support",
+          "rationale": "Spinal stenosis is a different condition and does not answer the distinction."
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-417-e02370451decc433299fb578533c56b0321a403d9ca81e58f53a52d9a48a1f7a",
+          "topic_id": "417",
+          "field": "cleaned_summary",
+          "role": "sprain",
+          "topic_start": 0,
+          "topic_end": 41,
+          "passage_start": 0,
+          "passage_end": 41,
+          "quote": "A sprain is a stretched or torn ligament."
+        },
+        {
+          "rank": 1,
+          "passage_id": "mplus-417-e02370451decc433299fb578533c56b0321a403d9ca81e58f53a52d9a48a1f7a",
+          "topic_id": "417",
+          "field": "cleaned_summary",
+          "role": "strain",
+          "topic_start": 324,
+          "topic_end": 373,
+          "passage_start": 324,
+          "passage_end": 373,
+          "quote": "A strain is a stretched or torn muscle or tendon."
+        }
+      ]
+    },
+    {
+      "assessment": "fully_supported",
+      "required_parts": [
+        "Meaning of jaundice",
+        "Substance responsible for the yellow color"
+      ],
+      "covered_parts": [
+        "Meaning of jaundice",
+        "Substance responsible for the yellow color"
+      ],
+      "missing_parts": [],
+      "expected_behavior": "Describe yellowing and excess bilirubin using this snapshot; do not infer its cause in a patient.",
+      "question_id": "CQ-05",
+      "question": "What is jaundice, and what causes its yellow color?",
+      "passage_reviews": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+          "topic_id": "4452",
+          "title": "Jaundice",
+          "url": "https://medlineplus.gov/jaundice.html",
+          "score": 0.6700097322463989,
+          "assessment": "fully_supports_question",
+          "rationale": "Defines the yellowing and explicitly attributes it to excess bilirubin."
+        },
+        {
+          "rank": 2,
+          "passage_id": "mplus-109-be6198576c5cdcf623692a742e344fbe4b6ee852e75f16b93fa97806b94835f3",
+          "topic_id": "109",
+          "title": "Hepatitis",
+          "url": "https://medlineplus.gov/hepatitis.html",
+          "score": 0.3747081160545349,
+          "assessment": "partially_supports_question",
+          "rationale": "Defines jaundice as yellowing, without the bilirubin explanation."
+        },
+        {
+          "rank": 3,
+          "passage_id": "mplus-1687-32f26ba9bedc2090c4db0e37ef9aed57778cd5343fcca6040b4c060f9639e08b",
+          "topic_id": "1687",
+          "title": "Hepatitis B",
+          "url": "https://medlineplus.gov/hepatitisb.html",
+          "score": 0.364298939704895,
+          "assessment": "partially_supports_question",
+          "rationale": "Names yellow eyes and skin as jaundice, without explaining bilirubin."
+        },
+        {
+          "rank": 4,
+          "passage_id": "mplus-1686-509eed66a95bfb12e4fccdfc8fcfee495402c13c13231fad2010198e46e82d51",
+          "topic_id": "1686",
+          "title": "Hepatitis A",
+          "url": "https://medlineplus.gov/hepatitisa.html",
+          "score": 0.35785388946533203,
+          "assessment": "partially_supports_question",
+          "rationale": "Names yellow eyes and skin as jaundice, without explaining bilirubin."
+        },
+        {
+          "rank": 5,
+          "passage_id": "mplus-109-f8a8546b71b48a215065a64579a0d9b1fd18fa20763cff53805446fe9a21392f",
+          "topic_id": "109",
+          "title": "Hepatitis",
+          "url": "https://medlineplus.gov/hepatitis.html",
+          "score": 0.3445683717727661,
+          "assessment": "partially_supports_question",
+          "rationale": "Defines jaundice as yellowing, without the bilirubin explanation."
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+          "topic_id": "4452",
+          "field": "cleaned_summary",
+          "role": "definition_and_color",
+          "topic_start": 0,
+          "topic_end": 210,
+          "passage_start": 0,
+          "passage_end": 210,
+          "quote": "Jaundice causes your skin and the whites of your eyes to turn yellow. Too much bilirubin causes jaundice. Bilirubin is a yellow chemical in hemoglobin, the substance that carries oxygen in your red blood cells."
+        }
+      ]
+    },
+    {
+      "assessment": "fully_supported",
+      "required_parts": [
+        "Examples of causes of intestinal obstruction",
+        "Examples of symptoms of intestinal obstruction"
+      ],
+      "covered_parts": [
+        "Examples of causes of intestinal obstruction",
+        "Examples of symptoms of intestinal obstruction"
+      ],
+      "missing_parts": [],
+      "expected_behavior": "List source-supported cause and symptom examples; do not relabel symptoms of other bowel diseases as obstruction symptoms or give treatment advice.",
+      "question_id": "CQ-06",
+      "question": "What are some causes and symptoms of intestinal obstruction?",
+      "passage_reviews": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+          "topic_id": "5275",
+          "title": "Intestinal Obstruction",
+          "url": "https://medlineplus.gov/intestinalobstruction.html",
+          "score": 0.7408860921859741,
+          "assessment": "fully_supports_question",
+          "rationale": "Lists multiple causes and a clearly attributed obstruction symptom list."
+        },
+        {
+          "rank": 2,
+          "passage_id": "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+          "topic_id": "3920",
+          "title": "Adhesions",
+          "url": "https://medlineplus.gov/adhesions.html",
+          "score": 0.553310215473175,
+          "assessment": "partially_supports_question",
+          "rationale": "Explains adhesions as one cause and associated obstruction symptoms; it does not supply the broader cause examples."
+        },
+        {
+          "rank": 3,
+          "passage_id": "mplus-214-c40abe16d582adbd4e1d81d555a2a77367b065ff2975e1b2eaa6135eb5241e91",
+          "topic_id": "214",
+          "title": "Diverticulosis and Diverticulitis",
+          "url": "https://medlineplus.gov/diverticulosisanddiverticulitis.html",
+          "score": 0.4704781770706177,
+          "assessment": "partially_supports_question",
+          "rationale": "Identifies obstruction as a diverticulitis complication; the separate symptom list is for diverticulitis, not obstruction."
+        },
+        {
+          "rank": 4,
+          "passage_id": "mplus-119-cb9948bb01457eee61f762c5724f28620ccc44db1750144c6b2bb0085f59131f",
+          "topic_id": "119",
+          "title": "Crohn's Disease",
+          "url": "https://medlineplus.gov/crohnsdisease.html",
+          "score": 0.4549325704574585,
+          "assessment": "partially_supports_question",
+          "rationale": "Identifies obstruction as a Crohn disease complication; Crohn symptom lists cannot be copied as obstruction symptoms."
+        },
+        {
+          "rank": 5,
+          "passage_id": "mplus-3652-7d9d9e5204dabff8b1342ded44ad9b180fdfe60a3284a6f1b929b75c8839ea02",
+          "topic_id": "3652",
+          "title": "Intestinal Cancer",
+          "url": "https://medlineplus.gov/intestinalcancer.html",
+          "score": 0.4484192728996277,
+          "assessment": "related_not_answer_support",
+          "rationale": "Describes small intestine cancer but does not establish an obstruction cause or symptom relationship in this passage."
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+          "topic_id": "5275",
+          "field": "cleaned_summary",
+          "role": "causes",
+          "topic_start": 132,
+          "topic_end": 226,
+          "passage_start": 132,
+          "passage_end": 226,
+          "quote": "There are many causes. The most common are adhesions, hernias, cancers, and certain medicines."
+        },
+        {
+          "rank": 1,
+          "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+          "topic_id": "5275",
+          "field": "cleaned_summary",
+          "role": "symptoms",
+          "topic_start": 228,
+          "topic_end": 389,
+          "passage_start": 228,
+          "passage_end": 389,
+          "quote": "Symptoms include:\n\n- Severe abdominal pain or cramping\n- Vomiting\n- Bloating\n- Loud bowel sounds\n- Swelling of the abdomen\n- Inability to pass gas\n- Constipation"
+        }
+      ]
+    },
+    {
+      "assessment": "fully_supported",
+      "required_parts": [
+        "Definition of acoustic neuroma",
+        "Early symptom description"
+      ],
+      "covered_parts": [
+        "Definition of acoustic neuroma",
+        "Early symptom description"
+      ],
+      "missing_parts": [],
+      "expected_behavior": "Explain the benign tumor and possible early symptoms, preserving the possibility of no or mild symptoms; do not diagnose from symptoms.",
+      "question_id": "CQ-07",
+      "question": "What is an acoustic neuroma, and which early symptoms are described?",
+      "passage_reviews": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+          "topic_id": "1624",
+          "title": "Acoustic Neuroma",
+          "url": "https://medlineplus.gov/acousticneuroma.html",
+          "score": 0.718490719795227,
+          "assessment": "fully_supports_question",
+          "rationale": "Defines the tumor and explicitly distinguishes early possible symptoms from later effects."
+        },
+        {
+          "rank": 2,
+          "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+          "topic_id": "1387",
+          "title": "Neurofibromatosis",
+          "url": "https://medlineplus.gov/neurofibromatosis.html",
+          "score": 0.42095839977264404,
+          "assessment": "related_not_answer_support",
+          "rationale": "Neurofibromatosis symptoms do not directly answer acoustic-neuroma early symptoms."
+        },
+        {
+          "rank": 3,
+          "passage_id": "mplus-4553-f6313a5e9ddc68975d885a7dd89fa94d50b0081f7955b90f46ea489d7a7fc4e3",
+          "topic_id": "4553",
+          "title": "Arteriovenous Malformations",
+          "url": "https://medlineplus.gov/arteriovenousmalformations.html",
+          "score": 0.36818403005599976,
+          "assessment": "related_not_answer_support",
+          "rationale": "AVM definitions and symptoms concern another condition."
+        },
+        {
+          "rank": 4,
+          "passage_id": "mplus-1525-f393586d631e7e3ae73a1ff33359874b4df9bec5940cc3447740de05edce0335",
+          "topic_id": "1525",
+          "title": "Syringomyelia",
+          "url": "https://medlineplus.gov/syringomyelia.html",
+          "score": 0.3657236099243164,
+          "assessment": "related_not_answer_support",
+          "rationale": "Syringomyelia definitions and symptoms concern another condition."
+        },
+        {
+          "rank": 5,
+          "passage_id": "mplus-173-47c4ecfd015e20652b1ab9d5edafed9ef1a5fdd22ac7d16672f8b59cf1b2a203",
+          "topic_id": "173",
+          "title": "Brain Tumors",
+          "url": "https://medlineplus.gov/braintumors.html",
+          "score": 0.36517393589019775,
+          "assessment": "related_not_answer_support",
+          "rationale": "Generic brain-tumor symptoms do not establish which are early acoustic-neuroma symptoms."
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+          "topic_id": "1624",
+          "field": "cleaned_summary",
+          "role": "definition",
+          "topic_start": 0,
+          "topic_end": 100,
+          "passage_start": 0,
+          "passage_end": 100,
+          "quote": "An acoustic neuroma is a benign tumor that develops on the nerve that connects the ear to the brain."
+        },
+        {
+          "rank": 1,
+          "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+          "topic_id": "1624",
+          "field": "cleaned_summary",
+          "role": "early_symptoms",
+          "topic_start": 197,
+          "topic_end": 349,
+          "passage_start": 197,
+          "passage_end": 349,
+          "quote": "At first, you may have no symptoms or mild symptoms. They can include:\n\n- Loss of hearing on one side\n- Ringing in ears\n- Dizziness and balance problems"
+        }
+      ]
+    },
+    {
+      "assessment": "missing_in_retrieved_evidence",
+      "required_parts": [
+        "New trigeminal-neuralgia cases per 100,000 people in Serbia during 2025"
+      ],
+      "covered_parts": [],
+      "missing_parts": [
+        "New trigeminal-neuralgia cases per 100,000 people in Serbia during 2025"
+      ],
+      "expected_behavior": "Explicitly state that the retrieved passages do not provide the requested Serbia/year-specific incidence. Do not invent a number or substitute prevalence, demographics or another disease.",
+      "question_id": "CQ-08",
+      "question": "What was the incidence of trigeminal neuralgia in Serbia in 2025, in new cases per 100,000 people?",
+      "passage_reviews": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-2729-80534db9d68bb13ced80de19a85ce94dd7e84fb4b829030a1087e1b754b2dfec",
+          "topic_id": "2729",
+          "title": "Trigeminal Neuralgia",
+          "url": "https://medlineplus.gov/trigeminalneuralgia.html",
+          "score": 0.49264562129974365,
+          "assessment": "related_not_answer_support",
+          "rationale": "Describes trigeminal neuralgia and demographics, but no Serbia-specific 2025 incidence."
+        },
+        {
+          "rank": 2,
+          "passage_id": "mplus-1219-d81f8d90fe5054a40e7b78a368d6e24dfe0a0972dea3749d895649592fe4b250",
+          "topic_id": "1219",
+          "title": "Bell's Palsy",
+          "url": "https://medlineplus.gov/bellspalsy.html",
+          "score": 0.324542760848999,
+          "assessment": "related_not_answer_support",
+          "rationale": "Bell palsy symptoms and recovery timing are not trigeminal-neuralgia incidence."
+        },
+        {
+          "rank": 3,
+          "passage_id": "mplus-1084-c48301dece04c5ee7de283aeec44158464b1692be7c3606a2acd9aff22d3c3e4",
+          "topic_id": "1084",
+          "title": "Behcet's Syndrome",
+          "url": "https://medlineplus.gov/behcetssyndrome.html",
+          "score": 0.31813061237335205,
+          "assessment": "related_not_answer_support",
+          "rationale": "Behcet syndrome geography and age patterns are not the requested incidence."
+        },
+        {
+          "rank": 4,
+          "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+          "topic_id": "1387",
+          "title": "Neurofibromatosis",
+          "url": "https://medlineplus.gov/neurofibromatosis.html",
+          "score": 0.31068915128707886,
+          "assessment": "related_not_answer_support",
+          "rationale": "Neurofibromatosis definitions and symptoms provide no requested incidence."
+        },
+        {
+          "rank": 5,
+          "passage_id": "mplus-1574-b3e3f677e3820e37eab608d7b245a5634f91b730e4a85a3e3f9be3eb174ad8fa",
+          "topic_id": "1574",
+          "title": "Facial Injuries and Disorders",
+          "url": "https://medlineplus.gov/facialinjuriesanddisorders.html",
+          "score": 0.2883946895599365,
+          "assessment": "related_not_answer_support",
+          "rationale": "Mentions trigeminal neuralgia among facial disorders but gives no incidence."
+        }
+      ],
+      "supporting_evidence": []
+    },
+    {
+      "assessment": "fully_supported",
+      "required_parts": [
+        "Examples of symptoms that can occur with UTI"
+      ],
+      "covered_parts": [
+        "Examples of symptoms that can occur with UTI"
+      ],
+      "missing_parts": [],
+      "expected_behavior": "List possible symptoms with uncertainty preserved; do not claim that a person with those symptoms has a UTI.",
+      "question_id": "CQ-09",
+      "question": "What symptoms can occur with a urinary tract infection?",
+      "passage_reviews": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+          "topic_id": "448",
+          "title": "Urinary Tract Infections",
+          "url": "https://medlineplus.gov/urinarytractinfections.html",
+          "score": 0.5480673909187317,
+          "assessment": "fully_supports_question",
+          "rationale": "The symptom list is explicitly attributed to possible UTI."
+        },
+        {
+          "rank": 2,
+          "passage_id": "mplus-114-b19dc9bc677f93c6818ece35d9e371b98dd54f2d3fad6045c64905ca92202501",
+          "topic_id": "114",
+          "title": "Urinary Incontinence",
+          "url": "https://medlineplus.gov/urinaryincontinence.html",
+          "score": 0.4421890377998352,
+          "assessment": "partially_supports_question",
+          "rationale": "States that urge incontinence can sometimes be a UTI sign; it is not the broader UTI symptom list."
+        },
+        {
+          "rank": 3,
+          "passage_id": "mplus-1274-4a994d8d5815792cad6d9e7dc23332586baaca7869eb35e6db33f7fd6646ea17",
+          "topic_id": "1274",
+          "title": "Interstitial Cystitis",
+          "url": "https://medlineplus.gov/interstitialcystitis.html",
+          "score": 0.4386804699897766,
+          "assessment": "related_not_answer_support",
+          "rationale": "Interstitial cystitis symptoms are not established here as UTI symptoms."
+        },
+        {
+          "rank": 4,
+          "passage_id": "mplus-5352-6a5fd2cd430c37fcc86e2d0a97567625c9c6982fea53d43176667afe599059b9",
+          "topic_id": "5352",
+          "title": "Urethral Disorders",
+          "url": "https://medlineplus.gov/urethraldisorders.html",
+          "score": 0.41915345191955566,
+          "assessment": "related_not_answer_support",
+          "rationale": "Urethral-disorder symptoms cannot automatically be relabeled as UTI symptoms."
+        },
+        {
+          "rank": 5,
+          "passage_id": "mplus-5350-0616f2293cc1ccf21da018a7fde219d0be721415eefcae13aed444ef3468f37a",
+          "topic_id": "5350",
+          "title": "Ureteral Disorders",
+          "url": "https://medlineplus.gov/ureteraldisorders.html",
+          "score": 0.4175249934196472,
+          "assessment": "related_not_answer_support",
+          "rationale": "Describes ureter problems and UTI risk rather than symptoms of UTI."
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+          "topic_id": "448",
+          "field": "cleaned_summary",
+          "role": "possible_symptoms",
+          "topic_start": 241,
+          "topic_end": 495,
+          "passage_start": 241,
+          "passage_end": 495,
+          "quote": "You may have a UTI if you notice:\n\n- Pain or burning when you urinate\n- Fever, tiredness, or shakiness\n- An urge to urinate often\n- Pressure in your lower belly\n- Urine that smells bad or looks cloudy or reddish\n- Pain in your back or side below the ribs"
+        }
+      ]
+    },
+    {
+      "assessment": "fully_supported",
+      "required_parts": [
+        "Whether high PSA alone confirms prostate cancer"
+      ],
+      "covered_parts": [
+        "Whether high PSA alone confirms prostate cancer"
+      ],
+      "missing_parts": [],
+      "expected_behavior": "Answer no, explaining that high PSA is not proof and can have other causes; do not give an individual testing or treatment recommendation.",
+      "question_id": "CQ-10",
+      "question": "Does a high PSA blood test result alone confirm prostate cancer?",
+      "passage_reviews": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-6208-cb42a0f4fa0f7d9bf3d923e2742b55ed106926d461fd2d79798e43a61d8a151b",
+          "topic_id": "6208",
+          "title": "Prostate Cancer Screening",
+          "url": "https://medlineplus.gov/prostatecancerscreening.html",
+          "score": 0.5539314150810242,
+          "assessment": "fully_supports_question",
+          "rationale": "Explicitly states that high PSA is not proof and lists other possible causes."
+        },
+        {
+          "rank": 2,
+          "passage_id": "mplus-112-5dee21a75bd44c8b7d55f0d9f46e4f65a0e463380d44c2dd9d459d70c3e610ae",
+          "topic_id": "112",
+          "title": "Prostate Cancer",
+          "url": "https://medlineplus.gov/prostatecancer.html",
+          "score": 0.5260838270187378,
+          "assessment": "fully_supports_question",
+          "rationale": "States that high PSA can have other causes and separates screening from diagnosis."
+        },
+        {
+          "rank": 3,
+          "passage_id": "mplus-6208-492909da4f18cc925d4a9d75fca1125876ab420ec1da2e2c4756c557f4349c5c",
+          "topic_id": "6208",
+          "title": "Prostate Cancer Screening",
+          "url": "https://medlineplus.gov/prostatecancerscreening.html",
+          "score": 0.4989699125289917,
+          "assessment": "fully_supports_question",
+          "rationale": "Explains false-positive PSA results: a person can have a positive result without cancer."
+        },
+        {
+          "rank": 4,
+          "passage_id": "mplus-112-1f55cb71378a3ff44d19cb129fdc9d9077aec51ae399ede0a7f75eb631747e0c",
+          "topic_id": "112",
+          "title": "Prostate Cancer",
+          "url": "https://medlineplus.gov/prostatecancer.html",
+          "score": 0.43493515253067017,
+          "assessment": "related_not_answer_support",
+          "rationale": "General prostate-cancer information does not address high PSA in this chunk."
+        },
+        {
+          "rank": 5,
+          "passage_id": "mplus-6208-6414cd6f9cf9989d7954ab259476a7a2b33b5629e207afc88f73cd03aaf20e90",
+          "topic_id": "6208",
+          "title": "Prostate Cancer Screening",
+          "url": "https://medlineplus.gov/prostatecancerscreening.html",
+          "score": 0.4150550365447998,
+          "assessment": "related_not_answer_support",
+          "rationale": "Screening decision factors do not answer whether high PSA alone confirms cancer."
+        }
+      ],
+      "supporting_evidence": [
+        {
+          "rank": 1,
+          "passage_id": "mplus-6208-cb42a0f4fa0f7d9bf3d923e2742b55ed106926d461fd2d79798e43a61d8a151b",
+          "topic_id": "6208",
+          "field": "cleaned_summary",
+          "role": "not_proof",
+          "topic_start": 1461,
+          "topic_end": 1630,
+          "passage_start": 1461,
+          "passage_end": 1630,
+          "quote": "A high level of PSA in your blood may mean you have prostate cancer, but it's not proof of cancer. That's because many other things may cause high PSA levels, including:"
+        }
+      ]
+    }
+  ]
+}
