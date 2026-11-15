@@ -115,6 +115,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Dependencies**: 001-rag/T004 (A-003)
   - **Acceptance**: POST /v1/retrieve returns versioned ranked passages with sufficient/insufficient/error state and score limitations. Use development-selected thresholds; no hard specialty filter.
   - **Verify**: `uv run --directory services/rag python -m pytest tests/test_retrieval.py tests/test_contract.py`.
+  - **Local candidate-ranking progress (2026-11-15)**: The user approved up to five candidate passages without an automatic answerability verdict and a separate ten-public-question/USD 0.01 trial (30-second timeout, zero retries, no LLM generation). CandidateRetriever verifies the index/embedding space before embedding, uses the unchanged question without a hard specialty filter, preserves/validates exact source records and versions the cosine ranking policy. All 24 new offline checks passed; this stage made no paid calls. See [retrieval scope](../../docs/rag/retrieval.md). A-004 remains unchecked for real API integration, development-selected sufficiency/rejection behavior and its actual shared prerequisites.
   - **Coverage**: FR-005, FR-006, FR-009, SC-001.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 

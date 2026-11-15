@@ -80,6 +80,15 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Owner-local candidate retrieval (2026-11-15)**: The user approved local question-to-
+passage ranking with up to five sources and no automatic answerability decision,
+plus at most ten public English development queries under a separate USD 0.01 cap,
+30-second timeout and zero retries. The candidate-ranking primitive now validates
+requests, verifies index/embedding compatibility, preserves source text and returns
+versioned cosine-similarity candidates. All 24 new offline checks passed. This is an
+A-004 preparation increment, not a shared live HTTP activation or a substitute for
+the pending support policy/global dependency gates. See [retrieval behavior](../../docs/rag/retrieval.md).
+
 **Frozen-binding mock adaptation (2026-11-15)**: The user requested continued work
 after Goran's handoff and more frequent commit/push checkpoints. B's published
 fd1197bd380de9ba9037ea0b73b42031dc1d4bb2 dependency was merged without conflicts.
