@@ -80,6 +80,15 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Answer support policy proposal (2026-11-15)**: Nemanja approved preparing the
+next behavior proposal without paid calls. The [proposal](../../docs/rag/answer-support-policy.md)
+defines per-requested-part support, explicit partial gaps, abstention, preserved
+meaning/provenance and operational-error boundaries. Six synthetic shared-validator
+probes produced expected outcomes. AS-01 through AS-10 acceptance, semantic-assessor
+selection and A/B confirmation of the binary retrieval gate for partial literature
+generation remain open. No implementation, schema change, threshold or paid
+activation is included; A-004/A-009 and dependency gates remain unchanged.
+
 **Agent passage-content review (2026-11-15)**: The user approved reviewing the
 actual retrieved text before further implementation. All fifty passages from
 the existing ten public questions were inspected without new API calls. Agent

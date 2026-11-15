@@ -153,3 +153,12 @@ cutoff was selected. See the [review and limits](retrieval-content-review.md) an
 [structured evidence](retrieval-content-review.json). This offline review made
 no API calls, changed no runtime policy and does not complete A-004 or human
 evaluation. The original trial's not_assessed output remains historical evidence.
+
+## Proposed next behavior
+
+The [answer support policy proposal](answer-support-policy.md) defines full,
+partial and unsupported outcomes for review. Six local synthetic compatibility
+probes produced their expected validator outcomes. Rule acceptance, automatic
+semantic assessment and the binary retrieval gate's meaning for partial literature
+generation remain explicit decisions. This documentation activates no policy,
+model or live route and does not change the existing ranking output.
