@@ -1,65 +1,43 @@
-"""Validate the immutable review snapshot; do not maintain a competing schema."""
+"""Apply B's frozen runtime validators with fixed, safe service diagnostics."""
 
 import hashlib
-import json
-import math
+from importlib.resources import files
 from pathlib import Path
 
-from jsonschema import Draft202012Validator, FormatChecker
-from jsonschema.exceptions import ValidationError
-from referencing import Registry
-from referencing.exceptions import NoSuchResource
+from notelens_contracts.v1 import ContractValidationError, validate_json, validate_record
 
 
-CANDIDATE_COMMIT = "01e96ab6c6a676efb43073a2eca711e89e419030"
-MANIFEST_SHA256 = "2c5043aa375a5aef1b0fa3806e8204284218d7b671c48bd8474ac74330c8affa"
+SCHEMA_SHA256 = '707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78'
 
 
 class ContractError(ValueError):
-    """A pinned artifact or instance violates this provisional contract."""
+    """A frozen record fails validation; never forward payloads or issue paths."""
 
 
-def require_finite(value):
-    if isinstance(value, float) and not math.isfinite(value):
-        raise ContractError("Non-finite numbers are not permitted.")
-    if isinstance(value, dict):
-        for nested in value.values(): require_finite(nested)
-    elif isinstance(value, list):
-        for nested in value: require_finite(nested)
-
-
-def no_remote_resource(uri):
-    raise NoSuchResource(ref=uri)
+class ContractJsonError(ContractError):
+    """The wire input is malformed, duplicated or contains non-finite numbers."""
 
 
 class Contracts:
     def __init__(self, directory=None):
-        self.directory = Path(directory) if directory is not None else Path(__file__).with_name("contract_data")
-        manifest_bytes = (self.directory / "candidate.json").read_bytes()
-        if hashlib.sha256(manifest_bytes).hexdigest() != MANIFEST_SHA256:
-            raise ContractError("Pinned candidate manifest integrity check failed.")
-        self.manifest = json.loads(manifest_bytes)
-        if self.manifest["candidate_id"] != "p2-rc1" or self.manifest["revision"] != 2:
-            raise ContractError("Unexpected contract candidate revision.")
-        for name in ("schema.json", "openapi.json"):
-            payload = (self.directory / name).read_bytes()
-            if hashlib.sha256(payload).hexdigest() != self.manifest["generated_files"][name]:
-                raise ContractError("Pinned candidate asset integrity check failed.")
-        self.schema = json.loads((self.directory / "schema.json").read_bytes())
-        Draft202012Validator.check_schema(self.schema)
-        self._validators = {}
+        self.directory = Path(directory) if directory is not None else files('notelens_contracts')
+        try:
+            digest = hashlib.sha256((self.directory / 'schema.json').read_bytes()).hexdigest()
+        except OSError:
+            raise ContractError('The frozen schema is unavailable.') from None
+        if digest != SCHEMA_SHA256:
+            raise ContractError('The installed schema does not match the frozen contract.')
 
     def validate(self, definition, payload):
-        require_finite(payload)
-        if definition not in self.schema["$defs"]:
-            raise ContractError("Unknown contract definition.")
-        if definition not in self._validators:
-            root = {"$schema": self.schema["$schema"], "$defs": self.schema["$defs"],
-                    "$ref": f"#/$defs/{definition}"}
-            self._validators[definition] = Draft202012Validator(
-                root, format_checker=FormatChecker(), registry=Registry(retrieve=no_remote_resource))
         try:
-            self._validators[definition].validate(payload)
-        except ValidationError:
-            # Validator exception strings contain payload values; never forward or log them.
-            raise ContractError("The payload does not match the contract.") from None
+            return validate_record(definition, payload)
+        except ContractValidationError:
+            raise ContractError('The payload does not match the frozen contract.') from None
+
+    def parse(self, definition, wire):
+        try:
+            return validate_json(definition, wire)
+        except ContractValidationError as failure:
+            if any(issue.rule == 'JSON_INPUT' for issue in failure.issues):
+                raise ContractJsonError('A valid finite JSON body without duplicate keys is required.') from None
+            raise ContractError('The request does not match the frozen contract.') from None

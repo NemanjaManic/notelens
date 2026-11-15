@@ -80,6 +80,17 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Frozen-binding mock adaptation (2026-11-15)**: The user requested continued work
+after Goran's handoff and more frequent commit/push checkpoints. B's published
+fd1197bd380de9ba9037ea0b73b42031dc1d4bb2 dependency was merged without conflicts.
+A's service now uses installed notelens-contracts 1.0.0 TypedDicts/runtime validators,
+strict shared JSON parsing, truthful mock retrieval provenance and safe error mapping.
+All 319 service tests passed on Python 3.13.5, including 153 shared wire fixtures and
+22 simulated exchanges plus actual HTTP/health checks. Old owned candidate assets
+were removed; B's imported sources were not manually edited. This is A's local
+F-004 contribution and A-010 consumer evidence, not completion of global F-004/F-014,
+real question retrieval, generation or deployment. See [handoff](../../docs/rag/frozen-contracts-adaptation.md).
+
 Inspect permitted Health Topics, parse/chunk with stable identifiers, establish embedding-only retrieval, compare lexical/hybrid on fixed development questions, and generate literature answers in Python with claim-linked evidence. Keep ranking, semantic support and abstention measurements separate.
 
 ## Technical Context

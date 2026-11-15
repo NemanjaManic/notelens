@@ -2,8 +2,8 @@
 
 Owner: Nemanja (A). Verified on Windows with Python 3.13.5 and uv 0.12.5.
 
-This is a runnable, owner-local mock scaffold against the pinned P2 review candidate.
-It is not a production RAG implementation or a canonical-contract freeze. The prepared
+This is a runnable, owner-local mock service using B's frozen v1.0.0 bindings.
+It is not a production RAG implementation or the shared-foundation checkpoint. The prepared
 401-topic/617-passage corpus is unchanged. A read-only adapter can now load it for future
 indexing; the synthetic HTTP routes still return their explicit mock examples.
 
@@ -36,8 +36,9 @@ uv run --locked --offline --directory services/rag python -m pytest
 
 First installation requires package-registry access. Subsequent checks use the locked
 local environment offline. This service owns its pyproject.toml, uv.lock and .venv;
-root/shared package files are not changed. Its editable install includes the pinned
-JSON contract data. Python 3.14 service execution has not been verified here.
+root/shared package files are not changed by this service installation. Its local
+notelens-contracts dependency comes from ../../contracts/generated/python, imported
+through B's published dependency commit. Python 3.14 service execution is unverified.
 
 ## Run locally
 
@@ -76,7 +77,7 @@ but do not run a classifier or affect a real search.
 - Business POSTs require one canonical lowercase UUID X-Request-ID. Valid IDs are echoed
   on successes/errors. Bad or duplicate IDs produce 400 with a fresh diagnostic UUID.
 - Health GETs ignore incoming correlation IDs. Health authentication errors use a fresh
-  diagnostic ID and WWW-Authenticate: Bearer, as required by candidate revision 2.
+  diagnostic ID and WWW-Authenticate: Bearer, as required by the frozen contract.
 - JSON Schema validates requests/responses. Malformed/non-finite JSON is rejected, and
   native non-finite values cannot pass the validator. No request values or exception
   strings are included in diagnostics or application logs.
@@ -151,21 +152,22 @@ the shared HTTP error enum is unchanged.
 
 ## Contract boundary
 
-The three byte-preserved JSON files under src/notelens_rag/contract_data pin:
+The installed notelens-contracts 1.0.0 package exports notelens_contracts.v1 TypedDicts
+and validate_json/validate_record. The service uses these runtime validators for
+requests and responses, with fixed safe error messages. The installed schema is
+pinned to SHA-256 707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78.
+B's dependency source is fd1197bd380de9ba9037ea0b73b42031dc1d4bb2.
 
-- Candidate p2-rc1, revision 2, proposed wire version 1.0.0.
-- Commit 01e96ab6c6a676efb43073a2eca711e89e419030.
-- Manifest SHA-256 2c5043aa375a5aef1b0fa3806e8204284218d7b671c48bd8474ac74330c8affa.
+The old RAG-owned revision-2 schema/API copies were removed. The service neither
+maintains a second schema nor publishes FastAPI-generated API documentation as a
+competing contract. Strict JSON parsing rejects duplicate keys and non-finite numbers
+with 400; schema/field violations use 422. Invalid output semantics produce safe 500
+envelopes. Completed mock retrieval retains independent retrieval_provenance, including
+insufficient answers without generation; pre-search clarification keeps it null.
 
-The loader verifies their hashes at startup and denies remote schema resolution.
-There are no copied/handwritten Pydantic business schemas. These immutable review
-assets are not a second canonical contract; contracts/v1 remains unchanged. Updating
-the pin is an intentional later change, not an automatic branch/network lookup.
-The app does not publish FastAPI-generated API documentation as an alternative contract.
-
-Generated bindings and canonical promotion remain separate integration work. A-010 is
-not complete merely because these provisional tests pass. Shared F-004/F-014 completion
-is not claimed, and no other owner's files are changed.
+All 319 service tests passed on Python 3.13.5. See the [adaptation handoff](../../docs/rag/frozen-contracts-adaptation.md).
+This completes A's local mock adaptation, not global F-004/F-014 or A-010's unmet
+shared prerequisites. B's imported files were not manually modified by A.
 
 ## Evidence and limits
 
@@ -186,9 +188,11 @@ authorized this local scaffold contribution on 2026-11-13 before shared promotio
   paths, counts, version/policy/ID errors, incomplete coverage and safe CLI/startup failures.
 - Test-created directories stay under the ignored services/rag/.cache/test-runs path.
 
-These are local mock/module transport checks. B's full candidate checker suite, generated
-binding compatibility, live retrieval/generation, clinical support, performance, deployment,
-provider retention and operational policies were not verified here. The reader is an
+Those earlier reader-checkpoint results were local mock/module transport checks; they
+did not then verify frozen generated-binding compatibility or live retrieval/generation.
+The 2026-11-15 adaptation below adds actual installed-binding compatibility checks.
+Clinical support, performance, deployment, provider retention and general operational
+policies remain unverified. The reader is an
 explicit 2026-11-13 owner-local preparation increment; A-003 remains open for its later
 integration, embedding/store and index work. Submitted document endpoints, model SDKs,
 generation and a vector store were absent at that reader checkpoint. The separate
@@ -204,3 +208,10 @@ The later full suite passed all 126 tests on 2026-11-14, including 12 real-local
 tests with synthetic vectors. The unchanged source was not retested for the 2026-11-15
 data-only resume; actual provider execution, full-index readback/reuse and five local
 vector self-queries were verified separately. No semantic retrieval benchmark is claimed.
+
+Frozen-binding adaptation, 2026-11-15: 319 tests passed, including all 153 shared wire
+payload cases, 22 simulated exchanges, actual health authentication/correlation cases,
+strict JSON admission, independent retrieval provenance and a cold key/corpus/index-free
+mock check. The real loopback HTTP smoke also passed. An offline RAG wheel was rebuilt
+and checked for the shared-package dependency and absence of stale contract copies.
+No provider call or index rebuild was made for this adaptation.

@@ -1,9 +1,8 @@
-"""Loopback-first, provisional RAG scaffold. Live execution remains unavailable."""
+"""Loopback-first RAG mock using frozen bindings. Live HTTP remains unavailable."""
 
 from dataclasses import dataclass, field
 import hmac
 import ipaddress
-import json
 import os
 from uuid import uuid4
 
@@ -11,7 +10,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from . import __version__
-from .contracts import ContractError, Contracts, require_finite
+from .contracts import ContractError, ContractJsonError, Contracts
 from .ingestion import CorpusLoadError, load_corpus
 from .mock import DEMO_QUESTION, result as mock_result
 
@@ -50,7 +49,7 @@ class Settings:
 def create_app(settings=None):
     configuration = settings if settings is not None else Settings.from_environment()
     contracts = Contracts()
-    app = FastAPI(title="NoteLens RAG provisional mock scaffold", version=__version__,
+    app = FastAPI(title="NoteLens RAG mock service", version=__version__,
                   openapi_url=None, docs_url=None, redoc_url=None)
     app.state.mock_result = mock_result
     app.state.prepared_corpus = None
@@ -125,16 +124,12 @@ def create_app(settings=None):
         if not authenticated(request):
             return error(401, "unauthorized", identifier, "Service authentication is required.")
         try:
-            def reject_constant(value):
-                raise ValueError("Non-finite wire number.")
-            try:
-                payload = json.loads(await request.body(), parse_constant=reject_constant)
-                require_finite(payload)
-            except (ValueError, UnicodeError):
-                return error(400, "validation_failure", identifier, "A valid finite JSON body is required.")
             definition = "RetrievalRequest" if operation == "retrieve" else "LiteratureAnswerRequest"
             try:
-                contracts.validate(definition, payload)
+                payload = contracts.parse(definition, await request.body())
+            except ContractJsonError:
+                return error(400, "validation_failure", identifier,
+                             "A valid finite JSON body without duplicate keys is required.")
             except ContractError:
                 return error(422, "validation_failure", identifier, "The request does not match the contract.")
             if app.state.corpus_error is not None:

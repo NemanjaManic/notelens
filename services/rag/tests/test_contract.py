@@ -1,4 +1,4 @@
-"""Owner-local transport checks against the pinned, provisional P2 candidate."""
+"""Owner-local HTTP checks against B's frozen canonical contract."""
 
 from concurrent.futures import ThreadPoolExecutor
 import json
@@ -54,7 +54,7 @@ def test_health_is_truthful_mock_and_ignores_incoming_request_ids(client, contra
 
 @pytest.mark.parametrize("path,definition", [
     ("/v1/retrieve", "RetrievalResult"), ("/v1/literature-answer", "AnswerResult")])
-def test_mock_business_responses_match_candidate_and_echo_request_id(client, contracts, path, definition):
+def test_mock_business_responses_match_frozen_contract_and_echo_request_id(client, contracts, path, definition):
     response, identifier = post(client, path)
     assert response.status_code == 200
     contracts.validate(definition, response.json())

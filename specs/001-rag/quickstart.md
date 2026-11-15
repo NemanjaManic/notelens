@@ -119,11 +119,12 @@ and `--output-manifest` paths; `--cleaned-manifest` can select another verified
 input. The CLI does not expose alternative size/overlap choices. Approval of
 this candidate does not approve a new corpus configuration or provider activation.
 
-## Available now: provisional owner-local RAG mock
+## Available now: owner-local RAG mock with frozen bindings
 
-On 2026-11-13 the user authorized local scaffold work while the candidate review and
-shared promotion remain pending. The A-owned service pins P2 RC1 revision 2 and has
-an independent pyproject/uv.lock. See [its README](../../services/rag/README.md) for
+On 2026-11-13 the user authorized local scaffold work before shared promotion.
+On 2026-11-15 A's existing mock was adapted to B's published frozen v1.0.0 bindings,
+with its independent pyproject/uv.lock and relative local package dependency.
+See [its README](../../services/rag/README.md) for
 verified Windows installation/startup and the exact synthetic question.
 
 ```powershell
@@ -133,12 +134,12 @@ uv --system-certs sync --locked --directory services/rag --python 3.13 --dev
 uv run --locked --offline --directory services/rag python -m pytest
 ```
 
-All 39 service checks passed on Python 3.13.5, including actual loopback HTTP startup
-and shutdown. The existing 52 corpus checks also passed on that interpreter. Mock
-readiness does not load the 617 passages or a model. Live mode remains unavailable;
-there are no provider calls or silent fallbacks. A-010 and the shared foundation
-are not complete; the active canonical contract and generated-binding handoff are
-not changed by this local preparation exception.
+All 319 current service checks passed on Python 3.13.5, including shared binding
+fixtures and actual loopback HTTP startup/shutdown. Earlier 52 corpus checks also
+passed on that interpreter. Default mock readiness does not load a corpus, index
+or model. Live HTTP mode remains unavailable, with no silent fallback. A-010's
+global F-004 prerequisite and shared F-014 still need their coordinated completion.
+See [the actual adaptation evidence](../../docs/rag/frozen-contracts-adaptation.md).
 
 ## Available now: read-only prepared corpus adapter
 
@@ -161,8 +162,9 @@ complete A-003, create test_index_version.py or change shared integration gates.
 
 ## Future: service integration after foundation prerequisites
 
-The later F-003/F-004/F-005 tasks must create frozen contracts/fixtures, dependency locks,
-stubs and runnable commands. A command that names a missing file is not an executed pass.
+F-003/F-009 are published and imported as dependencies; A's owned F-004 mock adaptation
+has passed its local checks. Shared F-004/F-005/F-014 still need coordinated completion.
+A command that names a missing file is not an executed pass.
 These are service/integration prerequisites, not prerequisites of local A-002 data
 preparation. A-003 joins the prepared corpus to the service only after A-002,
 A-010 and F-014; A-010 itself requires F-003/F-004.
