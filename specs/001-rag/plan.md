@@ -80,6 +80,15 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Bounded public-query runner (2026-11-15)**: The local CLI now admits only the ten
+versioned public English questions from A's prior corpus review. A separate persistent
+USD 0.01/ten-attempt allowance and verified question-vector cache prevent repeated
+charging; failures do not retry. Preflight counted 143 tokens total, estimated
+USD 0.00000286. All 358 service tests passed before the first live trial, including
+15 new cache/admission/budget checks. The existing index and HTTP mock are unchanged.
+This remains internal candidate ranking with answerability not assessed, not a new
+shared API state or full A-004 acceptance. See [runner behavior](../../docs/rag/retrieval.md#public-development-cli-and-separate-query-allowance).
+
 **Owner-local candidate retrieval (2026-11-15)**: The user approved local question-to-
 passage ranking with up to five sources and no automatic answerability decision,
 plus at most ten public English development queries under a separate USD 0.01 cap,

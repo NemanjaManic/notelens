@@ -42,6 +42,10 @@ through B's published dependency commit. Python 3.14 service execution is unveri
 
 ## Run locally
 
+For the separate candidate-ranking CLI over registered public development questions,
+see [retrieval commands, allowance and limitations](../../docs/rag/retrieval.md#public-development-cli-and-separate-query-allowance).
+It does not change the frozen-contract mock HTTP routes documented below.
+
 ```powershell
 $env:NOTELENS_RAG_MODE = 'mock'
 $env:NOTELENS_RAG_MOCK_SCENARIO = 'sufficient'

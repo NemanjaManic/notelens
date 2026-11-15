@@ -58,3 +58,57 @@ They use synthetic records/embeddings and do not measure semantic retrieval qual
 The scoped speckit-implement prerequisite resolver selected specs/001-rag with
 SPECIFY_FEATURE_NO_PERSIST=1; the checklist was 16/16 and no extension hooks existed.
 This user-approved local preparation preserves the formal shared dependency gates.
+
+## Public development CLI and separate query allowance
+
+The local runner admits only question IDs from
+[retrieval-smoke-questions.json](retrieval-smoke-questions.json), derived verbatim
+from A's earlier [corpus review](corpus-quality-review.md). Those ten English public
+questions include supported, partial and data-gap probes. Their prior coding-agent
+assessments are not D's frozen final benchmark or human-approved gold labels.
+Question/reference records are never inserted into Chroma.
+
+The default CLI uses only cached query vectors. New embeddings need --execute,
+an explicit initial budget no greater than USD 0.01 and paid execution enabled for
+the process. The local .env supplies the key; command arguments never contain it.
+The current default HTTP mock is unchanged. This runner is not arbitrary user-input
+admission or a general language detector, and does not accept a patient document.
+
+Run the separately approved trial from the repository root:
+
+```powershell
+$env:NOTELENS_RAG_ALLOW_PAID_EMBEDDINGS = 'true'
+try {
+    uv run --locked --offline --directory services/rag python -m notelens_rag.query_smoke --all --summary --execute --budget-usd 0.01
+    if ($LASTEXITCODE -ne 0) { throw 'The public query trial stopped; inspect before any retry.' }
+} finally {
+    Remove-Item Env:NOTELENS_RAG_ALLOW_PAID_EMBEDDINGS
+}
+```
+
+After success, repeat without paid execution or a key. Omit --summary to inspect
+the exact public passage text along with its source:
+
+```powershell
+uv run --locked --offline --directory services/rag python -m notelens_rag.query_smoke --question-id CQ-01
+uv run --locked --offline --directory services/rag python -m notelens_rag.query_smoke --all --summary
+```
+
+The ignored services/rag/.cache/retrieval-smoke directory holds one persistent usage
+ledger and public question-vector files. Registry identity, embedding space and
+mock/live origin bind the allowance/cache. A changed registry/space cannot silently
+reset it. Each registered question is attempted at most once, with a total ceiling
+of ten attempts, a 30-second request timeout and SDK retries disabled. Failed or
+uncertain attempts and token reservations remain; no automatic retry or cache reset
+is supported. A completed vector file is fingerprinted in the ledger. Missing or
+tampered cache/state fails closed rather than issuing another paid request.
+
+Cached embeddings are reranked against the currently verified index, not used as
+a stale result cache. Only the explicitly public questions/vectors may persist;
+this policy does not authorize caching submitted private questions/documents.
+The ledger cannot limit unrelated account usage. No LLM generation occurs.
+
+Before live execution, all 358 service tests passed on Python 3.13.5, including
+15 new public-runner checks. Exact local preflight counted 143 total question tokens
+(largest 27), estimated USD 0.00000286 at USD 0.02 per million input tokens. That
+estimate is not an invoice. No API call was made by these offline checks.
