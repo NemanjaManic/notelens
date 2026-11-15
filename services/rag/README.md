@@ -16,6 +16,11 @@ The [local Chroma index CLI](../../docs/rag/indexing.md) now provides versioned 
 data persistence, integrity verification and explicit interrupted-run handling.
 Index activation is separate from these still-synthetic HTTP endpoints.
 
+On 2026-11-15 the explicitly resumed live embedding run completed: all 617 prepared
+passages now have real text-embedding-3-small vectors in the local Chroma index.
+Readback and zero-call reuse passed. See [the live-run record](../../docs/rag/indexing.md#successful-explicit-resume-2026-11-15).
+The HTTP routes remain mock; question retrieval and generation are later increments.
+
 Educational demo. Not a doctor. Do not submit real personal medical reports.
 
 ## Install and verify
@@ -194,3 +199,8 @@ Embedding-increment verification, 2026-11-14: all 114 service tests passed, incl
 39 new configuration/embedding checks. Provider requests were simulated through the
 real SDK with fixture credentials and local HTTP transport. Actual offline planning
 counted 207,790 corpus tokens; no paid request was made for that checkpoint.
+
+The later full suite passed all 126 tests on 2026-11-14, including 12 real-local-Chroma
+tests with synthetic vectors. The unchanged source was not retested for the 2026-11-15
+data-only resume; actual provider execution, full-index readback/reuse and five local
+vector self-queries were verified separately. No semantic retrieval benchmark is claimed.

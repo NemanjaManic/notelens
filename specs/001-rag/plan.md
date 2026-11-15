@@ -1,6 +1,6 @@
 # Implementation Plan: Python RAG
 
-**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-14 | **Spec**: [spec.md](spec.md)
+**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-15 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/001-rag/spec.md`.
 **Owner**: A. **Status**: Draft local design and executable backlog proposal.
@@ -66,6 +66,17 @@ were stored and the attempted index remains interrupted. The user has a tutor-su
 key. A read-only official OpenAI model-list request succeeded, but did not list the
 approved embedding model. Embedding access therefore needs the tutor/project owner's
 confirmation before further execution. See [run evidence](../../docs/rag/indexing.md).
+
+**Successful owner-local index resume (2026-11-15)**: After the mentor's approval was
+relayed and Nemanja requested continuation, model-list access included the selected
+model and the explicit existing-ledger resume succeeded. All 617 passages now have
+real 1,536-dimensional vectors; 20 successful corpus requests confirmed 207,790 tokens.
+The reference-price estimate is USD 0.0041558; the retained USD 0.00415594 reservation
+includes the old 7-token failed probe and stays below the unchanged USD 0.10 ceiling.
+That probe was not repeated. Full readback, zero-call reuse and five local stored-vector
+self-queries passed. No source change or extra generation was made. See the
+[build record](../../data/knowledge/manifests/index-build.json). This completes the local
+embedding/index increment, not A-003's formal shared prerequisites or A-004 retrieval.
 
 ## Summary
 

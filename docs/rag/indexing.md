@@ -1,6 +1,6 @@
 # Local Public-Corpus Chroma Index
 
-Owner: Nemanja (A). Updated: 2026-11-14.
+Owner: Nemanja (A). Updated: 2026-11-15.
 
 The user approved local Chroma without a cloud account/subscription and an initial
 OpenAI embedding step capped at USD 0.10, including one small probe and the 617
@@ -112,6 +112,61 @@ LLM access grants embeddings, change the selected model without agreement, redir
 the key to another host or repeat paid execution without resolving access. The API
 origin remains fixed to official OpenAI in the current adapter. Provider billing
 and successful embedding usage have not been independently confirmed.
+
+## Successful explicit resume, 2026-11-15
+
+Nemanja supplied the mentor's confirmation that text-embedding-3-small was approved
+and requested continuation. This authorizes the explicit resume of the existing
+bounded step, not an increased budget, another probe, generation or deployment.
+The official OpenAI model-list check now included the selected embedding model.
+The requirements checklist remained 16/16 checked; the scoped speckit-implement
+prerequisite resolver selected specs/001-rag and no extension hooks were present.
+
+Executed from this checkout using the unchanged implementation checkpoint
+78d4d71, Python 3.13.5, OpenAI SDK 3.51.0, tiktoken 0.14.0 and Chroma 1.5.9:
+
+```powershell
+$env:NOTELENS_RAG_ALLOW_PAID_EMBEDDINGS = 'true'
+try {
+    services/rag/.venv/Scripts/python.exe -m notelens_rag.indexing --execute --resume --budget-usd 0.10
+    if ($LASTEXITCODE -ne 0) { throw 'The approved resume stopped.' }
+} finally {
+    Remove-Item Env:NOTELENS_RAG_ALLOW_PAID_EMBEDDINGS
+}
+```
+
+| Outcome | Observed value |
+| --- | --- |
+| Index status / mode | complete / live |
+| Source topics / stored passages | 401 / 617 |
+| Model / vector dimensions | text-embedding-3-small / 1,536 |
+| Successful corpus requests during resume | 20 |
+| Confirmed corpus input tokens | 207,790 |
+| Previously failed probe, not repeated | 7 reserved tokens |
+| Total retained reservations | 207,797 tokens |
+| Confirmed-usage reference-price estimate | USD 0.0041558 |
+| Conservative reservation including the old failed probe | USD 0.00415594 |
+| Approved ceiling for the step | USD 0.10 |
+
+The reference price was rechecked on 2026-11-15; these amounts are calculated from
+confirmed provider token usage and the retained reservation, not a verified invoice.
+The prior attempted probe stays recorded as attempted; successful corpus calls now
+provide the live embedding evidence. No extra probe or LLM generation was run.
+
+The index identity remains
+`209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146`.
+Read-only CLI verification passed, including all canonical text, source metadata,
+passage IDs and exact stored-vector fingerprints. An independent reuse check supplied
+an embedder that raises if called; the complete index was reused with zero calls.
+Five local queries using stored passage vectors passed numeric/self-query smoke
+checks without provider calls. This is not a semantic question/relevance benchmark.
+
+See the small [versioned build record](../../data/knowledge/manifests/index-build.json).
+The index itself, usage ledger and API key remain Git-ignored. This was a data-only
+resume: source code did not change, and the already-passing 126-test offline suite
+was not repeated. Readback, cache reuse and the real provider run are new evidence.
+A-003's local embedding/index increment is complete; its shared dependency gates,
+the real retrieval API, measured sufficiency thresholds and generation remain open.
 
 ## Sources
 

@@ -1,6 +1,6 @@
 # OpenAI Embedding Preparation
 
-Owner: Nemanja (A). Updated: 2026-11-14.
+Owner: Nemanja (A). Updated: 2026-11-15.
 
 The user selected OpenAI as the provider and explicitly approved
 `text-embedding-3-small` with 1,536 dimensions on 2026-11-14. This is an initial
@@ -124,15 +124,26 @@ zero vectors, duplicate/missing response indices and inconsistent token usage.
 It restores vector order by the returned index and emits fixed English errors.
 Its budget is per adapter/run; it cannot cap other processes or dashboard usage.
 
-## Sources
+## Live execution history
 
-The subsequent initial paid attempt was rejected for provider authentication or
+The subsequent initial paid attempt on 2026-11-14 was rejected for provider authentication or
 permissions before any corpus batch; see [the exact index/run evidence](indexing.md).
 The key was confirmed as tutor-supplied. An official OpenAI read-only model-list
 request succeeded but did not list the selected embedding model. The tutor/project
-owner must confirm embedding permissions before another paid attempt. The price
+owner's embedding permission confirmation was needed before another paid attempt. The price
 above is a reference estimate, not measured billing. The adapter/preflight checkpoint's
 zero-call evidence above remains historical and does not hide the later failed attempt.
+
+On 2026-11-15 the mentor confirmation was supplied, model-list access included the
+selected embedding model, and the explicit bounded resume succeeded. All 617 passages
+now have real 1,536-dimensional vectors in the verified local index. Twenty corpus
+requests confirmed 207,790 input tokens, an estimated USD 0.0041558 at the referenced
+rate, with no repeated probe or generation. See [the successful run and readback](indexing.md#successful-explicit-resume-2026-11-15)
+and [build record](../../data/knowledge/manifests/index-build.json). The earlier access
+blocker is resolved for this approved embedding step; generation and deployment are
+still separately gated.
+
+## Sources
 
 - [OpenAI developer quickstart](https://developers.openai.com/api/docs/quickstart).
 - [Embedding guide and dimensions](https://developers.openai.com/api/docs/guides/embeddings).
