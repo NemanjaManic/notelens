@@ -114,12 +114,14 @@ class FakeProvider:
             "What does the document say about chest pain?": "chest pain",
             "What does the document say about pneumonia?": "pneumonia",
             "What does the document say about the patient's family?": "diabetes",
-            "Which procedure is mentioned?": "appendectomy",
+            "Which procedure is mentioned?": "__procedures__",
             "What does the document say about chest pain and the patient's age?": "chest pain",
             "What diagnoses or symptoms are mentioned?": "*",
         }
         topic = questions.get(question)
-        selected = [span for item in items if topic == "*" or topic == item["name"].casefold()
+        selected = [span for item in items
+                    if topic == "*" or (topic == "__procedures__" and item["type"] == "procedure")
+                    or topic == item["name"].casefold()
                     for span in item["evidence"]]
         result = passages(document, selected, operation="document-answer",
                           partial=bool(selected) and "age" in question)

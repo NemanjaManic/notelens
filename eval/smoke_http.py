@@ -32,8 +32,9 @@ def main() -> int:
     try:
         for _ in range(100):
             try:
-                with urllib.request.urlopen(f"http://127.0.0.1:{port}/health", timeout=0.3) as response:
-                    if json.load(response)["mode"] != "mock":
+                with urllib.request.urlopen(f"http://127.0.0.1:{port}/health/ready", timeout=0.3) as response:
+                    readiness = json.load(response)
+                    if readiness["mode"] != "mock" or readiness["status"] != "ok":
                         raise RuntimeError("Smoke requires mock mode.")
                 break
             except OSError:

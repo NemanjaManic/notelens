@@ -1,7 +1,7 @@
 # Quickstart Validation: Python Extraction and Shared Evaluation
 
-**Status**: provisional local slice authorized 2026-11-11; frozen shared integration
-and live generation remain pending. Run from the repository root. Full setup and
+**Status**: D-owned key-free mock slice consumes frozen shared contracts/bindings v1.0.0.
+Coordinated F-004/F-014 acceptance and live generation remain pending. Run from the repository root. Full setup and
 limits are in [integration](../../docs/extraction-eval/integration.md).
 
 ## Available now: local mock service and evaluation
@@ -39,20 +39,21 @@ Expected: FEATURE_DIR selects this feature regardless of Git branch. This checks
 not whether an application, plan/task tests or services execute successfully.
 The installed script exists and has been verified; no feature-state file is overwritten.
 
-## Future: after foundation prerequisites
+## Coordinated foundation work still pending
 
-The later F-003/F-004/F-005 tasks must create frozen contracts/fixtures, dependency locks,
-stubs and runnable commands. A command that names a missing file is not an executed pass.
-After those prerequisites and the relevant implementation tasks create the listed checks:
+F-003/F-009 are complete and their generated package is consumed by this service. B still
+coordinates F-004/F-014, cross-service startup/integration, and any F-005 work in the
+foundation backlog. The owner-local checks below already exist and run; they do not prove
+coordinated foundation acceptance:
 
-```text
-uv run --directory services/extraction python -m pytest tests/test_evidence.py tests/test_answers.py tests/test_contract.py
-uv run --directory eval python -m notelens_eval.run --profile smoke
+```powershell
+./services/extraction/.venv/Scripts/python.exe -m pytest services/extraction/tests -q
+./eval/.venv/Scripts/python.exe -m pytest eval/tests -q
+./eval/.venv/Scripts/python.exe -m notelens_eval.run --profile smoke
+./eval/.venv/Scripts/python.exe eval/smoke_http.py
 ```
 
-These are planned acceptance commands using real tool CLIs, not claims that package scripts
-or test files exist today. The backlog names the task that creates each target.
-No npm run script is assumed; B must document and verify actual package scripts later.
+These owner-local tests and smoke commands exist and are documented in [integration](../../docs/extraction-eval/integration.md). No root npm script is assumed; B owns shared startup and workspace commands.
 
 ## Independent scenarios
 
@@ -66,7 +67,7 @@ No npm run script is assumed; B must document and verify actual package scripts 
 
 ## Exit and review
 
-[Tasks](tasks.md) provide owner/path/dependency/acceptance details. All business work remains
-unchecked. Do not declare the shared foundation ready until the runnable mock flow,
-handoffs, separate-working-copy commands and checkpoint evidence have passed. The
-checked local subtasks in the continuation do not satisfy those shared gates.
+[Tasks](tasks.md) provide owner/path/dependency/acceptance details. Parent D tasks remain
+open where real-model, real-data, cross-service, or human-review gates are unmet. Do not
+declare the shared foundation ready until coordinated mock flow, handoffs,
+separate-working-copy commands and checkpoint evidence have passed.

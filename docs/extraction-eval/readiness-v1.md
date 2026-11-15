@@ -1,6 +1,6 @@
 # Member D integration readiness check
 
-Date: 2026-11-12. Scope: Member D's local service and read-only inspection of
+Historical snapshot (2026-11-12): Member D's local service and read-only inspection of
 B-owned draft contracts. This is an owner-local mock readiness check, not acceptance
 of the frozen contract or cross-service integration.
 
@@ -35,7 +35,7 @@ service. It writes the detailed machine-readable result to the ignored
   Starlette/httpx deprecation warning.
 - `git diff --check`: passed.
 
-The local check confirms D's mock transport conforms to the currently available
+At that date, the local check confirmed D's mock transport conformed to the available
 provisional schema for these fixtures. It does not prove general semantic support,
 production readiness or agreement by B/A/C.
 

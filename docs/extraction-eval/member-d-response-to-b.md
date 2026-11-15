@@ -1,5 +1,8 @@
 # Member D response to B's interface review
 
+**Historical pre-freeze proposal (2026-11-11):** F-003/F-009 were completed later; the
+current frozen v1.0.0 contract status and remaining gates are in the [owner handoff](../team/frozen-contracts-handoff.md).
+
 - **Prepared:** 2026-11-11
 - **Workstream:** D — extraction, document-grounded generation and shared evaluation
 - **Reviewer:** Coding agent assisting Milica (D); Milica confirmed the four principles

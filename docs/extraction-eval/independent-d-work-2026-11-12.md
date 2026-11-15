@@ -1,6 +1,6 @@
 # Five independent Member D deliverables
 
-Date: 2026-11-12. These are local D-scope increments prepared without A/C data,
+Historical snapshot (2026-11-12). These are local D-scope increments prepared without A/C data,
 B-owned contract changes, a provider choice or colleague review.
 
 ## 1. Full synthetic HTTP evaluation
@@ -57,8 +57,9 @@ coverage accounting, not a prediction-quality metric.
 ## What remains dependent on the team
 
 C-002 still needs an approved, permitted, group-separated document manifest before real
-annotation selection. B still needs to freeze shared contracts and supply integration
-fixtures/bindings. A/B still need to provide the cross-service QA corpus and runtime.
+annotation selection. At the time of this snapshot B had not yet frozen the contracts;
+F-003/F-009 are now complete as recorded in the [current handoff](../team/frozen-contracts-handoff.md).
+A/B still need to provide the cross-service QA corpus and runtime.
 The rubric still needs human calibration; real annotations and adjudication require
 assignments and independent submissions. Model/provider comparisons and substantive
 threshold selection require the appropriate approved references and operating policy.

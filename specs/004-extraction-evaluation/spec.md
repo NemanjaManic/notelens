@@ -15,6 +15,11 @@ implementation and the first offline evaluation/annotation-tooling slice. Shared
 contract freeze and real-data gates remain pending; the local adapter is provisional.
 This does not approve paid/live configuration or claim human/clinical acceptance.
 
+**Status update (2026-11-13):** F-003/F-009 are complete and the D-owned mock now
+consumes the published frozen contracts/bindings v1.0.0. Coordinated F-004/F-014,
+real-data, human-review and live-configuration gates remain open; the feature spec itself
+remains a draft and this update does not claim team or clinical acceptance.
+
 **Input**: User description: "Extract source-supported diagnoses, symptoms and procedures, summarize and answer from the document in English, and coordinate human-reviewed annotations plus honest shared evaluation across all workstreams."
 
 **Governing requirements**: [Constitution](../../.specify/memory/constitution.md) and

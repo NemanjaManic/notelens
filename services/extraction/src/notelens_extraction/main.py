@@ -39,14 +39,19 @@ def create_app(provider=None, *, token: str | None = None) -> FastAPI:
         diagnostic_id = request_id or str(uuid.uuid4())
         request.state.request_id = diagnostic_id
         try:
+            # Business request identity is an admission requirement and must be
+            # decided before credentials. Health endpoints intentionally use a
+            # fresh diagnostic ID regardless of any caller-supplied value.
+            if not health and request_id is None:
+                raise ServiceError(400, "validation_failure", "A single canonical X-Request-ID is required.")
             if token:
-                provided = request.headers.get("Authorization", "")
-                if not secrets.compare_digest(provided, f"Bearer {token}"):
+                authorization = [value for name, value in request.headers.raw
+                                 if name.lower() == b"authorization"]
+                provided = authorization[0].decode("latin-1") if len(authorization) == 1 else ""
+                if len(authorization) != 1 or not secrets.compare_digest(provided, f"Bearer {token}"):
                     raise ServiceError(401, "unauthorized", "Valid service authentication is required.")
             elif request.client and request.client.host not in {"127.0.0.1", "::1", "testclient"}:
                 raise ServiceError(503, "configuration_required", "Unconfigured mock access is loopback-only.")
-            if not health and request_id is None:
-                raise ServiceError(400, "validation_failure", "A single canonical X-Request-ID is required.")
             response = await call_next(request)
         except ServiceError as exc:
             response = JSONResponse(exc.envelope(diagnostic_id), status_code=exc.status)

@@ -26,9 +26,9 @@ for a processing or annotation failure. Procedure items require `procedure_statu
 items require null. Procedure state is independent of assertion, temporality, and subject.
 For example, a confirmed plan remains planned, not performed.
 
-The D-owned practice data and linter still contain historical proposal wording from
-before this freeze. Treat this guide as the proposed annotation policy and the canonical
-schema as the wire definition; update the practice set before using it to train annotators.
+The D-owned practice data and linter were updated to use the frozen wire values. Treat
+this guide as a D-authored annotation policy proposal and the canonical schema as the wire
+definition; review and adopt the policy before using it to train annotators.
 The matching convention for relaxed boundaries and the semantic source-support rubric
 remain proposals for the team to adopt. No team agreement, actual assignment, annotation,
 or clinical validation is implied here.

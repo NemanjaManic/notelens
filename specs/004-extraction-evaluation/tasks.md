@@ -80,7 +80,7 @@ they are not silently assigned defaults.
 
 - [ ] T002 D-010: Create D's independent offline evaluation packages, fixtures and mock adapters in `eval/pyproject.toml`, `eval/uv.lock`, `eval/package.json`, `eval/package-lock.json`, `eval/providers/**`, `eval/tests/test_offline_adapter.py`
   - [x] Local eval package/environment/locks, Promptfoo HTTP provider/config and synthetic smoke implemented and exercised without paid calls. Actual tests are in `eval/tests/test_slice.py`.
-  - [ ] Remaining: reviewed frozen records/bindings and shared scaffold compatibility; this is a provisional adapter.
+  - [ ] Remaining: coordinated F-004/F-014 scaffold acceptance and any agreed A/C adapters; the D-local adapter consumes the reviewed frozen records/bindings v1.0.0.
   - **Owner / story**: D / US4.
   - **Dependencies**: 000-foundation/T004 (F-003); 000-foundation/T006 (F-004)
   - **Acceptance**: Own local eval locks without changing root lock; API adapters consume agreed records and never perform a paid call in offline/smoke mode.
@@ -96,7 +96,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T003 [US1] D-004: Implement structured Python extraction and bounded semantic/span validation in `services/extraction/src/notelens_extraction/**`, `services/extraction/prompts/**`, `services/extraction/tests/test_evidence.py`, `services/extraction/tests/test_contract.py`
   - [x] Local request/schema/evidence validation, provider/config boundary, versioned prompts, bounded repair diagnostics, FastAPI/CLI and deterministic fake implemented. Checks live in `tests/test_service.py`, `tests/test_training_checker.py` and `tests/test_http_smoke.py`.
-  - [ ] Remaining: B's freeze/bindings/foundation compatibility, approved live provider/model and evaluated semantic support beyond the narrow catalog guards.
+  - [ ] Remaining: coordinated F-004/F-014 integration, approved live provider/model, and evaluated semantic support beyond the narrow catalog guards. F-003/F-009 and the local frozen-package adaptation are complete.
   - **Owner / story**: D / US1.
   - **Dependencies**: 004-extraction-evaluation/T001 (D-001); 000-foundation/T004 (F-003); 000-foundation/T006 (F-004); 000-foundation/T014 (F-014)
   - **Acceptance**: POST /v1/extract preserves canonical text/status/subject and validates exact offsets/quotes, unsupported items and source-only ICD. Bounded repair; no inferred diagnoses. Live activation requires approved provider policy.
