@@ -180,6 +180,17 @@ No npm run script is assumed; B must document and verify actual package scripts 
 
 ## Independent scenarios
 
+The owner-local candidate-ranking increment is available separately from HTTP:
+
+```powershell
+uv run --locked --offline --directory services/rag python -m notelens_rag.query_smoke --question-id CQ-01
+```
+
+In A's existing checkout the ten approved public question vectors are cached after
+the successful 2026-11-15 trial. Repeating them needs no model call; fresh clones need
+their separately approved local artifacts. See [results and admission/budget limits](../../docs/rag/retrieval.md).
+This is candidate ranking only, without an answerability decision or LLM generation.
+
 1. Start this workstream in key-free mock mode with other business modules absent.
 2. Submit a valid synthetic/public example and verify shared structure plus evidence semantics.
 3. Exercise empty/unsupported/insufficient, malformed upstream and provider-failure fixtures.

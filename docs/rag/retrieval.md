@@ -112,3 +112,31 @@ Before live execution, all 358 service tests passed on Python 3.13.5, including
 15 new public-runner checks. Exact local preflight counted 143 total question tokens
 (largest 27), estimated USD 0.00000286 at USD 0.02 per million input tokens. That
 estimate is not an invoice. No API call was made by these offline checks.
+
+## Executed public trial and cache verification, 2026-11-15
+
+The approved trial completed all ten registered questions against the existing
+617-passage live index, using implementation checkpoint 55471c8. Each returned
+five candidate passages. Ten embedding requests confirmed 143 input tokens, with
+zero retries or generation requests. The reference-price cost is USD 0.00000286,
+below the separate USD 0.01 allowance; the provider invoice was not inspected.
+The corpus/index was not rebuilt and its original embedding allowance was unchanged.
+
+All ten queries were then repeated with a provider factory that raises if created.
+All used the verified vector cache with zero provider calls, an unchanged usage
+ledger, and all fifty returned passage texts matching the prepared canonical corpus.
+The complete index still passed readback. No source-code change was made after the
+358-test offline suite; the live run/cache checks are separate new evidence.
+
+See [compact observed results](retrieval-smoke-results.json). The report includes
+public question text, source identities/URLs/titles and scores, without copying
+passage bodies, vectors or credentials. The full source text remains inspectable
+through the local CLI. Cached vectors and the run ledger remain Git-ignored.
+
+Surface inspection found expected subject-related titles, such as High Blood
+Pressure for CQ-01 and Carpal Tunnel Syndrome for CQ-03. Multiple top-ranked CQ-03
+passages belong to the same topic; no unique-topic recall metric is inferred.
+The prior partial/data-gap probes CQ-02/CQ-08 also return related candidates. A
+topic match or high score therefore remains separate from evidence that answers
+the question. No semantic benchmark, calibrated rejection policy, clinical validity
+or automatic answerability result is claimed here.

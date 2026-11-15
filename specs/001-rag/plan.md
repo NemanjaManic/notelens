@@ -80,6 +80,15 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Completed public retrieval trial (2026-11-15)**: All ten separately approved public
+development queries completed, returning five candidates each. Ten requests confirmed
+143 query tokens (USD 0.00000286 reference-price cost) under the separate USD 0.01 cap.
+All ten were repeated with provider creation forbidden, reusing cached vectors with
+zero API calls and an unchanged ledger. All fifty returned source texts matched the
+prepared corpus; the original 617-passage index still verified. The unchanged source
+had passed 358 offline tests before this data-only run. See [observed results](../../docs/rag/retrieval-smoke-results.json).
+This is not a semantic benchmark, a support/rejection threshold or full A-004 closure.
+
 **Bounded public-query runner (2026-11-15)**: The local CLI now admits only the ten
 versioned public English questions from A's prior corpus review. A separate persistent
 USD 0.01/ten-attempt allowance and verified question-vector cache prevent repeated

@@ -46,6 +46,18 @@ For the separate candidate-ranking CLI over registered public development questi
 see [retrieval commands, allowance and limitations](../../docs/rag/retrieval.md#public-development-cli-and-separate-query-allowance).
 It does not change the frozen-contract mock HTTP routes documented below.
 
+The approved 2026-11-15 public trial has completed ten real searches, each returning
+five sources. All ten can now be repeated locally without API calls using their
+cached query vectors. For example, from this checkout with its existing local index:
+
+```powershell
+uv run --locked --offline --directory services/rag python -m notelens_rag.query_smoke --question-id CQ-01
+```
+
+This prints exact public passage text and sources. It does not generate an answer
+or assert answerability. Fresh clones do not include the ignored index/query cache;
+the default mock remains independent of those artifacts.
+
 ```powershell
 $env:NOTELENS_RAG_MODE = 'mock'
 $env:NOTELENS_RAG_MOCK_SCENARIO = 'sufficient'
