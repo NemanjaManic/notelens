@@ -14,7 +14,17 @@ Define one draft schema/OAS source, validate positive/negative examples and Unic
 **Execution update (2026-11-13):** user-confirmed P2 revision-3 agreement is recorded,
 F-003 canonical freeze and F-009 generated packages are checked locally. See
 [the handoff](../../docs/team/frozen-contracts-handoff.md). F-004 and later runtime/checkpoint
-tasks remain incomplete; this update does not ratify the whole constitution or activate providers.
+tasks were incomplete at that checkpoint; this update did not ratify the constitution or activate providers.
+
+**Execution update (2026-11-16):** F-004's scoped technical scaffold deliverable is complete
+at published review commit `8282a739727f3c696be8b63d5c1c13ea13ae81fc`; see
+[the completion/review record](../../docs/team/f-004-technical-completion.md).
+This records executed key-free mock/build checks, with reported A/C review results and
+D's corrected source provenance. It does not record human/team foundation acceptance.
+F-011/F-012/F-005/F-010 and the remaining handoff/acceptance/checkpoint/publication gates
+remain open; F-014 is pending. The next B-owned verification increment is scoped in
+[the F-012 supplement](../../docs/platform/f-012-unicode-verification-plan.md), which
+does not implement the later input/session/highlighting business work.
 
 ## Technical Context
 

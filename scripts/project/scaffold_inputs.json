@@ -561,11 +561,11 @@
     "specs/000-foundation/checklists/requirements.md": "085c546099723528e1fe3cb71682f456488310bb7360365335188c2d544bcdb1",
     "specs/000-foundation/contracts/README.md": "6fe75cdc32bc2333e2aaaed28475dffb658cc9abee6c4356385978f0981ec327",
     "specs/000-foundation/data-model.md": "1dd72a96983b2cad8a94c08df6b1b1a4671bd2f4526b7bf3a66320ad2c6a97f5",
-    "specs/000-foundation/plan.md": "f7cacef81def3a645e870c46bdf405d26550c3fa3f3ce12046022363349c26b9",
+    "specs/000-foundation/plan.md": "08464b8a3ac3c5ec73cbd2511be77fc778a8f7df564d9fbb2bc32de006c3edbd",
     "specs/000-foundation/quickstart.md": "537cf23f2994c0c4d34388e75dad35eeb14299219d3437638c860b41abc651e2",
     "specs/000-foundation/research.md": "1051b0c853b15aac1c18ff5c0be477ec5b8c36ec896afb81690bb3f538d29c15",
     "specs/000-foundation/spec.md": "4875678fbbd509e4b5fb3a0a57d0dfd29e257eec160d5d4b670ad5bc6e2379e3",
-    "specs/000-foundation/tasks.md": "9c47f7a32ca08e70aa6a14096bf549933a24efef89ca24ecf60a530b06dddcd4",
+    "specs/000-foundation/tasks.md": "9385074763f5863ac02011aa7283ea7a3c739dde008d36b8f7015233c584cd6f",
     "specs/001-rag/AGENTS.md": "d794076b0dc3c295854abbbd93e7310a48a283acef311e4876f368d85a2f410a",
     "specs/001-rag/checklists/requirements.md": "e00f8f47235ef016d8b8f365b36630b22b76c21ca4b12a55f514921a729ad6a3",
     "specs/001-rag/contracts/README.md": "0fcaffebb6896859a86669f599fd66a7c91cfd263213c935242c7ff8c54ce503",
@@ -651,5 +651,26 @@
   "b_generated_outputs": {
     "apps/web/next-env.d.ts": "1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b"
   },
-  "generated_output_reason": "Next typegen/build changed only dev-to-production declaration imports; original B input remains pinned"
+  "generated_output_reason": "Next typegen/build changed only dev-to-production declaration imports; original B input remains pinned",
+  "b_documentation_updates": [
+    {
+      "date": "2026-11-16",
+      "reason": "User-authorized F-004 technical completion and scoped F-012 planning; no owner/frozen/runtime-source change",
+      "reviewed_source_commit": "8282a739727f3c696be8b63d5c1c13ea13ae81fc",
+      "base_document_hashes": {
+        "specs/000-foundation/tasks.md": {
+          "before": "9c47f7a32ca08e70aa6a14096bf549933a24efef89ca24ecf60a530b06dddcd4",
+          "after": "9385074763f5863ac02011aa7283ea7a3c739dde008d36b8f7015233c584cd6f"
+        },
+        "specs/000-foundation/plan.md": {
+          "before": "f7cacef81def3a645e870c46bdf405d26550c3fa3f3ce12046022363349c26b9",
+          "after": "08464b8a3ac3c5ec73cbd2511be77fc778a8f7df564d9fbb2bc32de006c3edbd"
+        }
+      },
+      "new_document_paths": [
+        "docs/team/f-004-technical-completion.md",
+        "docs/platform/f-012-unicode-verification-plan.md"
+      ]
+    }
+  ]
 }
