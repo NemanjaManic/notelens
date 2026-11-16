@@ -1,4 +1,4 @@
-"""F-004 scaffold consumer evidence; this does not close the later C-009 gate."""
+"""C-009 consumer checks against the frozen classifier contract."""
 
 from copy import deepcopy
 
@@ -61,3 +61,33 @@ def test_installed_bindings_enforce_relationship_rules(shared_payloads, mutation
         result["mode"] = "live"
     with pytest.raises(ContractValidationError):
         validate_record("ClassificationResult", result)
+
+
+@pytest.mark.parametrize("fixture,field,value", [
+    ("classification-supported", "category", None),
+    ("classification-uncertain", "category", "Neurology"),
+    ("classification-unsupported", "category", "Urology"),
+    ("classification-supported", "model_version", None),
+    ("classification-supported", "score_kind", None),
+    ("classification-unsupported", "score_kind", "decision_score"),
+])
+def test_state_dependent_category_and_execution_metadata(shared_payloads, fixture, field, value):
+    result = deepcopy(shared_payloads[fixture])
+    result[field] = value
+    with pytest.raises(ContractValidationError):
+        validate_record("ClassificationResult", result)
+
+
+@pytest.mark.parametrize("score", [-0.01, 1.01])
+def test_probability_scores_outside_unit_interval_are_rejected(shared_payloads, score):
+    result = deepcopy(shared_payloads["classification-probability"])
+    result["scores"][0]["score"] = score
+    with pytest.raises(ContractValidationError):
+        validate_record("ClassificationResult", result)
+
+
+@pytest.mark.parametrize("score", [0.0, 1.0])
+def test_probability_endpoints_are_accepted(shared_payloads, score):
+    result = deepcopy(shared_payloads["classification-probability"])
+    result["scores"][0]["score"] = score
+    validate_record("ClassificationResult", result)

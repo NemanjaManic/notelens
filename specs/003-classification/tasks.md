@@ -2,7 +2,7 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [contract references](contracts/README.md).
-**Owner**: C. **Status**: C-001 audit complete locally; C-011 local F-004 scaffold contribution checked (2026-11-14). F-003/F-009 are available; C-009 still waits for the complete shared F-004 and C-002 also requires F-014.
+**Owner**: C. **Status**: C-001 and C-009 complete locally; C-011 local F-004 scaffold contribution checked. B recorded F-004 technical completion; C-002 still requires reviewed and published F-014.
 **Tests**: Required where the source specifications explicitly require structural, semantic,
 leakage, security or independent module checks. This is not blanket TDD for documentation.
 **Organization**: Setup, foundational, story increments, polish. Every task has one owner
@@ -56,12 +56,13 @@ they are not silently assigned defaults.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T002 C-009: Review classifier contracts and build standalone mock consumer checks in `services/classifier/tests/test_contract.py`, `docs/ml/interface-review.md`
+- [x] T002 C-009: Review classifier contracts and build standalone mock consumer checks in `services/classifier/tests/test_contract.py`, `docs/ml/interface-review.md`
   - **Owner / story**: C / US1.
   - **Dependencies**: 000-foundation/T004 (F-003); 000-foundation/T006 (F-004)
   - **Acceptance**: Verify category/null states, score kind/meaning and model version against generated bindings; propose changes through B, not shared edits.
   - **Review progress (2026-11-15)**: Shared candidate `8282a739727f3c696be8b63d5c1c13ea13ae81fc` reviewed in an isolated worktree. Python 3.13.7 installed; unchanged-source checks passed. First coordinated attempt passed contracts, 80 B tests and 319 RAG tests, then reported 50 classifier passes and a startup timeout; the focused transport retry passed. Second full attempt exceeded the shared unit-suite's 240-second deadline. No successful shared receipt exists. [F-004 review](../../docs/ml/member-c-f004-review.md) records supplementary 3.11 checks, both 3.13 attempts and remaining checks; C-009 is not complete.
   - **Review update (2026-11-16)**: The unchanged shared F-004 candidate passed the complete coordinated runner and current-checkout checker on Python 3.13.7: 80 project tests, 319/51/59 service tests and 30 HTTP cases; previous timeout history is retained in the [review](../../docs/ml/member-c-f004-review.md). B must record F-004 completion; C-009 remains open.
+  - **Completion evidence (2026-11-16)**: B recorded F-004 technical completion in `f4173b8` on `member-b/task-f-004-web-workspace`; user authorized C-009. [Interface review](../../docs/ml/interface-review.md) records frozen contract behavior and limits. Python 3.13.7 locked offline checks: 24 contract tests, 61 classifier tests, 153 binding payload and 22 simulated exchange outcomes passed; no live provider or trained model involved.
   - **Verify**: `uv run --directory services/classifier python -m pytest tests/test_contract.py`.
   - **Coverage**: FR-012, FR-013, FR-014, FR-015, FR-016, SC-004.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.

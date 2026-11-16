@@ -1,6 +1,6 @@
 # Quickstart Validation: Python Classification
 
-**Status**: C-001 audit and C-011 local F-004 scaffold commands are available; commands labeled future remain gated.
+**Status**: C-001 audit, C-011 scaffold and C-009 contract checks are available; commands labeled future remain gated.
 Run from the repository root. C-001 is authorized; no command here authorizes paid calls
 or bypasses the remaining task dependencies.
 
@@ -50,7 +50,9 @@ $env:NOTELENS_CLASSIFIER_MOCK_SCENARIO = 'supported'
 
 The launcher is loopback-only at port 8002. Tests include real local HTTP and process
 cleanup; health/readiness remains F-011 work after the shared F-004 checkpoint. The
-local contribution does not complete the whole F-004 or C-009. See the [handoff](../../docs/ml/classifier-scaffold-handoff.md).
+local contribution alone does not complete the whole F-004. B subsequently recorded
+F-004 technical completion; C-009 is checked locally in the [interface review](../../docs/ml/interface-review.md).
+See also the historical [scaffold handoff](../../docs/ml/classifier-scaffold-handoff.md).
 
 ## Future: after foundation prerequisites
 
@@ -79,6 +81,6 @@ No npm run script is assumed; B must document and verify actual package scripts 
 ## Exit and review
 
 [Tasks](tasks.md) provide owner/path/dependency/acceptance details. C-001 and the local
-C-011 scaffold contribution are checked; C-009, C-002 and business tasks remain gated.
+C-011 scaffold contribution and C-009 are checked locally; C-002 still requires F-014.
 Do not declare the shared foundation ready until the runnable mock flow,
 handoffs, separate-working-copy commands and checkpoint evidence have passed.
