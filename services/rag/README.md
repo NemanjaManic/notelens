@@ -168,6 +168,12 @@ the shared HTTP error enum is unchanged.
 
 ## Contract boundary
 
+The owner-local [support assessment processor](../../docs/rag/support-assessment.md)
+validates supplied per-question-part judgments and exact passage quotes without
+an API key or provider. It does not yet assess new questions semantically or
+activate a real HTTP route. Its 39 new checks and the full 397-test service suite
+passed on Python 3.13.5; the earlier checkpoint results below remain historical.
+
 The installed notelens-contracts 1.0.0 package exports notelens_contracts.v1 TypedDicts
 and validate_json/validate_record. The service uses these runtime validators for
 requests and responses, with fixed safe error messages. The installed schema is
