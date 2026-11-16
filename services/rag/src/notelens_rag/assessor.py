@@ -123,7 +123,8 @@ def prepare_assessment(request, candidates, requirements):
                               instructions, _json(payload), _json(schema), inputs_json)
 
 
-def _checked_response(raw_bytes, prepared, parameters):
+def checked_assessment_response(raw_bytes, prepared, parameters, *, mode='mock'):
+    _require(mode in ('mock', 'live'), 'configuration_required')
     response = _strict_json(raw_bytes)
     _require(isinstance(response, dict) and response.get('object') == 'response'
              and response.get('model') == MODEL, 'invalid_upstream')
@@ -160,14 +161,32 @@ def _checked_response(raw_bytes, prepared, parameters):
         decision = evaluate_support(inputs['request'], inputs['candidates'], inputs['requirements'], result['assessment'])
     except SupportError:
         raise AssessmentError('invalid_assessment') from None
-    configuration = {'adapter': 'offline-luna-responses-v1', 'mode': 'mock', 'model': MODEL,
+    configuration = {'adapter': 'offline-luna-responses-v1' if mode == 'mock' else 'bounded-luna-responses-v1',
+        'mode': mode, 'model': MODEL,
         'prompt_version': PROMPT_VERSION, 'prompt_sha256': prepared.prompt_sha256,
         'max_output_tokens': parameters.max_output_tokens, 'reasoning_effort': parameters.reasoning_effort,
         'timeout_seconds': parameters.timeout_seconds, 'max_retries': 0,
         'store': False, 'tools': [], 'truncation': 'disabled'}
     version = hashlib.sha256(_json(configuration).encode('utf-8')).hexdigest()
     return ModelAssessment(decision, prepared.prompt_sha256, version,
-                           usage['input_tokens'], usage['output_tokens'], usage['total_tokens'])
+                           usage['input_tokens'], usage['output_tokens'], usage['total_tokens'], mode=mode)
+
+
+def assessment_request(prepared, parameters):
+    """Use the same immutable input/schema for counting and eventual generation."""
+    return {'model': MODEL, 'instructions': prepared.instructions, 'input': prepared.input_json,
+        'text': {'format': {'type': 'json_schema', 'name': 'notelens_support_assessment',
+                          'strict': True, 'schema': _strict_json(prepared.schema_json)}},
+        'reasoning': {'effort': parameters.reasoning_effort},
+        'max_output_tokens': parameters.max_output_tokens,
+        'store': False, 'stream': False, 'background': False, 'truncation': 'disabled',
+        'tools': [], 'tool_choice': 'none'}
+
+
+def assessment_count_request(prepared, parameters):
+    payload = assessment_request(prepared, parameters)
+    return {key: value for key, value in payload.items()
+            if key not in ('max_output_tokens', 'store', 'stream', 'background')}
 
 
 class OfflineLunaAssessor:
@@ -192,14 +211,7 @@ class OfflineLunaAssessor:
     def assess(self, request, candidates, requirements):
         prepared = prepare_assessment(request, candidates, requirements)
         try:
-            raw = self._client.responses.with_raw_response.create(model=MODEL,
-                instructions=prepared.instructions, input=prepared.input_json,
-                text={'format': {'type': 'json_schema', 'name': 'notelens_support_assessment',
-                                 'strict': True, 'schema': _strict_json(prepared.schema_json)}},
-                reasoning={'effort': self.parameters.reasoning_effort},
-                max_output_tokens=self.parameters.max_output_tokens,
-                store=False, stream=False, background=False, truncation='disabled',
-                tools=[], tool_choice='none')
+            raw = self._client.responses.with_raw_response.create(**assessment_request(prepared, self.parameters))
         except openai.APITimeoutError:
             raise AssessmentError('timeout') from None
         except openai.RateLimitError:
@@ -208,4 +220,4 @@ class OfflineLunaAssessor:
             raise AssessmentError('provider_authentication') from None
         except openai.APIError:
             raise AssessmentError('provider_unavailable') from None
-        return _checked_response(raw.http_response.content, prepared, self.parameters)
+        return checked_assessment_response(raw.http_response.content, prepared, self.parameters)
