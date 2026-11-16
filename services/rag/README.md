@@ -174,6 +174,12 @@ an API key or provider. It does not yet assess new questions semantically or
 activate a real HTTP route. Its 39 new checks and the full 397-test service suite
 passed on Python 3.13.5; the earlier checkpoint results below remain historical.
 
+The [GPT-6 Luna adapter checkpoint](../../docs/rag/luna-assessor.md) adds a versioned
+English assessment prompt and actual Responses SDK wiring through mandatory
+MockTransport. All 43 new checks and the full 440-test suite passed. There is no
+real-key loading or live switch; provider calls and semantic quality measurement
+remain separately gated. The prompt is included and load-tested in the wheel.
+
 The installed notelens-contracts 1.0.0 package exports notelens_contracts.v1 TypedDicts
 and validate_json/validate_record. The service uses these runtime validators for
 requests and responses, with fixed safe error messages. The installed schema is
