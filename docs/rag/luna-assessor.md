@@ -125,3 +125,13 @@ A-004 preparation, preserving its formal dependencies and downstream A-009 gates
 
 A-004/A-009, shared F-004/F-014, answer generation, deployment and final evaluation
 are not completed by this offline adapter checkpoint.
+
+## Subsequent approved preparation, 2026-11-16
+
+The [bounded trial package](assessment-trial.md) adds a separate, disabled-by-default
+public-only execution path, durable reservations and actual free input counting.
+The original OfflineLunaAssessor still requires MockTransport and cannot use a real
+key. The new proposal remains unapproved for generation. Its 23 new checks and the
+full 463-test service suite passed; three free input-count requests measured 9,508
+input tokens and made zero generation calls. This later preparation does not
+retroactively turn the offline checkpoint into live semantic evaluation.

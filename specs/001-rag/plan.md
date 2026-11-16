@@ -80,6 +80,19 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Bounded assessment trial preparation (2026-11-16)**: Nemanja approved preparing
+the disabled-by-default public trial and cost estimate, without paid execution.
+The [package](../../docs/rag/assessment-trial.md) adds a fingerprinted three-case
+proposal, separate activation/approval/budget gates, provider input counting,
+durable maximum-output reservations, cache integrity and fail-stop/no-retry state.
+All 23 new checks and the full 463-test suite passed. Three explicitly requested
+free counting calls measured 9,508 input tokens; the maximum configured output
+estimate is USD 0.0040228 at the documented standard rates. The proposed USD 0.02
+allowance, 20,000-input/2,048-output limits, reasoning=none and 30-second timeout
+remain pending a separate execution decision. The proposal still says
+execution_approved=false. No generation, new embeddings, canonical wire activation
+or A-004/A-009/shared-gate completion is claimed.
+
 **Approved offline Luna adapter (2026-11-16)**: Nemanja explicitly approved
 the model adapter and assessment prompt with local tests only. The
 [checkpoint](../../docs/rag/luna-assessor.md) adds versioned strict request
