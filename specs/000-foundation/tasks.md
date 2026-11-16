@@ -116,6 +116,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Acceptance**: All three stubs expose health with explicit mode=mock and valid errors for timeout/rate/outage/validation; no model downloads or paid calls.
   - **Verify**: `uv run --directory scripts/project python check_health.py --mode mock`.
   - **Coverage**: FR-010, FR-011.
+  - **Scoped B progress (2026-11-16)**: [Implementation and limits](../../docs/platform/f-011-health-verification-plan.md): the B-owned checker and 31 self-tests are implemented. The 210-case inventory contains 198 actual HTTP probes (148 passed; 50 C missing-health-route outcomes) and 12 owner-blocked/unexercised cases. All 10 service processes stopped and ports closed. The default checker correctly returns 1/incomplete; T007 remains unchecked. No A/C/D source, frozen contract, dependency or owner test count was changed. Owner health/failure seams and the agreed full runtime matrix must be completed before shared F-011 closure.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 ## Phase 4: User Story 2

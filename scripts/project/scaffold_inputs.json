@@ -565,7 +565,7 @@
     "specs/000-foundation/quickstart.md": "537cf23f2994c0c4d34388e75dad35eeb14299219d3437638c860b41abc651e2",
     "specs/000-foundation/research.md": "1051b0c853b15aac1c18ff5c0be477ec5b8c36ec896afb81690bb3f538d29c15",
     "specs/000-foundation/spec.md": "4875678fbbd509e4b5fb3a0a57d0dfd29e257eec160d5d4b670ad5bc6e2379e3",
-    "specs/000-foundation/tasks.md": "efcd186f01adb193071bed84220831d0969e3d9deb72f0926fb227c0fde0febc",
+    "specs/000-foundation/tasks.md": "ac376bbb37bb5dddf2b90acb0409490eba44a4b85a3945ab4640cdf0099f7e54",
     "specs/001-rag/AGENTS.md": "d794076b0dc3c295854abbbd93e7310a48a283acef311e4876f368d85a2f410a",
     "specs/001-rag/checklists/requirements.md": "e00f8f47235ef016d8b8f365b36630b22b76c21ca4b12a55f514921a729ad6a3",
     "specs/001-rag/contracts/README.md": "0fcaffebb6896859a86669f599fd66a7c91cfd263213c935242c7ff8c54ce503",
@@ -619,7 +619,9 @@
     "apps/web/tests/canonical-text.test.ts",
     "apps/web/tests/helpers/unicode-reference.ts",
     "apps/web/tests/fixtures/unicode-vectors.json",
-    "apps/web/tests/tsconfig.unicode.json"
+    "apps/web/tests/tsconfig.unicode.json",
+    "scripts/project/check_health.py",
+    "scripts/project/tests/test_health.py"
   ],
   "http_cases": [
     "rag-retrieve-sufficient",
@@ -695,6 +697,21 @@
         "before": "9385074763f5863ac02011aa7283ea7a3c739dde008d36b8f7015233c584cd6f",
         "after": "efcd186f01adb193071bed84220831d0969e3d9deb72f0926fb227c0fde0febc"
       }
+    },
+    {
+      "date": "2026-11-16",
+      "task": "F-011 B-owned checker",
+      "implementation_base_commit": "8a20f2c9b2128605d1863c9a722978657976cd91",
+      "reason": "User-approved mock health checker; owner services unchanged; full F-011 remains incomplete pending owner capabilities",
+      "added_source_sha256": {
+        "scripts/project/check_health.py": "fbb202671c92d03b62334c0e538fd9f192d09897035250a349eb379350a8476f",
+        "scripts/project/tests/test_health.py": "ec669e80da3df29ea4a2e695ce0cdbc28e2e532573ebc23db5af9cd168578652"
+      },
+      "task_document_hash": {
+        "before": "efcd186f01adb193071bed84220831d0969e3d9deb72f0926fb227c0fde0febc",
+        "after": "ac376bbb37bb5dddf2b90acb0409490eba44a4b85a3945ab4640cdf0099f7e54"
+      },
+      "shared_gate_status": "incomplete; T007/F-014 remain pending"
     }
   ]
 }
