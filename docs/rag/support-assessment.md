@@ -125,3 +125,13 @@ specs/001-rag with nonpersistent feature selection. requirements.md had sixteen
 checked and zero unchecked entries. No extension hooks existed. The scope was
 only this independent local preparation, preserving A-004/A-009 and F-004/F-014
 completion gates. No other owner's implementation or shared schema was edited.
+
+## Subsequent approved adapter checkpoint, 2026-11-16
+
+The user approved preparing the GPT-6 Luna connection and assessment prompt
+with local tests only. The [offline SDK adapter](luna-assessor.md) now supplies
+versioned structured request preparation and strict response handling through
+mandatory MockTransport. All 43 new checks and the full 440-test suite passed;
+the packaged prompt loaded directly from an offline-built wheel. No real key,
+provider call, live switch, semantic quality result or canonical state mapping
+was introduced. The caller still supplies the declared requested parts.

@@ -80,6 +80,17 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Approved offline Luna adapter (2026-11-16)**: Nemanja explicitly approved
+the model adapter and assessment prompt with local tests only. The
+[checkpoint](../../docs/rag/luna-assessor.md) adds versioned strict request
+preparation, actual Responses SDK wiring through mandatory MockTransport,
+native JSON/usage/completion/refusal validation and the existing support processor.
+All 43 new checks and the full 440-test suite passed. The wheel contains the prompt
+and loads it by resource path. There is no real-key loading, live switch, provider
+call, new spending allowance or automatic semantic-quality claim. Caller-supplied
+question parts, actual model calibration, A/B partial wire interpretation and all
+shared completion gates remain open; A-004/A-009 remain incomplete.
+
 **Owner-local support processor (2026-11-16)**: Nemanja requested continuation
 at evidence assessment. A's pure local processor now validates supplied requested-
 part judgments, exact passage quotes and request/candidate/part fingerprints,
