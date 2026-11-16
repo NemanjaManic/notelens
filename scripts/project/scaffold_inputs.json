@@ -565,7 +565,7 @@
     "specs/000-foundation/quickstart.md": "537cf23f2994c0c4d34388e75dad35eeb14299219d3437638c860b41abc651e2",
     "specs/000-foundation/research.md": "1051b0c853b15aac1c18ff5c0be477ec5b8c36ec896afb81690bb3f538d29c15",
     "specs/000-foundation/spec.md": "4875678fbbd509e4b5fb3a0a57d0dfd29e257eec160d5d4b670ad5bc6e2379e3",
-    "specs/000-foundation/tasks.md": "9385074763f5863ac02011aa7283ea7a3c739dde008d36b8f7015233c584cd6f",
+    "specs/000-foundation/tasks.md": "efcd186f01adb193071bed84220831d0969e3d9deb72f0926fb227c0fde0febc",
     "specs/001-rag/AGENTS.md": "d794076b0dc3c295854abbbd93e7310a48a283acef311e4876f368d85a2f410a",
     "specs/001-rag/checklists/requirements.md": "e00f8f47235ef016d8b8f365b36630b22b76c21ca4b12a55f514921a729ad6a3",
     "specs/001-rag/contracts/README.md": "0fcaffebb6896859a86669f599fd66a7c91cfd263213c935242c7ff8c54ce503",
@@ -614,7 +614,12 @@
     "scripts/project/run_scaffold_checks.py",
     "scripts/project/scaffold_http.mjs",
     "scripts/project/scaffold_guard/sitecustomize.py",
-    "docs/platform/f004-candidate-runbook.md"
+    "docs/platform/f004-candidate-runbook.md",
+    "scripts/project/check_unicode.py",
+    "apps/web/tests/canonical-text.test.ts",
+    "apps/web/tests/helpers/unicode-reference.ts",
+    "apps/web/tests/fixtures/unicode-vectors.json",
+    "apps/web/tests/tsconfig.unicode.json"
   ],
   "http_cases": [
     "rag-retrieve-sufficient",
@@ -671,6 +676,25 @@
         "docs/team/f-004-technical-completion.md",
         "docs/platform/f-012-unicode-verification-plan.md"
       ]
+    }
+  ],
+  "b_verification_updates": [
+    {
+      "date": "2026-11-16",
+      "task": "F-012",
+      "implementation_base_commit": "f4173b87d304eb36b9d016c5685484ad9539c1e6",
+      "reason": "User-approved B-owned Unicode fixture verification; frozen contracts, owner sources and dependency locks unchanged",
+      "added_source_sha256": {
+        "scripts/project/check_unicode.py": "f26ebef094d142388ba47e19553e1af289b5cb5d61a2e4215a3d65a31908de1c",
+        "apps/web/tests/canonical-text.test.ts": "25527d44955f82a48769a54df5c1e012ddbd596cf204eb5f5000abc2401a53bd",
+        "apps/web/tests/helpers/unicode-reference.ts": "e46e06e439d222328b2909727574dfb715b5335078976019f3c3e24bb333e1a3",
+        "apps/web/tests/fixtures/unicode-vectors.json": "42d83a9ec0064f5a501d4a1814b2754ae41347c6aa4bd0f5fbe060e65a66d8f5",
+        "apps/web/tests/tsconfig.unicode.json": "dcee0cce441721d624925fcd1cf1f8a8427059ca4375a34d3646c23b34d0050a"
+      },
+      "task_document_hash": {
+        "before": "9385074763f5863ac02011aa7283ea7a3c739dde008d36b8f7015233c584cd6f",
+        "after": "efcd186f01adb193071bed84220831d0969e3d9deb72f0926fb227c0fde0febc"
+      }
     }
   ]
 }

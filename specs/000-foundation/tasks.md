@@ -124,13 +124,13 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T008 [US2] F-012: Verify cross-language canonicalization and evidence examples in `contracts/v1/**`, `contracts/generated/**`, `apps/web/tests/canonical-text.test.ts`, `scripts/project/check_unicode.py`
+- [x] T008 [US2] F-012: Verify cross-language canonicalization and evidence examples in `contracts/v1/**`, `contracts/generated/**`, `apps/web/tests/canonical-text.test.ts`, `scripts/project/check_unicode.py`
   - **Owner / story**: B / US2.
   - **Dependencies**: 000-foundation/T006 (F-004); 000-foundation/T003 (F-008)
   - **Acceptance**: Executable Python/TypeScript examples cover exact UTF-8 hash, [start,end) code points, emoji and second repeated passage; invalid UTF-16 offsets fail.
   - **Verify**: `uv run --directory scripts/project python check_unicode.py`.
   - **Coverage**: FR-005, FR-006, FR-007, SC-003.
-  - **Scoped preparation (2026-11-16)**: [B-owned F-012 plan](../../docs/platform/f-012-unicode-verification-plan.md) supplements this task with frozen-contract read-only inputs, exact proposed owned paths and verification gates. Planning is authorized; F-012 implementation remains unstarted and this task stays unchecked.
+  - **Technical completion (2026-11-16)**: [B-owned F-012 execution record](../../docs/platform/f-012-unicode-verification-plan.md) records the separately user-authorized implementation: 54/54 independently calculated Python/TypeScript cases agree; the Node suite and test-only TypeScript check pass; invocation from a separate working directory passes. Three wrong-expectation probes and a real cross-runtime disagreement fail as required. The coordinator checks current generated-source Python origin, local TypeScript workspace resolution and unchanged frozen inputs; reports remain in ignored `.cache/review/f012-unicode/`. No contract/owner/dependency edit, production preparation/highlighting, service/provider call or F-014 completion is implied.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T009 [US2] F-005: Create local startup and the English mock input-to-answer smoke path in `scripts/project/start_mock.py`, `scripts/project/smoke_mock.py`, `apps/web/**`
