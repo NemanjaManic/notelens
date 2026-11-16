@@ -35,3 +35,12 @@ IDs. D should use those frozen manifests for assignments, not the current nonemp
 inspection subset, which still contains known conflicting duplicate groups. Before model
 selection, C must receive only development annotation assignments. Team/human review and
 substantive quality thresholds remain pending.
+
+
+## Shared candidate review update (2026-11-15)
+
+The [F-004 review report](member-c-f004-review.md) records checks against shared
+commit `8282a739727f3c696be8b63d5c1c13ea13ae81fc`. Python 3.13.7 is now installed;
+after earlier timeouts, the complete coordinated runner and its checker passed.
+C-009 remains open. The proposal above is retained as historical context; frozen
+v1.0.0 contracts govern current behavior.

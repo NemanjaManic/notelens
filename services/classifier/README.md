@@ -103,8 +103,9 @@ them local. This is not authorization to expose this scaffold publicly.
   loopback Uvicorn HTTP smoke with process cleanup.
 - Installed Python bindings passed **153/153 payload outcomes and 22/22 simulated
   exchanges**, all 29 type exports, native-number and strict JSON negatives.
-- One test-library warning remains: Starlette deprecates its HTTPX TestClient backend
-  in favor of HTTPX2. Current pinned tests pass; no warning was suppressed.
+- Test dependencies include HTTPX2 for Starlette's TestClient. HTTPX remains pinned
+  for the separate asynchronous privacy test. With the updated lock, all 51 tests
+  passed on Python 3.11.9 and 3.13.7 with Starlette deprecation warnings treated as errors.
 - The socket smoke checks process startup, real POST responses and test-process
   termination. It does not establish B's coordinated graceful startup/shutdown.
 
