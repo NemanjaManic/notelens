@@ -1,6 +1,6 @@
 # Implementation Plan: Python RAG
 
-**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-15 | **Spec**: [spec.md](spec.md)
+**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-16 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/001-rag/spec.md`.
 **Owner**: A. **Status**: Draft local design and executable backlog proposal.
@@ -79,6 +79,18 @@ self-queries passed. No source change or extra generation was made. See the
 embedding/index increment, not A-003's formal shared prerequisites or A-004 retrieval.
 
 ## Summary
+
+**Owner-local support processor (2026-11-16)**: Nemanja requested continuation
+at evidence assessment. A's pure local processor now validates supplied requested-
+part judgments, exact passage quotes and request/candidate/part fingerprints,
+deriving internal full/partial/none coverage without providing semantic judgments
+or canonical wire-state mapping. All 39 new checks and the full 397-test suite
+passed. Replaying ten prior agent review records preserved their 8/1/1 outcomes
+without new embedding/generation calls; this is not independent semantic evaluation.
+Nemanja selected GPT-6 Luna; the official identifier gpt-6-luna was confirmed by
+documentation and one read-only account lookup. No generation, budget, assessor
+parameters, partial wire interpretation or shared completion gates were activated.
+See [processor behavior and limits](../../docs/rag/support-assessment.md).
 
 **Answer support policy proposal (2026-11-15)**: Nemanja approved preparing the
 next behavior proposal without paid calls. The [proposal](../../docs/rag/answer-support-policy.md)

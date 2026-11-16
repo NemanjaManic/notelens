@@ -162,3 +162,14 @@ probes produced their expected validator outcomes. Rule acceptance, automatic
 semantic assessment and the binary retrieval gate's meaning for partial literature
 generation remain explicit decisions. This documentation activates no policy,
 model or live route and does not change the existing ranking output.
+
+## Local assessment processor, 2026-11-16
+
+The [support processor](support-assessment.md) now validates externally supplied
+per-part judgments and exact evidence against a fingerprint of the request,
+candidates and declared requested parts. It derives internal full/partial/none
+coverage without treating scores or quote existence as semantic proof. All 39
+new checks and the 397-test full service suite passed. A replay of prior agent
+records is labeled as replay, not automatic semantic evaluation. GPT-6 Luna was
+selected and found visible in a read-only model lookup; no generation occurred.
+The original candidate output, HTTP mock and shared retrieval gate are unchanged.

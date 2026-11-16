@@ -2,7 +2,8 @@
 
 Owner: Nemanja (A). Author: Codex coding agent for Nemanja (A).
 Date: 2026-11-15. Proposal: rag-answer-support-policy-proposal-v1.
-Status: proposed behavior; implementation and policy acceptance pending.
+Status: proposed behavior; local validation processor implemented, semantic
+assessment/activation and policy acceptance pending.
 
 Nemanja approved preparing this proposal. That approval does not mean that its
 rules, unresolved interface interpretation, semantic assessor, thresholds or
@@ -176,3 +177,17 @@ remains historical evidence and was not rerun for this documentation-only change
 | Binary retrieval gate interpretation for partial literature answers | Still unresolved; affected A/B confirmation required before activation |
 | Semantic assessor, development thresholds and model budget | Still unresolved; no selection or activation claimed |
 | Agent compatibility review | Completed: six expected accept/reject outcomes; not human/team approval |
+
+## Owner-local continuation, 2026-11-16
+
+Nemanja requested continuation at evidence assessment and named GPT-6 Luna as
+the tutor's generative model. The exact gpt-6-luna identifier was checked in the
+official documentation and a read-only account model lookup; no generation ran.
+This later model selection supersedes the model-unselected part of the earlier
+decision record, not its unsettled assessor, budget or activation decisions.
+
+The independent [local processor](support-assessment.md) now validates supplied
+per-part judgments and exact quotes, binds them to the inputs and derives full,
+partial or none coverage. It does not supply semantic judgments or map them onto
+the binary shared retrieval gate. The core remains a local preparation increment,
+not acceptance or activation of all AS rules or completion of A-004/A-009.
