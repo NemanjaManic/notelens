@@ -1,8 +1,12 @@
 {
   "format_version": "public-luna-assessment-trial-v1",
   "prepared_on": "2026-11-16",
-  "execution_approved": false,
-  "approval": null,
+  "execution_approved": true,
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-17",
+    "scope_sha256": "d2b584c6078ff29c76a5be7c0f212de0c4dd26f6c796d1f76ead1fffc432ca5a"
+  },
   "public_english_only": true,
   "model": "gpt-6-luna",
   "question_ids": [

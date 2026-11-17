@@ -20,6 +20,9 @@ from notelens_rag.assessment_trial import (
 def trial():
     root = Path(__file__).resolve().parents[3]
     plan = json.loads((root/'docs/rag/assessment-trial-proposal.json').read_text())
+    # Tests control approval independently of the real owner's execution record.
+    plan['execution_approved'] = False
+    plan['approval'] = None
     cases = {}
     for identifier in plan['question_ids']:
         question = f'What does the public synthetic example {identifier} say?'
