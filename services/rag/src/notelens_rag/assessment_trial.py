@@ -16,6 +16,7 @@ import openai
 
 from .assessor import (MODEL, AssessmentError, AssessmentParameters, _require, _strict_json,
     assessment_count_request, assessment_request, checked_assessment_response, prepare_assessment)
+from .diagnostics import safe_diagnostic
 from .embeddings import SERVICE_ROOT, identity
 from .indexing import IndexBuildError, atomic_json, exclusive_build, read_json
 from .ingestion import load_corpus, owned_file, repository_directory
@@ -314,7 +315,9 @@ class PublicAssessmentTrial:
             ledger['confirmed_usd'] = str(_money(ledger['confirmed_usd'])+charge)
             atomic_json(path, ledger)
             return {**value, 'cache_hit': False}
-        except BaseException:
+        except BaseException as failure:
+            if isinstance(failure, AssessmentError):
+                attempt['diagnostic'] = safe_diagnostic(failure)
             attempt['status'] = 'failed';ledger['halted'] = True
             atomic_json(path, ledger)
             raise
@@ -350,7 +353,8 @@ def main():
             print(json.dumps(session.preflight(), indent=2))
         return 0
     except AssessmentError as error:
-        print(json.dumps({'status': 'error', 'code': error.code, 'message': str(error)}), file=sys.stderr)
+        print(json.dumps({'status': 'error', 'code': error.code, 'message': str(error),
+                          'diagnostic': safe_diagnostic(error)}), file=sys.stderr)
         return 1
     except Exception:
         print(json.dumps({'status': 'error', 'code': 'trial_failed',

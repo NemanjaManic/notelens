@@ -9,6 +9,7 @@ import math
 import httpx2 as httpx
 import openai
 
+from .diagnostics import ValidationDiagnostic, safe_diagnostic
 from .support import SupportDecision, SupportError, evaluate_support, support_context_sha256
 
 
@@ -19,36 +20,46 @@ PROMPT_VERSION = 'literature-support-assessment-v1'
 class AssessmentError(ValueError):
     """A fixed diagnostic; never expose provider, question or passage bodies."""
 
-    def __init__(self, code='invalid_assessment'):
+    def __init__(self, code='invalid_assessment', *, diagnostic=None):
         self.code = code
+        self.diagnostic = (diagnostic if type(diagnostic) is ValidationDiagnostic else ValidationDiagnostic())
         super().__init__('The literature support assessment could not be completed safely.')
 
 
-def _require(condition, code='invalid_assessment'):
+def _require(condition, code='invalid_assessment', *, stage='validation', rule='validation_failed', path='/'):
     if not condition:
-        raise AssessmentError(code)
+        raise AssessmentError(code, diagnostic=ValidationDiagnostic(stage=stage, rule=rule, path=path))
 
 
 def _json(value):
     return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False)
 
 
-def _strict_json(value):
+class _InvalidJSON(ValueError):
+    def __init__(self, rule):
+        self.rule = rule
+
+
+def _strict_json(value, *, stage='response', path='/'):
     def pairs(items):
         result = {}
         for key, child in items:
             if key in result:
-                raise ValueError('Duplicate JSON key.')
+                raise _InvalidJSON('json_duplicate_key')
             result[key] = child
         return result
     def reject_constant(value):
-        raise ValueError('Non-finite JSON number.')
+        raise _InvalidJSON('json_nonfinite')
     try:
         if isinstance(value, bytes):
             value = value.decode('utf-8', errors='strict')
         return json.loads(value, object_pairs_hook=pairs, parse_constant=reject_constant)
+    except _InvalidJSON as error:
+        raise AssessmentError('invalid_upstream', diagnostic=ValidationDiagnostic(
+            stage=stage, rule=error.rule, path=path)) from None
     except (TypeError, ValueError, UnicodeError, RecursionError):
-        raise AssessmentError('invalid_upstream') from None
+        raise AssessmentError('invalid_upstream', diagnostic=ValidationDiagnostic(
+            stage=stage, rule='json_invalid', path=path)) from None
 
 
 def _object(properties):
@@ -101,7 +112,11 @@ def prepare_assessment(request, candidates, requirements):
         snapshot = _strict_json(inputs_json)
         request, candidates, requirements = (snapshot[key] for key in ('request', 'candidates', 'requirements'))
         digest = support_context_sha256(request, candidates, requirements)
-    except (SupportError, TypeError, ValueError, UnicodeError, RecursionError):
+    except SupportError as error:
+        value = safe_diagnostic(error)
+        raise AssessmentError('support_context_invalid', diagnostic=ValidationDiagnostic(
+            stage=value['stage'], rule=value['rule'], path=value['path'])) from None
+    except (TypeError, ValueError, UnicodeError, RecursionError):
         raise AssessmentError('support_context_invalid') from None
     _require(bool(candidates['passages']), 'no_candidates')
     try:
@@ -125,42 +140,61 @@ def prepare_assessment(request, candidates, requirements):
 
 def checked_assessment_response(raw_bytes, prepared, parameters, *, mode='mock'):
     _require(mode in ('mock', 'live'), 'configuration_required')
-    response = _strict_json(raw_bytes)
+    response = _strict_json(raw_bytes, stage='response', path='/response')
     _require(isinstance(response, dict) and response.get('object') == 'response'
-             and response.get('model') == MODEL, 'invalid_upstream')
+             and response.get('model') == MODEL, 'invalid_upstream',
+             stage='response', rule='response_identity', path='/response')
     _require(response.get('status') == 'completed' and response.get('error') is None
-             and response.get('incomplete_details') is None, 'assessment_incomplete')
+             and response.get('incomplete_details') is None, 'assessment_incomplete',
+             stage='response', rule='response_incomplete', path='/response/status')
     output = response.get('output')
-    _require(isinstance(output, list) and bool(output), 'invalid_upstream')
+    _require(isinstance(output, list) and bool(output), 'invalid_upstream',
+             stage='response', rule='response_output', path='/response/output')
     texts = []
-    for item in output:
-        _require(isinstance(item, dict), 'invalid_upstream')
+    for index, item in enumerate(output):
+        location = f'/response/output/{index}'
+        _require(isinstance(item, dict), 'invalid_upstream', stage='response', rule='response_item', path=location)
         if item.get('type') == 'reasoning':
             continue
         _require(item.get('type') == 'message' and item.get('role') == 'assistant'
-                 and item.get('status') == 'completed', 'invalid_upstream')
+                 and item.get('status') == 'completed', 'invalid_upstream',
+                 stage='response', rule='response_item', path=location)
         content = item.get('content')
         _require(isinstance(content, list) and len(content) == 1
-                 and isinstance(content[0], dict), 'invalid_upstream')
-        _require(content[0].get('type') != 'refusal', 'assessment_refused')
+                 and isinstance(content[0], dict), 'invalid_upstream',
+                 stage='response', rule='response_content', path=location+'/content')
+        _require(content[0].get('type') != 'refusal', 'assessment_refused',
+                 stage='response', rule='response_refusal', path=location+'/content/0')
         _require(content[0].get('type') == 'output_text' and isinstance(content[0].get('text'), str),
-                 'invalid_upstream')
+                 'invalid_upstream', stage='response', rule='response_text', path=location+'/content/0/text')
         texts.append(content[0]['text'])
-    _require(len(texts) == 1, 'invalid_upstream')
+    _require(len(texts) == 1, 'invalid_upstream',
+             stage='response', rule='response_text_count', path='/response/output')
     usage = response.get('usage')
     _require(isinstance(usage, dict) and all(type(usage.get(key)) is int and usage[key] >= 0
-                 for key in ('input_tokens', 'output_tokens', 'total_tokens')), 'invalid_upstream')
-    _require(usage['total_tokens'] == usage['input_tokens'] + usage['output_tokens']
-             and usage['output_tokens'] <= parameters.max_output_tokens, 'invalid_upstream')
-    result = _strict_json(texts[0])
-    _require(isinstance(result, dict) and set(result) == {'requirements_cover_question', 'assessment'})
-    _require(type(result['requirements_cover_question']) is bool)
-    _require(result['requirements_cover_question'], 'requirements_incomplete')
+                 for key in ('input_tokens', 'output_tokens', 'total_tokens')), 'invalid_upstream',
+             stage='response', rule='usage_shape', path='/response/usage')
+    _require(usage['total_tokens'] == usage['input_tokens'] + usage['output_tokens'], 'invalid_upstream',
+             stage='response', rule='usage_total', path='/response/usage/total_tokens')
+    _require(usage['output_tokens'] <= parameters.max_output_tokens, 'invalid_upstream',
+             stage='response', rule='usage_limit', path='/response/usage/output_tokens')
+    result = _strict_json(texts[0], stage='assessment')
+    _require(isinstance(result, dict) and set(result) == {'requirements_cover_question', 'assessment'},
+             stage='assessment', rule='model_output_shape')
+    _require(type(result['requirements_cover_question']) is bool,
+             stage='assessment', rule='coverage_flag_type', path='/requirements_cover_question')
+    _require(result['requirements_cover_question'], 'requirements_incomplete',
+             stage='assessment', rule='requirements_incomplete', path='/requirements_cover_question')
     inputs = _strict_json(prepared.inputs_json)
     try:
         decision = evaluate_support(inputs['request'], inputs['candidates'], inputs['requirements'], result['assessment'])
-    except SupportError:
-        raise AssessmentError('invalid_assessment') from None
+    except SupportError as error:
+        value = safe_diagnostic(error)
+        path = value['path']
+        if value['stage'] == 'assessment':
+            path = '/assessment' + (path if path != '/' else '')
+        raise AssessmentError('invalid_assessment', diagnostic=ValidationDiagnostic(
+            stage=value['stage'], rule=value['rule'], path=path)) from None
     configuration = {'adapter': 'offline-luna-responses-v1' if mode == 'mock' else 'bounded-luna-responses-v1',
         'mode': mode, 'model': MODEL,
         'prompt_version': PROMPT_VERSION, 'prompt_sha256': prepared.prompt_sha256,
