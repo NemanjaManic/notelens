@@ -25,12 +25,15 @@ Educational demo. Not a doctor. Do not submit real personal medical reports.
 
 The 2026-11-17 [safe diagnostics increment](../../docs/rag/assessment-trial.md#safe-validation-diagnostics-2026-11-17)
 locates rejected model output by rule and numeric field path without retaining raw
-responses. All 506 local tests passed; no new provider requests were made. The
-earlier trial remains halted, its original cause unknown and retry unapproved.
+responses. At that checkpoint, all 506 local tests passed without new provider
+requests. The original trial remains halted and its original cause is unknown.
 
-The [single CQ-01 retry preparation](../../docs/rag/assessment-retry.md) now preserves
-the original reservation under the cumulative allowance and requires fresh approval.
-All 539 local tests pass; its default inspection is key-free and execution remains off.
+The [single CQ-01 retry](../../docs/rag/assessment-retry.md) was separately approved
+and attempted on 2026-11-17 after all 539 offline tests passed again. Its response
+failed exact-quote validation (quote_mismatch). The retry is halted, the cumulative
+reference-price reservation is USD 0.0027622 and the activation flag is false.
+See [actual results](../../docs/rag/assessment-retry-results.json). No further
+attempt or prompt/schema change is approved; default inspection remains key-free.
 
 ## Install and verify
 

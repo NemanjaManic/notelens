@@ -80,6 +80,20 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Approved CQ-01 retry halted on exact quote (2026-11-17)**: Nemanja separately
+approved the prepared single-attempt scope. All 539 offline checks passed again
+before one fresh count and one actual generation attempt. The response failed
+with quote_mismatch at /assessment/parts/0/evidence/0/quote; no validated semantic
+decision was produced. The diagnostic does not distinguish incorrect quote text
+from incorrect otherwise valid offsets. The original ledger is unchanged; the
+new halted ledger retains a cumulative USD 0.0027622 reference-price reservation,
+not verified billing. Provider-forbidden guards confirmed both trial paths remain
+blocked without changing either ledger. The actual .env, runtime source, prompt,
+schema and validation predicates are unchanged; the activation flag is false.
+See [actual results](../../docs/rag/assessment-retry-results.json). Further calls
+and a proposed evidence-identifier selection format need separate approval.
+A-004/A-009 and their shared prerequisites remain incomplete.
+
 **Single-question retry preparation (2026-11-17)**: Nemanja approved preparation
 and local checks only. The [CQ-01 retry](../../docs/rag/assessment-retry.md) requires
 fresh scope approval, limits new attempts to one and carries the pinned original
