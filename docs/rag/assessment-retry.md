@@ -140,16 +140,11 @@ activation flag is false. No attempt was repeated. No validated semantic decisio
 clinical-quality metric, literature answer or live HTTP route was produced.
 A-004/A-009 and shared gates remain incomplete.
 
-## Proposed next local package: citation selection
+## Approved local follow-up: citation selection
 
-One candidate improvement is to give the model precomputed canonical evidence
-options with stable identifiers. The model would select evidence identifiers and
-assess support; Python would copy the corresponding exact quote and Unicode
-offsets from its own unchanged source mapping. Unknown evidence identifiers would
-be rejected. This removes both quote reproduction and character-position
-generation from the model while preserving exact canonical evidence validation.
-Semantic support and explicit gaps would still require their existing checks.
-
-This changes the internal assessment prompt/schema and needs a separate local
-change-package approval. It is proposed only; neither implementation nor another
-provider attempt is authorized by the completed execution above.
+Nemanja subsequently approved the local citation-selection change and tests,
+without new provider requests. The [implemented v2 checkpoint](evidence-selection.md)
+offers canonical evidence IDs and lets Python supply exact text/offsets. All 46
+new checks and the full 585-test suite passed. This is a separate internal prompt
+and schema; it does not modify this historical attempt or activate another call.
+Both stopped ledgers remain byte-identical and no further paid attempt is approved.

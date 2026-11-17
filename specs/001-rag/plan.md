@@ -80,6 +80,19 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**V2 evidence selection, local only (2026-11-17)**: Nemanja approved replacing
+model-generated quotes/offsets with offered evidence IDs and Python resolution,
+without provider calls. The [v2 checkpoint](../../docs/rag/evidence-selection.md)
+offers exact nonblank source lines while preserving full passage context, binds
+the catalog/prompt/schema, rejects malformed or unknown selections and feeds
+resolved quotes through the unchanged support processor. All 46 new checks and
+the full 585-test suite passed, plus offline wheel/isolated resolution. All 249
+options for the three public saved inputs matched canonical spans. V1 request
+bytes and both stopped ledgers remain unchanged; no v2 live gateway, new spend
+or shared HTTP behavior is introduced. Input is larger and future token counts
+must be measured under a separately approved trial. Semantic quality remains
+unverified; A-004/A-009 and their actual shared prerequisites remain incomplete.
+
 **Approved CQ-01 retry halted on exact quote (2026-11-17)**: Nemanja separately
 approved the prepared single-attempt scope. All 539 offline checks passed again
 before one fresh count and one actual generation attempt. The response failed

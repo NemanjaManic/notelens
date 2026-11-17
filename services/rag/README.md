@@ -33,7 +33,12 @@ and attempted on 2026-11-17 after all 539 offline tests passed again. Its respon
 failed exact-quote validation (quote_mismatch). The retry is halted, the cumulative
 reference-price reservation is USD 0.0027622 and the activation flag is false.
 See [actual results](../../docs/rag/assessment-retry-results.json). No further
-attempt or prompt/schema change is approved; default inspection remains key-free.
+provider attempt is approved; default inspection remains key-free.
+
+The [v2 evidence-selection increment](../../docs/rag/evidence-selection.md) is now
+checked locally: the model selects offered evidence IDs, and Python supplies exact
+canonical quotes/offsets. All 585 tests pass. Retrieval and mock HTTP routes are
+unchanged; the new prompt has not been run against a real provider.
 
 ## Install and verify
 
