@@ -82,6 +82,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 - [ ] T004 [US1] B-002: Build complete English report panels and exact evidence highlighting in `apps/web/src/components/**`, `apps/web/tests/report-view.test.tsx`
   - **Owner / story**: B / US1.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014); 002-platform/T002 (B-004)
+  - **Approved early-work exception (2026-11-17)**: User authorized the bounded fixture-only UI before full B-004/F-014. See [scope, implementation and limits](../../docs/platform/b-002-fixture-workspace.md). Early verification: `node apps/web/scripts/check-report.mjs` (37 synthetic render/model/evidence cases). No uploads, session transport, service calls or questions are connected. B-002/B-004/F-010/F-011/F-014 remain pending; the original dependencies apply to full acceptance.
   - **Acceptance**: Document, specialty uncertainty, entities/assertion/temporality/subject, summary and sources work from mocks; emoji/repeated spans and all loading/empty/error states are covered.
   - **Verify**: `npm exec --workspace apps/web -- vitest run tests/report-view.test.tsx`.
   - **Coverage**: FR-001, FR-005, FR-006, FR-007, FR-012, FR-013, SC-001, SC-002.

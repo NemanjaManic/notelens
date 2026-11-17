@@ -583,7 +583,7 @@
     "specs/002-platform/quickstart.md": "4861ee863ee0e6be8c8da0596f776c4fa0b557e8294008b284cdfd60ddb29420",
     "specs/002-platform/research.md": "f37eb7e85a95ab929a2999d3dd232511de0ea544353f80bd903655d32c8f588f",
     "specs/002-platform/spec.md": "e35053b69786004b301242daa3c6974471cce93f95a70a775d5f5ea66bf08954",
-    "specs/002-platform/tasks.md": "de848a0b5a64170611ba74b1abefa9e50e90a73e18ad6e02f1d3b0e474e229b3",
+    "specs/002-platform/tasks.md": "334c4cb6e1bf7159501eaa19de6986af4a5530cfc3ed4350f6029f2396b3bc0d",
     "specs/003-classification/AGENTS.md": "74154a8a364ff506dcc8aba97e193d18b86d6a5285c81ef28c42e8216e51f05f",
     "specs/003-classification/checklists/requirements.md": "871f06899d27a3d363b6a75694045171bdd2a35c19ae0d55b380e6e3f297f5a4",
     "specs/003-classification/contracts/README.md": "dfa7926ff67b9b04f8e94db305d07b4c08bd6ee55b991d0e8069011cb60c94fb",
@@ -606,7 +606,9 @@
   "b_editable": [
     "scripts/project/check_scaffold.py",
     "scripts/project/tests/test_scaffold.py",
-    "apps/web/tsconfig.json"
+    "apps/web/tsconfig.json",
+    "apps/web/src/app/page.tsx",
+    "apps/web/src/app/globals.css"
   ],
   "b_additions": [
     "scripts/project/scaffold_inputs.json",
@@ -639,7 +641,13 @@
     "apps/web/src/lib/sessions/memory.ts",
     "apps/web/tests/sessions.test.ts",
     "apps/web/tests/tsconfig.sessions.json",
-    "apps/web/scripts/check-sessions.mjs"
+    "apps/web/scripts/check-sessions.mjs",
+    "apps/web/src/lib/report/evidence.ts",
+    "apps/web/src/lib/report/model.ts",
+    "apps/web/src/components/report-workspace.tsx",
+    "apps/web/tests/report-view.test.tsx",
+    "apps/web/tests/tsconfig.report.json",
+    "apps/web/scripts/check-report.mjs"
   ],
   "http_cases": [
     "rag-retrieve-sufficient",
@@ -823,6 +831,43 @@
         "prior_test_sha256": "171e5077033c0c00244f0d5553f62e3542d4732ca96a557c383427c86ad50c49",
         "reason": "User-approved test corrections within the existing nine-file scope; all four gates remain pending"
       }
+    },
+    {
+      "date": "2026-11-17",
+      "task": "B-002 bounded early fixture workspace",
+      "implementation_base_commit": "e6d070c5c0771dadd135ae6135fd472070d6af22",
+      "reason": "Explicit user-approved execution ahead of full B-004/F-014; fixture-only presentation with all dependencies/gates retained",
+      "added_source_sha256": {
+        "apps/web/src/lib/report/evidence.ts": "ad1d2d09d66e02cf8ad2df75f316ef30f6fe2e9c65adb8161c464c701f8fe5da",
+        "apps/web/src/lib/report/model.ts": "68b08e45f5b63363691eb7a0e108dad84af410ed9ee1485ad1eff8d095729d35",
+        "apps/web/src/components/report-workspace.tsx": "75988bbcd63a1229455c6e3959e2113b7b69c5cf54fcbfad740170435495ab85",
+        "apps/web/tests/report-view.test.tsx": "26c7a8977f9d5a913472bb08b1872f6e43809c98052ccf6b61cd24ad1d8e340a",
+        "apps/web/tests/tsconfig.report.json": "5c8ab5b4708a7ef568fa6a8c102fe22a8be5ca7e015569d1b8ed13b2ca2dd8fc",
+        "apps/web/scripts/check-report.mjs": "ed3821434f7d61dd084f32028be0e1e9d7e490dc5a310cb4178180dba41a1f5b"
+      },
+      "base_document_hashes": {
+        "apps/web/src/app/page.tsx": {
+          "before": "028ceadf2342b624c17b856726ef8c76b4f6ff5f1edeed075453b02777be635a",
+          "after": "bb77a1184a061563b33b3d3db4c1b5f8ca1d37e81fb209e2bf20e4b417ace552"
+        },
+        "apps/web/src/app/globals.css": {
+          "before": "67572998c0040359a4eed0f7e939f8e1c41ff050bc711e3e539b759cc89f53c1",
+          "after": "be3e4f285ab178161cd76c6cf54a5435fb571b000f4985326340ad764394d0ad"
+        },
+        "specs/002-platform/tasks.md": {
+          "before": "de848a0b5a64170611ba74b1abefa9e50e90a73e18ad6e02f1d3b0e474e229b3",
+          "after": "334c4cb6e1bf7159501eaa19de6986af4a5530cfc3ed4350f6029f2396b3bc0d"
+        }
+      },
+      "approved_b_editable_additions": {
+        "paths": [
+          "apps/web/src/app/page.tsx",
+          "apps/web/src/app/globals.css"
+        ],
+        "reason": "User-approved replacement of mock shell by fixture-only report page/styles; original B snapshots and aggregate hash retained"
+      },
+      "report_cases": 37,
+      "shared_gate_status": "B-002/B-004/F-010/F-011/F-014 pending"
     }
   ]
 }
