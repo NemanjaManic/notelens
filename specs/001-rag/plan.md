@@ -80,6 +80,19 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Safe assessment diagnostics (2026-11-17)**: Nemanja approved a local-only
+continuation. Fixed-vocabulary diagnostics now identify failed validator rules
+and field/index paths through the support processor, SDK adapter, CLI and future
+failure ledger entries, without retaining untrusted output. All 43 new checks and
+the full 506-test RAG suite passed. A finite 3,881-case synthetic comparison with
+the preceding validator found identical decisions; offline wheel packaging and
+isolated import passed. Provider-forbidden checks confirmed the original halted
+ledger is byte-identical and all three case IDs remain blocked. No provider calls,
+prompt/schema or acceptance changes, new retry approval or shared HTTP behavior
+are introduced. The old failure cause remains unknown. See the
+[diagnostics evidence](../../docs/rag/assessment-diagnostics-results.json).
+A-004/A-009 and their actual shared prerequisites remain incomplete.
+
 **Approved trial, first attempt halted (2026-11-17)**: Nemanja explicitly approved
 the exact three-question GPT-6 Luna scope up to USD 0.02 with the proposed limits,
 zero retries and stop-on-failure behavior. All 463 offline checks passed again;

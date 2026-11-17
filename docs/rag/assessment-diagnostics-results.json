@@ -1,0 +1,81 @@
+{
+  "record_format_version": "rag-validation-diagnostics-checkpoint-v1",
+  "date": "2026-11-17",
+  "owner": "Nemanja (A)",
+  "reviewer": "Codex agent; not independent team or clinical acceptance",
+  "scope": "User-approved local validation diagnostics and deterministic checks only",
+  "implementation_checkpoint_commit": "08f5045f8f12f9373daccf93566acb167f9ab92d",
+  "diagnostic_format_version": "rag-validation-diagnostic-v1",
+  "diagnostic_fields": ["format_version", "stage", "rule", "path"],
+  "diagnostic_values": "Closed static vocabularies and bounded numeric indices only",
+  "raw_failed_response_retained": false,
+  "original_live_failure_cause": "unknown",
+  "historical_diagnostic_backfilled": false,
+  "environment": {"os": "Windows", "python": "3.13.5"},
+  "checks": {
+    "new_tests_before_implementation": {"failed": 26, "reason": "Diagnostic API was absent"},
+    "focused_initial_regression": {"passed": 131},
+    "final_full_suite": {
+      "command": "services/rag/.venv/Scripts/python.exe -m pytest services/rag/tests --tb=short",
+      "passed": 506,
+      "new_diagnostic_tests": 43,
+      "failed": 0,
+      "seconds": 16.84
+    },
+    "finite_validator_comparison": {
+      "baseline_commit": "612a50714208a57b5f53bc8f79d0a7f380a34d4e",
+      "synthetic_cases": 3881,
+      "accepted_identically": 1591,
+      "rejected_identically": 2290,
+      "mismatches": 0,
+      "limitation": "Finite synthetic inputs only; not a proof over all possible inputs"
+    },
+    "offline_wheel_build": "passed",
+    "isolated_wheel_diagnostics_import": "passed",
+    "wheel_credentials_and_cache_excluded": true,
+    "prepared_request_bytes_unchanged_for_cases": ["CQ-01", "CQ-02", "CQ-08"],
+    "documentation_local_links_checked": 79,
+    "changed_paths_within_owner_scope": true,
+    "original_trial_report_and_proposal_unchanged": true,
+    "git_diff_check": "passed",
+    "spec_kit": {
+      "workflow": "speckit-implement, scoped owner-local continuation",
+      "feature": "specs/001-rag",
+      "selection_persisted": false,
+      "resolver": ".specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks",
+      "requirements_checklist": {"checked": 16, "unchecked": 0},
+      "extension_hooks": "No .specify/extensions.yml present",
+      "task_checkboxes_changed": false
+    }
+  },
+  "preserved_live_state": {
+    "scope_sha256": "d2b584c6078ff29c76a5be7c0f212de0c4dd26f6c796d1f76ead1fffc432ca5a",
+    "ledger_sha256": "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+    "ledger_byte_identical": true,
+    "halted": true,
+    "failed_attempts": 1,
+    "reserved_reference_usd": "0.0013811",
+    "actual_billing": "unverified",
+    "provider_forbidden_guard_blocked_cases": ["CQ-01", "CQ-02", "CQ-08"],
+    "provider_creations": 0,
+    "new_provider_requests": 0,
+    "new_input_count_requests": 0,
+    "assessment_activation_enabled": false,
+    "retry_or_resume_approved": false
+  },
+  "unchanged_behavior": {
+    "prompt_sha256": "137114b199d46e2698db8941345482342dbc41414254f6c430947f94b3d1a10f",
+    "structured_output_schema_changed": false,
+    "validation_acceptance_predicates_changed": false,
+    "budget_or_attempt_limits_changed": false,
+    "shared_contracts_changed": false,
+    "mock_http_routes_changed": false,
+    "actual_env_edited": false
+  },
+  "remaining_gates": [
+    "Original live validation failure is not retrospectively diagnosable",
+    "A new paid retry/resume needs explicit approval and preserved accounting",
+    "Semantic assessment quality and A/B partial-literature wire interpretation remain open",
+    "A-004/A-009, shared foundation prerequisites and final integration remain incomplete"
+  ]
+}

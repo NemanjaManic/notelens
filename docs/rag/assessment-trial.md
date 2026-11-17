@@ -178,6 +178,54 @@ called and the ledger hash stayed unchanged. The real activation flag is false
 again; the approval record and reservation remain intact. Runtime source and the
 prompt were not changed for this run. No attempt was repeated or continued.
 
-The next proposed package is finer safe validation diagnostics with local tests,
-without weakening quote/offset requirements or making another model call. Any
-later paid retry/resume needs a separate explicit decision and preserved accounting.
+## Safe validation diagnostics, 2026-11-17
+
+Nemanja approved this separate local diagnostics package after the halted run.
+It is implemented in code checkpoint `08f5045f8f12f9373daccf93566acb167f9ab92d`.
+Validation errors now carry a versioned stage, rule and field/index path. For
+example, this synthetic failure describes an inexact quote:
+
+```json
+{
+  "format_version": "rag-validation-diagnostic-v1",
+  "stage": "assessment",
+  "rule": "quote_mismatch",
+  "path": "/assessment/parts/0/evidence/0/quote"
+}
+```
+
+Indices are zero-based: this example locates the first evidence item in the first
+requested part. Other rules distinguish malformed shapes, missing/duplicate parts,
+unknown source references, invalid offset types/bounds, empty reasons, duplicate
+evidence, stale context bindings, incomplete/refused upstream output and invalid
+usage/JSON. A rule identifies the failed validator condition; some conditions check
+a group of fields. It does not establish semantic or clinical correctness.
+
+Only closed vocabularies of stages, rules and field names, plus bounded numeric
+indices, are serialized. Unknown diagnostic metadata becomes validation_failed at
+the root. Untrusted JSON keys, requirement/source IDs, question text, reasons,
+quotes, provider details, raw responses and credentials are excluded. The CLI adds
+this diagnostic to its existing safe error output. Newly failed trial attempts
+also retain the safe metadata in their ignored ledger; old ledgers without it
+remain readable. This is internal CLI metadata, not a change to shared HTTP
+contracts or canonical ErrorEnvelope behavior.
+
+All 43 added tests and the full 506-test RAG suite passed locally on
+Windows/Python 3.13.5. A separate finite comparison against pre-diagnostics commit
+612a50714208a57b5f53bc8f79d0a7f380a34d4e checked 3,881 synthetic inputs, including
+non-BMP/repeated-text slices: 1,591 were accepted identically, 2,290 rejected
+identically, and none differed. This is finite regression evidence, not a proof
+over all inputs. An offline wheel build and isolated import verified packaged
+diagnostics and the unchanged prompt. See [verification record](assessment-diagnostics-results.json).
+
+The provider-forbidden guard check still blocked CQ-01/CQ-02/CQ-08 without
+creating a client. The original ledger retained its exact hash, one failed attempt
+and reservation; it was not backfilled with a guessed diagnostic. No provider
+requests, including free input counting, were made for this package. The actual
+assessment activation flag remains false. Prompt, structured-output schema,
+acceptance predicates, approved scope, budgets, no-retry policy and mock HTTP
+behavior remain unchanged. The original CQ-01 failure cause is still unknown.
+
+Any later paid retry/resume needs a separate explicit decision and preserved
+accounting. Diagnostics alone neither repair the old failure nor complete
+A-004/A-009, semantic evaluation or the shared foundation gates.

@@ -23,6 +23,11 @@ The HTTP routes remain mock; question retrieval and generation are later increme
 
 Educational demo. Not a doctor. Do not submit real personal medical reports.
 
+The 2026-11-17 [safe diagnostics increment](../../docs/rag/assessment-trial.md#safe-validation-diagnostics-2026-11-17)
+locates rejected model output by rule and numeric field path without retaining raw
+responses. All 506 local tests passed; no new provider requests were made. The
+earlier trial remains halted, its original cause unknown and retry unapproved.
+
 ## Install and verify
 
 From the repository root in PowerShell, with Python 3.13 already installed:
