@@ -80,6 +80,19 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Single v2 trial preparation (2026-11-17)**: Nemanja approved preparation only.
+The [CQ-01 v2 runner](../../docs/rag/selection-trial.md) binds the exact new request,
+prompt/catalog and both prior ledger anchors, requires fresh approval and admits
+at most one count/generation attempt. It carries the latest inclusive USD 0.0027622
+reservation once under a proposed USD 0.02 cumulative allowance, with a fresh
+20,000-token ceiling check and 2,048-token maximum output. All 38 new checks and
+the full 623-test suite passed, including deterministic halt-write failure blocking;
+offline wheel/isolated inspection passed. An earlier focused old-test transient
+was not reproduced and remains undiagnosed, as recorded in the trial guide.
+Both old ledgers and v1 prepared requests are unchanged; new execution approval
+is false, no key/provider access was made and the new trial directory is absent.
+A-004/A-009, real v2 quality and shared prerequisites remain incomplete.
+
 **V2 evidence selection, local only (2026-11-17)**: Nemanja approved replacing
 model-generated quotes/offsets with offered evidence IDs and Python resolution,
 without provider calls. The [v2 checkpoint](../../docs/rag/evidence-selection.md)

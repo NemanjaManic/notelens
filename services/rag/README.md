@@ -40,6 +40,11 @@ checked locally: the model selects offered evidence IDs, and Python supplies exa
 canonical quotes/offsets. All 585 tests pass. Retrieval and mock HTTP routes are
 unchanged; the new prompt has not been run against a real provider.
 
+The [single v2 trial](../../docs/rag/selection-trial.md) is prepared with fresh
+approval still required. It carries both prior reservations once, pre-counts
+before generation and limits the new scope to one CQ-01 attempt. All 623 local
+tests pass. Default inspection is key-free; no new provider request was made.
+
 ## Install and verify
 
 From the repository root in PowerShell, with Python 3.13 already installed:

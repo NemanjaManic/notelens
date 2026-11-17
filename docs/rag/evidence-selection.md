@@ -71,8 +71,10 @@ V1 remains available to interpret its historical attempts. Its prompt, three
 prepared request payloads and stopped histories are preserved. Common SDK
 envelope/usage validation and mock transport handling were factored for reuse;
 the v2 SDK class still requires MockTransport and uses fixture credentials.
-There is no v2 live client factory, paid CLI action, new allowance or automatic
-migration of the two stopped runners. Both ledger hashes remain unchanged.
+The adapter itself remains MockTransport-only. A separate
+[one-question v2 runner](selection-trial.md) is now prepared with execution
+approval still pending. Neither stopped runner is automatically migrated or
+reopened, and both ledger hashes remain unchanged.
 
 ## Verification and public preparation
 
