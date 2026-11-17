@@ -246,9 +246,15 @@ class PublicAssessmentTrial:
                          'trial_state_invalid')
         return ledger
 
+    def _validate_preparation(self):
+        return _validate_plan(self.plan, self.cases)
+
+    def _checked_response(self, raw_bytes, prepared):
+        return checked_assessment_response(raw_bytes, prepared, self.parameters, mode=self.mode)
+
     def run(self, question_id, *, execute=False, budget_usd=None):
         _require(question_id in self.cases and type(execute) is bool, 'trial_scope_invalid')
-        _validate_plan(self.plan, self.cases)
+        self._validate_preparation()
         # Gate before creating a ledger/client, except for an existing read-only cached result.
         if not (self.folder/'usage.json').exists():
             self._authorize(execute, budget_usd)
@@ -310,7 +316,7 @@ class PublicAssessmentTrial:
                         **assessment_request(prepared, self.parameters), service_tier='default')
             body = _strict_json(raw.http_response.content)
             _require(isinstance(body, dict) and body.get('service_tier') == 'default', 'pricing_mode_mismatch')
-            result = checked_assessment_response(raw.http_response.content, prepared, self.parameters, mode=self.mode)
+            result = self._checked_response(raw.http_response.content, prepared)
             _require(result.input_tokens == tokens, 'input_count_mismatch')
             value = {'scope_sha256': self.scope_sha256, 'question_id': question_id,
                 'context_sha256': prepared.context_sha256, 'result': asdict(result)}

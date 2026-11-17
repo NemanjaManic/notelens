@@ -128,7 +128,9 @@ def test_three_registered_cases_each_have_only_one_attempt(trial):
 def test_failure_halts_later_cases_and_never_retries(trial, failure):
     events=[];session=session_for(trial,events,fail_generation=failure=='generation',
         fail_count=failure=='count',invalid_quote=failure=='quote');approve(session)
-    with pytest.raises(AssessmentError):session.run('CQ-01',execute=True,budget_usd='0.02')
+    with pytest.raises(AssessmentError) as caught:session.run('CQ-01',execute=True,budget_usd='0.02')
+    assert caught.value.code == {'generation':'rate_limit', 'count':'provider_unavailable',
+                                 'quote':'invalid_assessment'}[failure]
     count=len(events)
     for identifier in ('CQ-01','CQ-02'):
         with pytest.raises(AssessmentError):session.run(identifier,execute=True,budget_usd='0.02')
