@@ -183,6 +183,9 @@ def count_public_inputs(plan, cases, *, client_factory=None, mode='live'):
 
 
 class PublicAssessmentTrial:
+    max_attempts = 3
+    ledger_format = 'assessment-usage-v1'
+
     def __init__(self, plan, cases, folder, *, mode='live', settings=None, client_factory=None):
         self.plan, self.cases = deepcopy(plan), dict(cases)
         self.parameters = _validate_plan(self.plan, self.cases)
@@ -206,26 +209,31 @@ class PublicAssessmentTrial:
             'max_generation_usd_at_input_limits': str(_cost(self.plan,
                 3*self.plan['limits']['max_input_tokens'], 3*self.parameters.max_output_tokens))}
 
+    def _prior_usage(self):
+        """The original trial starts without a carried reservation."""
+        return Decimal('0'), Decimal('0')
+
     def _ledger(self):
+        prior_reserved, prior_confirmed = self._prior_usage()
         path = self.folder/'usage.json'
         if not path.exists():
             _require(not any((self.folder/'results').glob('*.json')), 'trial_state_invalid')
-            return {'format': 'assessment-usage-v1', 'scope_sha256': self.scope_sha256,
-                'max_usd': self.plan['limits']['max_usd'], 'reserved_usd': '0',
-                'confirmed_usd': '0', 'halted': False, 'attempts': []}
+            return {'format': self.ledger_format, 'scope_sha256': self.scope_sha256,
+                'max_usd': self.plan['limits']['max_usd'], 'reserved_usd': str(prior_reserved),
+                'confirmed_usd': str(prior_confirmed), 'halted': False, 'attempts': []}
         ledger = read_json(path)
-        _require(ledger.get('format') == 'assessment-usage-v1'
+        _require(ledger.get('format') == self.ledger_format
                  and ledger.get('scope_sha256') == self.scope_sha256
                  and _money(ledger.get('max_usd')) == _money(self.plan['limits']['max_usd']), 'trial_state_invalid')
         attempts = ledger.get('attempts')
-        _require(isinstance(attempts, list) and len(attempts) <= 3
+        _require(isinstance(attempts, list) and len(attempts) <= self.max_attempts
                  and type(ledger.get('halted')) is bool, 'trial_state_invalid')
         _require(all(isinstance(a, dict) and a.get('question_id') in self.cases
                      and a.get('status') in ('counting', 'reserved', 'confirmed', 'failed') for a in attempts),
                  'trial_state_invalid')
         _require(len({a['question_id'] for a in attempts}) == len(attempts), 'trial_state_invalid')
-        reserved = sum(_money(a['reserved_usd']) for a in attempts)
-        confirmed = sum(_money(a.get('confirmed_usd', '0')) for a in attempts)
+        reserved = prior_reserved + sum(_money(a['reserved_usd']) for a in attempts)
+        confirmed = prior_confirmed + sum(_money(a.get('confirmed_usd', '0')) for a in attempts)
         _require(reserved == _money(ledger.get('reserved_usd')) <= _money(ledger['max_usd'])
                  and confirmed == _money(ledger.get('confirmed_usd')) <= reserved, 'trial_state_invalid')
         for attempt in attempts:
@@ -280,7 +288,7 @@ class PublicAssessmentTrial:
         self._authorize(execute, budget_usd)
         _require(not ledger['halted'] and existing is None
                  and all(a['status'] == 'confirmed' for a in ledger['attempts'])
-                 and len(ledger['attempts']) < 3, 'trial_retry_not_approved')
+                 and len(ledger['attempts']) < self.max_attempts, 'trial_retry_not_approved')
         attempt = {'question_id': question_id, 'context_sha256': self.cases[question_id].context_sha256,
                    'status': 'counting', 'reserved_usd': '0', 'confirmed_usd': '0'}
         ledger['attempts'].append(attempt)
