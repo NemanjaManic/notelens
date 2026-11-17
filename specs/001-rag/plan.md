@@ -80,6 +80,18 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Single-question retry preparation (2026-11-17)**: Nemanja approved preparation
+and local checks only. The [CQ-01 retry](../../docs/rag/assessment-retry.md) requires
+fresh scope approval, limits new attempts to one and carries the pinned original
+reservation into the unchanged proposed USD 0.02 cumulative allowance. It reuses
+the checked SDK/validation execution path with a separate anchored ledger and
+shared original lock. All 33 new tests and the full 539-test RAG suite passed;
+offline wheel build/import and provider-forbidden actual-history checks passed.
+The original ledger is byte-identical and remains halted, new execution approval
+is false, the actual .env is unchanged and no provider request was made.
+Prompt/schema/input bytes, acceptance rules and mock HTTP behavior are unchanged.
+A-004/A-009 and shared prerequisites remain incomplete.
+
 **Safe assessment diagnostics (2026-11-17)**: Nemanja approved a local-only
 continuation. Fixed-vocabulary diagnostics now identify failed validator rules
 and field/index paths through the support processor, SDK adapter, CLI and future

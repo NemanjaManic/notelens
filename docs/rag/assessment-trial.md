@@ -229,3 +229,7 @@ behavior remain unchanged. The original CQ-01 failure cause is still unknown.
 Any later paid retry/resume needs a separate explicit decision and preserved
 accounting. Diagnostics alone neither repair the old failure nor complete
 A-004/A-009, semantic evaluation or the shared foundation gates.
+
+The separate [single CQ-01 retry](assessment-retry.md) has now been prepared and
+checked locally, with execution still unapproved. It preserves this original
+halted ledger and carries its reservation into the cumulative allowance.

@@ -28,6 +28,10 @@ locates rejected model output by rule and numeric field path without retaining r
 responses. All 506 local tests passed; no new provider requests were made. The
 earlier trial remains halted, its original cause unknown and retry unapproved.
 
+The [single CQ-01 retry preparation](../../docs/rag/assessment-retry.md) now preserves
+the original reservation under the cumulative allowance and requires fresh approval.
+All 539 local tests pass; its default inspection is key-free and execution remains off.
+
 ## Install and verify
 
 From the repository root in PowerShell, with Python 3.13 already installed:
