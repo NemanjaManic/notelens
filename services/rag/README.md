@@ -180,17 +180,22 @@ MockTransport. All 43 new checks and the full 440-test suite passed. There is no
 real-key loading or live switch; provider calls and semantic quality measurement
 remain separately gated. The prompt is included and load-tested in the wheel.
 
-The separate [bounded public trial](../../docs/rag/assessment-trial.md) is prepared
-but unapproved for generation. The default command is key-free and makes no API calls:
+The separate [bounded public trial](../../docs/rag/assessment-trial.md) was approved
+on 2026-11-17 and halted after its first invalid assessment. The default inspection
+command remains key-free and makes no API calls:
 
 ```powershell
 uv run --locked --offline --directory services/rag python -m notelens_rag.assessment_trial
 ```
 
-All 23 new trial checks and the full 463-test suite passed. Actual free token
-counting measured 9,508 input tokens across CQ-01/CQ-02/CQ-08. The USD 0.02 proposal
-and proposed limits still require separate approval; no paid generation has run.
-The real .env is unchanged and the assessment activation flag defaults to false.
+All 23 trial checks and the full 463-test suite passed again before execution.
+The prior free preflight measured 9,508 input tokens across CQ-01/CQ-02/CQ-08.
+The approved run attempted only CQ-01, failed with invalid_assessment and retained
+a USD 0.0013811 reference-price reservation; no validated assessment was produced.
+CQ-02/CQ-08 were not attempted. Actual billing is unverified. The ledger is halted,
+the flag is disabled again and the real .env is unchanged. Do not reset the ledger
+or repeat/continue the test without separate approval. See the
+[actual run record](../../docs/rag/assessment-trial-results.json).
 
 The installed notelens-contracts 1.0.0 package exports notelens_contracts.v1 TypedDicts
 and validate_json/validate_record. The service uses these runtime validators for

@@ -1,16 +1,19 @@
-# Bounded Public Luna Assessment Trial: Prepared, Not Activated
+# Bounded Public Luna Assessment Trial: First Attempt Halted
 
-Owner: Nemanja (A). Prepared: 2026-11-16.
-Status: implementation/preflight complete; paid generation approval pending.
+Owner: Nemanja (A). Prepared: 2026-11-16. Updated: 2026-11-17.
+Status: approved bounded trial attempted; halted after the first invalid assessment.
 
-Nemanja approved preparing this package and its cost estimate. The versioned
-[proposal](assessment-trial-proposal.json) still has execution_approved=false and
-approval=null. There has been no paid assessment/generation attempt. Existing
-HTTP routes remain mock-only; this is an owner-local public-development CLI.
+Nemanja approved preparing this package and its cost estimate, then separately
+approved up to three generation attempts under USD 0.02 on 2026-11-17. The
+[proposal](assessment-trial-proposal.json) records that approval for the exact
+reviewed scope. CQ-01 returned an assessment rejected by local validation with
+invalid_assessment. The batch halted; CQ-02/CQ-08 were not attempted. See the
+[observed run record](assessment-trial-results.json). No retry/resume is approved.
+Existing HTTP routes remain mock-only; this is an owner-local development CLI.
 
-## Proposed scope for a separate approval
+## Trial scope approved on 2026-11-17
 
-| Item | Proposed value |
+| Item | Approved value for this trial |
 | --- | --- |
 | Model | gpt-6-luna |
 | Public questions | CQ-01, CQ-02, CQ-08, at most one generation attempt each |
@@ -20,11 +23,11 @@ HTTP routes remain mock-only; this is an owner-local public-development CLI.
 | Reasoning effort | none |
 | Request timeout | 30 seconds |
 | Automatic retries | Zero, including SDK retries |
-| Generation allowance | USD 0.02 total, separately proposed from embedding allowances |
+| Generation allowance | USD 0.02 total, separate from embedding allowances |
 | Processing | service_tier=default, no tools, no history, store=false, truncation=disabled |
 
-These are reviewable proposed trial settings, not accepted general service
-defaults or measured quality optima. The selected cases have one or two declared
+These settings apply only to this bounded trial, not general service defaults
+or measured quality optima. The selected cases have one or two declared
 requested parts. An incomplete response fails rather than increasing the output
 limit or repeating a call automatically.
 
@@ -62,9 +65,12 @@ See the [official model pricing](https://developers.openai.com/api/docs/models/g
 It assumes the maximum configured output, takes no cache discount and is not an
 invoice or a prediction of how many output tokens a model will need.
 At all three input admission ceilings and maximum outputs, the same reference
-calculation is USD 0.009072. The proposed USD 0.02 allowance is still unapproved.
+calculation is USD 0.009072. The USD 0.02 allowance was subsequently approved on
+2026-11-17 for this scope; it does not authorize retry after a failed attempt.
 
-No generation ledger or result cache was created by counting. The existing
+The original counting preflight created no generation ledger or result cache.
+Its record retains its historical unapproved proposal fingerprint. The scope
+fingerprint is unchanged by recording the later owner approval. The existing
 embedding ledgers, corpus and index were not changed.
 
 ## Implemented execution controls
@@ -121,28 +127,57 @@ uv run --locked --offline --directory services/rag python -m notelens_rag.assess
 
 The counting command writes only its public metadata report under the ignored
 trial folder. It does not approve execution. Paid execution additionally uses
---execute and an exact --budget-usd argument, but remains blocked by the current
-unapproved proposal and disabled assessment flag. Do not enable it before the
-separate user decision for this scope:
+--execute and an exact --budget-usd argument. The owner approval record now exists,
+but the assessment flag is disabled again and the saved failure halts all further
+attempts. Do not delete/reset that state or enable a retry without a new user
+decision. The approved scope is:
 `d2b584c6078ff29c76a5be7c0f212de0c4dd26f6c796d1f76ead1fffc432ca5a`.
 
 ## Verification and remaining gates
 
-All 23 new runner/settings/budget checks and the full 463-test RAG suite passed
-on Windows/Python 3.13.5. Tests use the actual SDK with in-memory responses; they
+All 23 runner/settings/budget checks and the full 463-test RAG suite passed again
+on 2026-11-17, Windows/Python 3.13.5, before the approved execution. The test fixture
+now explicitly controls its own approval state, independently of the real owner's
+versioned approval. Tests use the SDK with in-memory responses; they
 cover the approval/activation/budget gates, exact pre-counting, on-disk reservation
 before generation, cache reuse, three-case scope, failure retention/batch halt,
 stale locks, state corruption and separation from embedding activation.
 The SDK adapter's existing 43 checks also passed after factoring shared request
 preparation and explicit mock/live result labeling.
 
-Only the three free counting requests contacted OpenAI. No paid generation,
-new embeddings, live HTTP route, clinical quality result or semantic calibration
-is claimed. The full/partial/none judgments still need an explicitly authorized
-actual model trial and independent review. A/B wire interpretation for partial
-literature answers, A-004/A-009 completion and shared foundation gates remain open.
+The preparation used three free counting calls on 2026-11-16. The approved run
+on 2026-11-17 made one fresh free counting call and one generation attempt for
+CQ-01. No validated assessment or full/partial/none outcome was produced. No new
+embeddings, live HTTP route, clinical quality result or semantic calibration is
+claimed. A/B wire interpretation for partial literature answers, A-004/A-009
+completion and shared foundation gates remain open.
 
 The scoped speckit-implement resolver selected specs/001-rag with nonpersistent
 context. requirements.md had sixteen checked and zero unchecked entries; no
 extension hooks were present. Task checkboxes are unchanged. No other owner's
 source, shared contracts, root configuration or actual .env was edited.
+
+## Observed first attempt, 2026-11-17
+
+The exact approved run used --execute --budget-usd 0.02 with the separate
+assessment flag enabled only for its process. It exited 1 with invalid_assessment
+after CQ-01. The saved ledger has one failed attempt, halted=true and a retained
+USD 0.0013811 reference-price reservation for 3,571 counted input tokens plus the
+2,048-output maximum. The other two questions were not attempted. There is no
+validated result cache and no active lock.
+
+The actual invoice was not inspected. The ledger's confirmed_usd=0 means that no
+fully validated result was recorded; it does not establish that generation was
+free. The raw response and output-token usage were not retained after validation
+failed. The fixed error identifies neither a particular field nor a quote/offset
+rule, so no specific cause is inferred and no model-quality metric is reported.
+
+A separate offline guard check used a provider factory that must never be created.
+All three case IDs were blocked by the saved halted state, the factory was never
+called and the ledger hash stayed unchanged. The real activation flag is false
+again; the approval record and reservation remain intact. Runtime source and the
+prompt were not changed for this run. No attempt was repeated or continued.
+
+The next proposed package is finer safe validation diagnostics with local tests,
+without weakening quote/offset requirements or making another model call. Any
+later paid retry/resume needs a separate explicit decision and preserved accounting.

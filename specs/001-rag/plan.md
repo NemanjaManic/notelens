@@ -1,6 +1,6 @@
 # Implementation Plan: Python RAG
 
-**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-16 | **Spec**: [spec.md](spec.md)
+**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-17 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/001-rag/spec.md`.
 **Owner**: A. **Status**: Draft local design and executable backlog proposal.
@@ -79,6 +79,22 @@ self-queries passed. No source change or extra generation was made. See the
 embedding/index increment, not A-003's formal shared prerequisites or A-004 retrieval.
 
 ## Summary
+
+**Approved trial, first attempt halted (2026-11-17)**: Nemanja explicitly approved
+the exact three-question GPT-6 Luna scope up to USD 0.02 with the proposed limits,
+zero retries and stop-on-failure behavior. All 463 offline checks passed again;
+test approval fixtures now remain independent of the owner's live approval record.
+The run made one free count and one generation attempt for CQ-01, then exited 1
+with invalid_assessment. No validated decision was produced; CQ-02/CQ-08 were
+not attempted. The ledger is halted and retains USD 0.0013811 as a reference-price
+reservation; actual billed usage is unverified. The original raw response was not
+retained, so no specific quote/offset/field cause is claimed. An offline check with
+provider creation forbidden confirmed that all further cases are blocked and the
+ledger is unchanged. The activation flag was restored, no attempt was repeated,
+and runtime source/prompt/HTTP behavior are unchanged. See the
+[run record](../../docs/rag/assessment-trial-results.json) and
+[limits/next proposed diagnostics](../../docs/rag/assessment-trial.md).
+A-004/A-009 and all shared gates remain incomplete; retry/resume is not approved.
 
 **Bounded assessment trial preparation (2026-11-16)**: Nemanja approved preparing
 the disabled-by-default public trial and cost estimate, without paid execution.
