@@ -138,7 +138,8 @@ def prepare_assessment(request, candidates, requirements):
                               instructions, _json(payload), _json(schema), inputs_json)
 
 
-def checked_assessment_response(raw_bytes, prepared, parameters, *, mode='mock'):
+def checked_response_content(raw_bytes, parameters, *, mode='mock'):
+    """Validate the native envelope, usage and common assessment wrapper."""
     _require(mode in ('mock', 'live'), 'configuration_required')
     response = _strict_json(raw_bytes, stage='response', path='/response')
     _require(isinstance(response, dict) and response.get('object') == 'response'
@@ -185,9 +186,14 @@ def checked_assessment_response(raw_bytes, prepared, parameters, *, mode='mock')
              stage='assessment', rule='coverage_flag_type', path='/requirements_cover_question')
     _require(result['requirements_cover_question'], 'requirements_incomplete',
              stage='assessment', rule='requirements_incomplete', path='/requirements_cover_question')
+    return result['assessment'], usage
+
+
+def checked_assessment_response(raw_bytes, prepared, parameters, *, mode='mock'):
+    assessment, usage = checked_response_content(raw_bytes, parameters, mode=mode)
     inputs = _strict_json(prepared.inputs_json)
     try:
-        decision = evaluate_support(inputs['request'], inputs['candidates'], inputs['requirements'], result['assessment'])
+        decision = evaluate_support(inputs['request'], inputs['candidates'], inputs['requirements'], assessment)
     except SupportError as error:
         value = safe_diagnostic(error)
         path = value['path']
@@ -242,8 +248,8 @@ class OfflineLunaAssessor:
     def close(self):
         self._client.close()
 
-    def assess(self, request, candidates, requirements):
-        prepared = prepare_assessment(request, candidates, requirements)
+    def _raw_response(self, prepared):
+        """Use the mandatory mock transport and retain the existing SDK error handling."""
         try:
             raw = self._client.responses.with_raw_response.create(**assessment_request(prepared, self.parameters))
         except openai.APITimeoutError:
@@ -254,4 +260,8 @@ class OfflineLunaAssessor:
             raise AssessmentError('provider_authentication') from None
         except openai.APIError:
             raise AssessmentError('provider_unavailable') from None
-        return checked_assessment_response(raw.http_response.content, prepared, self.parameters)
+        return raw.http_response.content
+
+    def assess(self, request, candidates, requirements):
+        prepared = prepare_assessment(request, candidates, requirements)
+        return checked_assessment_response(self._raw_response(prepared), prepared, self.parameters)

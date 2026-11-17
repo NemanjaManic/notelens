@@ -15,14 +15,14 @@ _RULES = frozenset({
     'response_identity', 'response_incomplete', 'response_output', 'response_item',
     'response_content', 'response_refusal', 'response_text', 'response_text_count',
     'usage_shape', 'usage_total', 'usage_limit', 'model_output_shape', 'coverage_flag_type',
-    'requirements_incomplete',
+    'requirements_incomplete', 'selection_context', 'selection_binding', 'evidence_reference',
 })
 _FIELDS = frozenset({
     'request', 'candidates', 'requirements', 'question_sha256', 'top_k', 'passages',
     'assessment', 'format_version', 'context_sha256', 'parts', 'requirement_id', 'status',
     'reason', 'evidence', 'passage_id', 'start', 'end', 'quote', 'response', 'output',
     'content', 'text', 'usage', 'input_tokens', 'output_tokens', 'total_tokens',
-    'requirements_cover_question',
+    'requirements_cover_question', 'selection_sha256', 'evidence_ids',
 })
 
 
