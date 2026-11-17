@@ -583,7 +583,7 @@
     "specs/002-platform/quickstart.md": "4861ee863ee0e6be8c8da0596f776c4fa0b557e8294008b284cdfd60ddb29420",
     "specs/002-platform/research.md": "f37eb7e85a95ab929a2999d3dd232511de0ea544353f80bd903655d32c8f588f",
     "specs/002-platform/spec.md": "e35053b69786004b301242daa3c6974471cce93f95a70a775d5f5ea66bf08954",
-    "specs/002-platform/tasks.md": "334c4cb6e1bf7159501eaa19de6986af4a5530cfc3ed4350f6029f2396b3bc0d",
+    "specs/002-platform/tasks.md": "faf9d3ac9459b3679497b97b73e18db12d025b794c2fbd406ad046ce1a61cb19",
     "specs/003-classification/AGENTS.md": "74154a8a364ff506dcc8aba97e193d18b86d6a5285c81ef28c42e8216e51f05f",
     "specs/003-classification/checklists/requirements.md": "871f06899d27a3d363b6a75694045171bdd2a35c19ae0d55b380e6e3f297f5a4",
     "specs/003-classification/contracts/README.md": "dfa7926ff67b9b04f8e94db305d07b4c08bd6ee55b991d0e8069011cb60c94fb",
@@ -647,7 +647,12 @@
     "apps/web/src/components/report-workspace.tsx",
     "apps/web/tests/report-view.test.tsx",
     "apps/web/tests/tsconfig.report.json",
-    "apps/web/scripts/check-report.mjs"
+    "apps/web/scripts/check-report.mjs",
+    "apps/web/src/lib/documents/canonical.ts",
+    "apps/web/src/lib/documents/builtin.ts",
+    "apps/web/tests/preparation.test.ts",
+    "apps/web/tests/tsconfig.preparation.json",
+    "apps/web/scripts/check-preparation.mjs"
   ],
   "http_cases": [
     "rag-retrieve-sufficient",
@@ -868,6 +873,29 @@
       },
       "report_cases": 37,
       "shared_gate_status": "B-002/B-004/F-010/F-011/F-014 pending"
+    },
+    {
+      "date": "2026-11-17",
+      "task": "B-001 bounded early built-in preparation",
+      "implementation_base_commit": "c4a20ce37ba1164f34624e0867b6361419cf4deb",
+      "reason": "Explicit user-approved execution before full B-004/F-014; allowlisted synthetic examples and memory-session handoff only",
+      "added_source_sha256": {
+        "apps/web/src/lib/documents/canonical.ts": "a41b9b0531691a88a8d9c1fc534b3535593a38c073dd51bbd0dd62592c25612e",
+        "apps/web/src/lib/documents/builtin.ts": "8e4c40f3a361b2f317a8abe2636d6e39bc71ea4857e636a7d3bf6a8db541735e",
+        "apps/web/tests/preparation.test.ts": "5872099b7354a3adf6ee88e0c53a37fc124dfcf74224dbb2bc1464c58af0d06f",
+        "apps/web/tests/tsconfig.preparation.json": "5f6e8667eeae99a5e84f7cd2feddb0f5a67edbe8bd95c998242ca72d5d3154a2",
+        "apps/web/scripts/check-preparation.mjs": "73b35024207aa2490806b8db6c97d26cdd3159821333f7f4a591e5f86ddfd564"
+      },
+      "task_document_hash": {
+        "before": "334c4cb6e1bf7159501eaa19de6986af4a5530cfc3ed4350f6029f2396b3bc0d",
+        "after": "faf9d3ac9459b3679497b97b73e18db12d025b794c2fbd406ad046ce1a61cb19"
+      },
+      "preparation_cases": 47,
+      "detected_mutations": [
+        "late-ticket",
+        "missing-final-availability"
+      ],
+      "shared_gate_status": "B-001/B-002/B-004/F-010/F-011/F-014 pending"
     }
   ]
 }
