@@ -154,6 +154,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Acceptance**: CODEOWNERS has no fictional handles and explains branch protection; scope checks honor member exceptions. Secret/dependency/contract/smoke checks exist; live CI disabled.
   - **Verify**: `uv run --directory scripts/project python check_scope.py --self-test`.
   - **Coverage**: FR-012, FR-020, SC-006.
+  - **Scoped B progress (2026-11-16)**: [Ownership/CI implementation and limits](../../docs/team/f-010-review-routing.md) provides the declared-scope checker, finite secret/dependency checks, PR template, routing preparation and pinned Windows workflow. T010 remains unchecked pending actual verified handles/access, accepted routing and authorized hosted CI/settings evidence. F-011 and F-014 remain pending; no owner service or frozen contract is changed.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T011 [US3] F-006: Complete and verify five backlogs plus four handoffs/start prompts in `specs/**`, `docs/team/**`, `scripts/project/check_handoffs.py`

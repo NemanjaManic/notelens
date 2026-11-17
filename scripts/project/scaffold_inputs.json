@@ -550,10 +550,10 @@
     "scripts/project/consumers/typescript/tsconfig.json": "9aa013b93fcbae87f89db93084b4f10a40bcf658988548252faa82b562ce1b83",
     "scripts/project/frozen_contracts.py": "9724cb5972cf3a7050d15788a1bf990fa1a09e1f969935af47e3550766e67f47",
     "scripts/project/generate_contracts.py": "6a007e43f1b499290d59d981a454e7287c1c9be797714a46f02bec943fefb91f",
-    "scripts/project/pyproject.toml": "71ed3e41964ff9f1ad7e163be32a29b42fe11d52d70b8399203da57ccbd3a57b",
+    "scripts/project/pyproject.toml": "6cfa88fe3193a46975884871fe311570ca51e4928eaaa9fbcef2f42f10691140",
     "scripts/project/tests/test_candidate.py": "68f64bf39f5ee322ae83c5d1303ec1d8cd66c255dcf383c4992564de49ec560c",
     "scripts/project/tests/test_contracts.py": "f62486d9491c379a81d521d4779c3cb46175e012966b2e96d961c995b454e4b4",
-    "scripts/project/uv.lock": "18fdd2b1da535d470ab722323b6ecfd1e22e81abb12f9f296a82082f2c69051f",
+    "scripts/project/uv.lock": "0ba40994c52aca378f85b9776af0169f5ef9dbc81b0df83105f87dca57c20983",
     "services/classifier/AGENTS.md": "0e462f1be31affeeab6bf3089965e62731186397b7cbfad2dd0c8db3aadbc199",
     "services/extraction/AGENTS.md": "b4f0f87660f457002e44cd76b725a8e57123b13e61d2bab16cdf9288bf6094af",
     "services/rag/AGENTS.md": "d623983d5e9e2c3ed849432be9bf0322a7aa93fc2614c330d9e6c489b87fb490",
@@ -565,7 +565,7 @@
     "specs/000-foundation/quickstart.md": "537cf23f2994c0c4d34388e75dad35eeb14299219d3437638c860b41abc651e2",
     "specs/000-foundation/research.md": "1051b0c853b15aac1c18ff5c0be477ec5b8c36ec896afb81690bb3f538d29c15",
     "specs/000-foundation/spec.md": "4875678fbbd509e4b5fb3a0a57d0dfd29e257eec160d5d4b670ad5bc6e2379e3",
-    "specs/000-foundation/tasks.md": "ac376bbb37bb5dddf2b90acb0409490eba44a4b85a3945ab4640cdf0099f7e54",
+    "specs/000-foundation/tasks.md": "04e6e91c505b4dbdffae16075eca88219e106d79f65f3a1709ca08f7f16f9ab8",
     "specs/001-rag/AGENTS.md": "d794076b0dc3c295854abbbd93e7310a48a283acef311e4876f368d85a2f410a",
     "specs/001-rag/checklists/requirements.md": "e00f8f47235ef016d8b8f365b36630b22b76c21ca4b12a55f514921a729ad6a3",
     "specs/001-rag/contracts/README.md": "0fcaffebb6896859a86669f599fd66a7c91cfd263213c935242c7ff8c54ce503",
@@ -621,7 +621,15 @@
     "apps/web/tests/fixtures/unicode-vectors.json",
     "apps/web/tests/tsconfig.unicode.json",
     "scripts/project/check_health.py",
-    "scripts/project/tests/test_health.py"
+    "scripts/project/tests/test_health.py",
+    ".github/CODEOWNERS",
+    ".github/pull_request_template.md",
+    ".github/scope-policy.json",
+    ".github/workflows/key-free-ci.yml",
+    "scripts/project/check_scope.py",
+    "scripts/project/check_ci.py",
+    "scripts/project/tests/test_scope.py",
+    "scripts/project/tests/test_ci.py"
   ],
   "http_cases": [
     "rag-retrieve-sufficient",
@@ -712,6 +720,37 @@
         "after": "ac376bbb37bb5dddf2b90acb0409490eba44a4b85a3945ab4640cdf0099f7e54"
       },
       "shared_gate_status": "incomplete; T007/F-014 remain pending"
+    },
+    {
+      "date": "2026-11-16",
+      "task": "F-010 B-owned ownership and CI tooling",
+      "implementation_base_commit": "60b2b27986649e230f90723693c4e05b88e8891a",
+      "reason": "User-approved local checkers and unactivated key-free workflow; owner/frozen files unchanged",
+      "added_source_sha256": {
+        ".github/CODEOWNERS": "0ee585d9b126f189deba6d382a4cfa57a60725d1e87ca9c84443fb659dfa9e2f",
+        ".github/pull_request_template.md": "5e522afd8c5c7860daa56c09b7817b1985b4d1201f529c4f80318eb8edf6b439",
+        ".github/scope-policy.json": "2497c3b2fee5bcdee44f3e1f5cf5453d2010039002dd02b63b24ae1b443a5d78",
+        ".github/workflows/key-free-ci.yml": "c5b74705109173c30f9a250d16d5dab1fa015460ac44d9499e0db7a244854860",
+        "scripts/project/check_scope.py": "96272373f9852bb24d4f9b291db4ff99cd7ea520321fbe1c7f36ac630281b9d0",
+        "scripts/project/check_ci.py": "864a3c491c5ff29c270d68891f823a3230464e42984f302477575a2b475046b8",
+        "scripts/project/tests/test_scope.py": "0077b8b9dc6d5c2b3ebc4113082a54a081a46d2c401ac074be5529697ef3ef4e",
+        "scripts/project/tests/test_ci.py": "c3250e4c022b44376de6c09d3c1a3f53d73f69fcec4ff829c88e2ed85bfd06fd"
+      },
+      "base_document_hashes": {
+        "scripts/project/pyproject.toml": {
+          "before": "71ed3e41964ff9f1ad7e163be32a29b42fe11d52d70b8399203da57ccbd3a57b",
+          "after": "6cfa88fe3193a46975884871fe311570ca51e4928eaaa9fbcef2f42f10691140"
+        },
+        "scripts/project/uv.lock": {
+          "before": "18fdd2b1da535d470ab722323b6ecfd1e22e81abb12f9f296a82082f2c69051f",
+          "after": "0ba40994c52aca378f85b9776af0169f5ef9dbc81b0df83105f87dca57c20983"
+        },
+        "specs/000-foundation/tasks.md": {
+          "before": "ac376bbb37bb5dddf2b90acb0409490eba44a4b85a3945ab4640cdf0099f7e54",
+          "after": "04e6e91c505b4dbdffae16075eca88219e106d79f65f3a1709ca08f7f16f9ab8"
+        }
+      },
+      "shared_gate_status": "F-010 routing/hosted evidence pending; F-011/F-014 pending"
     }
   ]
 }

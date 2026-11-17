@@ -1,0 +1,166 @@
+{
+  "name": "Key-free scoped checks (F-011/F-014 pending)",
+  "on": {
+    "pull_request": {},
+    "workflow_dispatch": {
+      "inputs": {
+        "run_health": {
+          "description": "Run incomplete F-011 mock diagnostics",
+          "required": false,
+          "default": false,
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "concurrency": {
+    "group": "key-free-${{ github.event.pull_request.number || github.ref }}",
+    "cancel-in-progress": true
+  },
+  "jobs": {
+    "regressions": {
+      "name": "Scope, secrets, regressions and public advisories",
+      "runs-on": "windows-2022",
+      "timeout-minutes": 45,
+      "steps": [
+        {
+          "name": "Checkout trusted base",
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "path": "trusted",
+            "ref": "${{ github.event.pull_request.base.sha || github.sha }}",
+            "fetch-depth": 0,
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Checkout candidate",
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "path": "candidate",
+            "ref": "${{ github.event.pull_request.head.sha || github.sha }}",
+            "fetch-depth": 0,
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Setup Python",
+          "uses": "actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "with": {
+            "python-version": "3.13.7"
+          }
+        },
+        {
+          "name": "Setup Node",
+          "uses": "actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "with": {
+            "node-version": "24.22.1",
+            "package-manager-cache": false
+          }
+        },
+        {
+          "name": "Bootstrap gate",
+          "shell": "pwsh",
+          "run": "$ErrorActionPreference = 'Stop'\nforeach ($guard in @('check_scope.py', 'check_ci.py')) {\n  if (-not (Test-Path -LiteralPath (Join-Path 'trusted/scripts/project' $guard))) {\n    throw 'BOOTSTRAP_REVIEW_REQUIRED: the trusted target base needs maintainer review.'\n  }\n}"
+        },
+        {
+          "name": "Trusted guard",
+          "shell": "pwsh",
+          "run": "$ErrorActionPreference = 'Stop'\n$eventData = Get-Content -LiteralPath $env:EVENT_PATH -Raw | ConvertFrom-Json\nif ($null -ne $eventData.pull_request) {\n  & python -B trusted/scripts/project/check_scope.py --repo candidate --event $env:EVENT_PATH\n  if ($LASTEXITCODE -ne 0) { throw 'Declared scope is invalid or needs coordination review.' }\n  & python -B trusted/scripts/project/check_ci.py --repo candidate --secrets --event $env:EVENT_PATH\n  if ($LASTEXITCODE -ne 0) { throw 'Secret guard failed.' }\n} else {\n  & python -B trusted/scripts/project/check_ci.py --repo candidate --secrets\n  if ($LASTEXITCODE -ne 0) { throw 'Secret guard failed.' }\n}\n& python -B trusted/scripts/project/check_ci.py --repo candidate --workflow\nif ($LASTEXITCODE -ne 0) { throw 'Workflow policy failed.' }",
+          "env": {
+            "EVENT_PATH": "${{ github.event_path }}"
+          }
+        },
+        {
+          "name": "Locked setup",
+          "shell": "pwsh",
+          "run": "$ErrorActionPreference = 'Stop'\n$env:UV_CACHE_DIR = Join-Path (Get-Location).Path '.cache/uv'\n$env:UV_PYTHON_DOWNLOADS = 'never'\n$env:NEXT_TELEMETRY_DISABLED = '1'\npython -m venv .cache/ci-tools\nif ($LASTEXITCODE -ne 0) { throw 'Tool bootstrap failed.' }\n& ./.cache/ci-tools/Scripts/python.exe -m pip install --only-binary=:all: uv==0.13.7\nif ($LASTEXITCODE -ne 0) { throw 'uv bootstrap failed.' }\n$ciUv = (Resolve-Path -LiteralPath .cache/ci-tools/Scripts/uv.exe).Path\nPush-Location candidate\ntry {\n  foreach ($project in @('scripts/project', 'services/rag', 'services/classifier', 'services/extraction')) {\n    & $ciUv --system-certs sync --locked --directory $project\n    if ($LASTEXITCODE -ne 0) { throw 'Locked Python setup failed.' }\n  }\n  npm.cmd install --global npm@11.19.1\n  if ($LASTEXITCODE -ne 0) { throw 'Pinned npm setup failed.' }\n  npm.cmd ci\n  if ($LASTEXITCODE -ne 0) { throw 'Locked npm setup failed.' }\n} finally {\n  Pop-Location\n}"
+        },
+        {
+          "name": "Run key-free regressions",
+          "shell": "pwsh",
+          "run": "& ./candidate/scripts/project/.venv/Scripts/python.exe -B candidate/scripts/project/check_scope.py --self-test\nif ($LASTEXITCODE -ne 0) { throw 'Scope self-tests failed.' }\n& ./candidate/scripts/project/.venv/Scripts/python.exe -B candidate/scripts/project/check_ci.py --self-test\nif ($LASTEXITCODE -ne 0) { throw 'CI self-tests failed.' }\n& ./candidate/scripts/project/.venv/Scripts/python.exe -B candidate/scripts/project/run_scaffold_checks.py\nif ($LASTEXITCODE -ne 0) { throw 'Scaffold checks failed.' }\n& ./candidate/scripts/project/.venv/Scripts/python.exe -B candidate/scripts/project/check_scaffold.py\nif ($LASTEXITCODE -ne 0) { throw 'Current scaffold receipt is invalid.' }\n& ./candidate/scripts/project/.venv/Scripts/python.exe -B candidate/scripts/project/check_unicode.py\nif ($LASTEXITCODE -ne 0) { throw 'Unicode checks failed.' }"
+        },
+        {
+          "name": "Public dependency advisories",
+          "shell": "pwsh",
+          "run": "& ./candidate/scripts/project/.venv/Scripts/python.exe -B candidate/scripts/project/check_ci.py --dependencies\nif ($LASTEXITCODE -ne 0) { throw 'Dependency advisory checks failed or are incomplete.' }"
+        },
+        {
+          "name": "Pending foundation gates",
+          "shell": "pwsh",
+          "run": "'F-011 health: pending/not run in this job. F-014: pending. This is not foundation acceptance.' >> $env:GITHUB_STEP_SUMMARY"
+        }
+      ]
+    },
+    "health": {
+      "name": "F-011 mock health diagnostic (pending)",
+      "if": "github.event_name == 'workflow_dispatch' && inputs.run_health",
+      "runs-on": "windows-2022",
+      "timeout-minutes": 45,
+      "steps": [
+        {
+          "name": "Checkout trusted base",
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "path": "trusted",
+            "ref": "${{ github.event.pull_request.base.sha || github.sha }}",
+            "fetch-depth": 0,
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Checkout candidate",
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "path": "candidate",
+            "ref": "${{ github.event.pull_request.head.sha || github.sha }}",
+            "fetch-depth": 0,
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Setup Python",
+          "uses": "actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "with": {
+            "python-version": "3.13.7"
+          }
+        },
+        {
+          "name": "Setup Node",
+          "uses": "actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "with": {
+            "node-version": "24.22.1",
+            "package-manager-cache": false
+          }
+        },
+        {
+          "name": "Bootstrap gate",
+          "shell": "pwsh",
+          "run": "$ErrorActionPreference = 'Stop'\nforeach ($guard in @('check_scope.py', 'check_ci.py')) {\n  if (-not (Test-Path -LiteralPath (Join-Path 'trusted/scripts/project' $guard))) {\n    throw 'BOOTSTRAP_REVIEW_REQUIRED: the trusted target base needs maintainer review.'\n  }\n}"
+        },
+        {
+          "name": "Trusted guard",
+          "shell": "pwsh",
+          "run": "$ErrorActionPreference = 'Stop'\n$eventData = Get-Content -LiteralPath $env:EVENT_PATH -Raw | ConvertFrom-Json\nif ($null -ne $eventData.pull_request) {\n  & python -B trusted/scripts/project/check_scope.py --repo candidate --event $env:EVENT_PATH\n  if ($LASTEXITCODE -ne 0) { throw 'Declared scope is invalid or needs coordination review.' }\n  & python -B trusted/scripts/project/check_ci.py --repo candidate --secrets --event $env:EVENT_PATH\n  if ($LASTEXITCODE -ne 0) { throw 'Secret guard failed.' }\n} else {\n  & python -B trusted/scripts/project/check_ci.py --repo candidate --secrets\n  if ($LASTEXITCODE -ne 0) { throw 'Secret guard failed.' }\n}\n& python -B trusted/scripts/project/check_ci.py --repo candidate --workflow\nif ($LASTEXITCODE -ne 0) { throw 'Workflow policy failed.' }",
+          "env": {
+            "EVENT_PATH": "${{ github.event_path }}"
+          }
+        },
+        {
+          "name": "Locked setup",
+          "shell": "pwsh",
+          "run": "$ErrorActionPreference = 'Stop'\n$env:UV_CACHE_DIR = Join-Path (Get-Location).Path '.cache/uv'\n$env:UV_PYTHON_DOWNLOADS = 'never'\n$env:NEXT_TELEMETRY_DISABLED = '1'\npython -m venv .cache/ci-tools\nif ($LASTEXITCODE -ne 0) { throw 'Tool bootstrap failed.' }\n& ./.cache/ci-tools/Scripts/python.exe -m pip install --only-binary=:all: uv==0.13.7\nif ($LASTEXITCODE -ne 0) { throw 'uv bootstrap failed.' }\n$ciUv = (Resolve-Path -LiteralPath .cache/ci-tools/Scripts/uv.exe).Path\nPush-Location candidate\ntry {\n  foreach ($project in @('scripts/project', 'services/rag', 'services/classifier', 'services/extraction')) {\n    & $ciUv --system-certs sync --locked --directory $project\n    if ($LASTEXITCODE -ne 0) { throw 'Locked Python setup failed.' }\n  }\n  npm.cmd install --global npm@11.19.1\n  if ($LASTEXITCODE -ne 0) { throw 'Pinned npm setup failed.' }\n  npm.cmd ci\n  if ($LASTEXITCODE -ne 0) { throw 'Locked npm setup failed.' }\n} finally {\n  Pop-Location\n}"
+        },
+        {
+          "name": "Run health diagnostics",
+          "shell": "pwsh",
+          "run": "& ./candidate/scripts/project/.venv/Scripts/python.exe -B candidate/scripts/project/check_health.py --mode mock\nif ($LASTEXITCODE -ne 0) { throw 'F-011 remains incomplete or failed.' }"
+        }
+      ]
+    }
+  }
+}

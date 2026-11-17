@@ -1,0 +1,155 @@
+{
+  "format": "notelens-scope-policy-v1",
+  "source": "docs/team/allowed-paths.md",
+  "source_sha256": "24877a46edc4d7237e32b10ad2efa2b1b94acfff1a1c1982fecddbe54d925a96",
+  "rules": [
+    {
+      "pattern": "apps/web/**",
+      "member": "B"
+    },
+    {
+      "pattern": "services/rag/**",
+      "member": "A"
+    },
+    {
+      "pattern": "services/classifier/**",
+      "member": "C"
+    },
+    {
+      "pattern": "services/extraction/**",
+      "member": "D"
+    },
+    {
+      "pattern": "data/mtsamples/**",
+      "member": "C"
+    },
+    {
+      "pattern": "data/knowledge/**",
+      "member": "A"
+    },
+    {
+      "pattern": "eval/**",
+      "member": "D"
+    },
+    {
+      "pattern": "contracts/**",
+      "member": "B"
+    },
+    {
+      "pattern": "infra/**",
+      "member": "B"
+    },
+    {
+      "pattern": ".github/**",
+      "member": "B"
+    },
+    {
+      "pattern": "scripts/project/**",
+      "member": "B"
+    },
+    {
+      "pattern": "docs/team/**",
+      "member": "B"
+    },
+    {
+      "pattern": "docs/decisions/**",
+      "member": "B"
+    },
+    {
+      "pattern": "docs/rag/**",
+      "member": "A"
+    },
+    {
+      "pattern": "docs/platform/**",
+      "member": "B"
+    },
+    {
+      "pattern": "docs/ml/**",
+      "member": "C"
+    },
+    {
+      "pattern": "docs/extraction-eval/**",
+      "member": "D"
+    },
+    {
+      "pattern": "specs/000-foundation/**",
+      "member": "B"
+    },
+    {
+      "pattern": "specs/001-rag/**",
+      "member": "A"
+    },
+    {
+      "pattern": "specs/002-platform/**",
+      "member": "B"
+    },
+    {
+      "pattern": "specs/003-classification/**",
+      "member": "C"
+    },
+    {
+      "pattern": "specs/004-extraction-evaluation/**",
+      "member": "D"
+    },
+    {
+      "pattern": "eval/annotations/member-a/**",
+      "member": "A"
+    },
+    {
+      "pattern": "eval/annotations/member-b/**",
+      "member": "B"
+    },
+    {
+      "pattern": "eval/annotations/member-c/**",
+      "member": "C"
+    },
+    {
+      "pattern": "eval/annotations/member-d/**",
+      "member": "D"
+    },
+    {
+      "pattern": "README.md",
+      "member": "B"
+    },
+    {
+      "pattern": "AGENTS.md",
+      "member": "B"
+    },
+    {
+      "pattern": "package.json",
+      "member": "B"
+    },
+    {
+      "pattern": "package-lock.json",
+      "member": "B"
+    },
+    {
+      "pattern": ".env.example",
+      "member": "B"
+    },
+    {
+      "pattern": ".gitignore",
+      "member": "B"
+    },
+    {
+      "pattern": ".gitattributes",
+      "member": "B"
+    },
+    {
+      "pattern": ".specify/**",
+      "member": "B"
+    },
+    {
+      "pattern": ".agents/skills/**",
+      "member": "B"
+    },
+    {
+      "pattern": ".codex/**",
+      "member": "B"
+    },
+    {
+      "pattern": "prompts/NoteLens_Codex_SpecKit_prompt_00.md",
+      "member": "B"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# Routing preparation only. No active owner bindings have been verified.
+# Never replace member aliases with guessed handles or empty-owner overrides.
+# Source of truth: docs/team/allowed-paths.md; tooling mirror: .github/scope-policy.json.
+# A: services/rag, data/knowledge, docs/rag, specs/001-rag, annotations/member-a.
+# B: web, contracts, infra, project tooling, shared docs/configuration, Spec Kit,
+#    specs/000-foundation, specs/002-platform, annotations/member-b and this file.
+# C: services/classifier, data/mtsamples, docs/ml, specs/003-classification,
+#    annotations/member-c.
+# D: services/extraction, docs/extraction-eval, specs/004-extraction-evaluation,
+#    eval except the more-specific A/B/C annotation paths.
+# After verifying real handles and write access, put broad patterns first and
+# member annotation exceptions last. Protect .github itself with B review.
+# GitHub uses CODEOWNERS from the PR target branch; branch rules enforce reviews.
+# Until that setup is authorized and observed, automatic routing is pending.
+# See docs/team/f-010-review-routing.md. F-010/F-011/F-014 remain pending.
