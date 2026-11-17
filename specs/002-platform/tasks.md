@@ -43,11 +43,12 @@ they are not silently assigned defaults.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T001 B-010: Review shared-record proposals and establish the web mock consumer suite in `apps/web/tests/contracts.test.ts`, `docs/platform/interface-review.md`
+- [X] T001 B-010: Review shared-record proposals and establish the web mock consumer suite in `apps/web/tests/contracts.test.ts`, `docs/platform/interface-review.md`
   - **Owner / story**: B / US1.
   - **Dependencies**: 000-foundation/T004 (F-003); 000-foundation/T006 (F-004)
   - **Acceptance**: Consume generated bindings without reimplementing Python algorithms; malformed/mismatched results fail visibly; all test outputs are synthetic mocks.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/contracts.test.ts`.
+  - **Verify**: `node apps/web/scripts/check-contracts.mjs` (installed Node runner plus local TypeScript noEmit; no Vitest install).
+  - **Evidence (2026-11-17)**: 221/221 web-consumer cases; 4 detected consumer mutation probes and 16 evidence-rejection probes. See [interface review](../../docs/platform/interface-review.md) and [scoped plan](../../docs/platform/b-010-web-contract-consumer-plan.md). This supersedes older draft-only status for T001 only. Safe rejection is a consumer state; browser/report rendering remains B-002. F-010/F-011/F-014 stay pending.
   - **Coverage**: FR-014, FR-015.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 

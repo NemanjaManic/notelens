@@ -496,7 +496,7 @@
     "docs/extraction-eval/AGENTS.md": "b1125d3ab26fa3be03cd157c45851c4885ab8294c886a62463a2b2875ca8799c",
     "docs/ml/AGENTS.md": "c9f9c0c119b1bb0c339f3663e29e6645427149db547494c8fc27917d13c7144e",
     "docs/platform/AGENTS.md": "0c2eefe912deb6553586e7389e2c67c01cf97df1e1baa611f4aef28e3f8b11e9",
-    "docs/platform/interface-review.md": "fc2367011b0f5869e26dbbbfb136f682618b3373fe8831c001f1df7d47d55a81",
+    "docs/platform/interface-review.md": "7d723444cb203b7d36862c63273ce38c6b346bb86ba80147e0d34911c433b0bb",
     "docs/rag/AGENTS.md": "8fd75ae44620d8b218a53d519eb5fec3d52bdb98e33b0bed4065256a6ff6a850",
     "docs/team/AGENTS.md": "01ceadfbfea90ecee8a304e529d7aaf37e580959b8c6050a5a9c0480e044fe6e",
     "docs/team/allowed-paths.md": "24877a46edc4d7237e32b10ad2efa2b1b94acfff1a1c1982fecddbe54d925a96",
@@ -583,7 +583,7 @@
     "specs/002-platform/quickstart.md": "4861ee863ee0e6be8c8da0596f776c4fa0b557e8294008b284cdfd60ddb29420",
     "specs/002-platform/research.md": "f37eb7e85a95ab929a2999d3dd232511de0ea544353f80bd903655d32c8f588f",
     "specs/002-platform/spec.md": "e35053b69786004b301242daa3c6974471cce93f95a70a775d5f5ea66bf08954",
-    "specs/002-platform/tasks.md": "e1d70430ae4c4b704f06a263e24ef36f7ad1f1e1e529e23150fbe4ed35631131",
+    "specs/002-platform/tasks.md": "b11be3fc1b31bb4324218d68c51ab0a8cb2df44a7d9d36bf9dbd8433f28125ac",
     "specs/003-classification/AGENTS.md": "74154a8a364ff506dcc8aba97e193d18b86d6a5285c81ef28c42e8216e51f05f",
     "specs/003-classification/checklists/requirements.md": "871f06899d27a3d363b6a75694045171bdd2a35c19ae0d55b380e6e3f297f5a4",
     "specs/003-classification/contracts/README.md": "dfa7926ff67b9b04f8e94db305d07b4c08bd6ee55b991d0e8069011cb60c94fb",
@@ -629,7 +629,11 @@
     "scripts/project/check_scope.py",
     "scripts/project/check_ci.py",
     "scripts/project/tests/test_scope.py",
-    "scripts/project/tests/test_ci.py"
+    "scripts/project/tests/test_ci.py",
+    "apps/web/src/lib/contracts/consumer.ts",
+    "apps/web/tests/contracts.test.ts",
+    "apps/web/tests/tsconfig.contracts.json",
+    "apps/web/scripts/check-contracts.mjs"
   ],
   "http_cases": [
     "rag-retrieve-sufficient",
@@ -751,6 +755,30 @@
         }
       },
       "shared_gate_status": "F-010 routing/hosted evidence pending; F-011/F-014 pending"
+    },
+    {
+      "date": "2026-11-17",
+      "task": "B-010 web contract-consumer suite",
+      "implementation_base_commit": "e84856d9aa2d8fea82b40305a63af2db2438e5ec",
+      "reason": "User-approved B-owned pure mock consumer and standalone tests; existing commands, snapshots, frozen and owner files preserved",
+      "added_source_sha256": {
+        "apps/web/src/lib/contracts/consumer.ts": "aada38b4f28b9f90e17da04fcec73c64ead36cb8be3b3eb11a1da27f6339e24c",
+        "apps/web/tests/contracts.test.ts": "fe7ae328d24adc0fdc5027225aa3d1d17402ac498a3919df29ea56d51dbc1a87",
+        "apps/web/tests/tsconfig.contracts.json": "26ccf24c744b8cae7e330c2a5487fb899553fba465435044cfbae19c6476c8a6",
+        "apps/web/scripts/check-contracts.mjs": "5ab8be6279ca3b281ac8de7b86eec7526b1eb4af67cb6be0b0149d919593bd69"
+      },
+      "task_document_hash": {
+        "before": "e1d70430ae4c4b704f06a263e24ef36f7ad1f1e1e529e23150fbe4ed35631131",
+        "after": "b11be3fc1b31bb4324218d68c51ab0a8cb2df44a7d9d36bf9dbd8433f28125ac"
+      },
+      "shared_gate_status": "F-010/F-011/F-014 pending; standalone suite is not hosted CI evidence",
+      "base_document_hashes": {
+        "docs/platform/interface-review.md": {
+          "before": "fc2367011b0f5869e26dbbbfb136f682618b3373fe8831c001f1df7d47d55a81",
+          "after": "7d723444cb203b7d36862c63273ce38c6b346bb86ba80147e0d34911c433b0bb",
+          "preservation": "Historical P1 review preserved byte-for-byte as prefix; current B-010 evidence appended"
+        }
+      }
     }
   ]
 }

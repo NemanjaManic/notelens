@@ -605,3 +605,151 @@ dependencies, persistent validation script, or service process was introduced.
 This was agent documentation review. It does not establish full JSON Schema/OpenAPI
 validity, English compliance of future generated outputs, semantic/clinical validation,
 human/team acceptance, implemented session security, or any mock/module/live test pass.
+
+
+---
+
+# B-010: Web Contract-Consumer Review
+
+**Owner/task:** B / `specs/002-platform/T001` (B-010). **Date:** 2026-11-17.
+**Baseline:** `e84856d9aa2d8fea82b40305a63af2db2438e5ec`.
+**Status:** consumer acceptance implemented and locally verified; shared regressions
+and preservation are recorded below. F-010, F-011 and F-014 remain pending.
+
+The [consumer](../../apps/web/src/lib/contracts/consumer.ts) imports the generated
+`@notelens/contracts/v1` runtime/types. Frozen
+[schema](../../contracts/v1/schema.json), [OpenAPI](../../contracts/v1/openapi.json),
+[freeze](../../contracts/v1/freeze.json) and fixtures are authoritative. Version is
+1.0.0; schema SHA256 is
+`707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78`.
+Older platform design documents still describe draft bindings and omit assertion
+`unknown`; these are historical proposals, superseded by the frozen definitions.
+This package does not rewrite those documents or change the freeze.
+
+## Consumed interfaces
+
+| Consumer entry | Generated record | Selected canonical context |
+| --- | --- | --- |
+| `consumeRecord` | `ClassificationResult`, `ExtractionResult` | Required, validated; incoming identity must match. |
+| `consumeRecord` | `RetrievalResult` | No patient context required. |
+| `consumeRecord` | `AnswerResult` | Required for document-bearing answers; pure literature/none/clarification can stand alone. |
+| `consumeExchange('classify')` | `/v1/classify` / `ClassificationResult` | Required on success. |
+| `consumeExchange('extract')` | `/v1/extract` / `ExtractionResult` | Required on success. |
+| `consumeExchange('document-answer')` | `/v1/document-answer` / `AnswerResult` | Required on success, including a none/clarification result. |
+| `consumeExchange('retrieve')` | `/v1/retrieve` / `RetrievalResult` | Optional. |
+| `consumeExchange('literature-answer')` | `/v1/literature-answer` / `AnswerResult` | No patient context required for literature output. |
+
+The operation lookup is compared to every frozen business POST's success definition
+and exact response-status set. Unknown operations, undocumented statuses and bodies
+in the wrong success/error channel are rejected. Health is outside this suite.
+
+Native input goes directly to `validateRecord`; raw JSON goes directly to
+`validateJson`, preserving duplicate-key/non-finite rejection. `validateExchange`
+checks raw header lists, correlation, disposition and error admission. The boundary
+also rejects a 400 diagnostic ID that reuses a rejected incoming ID: the frozen
+business exchange validator does not itself check that freshness condition. No
+validator or contract is modified. Valid error envelopes bypass document validation
+so an invalid submitted document cannot hide its 422 response.
+
+Accepted records are returned unchanged. Mock-only consumption rejects valid live or
+mixed-mode records; route `mixed` remains valid when provenance/mode are all mock.
+Precomposed mixed results are validated, never generated or combined here.
+Extraction and summary outcomes remain independent; unsupported classifications,
+empty extraction, insufficient retrieval, partial answers and clarification retain
+their explicit states, gaps and provenance. An accepted native record preserves
+object identity as well as all fields.
+
+Rejected outcomes expose a fixed English notice, local code and safe contract rule
+IDs. Service-error outcomes preserve validated code, retryability and request ID,
+with a fixed notice; upstream messages/bodies/headers are never returned or logged.
+Neither outcome initiates retries or stores a result.
+
+## Local consumer evidence
+
+Run from the repository root, with the existing installed toolchain:
+
+```powershell
+node apps/web/scripts/check-contracts.mjs
+```
+
+The standalone coordinator verifies installed binding origin and all 72 protected
+file hashes, then runs the existing local TypeScript compiler with NodeNext/noEmit
+and the Node test runner. It needs no dependency install, service process, key,
+corpus, index, browser or model. Direct diagnostic commands are:
+
+```powershell
+node node_modules/typescript/bin/tsc --noEmit --project apps/web/tests/tsconfig.contracts.json
+node --experimental-strip-types --test apps/web/tests/contracts.test.ts
+```
+
+Actual result: **221/221 consumer cases**, no failures, skips, cancellations or todo
+cases; typecheck passed on Node v24.22.1 / TypeScript 7.0.2. Cases use the exported
+consumer boundary, with both native/JSON frozen result cases and application-level
+context, immutability, strict-input, operation, diagnostic and raw-header checks.
+Synthetic mock variants explicitly exercise live fixture scenarios' independent
+insufficient retrieval without changing their frozen originals. Historical/family
+attributes, procedure states, unknown assertion and repeated/non-BMP evidence are
+preserved or rejected using generated validators/reference context.
+
+Four isolated consumer mutations were detected: bypassing validation, dropping
+selected-document validation context, ignoring transport correlation and bypassing
+provenance rejection. Sixteen evidence-failure probes rejected missing/duplicate/
+failed cases, validator-only substitution, stale nonce, changed source, compiler-only
+or failed execution, skips/cancellations/todo, wrong runner IDs, missing evidence and
+empty/duplicate catalogs. Probe failures are expected verification outcomes, not
+additional consumer passes.
+
+Fresh metadata-only results are under ignored `.cache/review/b010-contracts/` and
+`.cache/review/b010-implementation/`. The coordinator binds a fresh nonce and current
+source/frozen hashes to every complete case set, checks compiler/test exits and TAP
+counts/IDs, and clears stale success before running. Failure output contains only
+case/stage/rule metadata. It cannot certify success from compilation alone.
+
+## Scope and remaining gates
+
+This completes B-010's local consumer deliverable, including an observable safe
+rejected state. It does not implement browser rendering, HTTP clients/routing,
+canonical preparation/highlighting, session storage or real module behavior.
+B-001/B-002/B-003/B-004/B-005/B-006 remain their own tasks and dependencies. No page,
+package, dependency, lockfile, A/C/D source, frozen artifact or existing draft changes.
+
+The standalone suite is not wired into the existing F-010 workflow; application CI
+integration belongs to B-006. No hosted CI or human/team approval is claimed.
+The prior F-010 audit finding on A's `chromadb==1.5.9` remains unresolved; this package
+does not alter that dependency or claim a new green advisory scan. F-010/F-011/F-014
+stay unchecked. No commit or push is authorized by this implementation.
+
+## Shared regression and preservation evidence
+
+The existing shared runner and verifier passed: 165 B tooling tests, A 319, C 51,
+D 59, all with zero failures/errors/skips; 30/30 real Node/Python loopback exchanges,
+web typecheck/build/bindings/config/render, frozen/generated checks and all twelve
+temporary processes stopped with closed ports. The existing F-012 suite separately
+passed 54/54 Python/TypeScript cases and its test typecheck. Commands:
+
+```powershell
+& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/run_scaffold_checks.py
+& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/check_scaffold.py
+& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/check_unicode.py
+```
+
+The consumer coordinator also passed from `apps/web` using its absolute script path.
+These local mock regressions are separate from the 221 consumer cases and do not
+constitute hosted CI, real-model, browser interaction or human acceptance evidence.
+
+The eight-file candidate passed the existing local ownership and staged secret
+checks in an isolated Git object store/index under `.cache/review`. Copy detection
+classifies the new test config as copied from the unchanged Unicode test config;
+the ownership declaration includes that read-only source, while the actual diff
+still changes exactly eight files (five added, three modified). No actual staging,
+commit, push or merge was performed.
+
+Preservation comparison passed for all 315 baseline files outside the four approved
+existing paths, including all 16 excluded drafts, 72 protected files and 57 imported
+owner files. Four new source/config files bring the working inventory to 323 files.
+The original historical review above remains an exact byte prefix. Existing pins,
+snapshots and verification entries were retained; only approved task/review pins,
+four additions and a B-010 provenance entry were added. Only platform T001's checkbox
+changed. The real index remains empty/unchanged and HEAD/upstream stay at `e84856d`.
+Metadata evidence: `.cache/review/b010-implementation/preservation.json` and
+`result.json`; see the [execution plan](b-010-web-contract-consumer-plan.md).
