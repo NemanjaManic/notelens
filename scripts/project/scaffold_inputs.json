@@ -583,7 +583,7 @@
     "specs/002-platform/quickstart.md": "4861ee863ee0e6be8c8da0596f776c4fa0b557e8294008b284cdfd60ddb29420",
     "specs/002-platform/research.md": "f37eb7e85a95ab929a2999d3dd232511de0ea544353f80bd903655d32c8f588f",
     "specs/002-platform/spec.md": "e35053b69786004b301242daa3c6974471cce93f95a70a775d5f5ea66bf08954",
-    "specs/002-platform/tasks.md": "b11be3fc1b31bb4324218d68c51ab0a8cb2df44a7d9d36bf9dbd8433f28125ac",
+    "specs/002-platform/tasks.md": "de848a0b5a64170611ba74b1abefa9e50e90a73e18ad6e02f1d3b0e474e229b3",
     "specs/003-classification/AGENTS.md": "74154a8a364ff506dcc8aba97e193d18b86d6a5285c81ef28c42e8216e51f05f",
     "specs/003-classification/checklists/requirements.md": "871f06899d27a3d363b6a75694045171bdd2a35c19ae0d55b380e6e3f297f5a4",
     "specs/003-classification/contracts/README.md": "dfa7926ff67b9b04f8e94db305d07b4c08bd6ee55b991d0e8069011cb60c94fb",
@@ -605,7 +605,8 @@
   },
   "b_editable": [
     "scripts/project/check_scaffold.py",
-    "scripts/project/tests/test_scaffold.py"
+    "scripts/project/tests/test_scaffold.py",
+    "apps/web/tsconfig.json"
   ],
   "b_additions": [
     "scripts/project/scaffold_inputs.json",
@@ -633,7 +634,12 @@
     "apps/web/src/lib/contracts/consumer.ts",
     "apps/web/tests/contracts.test.ts",
     "apps/web/tests/tsconfig.contracts.json",
-    "apps/web/scripts/check-contracts.mjs"
+    "apps/web/scripts/check-contracts.mjs",
+    "apps/web/src/lib/config/session-policy.ts",
+    "apps/web/src/lib/sessions/memory.ts",
+    "apps/web/tests/sessions.test.ts",
+    "apps/web/tests/tsconfig.sessions.json",
+    "apps/web/scripts/check-sessions.mjs"
   ],
   "http_cases": [
     "rag-retrieve-sufficient",
@@ -778,6 +784,44 @@
           "after": "7d723444cb203b7d36862c63273ce38c6b346bb86ba80147e0d34911c433b0bb",
           "preservation": "Historical P1 review preserved byte-for-byte as prefix; current B-010 evidence appended"
         }
+      }
+    },
+    {
+      "date": "2026-11-17",
+      "task": "B-004 bounded early memory/config core",
+      "implementation_base_commit": "e12791c45f584b5cf35a9ba74f98520abc1cba14",
+      "reason": "Explicit user-approved F-014 execution-order exception; full dependency and gates retained",
+      "added_source_sha256": {
+        "apps/web/src/lib/config/session-policy.ts": "c4d0171a5dd1ac7cdc42c092c537a77fbd6aed0c1f65f09d1223fc3ec643785c",
+        "apps/web/src/lib/sessions/memory.ts": "ab8047867bd9f985c9850e7ae4d0575d10dc2995bc3f672a413dfde181596e15",
+        "apps/web/tests/sessions.test.ts": "49e39b0bcb067e9aea5ebe16fc6ba760f0a35e922ea11dabd03b6ba546fc51fb",
+        "apps/web/tests/tsconfig.sessions.json": "47d05d6dc845be4ad81bdca84b6c4ccf5cac3bb6e643c5f7bccce049bdc5be0e",
+        "apps/web/scripts/check-sessions.mjs": "2eb12e8fb8b9cea86a111c578a0c5b7ddd1032480d21edae0146ae07a0770ba3"
+      },
+      "base_document_hashes": {
+        "apps/web/tsconfig.json": {
+          "before": "3b44ae3f09f310fdb59930b9539db0d054146d10a3ff86719cbff31d8b4fef9f",
+          "after": "0172d791af1ead8bfd8b8f109386b74aa822596c2845b8379f97055279c0d98b"
+        },
+        "specs/002-platform/tasks.md": {
+          "before": "b11be3fc1b31bb4324218d68c51ab0a8cb2df44a7d9d36bf9dbd8433f28125ac",
+          "after": "de848a0b5a64170611ba74b1abefa9e50e90a73e18ad6e02f1d3b0e474e229b3"
+        }
+      },
+      "shared_gate_status": "B-004/F-010/F-011/F-014 pending",
+      "approved_b_editable_addition": {
+        "path": "apps/web/tsconfig.json",
+        "reason": "User-approved noEmit TypeScript import compatibility; original B input snapshot/hash retained unchanged; current hash recorded above and in session checker evidence"
+      },
+      "retention_review_follow_up": {
+        "resolved": [
+          "R1 idle cleanup regression coverage",
+          "R2 expiry during validation coverage"
+        ],
+        "cases": 28,
+        "session_implementation_sha256_unchanged": "ab8047867bd9f985c9850e7ae4d0575d10dc2995bc3f672a413dfde181596e15",
+        "prior_test_sha256": "171e5077033c0c00244f0d5553f62e3542d4732ca96a557c383427c86ad50c49",
+        "reason": "User-approved test corrections within the existing nine-file scope; all four gates remain pending"
       }
     }
   ]

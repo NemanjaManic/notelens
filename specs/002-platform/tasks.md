@@ -59,6 +59,7 @@ they are not silently assigned defaults.
 - [ ] T002 B-004: Implement approved memory lifetime, session ownership and guarded configuration in `apps/web/src/lib/sessions/**`, `apps/web/src/lib/config/**`, `apps/web/tests/session-isolation.test.ts`, `apps/web/tests/retention.test.ts`, `docs/platform/configuration.md`, `apps/web/tests/configuration.test.ts`
   - **Owner / story**: B / US3.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014)
+  - **Approved early-work exception (2026-11-17)**: User authorized the bounded B-owned memory/config core before F-014. See [scope, design and limits](../../docs/platform/configuration.md). The exception changes execution order only; B-004/F-010/F-011/F-014 remain pending. Early verification: `node apps/web/scripts/check-sessions.mjs` (28 synthetic isolation/retention/config cases plus noEmit typecheck; R1/R2 idle-cleanup and validation-expiry mutations are detected); browser transport, remaining operational policies and full acceptance stay deferred.
   - **Acceptance**: Document-bound content stays only in process memory for <=60 minutes, cleared on expiry/restart; fake-clock/two-session tests pass. Ask for remaining history/rate/retry/timeout limits; unconfigured live mode fails closed.
   - **Verify**: `npm exec --workspace apps/web -- vitest run tests/session-isolation.test.ts tests/retention.test.ts tests/configuration.test.ts`.
   - **Coverage**: FR-011, FR-016, FR-017, FR-023, SC-002, SC-003.
