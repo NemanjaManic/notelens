@@ -108,9 +108,10 @@ These sizes exclude instructions/schema and are not provider token counts or
 costs. Input is larger because full passages and options are both included. No
 remote token counting was performed during that preparation. The later approved
 CQ-01 probe counted 11,029 full input tokens and reported 204 output tokens.
-CQ-02/CQ-08 have not been counted or generated under v2. A future separately
-approved case must count its exact input and enforce its own approved limits;
-the v1 counts and permissions cannot be reused as v2 execution approval.
+The later approved [coverage probes](coverage-trial.md) counted 13,165 input
+tokens for CQ-02 and 5,277 for CQ-08 and produced validated partial/none decisions.
+These fresh counts and their retained cumulative accounting belong to that
+specific scope; v1 counts and permissions were not reused as v2 approval.
 
 For a key-free metadata preview from this checkout with its prepared public data:
 
@@ -134,6 +135,6 @@ PowerShell resolver, with nonpersistent context.
 No extension hooks were present. Task IDs,
 checkboxes and actual shared dependencies are unchanged. A-004/A-009, semantic
 quality evaluation, canonical partial-answer interpretation and live integration
-remain incomplete. The later single real v2 response does not establish general
-semantic quality or produce a final literature answer. No clinical metric is
+remain incomplete. The three real v2 development responses do not establish
+general semantic quality or produce a final literature answer. No clinical metric is
 claimed. The actual .env and shared/root/other-owner source were not changed.

@@ -151,10 +151,12 @@ were rejected and all original/retry paths remained blocked. No lock remains.
 The [result record](selection-trial-results.json) stores hashes, usage and evidence
 references without redistributing the raw provider response or quote bodies.
 
-Real partial/missing-evidence v2 probes have not been performed. Real literature
-answer generation and shared HTTP integration remain outside this increment.
-Any additional provider case needs a
-separately reviewed scope, preserved cumulative accounting and explicit approval.
+The subsequent approved [coverage trial](coverage-trial.md) produced validated
+CQ-02 partial and CQ-08 missing-evidence decisions while preserving this ledger
+and carrying its inclusive reservation once. This single-question runner still
+cannot admit those IDs. Real literature answer generation and shared HTTP
+integration remain outside both increments. The coverage trial is a distinct,
+consumed scope; neither runner grants an additional provider attempt.
 
 The scoped speckit-implement workflow used specs/001-rag and the official
 PowerShell prerequisite resolver with nonpersistent context. No extension hooks

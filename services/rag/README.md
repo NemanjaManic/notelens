@@ -48,6 +48,17 @@ histories are unchanged and activation is false again. See [actual results](../.
 No other case, additional generation, final literature answer or shared HTTP
 integration is approved/completed by this one probe.
 
+The subsequent [two-case coverage trial](../../docs/rag/coverage-trial.md) completed
+on 2026-11-18 after all 659 offline checks passed. CQ-02 correctly retained the
+supported COVID-19 cause and identified missing contagiousness duration; CQ-08
+found no evidence for the requested Serbia 2025 incidence rate. Both actual
+results replayed without a key or provider request, with four ledgers unchanged.
+The three public v2 probes now cover full/partial/none examples; they are not a
+general quality benchmark. Cumulative reserved reference cost is USD 0.0087813
+within the USD 0.02 allowance; actual billing is unverified. The approved attempts
+are consumed and activation is disabled. Final answer composition, new-question
+decomposition and real shared HTTP integration remain unfinished.
+
 ## Install and verify
 
 From the repository root in PowerShell, with Python 3.13 already installed:

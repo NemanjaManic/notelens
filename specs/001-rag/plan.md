@@ -1,6 +1,6 @@
 # Implementation Plan: Python RAG
 
-**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-17 | **Spec**: [spec.md](spec.md)
+**Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-18 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/001-rag/spec.md`.
 **Owner**: A. **Status**: Draft local design and executable backlog proposal.
@@ -80,6 +80,23 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**Actual v2 partial and missing-evidence probes (2026-11-18)**: Nemanja authorized
+continued A-owned work and the remaining two probes under the existing cumulative
+USD 0.02 cap. All 36 new coverage checks and the full 659-test suite passed,
+followed by offline wheel/isolated preview checks. CQ-02 produced partial support
+(13,165 input/213 output tokens); CQ-08 produced no support (5,277/173). One exact
+COVID-19 cause quote was selected; RSV duration was not used as COVID-19 evidence,
+and the missing Serbia 2025 statistic received no invented citation. See
+[actual results](../../docs/rag/coverage-trial-results.json). Agent inspection is
+not independent clinical/team acceptance. Both actual caches replayed with no
+key/provider access and all four ledgers unchanged. Cumulative reservation is
+USD 0.0087813, confirmed reference usage USD 0.0032421; actual billing remains
+unverified. Activation is disabled, both new attempts are consumed, and old
+histories remain intact. These examples complement CQ-01 full coverage without
+closing A-004/A-009, automatic requested-part extraction, final answer generation,
+partial wire interpretation or shared integration gates. No shared contract or
+HTTP route was changed. Continued owner-local preparation is authorized.
+
 **First actual v2 public probe validated (2026-11-18)**: Nemanja explicitly
 approved the prepared CQ-01 scope. All 623 offline checks passed again before
 one fresh count and one generation attempt. The [actual run](../../docs/rag/selection-trial-results.json)
@@ -91,7 +108,8 @@ reported new usage gives USD 0.0012049 at reference prices, with actual billing
 unverified. Key-free replay returned the validated cache with zero provider
 creation and all three ledgers byte-identical. Both old histories remain halted,
 activation is false, source/prompt/schema are unchanged and no further generation
-is approved. Partial/missing probes, final answers, A-004/A-009 and shared gates
+was approved by that single-case scope. The later coverage increment above
+provides the partial/missing probes; final answers, A-004/A-009 and shared gates
 remain incomplete.
 
 **Single v2 trial preparation (2026-11-17)**: Nemanja approved preparation only.
