@@ -1,0 +1,174 @@
+{
+  "record_format_version": "public-coverage-trial-run-v2",
+  "date": "2026-11-18",
+  "implementation_checkpoint_commit": "01010f50f787f6c073dd047fa00118d577518abd",
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-18",
+    "scope_sha256": "05dd7b8cabb7e8a5a3e7dab86544f73d0b73ea787f40baa4b7726f55febd3c6b"
+  },
+  "scope_sha256": "05dd7b8cabb7e8a5a3e7dab86544f73d0b73ea787f40baa4b7726f55febd3c6b",
+  "model": "gpt-6-luna",
+  "prompt_version": "literature-support-selection-v2",
+  "prompt_sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+  "parameters": {
+    "max_output_tokens": 2048,
+    "reasoning_effort": "none",
+    "timeout_seconds": 30
+  },
+  "mode": "live",
+  "status": "validated_partial_and_missing_coverage",
+  "candidate_source": "Saved public development retrieval snapshots; no new embedding or vector search in these probes.",
+  "fresh_input_count_calls": 2,
+  "generation_attempts": 2,
+  "automatic_retries": 0,
+  "validated_assessments": 2,
+  "max_input_tokens": 20000,
+  "cumulative_max_usd": "0.02",
+  "cases": [
+    {
+      "question_id": "CQ-02",
+      "question": "What causes COVID-19, and how long can an infected person transmit it to others?",
+      "observed_cli_exit_code": 0,
+      "coverage": "partial",
+      "context_sha256": "552957c59b8ede5aabeabeaa1dcd70c3a1a0e6582916d1c95f9c62224d4f4ad3",
+      "selection_sha256": "7666c4cf4b198c86945ac885da863d0d75b7651f09202f0cde9844a1270f2667",
+      "request_sha256": "d0a6e48dd68f06a9bb8c5140962e8b1969910edc8887ec56be56d116620f485e",
+      "configuration_version": "7d889d5461f08eb549d6f9a460dc956b32dc799ad2dc8fc43acf77d705e35e0f",
+      "input_tokens": 13165,
+      "output_tokens": 213,
+      "total_tokens": 13378,
+      "count_matches_reported_input_usage": true,
+      "parts": [
+        {
+          "requirement_id": "part-1",
+          "description": "Cause of COVID-19",
+          "model_status": "supported",
+          "reason": "The passage identifies SARS-CoV-2 as the virus that causes COVID-19.",
+          "evidence": [
+            {
+              "evidence_id": "e1",
+              "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+              "topic_id": "3181",
+              "title": "COVID-19 (Coronavirus Disease 2019)",
+              "url": "https://medlineplus.gov/covid19coronavirusdisease2019.html",
+              "start": 0,
+              "end": 373,
+              "quote_sha256": "08e5a3e23d4d4663e25da5375c021f3c76f4709d7c3821b1e7cef306b8e02917"
+            }
+          ]
+        },
+        {
+          "requirement_id": "part-2",
+          "description": "Duration of infectiousness for COVID-19",
+          "model_status": "not_supported",
+          "reason": "The passages do not state how long a person infected with COVID-19 can transmit it; the infectiousness duration given concerns RSV, not COVID-19.",
+          "evidence": []
+        }
+      ],
+      "supported_requirement_ids": [
+        "part-1"
+      ],
+      "missing_requirement_ids": [
+        "part-2"
+      ],
+      "conflicting_requirement_ids": [],
+      "all_selected_quotes_exact": true,
+      "cache_hit_during_replay": true,
+      "validated_public_result_cache_sha256": "85d09ff0ac67acda3196a8232d1415590ce3438d45ca54296c9e49f8f718ae3b",
+      "new_confirmed_reference_usd": "0.001423",
+      "new_reserved_reference_usd": "0.0023405"
+    },
+    {
+      "question_id": "CQ-08",
+      "question": "What was the incidence of trigeminal neuralgia in Serbia in 2025, in new cases per 100,000 people?",
+      "observed_cli_exit_code": 0,
+      "coverage": "none",
+      "context_sha256": "78f9c5c4328bd6c288244b199613e84bfdbf3ed9bdba071dd2018858ea6eb5f0",
+      "selection_sha256": "807e66d148728c334f15a85cf6db105274e0c3398ed6eccd0999fab8c9d62c86",
+      "request_sha256": "da02de26744e34f48267b5be35dcb3e9377aa2decc63bee29f964f7a2efc7bbc",
+      "configuration_version": "7d889d5461f08eb549d6f9a460dc956b32dc799ad2dc8fc43acf77d705e35e0f",
+      "input_tokens": 5277,
+      "output_tokens": 173,
+      "total_tokens": 5450,
+      "count_matches_reported_input_usage": true,
+      "parts": [
+        {
+          "requirement_id": "part-1",
+          "description": "New trigeminal-neuralgia cases per 100,000 people in Serbia during 2025",
+          "model_status": "not_supported",
+          "reason": "The supplied passages describe trigeminal neuralgia generally but provide no incidence or new-case rate for Serbia in 2025, and no value per 100,000 people.",
+          "evidence": []
+        }
+      ],
+      "supported_requirement_ids": [],
+      "missing_requirement_ids": [
+        "part-1"
+      ],
+      "conflicting_requirement_ids": [],
+      "all_selected_quotes_exact": true,
+      "cache_hit_during_replay": true,
+      "validated_public_result_cache_sha256": "80ae7e62bf9552fb26c9563e657bb98e31dba3956f90eebec961132d3750541d",
+      "new_confirmed_reference_usd": "0.0006142",
+      "new_reserved_reference_usd": "0.0015517"
+    }
+  ],
+  "input_tokens": 18442,
+  "output_tokens": 386,
+  "total_tokens": 18828,
+  "new_confirmed_reference_usd": "0.0020372",
+  "new_reserved_reference_usd": "0.0038922",
+  "cumulative_confirmed_reference_usd": "0.0032421",
+  "cumulative_reserved_reference_usd": "0.0087813",
+  "reference_prices": {
+    "input_usd_per_million": "0.10",
+    "output_usd_per_million": "0.50",
+    "checked_on": "2026-11-16",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+  },
+  "prices_rechecked_on": "2026-11-18",
+  "billing_note": "Reference-price calculation, not actual billing. Earlier failed-request charges and cache pricing remain unverified; no reservation was refunded.",
+  "agent_review": {
+    "reviewer": "Codex agent; not independent team or clinical acceptance",
+    "date": "2026-11-18",
+    "CQ-02": "The selected quote explicitly identifies SARS-CoV-2 as the cause of COVID-19. The available infectious-period text concerns RSV, so it cannot support COVID-19 contagiousness duration.",
+    "CQ-08": "All five supplied candidates were inspected. They discuss trigeminal neuralgia and other conditions, but contain no Serbia 2025 new-case rate per 100,000 people.",
+    "scope": "Two public development cases; no held-out evaluation or general quality claim."
+  },
+  "semantic_support_independently_verified": false,
+  "wire_mapping_applied": false,
+  "cache_reuse_verification": {
+    "cache_hits": 2,
+    "provider_creations": 0,
+    "key_loading": 0,
+    "all_four_ledgers_byte_identical": true,
+    "all_three_validated_caches_byte_identical": true,
+    "ledger_sha256": [
+      "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+      "1b04e28fdc04723930820f1d2b04d670951eea7d65e01f84badca3329de96299",
+      "290d674c3b61e13e8b2c924349dfa0893224c75be79c6f39a927f86f32b613ca",
+      "a416700874bd7aadaf3ce874e8dbe88f7cd4718c15642e54b85fecfaf89cc65c"
+    ],
+    "active_locks": 0,
+    "unrelated_questions_rejected": [
+      "CQ-01",
+      "UNREGISTERED"
+    ]
+  },
+  "activation_enabled_after_run": false,
+  "actual_env_edited": false,
+  "runtime_source_changed_for_execution": false,
+  "raw_provider_response_retained": false,
+  "offline_regression_before_execution": {
+    "passed": 659,
+    "seconds": 26.2,
+    "provider_calls": 0,
+    "new_coverage_tests": 36
+  },
+  "limitations": [
+    "Together with CQ-01, these are three public development probes, not an independent semantic or clinical benchmark.",
+    "Requested parts were already supplied; automatic decomposition of new questions is not implemented.",
+    "No final literature answer, real shared HTTP route or A-004/A-009 completion is claimed.",
+    "The approved two-attempt scope is consumed. History must not be reset or reused as a new allowance."
+  ]
+}
