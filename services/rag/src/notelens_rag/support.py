@@ -117,6 +117,16 @@ def support_context_sha256(request, candidates, requirements):
     return _context(request, candidates, requirements)[2]
 
 
+def assess_empty_candidates(request, candidates, requirements):
+    """Return a bound missing-evidence decision after a successful empty search."""
+    candidates, requirements, digest = _context(request, candidates, requirements)
+    _require(not candidates['passages'], 'support_context_invalid', rule='context_shape',
+             path='/candidates/passages')
+    parts = tuple(PartReview(part['requirement_id'], 'not_supported',
+                           'The completed search returned no passages.', ()) for part in requirements)
+    return SupportDecision('none', (), tuple(part.requirement_id for part in parts), (), digest, parts)
+
+
 def evaluate_support(request, candidates, requirements, assessment):
     """Derive internal coverage from complete, supplied judgments and exact quotes.
 

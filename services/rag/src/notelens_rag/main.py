@@ -156,7 +156,7 @@ def create_app(settings=None, *, backend=None):
                 except RagServiceError as failure:
                     if failure.code in QUESTION_REJECTIONS:
                         return error(422, 'validation_failure', identifier, QUESTION_REJECTIONS[failure.code])
-                    statuses = {'timeout': 504, 'rate_limit': 429, 'provider_unavailable': 503,
+                    statuses = {'timeout': 504, 'rate_limit': 429, 'budget_exceeded': 429, 'provider_unavailable': 503,
                                 'configuration_required': 503, 'validation_failure': 422, 'internal_error': 500}
                     code = failure.code if failure.code in statuses else 'internal_error'
                     return error(statuses[code], code, identifier)

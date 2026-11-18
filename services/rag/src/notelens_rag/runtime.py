@@ -3,7 +3,9 @@
 from .answers import PARTIAL_POLICY, prepare_answer, retrieval_result, unsupported_answer
 from .assessor import AssessmentError
 from .contracts import Contracts
+from .embeddings import EmbeddingError
 from .retrieval import RetrievalError
+from .support import assess_empty_candidates
 
 
 class RagServiceError(ValueError):
@@ -53,6 +55,9 @@ class RagService:
         candidates = self.rank(request)
         if not isinstance(candidates, dict) or candidates.get('mode') != self.mode:
             raise RagServiceError('configuration_required')
+        if candidates.get('passages') == []:
+            decision = assess_empty_candidates(request, candidates, requirements)
+            return prepare_answer(request, candidates, requirements, decision)
         assessment = self.assessor.assess(request, candidates, requirements)
         if assessment.mode != self.mode:
             raise RagServiceError('configuration_required')
@@ -71,14 +76,18 @@ class RagService:
             if body['mode'] != self.mode:
                 raise RagServiceError('configuration_required')
             return body
-        except (AssessmentError, RetrievalError) as failure:
-            known = {'timeout', 'rate_limit', 'provider_unavailable', 'configuration_required', 'validation_failure'}
+        except (AssessmentError, EmbeddingError, RetrievalError) as failure:
+            known = {'timeout', 'rate_limit', 'provider_unavailable', 'budget_exceeded',
+                     'configuration_required', 'validation_failure'}
             code = failure.code
             if isinstance(failure, AssessmentError) and code in (
                     'unsupported_language', 'needs_clarification', 'out_of_scope'):
                 raise RagServiceError(code) from None
-            if code == 'partial_policy_required' or code == 'provider_authentication':
+            if code in ('partial_policy_required', 'provider_authentication', 'embedding_configuration',
+                        'tokenizer_unavailable'):
                 code = 'configuration_required'
+            if code == 'embedding_input_invalid':
+                code = 'validation_failure'
             raise RagServiceError(code if code in known else 'internal_error') from None
 
     def retrieve(self, request):
