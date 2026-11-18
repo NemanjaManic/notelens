@@ -138,8 +138,8 @@ def prepare_assessment(request, candidates, requirements):
                               instructions, _json(payload), _json(schema), inputs_json)
 
 
-def checked_response_content(raw_bytes, parameters, *, mode='mock'):
-    """Validate the native envelope, usage and common assessment wrapper."""
+def checked_completion_content(raw_bytes, parameters, *, mode='mock'):
+    """Validate the shared native completion envelope without interpreting its task."""
     _require(mode in ('mock', 'live'), 'configuration_required')
     response = _strict_json(raw_bytes, stage='response', path='/response')
     _require(isinstance(response, dict) and response.get('object') == 'response'
@@ -179,7 +179,12 @@ def checked_response_content(raw_bytes, parameters, *, mode='mock'):
              stage='response', rule='usage_total', path='/response/usage/total_tokens')
     _require(usage['output_tokens'] <= parameters.max_output_tokens, 'invalid_upstream',
              stage='response', rule='usage_limit', path='/response/usage/output_tokens')
-    result = _strict_json(texts[0], stage='assessment')
+    return _strict_json(texts[0], stage='assessment'), usage
+
+
+def checked_response_content(raw_bytes, parameters, *, mode='mock'):
+    """Keep the assessment-specific wrapper separate from completion validation."""
+    result, usage = checked_completion_content(raw_bytes, parameters, mode=mode)
     _require(isinstance(result, dict) and set(result) == {'requirements_cover_question', 'assessment'},
              stage='assessment', rule='model_output_shape')
     _require(type(result['requirements_cover_question']) is bool,
@@ -248,10 +253,13 @@ class OfflineLunaAssessor:
     def close(self):
         self._client.close()
 
+    def _request(self, prepared):
+        return assessment_request(prepared, self.parameters)
+
     def _raw_response(self, prepared):
         """Use the mandatory mock transport and retain the existing SDK error handling."""
         try:
-            raw = self._client.responses.with_raw_response.create(**assessment_request(prepared, self.parameters))
+            raw = self._client.responses.with_raw_response.create(**self._request(prepared))
         except openai.APITimeoutError:
             raise AssessmentError('timeout') from None
         except openai.RateLimitError:
