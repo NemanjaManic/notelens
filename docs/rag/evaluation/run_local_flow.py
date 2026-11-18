@@ -46,7 +46,8 @@ def _protected_hashes(folders):
     return {path: _digest(path) for folder in folders for path in sorted(folder.rglob('*.json'))}
 
 
-def run(root):
+def cached_retrieval(root, provider_factory):
+    """Open the pinned QA query caches and return exact public vector rankings."""
     scope = read_json(root/SCOPE_PATH)
     proposals = read_json(root/PROPOSAL_PATH)
     previous = read_json(root/REGISTRY)
@@ -65,25 +66,42 @@ def run(root):
              and retriever.retriever_version == comparison['retriever_versions']['vector']
              and corpus.corpus_version == proposals['corpus_version'], 'The real index differs from the evaluated one.')
 
+    original = PublicQuerySession(retriever=retriever, registry=previous, cache_dir=old_cache,
+                                  encoder=encoder, provider_factory=provider_factory)
+    new_registry = {'registry_version': 'qa-proposals-five-new-questions-v1', 'language': 'en', 'public_development_only': True,
+                    'cases': [{'question_id': key, 'question': cases[key]['question']} for key in NEW_IDS]}
+    newer = ProposalQuerySession(trial_scope=scope, retriever=retriever, registry=new_registry, cache_dir=new_cache,
+                                 encoder=encoder, provider_factory=provider_factory)
+    expected_ranks = {row['case_id']: [part['passage_id'] for part in row['vector']['top_five']]
+                      for row in comparison['results']}
+    prior_by_question = {case['question']: case['question_id'] for case in previous['cases']}
+
+    def rank(case_id):
+        question = cases[case_id]['question']
+        prior_id = prior_by_question.get(question)
+        result = original.run(prior_id, execute=False) if prior_id else newer.run(case_id, execute=False)
+        _require(result['question'] == question
+                 and result['query_embedding'] == {'cache_hit': True, 'provider_calls_this_run': 0}
+                 and [p['passage_id'] for p in result['passages']] == expected_ranks[case_id],
+                 'Cached vector retrieval changed the reviewed candidate order.')
+        return result
+
+    return cases, corpus, index, retriever, (old_cache, new_cache), rank
+
+
+def run(root):
     attempts = []
 
     def forbidden(*args, **kwargs):
         attempts.append('provider_or_key')
         raise AssertionError('This offline flow cannot create a provider or load credentials.')
 
-    original = PublicQuerySession(retriever=retriever, registry=previous, cache_dir=old_cache,
-                                  encoder=encoder, provider_factory=forbidden)
-    new_registry = {'registry_version': 'qa-proposals-five-new-questions-v1', 'language': 'en', 'public_development_only': True,
-                    'cases': [{'question_id': key, 'question': cases[key]['question']} for key in NEW_IDS]}
-    newer = ProposalQuerySession(trial_scope=scope, retriever=retriever, registry=new_registry, cache_dir=new_cache,
-                                 encoder=encoder, provider_factory=forbidden)
-    expected_ranks = {row['case_id']: [part['passage_id'] for part in row['vector']['top_five']]
-                      for row in comparison['results']}
+    cases, corpus, index, retriever, query_folders, rank_cached = cached_retrieval(root, forbidden)
     completed = load_answer_trial(root)
     completed.settings = AssessmentSettings()
     completed.client_factory = forbidden
     history = completed.coverage
-    check_folders = (old_cache, new_cache, history.original_folder, history.retry_folder,
+    check_folders = (*query_folders, history.original_folder, history.retry_folder,
                      history.previous_folder, history.folder, completed.folder)
     before = _protected_hashes(check_folders)
     emitted = Counter()
@@ -113,12 +131,7 @@ def run(root):
 
         def rank(request):
             key = by_question[request['question']]
-            cq = CASES[key][0]
-            result = original.run(cq, execute=False) if cq else newer.run(key, execute=False)
-            _require(result['question'] == request['question']
-                     and result['query_embedding'] == {'cache_hit': True, 'provider_calls_this_run': 0}
-                     and [p['passage_id'] for p in result['passages']] == expected_ranks[key],
-                     'Cached vector retrieval changed the reviewed candidate order.')
+            result = rank_cached(key)
             emitted['chroma_rankings'] += 1
             for field in ('question_id', 'question', 'registry_sha256', 'query_embedding', 'query_run_budget'):
                 result.pop(field)
