@@ -42,15 +42,7 @@ def _trace_reference(trace, corpus):
             'start': start, 'end': end, 'quote_sha256': digest}
 
 
-def _fixture(case, ranking, corpus, index_version):
-    request = {'schema_version': '1.0.0', 'question': case['question']}
-    candidates = {'record_format_version': 'rag-candidate-ranking-v1', 'status': 'ranked_candidates',
-        'answerability': 'not_assessed', 'mode': 'mock', 'question_sha256': _sha(case['question'].encode()),
-        'top_k': 5, 'signals_used': ['question'], 'corpus_version': corpus.corpus_version,
-        'index_version': index_version, 'retriever_version': 'public-qa-saved-ranking-fixture-v1',
-        'score_note': 'Fixture scores encode saved passage order only.',
-        'passages': [_source(corpus.by_id[item['passage_id']], corpus, 1.0/rank)
-                     for rank, item in enumerate(ranking['top_five'], start=1)]}
+def _proposal_judgments(case, corpus):
     requirements = [{'requirement_id': f'part-{i}', 'description': part['requested_fact']}
                     for i, part in enumerate(case['parts'], start=1)]
     reviews, drafted = [], {}
@@ -71,6 +63,28 @@ def _fixture(case, ranking, corpus, index_version):
         else:
             reviews.append({'requirement_id': identifier, 'status': 'not_supported',
                             'reason': part['reason'], 'evidence': []})
+    return requirements, reviews, drafted
+
+
+def _fixture_completion(claims):
+    content = json.dumps({'language': 'en', 'claims': claims})
+    native = {'object': 'response', 'model': MODEL, 'status': 'completed', 'error': None,
+        'incomplete_details': None, 'output': [{'type': 'message', 'role': 'assistant', 'status': 'completed',
+            'content': [{'type': 'output_text', 'text': content}]}],
+        'usage': {'input_tokens': 1, 'output_tokens': 1, 'total_tokens': 2}}
+    return json.dumps(native).encode()
+
+
+def _fixture(case, ranking, corpus, index_version):
+    request = {'schema_version': '1.0.0', 'question': case['question']}
+    candidates = {'record_format_version': 'rag-candidate-ranking-v1', 'status': 'ranked_candidates',
+        'answerability': 'not_assessed', 'mode': 'mock', 'question_sha256': _sha(case['question'].encode()),
+        'top_k': 5, 'signals_used': ['question'], 'corpus_version': corpus.corpus_version,
+        'index_version': index_version, 'retriever_version': 'public-qa-saved-ranking-fixture-v1',
+        'score_note': 'Fixture scores encode saved passage order only.',
+        'passages': [_source(corpus.by_id[item['passage_id']], corpus, 1.0/rank)
+                     for rank, item in enumerate(ranking['top_five'], start=1)]}
+    requirements, reviews, drafted = _proposal_judgments(case, corpus)
     digest = support_context_sha256(request, candidates, requirements)
     decision = evaluate_support(request, candidates, requirements, {'format_version': 'rag-support-assessment-v1',
         'context_sha256': digest, 'parts': reviews})
@@ -81,14 +95,10 @@ def _fixture(case, ranking, corpus, index_version):
         result = unsupported_answer(prepared)
     else:
         options = json.loads(prepared.evidence_json)
-        payload = {'language': 'en', 'claims': [{'requirement_id': identifier, 'text': draft,
+        claims = [{'requirement_id': identifier, 'text': draft,
             'evidence_ids': [o['evidence_id'] for o in options if o['requirement_id'] == identifier]}
-            for identifier, draft in drafted.items()]}
-        native = {'object': 'response', 'model': MODEL, 'status': 'completed', 'error': None,
-            'incomplete_details': None, 'output': [{'type': 'message', 'role': 'assistant', 'status': 'completed',
-                'content': [{'type': 'output_text', 'text': json.dumps(payload)}]}],
-            'usage': {'input_tokens': 1, 'output_tokens': 1, 'total_tokens': 2}}
-        result = checked_answer_response(json.dumps(native).encode(), prepared, PARAMETERS, mode='mock',
+            for identifier, draft in drafted.items()]
+        result = checked_answer_response(_fixture_completion(claims), prepared, PARAMETERS, mode='mock',
             partial_policy=PARTIAL_POLICY if decision.coverage == 'partial' else None)
 
     answer = result.body

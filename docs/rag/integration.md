@@ -77,3 +77,8 @@ answer review and measurement on the shared QA set remain open.
 The [independent review packet](evaluation/development-answer-review.md) adds
 the actual answer and five public fixtures for a separate reviewer. It verifies
 exact source slices locally and includes three multi-topic composition checks.
+
+The [local HTTP flow](evaluation/local-http-flow.md) exercises eight fresh Chroma
+rankings from cached vectors and routes full, two-topic, partial and missing
+outcomes through the frozen Python responses. It provides an additional
+pre-integration check with zero API calls.
