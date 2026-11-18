@@ -68,3 +68,8 @@ The later [nine-question comparison](evaluation/vector-proposal-comparison.md)
 adds the complete vector and hybrid rankings. All three two-topic cases retain
 their exact proposed evidence in the vector run. D's reference adjudication
 and independent answer review remain open.
+
+The [first actual cited answer](evaluation/answer-trial.md#actual-answer-and-review)
+used the existing full-support CQ-01 public context. It passed wire validation
+and an agent review of both claims against four exact citations. Independent
+answer review and measurement on the shared QA set remain open.

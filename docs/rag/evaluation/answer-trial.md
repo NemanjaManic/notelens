@@ -1,8 +1,8 @@
 # First public cited-answer trial
 
-Owner: Nemanja (A). Prepared: 2026-11-18. Execution approval pending.
+Owner: Nemanja (A). Prepared and executed: 2026-11-18. Scope closed.
 
-The [prepared scope](answer-trial-proposal.json) permits one new completion
+The [prepared scope](answer-trial-proposal.json) covered one completion
 for CQ-01, the public question about the difference between systolic and diastolic
 blood pressure. It uses the previous verified full-support decision and the
 versioned `literature-answer-v1` prompt. Input contains the exact question and
@@ -61,3 +61,32 @@ including four new checks using the actual SDK with MockTransport. These cover
 the unchanged count/completion request fields, reservation, cache replay and
 halting after an invalid count or citation. The shared UI and HTTP runtime are
 outside this trial.
+
+## Actual answer and review
+
+The approved run made one provider input count and one GPT-6 Luna completion.
+The count matched the reported input usage of 736 tokens. The output used 98
+tokens, for 834 total. There were zero retries and no new embedding or search.
+The result passed the frozen `AnswerResult` validator and returned two English
+claims with four exact references over three distinct spans in two sources.
+
+The coding agent reviewed each claim against the exact selected text. The two
+sentences distinguish pressure in the arteries during a heartbeat from pressure
+between beats. Both facts are explicitly supported. The response contains no
+unrelated advice or patient-specific facts. The [result record](answer-trial-results.json)
+contains the generated claims and matched reference coordinates without source
+bodies or the raw provider envelope. The review covers this one known development
+question and awaits independent acceptance.
+
+The new standard-price usage is USD 0.0001226. The reserved amount is USD
+0.0003296, including the configured maximum output. Across all retained assessment
+and answer trials, confirmed reference usage is USD 0.0033647 and cumulative
+reservations are USD 0.0091109 within the USD 0.02 ceiling. Reservations were
+retained and the actual invoice was not inspected.
+
+The temporary paid activation flag was restored and the scope closed for new
+calls. Cache replay with key loading, client creation and network forbidden
+returned the exact validated answer. Five ledgers and four caches stayed
+byte-identical; no lock remained. The closed scope also rejected an attempt
+without an existing ledger. No live partial answer, final QA or application
+integration was run.
