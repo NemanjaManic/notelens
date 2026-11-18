@@ -1,0 +1,668 @@
+{
+  "record_format_version": "public-qa-vector-comparison-v1",
+  "scope_sha256": "7e62e6321fc26f2a603371878d5cec8e0086b7100b74e521dfd7cec75c373647",
+  "retriever_versions": {
+    "vector": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+    "hybrid": "55a529e4f9060d0a731e695fb7b844aff3a38b5c10499198178f76543471670d"
+  },
+  "groups": {
+    "single_topic": {
+      "vector": {
+        "cases": 5,
+        "ranked": 5,
+        "mean_topic_recall_at_5": 1.0,
+        "topic_mrr_at_5": 1.0,
+        "all_required_topics_at_5_cases": 5,
+        "reference_parts": 5,
+        "reference_parts_with_all_citations_at_5": 5
+      },
+      "hybrid": {
+        "cases": 5,
+        "ranked": 5,
+        "mean_topic_recall_at_5": 1.0,
+        "topic_mrr_at_5": 1.0,
+        "all_required_topics_at_5_cases": 5,
+        "reference_parts": 5,
+        "reference_parts_with_all_citations_at_5": 5
+      }
+    },
+    "multi_topic": {
+      "vector": {
+        "cases": 3,
+        "ranked": 3,
+        "mean_topic_recall_at_5": 1.0,
+        "topic_mrr_at_5": 1.0,
+        "all_required_topics_at_5_cases": 3,
+        "reference_parts": 6,
+        "reference_parts_with_all_citations_at_5": 6
+      },
+      "hybrid": {
+        "cases": 3,
+        "ranked": 3,
+        "mean_topic_recall_at_5": 0.8333333333333334,
+        "topic_mrr_at_5": 1.0,
+        "all_required_topics_at_5_cases": 2,
+        "reference_parts": 6,
+        "reference_parts_with_all_citations_at_5": 5
+      }
+    },
+    "no_supported_topic": {
+      "vector": {
+        "cases": 1,
+        "ranked": 1,
+        "mean_topic_recall_at_5": null,
+        "topic_mrr_at_5": null,
+        "all_required_topics_at_5_cases": null,
+        "reference_parts": 0,
+        "reference_parts_with_all_citations_at_5": 0
+      },
+      "hybrid": {
+        "cases": 1,
+        "ranked": 1,
+        "mean_topic_recall_at_5": null,
+        "topic_mrr_at_5": null,
+        "all_required_topics_at_5_cases": null,
+        "reference_parts": 0,
+        "reference_parts_with_all_citations_at_5": 0
+      }
+    }
+  },
+  "results": [
+    {
+      "case_id": "A-QA-01",
+      "source_shape": "single_topic",
+      "more_than_five_proposed_topics": false,
+      "vector": {
+        "top_five": [
+          {
+            "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+            "topic_id": "34"
+          },
+          {
+            "passage_id": "mplus-1225-6d4949953cb698d8145ce038dc4557e30724518687ca27e01331ea135c731f4a",
+            "topic_id": "1225"
+          },
+          {
+            "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+            "topic_id": "6450"
+          },
+          {
+            "passage_id": "mplus-4939-4eb0e7f3efa78e8302f7d5795f7461a7726ffb3df1f324fe2ee84e6fbdd32a45",
+            "topic_id": "4939"
+          },
+          {
+            "passage_id": "mplus-6450-f98ec222244835649927fab00e0aa26d4aacba513bad83b88f8a2cc496a645da",
+            "topic_id": "6450"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 1,
+        "reference_parts_with_all_citations_at_5": 1
+      },
+      "hybrid": {
+        "top_five": [
+          {
+            "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+            "topic_id": "34"
+          },
+          {
+            "passage_id": "mplus-1225-6d4949953cb698d8145ce038dc4557e30724518687ca27e01331ea135c731f4a",
+            "topic_id": "1225"
+          },
+          {
+            "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+            "topic_id": "6450"
+          },
+          {
+            "passage_id": "mplus-4939-4eb0e7f3efa78e8302f7d5795f7461a7726ffb3df1f324fe2ee84e6fbdd32a45",
+            "topic_id": "4939"
+          },
+          {
+            "passage_id": "mplus-3634-1e1eaca41e44ecb668af7e7b58c5f2222acb2de2c18e143fd1eb39b33345064d",
+            "topic_id": "3634"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 1,
+        "reference_parts_with_all_citations_at_5": 1
+      }
+    },
+    {
+      "case_id": "A-QA-02",
+      "source_shape": "single_topic",
+      "more_than_five_proposed_topics": false,
+      "vector": {
+        "top_five": [
+          {
+            "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+            "topic_id": "3181"
+          },
+          {
+            "passage_id": "mplus-299-ddad4f171ca2f16e0ede75cb8dfd4d1776e8a946226d38240b01277d7f8fb0b8",
+            "topic_id": "299"
+          },
+          {
+            "passage_id": "mplus-461-7fb358bfabdac1a3530aa1e613a5e40e587270e8badd61342ba5d44d80775256",
+            "topic_id": "461"
+          },
+          {
+            "passage_id": "mplus-3101-dc714fd88f63e588e9cb284bc89ca6aad5defdac4bc7c94c4b9907a6413e08b6",
+            "topic_id": "3101"
+          },
+          {
+            "passage_id": "mplus-41-9131fbe97a8b9bc905c394e49ac50e1da5966a89ad4460fa17130fb79329878d",
+            "topic_id": "41"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 1,
+        "reference_parts_with_all_citations_at_5": 1
+      },
+      "hybrid": {
+        "top_five": [
+          {
+            "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+            "topic_id": "3181"
+          },
+          {
+            "passage_id": "mplus-41-9131fbe97a8b9bc905c394e49ac50e1da5966a89ad4460fa17130fb79329878d",
+            "topic_id": "41"
+          },
+          {
+            "passage_id": "mplus-3101-dc714fd88f63e588e9cb284bc89ca6aad5defdac4bc7c94c4b9907a6413e08b6",
+            "topic_id": "3101"
+          },
+          {
+            "passage_id": "mplus-365-385bbf957e2edf7c089556a0beb91d63ca0724846718875ed59da5123abc7e7a",
+            "topic_id": "365"
+          },
+          {
+            "passage_id": "mplus-109-f8a8546b71b48a215065a64579a0d9b1fd18fa20763cff53805446fe9a21392f",
+            "topic_id": "109"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 1,
+        "reference_parts_with_all_citations_at_5": 1
+      }
+    },
+    {
+      "case_id": "A-QA-03",
+      "source_shape": "no_supported_topic",
+      "more_than_five_proposed_topics": false,
+      "vector": {
+        "top_five": [
+          {
+            "passage_id": "mplus-2729-80534db9d68bb13ced80de19a85ce94dd7e84fb4b829030a1087e1b754b2dfec",
+            "topic_id": "2729"
+          },
+          {
+            "passage_id": "mplus-1219-d81f8d90fe5054a40e7b78a368d6e24dfe0a0972dea3749d895649592fe4b250",
+            "topic_id": "1219"
+          },
+          {
+            "passage_id": "mplus-1084-c48301dece04c5ee7de283aeec44158464b1692be7c3606a2acd9aff22d3c3e4",
+            "topic_id": "1084"
+          },
+          {
+            "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+            "topic_id": "1387"
+          },
+          {
+            "passage_id": "mplus-1574-b3e3f677e3820e37eab608d7b245a5634f91b730e4a85a3e3f9be3eb174ad8fa",
+            "topic_id": "1574"
+          }
+        ],
+        "topic_metrics": null,
+        "reference_parts": 0,
+        "reference_parts_with_all_citations_at_5": 0
+      },
+      "hybrid": {
+        "top_five": [
+          {
+            "passage_id": "mplus-2729-80534db9d68bb13ced80de19a85ce94dd7e84fb4b829030a1087e1b754b2dfec",
+            "topic_id": "2729"
+          },
+          {
+            "passage_id": "mplus-1574-b3e3f677e3820e37eab608d7b245a5634f91b730e4a85a3e3f9be3eb174ad8fa",
+            "topic_id": "1574"
+          },
+          {
+            "passage_id": "mplus-90-e56c5d86a47ffdb155aff36d190a2dd2f07f2f7a79f5adf5a55b9bbf4c7e979f",
+            "topic_id": "90"
+          },
+          {
+            "passage_id": "mplus-1219-d81f8d90fe5054a40e7b78a368d6e24dfe0a0972dea3749d895649592fe4b250",
+            "topic_id": "1219"
+          },
+          {
+            "passage_id": "mplus-1084-c48301dece04c5ee7de283aeec44158464b1692be7c3606a2acd9aff22d3c3e4",
+            "topic_id": "1084"
+          }
+        ],
+        "topic_metrics": null,
+        "reference_parts": 0,
+        "reference_parts_with_all_citations_at_5": 0
+      }
+    },
+    {
+      "case_id": "A-QA-04",
+      "source_shape": "single_topic",
+      "more_than_five_proposed_topics": false,
+      "vector": {
+        "top_five": [
+          {
+            "passage_id": "mplus-6208-cb42a0f4fa0f7d9bf3d923e2742b55ed106926d461fd2d79798e43a61d8a151b",
+            "topic_id": "6208"
+          },
+          {
+            "passage_id": "mplus-112-5dee21a75bd44c8b7d55f0d9f46e4f65a0e463380d44c2dd9d459d70c3e610ae",
+            "topic_id": "112"
+          },
+          {
+            "passage_id": "mplus-6208-492909da4f18cc925d4a9d75fca1125876ab420ec1da2e2c4756c557f4349c5c",
+            "topic_id": "6208"
+          },
+          {
+            "passage_id": "mplus-112-1f55cb71378a3ff44d19cb129fdc9d9077aec51ae399ede0a7f75eb631747e0c",
+            "topic_id": "112"
+          },
+          {
+            "passage_id": "mplus-6208-6414cd6f9cf9989d7954ab259476a7a2b33b5629e207afc88f73cd03aaf20e90",
+            "topic_id": "6208"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 1,
+        "reference_parts_with_all_citations_at_5": 1
+      },
+      "hybrid": {
+        "top_five": [
+          {
+            "passage_id": "mplus-6208-cb42a0f4fa0f7d9bf3d923e2742b55ed106926d461fd2d79798e43a61d8a151b",
+            "topic_id": "6208"
+          },
+          {
+            "passage_id": "mplus-112-5dee21a75bd44c8b7d55f0d9f46e4f65a0e463380d44c2dd9d459d70c3e610ae",
+            "topic_id": "112"
+          },
+          {
+            "passage_id": "mplus-6208-492909da4f18cc925d4a9d75fca1125876ab420ec1da2e2c4756c557f4349c5c",
+            "topic_id": "6208"
+          },
+          {
+            "passage_id": "mplus-112-1f55cb71378a3ff44d19cb129fdc9d9077aec51ae399ede0a7f75eb631747e0c",
+            "topic_id": "112"
+          },
+          {
+            "passage_id": "mplus-7-766fc427f908eaf9ea6c5554975300343a145b623e2ecbc0e5451f8d8ae2157d",
+            "topic_id": "7"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 1,
+        "reference_parts_with_all_citations_at_5": 1
+      }
+    },
+    {
+      "case_id": "A-QA-05",
+      "source_shape": "single_topic",
+      "more_than_five_proposed_topics": false,
+      "vector": {
+        "top_five": [
+          {
+            "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+            "topic_id": "1624"
+          },
+          {
+            "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+            "topic_id": "1387"
+          },
+          {
+            "passage_id": "mplus-4553-f6313a5e9ddc68975d885a7dd89fa94d50b0081f7955b90f46ea489d7a7fc4e3",
+            "topic_id": "4553"
+          },
+          {
+            "passage_id": "mplus-6164-dbc42ad9f85071f238881cbc86ca46a46067e9434ce6189e40d424c0b3e191ed",
+            "topic_id": "6164"
+          },
+          {
+            "passage_id": "mplus-330-d24504e5cbd5a3538ab07218b95e8ac22ba93973b9020ab3f78c7c9f6f16d302",
+            "topic_id": "330"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 1,
+        "reference_parts_with_all_citations_at_5": 1
+      },
+      "hybrid": {
+        "top_five": [
+          {
+            "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+            "topic_id": "1624"
+          },
+          {
+            "passage_id": "mplus-4553-f6313a5e9ddc68975d885a7dd89fa94d50b0081f7955b90f46ea489d7a7fc4e3",
+            "topic_id": "4553"
+          },
+          {
+            "passage_id": "mplus-330-d24504e5cbd5a3538ab07218b95e8ac22ba93973b9020ab3f78c7c9f6f16d302",
+            "topic_id": "330"
+          },
+          {
+            "passage_id": "mplus-336-600d4c52a2067e736404767d6c6d47dea75be89f931baf0b87a38897a134da3c",
+            "topic_id": "336"
+          },
+          {
+            "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+            "topic_id": "1387"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 1,
+        "reference_parts_with_all_citations_at_5": 1
+      }
+    },
+    {
+      "case_id": "A-QA-06",
+      "source_shape": "single_topic",
+      "more_than_five_proposed_topics": false,
+      "vector": {
+        "top_five": [
+          {
+            "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+            "topic_id": "5755"
+          },
+          {
+            "passage_id": "mplus-5977-766dab74021205d00633dddaa2fd1b1a7a4918dad4f1623c2c37da084cc475d4",
+            "topic_id": "5977"
+          },
+          {
+            "passage_id": "mplus-1608-e574243666ce456f93cae983f356d6ecac2d07c53d898ef622df49022c16e10c",
+            "topic_id": "1608"
+          },
+          {
+            "passage_id": "mplus-5448-033be5e9f8b0920b06bfcd8e0b63fec2874e9917e009cc922d455ca96cbc7405",
+            "topic_id": "5448"
+          },
+          {
+            "passage_id": "mplus-1608-317a191a1e2ff4814836bc77e236afe7d1cd6fbe249660bc30032a940915f052",
+            "topic_id": "1608"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 1,
+        "reference_parts_with_all_citations_at_5": 1
+      },
+      "hybrid": {
+        "top_five": [
+          {
+            "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+            "topic_id": "5755"
+          },
+          {
+            "passage_id": "mplus-5977-766dab74021205d00633dddaa2fd1b1a7a4918dad4f1623c2c37da084cc475d4",
+            "topic_id": "5977"
+          },
+          {
+            "passage_id": "mplus-1608-e574243666ce456f93cae983f356d6ecac2d07c53d898ef622df49022c16e10c",
+            "topic_id": "1608"
+          },
+          {
+            "passage_id": "mplus-1608-317a191a1e2ff4814836bc77e236afe7d1cd6fbe249660bc30032a940915f052",
+            "topic_id": "1608"
+          },
+          {
+            "passage_id": "mplus-1543-155330cbba486cfaedb3ffa30f1933441a7b47f40b9baabd072b1630471e97cc",
+            "topic_id": "1543"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 1,
+        "reference_parts_with_all_citations_at_5": 1
+      }
+    },
+    {
+      "case_id": "A-QA-07",
+      "source_shape": "multi_topic",
+      "more_than_five_proposed_topics": false,
+      "vector": {
+        "top_five": [
+          {
+            "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+            "topic_id": "1624"
+          },
+          {
+            "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+            "topic_id": "179"
+          },
+          {
+            "passage_id": "mplus-179-83e6e8e70588af11c4fb55f02989a56f6e51292b769ec4bd4991681fa3edfd4f",
+            "topic_id": "179"
+          },
+          {
+            "passage_id": "mplus-179-82f9719e2c4fd2b072e4ba01a0b839b8fb6f7eb9bacacf0adc63be2e4e185938",
+            "topic_id": "179"
+          },
+          {
+            "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+            "topic_id": "1387"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 2,
+        "reference_parts_with_all_citations_at_5": 2
+      },
+      "hybrid": {
+        "top_five": [
+          {
+            "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+            "topic_id": "179"
+          },
+          {
+            "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+            "topic_id": "1624"
+          },
+          {
+            "passage_id": "mplus-179-83e6e8e70588af11c4fb55f02989a56f6e51292b769ec4bd4991681fa3edfd4f",
+            "topic_id": "179"
+          },
+          {
+            "passage_id": "mplus-179-82f9719e2c4fd2b072e4ba01a0b839b8fb6f7eb9bacacf0adc63be2e4e185938",
+            "topic_id": "179"
+          },
+          {
+            "passage_id": "mplus-1251-f8512bdc6b4f71259eef6e69bbe956ddac983d2d092f86a40052fbcb5ce7dce0",
+            "topic_id": "1251"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 2,
+        "reference_parts_with_all_citations_at_5": 2
+      }
+    },
+    {
+      "case_id": "A-QA-08",
+      "source_shape": "multi_topic",
+      "more_than_five_proposed_topics": false,
+      "vector": {
+        "top_five": [
+          {
+            "passage_id": "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+            "topic_id": "3920"
+          },
+          {
+            "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+            "topic_id": "5275"
+          },
+          {
+            "passage_id": "mplus-3038-086fb89d1c9c701b2b2c808f01a7429591a0c1dca634d862e083525340bf004b",
+            "topic_id": "3038"
+          },
+          {
+            "passage_id": "mplus-3054-d8bbe0616a948896ee3b43439852b3b7ec0c69f26566361d89c49459d3039216",
+            "topic_id": "3054"
+          },
+          {
+            "passage_id": "mplus-5446-0f4d01e41f083f7a38d0136ed25e3ebf1eb1897fc6c62c23b70ce71d89386a66",
+            "topic_id": "5446"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 2,
+        "reference_parts_with_all_citations_at_5": 2
+      },
+      "hybrid": {
+        "top_five": [
+          {
+            "passage_id": "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+            "topic_id": "3920"
+          },
+          {
+            "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+            "topic_id": "5275"
+          },
+          {
+            "passage_id": "mplus-5446-0f4d01e41f083f7a38d0136ed25e3ebf1eb1897fc6c62c23b70ce71d89386a66",
+            "topic_id": "5446"
+          },
+          {
+            "passage_id": "mplus-119-cb9948bb01457eee61f762c5724f28620ccc44db1750144c6b2bb0085f59131f",
+            "topic_id": "119"
+          },
+          {
+            "passage_id": "mplus-214-c40abe16d582adbd4e1d81d555a2a77367b065ff2975e1b2eaa6135eb5241e91",
+            "topic_id": "214"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 2,
+        "reference_parts_with_all_citations_at_5": 2
+      }
+    },
+    {
+      "case_id": "A-QA-09",
+      "source_shape": "multi_topic",
+      "more_than_five_proposed_topics": false,
+      "vector": {
+        "top_five": [
+          {
+            "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+            "topic_id": "4452"
+          },
+          {
+            "passage_id": "mplus-3787-0b7350b8aef61e4f1e9e9f648babe84c9a4e8a057dd9f02448e3f2ebe9bf6adc",
+            "topic_id": "3787"
+          },
+          {
+            "passage_id": "mplus-5905-f3d86dbdf4be1b6fc16866df922c8b9c08324122d8a2ec4183bf0b6b59545e73",
+            "topic_id": "5905"
+          },
+          {
+            "passage_id": "mplus-259-fcb64ff3c43b2c238c4110300b6222d1f827ad69f8d9bb1119ac310dee9c05ad",
+            "topic_id": "259"
+          },
+          {
+            "passage_id": "mplus-4643-ce65ac50c6728aaea035f8e00c7ced25d2a3c42d272e3a6fcecf9a345af503bf",
+            "topic_id": "4643"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "reference_parts": 2,
+        "reference_parts_with_all_citations_at_5": 2
+      },
+      "hybrid": {
+        "top_five": [
+          {
+            "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+            "topic_id": "4452"
+          },
+          {
+            "passage_id": "mplus-5905-f3d86dbdf4be1b6fc16866df922c8b9c08324122d8a2ec4183bf0b6b59545e73",
+            "topic_id": "5905"
+          },
+          {
+            "passage_id": "mplus-4645-9db3143e3b6de193c03c7fbe12e5ab3f6af9fd2326bbfbb559f774a662bdeb30",
+            "topic_id": "4645"
+          },
+          {
+            "passage_id": "mplus-3787-0b7350b8aef61e4f1e9e9f648babe84c9a4e8a057dd9f02448e3f2ebe9bf6adc",
+            "topic_id": "3787"
+          },
+          {
+            "passage_id": "mplus-259-fcb64ff3c43b2c238c4110300b6222d1f827ad69f8d9bb1119ac310dee9c05ad",
+            "topic_id": "259"
+          }
+        ],
+        "topic_metrics": {
+          "recall_at_5": 0.5,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": false
+        },
+        "reference_parts": 2,
+        "reference_parts_with_all_citations_at_5": 1
+      }
+    }
+  ],
+  "new_provider_calls": 0
+}

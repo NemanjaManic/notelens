@@ -1,6 +1,7 @@
 # Bounded vector trial for the public QA proposals
 
-Owner: Nemanja (A). Preflight: 2026-11-18. Execution is pending approval.
+Owner: Nemanja (A). Preflight: 2026-11-18. The later approved scope ran and is
+now closed. See [the actual comparison and accounting](vector-proposal-comparison.md).
 
 The [proposed scope](vector-proposal-scope.json) admits only the exact wording of
 five public development proposals. Four other proposals already match cached
@@ -49,7 +50,7 @@ existing questions. Each found the top-ranked target topic and the cited passage
 in all three cases with supported parts. The missing-evidence probe has no
 topic-recall denominator. Five questions remain unevaluated in this comparison.
 
-The pending live path rejected execution. The two key-free commands made zero
+At preflight the pending live path rejected execution. The two key-free commands made zero
 provider calls, left the previous ledger unchanged and created no trial cache.
 Six new tests verify pending or altered approval, scope and allowance separation,
 replay and failure retention. The full service run passed 756 tests. Integration

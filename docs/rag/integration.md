@@ -64,4 +64,7 @@ from these results.
 The [local lexical follow-up](evaluation/lexical-proposal-evaluation.md) measured
 all nine proposals, including the three two-topic cases. Its five-passage window
 included both proposed topics and all cited passages in every two-topic case.
-Vector and hybrid rankings for the new questions and D's adjudication remain open.
+The later [nine-question comparison](evaluation/vector-proposal-comparison.md)
+adds the complete vector and hybrid rankings. All three two-topic cases retain
+their exact proposed evidence in the vector run. D's reference adjudication
+and independent answer review remain open.
