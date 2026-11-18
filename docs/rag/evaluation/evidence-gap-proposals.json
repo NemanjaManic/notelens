@@ -1,0 +1,230 @@
+{
+  "format_version": "rag-evidence-gap-proposals-v1",
+  "partition": "development_candidate",
+  "independent_review": "pending",
+  "author_review": {
+    "reviewer": "Member A coding agent",
+    "date": "2026-11-18",
+    "scope": "Recorded top five BM25 passages per question"
+  },
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "ranking": {
+    "algorithm": "bm25-passage-words-v1",
+    "k1": 1.2,
+    "b": 0.75,
+    "top_k": 5,
+    "unicode_data_version": "15.1.0"
+  },
+  "offset_unit": "Passage-relative Unicode code points, half-open [start, end)",
+  "pairs": [
+    {
+      "control": "EG-01",
+      "gap": "EG-02"
+    },
+    {
+      "control": "EG-03",
+      "gap": "EG-04",
+      "partial": "EG-07"
+    },
+    {
+      "control": "EG-05",
+      "gap": "EG-06"
+    }
+  ],
+  "cases": [
+    {
+      "id": "EG-01",
+      "question": "What causes the yellow color in jaundice?",
+      "target_topic_id": "4452",
+      "target_title": "Jaundice",
+      "ranked_passage_ids": [
+        "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+        "mplus-1692-13c6fe8f74d4fd786df5748a7c73412f796dfe6c3cfb6a17d8f0de373b9d25d9",
+        "mplus-310-6e0f04d86daa8bae8adf483e09fe8a18543e8f139459a9e8d8fd52d76e9b8d3a",
+        "mplus-389-0fd2aeeb8b432286ea6fcde0af0d3699208091f4c5f2d81af7be4dd2662ad2b1",
+        "mplus-1286-62508741a8cf4927ce59e1660a972bd133a27170e4c8de9ca5ce073882febaaf"
+      ],
+      "expected_coverage": "full",
+      "parts": [
+        {
+          "requested_fact": "What causes the yellow discoloration in jaundice",
+          "status": "supported",
+          "review_note": "The summary links the discoloration to bilirubin buildup.",
+          "evidence": [
+            {
+              "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+              "start": 0,
+              "end": 105,
+              "quote_sha256": "3e2f4352eca346258fa756221e485fe4c41a5c826d2bce3dfd8b9b8b294a0255"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "EG-02",
+      "question": "What percentage of newborns in Serbia developed jaundice in their first week in 2025?",
+      "target_topic_id": "4452",
+      "target_title": "Jaundice",
+      "ranked_passage_ids": [
+        "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+        "mplus-402-0d79c24a20f2d72cccd9d0823d5b169bc337c098b477aab82f28d7d0da832a06",
+        "mplus-198-74669381bd6bce114aecdd3bcb5026fab04f89d0963d3a138579af7467994107",
+        "mplus-3022-214865a8573c8a032f442cc88093f0d6038cd45cb71f3fceb8f043479e6c07bc",
+        "mplus-6467-2a1a3f0ee876e4cedfc82193391a3a2444630ebaee26ed2da88cd77063fa273d"
+      ],
+      "expected_coverage": "none",
+      "parts": [
+        {
+          "requested_fact": "Share of newborns in Serbia with first-week jaundice in 2025",
+          "status": "missing_in_top_five",
+          "review_note": "The jaundice summary mentions first-week jaundice in babies in general. The country-, year- and period-specific percentage is absent.",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "EG-03",
+      "question": "What often causes acute bronchitis?",
+      "target_topic_id": "5755",
+      "target_title": "Acute Bronchitis",
+      "ranked_passage_ids": [
+        "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+        "mplus-1543-155330cbba486cfaedb3ffa30f1933441a7b47f40b9baabd072b1630471e97cc",
+        "mplus-5977-766dab74021205d00633dddaa2fd1b1a7a4918dad4f1623c2c37da084cc475d4",
+        "mplus-1608-e574243666ce456f93cae983f356d6ecac2d07c53d898ef622df49022c16e10c",
+        "mplus-1608-317a191a1e2ff4814836bc77e236afe7d1cd6fbe249660bc30032a940915f052"
+      ],
+      "expected_coverage": "full",
+      "parts": [
+        {
+          "requested_fact": "A common cause of acute bronchitis",
+          "status": "supported",
+          "review_note": "The summary directly identifies the viruses that cause colds and the flu as a common cause.",
+          "evidence": [
+            {
+              "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+              "start": 420,
+              "end": 495,
+              "quote_sha256": "37cdcee958246842bd91f4862c04bedc2be799cd84d1a4adde127c1f1ef51794"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "EG-04",
+      "question": "How many weeks longer does cough from acute bronchitis last in people exposed to tobacco smoke than in people not exposed?",
+      "target_topic_id": "5755",
+      "target_title": "Acute Bronchitis",
+      "ranked_passage_ids": [
+        "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+        "mplus-1543-155330cbba486cfaedb3ffa30f1933441a7b47f40b9baabd072b1630471e97cc",
+        "mplus-108-1f85b7d4ca75af627ca75cb48ff471d3f47a737aed8024a7300cc70efd865295",
+        "mplus-1608-e574243666ce456f93cae983f356d6ecac2d07c53d898ef622df49022c16e10c",
+        "mplus-461-e03ed8fbdde64b7a1b1c5a68994deda82a8a43207c26eab3836e6fc5a4047187"
+      ],
+      "expected_coverage": "none",
+      "parts": [
+        {
+          "requested_fact": "Difference in weeks of acute bronchitis cough by tobacco-smoke exposure",
+          "status": "missing_in_top_five",
+          "review_note": "The reviewed passages discuss cough duration or smoke exposure. The comparison between the two groups, including its direction, is absent.",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "EG-05",
+      "question": "Which nerve is compressed in carpal tunnel syndrome?",
+      "target_topic_id": "179",
+      "target_title": "Carpal Tunnel Syndrome",
+      "ranked_passage_ids": [
+        "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+        "mplus-179-83e6e8e70588af11c4fb55f02989a56f6e51292b769ec4bd4991681fa3edfd4f",
+        "mplus-179-82f9719e2c4fd2b072e4ba01a0b839b8fb6f7eb9bacacf0adc63be2e4e185938",
+        "mplus-507-e46340a96e50ab9bcaffa22ddfb6785543ee4f119ae7ea9ea5383b051eac86a7",
+        "mplus-1251-f8512bdc6b4f71259eef6e69bbe956ddac983d2d092f86a40052fbcb5ce7dce0"
+      ],
+      "expected_coverage": "full",
+      "parts": [
+        {
+          "requested_fact": "Nerve compressed in carpal tunnel syndrome",
+          "status": "supported",
+          "review_note": "The definition describes compression of the nerve in the wrist, and the anatomy paragraph identifies the median nerve in the carpal tunnel.",
+          "evidence": [
+            {
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "start": 167,
+              "end": 253,
+              "quote_sha256": "8c706fa633cdbbc94f814b469d0fc510cd592db108c4f2f76730a9a1223382b2"
+            },
+            {
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "start": 368,
+              "end": 472,
+              "quote_sha256": "a9fd677f7a1297863119d346c3a87efafb1461dbd64c9e66f1316b4f1999fded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "EG-06",
+      "question": "What median nerve conduction time in milliseconds is given as a diagnostic cutoff for carpal tunnel syndrome?",
+      "target_topic_id": "179",
+      "target_title": "Carpal Tunnel Syndrome",
+      "ranked_passage_ids": [
+        "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+        "mplus-179-82f9719e2c4fd2b072e4ba01a0b839b8fb6f7eb9bacacf0adc63be2e4e185938",
+        "mplus-179-83e6e8e70588af11c4fb55f02989a56f6e51292b769ec4bd4991681fa3edfd4f",
+        "mplus-507-e46340a96e50ab9bcaffa22ddfb6785543ee4f119ae7ea9ea5383b051eac86a7",
+        "mplus-3397-d03793139260014e2060fac6b31858151c5aead9b3eb447d5790f04df5514301"
+      ],
+      "expected_coverage": "none",
+      "parts": [
+        {
+          "requested_fact": "Diagnostic median nerve conduction time cutoff in milliseconds",
+          "status": "missing_in_top_five",
+          "review_note": "A carpal tunnel syndrome passage mentions electrical tests of nerves and muscles. The numerical cutoff is absent.",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "EG-07",
+      "question": "What often causes acute bronchitis, and how many weeks longer does the cough last in people exposed to tobacco smoke than in people not exposed?",
+      "target_topic_id": "5755",
+      "target_title": "Acute Bronchitis",
+      "ranked_passage_ids": [
+        "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+        "mplus-1543-155330cbba486cfaedb3ffa30f1933441a7b47f40b9baabd072b1630471e97cc",
+        "mplus-108-1f85b7d4ca75af627ca75cb48ff471d3f47a737aed8024a7300cc70efd865295",
+        "mplus-1608-e574243666ce456f93cae983f356d6ecac2d07c53d898ef622df49022c16e10c",
+        "mplus-461-e03ed8fbdde64b7a1b1c5a68994deda82a8a43207c26eab3836e6fc5a4047187"
+      ],
+      "expected_coverage": "partial",
+      "parts": [
+        {
+          "requested_fact": "A common cause of acute bronchitis",
+          "status": "supported",
+          "review_note": "The summary directly identifies the viruses that cause colds and the flu as a common cause.",
+          "evidence": [
+            {
+              "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+              "start": 420,
+              "end": 495,
+              "quote_sha256": "37cdcee958246842bd91f4862c04bedc2be799cd84d1a4adde127c1f1ef51794"
+            }
+          ]
+        },
+        {
+          "requested_fact": "Difference in weeks of acute bronchitis cough by tobacco-smoke exposure",
+          "status": "missing_in_top_five",
+          "review_note": "The reviewed passages discuss cough duration or smoke exposure. The comparison between the two groups, including its direction, is absent.",
+          "evidence": []
+        }
+      ]
+    }
+  ]
+}
