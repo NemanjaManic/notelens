@@ -1,4 +1,4 @@
-"""Loopback-first RAG mock using frozen bindings. Live HTTP remains unavailable."""
+"""Default loopback mock with an explicit, authenticated service-backend boundary."""
 
 from dataclasses import dataclass, field
 import hmac
@@ -8,11 +8,13 @@ from uuid import uuid4
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from starlette.concurrency import run_in_threadpool
 
 from . import __version__
 from .contracts import ContractError, ContractJsonError, Contracts
 from .ingestion import CorpusLoadError, load_corpus
 from .mock import DEMO_QUESTION, result as mock_result
+from .runtime import RagServiceError
 
 
 SCENARIOS = {"sufficient", "insufficient", "clarification", "timeout", "rate_limit",
@@ -46,14 +48,20 @@ class Settings:
                    expected_corpus_version=os.environ.get("NOTELENS_RAG_EXPECTED_CORPUS_VERSION"))
 
 
-def create_app(settings=None):
+def create_app(settings=None, *, backend=None):
     configuration = settings if settings is not None else Settings.from_environment()
+    if backend is not None:
+        if (backend.mode != configuration.mode or not isinstance(backend.model_version, str)
+                or not backend.model_version.strip()
+                or (configuration.mode == 'live' and configuration.service_token is None)):
+            raise ValueError('An explicit backend must match server mode and live authentication.')
     contracts = Contracts()
     app = FastAPI(title="NoteLens RAG mock service", version=__version__,
                   openapi_url=None, docs_url=None, redoc_url=None)
     app.state.mock_result = mock_result
     app.state.prepared_corpus = None
     app.state.corpus_error = None
+    app.state.backend = backend
     if configuration.corpus_manifest is not None:
         try:
             app.state.prepared_corpus = load_corpus(repository_root=configuration.repository_root,
@@ -110,11 +118,13 @@ def create_app(settings=None):
     async def readiness(request: Request):
         if not authenticated(request):
             return error(401, "unauthorized", str(uuid4()), "Service authentication is required.")
-        ready = configuration.mode == "mock" and app.state.corpus_error is None
+        ready = (configuration.mode == "mock" if backend is None else await run_in_threadpool(backend.is_ready))
+        ready = ready is True and app.state.corpus_error is None
         return checked_response("HealthResult", {
             "schema_version": "1.0.0", "service": "rag", "status": "ok" if ready else "not_ready",
-            "mode": configuration.mode, "version": __version__, "model_version": None,
-            "reason": None if ready else (app.state.corpus_error or "Live retrieval and generation are not configured.")},
+            "mode": configuration.mode, "version": __version__,
+            "model_version": None if backend is None or configuration.mode == 'mock' else backend.model_version,
+            "reason": None if ready else (app.state.corpus_error or "Retrieval and generation are not ready.")},
             200 if ready else 503)
 
     async def business(request, operation):
@@ -134,6 +144,19 @@ def create_app(settings=None):
                 return error(422, "validation_failure", identifier, "The request does not match the contract.")
             if app.state.corpus_error is not None:
                 return error(503, "configuration_required", identifier, app.state.corpus_error)
+            if backend is not None:
+                try:
+                    operation_handler = backend.retrieve if operation == 'retrieve' else backend.answer
+                    body = await run_in_threadpool(operation_handler, payload)
+                except RagServiceError as failure:
+                    statuses = {'timeout': 504, 'rate_limit': 429, 'provider_unavailable': 503,
+                                'configuration_required': 503, 'validation_failure': 422, 'internal_error': 500}
+                    code = failure.code if failure.code in statuses else 'internal_error'
+                    return error(statuses[code], code, identifier)
+                if body.get('mode') != configuration.mode:
+                    return error(500, 'internal_error', identifier)
+                response_definition = 'RetrievalResult' if operation == 'retrieve' else 'AnswerResult'
+                return checked_response(response_definition, body, headers={'X-Request-ID': identifier})
             if configuration.mode != "mock":
                 return error(503, "configuration_required", identifier, "Live retrieval and generation are not configured.")
             if payload["question"] != DEMO_QUESTION:
