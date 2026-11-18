@@ -44,6 +44,13 @@ class CandidateRetriever:
             'Score = 1 - Chroma cosine distance. Higher ranks better within this retriever/index version; '
             'not clinical confidence or proof of answer support. Candidates are not assessed for answerability.')
 
+    def _passage_record(self, passage_id, score):
+        corpus = self.index.corpus
+        source = corpus.by_id[passage_id]
+        return {'source_id': source.passage_id, 'kind': 'literature', 'topic_id': source.topic_id,
+                'passage_id': source.passage_id, 'title': source.title, 'url': source.url,
+                'text': source.text, 'snapshot_date': corpus.snapshot_date, 'score': score}
+
     def _prepare(self, request, embedder):
         try:
             validate_record('RetrievalRequest', request)
@@ -84,12 +91,7 @@ class CandidateRetriever:
                 require(key in self.index.corpus.by_id and type(distance) in (int, float)
                         and math.isfinite(distance) and -0.00001 <= distance <= 2.00001,
                         'index_query_failure', 'The index returned an unknown passage or invalid cosine distance.')
-                source = self.index.corpus.by_id[key]
-                passage = {'source_id': source.passage_id, 'kind': 'literature',
-                    'topic_id': source.topic_id, 'passage_id': source.passage_id, 'title': source.title,
-                    'url': source.url, 'text': source.text, 'snapshot_date': self.index.corpus.snapshot_date,
-                    'score': 1.0 - float(distance)}
-                passages.append(passage)
+                passages.append(self._passage_record(key, 1.0 - float(distance)))
             passages, signals_used, score_note = self._rank_passages(request, passages)
             passages.sort(key=lambda row: (-row['score'], row['passage_id']))
             for passage in passages:
