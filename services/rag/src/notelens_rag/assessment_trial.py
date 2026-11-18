@@ -103,8 +103,11 @@ def _call(operation, **kwargs):
 
 
 def _count(client, prepared, parameters, limit):
-    raw = _call(client.responses.input_tokens.with_raw_response.count,
-                **assessment_count_request(prepared, parameters))
+    return _count_request(client, assessment_count_request(prepared, parameters), limit)
+
+
+def _count_request(client, payload, limit):
+    raw = _call(client.responses.input_tokens.with_raw_response.count, **payload)
     result = _strict_json(raw.http_response.content)
     _require(isinstance(result, dict) and result.get('object') == 'response.input_tokens'
              and type(result.get('input_tokens')) is int and result['input_tokens'] > 0, 'invalid_upstream')
@@ -252,6 +255,12 @@ class PublicAssessmentTrial:
     def _checked_response(self, raw_bytes, prepared):
         return checked_assessment_response(raw_bytes, prepared, self.parameters, mode=self.mode)
 
+    def _generation_request(self, prepared):
+        return assessment_request(prepared, self.parameters)
+
+    def _count_input(self, client, prepared):
+        return _count(client, prepared, self.parameters, self.plan['limits']['max_input_tokens'])
+
     def run(self, question_id, *, execute=False, budget_usd=None):
         _require(question_id in self.cases and type(execute) is bool, 'trial_scope_invalid')
         self._validate_preparation()
@@ -305,7 +314,7 @@ class PublicAssessmentTrial:
             settings = self.settings if self.settings is not None else read_assessment_settings()
             client = (self.client_factory or (lambda: _client(settings, self.parameters)))()
             prepared = self.cases[question_id]
-            tokens = _count(client, prepared, self.parameters, self.plan['limits']['max_input_tokens'])
+            tokens = self._count_input(client, prepared)
             reservation = _cost(self.plan, tokens, self.parameters.max_output_tokens)
             total = _money(ledger['reserved_usd']) + reservation
             _require(total <= _money(ledger['max_usd']), 'budget_exceeded')
@@ -313,7 +322,7 @@ class PublicAssessmentTrial:
             ledger['reserved_usd'] = str(total)
             atomic_json(path, ledger)  # Persist before the potentially billable request.
             raw = _call(client.responses.with_raw_response.create,
-                        **assessment_request(prepared, self.parameters), service_tier='default')
+                        **self._generation_request(prepared), service_tier='default')
             body = _strict_json(raw.http_response.content)
             _require(isinstance(body, dict) and body.get('service_tier') == 'default', 'pricing_mode_mismatch')
             result = self._checked_response(raw.http_response.content, prepared)
