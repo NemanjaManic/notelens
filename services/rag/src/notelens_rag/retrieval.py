@@ -36,6 +36,14 @@ class CandidateRetriever:
             'embedding_space_version': index.spec['embedding_space_version']}
         self.retriever_version = identity(self.configuration)
 
+    def _candidate_limit(self, request):
+        return self.top_k
+
+    def _rank_passages(self, request, passages):
+        return passages, ['question'], (
+            'Score = 1 - Chroma cosine distance. Higher ranks better within this retriever/index version; '
+            'not clinical confidence or proof of answer support. Candidates are not assessed for answerability.')
+
     def _prepare(self, request, embedder):
         try:
             validate_record('RetrievalRequest', request)
@@ -63,7 +71,7 @@ class CandidateRetriever:
         vector = batch.vectors[0]
         require(len(vector) == DIMENSIONS and all(type(v) in (int, float) and math.isfinite(v) for v in vector)
                 and any(v != 0 for v in vector), 'invalid_upstream', 'The question embedding vector is invalid.')
-        count = min(self.top_k, len(self.index.corpus.passages))
+        count = min(self._candidate_limit(request), len(self.index.corpus.passages))
         try:
             result = self.index.collection.query(query_embeddings=[list(vector)], n_results=count, include=['distances'])
             require(isinstance(result, dict) and len(result['ids']) == len(result['distances']) == 1,
@@ -81,9 +89,11 @@ class CandidateRetriever:
                     'topic_id': source.topic_id, 'passage_id': source.passage_id, 'title': source.title,
                     'url': source.url, 'text': source.text, 'snapshot_date': self.index.corpus.snapshot_date,
                     'score': 1.0 - float(distance)}
-                validate_record('RetrievalPassage', passage)
                 passages.append(passage)
+            passages, signals_used, score_note = self._rank_passages(request, passages)
             passages.sort(key=lambda row: (-row['score'], row['passage_id']))
+            for passage in passages:
+                validate_record('RetrievalPassage', passage)
         except RetrievalError:
             raise
         except Exception:
@@ -91,8 +101,7 @@ class CandidateRetriever:
         return {'record_format_version': 'rag-candidate-ranking-v1', 'status': 'ranked_candidates',
                 'mode': self.index.spec['mode'], 'answerability': 'not_assessed',
                 'question_sha256': hashlib.sha256(request['question'].encode('utf-8')).hexdigest(),
-                'passages': passages, 'top_k': self.top_k, 'signals_used': ['question'],
+                'passages': passages[:self.top_k], 'top_k': self.top_k, 'signals_used': signals_used,
                 'corpus_version': self.index.corpus.corpus_version,
                 'index_version': self.index.spec['index_version'], 'retriever_version': self.retriever_version,
-                'score_note': 'Score = 1 - Chroma cosine distance. Higher ranks better within this retriever/index version; '
-                              'not clinical confidence or proof of answer support. Candidates are not assessed for answerability.'}
+                'score_note': score_note}

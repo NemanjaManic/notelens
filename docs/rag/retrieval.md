@@ -1,6 +1,6 @@
 # Embedding-Only Candidate Retrieval
 
-Owner: Nemanja (A). Updated: 2026-11-15.
+Owner: Nemanja (A). Updated: 2026-11-18.
 
 The user approved a first local ranking increment: up to five relevant passages
 with sources, without an automatic answerability verdict or LLM generation. A
@@ -19,7 +19,8 @@ It queries Chroma by vector without a specialty filter and returns up to five
 passages. Each source is reconstructed from the unchanged prepared corpus and
 validated with the shared RetrievalPassage validator. Concept/specialty fields
 are admitted but deliberately unused in this question-only baseline; A-006 adds
-their measured soft use later. An incorrect hint cannot exclude another specialty.
+their optional use in the development variant below. The vector search does not
+exclude any specialty.
 
 Score = 1 - cosine distance. Higher is better only within the identified
 retriever/index version. Scores are not clinical confidence or proof of semantic
@@ -28,6 +29,39 @@ ties at the approximate-search boundary are not claimed to be globally stable.
 Top-k, query/score/tie policies, embedding-space and index versions identify the
 retriever. Repeated passages from one topic remain distinct; later topic-level
 metrics must deduplicate topic IDs rather than inflate recall.
+
+## Optional concept and specialty signals (A-006)
+
+`SignalAwareRetriever` in `services/rag/src/notelens_rag/query.py` uses the same
+question vector, corpus and verified index. Only the unchanged question goes to
+the embedder. Concepts and specialties are evaluated locally. When at least one
+usable signal is supplied, the retriever requests up to 20 vector neighbors and
+returns up to five ranked passages. Without usable signals it uses the baseline
+pool size and scores. The variant has a separate retriever version.
+
+The development configuration adds up to `0.08` weighted by the fraction of
+distinct supplied concept phrases found in the title or passage. It adds `0.02`
+for a passage with the supplied specialty. Concept matching uses Unicode NFKC,
+case folding and contiguous whole words on temporary copies. The source text
+and offsets stay intact. These weights and the pool size are starting values for
+development. A wrong specialty can affect the order or top five near a score tie.
+The vector pool is unfiltered and no ICD code is required.
+
+With the existing local Chroma index and saved public question vectors, CQ-01
+(topic `34`) and CQ-03 (topic `179`) both retained the expected topic at rank 1 in
+five scenarios: baseline, no signals, concepts only, matching hint, and wrong hint.
+For CQ-01 the supplied phrases were `systolic` and `diastolic blood pressure`, with
+`Cardiovascular / Pulmonary` and `Urology` as the matching and wrong hints. For CQ-03
+the phrase was `carpal tunnel syndrome`, with `Orthopedic` and `Gastroenterology` as
+the hints. The CQ-03 fifth topic changed from `1251` to `1657` when concepts were
+used. All ten replays hit the cache, preserved the saved usage ledger and query
+vectors, and made zero provider calls. This checks local behavior on two public
+development questions. Ranking quality and configuration choice remain for A-005.
+The default HTTP mock continues to use its fixture response.
+
+```powershell
+uv run --locked --offline --directory services/rag python -m pytest tests/test_query_signals.py
+```
 
 ## Internal output and unchanged HTTP contract
 

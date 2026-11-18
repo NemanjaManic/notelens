@@ -154,6 +154,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Dependencies**: 001-rag/T005 (A-004)
   - **Acceptance**: ICD absent and wrong specialty cases still retrieve relevant topics; concepts are optional and do not change canonical documents.
   - **Verify**: `uv run --directory services/rag python -m pytest tests/test_query_signals.py`.
+  - **Local checkpoint (2026-11-18)**: Implemented a versioned candidate variant that reuses the unchanged question embedding and adds bounded concept and specialty bonuses locally. The unfiltered vector pool preserves eligibility across specialties. On the existing Chroma index, both checked public topics stayed at rank 1 with missing and wrong hints. Ten cached scenario replays made no provider calls. See [signal behavior and checks](../../docs/rag/retrieval.md#optional-concept-and-specialty-signals-a-006). The starting weights are pending the development comparison in A-005. A-004 remains an open prerequisite for formal closure.
   - **Coverage**: FR-005, FR-008.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
