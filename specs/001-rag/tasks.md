@@ -163,6 +163,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Dependencies**: 001-rag/T007 (A-006)
   - **Acceptance**: Use the same versioned development questions and report actual unique-topic/evidence metrics, costs and selection reason; reranking optional, final questions untouched.
   - **Verify**: `uv run --directory services/rag python -m pytest tests/test_hybrid.py`.
+  - **Local comparison (2026-11-18)**: The BM25 and vector fusion variant and the fixed vector baseline found all registered context topics in 10/10 public development cases with MRR@5 of 0.95 each. Agent review found full support on the same eight questions and partial support on the same additional question. Twenty cache replays made zero API calls and all 741 service tests passed. Retain the vector baseline provisionally. Multi-source references, independent evidence review and the formal prerequisites remain open. See the [reproducible comparison](../../docs/rag/experiments/hybrid-comparison.md).
   - **Coverage**: FR-013, FR-014, FR-015, SC-003.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
