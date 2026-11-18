@@ -74,6 +74,9 @@ class RagService:
         except (AssessmentError, RetrievalError) as failure:
             known = {'timeout', 'rate_limit', 'provider_unavailable', 'configuration_required', 'validation_failure'}
             code = failure.code
+            if isinstance(failure, AssessmentError) and code in (
+                    'unsupported_language', 'needs_clarification', 'out_of_scope'):
+                raise RagServiceError(code) from None
             if code == 'partial_policy_required' or code == 'provider_authentication':
                 code = 'configuration_required'
             raise RagServiceError(code if code in known else 'internal_error') from None

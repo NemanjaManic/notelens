@@ -56,8 +56,19 @@ results replayed without a key or provider request, with four ledgers unchanged.
 The three public v2 probes now cover full/partial/none examples; they are not a
 general quality benchmark. Cumulative reserved reference cost is USD 0.0087813
 within the USD 0.02 allowance; actual billing is unverified. The approved attempts
-are consumed and activation is disabled. Final answer composition, new-question
-decomposition and real shared HTTP integration remain unfinished.
+are consumed and activation is disabled.
+
+The 2026-11-18 owner-local pipeline adds question decomposition, v2 evidence
+selection and cited answer composition through the existing HTTP contract. The
+local tests inject the pipeline via `create_app(settings, backend=service)` and
+simulate the SDK responses. Question decomposition sees only the exact question.
+It checks returned anchors and assigns part IDs before evidence selection. The
+original question also goes to the assessor for its coverage check. Exact anchors
+alone cannot establish whether the model captured all the requested facts.
+Unclear, non-English and out-of-scope fixture questions return a fixed English
+422 response before ranking. All 727 RAG tests passed. The default app uses its
+mock backend. Live question decomposition, answer evaluation and team integration
+remain open.
 
 ## Install and verify
 

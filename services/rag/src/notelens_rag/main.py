@@ -21,6 +21,11 @@ SCENARIOS = {"sufficient", "insufficient", "clarification", "timeout", "rate_lim
              "provider_unavailable", "internal_error"}
 FAILURES = {"timeout": (504, "timeout"), "rate_limit": (429, "rate_limit"),
             "provider_unavailable": (503, "provider_unavailable"), "internal_error": (500, "internal_error")}
+QUESTION_REJECTIONS = {
+    'unsupported_language': 'Please ask your question in English.',
+    'needs_clarification': 'Please ask a self-contained question and name the medical topic you mean.',
+    'out_of_scope': 'Please ask for general information from the medical literature.',
+}
 
 
 @dataclass(frozen=True)
@@ -149,6 +154,8 @@ def create_app(settings=None, *, backend=None):
                     operation_handler = backend.retrieve if operation == 'retrieve' else backend.answer
                     body = await run_in_threadpool(operation_handler, payload)
                 except RagServiceError as failure:
+                    if failure.code in QUESTION_REJECTIONS:
+                        return error(422, 'validation_failure', identifier, QUESTION_REJECTIONS[failure.code])
                     statuses = {'timeout': 504, 'rate_limit': 429, 'provider_unavailable': 503,
                                 'configuration_required': 503, 'validation_failure': 422, 'internal_error': 500}
                     code = failure.code if failure.code in statuses else 'internal_error'
