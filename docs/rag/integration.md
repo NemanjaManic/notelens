@@ -60,3 +60,8 @@ checks. D-007's adjudicated QA, actual multi-topic metrics, independent answer
 review and B's application routing verification remain required for the final
 evaluation. No model, prompt, score threshold or deployment setting was selected
 from these results.
+
+The [local lexical follow-up](evaluation/lexical-proposal-evaluation.md) measured
+all nine proposals, including the three two-topic cases. Its five-passage window
+included both proposed topics and all cited passages in every two-topic case.
+Vector and hybrid rankings for the new questions and D's adjudication remain open.
