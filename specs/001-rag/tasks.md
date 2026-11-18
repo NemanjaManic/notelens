@@ -172,6 +172,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Dependencies**: 001-rag/T003 (A-002); 003-classification/T003 (C-002); 004-extraction-evaluation/T006 (D-003)
   - **Acceptance**: Preserve original references and actual supporting passages; record necessary topics per question, answerability and separate independent reviews. D adjudicates; no QA enters index.
   - **Verify**: `python -B -m json.tool docs/rag/qa-proposals.json`.
+  - **Local proposal checkpoint (2026-11-18)**: Prepared nine English development proposals, including three two-topic cases and scoped partial/missing cases. Four proposals reference pinned MedQuAD records. Expected facts use the current corpus, with canonical offsets and slice hashes checked offline. The [review guide](../../docs/rag/qa-proposals.md) records overlap and the review decisions still needed. C-002, D-003, assigned document annotations and independent acceptance remain open.
   - **Coverage**: FR-011, FR-012, FR-017.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
