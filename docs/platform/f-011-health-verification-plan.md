@@ -276,3 +276,81 @@ generated. Only the checker, its self-tests, this approved plan/execution docume
 the T007 progress note and B's inventory/provenance record changed in this increment.
 No dependency, frozen record, owner service or existing user draft changed, and no commit
 or push was performed.
+
+## Isolated D factory follow-up (2026-11-18)
+
+The user authorized a bounded five-file B candidate after D confirmed its existing
+`create_app(provider=..., token=...)` seam. The new B-owned `health_probe_app.py` supplies
+an inert provider to that real factory; it does not replace routes or fabricate HTTP
+responses. The owner import remains `36ea2a1b59e382930daee7d088c883b0d103c619`.
+
+The isolated review's two promotion blockers are corrected in this candidate:
+
+- The checker uses its normal repository ROOT and `.cache/review/f011-health` locations,
+  launching the tracked `health_probe_app:create_app` factory. Provider trace paths must
+  belong to the active run, and the new B helper is in the existing source inventory.
+- The original matrix regression now checks the exact six remaining owner blockers.
+  The original and new tests run together against the candidate checker. Negative traces
+  (missing/malformed, wrong operation/scenario, extra/missing/reordered call, invalid
+  repair or extra field) invalidate the relevant HTTP case records.
+
+Three authenticated loopback profiles exercise both `/v1/extract` and
+`/v1/document-answer`: timeout -> HTTP 504 / `timeout`; rate limit -> HTTP 429 /
+`rate_limit`; connection failure -> HTTP 503 / `provider_unavailable`. Each requires
+`retryable=true`, frozen envelope/exchange validation and correlated canonical UUIDs.
+Safe traces prove one actual `generate` invocation per route (`extract`/`answer`, no
+repair). Synthetic private exception details and fixture text must not enter responses
+or service logs; trace files contain only scenario, operation and repair metadata.
+
+### Candidate verification and limits
+
+Executed in a separate local checkout under
+`.cache/review/f011-d-factory-candidate/repository`, based on
+`05c70c2508e84cdb64890e271376bca95aa7f785`. The working branch was not promoted.
+
+- **49/49 checker tests** pass together, including 31 existing tests, ten ported
+  extension tests and eight factory/trace regressions. Test subcases cover additional
+  invalid trace variants without inflating the reported test-method count.
+- Two full health runs, from the candidate root and another working directory, each
+  record **154 passed / 50 failed / 6 blocked** over 210 unique cases. All six D probes
+  pass; only those six case records differ from the retained 148/50/12 baseline.
+- Both health runs correctly return **exit 1**, `passed=false`, `complete=false`.
+  Each cleaned all **13** owned service processes and closed their ports.
+- The existing scaffold runner passed all **15 steps**: **183 B tooling tests**,
+  A/C/D **319/51/59**, frozen/generated checks, web typecheck/build/bindings/config/render
+  and **30** real module HTTP cases, with all **12** scaffold processes stopped and
+  ports closed. The read-only scaffold verifier also returned 0 on the same source.
+
+Commands from the candidate root:
+
+```powershell
+$env:PYTHONPATH = Join-Path (Get-Location) 'scripts/project'
+$env:PYTHONDONTWRITEBYTECODE = '1'
+& ./scripts/project/.venv/Scripts/python.exe -B -m unittest discover -s scripts/project/tests -p test_health.py
+& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/check_health.py --mode mock
+# Expected exit 1 while the shared health gate is incomplete.
+& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/run_scaffold_checks.py
+& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/check_scaffold.py
+```
+
+Candidate-only command receipts and exact five-file scope are retained under
+`.cache/review/f011-d-factory-candidate/`. `health-commands.json` identifies both runs;
+`result.json` binds final hashes, cleanup, runtime origins, scope/security checks and
+preservation audit. The existing published baseline and earlier isolated receipts remain
+unchanged. This is agent verification of key-free mocks, not human/team acceptance.
+
+The offline tooling cache initially lacked a locked wheel. Verification instead used
+copies of the already installed environments, with local editable paths and package
+metadata rebound inside the candidate. No dependency or lockfile changed, and no network
+installation was used. Existing C/D TestClient warnings and the separately pending A
+`chromadb` dependency-audit finding remain unchanged; this is not a whole-CI green claim.
+
+The remaining six owner blockers are A mock not-ready, C mock not-ready and its three
+business failure triggers, and D mock not-ready. The 50 failures are the imported C
+scaffold's known absent-health-route cases. D's mock readiness flag/reason remains an
+unpublished proposal; no live-mode substitute or invented switch is used. Reported A/C
+follow-ups have not been imported by this package.
+
+F-011/T007 and F-014/T014 remain pending and unchecked. No task/spec/plan checkbox,
+owner source/test/dependency/lockfile, frozen contract, fixture or existing draft is
+changed. This candidate has not been promoted, merged, committed or pushed.

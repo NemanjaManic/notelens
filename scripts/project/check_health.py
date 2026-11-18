@@ -28,7 +28,8 @@ CACHE = ROOT / '.cache/review/f011-health'
 SERVICES = ('rag', 'classifier', 'extraction')
 FAILURES = {'timeout': 504, 'rate_limit': 429, 'provider_unavailable': 503, 'internal_error': 500}
 PROFILES = tuple((service, profile) for service in SERVICES for profile in ('open', 'token')) + tuple(
-    ('rag', 'failure-' + failure) for failure in FAILURES)
+    ('rag', 'failure-' + failure) for failure in FAILURES) + tuple(
+    ('extraction', 'failure-' + failure) for failure in FAILURES if failure != 'internal_error')
 IDS = {'absent': [], 'canonical': [('X-Request-ID', '11111111-1111-4111-8111-111111111111')],
        'malformed': [('X-Request-ID', 'invalid-probe-id')],
        'duplicate': [('X-Request-ID', '11111111-1111-4111-8111-111111111111'),
@@ -95,10 +96,10 @@ def registry():
             for path, definition in ROUTES[service]:
                 route = path.rsplit('/', 1)[1]
                 cases.append(Case(f'{service}-{route}-{failure}', service,
-                                  'failure-' + failure if service == 'rag' else None,
+                                  'failure-' + failure if service in ('rag', 'extraction') else None,
                                   path, status, 'ErrorEnvelope', method='POST', code=failure,
-                                  retryable=False if service == 'rag' else None,
-                                  blocked=None if service == 'rag' else 'FAILURE_TRIGGER_PENDING_OWNER'))
+                                  retryable=False if service == 'rag' else True if service == 'extraction' else None,
+                                  blocked=None if service in ('rag', 'extraction') else 'FAILURE_TRIGGER_PENDING_OWNER'))
     if len({c.id for c in cases}) != len(cases):
         raise ValueError('Duplicate case identifiers')
     return cases
@@ -209,6 +210,11 @@ def environment(run, service, profile, token=None):
     if token:
         env[{'rag': 'NOTELENS_RAG_SERVICE_TOKEN', 'classifier': 'NOTELENS_CLASSIFIER_SERVICE_TOKEN',
              'extraction': 'NOTELENS_SERVICE_TOKEN'}[service]] = token
+    if service == 'extraction' and profile.startswith('failure-'):
+        env.update(PYTHONPATH=os.pathsep.join([env['PYTHONPATH'], str(Path(__file__).resolve().parent)]),
+                   NOTELENS_REVIEW_FAILURE=profile.removeprefix('failure-'),
+                   NOTELENS_REVIEW_FACTORY_TRACE=str(run / (profile + '.factory.jsonl')),
+                   NOTELENS_REVIEW_FACTORY_RUN=str(run))
     return env
 
 
@@ -329,6 +335,37 @@ def installed_runtime(service):
             'contract_source': source, 'editable': editable, 'uvicorn': importlib.metadata.version('uvicorn')}
 
 
+def response_secrets(case, token, marker, document):
+    values = (token, marker, 'synthetic-private-provider-detail')
+    if case.service == 'extraction' and case.profile and case.profile.startswith('failure-') and document:
+        values += (document['text'],)
+    return values
+
+
+def server_command(service, profile, port):
+    module = {'rag': 'notelens_rag', 'classifier': 'notelens_classifier', 'extraction': 'notelens_extraction'}[service]
+    factory = service == 'extraction' and profile.startswith('failure-')
+    target = 'health_probe_app:create_app' if factory else module + '.main:app'
+    command = [sys.executable, '-B', '-m', 'uvicorn', target, '--host', '127.0.0.1',
+               '--port', str(port), '--no-proxy-headers', '--no-access-log', '--log-level', 'error']
+    return command + ['--factory'] if factory else command
+
+
+def verify_factory_calls(profile, selected, trace_path, rows):
+    """A bad/missing provider trace invalidates the actual HTTP case records."""
+    try:
+        trace = [json.loads(line) for line in trace_path.read_text(encoding='utf-8').splitlines()]
+        expected = [{'scenario': profile.removeprefix('failure-'),
+                     'operation': 'answer' if c.path == '/v1/document-answer' else 'extract',
+                     'repair': False} for c in selected]
+        valid = trace == expected and all(type(call.get('repair')) is bool for call in trace)
+    except (OSError, ValueError, TypeError, AttributeError):
+        valid = False
+    if not valid:
+        for row in rows:
+            row.update(outcome='failed', issues=sorted(set(row['issues'] + ['FACTORY_PROVIDER_CALLS'])))
+
+
 def worker(service, profile, target, nonce):
     if (service, profile) not in PROFILES:
         raise ValueError('Unknown profile')
@@ -338,7 +375,7 @@ def worker(service, profile, target, nonce):
     run = target.parent
     selected = [c for c in registry() if (c.service, c.profile) == (service, profile)]
     rows, runtime = [], None
-    token = 'probe-' + uuid4().hex if profile == 'token' else None
+    token = 'probe-' + uuid4().hex if profile == 'token' or (service == 'extraction' and profile.startswith('failure-')) else None
     marker = 'probe-marker-' + uuid4().hex
     process = capture = None
     record = {'service': service, 'profile': profile, 'pid': None, 'port': None,
@@ -349,10 +386,9 @@ def worker(service, profile, target, nonce):
         with socket.socket() as reservation:
             reservation.bind(('127.0.0.1', 0))
             port = reservation.getsockname()[1]
-        module = {'rag': 'notelens_rag', 'classifier': 'notelens_classifier', 'extraction': 'notelens_extraction'}[service]
-        command = [sys.executable, '-B', '-m', 'uvicorn', module + '.main:app', '--host', '127.0.0.1',
-                   '--port', str(port), '--no-proxy-headers', '--no-access-log', '--log-level', 'error']
-        with owned_server(command, ROOT, environment(run, service, profile, token), (token, marker)) as (process, capture):
+        command = server_command(service, profile, port)
+        with owned_server(command, ROOT, environment(run, service, profile, token),
+                          (token, marker, 'synthetic-private-provider-detail')) as (process, capture):
             record.update(pid=process.pid, port=port)
             target.with_suffix('.process.json').write_text(json.dumps(record), encoding='utf-8')
             deadline = time.monotonic() + 20
@@ -366,7 +402,7 @@ def worker(service, profile, target, nonce):
                 try:
                     headers, body, document = request_data(case, token, marker)
                     status, outgoing, raw = wire(port, case, headers, body)
-                    problems = response_issues(case, status, outgoing, raw, headers, package, (token, marker), document)
+                    problems = response_issues(case, status, outgoing, raw, headers, package, response_secrets(case, token, marker, document), document)
                     if not problems and case.method == 'GET':
                         ids = headers_named(outgoing, 'X-Request-ID')
                         if ids and ids[0] in seen_health_ids:
@@ -379,7 +415,11 @@ def worker(service, profile, target, nonce):
                 rows.append({'id': case.id, 'service': service, 'profile': profile,
                              'provenance': 'service-http', 'outcome': 'failed' if problems else 'passed',
                              'http_status': status, 'issues': problems})
+        if service == 'extraction' and profile.startswith('failure-'):
+            verify_factory_calls(profile, selected, run / (profile + '.factory.jsonl'), rows)
     except Exception:
+        for row in rows:
+            row.update(outcome='failed', issues=sorted(set(row['issues'] + ['WORKER_PREREQUISITE_OR_STARTUP'])))
         pass  # Missing prerequisites/startup are recorded below without unsafe exception text.
     finally:
         if process:

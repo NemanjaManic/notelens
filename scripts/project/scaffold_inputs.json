@@ -652,7 +652,8 @@
     "apps/web/src/lib/documents/builtin.ts",
     "apps/web/tests/preparation.test.ts",
     "apps/web/tests/tsconfig.preparation.json",
-    "apps/web/scripts/check-preparation.mjs"
+    "apps/web/scripts/check-preparation.mjs",
+    "scripts/project/health_probe_app.py"
   ],
   "http_cases": [
     "rag-retrieve-sufficient",
@@ -896,6 +897,17 @@
         "missing-final-availability"
       ],
       "shared_gate_status": "B-001/B-002/B-004/F-010/F-011/F-014 pending"
+    },
+    {
+      "date": "2026-11-18",
+      "task": "F-011 D factory and six failure probes",
+      "implementation_base_commit": "05c70c2508e84cdb64890e271376bca95aa7f785",
+      "reason": "User-approved bounded five-file isolated candidate; D confirmed the existing provider factory seam.",
+      "added_source_paths": [
+        "scripts/project/health_probe_app.py"
+      ],
+      "shared_gate_status": "F-011/F-014 pending",
+      "owner_source_changes": false
     }
   ]
 }
