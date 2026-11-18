@@ -80,6 +80,20 @@ embedding/index increment, not A-003's formal shared prerequisites or A-004 retr
 
 ## Summary
 
+**First actual v2 public probe validated (2026-11-18)**: Nemanja explicitly
+approved the prepared CQ-01 scope. All 623 offline checks passed again before
+one fresh count and one generation attempt. The [actual run](../../docs/rag/selection-trial-results.json)
+exited 0 with full model coverage, 11,029 input/204 output tokens and four exact
+evidence references over three distinct spans. Agent inspection found alignment
+with both requested definitions; this is not independent clinical/team acceptance
+or general evaluation. The cumulative retained reservation is USD 0.0048891;
+reported new usage gives USD 0.0012049 at reference prices, with actual billing
+unverified. Key-free replay returned the validated cache with zero provider
+creation and all three ledgers byte-identical. Both old histories remain halted,
+activation is false, source/prompt/schema are unchanged and no further generation
+is approved. Partial/missing probes, final answers, A-004/A-009 and shared gates
+remain incomplete.
+
 **Single v2 trial preparation (2026-11-17)**: Nemanja approved preparation only.
 The [CQ-01 v2 runner](../../docs/rag/selection-trial.md) binds the exact new request,
 prompt/catalog and both prior ledger anchors, requires fresh approval and admits

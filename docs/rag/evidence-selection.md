@@ -1,7 +1,8 @@
 # Evidence Selection V2: Local SDK and Canonical Quote Resolution
 
 Owner: Nemanja (A). Date: 2026-11-17. Code checkpoint: 77b48f5.
-Status: approved local implementation and tests; no new provider calls or live activation.
+Status: local implementation verified; one separately approved public v2 probe
+validated on 2026-11-18. See [actual results](selection-trial-results.json).
 
 Retrieval still finds candidate passages in the existing vector index. The new
 selection step happens afterward: the model chooses which offered evidence
@@ -72,9 +73,10 @@ prepared request payloads and stopped histories are preserved. Common SDK
 envelope/usage validation and mock transport handling were factored for reuse;
 the v2 SDK class still requires MockTransport and uses fixture credentials.
 The adapter itself remains MockTransport-only. A separate
-[one-question v2 runner](selection-trial.md) is now prepared with execution
-approval still pending. Neither stopped runner is automatically migrated or
-reopened, and both ledger hashes remain unchanged.
+[one-question v2 runner](selection-trial.md) was subsequently approved and executed
+once on 2026-11-18, producing a validated result. No additional generation is
+approved. Neither stopped v1 runner is migrated or reopened, and both old ledger
+hashes remain unchanged.
 
 ## Verification and public preparation
 
@@ -104,9 +106,11 @@ passages, including coverage of every nonwhitespace source code point:
 
 These sizes exclude instructions/schema and are not provider token counts or
 costs. Input is larger because full passages and options are both included. No
-remote token counting was performed. A future separately approved trial must
-count the new full input and enforce its approved token/spending limits; the v1
-counts and permissions cannot be reused as v2 execution approval.
+remote token counting was performed during that preparation. The later approved
+CQ-01 probe counted 11,029 full input tokens and reported 204 output tokens.
+CQ-02/CQ-08 have not been counted or generated under v2. A future separately
+approved case must count its exact input and enforce its own approved limits;
+the v1 counts and permissions cannot be reused as v2 execution approval.
 
 For a key-free metadata preview from this checkout with its prepared public data:
 
@@ -130,5 +134,6 @@ PowerShell resolver, with nonpersistent context.
 No extension hooks were present. Task IDs,
 checkboxes and actual shared dependencies are unchanged. A-004/A-009, semantic
 quality evaluation, canonical partial-answer interpretation and live integration
-remain incomplete. No real v2 response, literature answer or clinical metric is
+remain incomplete. The later single real v2 response does not establish general
+semantic quality or produce a final literature answer. No clinical metric is
 claimed. The actual .env and shared/root/other-owner source were not changed.

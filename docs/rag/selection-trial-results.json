@@ -16,6 +16,7 @@
   "model": "gpt-6-luna",
   "mode": "live",
   "question_id": "CQ-01",
+  "candidate_source": "Saved public retrieval snapshot; no new query embedding or vector search during this probe.",
   "question": "What is the difference between systolic and diastolic blood pressure?",
   "status": "validated_full_coverage",
   "observed_cli_exit_code": 0,

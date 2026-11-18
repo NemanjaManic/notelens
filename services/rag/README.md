@@ -38,12 +38,15 @@ provider attempt is approved; default inspection remains key-free.
 The [v2 evidence-selection increment](../../docs/rag/evidence-selection.md) is now
 checked locally: the model selects offered evidence IDs, and Python supplies exact
 canonical quotes/offsets. All 585 tests pass. Retrieval and mock HTTP routes are
-unchanged; the new prompt has not been run against a real provider.
+unchanged. Its first separately approved actual public probe is recorded below.
 
-The [single v2 trial](../../docs/rag/selection-trial.md) is prepared with fresh
-approval still required. It carries both prior reservations once, pre-counts
-before generation and limits the new scope to one CQ-01 attempt. All 623 local
-tests pass. Default inspection is key-free; no new provider request was made.
+The [single v2 trial](../../docs/rag/selection-trial.md) was approved and run once
+on 2026-11-18 after all 623 offline tests passed again. CQ-01 produced a validated
+full-coverage assessment: 11,029 input tokens, 204 output tokens and four exact
+evidence references. A key-free cache replay made zero provider calls. The old
+histories are unchanged and activation is false again. See [actual results](../../docs/rag/selection-trial-results.json).
+No other case, additional generation, final literature answer or shared HTTP
+integration is approved/completed by this one probe.
 
 ## Install and verify
 
