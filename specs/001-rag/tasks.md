@@ -200,6 +200,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Dependencies**: 001-rag/T010 (A-008)
   - **Acceptance**: Record corpus/model/prompt/index/question versions, actual final-run reason and approved limits; no final-test prompt tuning. Document API startup and remaining live limitations.
   - **Verify**: `uv run --directory services/rag python -m pytest tests/test_contract.py tests/test_index_version.py`.
+  - **Development handoff checkpoint (2026-11-18)**: Pinned the current corpus, index, baseline retriever, three prompts, contracts and development evidence in `services/rag/config/development-handoff.json`. Verified all 617 existing index entries separately. A fresh environment from the complete committed Git export passed all 750 offline tests and reproduced saved metrics without keys or local data. The [B/D handoff](../../docs/rag/development-handoff.md) records startup steps, historical trial limits and open gates. A-008, independent review, the final freeze and team integration confirmation remain open.
   - **Coverage**: FR-003, FR-004, FR-015, FR-016, FR-018, FR-019, SC-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
