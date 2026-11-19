@@ -1,5 +1,6 @@
-"""Windows-only containment for finite candidate verification commands."""
+"""Windows-only containment for local project processes."""
 
+from contextlib import contextmanager
 import ctypes
 from ctypes import wintypes
 import os
@@ -55,7 +56,8 @@ def _checked(result):
     return result
 
 
-def run_owned(command, *, cwd, env, stdout, timeout):
+@contextmanager
+def owned_process(command, *, cwd, env, stdout):
     """Assign a blocked launcher before releasing it; stop only that job on every exit.
 
     The non-inherited job handle also closes if this coordinator is terminated.
@@ -80,7 +82,7 @@ def run_owned(command, *, cwd, env, stdout, timeout):
             kernel.CloseHandle(process)
         launcher.stdin.write(b'G')
         launcher.stdin.close()
-        return subprocess.CompletedProcess(command, launcher.wait(timeout=timeout))
+        yield launcher
     finally:
         try:
             # Also remove descendants left after an apparently successful command.
@@ -102,6 +104,11 @@ def run_owned(command, *, cwd, env, stdout, timeout):
                 time.sleep(0.02)
         finally:
             kernel.CloseHandle(job)
+
+
+def run_owned(command, *, cwd, env, stdout, timeout):
+    with owned_process(command, cwd=cwd, env=env, stdout=stdout) as launcher:
+        return subprocess.CompletedProcess(command, launcher.wait(timeout=timeout))
 
 
 if __name__ == '__main__':
