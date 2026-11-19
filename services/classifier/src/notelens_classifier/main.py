@@ -14,10 +14,11 @@ from fastapi.responses import JSONResponse
 from starlette.requests import ClientDisconnect
 from notelens_contracts.v1 import (
     ClassificationRequest, ClassificationResult, PreparedDocument,
-    ErrorEnvelope, ContractValidationError, validate_json, validate_record,
+    ErrorEnvelope, HealthResult, LivenessResult, ContractValidationError, validate_json, validate_record,
 )
 
 MAX_DOCUMENT_CODE_POINTS = 100_000
+SERVICE_VERSION = "0.1.0"
 SCENARIOS = {
     "supported": "classification-supported",
     "uncertain": "classification-uncertain",
@@ -33,12 +34,14 @@ class Settings:
     mode: str | None = None
     scenario: str = "supported"
     token: str | None = field(default=None, repr=False)
+    mock_readiness: str = "ready"
 
     @classmethod
     def from_environment(cls):
         return cls(mode=os.getenv("NOTELENS_CLASSIFIER_MODE"),
                    scenario=os.getenv("NOTELENS_CLASSIFIER_MOCK_SCENARIO", "supported"),
-                   token=os.getenv("NOTELENS_CLASSIFIER_SERVICE_TOKEN"))
+                   token=os.getenv("NOTELENS_CLASSIFIER_SERVICE_TOKEN"),
+                   mock_readiness=os.getenv("NOTELENS_CLASSIFIER_MOCK_READINESS", "ready"))
 
 
 def error_response(status: int, code: str, message: str, request_id: str) -> JSONResponse:
@@ -82,6 +85,18 @@ def authorization_error(request: Request, settings: Settings, request_id: str):
     return None
 
 
+def health_authorization_error(request: Request, settings: Settings):
+    """Health ignores all incoming request IDs, including invalid or duplicate IDs."""
+    values = request.headers.getlist("authorization")
+    parts = values[0].split() if len(values) == 1 else []
+    permitted = (len(parts) == 2 and parts[0].lower() == "bearer" and
+                 compare_digest(parts[1].encode("utf-8"), settings.token.encode("utf-8"))) if settings.token else (
+                     settings.mode == "mock" and loopback_peer(request))
+    if not permitted:
+        return error_response(401, "unauthorized", "Service authentication is required.", str(uuid4()))
+    return None
+
+
 def mock_result(document: PreparedDocument, scenario: str) -> ClassificationResult:
     result = deepcopy(TEMPLATES[SCENARIOS[scenario]])
     result.update(doc_id=document["doc_id"], text_sha256=document["text_sha256"])
@@ -105,6 +120,33 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings if settings is not None else Settings.from_environment()
     app = FastAPI(title="NoteLens classifier mock scaffold", version="0.1.0",
                   docs_url=None, redoc_url=None, openapi_url=None)
+
+    @app.get("/health/live", response_model=None)
+    async def liveness(request: Request):
+        denied = health_authorization_error(request, settings)
+        if denied is not None:
+            return denied
+        if settings.mode not in ("mock", "live"):
+            return error_response(500, "internal_error", "Service configuration is unavailable.", str(uuid4()))
+        payload: LivenessResult = {"schema_version": "1.0.0", "service": "classifier", "status": "alive",
+                                  "mode": settings.mode, "version": SERVICE_VERSION}
+        validate_record("LivenessResult", payload)
+        return JSONResponse(payload, headers={"Cache-Control": "no-store"})
+
+    @app.get("/health/ready", response_model=None)
+    async def readiness(request: Request):
+        denied = health_authorization_error(request, settings)
+        if denied is not None:
+            return denied
+        if settings.mode not in ("mock", "live"):
+            return error_response(500, "internal_error", "Service configuration is unavailable.", str(uuid4()))
+        ready = settings.mode == "mock" and settings.scenario in SCENARIOS and settings.mock_readiness == "ready"
+        payload: HealthResult = {"schema_version": "1.0.0", "service": "classifier",
+                                 "status": "ok" if ready else "not_ready", "mode": settings.mode,
+                                 "version": SERVICE_VERSION, "model_version": None,
+                                 "reason": None if ready else "Classifier configuration is not ready."}
+        validate_record("HealthResult", payload)
+        return JSONResponse(payload, status_code=200 if ready else 503, headers={"Cache-Control": "no-store"})
 
     @app.post("/v1/classify", response_model=None)
     async def classify(request: Request):
@@ -140,8 +182,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         finally:
             raw = incoming = result = None
 
-    # Health/readiness is intentionally deferred to F-011 after the shared F-004
-    # checkpoint. No default FastAPI-generated contract is exposed as canonical.
     return app
 
 

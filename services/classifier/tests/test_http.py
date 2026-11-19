@@ -116,8 +116,3 @@ def test_nonfinite_generated_output_becomes_safe_error(client, body, monkeypatch
     monkeypatch.setattr(service, "mock_result", bad_result)
     assert_error(client.post("/v1/classify", json=body, headers={"X-Request-ID": REQUEST_ID}),
                  500, "internal_error")
-
-
-def test_health_is_not_claimed_before_f004_checkpoint(client):
-    assert client.get("/health/live").status_code == 404
-    assert client.get("/health/ready").status_code == 404

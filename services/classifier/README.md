@@ -97,6 +97,9 @@ them local. This is not authorization to expose this scaffold publicly.
 
 ## Evidence and remaining gates
 
+The isolated health candidate was verified with 77 passing tests on Python 3.13.7;
+the original HTTPX TestClient deprecation warning remains until the separate fix is adopted.
+
 - **51 tests passed:** frozen mock shapes and identities, Unicode/text limits, strict JSON,
   invalid headers, authentication/configuration failures, native non-finite output,
   request isolation, safe failures, no file writes during mock requests, and a real
@@ -108,13 +111,14 @@ them local. This is not authorization to expose this scaffold publicly.
 - The socket smoke checks process startup, real POST responses and test-process
   termination. It does not establish B's coordinated graceful startup/shutdown.
 
-**F-004 is not complete across the project.** C's local contribution does not mark
-B's shared task done. As required by the handoff, `/health/live` and `/health/ready`
-are deferred to F-011 after F-004; they currently return 404. Their future 200/503/401
-semantics remain those of the frozen contract. C-009 remains unchecked even though
-scaffold checks use `tests/test_contract.py`; it requires the completed shared F-004.
-C-002 still also requires F-014. No model metrics, final splits or annotation results
-are produced here.
+B recorded F-004 technical completion. This isolated C health candidate adds
+`GET /health/live` and `/health/ready` with frozen payload validation. In mock mode,
+`NOTELENS_CLASSIFIER_MOCK_READINESS=not_ready` produces a synthetic readiness 503
+while liveness stays available. Health ignores incoming request IDs; authentication
+failures use a fresh correlated diagnostic ID and Bearer challenge. With no token,
+only direct loopback mock health is admitted. Health does not run classification.
+This candidate does not complete shared F-011 or F-014. Business failure scenarios
+remain a proposal requiring agreement with B; no model or live inference is activated.
 
 The service processes request content transiently, with no body logging, application
 cache, file writes, background jobs or session store. A disconnected body never reaches
