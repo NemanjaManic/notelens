@@ -1,0 +1,458 @@
+{
+  "format_version": "rag-development-answer-review-packet-v2",
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+  "input_sha256": {
+    "docs/rag/qa-proposals.json": "737a85f41733b6fddc7822ed83f84b2487e83f278a0ecf602c93ed450cd007db",
+    "docs/rag/evaluation/vector-proposal-comparison.json": "6c2ee5c2bfbd29202b1c8b3b9cbdd6dd4ad9d0b677f4d67f4e771182e63305ee",
+    "docs/rag/evaluation/vector-proposal-scope.json": "e5c635416e5ea008cd5fa271354cb6eab1ecc48d1da446e0d8bb7e1b18733e84",
+    "docs/rag/evaluation/answer-trial-results.json": "77a28f2c372d88b2eb9c93bdf78a1d017e6eaa03a4e20c30cd4a0910aba35b9b",
+    "services/rag/config/development-handoff.json": "80cb11202d67c5c3993fc18e4577b18585cf55992a71adaff89f9af5feeb9fb5",
+    "docs/rag/evaluation/partial-answer-trial-results.json": "d64eecd00018a62fbac85fc31fa6653f8fd721adad0a75f3b48162673c87a3a8",
+    "docs/rag/evaluation/partial-answer-trial-proposal.json": "22b82601496d9bc3256757627c64a5ccf2918776737a855b3d8b180e0cdda592",
+    "docs/rag/coverage-trial-results.json": "ec90cee36ed99b70387884c5b673747335eca280b7db2db46ca5204692205c39",
+    "docs/rag/retrieval-smoke-results.json": "0255dc55a6f648bc369453853a0327b6530cbe7077d43c9f937fd62a3f99a55e"
+  },
+  "new_provider_calls": 0,
+  "cases": [
+    {
+      "case_id": "A-QA-01",
+      "question": "What is the difference between systolic and diastolic blood pressure?",
+      "mode": "live",
+      "origin": "actual_public_development_completion",
+      "prompt_version": "literature-answer-v1",
+      "answer_version": "rag-cited-claims-v1",
+      "configuration_version": "278c989ec5eff4f508c949aaee86885306ef24c19a3b4fb46b6349e0f4552630",
+      "route": "literature",
+      "evidence_state": "sufficient",
+      "text": "Systolic pressure is the pressure inside the arteries when the heart beats.\n\nDiastolic pressure is the pressure inside the arteries when the heart rests between beats.",
+      "claims": [
+        {
+          "claim_id": "rag-claim-1",
+          "text": "Systolic pressure is the pressure inside the arteries when the heart beats.",
+          "evidence": [
+            {
+              "evidence_id": "e1",
+              "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+              "topic_id": "34",
+              "title": "High Blood Pressure",
+              "url": "https://medlineplus.gov/highbloodpressure.html",
+              "start": 25,
+              "end": 384,
+              "quote_sha256": "1c50c77d67378dda8a1735ce06149403c7c18fdec71e848c60e6c77fe992edde"
+            },
+            {
+              "evidence_id": "e2",
+              "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+              "topic_id": "6450",
+              "title": "How to Prevent High Blood Pressure",
+              "url": "https://medlineplus.gov/howtopreventhighbloodpressure.html",
+              "start": 784,
+              "end": 894,
+              "quote_sha256": "b776c4805f0c9a7cccf7e738238e99c16456353062ed9f54fb4c4b450f44e50c"
+            }
+          ]
+        },
+        {
+          "claim_id": "rag-claim-2",
+          "text": "Diastolic pressure is the pressure inside the arteries when the heart rests between beats.",
+          "evidence": [
+            {
+              "evidence_id": "e3",
+              "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+              "topic_id": "34",
+              "title": "High Blood Pressure",
+              "url": "https://medlineplus.gov/highbloodpressure.html",
+              "start": 25,
+              "end": 384,
+              "quote_sha256": "1c50c77d67378dda8a1735ce06149403c7c18fdec71e848c60e6c77fe992edde"
+            },
+            {
+              "evidence_id": "e4",
+              "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+              "topic_id": "6450",
+              "title": "How to Prevent High Blood Pressure",
+              "url": "https://medlineplus.gov/howtopreventhighbloodpressure.html",
+              "start": 895,
+              "end": 1024,
+              "quote_sha256": "de7494418bedc412b27e461bf89f292cc5be71717a703897c32ebae5f4d836c2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-02",
+      "question_id": "CQ-02",
+      "question": "What causes COVID-19, and how long can an infected person transmit it to others?",
+      "mode": "live",
+      "origin": "actual_public_development_completion",
+      "prompt_version": "literature-answer-v1",
+      "answer_version": "rag-cited-claims-v1",
+      "configuration_version": "42ac5c330051fbdf0e45603b06ccb4180461f97ba4b0f4ecaf0de9dc85990446",
+      "route": "literature",
+      "evidence_state": "partial",
+      "text": "COVID-19 is caused by SARS-CoV-2, a coronavirus.",
+      "claims": [
+        {
+          "claim_id": "rag-claim-1",
+          "text": "COVID-19 is caused by SARS-CoV-2, a coronavirus.",
+          "evidence": [
+            {
+              "evidence_id": "e1",
+              "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+              "topic_id": "3181",
+              "title": "COVID-19 (Coronavirus Disease 2019)",
+              "url": "https://medlineplus.gov/covid19coronavirusdisease2019.html",
+              "start": 0,
+              "end": 373,
+              "quote_sha256": "08e5a3e23d4d4663e25da5375c021f3c76f4709d7c3821b1e7cef306b8e02917"
+            }
+          ]
+        }
+      ],
+      "warnings": [
+        "Educational demo. Not a doctor. Do not submit real personal medical reports.",
+        "The retrieved sources do not support the requested information: Duration of infectiousness for COVID-19"
+      ],
+      "candidate_sources": [
+        {
+          "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+          "topic_id": "3181",
+          "url": "https://medlineplus.gov/covid19coronavirusdisease2019.html",
+          "title": "COVID-19 (Coronavirus Disease 2019)"
+        },
+        {
+          "passage_id": "mplus-299-ddad4f171ca2f16e0ede75cb8dfd4d1776e8a946226d38240b01277d7f8fb0b8",
+          "topic_id": "299",
+          "url": "https://medlineplus.gov/flu.html",
+          "title": "Flu"
+        },
+        {
+          "passage_id": "mplus-461-7fb358bfabdac1a3530aa1e613a5e40e587270e8badd61342ba5d44d80775256",
+          "topic_id": "461",
+          "url": "https://medlineplus.gov/whoopingcough.html",
+          "title": "Whooping Cough"
+        },
+        {
+          "passage_id": "mplus-3101-dc714fd88f63e588e9cb284bc89ca6aad5defdac4bc7c94c4b9907a6413e08b6",
+          "topic_id": "3101",
+          "url": "https://medlineplus.gov/respiratorysyncytialvirusinfections.html",
+          "title": "Respiratory Syncytial Virus Infections"
+        },
+        {
+          "passage_id": "mplus-41-9131fbe97a8b9bc905c394e49ac50e1da5966a89ad4460fa17130fb79329878d",
+          "topic_id": "41",
+          "url": "https://medlineplus.gov/tuberculosis.html",
+          "title": "Tuberculosis"
+        }
+      ],
+      "retrieval_provenance": {
+        "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+        "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+        "mode": "live",
+        "retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+        "score_note": "Saved candidate ranking; semantic support not assessed.",
+        "service": "rag",
+        "state": "sufficient"
+      }
+    },
+    {
+      "case_id": "A-QA-03",
+      "question": "What was the incidence of trigeminal neuralgia in Serbia in 2025, in new cases per 100,000 people?",
+      "mode": "mock",
+      "origin": "local_abstention_fixture",
+      "review_scope": "Prompt, labels and draft text reflect this public proposal. No generated answer is measured.",
+      "route": "none",
+      "evidence_state": "insufficient",
+      "text": "The available sources do not support an answer.",
+      "warnings": [
+        "Educational demo. Not a doctor. Do not submit real personal medical reports.",
+        "The retrieved sources do not support the requested information: Trigeminal neuralgia incidence in Serbia in 2025 as new cases per 100,000 people"
+      ],
+      "claims": [],
+      "candidate_sources": [
+        {
+          "passage_id": "mplus-2729-80534db9d68bb13ced80de19a85ce94dd7e84fb4b829030a1087e1b754b2dfec",
+          "topic_id": "2729",
+          "url": "https://medlineplus.gov/trigeminalneuralgia.html",
+          "title": "Trigeminal Neuralgia"
+        },
+        {
+          "passage_id": "mplus-1219-d81f8d90fe5054a40e7b78a368d6e24dfe0a0972dea3749d895649592fe4b250",
+          "topic_id": "1219",
+          "url": "https://medlineplus.gov/bellspalsy.html",
+          "title": "Bell's Palsy"
+        },
+        {
+          "passage_id": "mplus-1084-c48301dece04c5ee7de283aeec44158464b1692be7c3606a2acd9aff22d3c3e4",
+          "topic_id": "1084",
+          "url": "https://medlineplus.gov/behcetssyndrome.html",
+          "title": "Behcet's Syndrome"
+        },
+        {
+          "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+          "topic_id": "1387",
+          "url": "https://medlineplus.gov/neurofibromatosis.html",
+          "title": "Neurofibromatosis"
+        },
+        {
+          "passage_id": "mplus-1574-b3e3f677e3820e37eab608d7b245a5634f91b730e4a85a3e3f9be3eb174ad8fa",
+          "topic_id": "1574",
+          "url": "https://medlineplus.gov/facialinjuriesanddisorders.html",
+          "title": "Facial Injuries and Disorders"
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-07",
+      "question": "Which nerve is squeezed in carpal tunnel syndrome, and which nerve does an acoustic neuroma develop on?",
+      "mode": "mock",
+      "origin": "authored_output_fixture",
+      "review_scope": "Prompt, labels and draft text reflect this public proposal. No generated answer is measured.",
+      "route": "literature",
+      "evidence_state": "sufficient",
+      "text": "Carpal tunnel syndrome involves compression of the median nerve.\n\nAn acoustic neuroma develops on the nerve connecting the ear and brain.",
+      "warnings": [
+        "Educational demo. Not a doctor. Do not submit real personal medical reports.",
+        "Simulated model output; no live answer-generation call was made."
+      ],
+      "claims": [
+        {
+          "claim_id": "rag-claim-1",
+          "text": "Carpal tunnel syndrome involves compression of the median nerve.",
+          "evidence": [
+            {
+              "evidence_id": "e1",
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "topic_id": "179",
+              "title": "Carpal Tunnel Syndrome",
+              "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+              "start": 33,
+              "end": 253,
+              "quote_sha256": "f9b705e9a4d327c34d876e2e137fffd4cfea01592483e47b3b75b0bb6c03479a"
+            },
+            {
+              "evidence_id": "e2",
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "topic_id": "179",
+              "title": "Carpal Tunnel Syndrome",
+              "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+              "start": 368,
+              "end": 472,
+              "quote_sha256": "a9fd677f7a1297863119d346c3a87efafb1461dbd64c9e66f1316b4f1999fded"
+            }
+          ]
+        },
+        {
+          "claim_id": "rag-claim-2",
+          "text": "An acoustic neuroma develops on the nerve connecting the ear and brain.",
+          "evidence": [
+            {
+              "evidence_id": "e3",
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "topic_id": "1624",
+              "title": "Acoustic Neuroma",
+              "url": "https://medlineplus.gov/acousticneuroma.html",
+              "start": 0,
+              "end": 100,
+              "quote_sha256": "11b0989e5fe8e8a0c34e486f0a1108a6760980ebf36ddeea7f31ee349bbf4e7e"
+            }
+          ]
+        }
+      ],
+      "candidate_sources": [
+        {
+          "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+          "topic_id": "1624",
+          "url": "https://medlineplus.gov/acousticneuroma.html",
+          "title": "Acoustic Neuroma"
+        },
+        {
+          "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+          "topic_id": "179",
+          "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+          "title": "Carpal Tunnel Syndrome"
+        },
+        {
+          "passage_id": "mplus-179-83e6e8e70588af11c4fb55f02989a56f6e51292b769ec4bd4991681fa3edfd4f",
+          "topic_id": "179",
+          "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+          "title": "Carpal Tunnel Syndrome"
+        },
+        {
+          "passage_id": "mplus-179-82f9719e2c4fd2b072e4ba01a0b839b8fb6f7eb9bacacf0adc63be2e4e185938",
+          "topic_id": "179",
+          "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+          "title": "Carpal Tunnel Syndrome"
+        },
+        {
+          "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+          "topic_id": "1387",
+          "url": "https://medlineplus.gov/neurofibromatosis.html",
+          "title": "Neurofibromatosis"
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-08",
+      "question": "What are adhesions, and what is one cause of intestinal obstruction other than adhesions?",
+      "mode": "mock",
+      "origin": "authored_output_fixture",
+      "review_scope": "Prompt, labels and draft text reflect this public proposal. No generated answer is measured.",
+      "route": "literature",
+      "evidence_state": "sufficient",
+      "text": "Adhesions are bands of tissue that resemble scars.\n\nHernias, cancers or certain medicines are acceptable examples.",
+      "warnings": [
+        "Educational demo. Not a doctor. Do not submit real personal medical reports.",
+        "Simulated model output; no live answer-generation call was made."
+      ],
+      "claims": [
+        {
+          "claim_id": "rag-claim-1",
+          "text": "Adhesions are bands of tissue that resemble scars.",
+          "evidence": [
+            {
+              "evidence_id": "e1",
+              "passage_id": "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+              "topic_id": "3920",
+              "title": "Adhesions",
+              "url": "https://medlineplus.gov/adhesions.html",
+              "start": 0,
+              "end": 40,
+              "quote_sha256": "2ed7b29791c8514137fd4c3f039ca70b046f3bf049641ad704aaf78de86e794d"
+            }
+          ]
+        },
+        {
+          "claim_id": "rag-claim-2",
+          "text": "Hernias, cancers or certain medicines are acceptable examples.",
+          "evidence": [
+            {
+              "evidence_id": "e2",
+              "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+              "topic_id": "5275",
+              "title": "Intestinal Obstruction",
+              "url": "https://medlineplus.gov/intestinalobstruction.html",
+              "start": 132,
+              "end": 226,
+              "quote_sha256": "833bdd5250666406d6813f16ce7ab042f49e04fb1a6669d6d1818711b78c3184"
+            }
+          ]
+        }
+      ],
+      "candidate_sources": [
+        {
+          "passage_id": "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+          "topic_id": "3920",
+          "url": "https://medlineplus.gov/adhesions.html",
+          "title": "Adhesions"
+        },
+        {
+          "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+          "topic_id": "5275",
+          "url": "https://medlineplus.gov/intestinalobstruction.html",
+          "title": "Intestinal Obstruction"
+        },
+        {
+          "passage_id": "mplus-3038-086fb89d1c9c701b2b2c808f01a7429591a0c1dca634d862e083525340bf004b",
+          "topic_id": "3038",
+          "url": "https://medlineplus.gov/ostomy.html",
+          "title": "Ostomy"
+        },
+        {
+          "passage_id": "mplus-3054-d8bbe0616a948896ee3b43439852b3b7ec0c69f26566361d89c49459d3039216",
+          "topic_id": "3054",
+          "url": "https://medlineplus.gov/fistulas.html",
+          "title": "Fistulas"
+        },
+        {
+          "passage_id": "mplus-5446-0f4d01e41f083f7a38d0136ed25e3ebf1eb1897fc6c62c23b70ce71d89386a66",
+          "topic_id": "5446",
+          "url": "https://medlineplus.gov/smallintestinedisorders.html",
+          "title": "Small Intestine Disorders"
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-09",
+      "question": "Which organ stores bile, and what substance causes the yellowing in jaundice?",
+      "mode": "mock",
+      "origin": "authored_output_fixture",
+      "review_scope": "Prompt, labels and draft text reflect this public proposal. No generated answer is measured.",
+      "route": "literature",
+      "evidence_state": "sufficient",
+      "text": "The gallbladder stores bile.\n\nExcess bilirubin causes jaundice.",
+      "warnings": [
+        "Educational demo. Not a doctor. Do not submit real personal medical reports.",
+        "Simulated model output; no live answer-generation call was made."
+      ],
+      "claims": [
+        {
+          "claim_id": "rag-claim-1",
+          "text": "The gallbladder stores bile.",
+          "evidence": [
+            {
+              "evidence_id": "e1",
+              "passage_id": "mplus-4643-ce65ac50c6728aaea035f8e00c7ced25d2a3c42d272e3a6fcecf9a345af503bf",
+              "topic_id": "4643",
+              "title": "Gallstones",
+              "url": "https://medlineplus.gov/gallstones.html",
+              "start": 0,
+              "end": 115,
+              "quote_sha256": "c7e6be99c563e3db897c60b81674a203c50745ad3ff221880166c914d420ee9d"
+            }
+          ]
+        },
+        {
+          "claim_id": "rag-claim-2",
+          "text": "Excess bilirubin causes jaundice.",
+          "evidence": [
+            {
+              "evidence_id": "e2",
+              "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+              "topic_id": "4452",
+              "title": "Jaundice",
+              "url": "https://medlineplus.gov/jaundice.html",
+              "start": 0,
+              "end": 210,
+              "quote_sha256": "aa66ac160d7dc24124b8ccd768e3bef7f67792cd86fb7c757d851e9d074539c3"
+            }
+          ]
+        }
+      ],
+      "candidate_sources": [
+        {
+          "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+          "topic_id": "4452",
+          "url": "https://medlineplus.gov/jaundice.html",
+          "title": "Jaundice"
+        },
+        {
+          "passage_id": "mplus-3787-0b7350b8aef61e4f1e9e9f648babe84c9a4e8a057dd9f02448e3f2ebe9bf6adc",
+          "topic_id": "3787",
+          "url": "https://medlineplus.gov/bileductdiseases.html",
+          "title": "Bile Duct Diseases"
+        },
+        {
+          "passage_id": "mplus-5905-f3d86dbdf4be1b6fc16866df922c8b9c08324122d8a2ec4183bf0b6b59545e73",
+          "topic_id": "5905",
+          "url": "https://medlineplus.gov/bileductcancer.html",
+          "title": "Bile Duct Cancer"
+        },
+        {
+          "passage_id": "mplus-259-fcb64ff3c43b2c238c4110300b6222d1f827ad69f8d9bb1119ac310dee9c05ad",
+          "topic_id": "259",
+          "url": "https://medlineplus.gov/gallbladderdiseases.html",
+          "title": "Gallbladder Diseases"
+        },
+        {
+          "passage_id": "mplus-4643-ce65ac50c6728aaea035f8e00c7ced25d2a3c42d272e3a6fcecf9a345af503bf",
+          "topic_id": "4643",
+          "url": "https://medlineplus.gov/gallstones.html",
+          "title": "Gallstones"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "format_version": "public-literature-answer-result-v1",
+  "date": "2026-11-18",
+  "implementation_checkpoint": "14a6430",
+  "question_id": "CQ-01",
+  "question": "What is the difference between systolic and diastolic blood pressure?",
+  "scope_sha256": "d24a62b9767c0acc60c3da6a79c795b27017b7a466d9da3b2a43d1f23ba63748",
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-18",
+    "scope_sha256": "d24a62b9767c0acc60c3da6a79c795b27017b7a466d9da3b2a43d1f23ba63748"
+  },
+  "execution_closed": true,
+  "source_context_sha256": "18b58070201a02890abbe48804c0f4ddef9317a5be10ff643a896113f1fedded",
+  "request_sha256": "04937efcbba4d7f36737edcc0e39da6d140e9ca29f0402435d5596ee131f2455",
+  "prompt_version": "literature-answer-v1",
+  "prompt_sha256": "fa385fcdfbad8ee3dd6b867122bf93ad18f7e18989da0b9fa148c26f064aba48",
+  "answer_version": "rag-cited-claims-v1",
+  "mode": "live",
+  "language": "en",
+  "route": "literature",
+  "evidence_state": "sufficient",
+  "component": {
+    "component_id": "rag-answer-18b58070201a02890abb",
+    "configuration_version": "278c989ec5eff4f508c949aaee86885306ef24c19a3b4fb46b6349e0f4552630",
+    "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+    "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+    "mode": "live",
+    "model": "gpt-6-luna",
+    "operation": "literature-answer",
+    "output_version": "rag-cited-claims-v1",
+    "prompt_version": "literature-answer-v1",
+    "provider": "openai",
+    "retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+    "service": "rag"
+  },
+  "retrieval_provenance": {
+    "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+    "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+    "mode": "live",
+    "retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+    "score_note": "Saved candidate ranking; semantic support not assessed.",
+    "service": "rag",
+    "state": "sufficient"
+  },
+  "claims": [
+    {
+      "claim_id": "rag-claim-1",
+      "text": "Systolic pressure is the pressure inside the arteries when the heart beats.",
+      "scope": "general_information",
+      "evidence": [
+        {
+          "requirement_id": "part-1",
+          "evidence_id": "e1",
+          "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+          "start": 25,
+          "end": 384,
+          "title": "High Blood Pressure",
+          "url": "https://medlineplus.gov/highbloodpressure.html",
+          "quote_sha256": "1c50c77d67378dda8a1735ce06149403c7c18fdec71e848c60e6c77fe992edde"
+        },
+        {
+          "requirement_id": "part-1",
+          "evidence_id": "e2",
+          "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+          "start": 784,
+          "end": 894,
+          "title": "How to Prevent High Blood Pressure",
+          "url": "https://medlineplus.gov/howtopreventhighbloodpressure.html",
+          "quote_sha256": "b776c4805f0c9a7cccf7e738238e99c16456353062ed9f54fb4c4b450f44e50c"
+        }
+      ]
+    },
+    {
+      "claim_id": "rag-claim-2",
+      "text": "Diastolic pressure is the pressure inside the arteries when the heart rests between beats.",
+      "scope": "general_information",
+      "evidence": [
+        {
+          "requirement_id": "part-2",
+          "evidence_id": "e3",
+          "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+          "start": 25,
+          "end": 384,
+          "title": "High Blood Pressure",
+          "url": "https://medlineplus.gov/highbloodpressure.html",
+          "quote_sha256": "1c50c77d67378dda8a1735ce06149403c7c18fdec71e848c60e6c77fe992edde"
+        },
+        {
+          "requirement_id": "part-2",
+          "evidence_id": "e4",
+          "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+          "start": 895,
+          "end": 1024,
+          "title": "How to Prevent High Blood Pressure",
+          "url": "https://medlineplus.gov/howtopreventhighbloodpressure.html",
+          "quote_sha256": "de7494418bedc412b27e461bf89f292cc5be71717a703897c32ebae5f4d836c2"
+        }
+      ]
+    }
+  ],
+  "exact_evidence_references": 4,
+  "distinct_spans": 3,
+  "agent_review": {
+    "status": "both_claims_supported",
+    "basis": "The cited source spans expressly distinguish pressure in arteries during the heartbeat from pressure between heartbeats.",
+    "observations": "Both required definitions are present in English. The answer contains no patient-specific assertion or advice.",
+    "reviewer": "Codex coding agent",
+    "independent_acceptance": false
+  },
+  "execution": {
+    "input_count_calls": 1,
+    "completions": 1,
+    "automatic_retries": 0,
+    "new_search_or_embedding_calls": 0,
+    "input_tokens": 736,
+    "output_tokens": 98,
+    "total_tokens": 834,
+    "confirmed_standard_reference_usd": "0.0001226",
+    "reserved_standard_reference_usd": "0.0003296",
+    "cumulative_confirmed_reference_usd": "0.0033647",
+    "cumulative_reserved_reference_usd": "0.0091109",
+    "cumulative_limit_usd": "0.02",
+    "invoice_verified": false
+  },
+  "cache_replay": {
+    "provider_calls": 0,
+    "cache_hit": true,
+    "ledgers_and_caches_unchanged": true,
+    "ledger_sha256": [
+      "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+      "1b04e28fdc04723930820f1d2b04d670951eea7d65e01f84badca3329de96299",
+      "290d674c3b61e13e8b2c924349dfa0893224c75be79c6f39a927f86f32b613ca",
+      "a416700874bd7aadaf3ce874e8dbe88f7cd4718c15642e54b85fecfaf89cc65c",
+      "d91e2a7cf63b337c07f530c819806adff786f4516fc32c891ce644fc23b2db20"
+    ],
+    "answer_result_sha256": "60d7f5f316718eab37f9c86150bcf62bb0264f606d5b8faa58d0d42eddb3a2fe",
+    "active_lock_count": 0
+  },
+  "scope": "One known public development question. No final test, live partial answer or application activation."
+}

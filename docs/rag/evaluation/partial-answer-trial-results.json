@@ -1,0 +1,124 @@
+{
+  "format_version": "public-partial-answer-result-v1",
+  "date": "2026-11-19",
+  "implementation_base_commit": "24f77211da1395a9da99d7b0f1ca17621c6e64d0",
+  "implementation_source": "Local RAG working copy including the pending partial-answer runner.",
+  "implementation_files_sha256": {
+    "services/rag/src/notelens_rag/partial_answer_trial.py": "9a9e0114f8d85426ad80d0a4e308a8c108c585a5432d384e324325eeab1fce04",
+    "services/rag/src/notelens_rag/answer_trial.py": "4a2ff2b67e78ea241c0f67164b6f18808f8509236158d3bb7f8ea9e93569fefc",
+    "services/rag/src/notelens_rag/assessment_trial.py": "2f76068e2ac9998bb77e483bb8f3c48dc602c433ab1e2ea5754d1c639f973421",
+    "services/rag/src/notelens_rag/answers.py": "0ec93753d3eadeaba4ffa824a6b8d6fc169dafccf6ebf5605ca171364434e18f",
+    "services/rag/src/notelens_rag/support.py": "18b9756063aa9f200b7e96154575b75c5d30a3ad76d3ebc9cee69b6204ec01d8"
+  },
+  "question_id": "CQ-02",
+  "question": "What causes COVID-19, and how long can an infected person transmit it to others?",
+  "scope_sha256": "d61f31bb1b29d20bec70302dbe78969a7acdeb4dfaadcb46c4a462010597f201",
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-19",
+    "scope_sha256": "d61f31bb1b29d20bec70302dbe78969a7acdeb4dfaadcb46c4a462010597f201"
+  },
+  "execution_closed": true,
+  "source_context_sha256": "552957c59b8ede5aabeabeaa1dcd70c3a1a0e6582916d1c95f9c62224d4f4ad3",
+  "request_sha256": "6d7023e611376970fc002ba929070aaab0326c8e1ff217f74289f36510e41c93",
+  "prompt_version": "literature-answer-v1",
+  "prompt_sha256": "fa385fcdfbad8ee3dd6b867122bf93ad18f7e18989da0b9fa148c26f064aba48",
+  "answer_version": "rag-cited-claims-v1",
+  "mode": "live",
+  "language": "en",
+  "route": "literature",
+  "evidence_state": "partial",
+  "partial_policy": "supported-subset-v1",
+  "component": {
+    "component_id": "rag-answer-552957c59b8ede5aabea",
+    "configuration_version": "42ac5c330051fbdf0e45603b06ccb4180461f97ba4b0f4ecaf0de9dc85990446",
+    "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+    "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+    "mode": "live",
+    "model": "gpt-6-luna",
+    "operation": "literature-answer",
+    "output_version": "rag-cited-claims-v1",
+    "prompt_version": "literature-answer-v1",
+    "provider": "openai",
+    "retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+    "service": "rag"
+  },
+  "retrieval_provenance": {
+    "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+    "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+    "mode": "live",
+    "retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+    "score_note": "Saved candidate ranking; semantic support not assessed.",
+    "service": "rag",
+    "state": "sufficient"
+  },
+  "claims": [
+    {
+      "claim_id": "rag-claim-1",
+      "text": "COVID-19 is caused by SARS-CoV-2, a coronavirus.",
+      "scope": "general_information",
+      "evidence": [
+        {
+          "requirement_id": "part-1",
+          "evidence_id": "e1",
+          "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+          "start": 0,
+          "end": 373,
+          "title": "COVID-19 (Coronavirus Disease 2019)",
+          "url": "https://medlineplus.gov/covid19coronavirusdisease2019.html",
+          "quote_sha256": "08e5a3e23d4d4663e25da5375c021f3c76f4709d7c3821b1e7cef306b8e02917"
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "Educational demo. Not a doctor. Do not submit real personal medical reports.",
+    "The retrieved sources do not support the requested information: Duration of infectiousness for COVID-19"
+  ],
+  "exact_evidence_references": 1,
+  "agent_review": {
+    "reviewer": "Codex coding agent",
+    "status": "supported_claim_with_explicit_gap",
+    "basis": "The cited span explicitly identifies the illness, SARS-CoV-2 and its coronavirus type. The sole claim matches those facts.",
+    "gap": "No infectiousness duration is claimed. Python retains the missing-duration warning.",
+    "independent_acceptance": false
+  },
+  "execution": {
+    "input_count_calls": 1,
+    "completions": 1,
+    "automatic_retries": 0,
+    "new_search_or_embedding_calls": 0,
+    "input_tokens": 555,
+    "output_tokens": 56,
+    "total_tokens": 611,
+    "parameters": {
+      "max_output_tokens": 512,
+      "reasoning_effort": "none",
+      "timeout_seconds": 30
+    },
+    "confirmed_standard_reference_usd": "0.0000835",
+    "reserved_standard_reference_usd": "0.0003115",
+    "cumulative_confirmed_reference_usd": "0.0034482",
+    "cumulative_reserved_reference_usd": "0.0094224",
+    "cumulative_limit_usd": "0.02",
+    "invoice_verified": false
+  },
+  "cache_replay": {
+    "provider_calls": 0,
+    "cache_hit": true,
+    "preserved_json_files": 12,
+    "ledgers_and_caches_unchanged": true,
+    "ledger_sha256": [
+      "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+      "1b04e28fdc04723930820f1d2b04d670951eea7d65e01f84badca3329de96299",
+      "290d674c3b61e13e8b2c924349dfa0893224c75be79c6f39a927f86f32b613ca",
+      "a416700874bd7aadaf3ce874e8dbe88f7cd4718c15642e54b85fecfaf89cc65c",
+      "d91e2a7cf63b337c07f530c819806adff786f4516fc32c891ce644fc23b2db20",
+      "3480aa47e59e25666c154623e8f7a35053e9cb4d7e69c7263c30b63a26cb949e"
+    ],
+    "answer_result_sha256": "a6d6a890e20d0d28bc663837b10efccbbc486e8654e3f433717558ab554ae8db",
+    "active_lock_count": 0,
+    "closed_scope_guard": "execution_not_approved"
+  },
+  "scope": "One public development completion from retained support. Independent review and B confirmation of partial-wire semantics remain pending."
+}
