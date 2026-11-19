@@ -1,15 +1,40 @@
-# Routing preparation only. No active owner bindings have been verified.
-# Never replace member aliases with guessed handles or empty-owner overrides.
-# Source of truth: docs/team/allowed-paths.md; tooling mirror: .github/scope-policy.json.
-# A: services/rag, data/knowledge, docs/rag, specs/001-rag, annotations/member-a.
-# B: web, contracts, infra, project tooling, shared docs/configuration, Spec Kit,
-#    specs/000-foundation, specs/002-platform, annotations/member-b and this file.
-# C: services/classifier, data/mtsamples, docs/ml, specs/003-classification,
-#    annotations/member-c.
-# D: services/extraction, docs/extraction-eval, specs/004-extraction-evaluation,
-#    eval except the more-specific A/B/C annotation paths.
-# After verifying real handles and write access, put broad patterns first and
-# member annotation exceptions last. Protect .github itself with B review.
-# GitHub uses CODEOWNERS from the PR target branch; branch rules enforce reviews.
-# Until that setup is authorized and observed, automatic routing is pending.
-# See docs/team/f-010-review-routing.md. F-010/F-011/F-014 remain pending.
+# Match the B-maintained allowed-path matrix. The first account is the owner.
+# The second account can review an owner's PR. The matrix still governs writes.
+# Member annotation exceptions follow the broad eval rule.
+/apps/web/ @GoranSuvacarev @NemanjaManic
+/services/rag/ @NemanjaManic @GoranSuvacarev
+/services/classifier/ @Obscurestr @GoranSuvacarev
+/services/extraction/ @mileusnicmilica @GoranSuvacarev
+/data/mtsamples/ @Obscurestr @GoranSuvacarev
+/data/knowledge/ @NemanjaManic @GoranSuvacarev
+/eval/ @mileusnicmilica @GoranSuvacarev
+/contracts/ @GoranSuvacarev @NemanjaManic
+/infra/ @GoranSuvacarev @NemanjaManic
+/.github/ @GoranSuvacarev @NemanjaManic
+/scripts/project/ @GoranSuvacarev @NemanjaManic
+/docs/team/ @GoranSuvacarev @NemanjaManic
+/docs/decisions/ @GoranSuvacarev @NemanjaManic
+/docs/rag/ @NemanjaManic @GoranSuvacarev
+/docs/platform/ @GoranSuvacarev @NemanjaManic
+/docs/ml/ @Obscurestr @GoranSuvacarev
+/docs/extraction-eval/ @mileusnicmilica @GoranSuvacarev
+/specs/000-foundation/ @GoranSuvacarev @NemanjaManic
+/specs/001-rag/ @NemanjaManic @GoranSuvacarev
+/specs/002-platform/ @GoranSuvacarev @NemanjaManic
+/specs/003-classification/ @Obscurestr @GoranSuvacarev
+/specs/004-extraction-evaluation/ @mileusnicmilica @GoranSuvacarev
+/README.md @GoranSuvacarev @NemanjaManic
+/AGENTS.md @GoranSuvacarev @NemanjaManic
+/package.json @GoranSuvacarev @NemanjaManic
+/package-lock.json @GoranSuvacarev @NemanjaManic
+/.env.example @GoranSuvacarev @NemanjaManic
+/.gitignore @GoranSuvacarev @NemanjaManic
+/.gitattributes @GoranSuvacarev @NemanjaManic
+/.specify/ @GoranSuvacarev @NemanjaManic
+/.agents/skills/ @GoranSuvacarev @NemanjaManic
+/.codex/ @GoranSuvacarev @NemanjaManic
+/prompts/NoteLens_Codex_SpecKit_prompt_00.md @GoranSuvacarev @NemanjaManic
+/eval/annotations/member-a/ @NemanjaManic @GoranSuvacarev
+/eval/annotations/member-b/ @GoranSuvacarev @NemanjaManic
+/eval/annotations/member-c/ @Obscurestr @GoranSuvacarev
+/eval/annotations/member-d/ @mileusnicmilica @GoranSuvacarev

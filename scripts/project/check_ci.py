@@ -18,9 +18,11 @@ from scaffold_process import run_owned
 
 ROOT = Path(__file__).resolve().parents[2]
 WORKFLOW = '.github/workflows/key-free-ci.yml'
+PR_WORKFLOW = '.github/workflows/f010-key-free.yml'
 ACTIONS = {
     'actions/checkout': 'd23441a48e516b6c34aea4fa41551a30e30af803',
     'actions/setup-python': 'ece7cb06caefa5fff74198d8649806c4678c61a1',
+    'actions/setup-node': '48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e',
 }
 PATTERNS = {
     'PRIVATE_KEY': re.compile(rb'-----BEGIN (?:RSA |EC |OPENSSH |DSA |ENCRYPTED )?PRIVATE KEY-----'),
@@ -188,13 +190,62 @@ def workflow_issues(value):
     return sorted(set(issues))
 
 
+def pr_workflow_issues(value):
+    """Check the current PR workflow's event, token, runner and checkout boundary."""
+    try:
+        if set(value) != {'name', 'on', 'permissions', 'concurrency', 'jobs'}:
+            return ['WORKFLOW_SHAPE']
+        if value['on'] != {'pull_request': {'branches': ['main'], 'types': [
+                'opened', 'reopened', 'synchronize', 'ready_for_review', 'edited']}}:
+            return ['WORKFLOW_EVENTS']
+        if value['permissions'] != {'contents': 'read'}:
+            return ['TOKEN_PERMISSIONS']
+        if set(value['jobs']) != {'key-free'}:
+            return ['JOB_COVERAGE']
+        job = value['jobs']['key-free']
+        if (set(job) != {'name', 'runs-on', 'timeout-minutes', 'steps'}
+                or job['runs-on'] != 'windows-2022' or job['timeout-minutes'] != 45
+                or job['name'] != 'NoteLens key-free checks'):
+            return ['JOB_SHAPE']
+        steps = job['steps']
+        if [step['name'] for step in steps] != [
+                'Checkout trusted base', 'Checkout candidate', 'Setup Python',
+                'Check trusted scope and commit history', 'Setup Node', 'Install locked workspaces',
+                'Check contracts, dependency advisories and mock flow']:
+            return ['STEP_ORDER_OR_COVERAGE']
+        for step, path, side in zip(steps[:2], ('trusted', 'candidate'), ('base', 'head')):
+            if (set(step) != {'name', 'uses', 'with'}
+                    or step['uses'] != 'actions/checkout@' + ACTIONS['actions/checkout']
+                    or step['with'] != {'path': path, 'fetch-depth': 0, 'persist-credentials': False,
+                                        'ref': '${{ github.event.pull_request.' + side + '.sha }}'}):
+                return ['CHECKOUT_TRUST']
+        for index, action, options in (
+                (2, 'actions/setup-python', {'python-version': '3.13.7'}),
+                (4, 'actions/setup-node', {'node-version': '24', 'package-manager-cache': False})):
+            step = steps[index]
+            if set(step) != {'name', 'uses', 'with'} or step['uses'] != action + '@' + ACTIONS[action] or step['with'] != options:
+                return ['ACTION_PIN']
+        for index in (3, 5, 6):
+            step = steps[index]
+            fields = {'name', 'shell', 'run'} if index == 3 else {'name', 'shell', 'run', 'working-directory', 'env'}
+            if (set(step) != fields or step['shell'] != 'pwsh'
+                    or (index != 3 and step['working-directory'] != 'candidate')
+                    or '${{' in step['run']):
+                return ['RUN_SHAPE']
+        return []
+    except (KeyError, TypeError, AttributeError):
+        return ['WORKFLOW_SHAPE']
+
+
 def workflow_report(repo):
-    raw = (repo / WORKFLOW).read_bytes()
+    current = repo / PR_WORKFLOW
+    current_profile = current.is_file()
+    raw = (current if current_profile else repo / WORKFLOW).read_bytes()
     value = scope.loads(raw)
-    problems = workflow_issues(value)
+    problems = pr_workflow_issues(value) if current_profile else workflow_issues(value)
     return {'format': 'notelens-workflow-report-v1', 'passed': not problems,
             'workflow_sha256': scope.digest(raw), 'issues': [{'rule': p} for p in problems],
-            'hosted_verified': False, 'routing_verified': False, 'f011_pending': True, 'f014_pending': True}
+            'hosted_verified': False, 'routing_verified': False, 'f011_pending': not current_profile, 'f014_pending': True}
 
 
 def clean_environment():
@@ -312,9 +363,11 @@ print(json.dumps({"name":d.metadata["Name"],"version":d.version,"prefix":sys.pre
     return name, packages.pop(name)
 
 
-def dependencies(repo):
+def dependencies(repo, *, pull_request=False):
     from scaffold_state import inventory_issues, source_fingerprint, runtime_facts
-    if inventory_issues(repo):
+    # Ordinary owner PRs change source beyond the checkpoint's pinned inventory.
+    # They still require matching installed origins and a stable source fingerprint.
+    if not pull_request and inventory_issues(repo):
         raise scope.Invalid('AUDIT_SOURCE_INVENTORY')
     before = source_fingerprint(repo)
     runtime_facts(repo)  # Independently validates the local installed contract source/schema.
@@ -329,7 +382,7 @@ def dependencies(repo):
         config.write_text('', encoding='utf-8')
         npm_output = folder / 'npm.json'
         with npm_output.open('wb') as output:
-            done = run_owned([shutil.which('npm.cmd'), 'audit', '--json', '--audit-level=info',
+            done = run_owned([shutil.which('npm.cmd'), 'audit', '--json', '--audit-level=info', '--loglevel=silent',
                               '--registry=https://registry.npmjs.org', '--userconfig=' + str(config)],
                              cwd=repo, env=env, stdout=output, timeout=240)
         try:
@@ -372,9 +425,12 @@ def dependencies(repo):
             results.append({'environment': label, 'exit_code': done.returncode, 'issues': issues,
                             'external_packages': packages, 'source_checked_local_packages': local,
                             'vulnerable_packages': vulnerable_names})
-    issues = [] if source_fingerprint(repo) == before and not inventory_issues(repo) else [{'rule': 'AUDIT_SOURCE_DRIFT'}]
+    issues = []
+    if source_fingerprint(repo) != before or (not pull_request and inventory_issues(repo)):
+        issues.append({'rule': 'AUDIT_SOURCE_DRIFT'})
     return {'format': 'notelens-dependency-report-v1', 'passed': not issues and all(not r['issues'] for r in results),
             'provenance': 'online-public-advisories', 'queried_at': datetime.now(timezone.utc).isoformat(),
+            'profile': 'pull-request' if pull_request else 'checkpoint',
             'source_fingerprint': before, 'environments': results, 'issues': issues,
             'auto_fixes_applied': False}
 
@@ -382,7 +438,7 @@ def dependencies(repo):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     modes = parser.add_mutually_exclusive_group(required=True)
-    for name in ('self-test', 'secrets', 'dependencies', 'workflow'):
+    for name in ('self-test', 'secrets', 'dependencies', 'pr-dependencies', 'workflow'):
         modes.add_argument('--' + name, action='store_true')
     parser.add_argument('--repo', type=Path, default=ROOT)
     parser.add_argument('--staged', action='store_true')
@@ -393,7 +449,11 @@ def main(argv=None):
     if args.self_test:
         return scope.self_test('test_ci.py')
     repo = args.repo.resolve()
-    label = 'secrets' if args.secrets else 'dependencies' if args.dependencies else 'workflow'
+    label = 'secrets' if args.secrets else 'workflow'
+    if args.dependencies:
+        label = 'dependencies'
+    elif args.pr_dependencies:
+        label = 'pr-dependencies'
     nonce = str(uuid4())
     scope.save(repo, label + '.json', {'passed': False, 'run_id': nonce, 'issues': [{'rule': 'IN_PROGRESS'}]})
     try:
@@ -405,6 +465,8 @@ def main(argv=None):
             result = scan_secrets(repo, args.base, args.head, args.staged)
         elif args.dependencies:
             result = dependencies(repo)
+        elif args.pr_dependencies:
+            result = dependencies(repo, pull_request=True)
         else:
             result = workflow_report(repo)
     except scope.Invalid as error:

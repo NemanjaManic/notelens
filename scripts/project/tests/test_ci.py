@@ -321,3 +321,22 @@ class CiChecks(unittest.TestCase):
         with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
             ci.main(['--dependencies', '--mode', 'live'])
         self.assertEqual(2, error.exception.code)
+
+    def test_pull_request_audit_retains_installed_runtime_checks(self):
+        with patch('scaffold_state.inventory_issues', return_value=['OWNER_DRIFT']), \
+                patch('scaffold_state.source_fingerprint', return_value='fixture'), \
+                patch('scaffold_state.runtime_facts', side_effect=ValueError('runtime origin')):
+            with self.assertRaisesRegex(scope.Invalid, 'AUDIT_SOURCE_INVENTORY'):
+                ci.dependencies(ci.ROOT)
+            with self.assertRaisesRegex(ValueError, 'runtime origin'):
+                ci.dependencies(ci.ROOT, pull_request=True)
+
+    def test_pull_request_workflow_rejects_writable_checkouts_and_privileged_events(self):
+        value = scope.loads((ci.ROOT / ci.PR_WORKFLOW).read_bytes())
+        self.assertEqual([], ci.pr_workflow_issues(value))
+        writable = deepcopy(value)
+        writable['jobs']['key-free']['steps'][1]['with']['persist-credentials'] = True
+        self.assertEqual(['CHECKOUT_TRUST'], ci.pr_workflow_issues(writable))
+        privileged = deepcopy(value)
+        privileged['on'] = {'pull_request_target': {}}
+        self.assertEqual(['WORKFLOW_EVENTS'], ci.pr_workflow_issues(privileged))
