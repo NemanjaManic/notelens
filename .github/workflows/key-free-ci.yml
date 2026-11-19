@@ -1,0 +1,62 @@
+{
+  "name": "Key-free bootstrap guard (F-011/F-014 pending)",
+  "on": {
+    "pull_request": {}
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "concurrency": {
+    "group": "key-free-${{ github.event.pull_request.number || github.ref }}",
+    "cancel-in-progress": true
+  },
+  "jobs": {
+    "bootstrap-guard": {
+      "name": "Trusted scope, secrets and workflow policy",
+      "runs-on": "windows-2022",
+      "timeout-minutes": 45,
+      "steps": [
+        {
+          "name": "Checkout trusted base",
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "path": "trusted",
+            "ref": "${{ github.event.pull_request.base.sha }}",
+            "fetch-depth": 0,
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Checkout candidate",
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "path": "candidate",
+            "ref": "${{ github.event.pull_request.head.sha }}",
+            "fetch-depth": 0,
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Setup Python",
+          "uses": "actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "with": {
+            "python-version": "3.13.7"
+          }
+        },
+        {
+          "name": "Bootstrap gate",
+          "shell": "pwsh",
+          "run": "$ErrorActionPreference = 'Stop'\nforeach ($guard in @('check_scope.py', 'check_ci.py')) {\n  if (-not (Test-Path -LiteralPath (Join-Path 'trusted/scripts/project' $guard))) {\n    throw 'BOOTSTRAP_REVIEW_REQUIRED: the trusted target base needs maintainer review.'\n  }\n}"
+        },
+        {
+          "name": "Trusted guard",
+          "shell": "pwsh",
+          "run": "$ErrorActionPreference = 'Stop'\n$eventData = Get-Content -LiteralPath $env:EVENT_PATH -Raw | ConvertFrom-Json\nif ($null -eq $eventData.pull_request) { throw 'A pull request event is required.' }\n& python -B trusted/scripts/project/check_scope.py --repo candidate --event $env:EVENT_PATH\nif ($LASTEXITCODE -ne 0) { throw 'Declared scope is invalid or needs coordination review.' }\n& python -B trusted/scripts/project/check_ci.py --repo candidate --secrets --event $env:EVENT_PATH\nif ($LASTEXITCODE -ne 0) { throw 'Secret guard failed.' }\n& python -B trusted/scripts/project/check_ci.py --repo candidate --workflow\nif ($LASTEXITCODE -ne 0) { throw 'Workflow policy failed.' }",
+          "env": {
+            "EVENT_PATH": "${{ github.event_path }}"
+          }
+        }
+      ]
+    }
+  }
+}
