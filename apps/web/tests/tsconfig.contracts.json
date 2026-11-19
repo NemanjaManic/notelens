@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node"],
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": false,
+    "incremental": false,
+    "plugins": []
+  },
+  "include": ["contracts.test.ts", "../src/lib/contracts/consumer.ts"],
+  "exclude": ["../node_modules"]
+}

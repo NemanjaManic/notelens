@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node"],
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": false,
+    "incremental": false,
+    "plugins": []
+  },
+  "include": ["canonical-text.test.ts", "helpers/unicode-reference.ts"],
+  "exclude": ["../node_modules"]
+}

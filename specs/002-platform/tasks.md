@@ -43,11 +43,12 @@ they are not silently assigned defaults.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T001 B-010: Review shared-record proposals and establish the web mock consumer suite in `apps/web/tests/contracts.test.ts`, `docs/platform/interface-review.md`
+- [X] T001 B-010: Review shared-record proposals and establish the web mock consumer suite in `apps/web/tests/contracts.test.ts`, `docs/platform/interface-review.md`
   - **Owner / story**: B / US1.
   - **Dependencies**: 000-foundation/T004 (F-003); 000-foundation/T006 (F-004)
   - **Acceptance**: Consume generated bindings without reimplementing Python algorithms; malformed/mismatched results fail visibly; all test outputs are synthetic mocks.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/contracts.test.ts`.
+  - **Verify**: `node apps/web/scripts/check-contracts.mjs` (installed Node runner plus local TypeScript noEmit; no Vitest install).
+  - **Evidence (2026-11-17)**: 221/221 web-consumer cases; 4 detected consumer mutation probes and 16 evidence-rejection probes. See [interface review](../../docs/platform/interface-review.md) and [scoped plan](../../docs/platform/b-010-web-contract-consumer-plan.md). This supersedes older draft-only status for T001 only. Safe rejection is a consumer state; browser/report rendering remains B-002. F-010/F-011/F-014 stay pending.
   - **Coverage**: FR-014, FR-015.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -58,6 +59,7 @@ they are not silently assigned defaults.
 - [ ] T002 B-004: Implement approved memory lifetime, session ownership and guarded configuration in `apps/web/src/lib/sessions/**`, `apps/web/src/lib/config/**`, `apps/web/tests/session-isolation.test.ts`, `apps/web/tests/retention.test.ts`, `docs/platform/configuration.md`, `apps/web/tests/configuration.test.ts`
   - **Owner / story**: B / US3.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014)
+  - **Approved early-work exception (2026-11-17)**: User authorized the bounded B-owned memory/config core before F-014. See [scope, design and limits](../../docs/platform/configuration.md). The exception changes execution order only; B-004/F-010/F-011/F-014 remain pending. Early verification: `node apps/web/scripts/check-sessions.mjs` (28 synthetic isolation/retention/config cases plus noEmit typecheck; R1/R2 idle-cleanup and validation-expiry mutations are detected); browser transport, remaining operational policies and full acceptance stay deferred.
   - **Acceptance**: Document-bound content stays only in process memory for <=60 minutes, cleared on expiry/restart; fake-clock/two-session tests pass. Ask for remaining history/rate/retry/timeout limits; unconfigured live mode fails closed.
   - **Verify**: `npm exec --workspace apps/web -- vitest run tests/session-isolation.test.ts tests/retention.test.ts tests/configuration.test.ts`.
   - **Coverage**: FR-011, FR-016, FR-017, FR-023, SC-002, SC-003.
@@ -72,6 +74,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 - [ ] T003 [US1] B-001: Implement built-in/text/PDF input and canonical preparation in `apps/web/src/app/**`, `apps/web/src/lib/documents/**`, `apps/web/tests/canonical-text.test.ts`, `apps/web/tests/uploads.test.ts`
   - **Owner / story**: B / US1.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014); 002-platform/T002 (B-004)
+  - **Approved early-work exception (2026-11-17)**: User authorized the built-in-only preparation core before full B-004/F-014. See [scope and limits](../../docs/platform/b-001-builtin-preparation.md). Early verification: `node apps/web/scripts/check-preparation.mjs` (47 normalization/identity/metadata/session-handoff cases plus noEmit typecheck; two deadline mutations detected). Arbitrary text/PDF admission, language detection and browser transport remain deferred. B-001/B-002/B-004/F-010/F-011/F-014 remain pending; full acceptance retains the original dependencies.
   - **Acceptance**: At most 2,097,152 PDF bytes and 100,000 code points; reject excess/scanned/unsupported language, never truncate. One nfc-lf-v1 preparation/hash; in-memory parsing only.
   - **Verify**: `npm exec --workspace apps/web -- vitest run tests/canonical-text.test.ts tests/uploads.test.ts`.
   - **Coverage**: FR-001, FR-002, FR-003, FR-004, FR-012, SC-001, SC-002.
@@ -80,6 +83,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 - [ ] T004 [US1] B-002: Build complete English report panels and exact evidence highlighting in `apps/web/src/components/**`, `apps/web/tests/report-view.test.tsx`
   - **Owner / story**: B / US1.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014); 002-platform/T002 (B-004)
+  - **Approved early-work exception (2026-11-17)**: User authorized the bounded fixture-only UI before full B-004/F-014. See [scope, implementation and limits](../../docs/platform/b-002-fixture-workspace.md). Early verification: `node apps/web/scripts/check-report.mjs` (37 synthetic render/model/evidence cases). No uploads, session transport, service calls or questions are connected. B-002/B-004/F-010/F-011/F-014 remain pending; the original dependencies apply to full acceptance.
   - **Acceptance**: Document, specialty uncertainty, entities/assertion/temporality/subject, summary and sources work from mocks; emoji/repeated spans and all loading/empty/error states are covered.
   - **Verify**: `npm exec --workspace apps/web -- vitest run tests/report-view.test.tsx`.
   - **Coverage**: FR-001, FR-005, FR-006, FR-007, FR-012, FR-013, SC-001, SC-002.
