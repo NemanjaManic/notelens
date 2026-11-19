@@ -9,6 +9,8 @@ from types import SimpleNamespace
 
 import pytest
 
+pytest.importorskip("chromadb", reason="Index tests require the optional indexing extra.")
+
 from notelens_rag.embeddings import EmbeddingBatch, EmbeddingError, plan_corpus
 from notelens_rag.indexing import IndexBuildError, build_index, index_specification, load_index, PersistentTokenBudget
 

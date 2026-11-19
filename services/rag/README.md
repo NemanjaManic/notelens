@@ -40,6 +40,22 @@ root/shared package files are not changed by this service installation. Its loca
 notelens-contracts dependency comes from ../../contracts/generated/python, imported
 through B's published dependency commit. Python 3.14 service execution is unverified.
 
+The default locked install is the checkpoint mock profile. Chroma and its indexing
+dependencies belong to the optional `indexing` extra. The default regression run
+reports the Chroma-specific test module as skipped and exercises the mock HTTP
+routes, contracts, authentication, request IDs, corpus adapter and embedding fixtures.
+
+To install the explicit indexing profile and run its synthetic-vector checks:
+
+```powershell
+uv --system-certs sync --locked --directory services/rag --python 3.13 --dev --extra indexing
+uv run --locked --offline --directory services/rag --extra indexing python -m pytest
+```
+
+The indexing extra retains the prior Chroma version and its open advisory finding.
+The checkpoint dependency change covers the installed mock profile. B verifies
+the combined checkpoint's actual installed inventory in the shared dependency lane.
+
 ## Run locally
 
 ```powershell
