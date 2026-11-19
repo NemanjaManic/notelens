@@ -4,7 +4,7 @@
   "owner_commits": {
     "A": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
     "C": "4080f9b3c41a0dba70238929e765d9ce535910eb",
-    "D": "a8f1599350944faf7e7dd566ec5febad59f6fe3c"
+    "D": "90fc3e26a2f851bc5c8eb61843434cfb50bca318"
   },
   "imports": {
     "data/knowledge/scripts/prepare_corpus.py": {
@@ -326,6 +326,181 @@
       "owner": "A",
       "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
       "sha256": "a500ef51bf711c67d6e4c6e5955d222dcddb213d458b8c724660ee8b44cf88c0"
+    },
+    "eval/.gitignore": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "2310e3d22907da6179580fca570d1c2e57a0fd4f2ffc0779461450ad7fc76983"
+    },
+    "eval/fixtures/annotation-lint-synthetic-v1.json": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "2766013132ff13906fec17102ef80aee2041460894a4b0f4a70f15f54b4976ae"
+    },
+    "eval/fixtures/annotation-source-synthetic.json": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "c3bc6fdf33778c8969df576ea551ebc1e2de32cca1cac2b9f90954a6da45c211"
+    },
+    "eval/fixtures/answer-review-template-v1.json": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "5ca8eac9bf563e2087089b82f827ec5c44272a6f52034a066a9d5119eb3a9b40"
+    },
+    "eval/fixtures/extraction-qa-synthetic-v1.json": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "b0d1e77dbac3fd68a65d9244d098e0f30d16e3695e2f59075382b205421f0e9d"
+    },
+    "eval/fixtures/pending-merge-bundle.json": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "bc0aa6f4f41bef5db92c84d33223be3fb0d788ce0ef631d348ac015a91072a0e"
+    },
+    "eval/fixtures/review-comparison-synthetic-v1.json": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "7eb9dfcb14612baffe0d721f2a3b07538df147f973320de2e4e117641e4ed18b"
+    },
+    "eval/fixtures/smoke-references.json": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "6570a8e09e505e4826daa35f2b3eade1f6ac8db48ceeb272f39e38688470d826"
+    },
+    "eval/package-lock.json": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "f21f19e76017ef5ce2436302d8989c004ff000e4b0594e8fd7d99f2c60e3cc6e"
+    },
+    "eval/package.json": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "36250a28a4a5b647c8b3228f01d2a3af86c8f796daba68081b6f3bb0ef1aebe4"
+    },
+    "eval/promptfooconfig.json": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "85a7a6ca57db95249935af8966d22a03527702f62c48abd6a71e9a8f264d8712"
+    },
+    "eval/providers/document_api.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "39661db9817d0038839192888c9084244dfc07b80c573201fa8c2876a37c087c"
+    },
+    "eval/pyproject.toml": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "187f8f69c8d95787c2991422c4b90d82d7b0f8ea5493bc1552ddd0f3768e42e4"
+    },
+    "eval/smoke_http.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "33772f3b825b51a6c1f0224c32f9b084641522e2181b8273a967900a7e695ed8"
+    },
+    "eval/src/notelens_eval/__init__.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "40f394cb48f8d754e2b532ae9ab247d78c11942119bf88e9738fc324fa56c666"
+    },
+    "eval/src/notelens_eval/annotations.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "00c11230ced8c68864ccd67fb0017b7b583ad337463af5b1a07f78d0f0994649"
+    },
+    "eval/src/notelens_eval/answer_review.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "e67b1c00e2857dc397d3ffd25da724abc8854c39e6d5edc9c7a0d96d906500d1"
+    },
+    "eval/src/notelens_eval/http_suite.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "f743a960343dfd8c585847c265353623a60f99356101e13d80b1a7501d46e11e"
+    },
+    "eval/src/notelens_eval/metrics.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "8915c8d2b982a71c3adcc6682a6bb7c6e807150d51b8ad959c215539634123ad"
+    },
+    "eval/src/notelens_eval/readiness.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "56e6f48abfb4b596b9fb153e83f21b45933fffeb13b879558b4b2a74912041ce"
+    },
+    "eval/src/notelens_eval/review.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "168cf37985883f617dbc141a2afa7b22a004c23f771e48ba1c37937f80f58088"
+    },
+    "eval/src/notelens_eval/run.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "f9aa72b010d216ffc9841a6ab8cb7b71b2bb2c8773fe82acdfdc2eaffcbbc250"
+    },
+    "eval/src/notelens_eval/suite.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "eec64f45431fcd53e6783e9bcfd2f92f7187e8cb30f1f5dade5dc90e6be1f4f3"
+    },
+    "eval/tests/test_offline_adapter.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "6d51cadce2cdf8a433c53212da66353ee95d90d21397c11cc6fdde9706baed26"
+    },
+    "eval/tests/test_readiness.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "cd3f156aea3bc7be453d4ccf1c21b8430c3591f5fed75c7039e0758513f524a2"
+    },
+    "eval/tests/test_review_integrity.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "82b090bc0e2ca0dbb0b281a944c247b95121b68051826d366a8215492ee683d1"
+    },
+    "eval/tests/test_slice.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "4fcb95bc6213198dee470c8619da3ae0d62b3adcc6bbff570019fda066136f98"
+    },
+    "eval/tests/test_synthetic_suite.py": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "b45adad01c053e9b10619ff89c87d967e032b51f9ea4c771c982d0fc979a6e99"
+    },
+    "eval/uv.lock": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "af49abb593208d01645e63ffd960d4d8cd9079d62f8b8e5ddcaa2cefec1bc908"
+    },
+    "specs/004-extraction-evaluation/contracts/README.md": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "20892cb2bd18e5415f10ccf7b8a08c42bf0f2a114eb7e94fd1ac76210f36cfb0"
+    },
+    "specs/004-extraction-evaluation/data-model.md": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "2a3d63cd6c6b0a0789c6487676f5dec20deffc672cc5fb1f5b1df141e43bc788"
+    },
+    "specs/004-extraction-evaluation/plan.md": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "9d9f9c77f7f65978a031b74f0985ac8eda746be312dffec81be6734f05a7af62"
+    },
+    "specs/004-extraction-evaluation/quickstart.md": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "ee5879095964c393081beebc526ef2600feb50a7239ea6bee299746944c40ef8"
+    },
+    "specs/004-extraction-evaluation/spec.md": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "feeb87be20ae114a484fc6309edc216d9552dfbbd8f3fffd97a246c7ba084465"
+    },
+    "specs/004-extraction-evaluation/tasks.md": {
+      "owner": "D",
+      "commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "sha256": "83bae1cfc0c1163845c63cfaeebac086a60c55fb849c6db02848e4f80863167d"
     }
   },
   "b_input_files": {
@@ -961,6 +1136,15 @@
       "http_cases_passed": 213,
       "service_processes_cleaned_up": 19,
       "shared_gate_status": "F-011 complete"
+    },
+    {
+      "date": "2026-11-19",
+      "task": "Pin D evaluation tooling and feature artifacts",
+      "implementation_base_commit": "1ac8bfe9cf3ea9853c417ffe3f86ed7a1a15b6f8",
+      "published_d_commit": "90fc3e26a2f851bc5c8eb61843434cfb50bca318",
+      "added_eval_paths": 29,
+      "updated_d_spec_paths": 6,
+      "reason": "Record exact reviewed inputs while preserving the pinned extraction service files. D handoff Markdown follows the existing rule for additional project documentation."
     }
   ]
 }
