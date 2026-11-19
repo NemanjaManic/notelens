@@ -20,10 +20,10 @@ Every template has `entities: null`, `review_state: pending`, no human review an
 `complete_document_review: false`. The output is not an instruction to begin final
 annotation: `access_state: pending_team_policy` requires a team access decision first.
 
-The algorithm is also tested with 40 distinct synthetic groups: ten primary items
-per member, eight per specialty and at least ten separate reviewers. C's primary and
-secondary work is development-only. This is algorithm verification, not 40 real
-assignments. No generated reference labels are substituted for human annotations.
+The algorithm is also tested with 40 distinct synthetic groups, ten primary items per
+member, eight per specialty and ten independently reviewed documents. C's primary and
+secondary work is development-only. These checks use synthetic proposals and blank
+reference templates.
 
 ## Provisional input adapter for C review
 
@@ -43,6 +43,10 @@ specialties and infeasible counts. Each document must have the JSON boolean `tru
 for `permitted_for_annotation`.
 Portion and specialty counts are reported; no dev/final proportion is silently
 declared team-approved. Review feasibility/balance and final-set access before freeze.
+When reviews are requested, the selector reserves an independent development review
+for C if a development group is available outside C's primary quota. The proposal
+reports `member_c_development_review_unavailable` in `review_warnings` if every
+development group is needed for C's primary quota.
 
 ## Submission and adjudication path
 

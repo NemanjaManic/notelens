@@ -55,7 +55,7 @@ def select(manifest: dict, *, count: int, reviews: int, seed: int) -> dict:
     random.Random(seed).shuffle(candidates)
     chosen, totals = [], Counter()
 
-    def take(pool, number, member=None):
+    def take(pool, number):
         for _ in range(number):
             available = [d for d in candidates if d not in chosen and pool(d)]
             if not available:
@@ -66,8 +66,10 @@ def select(manifest: dict, *, count: int, reviews: int, seed: int) -> dict:
             totals[doc["specialty"]] += 1
 
     quota = count // 4
-    take(lambda d: d["split"] == "validation", quota, "member-c")
-    take(lambda d: True, count - quota)
+    development_count = sum(d["split"] == "validation" for d in candidates)
+    reserve_c_review = reviews > 0 and development_count > quota
+    take(lambda d: d["split"] == "validation", quota + int(reserve_c_review))
+    take(lambda d: True, count - len(chosen))
     allocation = ["member-c"] * quota + [m for m in ("member-a", "member-b", "member-d") for _ in range(quota)]
     assignments = []
     for index, (doc, primary) in enumerate(zip(chosen, allocation)):
@@ -76,7 +78,12 @@ def select(manifest: dict, *, count: int, reviews: int, seed: int) -> dict:
                             "portion": "development" if doc["split"] == "validation" else "final",
                             "primary": primary, "reviewer": None, "review_state": "pending",
                             "access_state": "pending_team_policy"})
-    for index, assignment in enumerate(assignments[:reviews]):
+    review_candidates = assignments
+    if reserve_c_review:
+        # The additional development group follows C's primary quota and is owned by A.
+        assignments[quota]["reviewer"] = "member-c"
+        review_candidates = assignments[:quota] + assignments[quota + 1:]
+    for index, assignment in enumerate(review_candidates[:reviews - int(reserve_c_review)]):
         allowed = [m for m in MEMBERS if m != assignment["primary"] and
                    (m != "member-c" or assignment["portion"] == "development")]
         assignment["reviewer"] = allowed[index % len(allowed)]
@@ -85,6 +92,7 @@ def select(manifest: dict, *, count: int, reviews: int, seed: int) -> dict:
             "version": "assignment-proposal-v1", "seed": seed, "status": "proposal_pending_team_review",
             "human_reviewed": False, "specialty_counts": dict(totals),
             "portion_counts": portion_counts, "portion_proportions": {k: v / count for k, v in portion_counts.items()},
+            "review_warnings": ["member_c_development_review_unavailable"] if reviews and not reserve_c_review else [],
             "assignments": assignments}
 
 
@@ -286,6 +294,9 @@ def main() -> int:
         args.output.mkdir(parents=True, exist_ok=True)
         (args.output / "assignments.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
         (args.output / "blank-templates.json").write_text(json.dumps(templates(result), indent=2) + "\n", encoding="utf-8")
+        if result["review_warnings"]:
+            print("The proposal cannot give C an independent development review. Review capacity before freezing assignments.",
+                  file=sys.stderr)
         print(f"Prepared {len(result['assignments'])} proposal assignments and pending templates; no human annotations generated.")
     elif args.command == "merge":
         bundle = json.loads(args.bundle.read_text(encoding="utf-8"))

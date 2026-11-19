@@ -78,11 +78,26 @@ def test_40_assignment_algorithm_without_real_assignments():
                for member in ["member-a", "member-b", "member-c", "member-d"])
     assert sorted(result["specialty_counts"].values()) == [8] * 5
     assert sum(a["reviewer"] is not None for a in result["assignments"]) == 10
+    assert any(a["reviewer"] == "member-c" for a in result["assignments"])
     for a in result["assignments"]:
         assert a["reviewer"] != a["primary"]
         if a["primary"] == "member-c" or a["reviewer"] == "member-c":
             assert a["portion"] == "development"
     assert all(t["entities"] is None and not t["human_reviewed"] for t in templates(result))
+
+
+@pytest.mark.parametrize("reviews, warnings", [(10, ["member_c_development_review_unavailable"]), (0, [])])
+def test_selection_reports_when_cannot_allocate_c_a_development_review(reviews, warnings):
+    manifest = source40()
+    for document in manifest["documents"][10:]:
+        document["split"] = "test"
+
+    result = select(manifest, count=40, reviews=reviews, seed=1)
+
+    assert result["review_warnings"] == warnings
+    assert result["status"] == "proposal_pending_team_review"
+    assert sum(a["reviewer"] is not None for a in result["assignments"]) == reviews
+    assert all(a["reviewer"] != "member-c" for a in result["assignments"])
 
 
 def test_selection_rejects_leakage_and_infeasible_inputs():
