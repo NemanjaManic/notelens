@@ -97,6 +97,13 @@ authorized narrow PR with an exact B declaration, record the hosted run URL, tar
 and head SHAs and results of all three trusted checks. Hosted proof and reviewer
 routing remain acceptance items for F-010.
 
+PR #2 established trusted main at
+`9cc4e8dbad60973984eaa1981e2073e087a26996`. The initial hosted run stopped at
+`BOOTSTRAP_REVIEW_REQUIRED`. For the next narrow PR, verify the base and head
+in the checkout logs, then record the scope, secrets and workflow outcomes in
+order from the Trusted guard step.
+[Merged PR #2](https://github.com/NemanjaManic/notelens/pull/2)
+
 ## Deferred lanes and policy transition
 
 The bootstrap defers dependency advisories, service and web regressions and F-011
