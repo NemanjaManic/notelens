@@ -107,6 +107,23 @@ The installed CLI's `eval --help` confirmed the actual flags. On this restricted
 agent host, Node's Windows user-info call needed sandbox escalation; it succeeded
 without changing machine policy or using a live model.
 
+### Three-service evaluator smoke
+
+Start the accepted A, C and D mock services on loopback ports 8001, 8002 and 8003
+with service tokens and readiness failure overrides unset. Use the `sufficient` RAG
+profile and `supported` classifier profile. Run from the repository root:
+
+```powershell
+./eval/.venv/Scripts/python.exe -m notelens_eval.cross_service_smoke
+```
+
+Use `--rag-port`, `--classifier-port` and `--extraction-port` for alternate local
+ports. The smoke validates all five business routes using one synthetic prepared
+document for classification and extraction and a separate question for RAG. It checks
+request correlation, document identity and evidence, partial document answers, and
+literature provenance. Its output reports only mock outcomes. This receipt covers
+wire compatibility for the three default profiles.
+
 ## Contract and operational behavior
 
 Inputs and outputs validate against frozen `contracts/v1` (`schema_version: 1.0.0`).

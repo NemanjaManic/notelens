@@ -6,6 +6,7 @@ from threading import Thread
 
 import pytest
 
+from notelens_eval import cross_service_smoke
 from notelens_extraction.service import run
 
 
@@ -68,3 +69,36 @@ def test_offline_provider_checks_loopback_http_exchange(monkeypatch, scenario):
 def test_offline_provider_reports_invalid_port(monkeypatch):
     monkeypatch.setenv("NOTELENS_SMOKE_PORT", "not-a-port")
     assert CALL_API(QUESTION, {}, {}) == {"error": "Invalid loopback smoke port."}
+
+
+@pytest.mark.parametrize("mismatched_retrieval", [False, True])
+def test_cross_service_smoke_preserves_inputs_and_checks_provenance(monkeypatch, mismatched_retrieval):
+    fixture_path = PROVIDER.parents[2] / "contracts/v1/fixtures/payloads.json"
+    fixtures = json.loads(fixture_path.read_text(encoding="utf-8"))
+    literature_answer = fixtures["answer-literature"]
+    provenance = literature_answer["retrieval_provenance"]
+    retrieval = {**fixtures["retrieval-sufficient"], **{key: provenance[key] for key in
+                 ("corpus_version", "index_version", "retriever_version")}}
+    if mismatched_retrieval:
+        retrieval["index_version"] = "different-fixture-index"
+
+    def fixture_post(port, path, payload, **options):
+        if path in ("/v1/retrieve", "/v1/literature-answer"):
+            assert port == 8001 and set(payload) == {"schema_version", "question"}
+            return retrieval if path == "/v1/retrieve" else literature_answer
+        document = payload["document"]
+        if path == "/v1/classify":
+            assert port == 8002
+            return {**fixtures["classification-supported"], "doc_id": document["doc_id"],
+                    "text_sha256": document["text_sha256"]}
+        assert port == 8003 and options["require_no_store"]
+        result, _ = run(payload, "extract" if path == "/v1/extract" else "answer")
+        return result
+
+    monkeypatch.setattr(cross_service_smoke, "post_mock", fixture_post)
+    ports = {"rag_port": 8001, "classifier_port": 8002, "extraction_port": 8003}
+    if mismatched_retrieval:
+        with pytest.raises(ValueError, match="provenance differs"):
+            cross_service_smoke.check_services(**ports)
+    else:
+        assert cross_service_smoke.check_services(**ports)["checks"]["/v1/document-answer"] == "partial"
