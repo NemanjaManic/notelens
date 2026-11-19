@@ -600,7 +600,7 @@
     "specs/000-foundation/quickstart.md": "537cf23f2994c0c4d34388e75dad35eeb14299219d3437638c860b41abc651e2",
     "specs/000-foundation/research.md": "1051b0c853b15aac1c18ff5c0be477ec5b8c36ec896afb81690bb3f538d29c15",
     "specs/000-foundation/spec.md": "4875678fbbd509e4b5fb3a0a57d0dfd29e257eec160d5d4b670ad5bc6e2379e3",
-    "specs/000-foundation/tasks.md": "17ae17c3ae1b2b21beb5a385f032914816b7abc03e25557f99fe38be2ab70014",
+    "specs/000-foundation/tasks.md": "8d035e76216de4425583370001ad72313879df698b6235486a4d90ec8a354133",
     "specs/001-rag/AGENTS.md": "d794076b0dc3c295854abbbd93e7310a48a283acef311e4876f368d85a2f410a",
     "specs/001-rag/checklists/requirements.md": "e00f8f47235ef016d8b8f365b36630b22b76c21ca4b12a55f514921a729ad6a3",
     "specs/001-rag/contracts/README.md": "0fcaffebb6896859a86669f599fd66a7c91cfd263213c935242c7ff8c54ce503",
@@ -688,7 +688,12 @@
     "apps/web/tests/preparation.test.ts",
     "apps/web/tests/tsconfig.preparation.json",
     "apps/web/scripts/check-preparation.mjs",
-    "scripts/project/health_probe_app.py"
+    "scripts/project/health_probe_app.py",
+    "scripts/project/start_mock.py",
+    "scripts/project/smoke_mock.py",
+    "apps/web/src/app/demo/page.tsx",
+    "apps/web/src/app/demo/health/route.ts",
+    "apps/web/src/lib/scaffold/demo.ts"
   ],
   "http_cases": [
     "rag-retrieve-sufficient",
