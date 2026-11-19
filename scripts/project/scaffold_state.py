@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 STEPS = ('contracts', 'generation', 'project-tests', 'rag-tests', 'rag-bindings',
          'classifier-tests', 'classifier-bindings', 'extraction-tests', 'extraction-bindings',
          'web-typecheck', 'web-build', 'web-bindings', 'web-config', 'web-render', 'http')
-SERVICE_TEST_TOTALS = {'rag': 308, 'classifier': 77, 'extraction': 59}
+SERVICE_TEST_TOTALS = {'rag': 309, 'classifier': 84, 'extraction': 60}
 HTTP_CASES = (
     'rag-retrieve-sufficient', 'rag-answer-sufficient', 'rag-retrieve-insufficient',
     'rag-answer-insufficient', 'rag-clarification',
