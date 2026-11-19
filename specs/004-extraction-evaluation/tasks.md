@@ -81,6 +81,7 @@ they are not silently assigned defaults.
 
 - [ ] T002 D-010: Create D's independent offline evaluation packages, fixtures and mock adapters in `eval/pyproject.toml`, `eval/uv.lock`, `eval/package.json`, `eval/package-lock.json`, `eval/providers/**`, `eval/tests/test_offline_adapter.py`
   - [x] Local eval package/environment/locks, Promptfoo HTTP provider/config and synthetic smoke implemented and exercised without paid calls. Actual tests are in `eval/tests/test_slice.py`.
+  - [x] The D Promptfoo adapter uses the frozen correlation validator, checks no-store and rejects non-200, non-object and non-mock responses. Loopback tests cover malformed transport and redirect responses in `eval/tests/test_offline_adapter.py`.
   - [ ] Remaining: coordinated F-004/F-014 scaffold acceptance and any agreed A/C adapters; the D-local adapter consumes the reviewed frozen records/bindings v1.0.0.
   - **Owner / story**: D / US4.
   - **Dependencies**: 000-foundation/T004 (F-003); 000-foundation/T006 (F-004)

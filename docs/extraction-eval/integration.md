@@ -99,6 +99,8 @@ Run Promptfoo against a temporary service which the wrapper starts and stops:
 The wrapper disables telemetry, sharing, cache and saved Promptfoo evaluations, places
 tool metadata under ignored `eval/.promptfoo/`, and only submits synthetic fixtures.
 It writes the explicit smoke report under `eval/reports/local/promptfoo.json`.
+The provider connects directly to loopback and checks the response status, request ID,
+cache directive and document evidence before passing a result to Promptfoo.
 Promptfoo's Python `call_api(prompt, options, context)` and custom interpreter setting
 follow its [provider documentation](https://www.promptfoo.dev/docs/providers/python/).
 The installed CLI's `eval --help` confirmed the actual flags. On this restricted
