@@ -94,6 +94,31 @@ def test_selection_rejects_leakage_and_infeasible_inputs():
         select({**source40(), "documents": source40()["documents"][:3]}, count=40, reviews=10, seed=1)
 
 
+@pytest.mark.parametrize("permission", [False, None, "false", "true", 1])
+def test_selection_requires_explicit_boolean_permission(permission):
+    manifest = source40()
+    manifest["documents"][0]["permitted_for_annotation"] = permission
+
+    with pytest.raises(ValueError, match="Source access/permission"):
+        select(manifest, count=40, reviews=10, seed=1)
+
+
+def test_selection_rejects_identical_text_in_distinct_groups_in_the_same_split():
+    manifest = source40()
+    manifest["documents"][5]["text_sha256"] = manifest["documents"][0]["text_sha256"]
+
+    with pytest.raises(ValueError, match="identical canonical hash belongs to different duplicate groups"):
+        select(manifest, count=40, reviews=10, seed=1)
+
+
+def test_selection_uses_one_representative_for_identical_text_in_the_same_group():
+    manifest = source40()
+    expected = select(manifest, count=40, reviews=10, seed=1)
+    manifest["documents"].append({**manifest["documents"][0], "doc_id": "fixture-copy"})
+
+    assert select(manifest, count=40, reviews=10, seed=1) == expected
+
+
 @pytest.mark.parametrize("field", ["type", "assertion", "temporality", "subject", "procedure_status"])
 @pytest.mark.parametrize("invalid_value", [[], {}])
 def test_annotation_lint_reports_malformed_entity_labels(field, invalid_value):

@@ -129,6 +129,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T005 [US3] D-002: Select and freeze representative annotation assignment candidates in `eval/datasets/annotation-assignments.json`, `docs/extraction-eval/selection.md`
   - [x] Seeded selector and input validation tested on synthetic fixtures, including 40-group algorithm tests.
+  - [x] Selector requires explicit boolean annotation permission and rejects identical canonical text placed in different duplicate groups. Both checks are covered by synthetic regressions.
   - [ ] Blocked actual selection: C-002 permitted canonical document/group/split manifests and access policy are absent. No actual IDs or dev/final proportions are invented.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T001 (D-001); 003-classification/T003 (C-002)

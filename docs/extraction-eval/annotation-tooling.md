@@ -38,7 +38,9 @@ access. The tool does not download or regenerate source splits or verify license
 Selection is seeded and deterministic. It takes one representative per group,
 allocates C from development first and prefers underrepresented specialties. It
 rejects duplicate document IDs, cross-split duplicate groups or identical hashes,
-conflicting group specialties, missing permission flags and infeasible counts.
+identical hashes assigned to different groups within a split, conflicting group
+specialties and infeasible counts. Each document must have the JSON boolean `true`
+for `permitted_for_annotation`.
 Portion and specialty counts are reported; no dev/final proportion is silently
 declared team-approved. Review feasibility/balance and final-set access before freeze.
 

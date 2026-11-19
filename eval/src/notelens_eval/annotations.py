@@ -24,21 +24,25 @@ def select(manifest: dict, *, count: int, reviews: int, seed: int) -> dict:
     if not manifest.get("source_version") or manifest.get("kind") not in {"synthetic", "permitted_benchmark"}:
         raise ValueError("An explicit permitted source/version is required.")
     documents = manifest["documents"]
-    groups, ids, hash_splits = {}, set(), {}
+    groups, ids, documents_by_hash = {}, set(), {}
     for doc in documents:
         if doc["doc_id"] in ids:
             raise ValueError("Duplicate source document ID.")
         ids.add(doc["doc_id"])
         if doc["specialty"] not in SPECIALTIES or doc["split"] not in {"validation", "test"}:
             raise ValueError("Expected target specialties and validation/test portions.")
-        if not doc.get("permitted_for_annotation") or not re.fullmatch(r"[0-9a-f]{64}", doc["text_sha256"]):
+        digest = doc.get("text_sha256")
+        if (doc.get("permitted_for_annotation") is not True or not isinstance(digest, str)
+                or not re.fullmatch(r"[0-9a-f]{64}", digest)):
             raise ValueError("Source access/permission and canonical hashes are required.")
         if "canonical_text" in doc:
-            validate_text(doc["canonical_text"], doc["text_sha256"])
-        if doc["text_sha256"] in hash_splits and hash_splits[doc["text_sha256"]] != doc["split"]:
-            raise ValueError("An identical canonical hash crosses development/final portions.")
-        hash_splits[doc["text_sha256"]] = doc["split"]
+            validate_text(doc["canonical_text"], digest)
         group = doc["group_id"]
+        first = documents_by_hash.setdefault(digest, doc)
+        if first["split"] != doc["split"]:
+            raise ValueError("An identical canonical hash crosses development/final portions.")
+        if first["group_id"] != group:
+            raise ValueError("An identical canonical hash belongs to different duplicate groups.")
         if group in groups and groups[group]["split"] != doc["split"]:
             raise ValueError("A duplicate group crosses development/final portions.")
         if group in groups and groups[group]["specialty"] != doc["specialty"]:
