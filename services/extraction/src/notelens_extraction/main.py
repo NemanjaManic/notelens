@@ -70,11 +70,16 @@ def create_app(provider=None, *, token: str | None = None) -> FastAPI:
 
     @app.get("/health/ready")
     def readiness():
-        ready = provider.mode == "mock"
+        if provider.mode != "mock":
+            reason = "configuration_required"
+        elif settings.mock_not_ready:
+            reason = "mock_not_ready"
+        else:
+            reason = None
+        ready = reason is None
         body = {"schema_version": "1.0.0", "service": "extraction",
                 "status": "ok" if ready else "not_ready", "mode": provider.mode,
-                "version": VERSION, "model_version": None,
-                "reason": None if ready else "configuration_required"}
+                "version": VERSION, "model_version": None, "reason": reason}
         return JSONResponse(body, status_code=200 if ready else 503)
 
     async def process(request: Request, operation: str):

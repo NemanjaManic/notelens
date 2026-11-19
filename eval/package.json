@@ -1,0 +1,7 @@
+{
+  "name": "notelens-d-eval",
+  "private": true,
+  "version": "0.1.0",
+  "description": "D-owned synthetic HTTP smoke evaluation; live judging disabled",
+  "devDependencies": {"promptfoo": "0.125.1"}
+}
