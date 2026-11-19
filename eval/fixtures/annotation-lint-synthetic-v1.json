@@ -1,0 +1,46 @@
+{
+  "kind": "synthetic",
+  "assignment": {
+    "assignment_id": "synthetic-assignment-01",
+    "doc_id": "synthetic-lint-01",
+    "text_sha256": "0b2eabc5bf2ab8cb78984644218441b84220f6859ce2a98a3d2d90a7f53cb6c8",
+    "primary": "member-d",
+    "reviewer": "member-a"
+  },
+  "document": {
+    "doc_id": "synthetic-lint-01",
+    "text": "The patient denies chest pain.",
+    "text_sha256": "0b2eabc5bf2ab8cb78984644218441b84220f6859ce2a98a3d2d90a7f53cb6c8"
+  },
+  "submission": {
+    "submission_id": "synthetic-draft-01",
+    "assignment_id": "synthetic-assignment-01",
+    "role": "primary",
+    "annotator": "member-d",
+    "doc_id": "synthetic-lint-01",
+    "text_sha256": "0b2eabc5bf2ab8cb78984644218441b84220f6859ce2a98a3d2d90a7f53cb6c8",
+    "complete_document_review": true,
+    "human_reviewed": false,
+    "unresolved_questions": [],
+    "entities": [
+      {
+        "type": "symptom",
+        "mention": {
+          "start": 19,
+          "end": 29,
+          "quote": "chest pain"
+        },
+        "assertion": "negated",
+        "temporality": "unknown",
+        "subject": "patient",
+        "evidence": [
+          {
+            "start": 0,
+            "end": 30,
+            "quote": "The patient denies chest pain."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,19 +1,42 @@
 # Implementation Plan: Python Extraction and Shared Evaluation
 
-**Branch**: main (no feature branch created) | **Date**: 2026-11-10 | **Spec**: [spec.md](spec.md)
+**Branch**: member-d/extraction-evaluation | **Original plan date**: 2026-11-10 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/004-extraction-evaluation/spec.md`.
-**Owner**: D. **Status**: Draft local design and executable backlog proposal.
+**Owner**: D. **Status**: D-owned implementation plan/backlog; frozen contract and generated bindings v1.0.0 are available. F-004/F-014 coordination remains open.
 Constitution text remains a draft; confirmed source/user requirements are binding.
-This stage does not authorize business implementation, paid calls, publication or deployment.
+The 2026-11-11 continuation authorized a D-owned local mock implementation. The
+2026-11-13 handoff records F-003/F-009 complete and the generated package published;
+this checkout consumes that package. Paid calls, publication and deployment remain
+outside this package.
+
+## Authorized local continuation (2026-11-11)
+
+The D-004/D-005 mock service and first D-010/D-006 evaluation slice now consume the
+published frozen bindings through D-owned adapters. Map completed local subtasks to the
+existing backlog; do not mark coordinated F-004/F-014 integration, real-data work or
+human review complete. Reuse the training checker and dependency-free evidence logic;
+do not copy or modify B-owned schemas/bindings.
+
+Actual local setup is Python 3.11.7 with extraction/eval uv locks and independent
+environments; 3.13 was proposed but is not present. Node 24.20.0 and eval-local
+Promptfoo 0.125.1 support a key-free HTTP smoke. The provider is a deterministic
+catalog fake behind a replaceable interface; no live provider/model is selected.
+
+See [state and evidence](../../docs/extraction-eval/milestone-state.md),
+[integration commands](../../docs/extraction-eval/integration.md) and
+[remaining requests](../../docs/extraction-eval/milestone-requests.md). Annotation
+selection/blank templates/adjudication run on synthetic fixtures; actual C-002
+manifests, human submissions and team review remain required. No global setup,
+shared schema, another service or another member's annotation paths are edited.
 
 ## Summary
 
-Draft annotation/matching rules early, implement evidence-linked extraction/summary/document answers in Python after contracts, and build an offline-first evaluator before complete real modules. Freeze group-separated development/final references and calibrate judges only on development material.
+The owner-local key-free mock now provides evidence-linked extraction, summary and document answers against frozen v1.0.0 records, alongside an offline-first evaluator. Remaining work follows the owner backlog: coordinated F-004/F-014 acceptance, real-data inputs, independent human review and separately approved live behavior. Freeze group-separated development/final references and calibrate judges only on development material.
 
 ## Technical Context
 
-**Language/Version**: Python 3.13 proposed for extraction/scoring; Promptfoo via a D-owned local eval package; shared root JavaScript lockfile stays B-owned.
+**Language/Version**: D service/evaluation environments verified locally on Python 3.11.7; Promptfoo via a D-owned local eval package; shared root JavaScript lockfile stays B-owned. The generated contract package supports Python >=3.11; each service owner verifies its own environment.
 **Primary Dependencies**: FastAPI/Uvicorn, narrow structured-generation adapter, schema validators, deterministic scorers, Promptfoo Python API adapters, pytest; optional judge is approval-gated.
 **Storage**: Human-reviewed permitted reference/QA/manifests and redacted aggregate reports; no submitted app document enters eval logs/caches. Service request bodies are transient.
 **Testing**: Contract/schema/semantic tests, deterministic fixtures and owner-local tests;
@@ -35,7 +58,7 @@ Gate evaluated before research and re-evaluated after this design:
 | --- | --- |
 | English and educational MVP | PASS in design; source exclusions and notices preserved. |
 | Ownership and independent work | PASS in design; one owner per path, member annotation exceptions, no business overlap. |
-| Contract-first Python/TypeScript boundaries | PASS in design; schema/OAS are proposals, freeze required before real consumers. |
+| Contract-first Python/TypeScript boundaries | PASS for the frozen v1.0.0 boundary and generated bindings; coordinated cross-service acceptance remains open. |
 | Canonical text and evidence | PASS in design; one preparation step, code-point spans, semantic validation distinct. |
 | Honest uncertainty | PASS in design; no clinical probabilities, partial mixed support, no hard specialty filtering. |
 | Reproducibility and final-test protection | PASS in design; audit-driven manifests and development-only selection. |
@@ -66,7 +89,7 @@ specs/004-extraction-evaluation/
 
 ### Source Code (repository root)
 
-Proposed owned paths; currently only contributor documentation exists:
+Owned implementation and documentation paths:
 
 ```text
 services/extraction/**
@@ -92,17 +115,17 @@ not substituted with claimed results or silent defaults.
 ### Phase 1: Data and interfaces
 
 Use [data-model.md](data-model.md), [contract references](contracts/README.md) and the
-single draft [canonical proposal](../../contracts/v1/README.md).
-Canonicalization, enum and field proposals need owner review before freeze.
-Generate bindings rather than diverging copies. Schema validation alone cannot verify
+single B-owned frozen [canonical contract](../../contracts/v1/README.md).
+Do not edit canonicalization, enums, fields or generated bindings in D's branch; submit
+any proposed shared change to B for owner review. Schema validation alone cannot verify
 English, source support, span slices, SHA256 or citation foreign keys.
 
-### Phase 2: Implementation handoff (future approval)
+### Phase 2: D-owned mock implementation and coordinated handoff
 
-Generate an owner-specific [backlog](tasks.md) using the installed tasks workflow.
-Follow its dependencies and distinct mock/module/live definitions of done.
-Mock fixtures do not complete business tasks. Use [quickstart.md](quickstart.md) for
-current safe checks versus planned commands after their named prerequisite creates files.
+Follow the owner-specific [backlog](tasks.md) and its dependencies and distinct
+mock/module/live definitions of done. Local mock fixtures do not complete cross-service,
+real-data, live-model or human-review gates. Use [quickstart.md](quickstart.md) for
+current owner-local checks and remaining coordinated gates.
 
 ## Delivery Priorities and Dependencies
 
@@ -111,7 +134,7 @@ English states, privacy/isolation and reproducible checks. SHOULD: measured impr
 within the deadline. COULD: reranking, extra datasets, embedding classifier variants,
 ONNX/ICD extensions; these do not block the core.
 
-Critical path: contract review/freeze -> shared mock scaffold -> independent baseline modules
+Critical path: completed contract review/freeze and bindings -> coordinated shared mock scaffold -> independent baseline modules
 and C's split manifests -> D's reviewed references/QA -> real integration -> human review ->
 configuration freeze and locked final checks on 2026-11-22/23 -> delivery 2026-11-24.
 A may inspect corpus sources, C audit data, D draft guidelines/evaluator and B prepare mocks
