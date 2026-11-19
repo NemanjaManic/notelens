@@ -1,6 +1,11 @@
 # F-010 First-main CI Bootstrap
 
-**Owner** B. **F-010, F-011 and F-014 remain pending.**
+**Owner** B. **Historical bootstrap record.** F-011 is complete. F-010 and F-014 remain pending.
+
+The user authorized retiring the hosted bootstrap guard with F-011. GitHub
+Actions no longer runs this workflow after its removal reaches `main`. Its
+definition is retained as a local test fixture. Local scope, secret, and
+dependency checks remain available.
 
 ## Ownership and declarations
 
@@ -42,8 +47,8 @@ this scope.
 
 ## Workflow and initial installation
 
-The [workflow](../../.github/workflows/key-free-ci.yml) uses the JSON subset of YAML.
-It runs on ordinary pull requests with read-only contents permission, a Windows
+The [former workflow](../../scripts/project/tests/fixtures/key-free-bootstrap-workflow.json) uses the JSON subset of YAML.
+It ran on ordinary pull requests with read-only contents permission, a Windows
 2022 runner and a 45-minute timeout. It uses pinned checkout and Python setup
 actions and Python 3.13.7. The exact PR base and head go into separate `trusted/`
 and `candidate/` directories with full history and disabled credential persistence.
@@ -63,7 +68,6 @@ the Python standard library. Keep reports under ignored `.cache/review/f010/`.
 ```powershell
 python -B scripts/project/check_scope.py --self-test
 python -B scripts/project/check_ci.py --self-test
-python -B scripts/project/check_ci.py --workflow
 python -B scripts/project/check_scope.py --member B --staged --local-policy --declaration .cache/review/f010/declaration.json
 python -B scripts/project/check_ci.py --secrets --staged
 ```

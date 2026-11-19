@@ -88,6 +88,7 @@ def test_bad_mock_configuration_is_not_ready_without_echoing_settings(mock_readi
 def test_mock_readiness_environment_switch(monkeypatch):
     monkeypatch.setenv("NOTELENS_CLASSIFIER_MODE", "mock")
     monkeypatch.setenv("NOTELENS_CLASSIFIER_MOCK_READINESS", "not_ready")
+    monkeypatch.delenv("NOTELENS_CLASSIFIER_MOCK_FAILURE", raising=False)
     settings = service.Settings.from_environment()
     assert settings.mock_readiness == "not_ready"
     with client(settings) as http:

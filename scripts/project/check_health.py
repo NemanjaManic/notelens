@@ -26,10 +26,16 @@ from scaffold_state import inventory_issues, source_fingerprint
 ROOT = Path(__file__).resolve().parents[2]
 CACHE = ROOT / '.cache/review/f011-health'
 SERVICES = ('rag', 'classifier', 'extraction')
+NOT_READY_SETTINGS = {
+    'rag': ('NOTELENS_RAG_MOCK_READY', 'false'),
+    'classifier': ('NOTELENS_CLASSIFIER_MOCK_READINESS', 'not_ready'),
+    'extraction': ('NOTELENS_EXTRACTION_MOCK_NOT_READY', '1'),
+}
 FAILURES = {'timeout': 504, 'rate_limit': 429, 'provider_unavailable': 503, 'internal_error': 500}
+RETRYABLE_FAILURE_SERVICES = ('classifier', 'extraction')
 PROFILES = tuple((service, profile) for service in SERVICES for profile in ('open', 'token')) + tuple(
-    ('rag', 'failure-' + failure) for failure in FAILURES) + tuple(
-    ('extraction', 'failure-' + failure) for failure in FAILURES if failure != 'internal_error')
+    (service, 'failure-' + failure) for service in SERVICES for failure in FAILURES
+    if service == 'rag' or failure != 'internal_error') + tuple((service, 'not-ready') for service in SERVICES)
 IDS = {'absent': [], 'canonical': [('X-Request-ID', '11111111-1111-4111-8111-111111111111')],
        'malformed': [('X-Request-ID', 'invalid-probe-id')],
        'duplicate': [('X-Request-ID', '11111111-1111-4111-8111-111111111111'),
@@ -54,6 +60,7 @@ class Case:
     code: str | None = None
     retryable: bool | None = None
     blocked: str | None = None
+    reason: str | None = None
 
 
 def registry():
@@ -88,18 +95,17 @@ def registry():
                     for body, status in [('malformed', 400), ('invalid', 422)]:
                         cases.append(Case(f'{service}-{route}-{body}', service, profile, path, status,
                                           'ErrorEnvelope', method='POST', body=body, code='validation_failure'))
-        cases.append(Case(f'{service}-not-ready', service, None, '/health/ready', 503, 'HealthResult',
-                          blocked='NOT_READY_TRIGGER_PENDING_OWNER'))
+        cases.append(Case(f'{service}-not-ready', service, 'not-ready', '/health/ready', 503, 'HealthResult',
+                          reason='mock_not_ready' if service == 'extraction' else None))
+        cases.append(Case(f'{service}-not-ready-live', service, 'not-ready', '/health/live', 200, 'LivenessResult'))
         for failure, status in FAILURES.items():
             if failure == 'internal_error' and service != 'rag':
                 continue
-            for path, definition in ROUTES[service]:
+            for path, _ in ROUTES[service]:
                 route = path.rsplit('/', 1)[1]
-                cases.append(Case(f'{service}-{route}-{failure}', service,
-                                  'failure-' + failure if service in ('rag', 'extraction') else None,
+                cases.append(Case(f'{service}-{route}-{failure}', service, 'failure-' + failure,
                                   path, status, 'ErrorEnvelope', method='POST', code=failure,
-                                  retryable=False if service == 'rag' else True if service == 'extraction' else None,
-                                  blocked=None if service in ('rag', 'extraction') else 'FAILURE_TRIGGER_PENDING_OWNER'))
+                                  retryable=service in RETRYABLE_FAILURE_SERVICES))
     if len({c.id for c in cases}) != len(cases):
         raise ValueError('Duplicate case identifiers')
     return cases
@@ -146,6 +152,8 @@ def response_issues(case, status, headers, raw, request_headers, package, secret
             expected = 'alive' if case.path == '/health/live' else 'ok' if status == 200 else 'not_ready'
             if body['status'] != expected:
                 return ['HEALTH_STATUS']
+            if case.reason is not None and body.get('reason') != case.reason:
+                return ['HEALTH_REASON']
             outgoing = headers_named(headers, 'X-Request-ID')
             if outgoing:
                 if len(outgoing) != 1:
@@ -210,6 +218,11 @@ def environment(run, service, profile, token=None):
     if token:
         env[{'rag': 'NOTELENS_RAG_SERVICE_TOKEN', 'classifier': 'NOTELENS_CLASSIFIER_SERVICE_TOKEN',
              'extraction': 'NOTELENS_SERVICE_TOKEN'}[service]] = token
+    if profile == 'not-ready':
+        name, value = NOT_READY_SETTINGS[service]
+        env[name] = value
+    if service == 'classifier' and profile.startswith('failure-'):
+        env['NOTELENS_CLASSIFIER_MOCK_FAILURE'] = profile.removeprefix('failure-')
     if service == 'extraction' and profile.startswith('failure-'):
         env.update(PYTHONPATH=os.pathsep.join([env['PYTHONPATH'], str(Path(__file__).resolve().parent)]),
                    NOTELENS_REVIEW_FAILURE=profile.removeprefix('failure-'),
@@ -375,7 +388,12 @@ def worker(service, profile, target, nonce):
     run = target.parent
     selected = [c for c in registry() if (c.service, c.profile) == (service, profile)]
     rows, runtime = [], None
-    token = 'probe-' + uuid4().hex if profile == 'token' or (service == 'extraction' and profile.startswith('failure-')) else None
+    token_required = (
+        profile == 'token'
+        or (service == 'classifier' and profile == 'not-ready')
+        or (service in RETRYABLE_FAILURE_SERVICES and profile.startswith('failure-'))
+    )
+    token = 'probe-' + uuid4().hex if token_required else None
     marker = 'probe-marker-' + uuid4().hex
     process = capture = None
     record = {'service': service, 'profile': profile, 'pid': None, 'port': None,

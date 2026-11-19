@@ -2,9 +2,9 @@
   "format": "notelens-f004-inputs-v1",
   "base_commit": "fd1197bd380de9ba9037ea0b73b42031dc1d4bb2",
   "owner_commits": {
-    "A": "ad08e147d7586d530cdff69db25a3b382de36d7c",
-    "C": "49c84181ccca348cae1bd65be4c29328341ea25c",
-    "D": "36ea2a1b59e382930daee7d088c883b0d103c619"
+    "A": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+    "C": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+    "D": "a8f1599350944faf7e7dd566ec5febad59f6fe3c"
   },
   "imports": {
     "data/knowledge/scripts/prepare_corpus.py": {
@@ -24,8 +24,8 @@
     },
     "services/rag/README.md": {
       "owner": "A",
-      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
-      "sha256": "459d9b0074b86f47953cfedbe68809c6d33e41347543aa54fc7a65d5cf85b4d6"
+      "commit": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+      "sha256": "b54a320895261d847f51c663839fc0504ce6de3e4d51a6dedcc2d7023e62e421"
     },
     "services/rag/pyproject.toml": {
       "owner": "A",
@@ -59,8 +59,8 @@
     },
     "services/rag/src/notelens_rag/main.py": {
       "owner": "A",
-      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
-      "sha256": "bfdba27174845a11d54d0ed522a17c330bd413f3668d9cc160f7db4870021ff9"
+      "commit": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+      "sha256": "1deb958bb7874a4c2d72baa75767f0a73f9289479e9122f1a01b108812334ff5"
     },
     "services/rag/src/notelens_rag/mock.py": {
       "owner": "A",
@@ -89,8 +89,8 @@
     },
     "services/rag/tests/test_http_smoke.py": {
       "owner": "A",
-      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
-      "sha256": "10da4fdfe52e74bb89412450b8a9bbeedd63389a0337399398c813a22bf3145a"
+      "commit": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+      "sha256": "38466478cd0466c519c3904302c3383bf917078980665005923219554ffef928"
     },
     "services/rag/tests/test_index_version.py": {
       "owner": "A",
@@ -129,8 +129,8 @@
     },
     "services/classifier/src/notelens_classifier/main.py": {
       "owner": "C",
-      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
-      "sha256": "499b7f5c395381f8226d5cb03f874b74712ef09364d760a9324e3ddd38fadad3"
+      "commit": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+      "sha256": "e29b583f5ca78eab3a14f8ff32f8d61462efe2cc0be8a67f63a99e25f4203bbb"
     },
     "services/classifier/src/notelens_classifier/mock_results.json": {
       "owner": "C",
@@ -149,18 +149,18 @@
     },
     "services/classifier/tests/test_health.py": {
       "owner": "C",
-      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
-      "sha256": "7111e5ae8abf6423989b35c213076cd43468068f526aa3d0377d7503b04bb74d"
+      "commit": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+      "sha256": "7522e53b22d183f0aef8b775281df631a245f4fb7c28cf050f591fdc8021d158"
     },
     "services/classifier/tests/test_health_transport.py": {
       "owner": "C",
-      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
-      "sha256": "d2639b22ef0ad2b7b7f2fa532cd7bea45dfccf4f9348994a05ee79eb31a87f2d"
+      "commit": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+      "sha256": "7b580c1d7d3d676d57687c2aa84393e32e8b2a319b4b03581de6989c3e9c24c8"
     },
     "services/classifier/tests/test_http.py": {
       "owner": "C",
-      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
-      "sha256": "3d412c7888d0941b05c47b340b380d880f501d07b804a80edb31c44375a94176"
+      "commit": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+      "sha256": "06f33c93de16f03143c75d0a3f0203202c9b6a0488983447b1230e5fe397da63"
     },
     "services/classifier/tests/test_privacy.py": {
       "owner": "C",
@@ -169,8 +169,8 @@
     },
     "services/classifier/tests/test_transport.py": {
       "owner": "C",
-      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
-      "sha256": "63ce7cfb672f98d72284ac67e0ed7d0a1b3a47d122ac82b37f12346b28c65d32"
+      "commit": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+      "sha256": "f4f3e1432ff9fabf90a389e0f26dd8df83a105314cc386318930f8dfc46d7c71"
     },
     "services/classifier/uv.lock": {
       "owner": "C",
@@ -199,8 +199,8 @@
     },
     "services/extraction/README.md": {
       "owner": "D",
-      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
-      "sha256": "a101f4b4abe711e8dac31be81a458e218b29d3b3937f20d62cbd2fb980bef469"
+      "commit": "a8f1599350944faf7e7dd566ec5febad59f6fe3c",
+      "sha256": "5b1b10b5d47b9dff156c9bad8377f1e86997dc6d74f97084af231eb974624c89"
     },
     "services/extraction/fixtures/demo-question.json": {
       "owner": "D",
@@ -229,8 +229,8 @@
     },
     "services/extraction/src/notelens_extraction/config.py": {
       "owner": "D",
-      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
-      "sha256": "970c5129e5d299ae2f53ce90f02824d904ebd141be13f228422159e18ad8155b"
+      "commit": "a8f1599350944faf7e7dd566ec5febad59f6fe3c",
+      "sha256": "22c8ba9d71f4a0f6f38fa848a9267b755569d43dd29bd680a31f4e9afc34e130"
     },
     "services/extraction/src/notelens_extraction/contracts.py": {
       "owner": "D",
@@ -254,8 +254,8 @@
     },
     "services/extraction/src/notelens_extraction/main.py": {
       "owner": "D",
-      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
-      "sha256": "3707bbe09fe2de58c38bdfd289585ce81ee8d18dbc32eac42a2a5051e60b5ea1"
+      "commit": "a8f1599350944faf7e7dd566ec5febad59f6fe3c",
+      "sha256": "c11f8a9e4e7bcbfe33853b8d88e16ca3739a1b211edfcc1009a309f8ea9d3b08"
     },
     "services/extraction/src/notelens_extraction/prompts/answer-v1.txt": {
       "owner": "D",
@@ -284,8 +284,8 @@
     },
     "services/extraction/tests/test_http_smoke.py": {
       "owner": "D",
-      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
-      "sha256": "ab694484e9135ab42b78aed780f072801d777865453163b0a24d7f6c76f5d22b"
+      "commit": "a8f1599350944faf7e7dd566ec5febad59f6fe3c",
+      "sha256": "74004fca3a0bba462ce3fbadb638ae05f66f863b03a25de5c9f1b36fc7b5c4c7"
     },
     "services/extraction/tests/test_service.py": {
       "owner": "D",
@@ -301,6 +301,31 @@
       "owner": "D",
       "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
       "sha256": "626b44bcd33a7f2acb782a13b0339949a80adf255a79893bbff94e287cb0dec4"
+    },
+    "docs/rag/evaluation/answer-trial-results.json": {
+      "owner": "A",
+      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "sha256": "77a28f2c372d88b2eb9c93bdf78a1d017e6eaa03a4e20c30cd4a0910aba35b9b"
+    },
+    "docs/rag/evaluation/development-answer-review-v2.json": {
+      "owner": "A",
+      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "sha256": "8687f294da6a9530a9f41717cfde8fb24834d4d88b89cfbbf915f3b86d264e7c"
+    },
+    "docs/rag/evaluation/partial-answer-trial-results.json": {
+      "owner": "A",
+      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "sha256": "d64eecd00018a62fbac85fc31fa6653f8fd721adad0a75f3b48162673c87a3a8"
+    },
+    "docs/rag/evaluation/partial-evidence-flow.json": {
+      "owner": "A",
+      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "sha256": "108c186274f087128b3d0f5ec8843bf97e395a34efb607ec6421d682d2c96b96"
+    },
+    "specs/001-rag/tasks.md": {
+      "owner": "A",
+      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "sha256": "a500ef51bf711c67d6e4c6e5955d222dcddb213d458b8c724660ee8b44cf88c0"
     }
   },
   "b_input_files": {
@@ -575,7 +600,7 @@
     "specs/000-foundation/quickstart.md": "537cf23f2994c0c4d34388e75dad35eeb14299219d3437638c860b41abc651e2",
     "specs/000-foundation/research.md": "1051b0c853b15aac1c18ff5c0be477ec5b8c36ec896afb81690bb3f538d29c15",
     "specs/000-foundation/spec.md": "4875678fbbd509e4b5fb3a0a57d0dfd29e257eec160d5d4b670ad5bc6e2379e3",
-    "specs/000-foundation/tasks.md": "04e6e91c505b4dbdffae16075eca88219e106d79f65f3a1709ca08f7f16f9ab8",
+    "specs/000-foundation/tasks.md": "17ae17c3ae1b2b21beb5a385f032914816b7abc03e25557f99fe38be2ab70014",
     "specs/001-rag/AGENTS.md": "d794076b0dc3c295854abbbd93e7310a48a283acef311e4876f368d85a2f410a",
     "specs/001-rag/checklists/requirements.md": "e00f8f47235ef016d8b8f365b36630b22b76c21ca4b12a55f514921a729ad6a3",
     "specs/001-rag/contracts/README.md": "0fcaffebb6896859a86669f599fd66a7c91cfd263213c935242c7ff8c54ce503",
@@ -638,7 +663,7 @@
     ".github/CODEOWNERS",
     ".github/pull_request_template.md",
     ".github/scope-policy.json",
-    ".github/workflows/key-free-ci.yml",
+    "scripts/project/tests/fixtures/key-free-bootstrap-workflow.json",
     "scripts/project/check_scope.py",
     "scripts/project/check_ci.py",
     "scripts/project/tests/test_scope.py",
@@ -918,6 +943,24 @@
       ],
       "shared_gate_status": "F-011/F-014 pending",
       "owner_source_changes": false
+    },
+    {
+      "date": "2026-11-19",
+      "task": "F-011 coordinated mock health and failure verification",
+      "implementation_base_commit": "82ce4d566819abda8be23315d6502e4691824278",
+      "owner_commits": {
+        "A": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+        "C": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+        "D": "a8f1599350944faf7e7dd566ec5febad59f6fe3c"
+      },
+      "existing_main_handoff_commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "task_document_hash": {
+        "before": "04e6e91c505b4dbdffae16075eca88219e106d79f65f3a1709ca08f7f16f9ab8",
+        "after": "17ae17c3ae1b2b21beb5a385f032914816b7abc03e25557f99fe38be2ab70014"
+      },
+      "http_cases_passed": 213,
+      "service_processes_cleaned_up": 19,
+      "shared_gate_status": "F-011 complete"
     }
   ]
 }

@@ -17,6 +17,13 @@ one canonical UUID `X-Request-ID`; health requests use fresh diagnostic IDs on 4
 The CLI binds to loopback port 8003 by default without HTTP access logs. An exposed
 service requires a server-side bearer token.
 
+For the F-011 readiness check, start the service with `NOTELENS_MODE=mock` and
+`NOTELENS_EXTRACTION_MOCK_NOT_READY=1`. With no service token configured, loopback
+requests to `/health/ready` receive HTTP 503 with `status: not_ready`,
+`mode: mock`, and `reason: mock_not_ready`. `/health/live` returns HTTP 200 with
+`status: alive`. Unset `NOTELENS_EXTRACTION_MOCK_NOT_READY` and restart the
+process to restore mock readiness.
+
 The service uses `notelens_contracts.v1.validate_record` for runtime validation.
 `services/extraction/uv.lock` declares the local generated package; no shared schema
 is copied into D's source. The deterministic catalog preserves separate occurrences,

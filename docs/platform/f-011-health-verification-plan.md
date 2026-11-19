@@ -354,3 +354,64 @@ follow-ups have not been imported by this package.
 F-011/T007 and F-014/T014 remain pending and unchecked. No task/spec/plan checkbox,
 owner source/test/dependency/lockfile, frozen contract, fixture or existing draft is
 changed. This candidate has not been promoted, merged, committed or pushed.
+
+## C-012 closure (2026-11-19)
+
+**C-012 is closed.** B ran the coordinated key-free mock HTTP checker in an isolated
+checkout of C's published commit `4080f9b3c41a0dba70238929e765d9ce535910eb`, based
+on shared checkpoint `7aa6c32`. The checkout used the B checker updates and a local
+inventory that pinned all five changed classifier files to the published commit.
+The run used Python 3.13.7 and locked dependencies.
+
+| Classifier mock setting | Verified HTTP result |
+| --- | --- |
+| `NOTELENS_CLASSIFIER_MOCK_FAILURE=timeout` | `POST /v1/classify` returned 504 |
+| `NOTELENS_CLASSIFIER_MOCK_FAILURE=rate_limit` | `POST /v1/classify` returned 429 |
+| `NOTELENS_CLASSIFIER_MOCK_FAILURE=provider_unavailable` | `POST /v1/classify` returned 503 |
+| `NOTELENS_CLASSIFIER_MOCK_READINESS=not_ready` | `GET /health/ready` returned 503 and `GET /health/live` returned 200 in the same process |
+
+All three authenticated business probes returned the expected error code and
+`retryable=true`. The response header and error envelope both matched the admitted
+`X-Request-ID`. All 63 classifier HTTP cases, 84 classifier tests and 51 checker
+self-tests passed.
+
+`python -B scripts/project/check_health.py --mode mock` returned exit 1 with 209
+passed, zero failed and two blocked. All 17 service processes exited and their
+ports closed. At C-012 closure, `rag-not-ready` and `extraction-not-ready`
+were still blocking F-011/T007. The local report is
+`.cache/review/f011-c012-published/.cache/review/f011-health/run-3l_psb70/report.json`
+with SHA-256 `0f90e243da860ead0fb17adda581e8843f21a07db40e8d17291488335d4bcd31`.
+
+## F-011 closure (2026-11-19)
+
+**F-011/T007 is complete.** The coordinated key-free run passed all **213 HTTP
+checks**, with zero failures or blockers. All 19 service processes exited and
+their ports closed. These are mock service results. No paid calls or model
+downloads were needed.
+
+| Service | Published owner commit | Mock readiness trigger |
+| --- | --- | --- |
+| RAG (A) | `3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a` | `NOTELENS_RAG_MOCK_READY=false` |
+| Classifier (C) | `4080f9b3c41a0dba70238929e765d9ce535910eb` | `NOTELENS_CLASSIFIER_MOCK_READINESS=not_ready` |
+| Extraction (D) | `a8f1599350944faf7e7dd566ec5febad59f6fe3c` | `NOTELENS_EXTRACTION_MOCK_NOT_READY=1` |
+
+For each trigger, the same process returned HTTP 503 with `status=not_ready`
+and `mode=mock` from `/health/ready`, and HTTP 200 with `status=alive` from
+`/health/live`. Extraction also returned `reason=mock_not_ready`. The run
+includes the three previously verified classifier failures and the shared
+authentication, request-ID, validation, and failure checks.
+
+The first complete report used an isolated checkout based on `7aa6c32` with
+the exact published owner service trees and the updated B checker. Its run ID
+was `f48d6450-d0ff-4082-ab39-525045dd5ad5` and its report SHA-256 was
+`6d7cca64792bb70b2ca50dd51d39af79c62c379e507b48403f1633bfafac07c4`.
+
+The `member-b/f-011-health-verification` branch includes the three owner
+commits as cherry-picks. The coordinated rerun on that branch also passed all
+213 checks and verified cleanup for all 19 service processes. Its run ID was
+`d6bb9582-9bba-4fe3-b3fd-a0ff194e0baf` and its report SHA-256 was
+`d9d46b0996725ac79f76a41dfb153c2427776557accc060031ff94773574b086`.
+
+After installing the locked Python environments, reproduce the check with
+`uv run --directory scripts/project python check_health.py --mode mock`. The
+checker writes the run report under `.cache/review/f011-health/`.
