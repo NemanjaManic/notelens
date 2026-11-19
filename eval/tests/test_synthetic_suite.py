@@ -70,6 +70,11 @@ def test_technical_failure_is_not_a_correct_rejection_and_metrics_are_withheld()
     assert "unavailable" in report["entities_exact"]
     assert report["record_validation"]["technical_errors"] == 2
     assert any(f["category"] == "technical_error" for f in report["failures"])
+    expected_gaps = sum(len(qa["expected_gaps"]) for case in refs["cases"] for qa in case["qa"])
+    skipped_gaps = len(refs["cases"][0]["qa"][1]["expected_gaps"])
+    assert skipped_gaps > 0
+    assert report["answer_completeness"]["expected_gap_mentions"] == expected_gaps
+    assert report["answer_completeness"]["expected_gap_mentions_evaluated"] == expected_gaps - skipped_gaps
 
 
 def test_correct_state_with_wrong_supported_topic_is_flagged():

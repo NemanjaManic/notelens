@@ -124,6 +124,16 @@ request correlation, document identity and evidence, partial document answers, a
 literature provenance. Its output reports only mock outcomes. This receipt covers
 wire compatibility for the three default profiles.
 
+### Synthetic HTTP evaluation diagnostics
+
+Run `./eval/.venv/Scripts/python.exe -m notelens_eval.http_suite` to evaluate the
+development fixtures against a temporary authenticated loopback process. The report
+keeps HTTP 200 counts, failed exchanges, schema and evidence validation, and literal
+answer scores separate. A wrong or duplicate request ID, unreadable body, or invalid
+result makes the command exit nonzero. Check `failure_reasons` and `record_validation`
+before interpreting the quality scores. Expected gap counts come from the reference
+set. Evaluated gap counts cover only the answers that passed validation.
+
 ## Contract and operational behavior
 
 Inputs and outputs validate against frozen `contracts/v1` (`schema_version: 1.0.0`).

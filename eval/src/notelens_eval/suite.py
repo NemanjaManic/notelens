@@ -82,7 +82,8 @@ def evaluate_suite(references: dict, predictions: dict) -> dict:
             "counts", "entities_exact", "entities_relaxed", "answerability", "record_validation")}
     failures, per_case = [], []
     by_id = {p["id"]: p for p in predictions["cases"]}
-    support_correct = required_facts_complete = gap_disclosed = expected_gap_count = gap_questions_complete = no_unexpected_support = complete_answers = 0
+    support_correct = required_facts_complete = gap_disclosed = scored_gap_count = gap_questions_complete = no_unexpected_support = complete_answers = 0
+    expected_gap_count = sum(len(qa["expected_gaps"]) for case in references["cases"] for qa in case["qa"])
 
     def fail(case, category, expected, actual, *, qa_id=None, technical=False):
         failures.append({"case_id": case["id"], "group": case["group"], "qa_id": qa_id,
@@ -148,7 +149,7 @@ def evaluate_suite(references: dict, predictions: dict) -> dict:
             disclosed_text = " ".join([answer["text"], *answer["warnings"]]).casefold()
             undisclosed_gaps = [gap for gap in qa["expected_gaps"]
                                 if not re.search(rf"\b{re.escape(gap.casefold())}\b", disclosed_text)]
-            expected_gap_count += len(qa["expected_gaps"])
+            scored_gap_count += len(qa["expected_gaps"])
             gap_disclosed += len(qa["expected_gaps"]) - len(undisclosed_gaps)
             gap_questions_complete += int(not undisclosed_gaps)
             if undisclosed_gaps:
@@ -193,6 +194,7 @@ def evaluate_suite(references: dict, predictions: dict) -> dict:
                                        "no_unexpected_source_quotes": no_unexpected_support,
                                        "expected_gap_mentions_disclosed": gap_disclosed,
                                        "expected_gap_mentions": expected_gap_count,
+                                       "expected_gap_mentions_evaluated": scored_gap_count,
                                        "questions_with_all_gaps_disclosed": gap_questions_complete,
                                        "evaluated": report["counts"]["qa"],
                                        "limitation": "Fixture-authored literal checks; a matching source quote can still be irrelevant or semantically misunderstood."})
@@ -210,6 +212,13 @@ def render_report(report: dict) -> str:
     for group, result in report["groups"].items():
         score = result["entities_exact"]
         lines.append(f"| {group} | {result['counts']['documents']} | {score.get('tp', 'withheld')} | {score.get('fp', 'withheld')} | {score.get('fn', 'withheld')} | {result['answerability']['expected_state_correct']}/{result['counts']['qa']} |")
+    if "transport" in report:
+        transport = report["transport"]
+        lines += ["", "## HTTP transport", "",
+                  f"HTTP 200 responses: {transport['http_200']}/{transport['requests']}.",
+                  f"Matching request IDs: {transport['request_ids_matched']}/{transport['requests']}.",
+                  f"Failed exchanges: {transport['technical_failures']}.",
+                  f"Failure reasons: `{json.dumps(transport['failure_reasons'], sort_keys=True)}`."]
     lines += ["", "## Reference coverage profile", "",
               f"QA state counts: `{json.dumps(report['coverage']['qa_states'], sort_keys=True)}`.",
               f"Answerable: {report['coverage']['answerable_questions']}/{report['counts']['qa']}; questions with explicit gaps: {report['coverage']['questions_with_expected_gaps']}/{report['counts']['qa']}; required facts: {report['coverage']['required_fact_count']}.",
@@ -222,6 +231,7 @@ def render_report(report: dict) -> str:
               f"Record validation: `{json.dumps(report['record_validation'], sort_keys=True)}`.", "",
               f"Required literal support and expected state: {report['qa_literal_support']['state_and_required_quotes_correct']}/{report['counts']['qa']}.",
               f"Complete literal answer checks: {report['answer_completeness']['all_required_facts_gaps_and_no_extra_supported_quotes']}/{report['counts']['qa']}.", "",
+              f"Expected gaps evaluated: {report['answer_completeness']['expected_gap_mentions_evaluated']}/{report['answer_completeness']['expected_gap_mentions']}.", "",
               "State matching and exact quote coverage do not establish semantic completeness or clinical accuracy.", "",
               "## Case outcomes", "", "| Case | Group | Failure records | Unresolved reference attributes |",
               "| --- | --- | ---: | ---: |"]

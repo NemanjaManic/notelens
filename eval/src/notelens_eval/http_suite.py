@@ -2,15 +2,17 @@
 
 import argparse
 import json
-import uuid
 import os
 import socket
 import subprocess
 import sys
 import time
-import urllib.error
-import urllib.request
+import uuid
+from collections import Counter
+from http.client import HTTPConnection, HTTPException
 from pathlib import Path
+
+from notelens_contracts.v1 import validate_exchange
 
 from .run import EVAL_ROOT
 from .suite import evaluate_suite, render_report, validate_references
@@ -18,34 +20,74 @@ from .suite import evaluate_suite, render_report, validate_references
 TEST_TOKEN = "notelens-local-http-suite-token"
 
 
-def _call(base: str, path: str, request: dict, request_id: str) -> tuple[dict | None, dict]:
-    payload = json.dumps(request, ensure_ascii=False).encode("utf-8")
-    call = urllib.request.Request(base + path, data=payload, headers={
+def _call(port: int, path: str, request: dict, request_id: str) -> tuple[dict | None, dict]:
+    headers = {
         "Content-Type": "application/json", "Authorization": f"Bearer {TEST_TOKEN}",
         "X-Request-ID": request_id,
-    })
-    try:
-        with urllib.request.urlopen(call, timeout=5) as response:
-            result = json.load(response)
-            headers = response.headers
-            status = response.status
-    except urllib.error.HTTPError as exc:
-        try:
-            result = json.loads(exc.read())
-        except (ValueError, UnicodeDecodeError):
-            result = None
-        headers, status = exc.headers, exc.code
-    diagnostics = {
-        "http_status": status,
-        "request_id_matches": headers.get("X-Request-ID") == request_id,
-        "attempts": int(headers.get("X-Generation-Attempts", "0")),
-        "raw_validation_failures": int(headers.get("X-Raw-Validation-Failures", "0")),
-        "repairs": int(headers.get("X-Validation-Repairs", "0")),
     }
-    if status >= 400 and isinstance(result, dict):
-        diagnostics["technical_error"] = result.get("error", {}).get("code", "http_error")
+    counters = {"attempts": "X-Generation-Attempts", "raw_validation_failures": "X-Raw-Validation-Failures",
+                "repairs": "X-Validation-Repairs"}
+    diagnostics = {"http_status": None, "request_id_matches": False, **dict.fromkeys(counters, 0)}
+
+    def failure(reason):
+        diagnostics["technical_error"] = reason
         return None, diagnostics
-    return result if isinstance(result, dict) else None, diagnostics
+
+    connection = HTTPConnection("127.0.0.1", port, timeout=5)
+    try:
+        connection.request("POST", path, body=json.dumps(request, ensure_ascii=False).encode("utf-8"), headers=headers)
+        with connection.getresponse() as response:
+            diagnostics["http_status"] = response.status
+            diagnostics["request_id_matches"] = response.headers.get_all("X-Request-ID", []) == [request_id]
+            if not diagnostics["request_id_matches"]:
+                return failure("request_id_mismatch")
+            if response.status != 200 and not 400 <= response.status < 600:
+                return failure("unexpected_http_status")
+            try:
+                result = json.load(response)
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                return failure("invalid_response_json")
+            if not isinstance(result, dict):
+                return failure("invalid_response_body")
+            for key, header in counters.items():
+                values = response.headers.get_all(header, ["0"])
+                try:
+                    if len(values) != 1:
+                        return failure("invalid_generation_diagnostics")
+                    value = int(values[0])
+                except ValueError:
+                    return failure("invalid_generation_diagnostics")
+                if value < 0:
+                    return failure("invalid_generation_diagnostics")
+                diagnostics[key] = value
+            if response.status != 200:
+                issues = validate_exchange({"path": path, "status": response.status, "body": result,
+                                            "request_headers": list(headers.items()), "response_headers": response.getheaders(),
+                                            "disposition": "failed_call"})
+                return failure("invalid_error_envelope" if issues else result["error"]["code"])
+            if result.get("mode") != "mock":
+                return failure("non_mock_response")
+    except (OSError, HTTPException):
+        return failure("loopback_transport_error")
+    finally:
+        connection.close()
+    return result, diagnostics
+
+
+def _ready(port: int) -> bool:
+    connection = HTTPConnection("127.0.0.1", port, timeout=0.5)
+    try:
+        connection.request("GET", "/health/ready", headers={"Authorization": f"Bearer {TEST_TOKEN}"})
+        with connection.getresponse() as response:
+            if response.status != 200:
+                return False
+            health = json.load(response)
+            return (isinstance(health, dict) and health.get("mode") == "mock"
+                    and health.get("service") == "extraction" and health.get("status") == "ok")
+    except (OSError, HTTPException, ValueError):
+        return False
+    finally:
+        connection.close()
 
 
 def produce_http(references: dict) -> dict:
@@ -60,19 +102,13 @@ def produce_http(references: dict) -> dict:
         [sys.executable, "-m", "notelens_extraction.cli", "serve", "--port", str(port)],
         cwd=EVAL_ROOT.parent, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
     )
-    base = f"http://127.0.0.1:{port}"
     try:
         for _ in range(100):
-            try:
-                request = urllib.request.Request(base + "/health/ready", headers={"Authorization": f"Bearer {TEST_TOKEN}"})
-                with urllib.request.urlopen(request, timeout=0.5) as response:
-                    health = json.load(response)
-                if health.get("mode") == "mock" and health.get("service") == "extraction":
-                    break
-            except (OSError, urllib.error.URLError, ValueError):
-                if process.poll() is not None:
-                    raise RuntimeError("Local extraction service exited before HTTP evaluation.")
-                time.sleep(0.1)
+            if _ready(port):
+                break
+            if process.poll() is not None:
+                raise RuntimeError("Local extraction service exited before HTTP evaluation.")
+            time.sleep(0.1)
         else:
             raise RuntimeError("Local extraction service did not become ready in mock mode.")
 
@@ -80,12 +116,12 @@ def produce_http(references: dict) -> dict:
         for case in references["cases"]:
             extract_request = {"schema_version": case["request"]["schema_version"],
                                "document": case["request"]["document"]}
-            extraction, extraction_stats = _call(base, "/v1/extract", extract_request,
+            extraction, extraction_stats = _call(port, "/v1/extract", extract_request,
                                                   str(uuid.uuid4()))
             answers = []
             for qa in case["qa"]:
                 answer_request = {**extract_request, "question": qa["question"]}
-                answer, stats = _call(base, "/v1/document-answer", answer_request,
+                answer, stats = _call(port, "/v1/document-answer", answer_request,
                                       str(uuid.uuid4()))
                 answers.append({"id": qa["id"], "result": answer, "diagnostics": stats})
             predictions.append({"id": case["id"], "result": extraction,
@@ -107,10 +143,11 @@ def main() -> int:
     report = evaluate_suite(references, predictions)
     transport_records = [p["diagnostics"] for p in predictions["cases"]]
     transport_records += [a["diagnostics"] for p in predictions["cases"] for a in p["qa"]]
+    failures = Counter(r["technical_error"] for r in transport_records if "technical_error" in r)
     report["transport"] = {
         "mode": "mock", "requests": len(transport_records),
         "http_200": sum(r["http_status"] == 200 for r in transport_records),
-        "technical_failures": sum(r["http_status"] != 200 for r in transport_records),
+        "technical_failures": failures.total(), "failure_reasons": dict(failures),
         "request_ids_matched": sum(r["request_id_matches"] for r in transport_records),
         "request_text_in_report": False,
         "references_sent_to_provider": False,
@@ -121,8 +158,10 @@ def main() -> int:
     (args.output / "report.md").write_text(render_report(report), encoding="utf-8")
     print(json.dumps({"documents": report["counts"]["documents"], "qa": report["counts"]["qa"],
                       "http_requests": report["transport"]["requests"], "http_200": report["transport"]["http_200"],
+                      "technical_failures": report["transport"]["technical_failures"],
                       "completeness": report["answer_completeness"], "output": str(args.output)}))
-    return 0 if report["transport"]["technical_failures"] == 0 else 1
+    validation = report["record_validation"]
+    return int(bool(failures or validation["schema_invalid"] or validation["evidence_or_relationship_invalid"]))
 
 
 if __name__ == "__main__":
