@@ -55,11 +55,12 @@ they are not silently assigned defaults.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T002 A-010: Review RAG boundary proposals and local mock consumer checks in `services/rag/tests/test_contract.py`, `docs/rag/interface-review.md`, `specs/001-rag/contracts/**`
+- [x] T002 A-010: Review RAG boundary proposals and local mock consumer checks in `services/rag/tests/test_contract.py`, `docs/rag/interface-review.md`, `specs/001-rag/contracts/**`
   - **Owner / story**: A / US1.
   - **Dependencies**: 000-foundation/T004 (F-003); 000-foundation/T006 (F-004)
   - **Acceptance**: Propose any changes to B rather than edit contracts; consume frozen generated bindings and distinguish mode=mock/live and transport error from insufficient evidence.
   - **Verify**: `uv run --directory services/rag python -m pytest tests/test_contract.py`.
+  - **Completion (2026-11-19)**: Verified F-003 and F-004 on the published interim base `7aa6c321`, matched the frozen contract trees on `rag`, and checked the service against the pinned bindings. See the [A-010 closeout](../../docs/rag/interface-review.md#frozen-contract-consumer-closeout) for the isolated checkpoint run and owner-branch results. F-014 remains open.
   - **Coverage**: FR-006, FR-016, SC-001, SC-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -98,6 +99,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Dependencies**: 001-rag/T005 (A-004)
   - **Acceptance**: POST /v1/literature-answer validates claims/citations and explicitly requests English; insufficient, injection and unsupported-language fixtures cannot fabricate patient facts or treatment. Live generation is separately gated.
   - **Verify**: `uv run --directory services/rag python -m pytest tests/test_answers.py`.
+  - **Owner-local development evidence (2026-11-19)**: The [B/D review handoff](../../docs/rag/evaluation/development-answer-review.md) provides two retained completions and a key-free HTTP replay with simulated generation. Independent review, B's partial-response confirmation and service integration remain open.
   - **Coverage**: FR-007, FR-008, FR-009, FR-010, FR-020, SC-001, SC-004, SC-005.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 

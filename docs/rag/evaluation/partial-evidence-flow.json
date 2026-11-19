@@ -1,0 +1,84 @@
+{
+  "format_version": "rag-partial-evidence-http-v1",
+  "mode": "mock",
+  "new_provider_calls": 0,
+  "proposal_sha256": "6af11963b6cf4a210341f64df7fd2848022a4ceae39edf8b028e8100d4d9e468",
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "results": [
+    {
+      "case_id": "EG-03",
+      "http_status": 200,
+      "ranking_runs": 2,
+      "simulated_generator_requests": 1,
+      "evidence_state": "sufficient",
+      "retrieval_state": "sufficient",
+      "answer_text": "The viruses that cause colds and flu often cause acute bronchitis.",
+      "gaps": [],
+      "citations": [
+        {
+          "evidence_id": "e1",
+          "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+          "topic_id": "5755",
+          "title": "Acute Bronchitis",
+          "url": "https://medlineplus.gov/acutebronchitis.html",
+          "start": 420,
+          "end": 495,
+          "quote_sha256": "37cdcee958246842bd91f4862c04bedc2be799cd84d1a4adde127c1f1ef51794"
+        }
+      ]
+    },
+    {
+      "case_id": "EG-04",
+      "http_status": 200,
+      "ranking_runs": 2,
+      "simulated_generator_requests": 0,
+      "evidence_state": "insufficient",
+      "retrieval_state": "insufficient",
+      "answer_text": "The available sources do not support an answer.",
+      "gaps": [
+        "The retrieved sources do not support the requested information: Difference in weeks of acute bronchitis cough by tobacco-smoke exposure"
+      ],
+      "citations": []
+    },
+    {
+      "case_id": "EG-07",
+      "http_status": 200,
+      "ranking_runs": 2,
+      "simulated_generator_requests": 1,
+      "evidence_state": "partial",
+      "retrieval_state": "sufficient",
+      "answer_text": "The viruses that cause colds and flu often cause acute bronchitis.",
+      "gaps": [
+        "The retrieved sources do not support the requested information: Difference in weeks of acute bronchitis cough by tobacco-smoke exposure"
+      ],
+      "citations": [
+        {
+          "evidence_id": "e1",
+          "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+          "topic_id": "5755",
+          "title": "Acute Bronchitis",
+          "url": "https://medlineplus.gov/acutebronchitis.html",
+          "start": 420,
+          "end": 495,
+          "quote_sha256": "37cdcee958246842bd91f4862c04bedc2be799cd84d1a4adde127c1f1ef51794"
+        }
+      ]
+    },
+    {
+      "case_id": "EG-07",
+      "http_status": 503,
+      "ranking_runs": 2,
+      "simulated_generator_requests": 0,
+      "check": "unconfirmed_partial_policy",
+      "code": "configuration_required"
+    },
+    {
+      "case_id": "EG-07",
+      "http_status": 500,
+      "ranking_runs": 1,
+      "simulated_generator_requests": 1,
+      "check": "unsupported_claim",
+      "code": "internal_error"
+    }
+  ]
+}
