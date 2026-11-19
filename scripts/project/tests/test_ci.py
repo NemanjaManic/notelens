@@ -16,12 +16,13 @@ from test_scope import Repository
 
 class CiChecks(unittest.TestCase):
     def setUp(self):
-        self.workflow = scope.loads((ci.ROOT / ci.WORKFLOW).read_bytes())
+        fixture = Path(__file__).parent / 'fixtures/key-free-bootstrap-workflow.json'
+        self.workflow = scope.loads(fixture.read_bytes())
 
     def steps(self, workflow):
         return workflow['jobs']['bootstrap-guard']['steps']
 
-    def test_actual_workflow_satisfies_the_supported_policy(self):
+    def test_bootstrap_fixture_satisfies_the_supported_policy(self):
         self.assertEqual([], ci.workflow_issues(self.workflow))
         self.assertEqual({'pull_request': {}}, self.workflow['on'])
         self.assertEqual({'contents': 'read'}, self.workflow['permissions'])

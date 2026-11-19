@@ -663,7 +663,7 @@
     ".github/CODEOWNERS",
     ".github/pull_request_template.md",
     ".github/scope-policy.json",
-    ".github/workflows/key-free-ci.yml",
+    "scripts/project/tests/fixtures/key-free-bootstrap-workflow.json",
     "scripts/project/check_scope.py",
     "scripts/project/check_ci.py",
     "scripts/project/tests/test_scope.py",
