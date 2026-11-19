@@ -88,7 +88,12 @@ but do not run a classifier or affect a real search.
 ## Implemented behavior
 
 - GET /health/live returns a truthful process/mode record.
-- GET /health/ready reports ready for mock; unconfigured live mode returns 503 HealthResult.
+- GET /health/ready reports ready by default in mock mode. To exercise F-011's
+  key-free unavailable case, start the service with `NOTELENS_RAG_MODE=mock`
+  and `NOTELENS_RAG_MOCK_READY=false`. Readiness returns HTTP 503 with
+  `status=not_ready`, `mode=mock` and a reason. Liveness still returns HTTP 200
+  with `status=alive`. Omit the flag or set it to `true` for normal mock
+  readiness. Unconfigured live mode reports HTTP 503.
 - POST /v1/retrieve and /v1/literature-answer return explicit synthetic mock examples.
 - Business POSTs require one canonical lowercase UUID X-Request-ID. Valid IDs are echoed
   on successes/errors. Bad or duplicate IDs produce 400 with a fresh diagnostic UUID.
