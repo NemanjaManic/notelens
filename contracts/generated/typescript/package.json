@@ -1,0 +1,19 @@
+{
+  "name": "@notelens/contracts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./v1": {
+      "types": "./v1.d.ts",
+      "import": "./v1.mjs"
+    }
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}

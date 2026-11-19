@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.contracts.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rootDir": "../../..",
+    "resolveJsonModule": true,
+    "rewriteRelativeImportExtensions": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["report-view.test.tsx", "../src/components/report-workspace.tsx", "../src/lib/report/*.ts"]
+}

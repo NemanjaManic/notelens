@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.contracts.json",
+  "include": ["sessions.test.ts", "../src/lib/sessions/memory.ts", "../src/lib/config/session-policy.ts"]
+}

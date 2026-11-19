@@ -1,6 +1,6 @@
 # Quickstart Validation: Shared Foundation
 
-**Status**: design-stage guide. Commands labeled future are not available yet.
+**Status**: F-003/F-009 contract/binding checks are available; runtime commands labeled future remain unavailable.
 Run from the repository root. No command here authorizes paid calls or business implementation.
 
 ## Available now: correct feature selection
@@ -15,9 +15,16 @@ Expected: FEATURE_DIR selects this feature regardless of Git branch. This checks
 not whether an application, plan/task tests or services execute successfully.
 The installed script exists and has been verified; no feature-state file is overwritten.
 
-## Future: after foundation prerequisites
+## Available now: canonical freeze and bindings
 
-The later F-003/F-004/F-005 tasks must create frozen contracts/fixtures, dependency locks,
+Use [the binding guide](../../contracts/generated/README.md) for exact locked Windows
+setup and executed checks: check_contracts.py --require-freeze, generate_contracts.py
+--check, Python/TypeScript consumer checks and type compilation. This does not provide
+a runnable web/service foundation.
+
+## Future: after runtime foundation prerequisites
+
+F-003/F-009 now supply frozen contracts/fixtures and binding locks. F-004/F-005 must create runtime locks,
 stubs and runnable commands. A command that names a missing file is not an executed pass.
 After those prerequisites and the relevant implementation tasks create the listed checks:
 

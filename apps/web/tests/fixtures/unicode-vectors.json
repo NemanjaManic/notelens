@@ -1,0 +1,410 @@
+{
+  "format": "notelens-f012-vectors-v1",
+  "preparation": [
+    {
+      "id": "crlf",
+      "raw": "No chest pain.\r\nReview planned.\r\n",
+      "canonical": "No chest pain.\nReview planned.\n",
+      "sha256": "3bbb02ddaef86fd0fdd8d0093aad48f36159f97543fef4dbed7ff47a58d14646",
+      "code_points": 31,
+      "utf16_units": 31
+    },
+    {
+      "id": "lone-cr",
+      "raw": "No chest pain.\rReview planned.",
+      "canonical": "No chest pain.\nReview planned.",
+      "sha256": "720fad6cd9fde8b6b0b4b4a66ab542a2d40f9d3adfb8e00a038c1f9976e67b45",
+      "code_points": 30,
+      "utf16_units": 30
+    },
+    {
+      "id": "lf",
+      "raw": "No chest pain.\nReview planned.",
+      "canonical": "No chest pain.\nReview planned.",
+      "sha256": "720fad6cd9fde8b6b0b4b4a66ab542a2d40f9d3adfb8e00a038c1f9976e67b45",
+      "code_points": 30,
+      "utf16_units": 30
+    },
+    {
+      "id": "nfc",
+      "raw": "Synthetic cafe\u0301 note.\r\n",
+      "canonical": "Synthetic caf\u00e9 note.\n",
+      "sha256": "3e84c8dbbc556c90b4eda86cc8f7b3f221a99e1f62751c83b25ea36ed49821df",
+      "code_points": 21,
+      "utf16_units": 21
+    },
+    {
+      "id": "spaces-bom",
+      "raw": "\ufeff  Synthetic note. \r\n\r\n",
+      "canonical": "\ufeff  Synthetic note. \n\n",
+      "sha256": "350987f7da049b85f7285efcbbf65c4371215d28a441f2fee3d532aca55bfec0",
+      "code_points": 21,
+      "utf16_units": 21
+    },
+    {
+      "id": "supplementary",
+      "raw": "\ud83e\ude7a Demo \ud83e\uddea\r\nNo pain.",
+      "canonical": "\ud83e\ude7a Demo \ud83e\uddea\nNo pain.",
+      "sha256": "c97ed43b4a8997716024937de154bc5108090c688ab4cec86bb6d48626202ab4",
+      "code_points": 17,
+      "utf16_units": 19
+    },
+    {
+      "id": "grapheme-sequence",
+      "raw": "Demo \ud83d\udc69\u200d\u2695\ufe0f.\r\n",
+      "canonical": "Demo \ud83d\udc69\u200d\u2695\ufe0f.\n",
+      "sha256": "5d222b027409a13b907790aefd4c935808325b07fe54d9c784bd6b4103e95976",
+      "code_points": 11,
+      "utf16_units": 12
+    }
+  ],
+  "canonical_documents": [
+    "offset",
+    "history",
+    "procedure"
+  ],
+  "metadata_payloads": [
+    "extraction-historical",
+    "extraction-family",
+    "extraction-explicit-icd",
+    "procedure-planned"
+  ],
+  "spans": [
+    {
+      "id": "first-occurrence",
+      "start": 7,
+      "end": 21,
+      "quote": "No chest pain.",
+      "utf16": [
+        8,
+        22
+      ]
+    },
+    {
+      "id": "second-occurrence",
+      "start": 47,
+      "end": 61,
+      "quote": "No chest pain.",
+      "utf16": [
+        48,
+        62
+      ]
+    },
+    {
+      "id": "emoji",
+      "start": 5,
+      "end": 6,
+      "quote": "\ud83e\ude7a",
+      "utf16": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "last-character",
+      "start": 60,
+      "end": 61,
+      "quote": ".",
+      "utf16": [
+        61,
+        62
+      ]
+    },
+    {
+      "id": "whole-document",
+      "start": 0,
+      "end": 61,
+      "quote": "Demo \ud83e\ude7a\nNo chest pain.\nChest pain is suspected.\nNo chest pain.",
+      "utf16": [
+        0,
+        62
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "codepoint": 0,
+      "utf16": 0
+    },
+    {
+      "codepoint": 5,
+      "utf16": 5
+    },
+    {
+      "codepoint": 6,
+      "utf16": 7
+    },
+    {
+      "codepoint": 7,
+      "utf16": 8
+    },
+    {
+      "codepoint": 47,
+      "utf16": 48
+    },
+    {
+      "codepoint": 61,
+      "utf16": 62
+    }
+  ],
+  "invalid_indices": {
+    "codepoint": [
+      -1,
+      62,
+      0.5,
+      true
+    ],
+    "utf16": [
+      -1,
+      63,
+      6,
+      0.5,
+      true
+    ]
+  },
+  "negatives": [
+    {
+      "id": "digest",
+      "kind": "document",
+      "patch": {
+        "text_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expected": [
+        {
+          "rule": "TEXT_DIGEST",
+          "path": "/text_sha256"
+        }
+      ]
+    },
+    {
+      "id": "utf16-digest",
+      "kind": "document",
+      "patch": {
+        "text_sha256": "a3e3739019a85126f76d1f94ecc15bcbf5d937a266b8fa456d3b61208b02f0ca"
+      },
+      "expected": [
+        {
+          "rule": "TEXT_DIGEST",
+          "path": "/text_sha256"
+        }
+      ]
+    },
+    {
+      "id": "non-nfc",
+      "kind": "document",
+      "patch": {
+        "text": "Cafe\u0301.",
+        "text_sha256": "426190b5ed01b188a3fe99ba4dabe05540989fbf2a1eda9a3cfdc63634df837c"
+      },
+      "expected": [
+        {
+          "rule": "TEXT_CANONICAL",
+          "path": "/text"
+        }
+      ]
+    },
+    {
+      "id": "non-lf",
+      "kind": "document",
+      "patch": {
+        "text": "Synthetic\r\nnote.",
+        "text_sha256": "ff37384dfe99ff42c25f32f69257bfeb36edd5291f1244b2282d97ea8041c278"
+      },
+      "expected": [
+        {
+          "rule": "TEXT_CANONICAL",
+          "path": "/text"
+        }
+      ]
+    },
+    {
+      "id": "whitespace",
+      "kind": "document",
+      "patch": {
+        "text": " \t\n",
+        "text_sha256": "7d7713ab8ff9ccbfe07f962d3a015e11231859724c83788c38341f4c216cd5c2"
+      },
+      "expected": [
+        {
+          "rule": "TEXT_CANONICAL",
+          "path": "/text"
+        }
+      ]
+    },
+    {
+      "id": "empty",
+      "kind": "document",
+      "patch": {
+        "text": "",
+        "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/text"
+        }
+      ]
+    },
+    {
+      "id": "high-surrogate",
+      "kind": "document",
+      "patch": {
+        "text": "\ud800",
+        "text_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expected": [
+        {
+          "rule": "TEXT_UNICODE",
+          "path": "/text"
+        }
+      ]
+    },
+    {
+      "id": "low-surrogate",
+      "kind": "document",
+      "patch": {
+        "text": "\udc00",
+        "text_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expected": [
+        {
+          "rule": "TEXT_UNICODE",
+          "path": "/text"
+        }
+      ]
+    },
+    {
+      "id": "mutation",
+      "kind": "document",
+      "patch": {
+        "text": "Demo \ud83e\ude7a\nNo chest pain.\nChest pain is suspected.\nNo chest pain. Altered."
+      },
+      "expected": [
+        {
+          "rule": "TEXT_DIGEST",
+          "path": "/text_sha256"
+        }
+      ]
+    },
+    {
+      "id": "negative-start",
+      "kind": "span",
+      "patch": {
+        "start": -1
+      },
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/start"
+        }
+      ]
+    },
+    {
+      "id": "empty-span",
+      "kind": "span",
+      "patch": {
+        "start": 7,
+        "end": 7
+      },
+      "expected": [
+        {
+          "rule": "SPAN_BOUNDS",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "id": "reversed-span",
+      "kind": "span",
+      "patch": {
+        "start": 21,
+        "end": 7
+      },
+      "expected": [
+        {
+          "rule": "SPAN_BOUNDS",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "id": "out-of-range",
+      "kind": "span",
+      "patch": {
+        "end": 62
+      },
+      "expected": [
+        {
+          "rule": "SPAN_BOUNDS",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "id": "fractional-start",
+      "kind": "span",
+      "patch": {
+        "start": 47.5
+      },
+      "expected": [
+        {
+          "rule": "STRUCTURE",
+          "path": "/start"
+        }
+      ]
+    },
+    {
+      "id": "wrong-quote",
+      "kind": "span",
+      "patch": {
+        "quote": "Incorrect."
+      },
+      "expected": [
+        {
+          "rule": "SPAN_QUOTE",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "id": "utf16-as-codepoints",
+      "kind": "span",
+      "patch": {
+        "start": 48,
+        "end": 62
+      },
+      "expected": [
+        {
+          "rule": "SPAN_BOUNDS",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "id": "wrong-doc-id",
+      "kind": "identity",
+      "patch": {
+        "doc_id": "different-document"
+      },
+      "expected": [
+        {
+          "rule": "DOCUMENT_IDENTITY",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "id": "wrong-document-hash",
+      "kind": "identity",
+      "patch": {
+        "text_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expected": [
+        {
+          "rule": "DOCUMENT_IDENTITY",
+          "path": ""
+        }
+      ]
+    }
+  ]
+}

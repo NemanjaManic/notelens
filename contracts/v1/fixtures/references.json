@@ -1,0 +1,44 @@
+{
+  "second-occurrence": {
+    "spans": {
+      "": {
+        "start": 47,
+        "end": 61,
+        "quote": "No chest pain."
+      }
+    }
+  },
+  "historical-facts": {
+    "attributes": {
+      "/assertion": "confirmed",
+      "/temporality": "historical",
+      "/subject": "patient"
+    },
+    "spans": {
+      "/evidence/0": {
+        "start": 0,
+        "end": 32,
+        "quote": "In 2019, the patient had asthma."
+      }
+    }
+  },
+  "family-facts": {
+    "attributes": {
+      "/assertion": "confirmed",
+      "/temporality": "historical",
+      "/subject": "family"
+    },
+    "spans": {
+      "/evidence/0": {
+        "start": 33,
+        "end": 75,
+        "quote": "The patient's mother had diabetes in 2018."
+      }
+    }
+  },
+  "planned-procedure": {
+    "attributes": {
+      "/procedure_status": "planned"
+    }
+  }
+}

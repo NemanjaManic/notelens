@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "schema_sha256": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+  "freeze_sha256": "045a298f98df28c923a72425da7ed7ecb3573a479d8c95ef309ecd2aa9eb5796",
+  "inputs_sha256": {
+    "scripts/project/generate_contracts.py": "6a007e43f1b499290d59d981a454e7287c1c9be797714a46f02bec943fefb91f",
+    "scripts/project/check_contracts.py": "9af95e2721cf7abadf3e7c39f1cb3be7897d2a2b87774dc5bcad11fb2b30d660",
+    "scripts/project/check_candidate.py": "f87afa8f38817f320241e2bf797fc5b9ccd9528502a0193ea52f430a0942f439",
+    "contracts/runtime/typescript.mjs": "0789430d7ba23faddbf755cde841a4755b43297764c2523805f8ef23480a196e"
+  },
+  "generated_files": {
+    "contracts/generated/python/pyproject.toml": "d8cfa372e0f990587d1585394314f6fe5c230d1ff4ef497907c11f8d4c533eff",
+    "contracts/generated/python/src/notelens_contracts/__init__.py": "a03af31d4330d5eb7317531379b1c545b79b55789c35533207ddf50f4a1f9a78",
+    "contracts/generated/python/src/notelens_contracts/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "contracts/generated/python/src/notelens_contracts/runtime.py": "033fe8d47f9c02a81dcd3249b68a2cfd3f7e2a320c2852bfefbe07c765794b48",
+    "contracts/generated/python/src/notelens_contracts/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "contracts/generated/python/src/notelens_contracts/v1.py": "2681129239ff4a1e772a78052d8dd533e1eb6cf225732d9c245e44979fedf002",
+    "contracts/generated/typescript/package.json": "dd76f0bbd6b092a3de7ca4149a3ff508b55fe907b795e0dd8c3946950b157ef8",
+    "contracts/generated/typescript/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "contracts/generated/typescript/v1.d.ts": "b40a38e017c837140ca3692b07778a8c5a40d4a950717bde71008f5c5798df91",
+    "contracts/generated/typescript/v1.mjs": "0789430d7ba23faddbf755cde841a4755b43297764c2523805f8ef23480a196e"
+  }
+}
