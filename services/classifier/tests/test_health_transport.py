@@ -24,6 +24,7 @@ def test_health_auth_and_duplicate_headers_over_real_http():
     environment.update(NOTELENS_CLASSIFIER_MODE="mock", NOTELENS_CLASSIFIER_MOCK_SCENARIO="supported",
                        NOTELENS_CLASSIFIER_MOCK_READINESS="ready", NOTELENS_CLASSIFIER_SERVICE_TOKEN=TOKEN,
                        PYTHONDONTWRITEBYTECODE="1")
+    environment.pop("NOTELENS_CLASSIFIER_MOCK_FAILURE", None)
     process = subprocess.Popen([sys.executable, "-m", "notelens_classifier", "--port", str(port)],
                                cwd=Path(__file__).resolve().parents[1], env=environment,
                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
