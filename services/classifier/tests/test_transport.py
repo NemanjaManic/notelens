@@ -10,13 +10,19 @@ import sys
 import time
 
 import pytest
-from notelens_contracts.v1 import validate_record
+from notelens_contracts.v1 import validate_exchange, validate_record
 
 from conftest import REQUEST_ID, prepared
 
 
-@pytest.mark.parametrize("readiness", ["ready", "not_ready"])
-def test_real_uvicorn_start_requests_and_shutdown(readiness):
+@pytest.mark.parametrize(("readiness", "mock_failure", "business_status"), [
+    ("ready", None, 200),
+    ("not_ready", None, 200),
+    ("ready", "timeout", 504),
+    ("ready", "rate_limit", 429),
+    ("ready", "provider_unavailable", 503),
+])
+def test_real_uvicorn_start_requests_and_shutdown(readiness, mock_failure, business_status):
     # The OS-selected port and deadlines below are test-harness controls only.
     with socket.socket() as reservation:
         reservation.bind(("127.0.0.1", 0))
@@ -27,6 +33,10 @@ def test_real_uvicorn_start_requests_and_shutdown(readiness):
                        NOTELENS_CLASSIFIER_MOCK_READINESS=readiness,
                        PYTHONDONTWRITEBYTECODE="1")
     environment.pop("NOTELENS_CLASSIFIER_SERVICE_TOKEN", None)
+    if mock_failure is None:
+        environment.pop("NOTELENS_CLASSIFIER_MOCK_FAILURE", None)
+    else:
+        environment["NOTELENS_CLASSIFIER_MOCK_FAILURE"] = mock_failure
     process = subprocess.Popen(
         [sys.executable, "-m", "notelens_classifier", "--port", str(port)],
         cwd=Path(__file__).resolve().parents[1], env=environment,
@@ -69,10 +79,21 @@ def test_real_uvicorn_start_requests_and_shutdown(readiness):
         for index in range(2):
             document = prepared("Synthetic transport marker 🩺 " + str(index), "transport-" + str(index))
             status, headers, result = post(json.dumps({"schema_version": "1.0.0", "document": document}).encode())
-            assert status == 200 and headers["x-request-id"] == REQUEST_ID
-            validate_record("ClassificationResult", result, document=document)
-            assert result["doc_id"] == document["doc_id"]
-            assert result["mode"] == "mock"
+            assert status == business_status and headers["x-request-id"] == REQUEST_ID
+            if mock_failure is None:
+                validate_record("ClassificationResult", result, document=document)
+                assert result["doc_id"] == document["doc_id"]
+                assert result["mode"] == "mock"
+            else:
+                assert validate_exchange({"path": "/v1/classify", "status": status, "body": result,
+                                          "request_headers": [("X-Request-ID", REQUEST_ID)],
+                                          "response_headers": list(headers.items()),
+                                          "disposition": "failed_call"}) == []
+                assert result["error"]["code"] == mock_failure
+                assert result["error"]["retryable"] is True
+                assert document["text"] not in result["error"]["message"]
+                assert document["doc_id"] not in result["error"]["message"]
+                assert headers["cache-control"] == "no-store"
         status, headers, result = post(b"{", "invalid")
         assert status == 400 and headers["x-request-id"] != REQUEST_ID
         validate_record("ErrorEnvelope", result)

@@ -25,6 +25,11 @@ SCENARIOS = {
     "unsupported_skipped": "classification-unsupported",
     "unsupported_performed": "classification-unsupported-performed",
 }
+MOCK_FAILURES = {
+    "timeout": (504, "The mock classifier simulated a timeout."),
+    "rate_limit": (429, "The mock classifier simulated a rate limit."),
+    "provider_unavailable": (503, "The mock classifier simulated provider unavailability."),
+}
 # Only versioned synthetic fixture templates are retained; never request content.
 TEMPLATES = json.loads(files("notelens_classifier").joinpath("mock_results.json").read_text(encoding="utf-8"))
 
@@ -35,19 +40,28 @@ class Settings:
     scenario: str = "supported"
     token: str | None = field(default=None, repr=False)
     mock_readiness: str = "ready"
+    mock_failure: str | None = None
+
+    def has_mock_configuration(self) -> bool:
+        return (self.mode == "mock" and self.scenario in SCENARIOS and
+                (self.mock_failure is None or self.mock_failure in MOCK_FAILURES))
 
     @classmethod
     def from_environment(cls):
-        return cls(mode=os.getenv("NOTELENS_CLASSIFIER_MODE"),
-                   scenario=os.getenv("NOTELENS_CLASSIFIER_MOCK_SCENARIO", "supported"),
-                   token=os.getenv("NOTELENS_CLASSIFIER_SERVICE_TOKEN"),
-                   mock_readiness=os.getenv("NOTELENS_CLASSIFIER_MOCK_READINESS", "ready"))
+        return cls(
+            mode=os.getenv("NOTELENS_CLASSIFIER_MODE"),
+            scenario=os.getenv("NOTELENS_CLASSIFIER_MOCK_SCENARIO", "supported"),
+            token=os.getenv("NOTELENS_CLASSIFIER_SERVICE_TOKEN"),
+            mock_readiness=os.getenv("NOTELENS_CLASSIFIER_MOCK_READINESS", "ready"),
+            mock_failure=os.getenv("NOTELENS_CLASSIFIER_MOCK_FAILURE"),
+        )
 
 
-def error_response(status: int, code: str, message: str, request_id: str) -> JSONResponse:
+def error_response(status: int, code: str, message: str, request_id: str, *,
+                   retryable: bool = False) -> JSONResponse:
     payload: ErrorEnvelope = {
         "schema_version": "1.0.0", "request_id": request_id,
-        "error": {"code": code, "message": message, "retryable": False},
+        "error": {"code": code, "message": message, "retryable": retryable},
     }
     validate_record("ErrorEnvelope", payload)
     headers = {"X-Request-ID": request_id, "Cache-Control": "no-store"}
@@ -140,7 +154,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             return denied
         if settings.mode not in ("mock", "live"):
             return error_response(500, "internal_error", "Service configuration is unavailable.", str(uuid4()))
-        ready = settings.mode == "mock" and settings.scenario in SCENARIOS and settings.mock_readiness == "ready"
+        ready = settings.has_mock_configuration() and settings.mock_readiness == "ready"
         payload: HealthResult = {"schema_version": "1.0.0", "service": "classifier",
                                  "status": "ok" if ready else "not_ready", "mode": settings.mode,
                                  "version": SERVICE_VERSION, "model_version": None,
@@ -165,8 +179,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 incoming: ClassificationRequest = validate_json("ClassificationRequest", raw)
             except ContractValidationError as error:
                 return input_failure(error, raw, request_id)
-            if settings.mode != "mock" or settings.scenario not in SCENARIOS:
+            if not settings.has_mock_configuration():
                 return error_response(503, "configuration_required", "A usable classifier configuration is not available.", request_id)
+            if settings.mock_failure is not None:
+                status, message = MOCK_FAILURES[settings.mock_failure]
+                return error_response(status, settings.mock_failure, message, request_id, retryable=True)
             # A future inference adapter must check cancellation before real work.
             # This contribution only creates small deterministic synthetic responses.
             result = mock_result(incoming["document"], settings.scenario)

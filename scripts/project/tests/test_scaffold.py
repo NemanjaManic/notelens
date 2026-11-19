@@ -70,13 +70,13 @@ class SharedEvidenceChecks(unittest.TestCase):
                                    for index, (service, scenario) in enumerate(HTTP_PROCESSES)]}
         self.artifact('.cache/scaffold/http.json', json.dumps(self.http))
         self.rag_coverage = (
-            '<testsuites><testsuite tests="308" failures="0" errors="0" skipped="1">'
+            '<testsuites><testsuite tests="309" failures="0" errors="0" skipped="1">'
             '<testcase name="tests.test_index_version"><skipped message="collection skipped">'
             'Skipped: Index tests require the optional indexing extra.'
             '</skipped></testcase></testsuite></testsuites>'
         )
         self.artifact('.cache/scaffold/rag.xml', self.rag_coverage)
-        for service, expected in [('classifier', 77), ('extraction', 59)]:
+        for service, expected in [('classifier', 84), ('extraction', 60)]:
             self.artifact(f'.cache/scaffold/{service}.xml', f'<testsuites><testsuite tests="{expected}" failures="0" errors="0" skipped="0"/></testsuites>')
 
     def artifact(self, relative, content):
@@ -121,12 +121,12 @@ class SharedEvidenceChecks(unittest.TestCase):
         for old, new in [('tests.test_index_version', 'tests.test_contract'),
                          ('collection skipped', 'case skipped'),
                          ('Index tests require the optional indexing extra.', 'Skip required coverage.'),
-                         ('tests="308"', 'tests="307"'), ('skipped="1"', 'skipped="2"')]:
+                         ('tests="309"', 'tests="308"'), ('skipped="1"', 'skipped="2"')]:
             with self.subTest(change=old):
                 self.artifact('.cache/scaffold/rag.xml', self.rag_coverage.replace(old, new))
                 self.assertIn('RECEIPT_TEST_COVERAGE', self.issues())
         self.artifact('.cache/scaffold/rag.xml', self.rag_coverage)
-        self.artifact('.cache/scaffold/classifier.xml', self.rag_coverage.replace('tests="308"', 'tests="77"'))
+        self.artifact('.cache/scaffold/classifier.xml', self.rag_coverage.replace('tests="309"', 'tests="84"'))
         self.assertIn('RECEIPT_TEST_COVERAGE', self.issues())
 
     def test_unstopped_process_fails(self):

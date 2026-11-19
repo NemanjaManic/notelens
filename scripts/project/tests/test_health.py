@@ -129,15 +129,63 @@ class HealthChecks(unittest.TestCase):
             [('Content-Type', 'application/json')] + health.IDS['canonical'], raw,
             health.IDS['canonical'], self.package, document={'text_sha256': 'invalid'}))
 
-    def test_matrix_has_unique_ids_and_explicit_owner_blockers(self):
+    def test_matrix_has_unique_ids_and_covers_each_profile(self):
         cases = health.registry()
-        self.assertEqual(210, len(cases))
+        self.assertEqual(213, len(cases))
         self.assertEqual(len(cases), len({c.id for c in cases}))
-        self.assertEqual(6, sum(bool(c.blocked) for c in cases))
-        self.assertEqual({'rag-not-ready', 'classifier-not-ready', 'extraction-not-ready',
-                          'classifier-classify-timeout', 'classifier-classify-rate_limit',
-                          'classifier-classify-provider_unavailable'}, {c.id for c in cases if c.blocked})
-        self.assertTrue(all(c.profile is None for c in cases if c.blocked))
+        self.assertFalse(any(c.blocked for c in cases))
+        self.assertEqual(set(health.PROFILES), {(c.service, c.profile) for c in cases})
+
+    def test_classifier_failure_profiles_require_retryable_correlated_errors(self):
+        cases = {c.id: c for c in health.registry()}
+        incoming = health.IDS['canonical']
+        admitted_id = incoming[0][1]
+        token = 'synthetic-token'
+        for failure, status in [('timeout', 504), ('rate_limit', 429), ('provider_unavailable', 503)]:
+            with self.subTest(failure=failure):
+                case = cases[f'classifier-classify-{failure}']
+                self.assertEqual((status, 'valid', 'valid'), (case.status, case.auth, case.body))
+                self.assertIn(('classifier', case.profile), health.PROFILES)
+                env = health.environment(health.CACHE, 'classifier', case.profile, token)
+                self.assertEqual(failure, env['NOTELENS_CLASSIFIER_MOCK_FAILURE'])
+                self.assertEqual(token, env['NOTELENS_CLASSIFIER_SERVICE_TOKEN'])
+                self.assertNotIn('NOTELENS_CLASSIFIER_MOCK_READINESS', env)
+                response = {'schema_version': '1.0.0', 'request_id': admitted_id,
+                            'error': {'code': failure, 'message': 'Synthetic failure.', 'retryable': True}}
+                self.assertEqual([], self.check(case, response, headers=incoming, incoming=incoming))
+                response['error']['retryable'] = False
+                self.assertEqual(['RETRYABLE'], self.check(case, response, headers=incoming, incoming=incoming))
+                response['error']['retryable'] = True
+                response['request_id'] = '33333333-3333-4333-8333-333333333333'
+                self.assertEqual(['ERROR_CORRELATION'], self.check(case, response, headers=incoming, incoming=incoming))
+
+    def test_not_ready_profiles_check_both_routes_with_isolated_settings(self):
+        profile = 'not-ready'
+        settings = {
+            'rag': ('NOTELENS_RAG_MODE', 'NOTELENS_RAG_MOCK_READY', 'false'),
+            'classifier': ('NOTELENS_CLASSIFIER_MODE', 'NOTELENS_CLASSIFIER_MOCK_READINESS', 'not_ready'),
+            'extraction': ('NOTELENS_MODE', 'NOTELENS_EXTRACTION_MOCK_NOT_READY', '1'),
+        }
+        inherited = {name: 'external' for _, name, _ in settings.values()}
+        inherited.update(NOTELENS_CLASSIFIER_MOCK_FAILURE='timeout', NOTELENS_SERVICE_TOKEN='external')
+        for service, (mode, name, value) in settings.items():
+            with self.subTest(service=service):
+                self.assertIn((service, profile), health.PROFILES)
+                cases = {c.path: (c.status, c.definition) for c in health.registry()
+                         if (c.service, c.profile) == (service, profile)}
+                self.assertEqual({'/health/ready': (503, 'HealthResult'), '/health/live': (200, 'LivenessResult')}, cases)
+                with patch.dict(os.environ, inherited):
+                    env = health.environment(health.CACHE, service, profile)
+                    baseline = health.environment(health.CACHE, service, 'open')
+                self.assertEqual('mock', env[mode])
+                self.assertEqual({name: value}, {key: env[key] for key in inherited if key in env})
+                self.assertTrue(inherited.keys().isdisjoint(baseline))
+
+    def test_extraction_not_ready_requires_the_mock_reason(self):
+        case = next(c for c in health.registry() if c.id == 'extraction-not-ready')
+        value = {**self.payloads['health-not-ready'], 'service': 'extraction', 'mode': 'mock'}
+        self.assertEqual(['HEALTH_REASON'], self.check(case, value))
+        self.assertEqual([], self.check(case, {**value, 'reason': 'mock_not_ready'}))
 
     def sample_evidence(self):
         cases = [{'id': c.id, 'service': c.service, 'profile': c.profile,
@@ -149,7 +197,10 @@ class HealthChecks(unittest.TestCase):
 
     def test_even_green_records_cannot_hide_pending_owner_capabilities(self):
         cases, processes = self.sample_evidence()
-        self.assertIn('PENDING_OWNER_CAPABILITIES', health.completion_issues(cases, processes))
+        specs = health.registry()
+        specs[0] = replace(specs[0], blocked='test-owner-capability')
+        with patch.object(health, 'registry', return_value=specs):
+            self.assertIn('PENDING_OWNER_CAPABILITIES', health.completion_issues(cases, processes))
 
     def test_missing_duplicate_and_replaced_case_ids_fail(self):
         cases, processes = self.sample_evidence()
@@ -291,12 +342,6 @@ class ExtensionChecks(unittest.TestCase):
                 self.assertIn(('extraction', case.profile), health.PROFILES)
                 self.assertEqual([], self.check(case))
 
-    def test_mock_not_ready_is_still_blocked(self):
-        cases = health.registry()
-        self.assertEqual(210, len(cases))
-        self.assertEqual(6, sum(bool(c.blocked) for c in cases))
-        self.assertEqual('NOT_READY_TRIGGER_PENDING_OWNER', next(c.blocked for c in cases if c.id == 'extraction-not-ready'))
-
     def test_wrong_retryability_cannot_pass(self):
         for case in self.cases:
             self.assertEqual(['RETRYABLE'], self.check(case, lambda body: body['error'].update(retryable=False)))
@@ -329,7 +374,6 @@ class ExtensionChecks(unittest.TestCase):
                  'outcome': 'passed', 'provenance': 'service-http'} for c in self.cases]
         problems = health.completion_issues(rows, [])
         self.assertIn('CASE_COVERAGE', problems)
-        self.assertIn('PENDING_OWNER_CAPABILITIES', problems)
         self.assertIn('PROCESS_COVERAGE', problems)
 
 
