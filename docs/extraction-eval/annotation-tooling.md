@@ -48,6 +48,29 @@ for C if a development group is available outside C's primary quota. The proposa
 reports `member_c_development_review_unavailable` in `review_warnings` if every
 development group is needed for C's primary quota.
 
+### Verify the received manifest before selection
+
+Use the checksum and source version supplied separately by the manifest owner. The
+command expects the D adapter format documented above. If C supplies a different
+format, verify C's checksum against the original bytes first, record the agreed
+mapping, and verify the adapter using its own version and checksum.
+
+```powershell
+./eval/.venv/Scripts/python.exe -m notelens_eval.annotations preflight $manifest --expected-sha256 $checksum --source-version $version --count 40 --reviews 10
+```
+
+The command checks the exact file bytes and uses the selector's input validation.
+It prints aggregate group counts by split and specialty, C's primary quota and any
+allocation shortfall. It writes no assignments and prints no document IDs, group IDs
+or text. An invalid input or a capacity shortfall exits with status 1. Review permission
+and access with C before running `select` on real candidates.
+
+Pass the same `--expected-sha256` and `--source-version` to `select` to recheck the
+manifest at selection time. The proposal records its exact source-manifest SHA-256.
+The annotation `doc_id` is C's stable dataset document ID. D supplies the
+`assignment_id`. Primary and independent review records share both IDs and the
+canonical text SHA-256. Each record gets its own unique `submission_id`.
+
 ## Submission and adjudication path
 
 ### Draft lint before independent review

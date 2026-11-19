@@ -133,6 +133,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - [x] Seeded selector and input validation tested on synthetic fixtures, including 40-group algorithm tests.
   - [x] Selector requires explicit boolean annotation permission and rejects identical canonical text placed in different duplicate groups. Both checks are covered by synthetic regressions.
   - [x] The synthetic proposal checks C's development-only review capacity and reserves an independent review when feasible. Infeasible capacity is reported for team review before freeze.
+  - [x] Read-only manifest preflight verifies the pinned version and SHA-256, reuses candidate validation and reports aggregate allocation capacity. Selection can recheck the same immutable inputs before writing a proposal.
   - [ ] Blocked actual selection: C-002 permitted canonical document/group/split manifests and access policy are absent. No actual IDs or dev/final proportions are invented.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T001 (D-001); 003-classification/T003 (C-002)

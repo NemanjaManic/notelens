@@ -18,18 +18,65 @@ SPECIALTIES = ["Cardiovascular / Pulmonary", "Orthopedic", "Gastroenterology", "
 MEMBERS = ["member-a", "member-b", "member-c", "member-d"]
 
 
-def select(manifest: dict, *, count: int, reviews: int, seed: int) -> dict:
+def read_source_manifest(path: Path, *, expected_sha256: str | None,
+                         source_version: str | None) -> tuple[dict, str]:
+    if (expected_sha256 is None) != (source_version is None):
+        raise ValueError("Provide the expected manifest SHA-256 and source version together.")
+    if expected_sha256 is not None and not re.fullmatch(r"[0-9a-fA-F]{64}", expected_sha256):
+        raise ValueError("Expected SHA-256 must contain 64 hexadecimal characters.")
+    try:
+        raw = path.read_bytes()
+    except OSError as exc:
+        raise ValueError("Could not read the source manifest.") from exc
+    checksum = hashlib.sha256(raw).hexdigest()
+    if expected_sha256 is not None and checksum != expected_sha256.lower():
+        raise ValueError("Source manifest SHA-256 differs from the expected checksum.")
+
+    def unique_fields(entries):
+        result = {}
+        for key, value in entries:
+            if key in result:
+                raise ValueError("Source manifest contains duplicate JSON fields.")
+            result[key] = value
+        return result
+
+    try:
+        manifest = json.loads(raw.decode("utf-8"), object_pairs_hook=unique_fields)
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError("Source manifest must contain valid UTF-8 JSON.") from exc
+    if not isinstance(manifest, dict):
+        raise ValueError("The source manifest must be a JSON object.")
+    if source_version is not None and manifest.get("source_version") != source_version:
+        raise ValueError("Source manifest version differs from the expected version.")
+    return manifest, checksum
+
+
+def validate_selection_size(count: int, reviews: int) -> None:
     if count < 4 or count % 4 or not 0 <= reviews <= count:
         raise ValueError("Selection count must be divisible by four; review count must fit it.")
-    if not manifest.get("source_version") or manifest.get("kind") not in {"synthetic", "permitted_benchmark"}:
+
+
+def candidate_groups(manifest: dict) -> list[dict]:
+    if not isinstance(manifest, dict):
+        raise ValueError("The source manifest must be a JSON object.")
+    version = manifest.get("source_version")
+    if (not isinstance(version, str) or not version.strip()
+            or manifest.get("kind") not in ("synthetic", "permitted_benchmark")):
         raise ValueError("An explicit permitted source/version is required.")
-    documents = manifest["documents"]
+    documents = manifest.get("documents")
+    if not isinstance(documents, list):
+        raise ValueError("The manifest documents must be a JSON array.")
     groups, ids, documents_by_hash = {}, set(), {}
-    for doc in documents:
-        if doc["doc_id"] in ids:
+    for index, doc in enumerate(documents, start=1):
+        if not isinstance(doc, dict):
+            raise ValueError(f"Candidate row {index} must be a JSON object.")
+        doc_id, group = doc.get("doc_id"), doc.get("group_id")
+        if not all(isinstance(value, str) and value.strip() for value in (doc_id, group)):
+            raise ValueError(f"Candidate row {index} requires document and group IDs.")
+        if doc_id in ids:
             raise ValueError("Duplicate source document ID.")
-        ids.add(doc["doc_id"])
-        if doc["specialty"] not in SPECIALTIES or doc["split"] not in {"validation", "test"}:
+        ids.add(doc_id)
+        if doc.get("specialty") not in SPECIALTIES or doc.get("split") not in ("validation", "test"):
             raise ValueError("Expected target specialties and validation/test portions.")
         digest = doc.get("text_sha256")
         if (doc.get("permitted_for_annotation") is not True or not isinstance(digest, str)
@@ -37,7 +84,6 @@ def select(manifest: dict, *, count: int, reviews: int, seed: int) -> dict:
             raise ValueError("Source access/permission and canonical hashes are required.")
         if "canonical_text" in doc:
             validate_text(doc["canonical_text"], digest)
-        group = doc["group_id"]
         first = documents_by_hash.setdefault(digest, doc)
         if first["split"] != doc["split"]:
             raise ValueError("An identical canonical hash crosses development/final portions.")
@@ -47,9 +93,37 @@ def select(manifest: dict, *, count: int, reviews: int, seed: int) -> dict:
             raise ValueError("A duplicate group crosses development/final portions.")
         if group in groups and groups[group]["specialty"] != doc["specialty"]:
             raise ValueError("A duplicate group has conflicting specialty labels.")
-        if group not in groups or doc["doc_id"] < groups[group]["doc_id"]:
+        if group not in groups or doc_id < groups[group]["doc_id"]:
             groups[group] = doc
-    candidates = sorted(groups.values(), key=lambda d: d["doc_id"])
+    return sorted(groups.values(), key=lambda d: d["doc_id"])
+
+
+def preflight(manifest: dict, *, count: int, reviews: int) -> dict:
+    validate_selection_size(count, reviews)
+    candidates = candidate_groups(manifest)
+    group_counts = Counter(doc["split"] for doc in candidates)
+    specialty_counts = Counter(doc["specialty"] for doc in candidates)
+    development_groups = group_counts["validation"]
+    quota = count // len(MEMBERS)
+    issues = []
+    if len(candidates) < count:
+        issues.append("insufficient_unique_groups")
+    if development_groups < quota:
+        issues.append("insufficient_member_c_development_primary_groups")
+    if reviews and development_groups <= quota:
+        issues.append("member_c_development_review_unavailable")
+    return {"kind": "annotation_manifest_preflight", "source_kind": manifest["kind"],
+            "source_version": manifest["source_version"], "candidate_documents": len(manifest["documents"]),
+            "candidate_groups": len(candidates), "requested_documents": count, "requested_reviews": reviews,
+            "groups_by_split": {split: group_counts[split] for split in ("validation", "test")},
+            "groups_by_specialty": {specialty: specialty_counts[specialty] for specialty in SPECIALTIES},
+            "member_c_primary_quota": quota, "issues": issues,
+            "status": "needs_review" if issues else "ready_for_selection_review"}
+
+
+def select(manifest: dict, *, count: int, reviews: int, seed: int) -> dict:
+    validate_selection_size(count, reviews)
+    candidates = candidate_groups(manifest)
     if len(candidates) < count:
         raise ValueError("Insufficient unique groups for the requested selection.")
     random.Random(seed).shuffle(candidates)
@@ -275,12 +349,20 @@ def merge(assignment: dict, document: dict, submissions: list[dict], decision: d
 def main() -> int:
     parser = argparse.ArgumentParser(description="D-owned draft annotation tooling; no completed labels are generated")
     commands = parser.add_subparsers(dest="command", required=True)
+    preflight_parser = commands.add_parser("preflight", help="Verify a C-002 adapter manifest without assigning documents")
+    preflight_parser.add_argument("manifest", type=Path)
+    preflight_parser.add_argument("--count", type=int, default=40)
+    preflight_parser.add_argument("--reviews", type=int, default=10)
+    preflight_parser.add_argument("--expected-sha256", required=True)
+    preflight_parser.add_argument("--source-version", required=True)
     selection = commands.add_parser("select")
     selection.add_argument("manifest", type=Path)
     selection.add_argument("--count", type=int, default=40)
     selection.add_argument("--reviews", type=int, default=10)
     selection.add_argument("--seed", type=int, required=True)
     selection.add_argument("--output", type=Path, required=True)
+    selection.add_argument("--expected-sha256")
+    selection.add_argument("--source-version")
     adjudication = commands.add_parser("merge")
     adjudication.add_argument("bundle", type=Path, help="Permitted assignment, document, submissions and explicit decision")
     adjudication.add_argument("--output", type=Path, required=True)
@@ -288,9 +370,21 @@ def main() -> int:
     lint.add_argument("bundle", type=Path, help="One assignment, canonical document and one draft submission")
     lint.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    if args.command in {"preflight", "select"}:
+        try:
+            source, checksum = read_source_manifest(args.manifest, expected_sha256=args.expected_sha256,
+                                                    source_version=args.source_version)
+            if args.command == "preflight":
+                report = preflight(source, count=args.count, reviews=args.reviews)
+        except (OSError, ValueError) as exc:
+            print(f"Invalid annotation manifest: {exc}", file=sys.stderr)
+            return 1
+        if args.command == "preflight":
+            print(json.dumps({**report, "manifest_sha256": checksum}, sort_keys=True))
+            return int(bool(report["issues"]))
     if args.command == "select":
-        source = json.loads(args.manifest.read_text(encoding="utf-8"))
         result = select(source, count=args.count, reviews=args.reviews, seed=args.seed)
+        result["source_manifest_sha256"] = checksum
         args.output.mkdir(parents=True, exist_ok=True)
         (args.output / "assignments.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
         (args.output / "blank-templates.json").write_text(json.dumps(templates(result), indent=2) + "\n", encoding="utf-8")
