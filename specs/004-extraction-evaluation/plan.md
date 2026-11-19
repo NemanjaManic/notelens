@@ -3,7 +3,9 @@
 **Branch**: member-d/extraction-evaluation | **Original plan date**: 2026-11-10 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/004-extraction-evaluation/spec.md`.
-**Owner**: D. **Status**: D-owned implementation plan/backlog; frozen contract and generated bindings v1.0.0 are available. F-004/F-014 coordination remains open.
+**Owner**: D. **Status**: The frozen v1.0.0 contracts and generated bindings are available.
+The shared mock scaffold is [technically complete under F-004](../../docs/team/f-004-technical-completion.md).
+F-014 foundation publication remains pending.
 Constitution text remains a draft; confirmed source/user requirements are binding.
 The 2026-11-11 continuation authorized a D-owned local mock implementation. The
 2026-11-13 handoff records F-003/F-009 complete and the generated package published;
@@ -14,8 +16,8 @@ outside this package.
 
 The D-004/D-005 mock service and first D-010/D-006 evaluation slice now consume the
 published frozen bindings through D-owned adapters. Map completed local subtasks to the
-existing backlog; do not mark coordinated F-004/F-014 integration, real-data work or
-human review complete. Reuse the training checker and dependency-free evidence logic;
+existing backlog. Track F-014 publication, real-data work and human review separately
+from F-004 scaffold completion. Reuse the training checker and dependency-free evidence logic;
 do not copy or modify B-owned schemas/bindings.
 
 Actual local setup is Python 3.11.7 with extraction/eval uv locks and independent
@@ -32,7 +34,7 @@ shared schema, another service or another member's annotation paths are edited.
 
 ## Summary
 
-The owner-local key-free mock now provides evidence-linked extraction, summary and document answers against frozen v1.0.0 records, alongside an offline-first evaluator. Remaining work follows the owner backlog: coordinated F-004/F-014 acceptance, real-data inputs, independent human review and separately approved live behavior. Freeze group-separated development/final references and calibrate judges only on development material.
+The owner-local key-free mock now provides evidence-linked extraction, summary and document answers against frozen v1.0.0 records, alongside an offline-first evaluator. Remaining work includes F-014 foundation publication, real-data inputs, independent human review and separately approved live behavior. Freeze group-separated development/final references and calibrate judges only on development material.
 
 ## Technical Context
 
@@ -41,8 +43,8 @@ The owner-local key-free mock now provides evidence-linked extraction, summary a
 **Storage**: Human-reviewed permitted reference/QA/manifests and redacted aggregate reports; no submitted app document enters eval logs/caches. Service request bodies are transient.
 **Testing**: Contract/schema/semantic tests, deterministic fixtures and owner-local tests;
 live and frozen final evaluation run only under separate approved gates.
-**Target Platform**: Local Windows/PowerShell verified for workflow tooling; Node/Python
-application execution and Bash/macOS/Linux runbooks must be verified during F-004/F-005.
+**Target Platform**: F-004 verified the shared Node/Python mock scaffold on Windows.
+Startup and runbook verification follow the F-005 scope.
 **Project Type**: Monorepo workstream with explicit independent service/UI ownership.
 **Performance Goals**: No latency/throughput SLO invented. Measure actual performance on
 development data; bounded live policies require approval before activation.
@@ -58,7 +60,7 @@ Gate evaluated before research and re-evaluated after this design:
 | --- | --- |
 | English and educational MVP | PASS in design; source exclusions and notices preserved. |
 | Ownership and independent work | PASS in design; one owner per path, member annotation exceptions, no business overlap. |
-| Contract-first Python/TypeScript boundaries | PASS for the frozen v1.0.0 boundary and generated bindings; coordinated cross-service acceptance remains open. |
+| Contract-first Python/TypeScript boundaries | PASS for the frozen v1.0.0 boundary, generated bindings and F-004 technical mock scaffold checks. F-014 remains pending. |
 | Canonical text and evidence | PASS in design; one preparation step, code-point spans, semantic validation distinct. |
 | Honest uncertainty | PASS in design; no clinical probabilities, partial mixed support, no hard specialty filtering. |
 | Reproducibility and final-test protection | PASS in design; audit-driven manifests and development-only selection. |

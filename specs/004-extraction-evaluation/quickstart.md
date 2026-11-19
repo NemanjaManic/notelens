@@ -1,8 +1,9 @@
 # Quickstart Validation: Python Extraction and Shared Evaluation
 
 **Status**: D-owned key-free mock slice consumes frozen shared contracts/bindings v1.0.0.
-Coordinated F-004/F-014 acceptance and live generation remain pending. Run from the repository root. Full setup and
-limits are in [integration](../../docs/extraction-eval/integration.md).
+The shared mock scaffold is [technically complete under F-004](../../docs/team/f-004-technical-completion.md).
+F-014 foundation publication and live generation remain pending. Run from the repository
+root. Full setup and limits are in [integration](../../docs/extraction-eval/integration.md).
 
 ## Available now: local mock service and evaluation
 
@@ -39,12 +40,14 @@ Expected: FEATURE_DIR selects this feature regardless of Git branch. This checks
 not whether an application, plan/task tests or services execute successfully.
 The installed script exists and has been verified; no feature-state file is overwritten.
 
-## Coordinated foundation work still pending
+## Shared scaffold verification and foundation work
 
-F-003/F-009 are complete and their generated package is consumed by this service. B still
-coordinates F-004/F-014, cross-service startup/integration, and any F-005 work in the
-foundation backlog. The owner-local checks below already exist and run; they do not prove
-coordinated foundation acceptance:
+F-003/F-009 are complete and their generated package is consumed by this service.
+F-004 technical completion covers the shared mock scaffold and its HTTP checks.
+B verified the reconciled D package on the [integration candidate](https://github.com/NemanjaManic/notelens/commit/4c8b9be7c5bddc0979376d13b254c05f6f30e86f),
+which passed all 15 scaffold steps, including 30 shared HTTP cases. That candidate
+awaits merge. B still coordinates F-005 startup and F-014 publication. Run these
+commands for owner-local checks:
 
 ```powershell
 ./services/extraction/.venv/Scripts/python.exe -m pytest services/extraction/tests -q
