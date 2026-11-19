@@ -64,9 +64,10 @@ they are not silently assigned defaults.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T001 D-001: Draft annotation ontology, evidence rules and extraction interface proposals in `docs/extraction-eval/annotation-guide.md`, `specs/004-extraction-evaluation/contracts/**`
+- [x] T001 D-001: Draft annotation ontology, evidence rules and extraction interface proposals in `docs/extraction-eval/annotation-guide.md`, `specs/004-extraction-evaluation/contracts/**`
   - [x] Local draft guide, synthetic practice labels and interface proposals prepared; existing training command preserved and its eight negative cases made persistent tests.
-  - [ ] Remaining: team resolution of the proposed annotation/matching representation and source-support rubric; no human acceptance is inferred.
+  - [x] Draft submission lint reports malformed entity labels as field-level corrections. Tested arrays and objects in type, assertion, temporality, subject and procedure status.
+  - [x] D reported team agreement on 2026-11-19 on separate occurrences, distinct nested or overlapping concepts, one-to-one exact and relaxed matching, and the source-support rule. Recorded in the annotation guide and answer-review rubric.
   - **Owner / story**: D / US1.
   - **Dependencies**: None; may start after the approved specification, within this task's stated scope.
   - **Acceptance**: Define diagnosis/symptom/procedure, confirmed|suspected|negated, current|historical|unknown, subject, exact/relaxed repeated-mention matching, code copying only and source-support rubrics. Submit shared changes to B.

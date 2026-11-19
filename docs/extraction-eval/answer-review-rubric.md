@@ -4,8 +4,8 @@
 
 **Owner:** D
 
-**Status:** Draft for team review. It is a scoring guide and blank form, not completed
-human review, judge calibration, clinical validation or an accepted threshold.
+**Status:** D reported team agreement on the D-001 source-support rule on 2026-11-19.
+The full rubric and blank form remain in preparation for D-008 calibration.
 
 ## Review unit and blinding
 
@@ -21,6 +21,9 @@ review, keep the gold/reference labels hidden until the first score is recorded.
 
 The reviewer may inspect source passages needed to judge evidence. A citation that
 exists or an exact quote that is present is not automatically a supported claim.
+Check whether the cited evidence preserves negation, timing, subject and uncertainty.
+Use `U` and explain the missing material if the claim cannot be assessed. A claim
+that the available evidence contradicts can be assessed using the scale below.
 
 ## Rating scale
 

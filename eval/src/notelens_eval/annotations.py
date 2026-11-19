@@ -143,26 +143,30 @@ def lint_submission(assignment: dict, document: dict, submission: dict) -> dict:
         if not isinstance(entity, dict):
             issue(prefix + "_must_be_object")
             continue
-        if entity.get("type") not in {"diagnosis", "symptom", "procedure"}:
+        kind = entity.get("type")
+        valid_kind = kind in ("diagnosis", "symptom", "procedure")
+        if not valid_kind:
             issue(prefix + "_invalid_type")
         mention = entity.get("mention")
         try:
             validate_span(text, mention)
-            occurrence = (entity["type"], mention["start"], mention["end"])
+        except ValueError:
+            issue(prefix + "_invalid_mention_span")
+            mention = None
+        if mention is not None and valid_kind:
+            occurrence = (kind, mention["start"], mention["end"])
             if occurrence in seen:
                 issue(prefix + "_duplicate_occurrence")
             seen.add(occurrence)
-        except (ValueError, TypeError, KeyError):
-            issue(prefix + "_invalid_mention_span")
-            mention = None
-        if entity.get("assertion") not in {"confirmed", "suspected", "negated", "unknown"}:
-            if entity.get("assertion") is None or entity.get("assertion_unresolved"):
+        assertion = entity.get("assertion")
+        if assertion not in ("confirmed", "suspected", "negated", "unknown"):
+            if assertion is None or entity.get("assertion_unresolved"):
                 questions.append(prefix + "_assertion_unresolved")
             else:
                 issue(prefix + "_invalid_assertion")
-        if entity.get("temporality") not in {"current", "historical", "unknown"}:
+        if entity.get("temporality") not in ("current", "historical", "unknown"):
             issue(prefix + "_invalid_temporality")
-        if entity.get("subject") not in {"patient", "family", "other", "unknown"}:
+        if entity.get("subject") not in ("patient", "family", "other", "unknown"):
             issue(prefix + "_invalid_subject")
         evidence = entity.get("evidence")
         valid_evidence = []
@@ -178,8 +182,8 @@ def lint_submission(assignment: dict, document: dict, submission: dict) -> dict:
         if mention and valid_evidence and not any(span["start"] <= mention["start"] and span["end"] >= mention["end"] for span in valid_evidence):
             questions.append(prefix + "_mention_not_covered_by_evidence")
         status = entity.get("procedure_status")
-        if entity.get("type") == "procedure":
-            if status not in {"planned", "ordered", "performed", "cancelled", "hypothetical", "unknown"}:
+        if kind == "procedure":
+            if status not in ("planned", "ordered", "performed", "cancelled", "hypothetical", "unknown"):
                 issue(prefix + "_invalid_procedure_status")
         elif status is not None:
             issue(prefix + "_nonprocedure_status")

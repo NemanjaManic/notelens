@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from notelens_eval.annotations import merge, select, templates, SPECIALTIES
+from notelens_eval.annotations import lint_submission, merge, select, templates, SPECIALTIES
 from notelens_eval.metrics import entity_scores, match
 from notelens_eval.run import produce, evaluate
 
@@ -92,6 +92,21 @@ def test_selection_rejects_leakage_and_infeasible_inputs():
         select(manifest, count=40, reviews=10, seed=1)
     with pytest.raises(ValueError, match="Insufficient"):
         select({**source40(), "documents": source40()["documents"][:3]}, count=40, reviews=10, seed=1)
+
+
+@pytest.mark.parametrize("field", ["type", "assertion", "temporality", "subject", "procedure_status"])
+@pytest.mark.parametrize("invalid_value", [[], {}])
+def test_annotation_lint_reports_malformed_entity_labels(field, invalid_value):
+    bundle = json.loads((FIXTURES / "annotation-lint-synthetic-v1.json").read_text(encoding="utf-8"))
+    entity = bundle["submission"]["entities"][0]
+    if field == "procedure_status":
+        entity["type"] = "procedure"
+    entity[field] = invalid_value
+
+    report = lint_submission(bundle["assignment"], bundle["document"], bundle["submission"])
+
+    assert report["status"] == "needs_correction"
+    assert report["errors"] == [f"entity_1_invalid_{field}"]
 
 
 def test_merge_preserves_inputs_and_does_not_generate_human_review():

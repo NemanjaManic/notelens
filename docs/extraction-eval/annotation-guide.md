@@ -2,12 +2,12 @@
 
 - **Owner:** D / Milica
 - **Date:** 2026-11-11
-**Status:** D's completed proposal for team review; synthetic training examples only. No assignments,
-annotations, clinical validation, frozen references or team approval are implied.
+**Status:** D-001 mention-matching and source-support rules agreed on 2026-11-19,
+as reported by D. The training examples are synthetic. Dataset access, assignment
+freeze and final evaluation remain separate milestones.
 
-This guide is D's D-001 proposal for the four-person NoteLens team. The team must review
-and adopt the procedures before actual assignments. The frozen shared API is owned by B;
-annotation rules below do not change that API.
+This guide records the D-001 rules for the four-person NoteLens team and the procedures
+still under review. B owns the frozen shared API.
 
 ## Frozen contract mapping (2026-11-13)
 
@@ -26,12 +26,9 @@ for a processing or annotation failure. Procedure items require `procedure_statu
 items require null. Procedure state is independent of assertion, temporality, and subject.
 For example, a confirmed plan remains planned, not performed.
 
-The D-owned practice data and linter were updated to use the frozen wire values. Treat
-this guide as a D-authored annotation policy proposal and the canonical schema as the wire
-definition; review and adopt the policy before using it to train annotators.
-The matching convention for relaxed boundaries and the semantic source-support rubric
-remain proposals for the team to adopt. No team agreement, actual assignment, annotation,
-or clinical validation is implied here.
+The D-owned practice data and linter use the frozen wire values. The canonical schema
+defines the wire format. See the matching rules in section 8 and the separate list
+of open workflow decisions in section 9.
 
 ## 1. Purpose and boundaries
 
@@ -85,8 +82,8 @@ concept. Ambiguous category or boundary: record a question and ask D; do not gue
 
 The annotation unit follows the frozen `ExtractionItem`: each contiguous occurrence
 has a separate mention span. Distinct overlapping concepts may have separate records;
-do not duplicate the same concept occurrence by extending its boundary. How relaxed
-overlap scoring handles nested mentions remains a team decision.
+do not duplicate the same concept occurrence by extending its boundary. Score
+overlapping spans with the one-to-one matching rules in section 8.
 
 ## 4. Assertion, time, subject and procedure state
 
@@ -215,8 +212,9 @@ example, not an external validation that the code is clinically correct. The
 `no_inferred_icd` example deliberately has no `icd` object.
 
 For `no_supported_mentions`, the empty list reflects a complete review of one
-short synthetic sentence. It does not define how a production service reports an
-incomplete or failed extraction; that interface decision remains open with B.
+short synthetic sentence. In the frozen service response, `extraction_status` records
+`completed`, `partial`, or `failed` independently of the summary outcome. Use the
+status and contract fields to distinguish an empty completed result from missing work.
 
 ## 6. Proposed independent submission format
 
@@ -262,21 +260,28 @@ review documents** must come from the agreed development portion. Do not expose 
 final reference decisions, final examples or selection feedback. If the planned counts
 or split balance cannot be met, report the conflict to the team before assignment.
 
-## 8. Matching and evaluation proposal
+For the proposed C-002 handoff, record planned exposure before opening source text.
+Include the reviewer alias, timestamp, document and group IDs, manifest version, and
+review scope. If duplicate components merge or split before the assignment freeze,
+report the old and new group IDs, affected document IDs and splits, and the reason to D.
+Keep the entire exposed component in development and flag any overlap with the proposed
+test split for resolution before assigning affected documents.
 
-Before real scoring, D and the team must approve and freeze the matching rules and
-record versions. The following is a concrete proposal, not an accepted shared metric:
+## 8. Matching and evaluation
+
+On 2026-11-19 D reported team agreement on separate occurrences, distinct nested or
+overlapping concepts, one-to-one exact and relaxed matching, and source-support review.
+Record the evaluator and reference versions before real scoring.
 
 1. Match within the same document and entity type. Treat repeated occurrences as
    separate candidates; use mention offsets rather than name strings alone.
 2. **Exact**: both mention interval boundaries and type must match. **Relaxed**:
    same type and overlapping mention intervals, with overlap defined as a non-empty
-   intersection. Report exact and relaxed separately; the relaxed proposal may be too
-   permissive and must be reviewed on development examples before freeze.
-3. Use a maximum-cardinality one-to-one matching over eligible predicted/reference
-   pairs; use maximum total overlap to resolve cardinality ties, then a documented
-   stable offset/ID order for any remaining tie. One prediction cannot satisfy two
-   reference mentions and vice versa. Apply exact and relaxed matching independently.
+   intersection. Report exact and relaxed separately and flag development examples
+   where relaxed matching credits the wrong mention.
+3. Apply one-to-one matching independently for exact and relaxed scores. The current
+   evaluator maximizes the number of matches, then the total overlap. One prediction
+   can satisfy at most one reference mention, and vice versa.
 4. For each mode, TP is the matched pair count, FP the unmatched predictions and FN
    the unmatched references. Precision is TP/(TP+FP), recall TP/(TP+FN), and F1 is
    their harmonic mean. Report raw counts and explicitly mark undefined denominators
@@ -284,10 +289,10 @@ record versions. The following is a concrete proposal, not an accepted shared me
 5. On matched pairs, separately report assertion, temporality and subject accuracy,
    each with its evaluated-pair denominator and excluded/unresolved counts. Define
    whether the report uses exact or relaxed matches and show it explicitly.
-6. Report schema validity, exact quote/offset validity and unsupported-item rate
-   separately from entity matching. Agree how reviewers mark support and handle
-   unresolved cases and zero denominators. A supported quote must also support the
-   item's assertion, time and subject.
+6. Check schema validity and exact quotes/offsets separately from semantic support.
+   The cited evidence must support the item's assertion, timing, subject and uncertainty.
+   Use `U` and record what is missing when the available material is insufficient to
+   judge. Apply the [source-support rubric](answer-review-rubric.md) to assessable claims.
 
 No numeric substantive thresholds or actual performance measurements are chosen
 here. The separate project requirement is 100% structural and quote/offset validity on
@@ -303,10 +308,9 @@ This is an arithmetic example only, not a measurement of NoteLens.
 
 - D/team: approve definitions for unknown assertion and procedure states, including
   contradictory, missing-context and transition cases.
-- D/team: approve exact/relaxed matching rules for overlapping and nested mentions.
 - D/C: permitted source access, actual assignment IDs, split/group mapping and how
   C's development-only access will be enforced and checked.
-- D/team: review the draft matching policy, annotation format, primary/reviewer
+- D/team: review the annotation format, primary/reviewer
   workflow, adjudication and practical protection of D's own final-set exposure.
 - D/C/B: agree the versioned classification output and metric handoff. A separate
   D-to-C handoff is being prepared; B remains the owner of shared contracts.
