@@ -144,6 +144,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T006 [US3] D-003: Publish ten primary assignments per member and independent-review workflow in `eval/datasets/annotation-assignments.json`, `docs/extraction-eval/review-workflow.md`
   - [x] Pending-only templates and distinct primary/reviewer allocation implemented under D-owned paths; C remains development-only in the demonstration.
+  - [x] Synthetic rehearsal verifies separate submissions linked to the same document and assignment. The linter preserves open questions from both current and earlier templates.
   - [ ] Blocked actual assignments/publication: D-002, agreed source access and human review workflow. Synthetic allocation is not the real 40-document assignment.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T005 (D-002)

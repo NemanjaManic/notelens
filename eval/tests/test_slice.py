@@ -149,6 +149,44 @@ def test_annotation_lint_reports_malformed_entity_labels(field, invalid_value):
     assert report["errors"] == [f"entity_1_invalid_{field}"]
 
 
+def test_synthetic_annotation_workflow_keeps_submissions_independent():
+    source = json.loads((FIXTURES / "annotation-source-synthetic.json").read_bytes())
+    proposal = select(source, count=20, reviews=10, seed=20261111)
+    assignment = next(row for row in proposal["assignments"] if row["reviewer"] == "member-c")
+    source_doc = next(row for row in source["documents"] if row["doc_id"] == assignment["doc_id"])
+    document = {"doc_id": assignment["doc_id"], "text_sha256": assignment["text_sha256"],
+                "text": source_doc["canonical_text"]}
+    primary, review = [row for row in templates(proposal) if row["assignment_id"] == assignment["assignment_id"]]
+    assert primary["role"] == "primary" and review["role"] == "secondary"
+    assert review["annotator"] == "member-c" and review["portion"] == "development"
+    assert primary["annotator"] != review["annotator"]
+    assert primary["unresolved_questions"] == review["unresolved_questions"] == []
+    for submission in (primary, review):
+        assert submission["doc_id"] == document["doc_id"] and submission["text_sha256"] == document["text_sha256"]
+        submission.update(submission_id=f"synthetic-{submission['role']}", complete_document_review=True, entities=[])
+        assert lint_submission(assignment, document, submission)["status"] == "ready_for_independent_review"
+
+    saved = copy.deepcopy([primary, review])
+    pending = merge(assignment, document, [primary, review], None, synthetic=True)
+    assert pending["review_state"] == "pending_adjudication" and pending["entities"] is None
+    decision = {"adjudicator": "synthetic-fixture-only", "rationale": "Exercise the explicit decision path.",
+                "selected_submission_id": review["submission_id"]}
+    result = merge(assignment, document, [primary, review], decision, synthetic=True)
+    assert result["review_state"] == "synthetic_adjudication" and not result["human_reviewed"]
+    assert [primary, review] == saved
+
+
+def test_lint_preserves_unresolved_questions_from_previous_templates():
+    bundle = json.loads((FIXTURES / "annotation-lint-synthetic-v1.json").read_bytes())
+    bundle["submission"]["questions"] = ["Review the negation scope."]
+
+    report = lint_submission(bundle["assignment"], bundle["document"], bundle["submission"])
+
+    assert report["status"] == "needs_clarification"
+    assert report["questions"] == ["unresolved_question_1"]
+    assert "Review the negation scope" not in json.dumps(report)
+
+
 def test_merge_preserves_inputs_and_does_not_generate_human_review():
     text = "Synthetic sentence."
     document = {"doc_id": "test-doc", "text": text, "text_sha256": hashlib.sha256(text.encode()).hexdigest()}
