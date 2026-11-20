@@ -79,15 +79,15 @@ they are not silently assigned defaults.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T002 D-010: Create D's independent offline evaluation packages, fixtures and mock adapters in `eval/pyproject.toml`, `eval/uv.lock`, `eval/package.json`, `eval/package-lock.json`, `eval/providers/**`, `eval/tests/test_offline_adapter.py`
+- [x] T002 D-010: Create D's independent offline evaluation packages, fixtures and mock adapters in `eval/pyproject.toml`, `eval/uv.lock`, `eval/package.json`, `eval/package-lock.json`, `eval/providers/**`, `eval/tests/test_offline_adapter.py`
   - [x] Local eval package/environment/locks, Promptfoo HTTP provider/config and synthetic smoke implemented and exercised without paid calls. Actual tests are in `eval/tests/test_slice.py`.
   - [x] The D Promptfoo adapter uses the frozen correlation validator, checks no-store and rejects non-200, non-object and non-mock responses. Loopback tests cover malformed transport and redirect responses in `eval/tests/test_offline_adapter.py`.
   - [x] The evaluator consumes all five accepted mock business routes over loopback. The synthetic smoke checks document identity, partial answers, and literature provenance in `eval/src/notelens_eval/cross_service_smoke.py`.
-  - [ ] Remaining: coordinated F-004/F-014 scaffold acceptance and any agreed A/C adapters; the D-local adapter consumes the reviewed frozen records/bindings v1.0.0.
+  - [x] F-003 and F-004 are complete and F-014 is published. On 2026-11-20 the combined B/D inventory candidate and B-004 main passed all 97 evaluator tests, three Promptfoo cases and the five-route D evaluator smoke. The [integration record](../../docs/extraction-eval/integration.md#d-010-verification-2026-11-20) identifies the tested source and the remaining platform inventory work. Real reference-backed A/C evaluation is tracked in D-006 and later tasks.
   - **Owner / story**: D / US4.
   - **Dependencies**: 000-foundation/T004 (F-003); 000-foundation/T006 (F-004)
   - **Acceptance**: Own local eval locks without changing root lock; API adapters consume agreed records and never perform a paid call in offline/smoke mode.
-  - **Verify local slice**: `./eval/.venv/Scripts/python.exe -m pytest eval/tests/test_slice.py`; Promptfoo command is documented in integration.md.
+  - **Verify**: `./eval/.venv/Scripts/python.exe -B -m pytest eval/tests -q`, `./eval/.venv/Scripts/python.exe -B eval/smoke_http.py`, and the [three-service evaluator smoke](../../docs/extraction-eval/integration.md#three-service-evaluator-smoke).
   - **Coverage**: FR-013, FR-025, SC-004.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -187,6 +187,8 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T009 [US4] D-006: Implement shared Promptfoo API adapters and deterministic scorers in `eval/providers/**`, `eval/scorers/**`, `eval/profiles/**`, `eval/src/notelens_eval/run.py`, `eval/tests/test_metrics.py`
   - [x] Offline retrieval profile measures unique-topic Recall@5, MRR, all-required topics and independent passage evidence coverage, grouped by single/multi source (269012d).
+  - [x] Replayed A's saved vector rankings against eight proposed public development references on 2026-11-20. All proposed topics and cited passages appeared in the top five; A-QA-03 has no proposed reference topic and was excluded. The [report records that the source passage artifact was absent and proposal labels await review](../../docs/extraction-eval/retrieval-scoring.md#a-public-development-replay).
+  - [x] Reconciled A's saved development-evaluation counts. It includes three single-topic rankings and one no-reference case; the retrieved five-passage source slices are not present locally. No new ranking or independent source review is claimed.
   - [x] Offline answer-risk profile measures independently judged answer errors, coverage, answerability and rejection rates, technical errors and optional confidence threshold curves (1d48f2e).
   - [x] Synthetic prediction-file runner, actual-service Promptfoo HTTP adapter, exact/relaxed one-to-one scoring, context-label accuracy and QA state/abstention counts implemented. Unsupported semantic/risk/English-quality metrics are explicitly unavailable.
   - [x] Full 24-document/48-question loopback HTTP runner added in `eval/src/notelens_eval/http_suite.py`; local run: 72 HTTP 200 responses, 0 technical failures, all request IDs matched, and 72 schema-valid outputs. Mock scorer misses are recorded separately; local outputs are ignored under `eval/reports/local/http-suite/`.
@@ -196,7 +198,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - [x] Five additional D-local increments prepared 2026-11-12: full synthetic HTTP suite; annotation draft linter; independent submission comparison; human answer-review rubric/form draft; and reference coverage profile. See `docs/extraction-eval/independent-d-work-2026-11-12.md`. Parent remains open for A/C integration, human review and frozen records.
   - [x] Authorized 2026-11-12 local integration readiness tool checks D's draft contract bindings, demo fixtures, loopback HTTP schemas/evidence/errors/headers and reports missing cross-service gates; see `docs/extraction-eval/readiness-v1.md`.
   - [x] Follow-up negative boundary suite covers malformed JSON, invalid/oversized/non-English requests, authentication, independent document IDs versus text digests, no-source claims and document-text log/response leakage. Per-case fake misses are summarized in `docs/extraction-eval/synthetic-failure-review-v1.md`; no real-model interpretation is claimed.
-  - [ ] Remaining: complete agreed A/C adapters, corpus/reference-backed metric runs, frozen records and separately gated live profiles. Initial tests are in `eval/tests/test_slice.py`.
+  - [ ] Remaining: independently review and freeze A's development references, obtain the pinned passage artifact and agreed A/C inputs, complete answer-risk and prediction-backed classification runs, and freeze records. Live profiles remain separately gated.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T002 (D-010); 000-foundation/T014 (F-014)
   - **Acceptance**: Offline/smoke/live profiles are separate. Unit fixtures verify schema/spans, exact/relaxed entity matching, assertion/temporality, unique-topic Recall@5/MRR/all-required, evidence coverage, error-versus-rejection and risk/coverage; real providers remain off.

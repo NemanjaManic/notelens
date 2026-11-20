@@ -2,8 +2,9 @@
 
 **Status**: D-owned key-free mock slice consumes frozen shared contracts/bindings v1.0.0.
 The shared mock scaffold is [technically complete under F-004](../../docs/team/f-004-technical-completion.md).
-F-014 foundation publication and live generation remain pending. Run from the repository
-root. Full setup and limits are in [integration](../../docs/extraction-eval/integration.md).
+The reviewed [F-014 foundation is published](../../docs/team/foundation-checkpoint.md).
+Run from the repository root. Live generation requires separate approval. Full setup and
+verification evidence are in [integration](../../docs/extraction-eval/integration.md).
 
 ## Available now: local mock service and evaluation
 
@@ -25,8 +26,7 @@ In another terminal:
 ```
 
 These commands exercise synthetic/mock behavior. General real-model extraction,
-human annotations and shared foundation acceptance are not claimed. Existing future
-acceptance filenames below remain planned until parent tasks are actually completed.
+reference-based metrics and human annotations have separate acceptance criteria.
 
 ## Available now: correct feature selection
 
@@ -44,9 +44,9 @@ The installed script exists and has been verified; no feature-state file is over
 
 F-003/F-009 are complete and their generated package is consumed by this service.
 F-004 technical completion covers the shared mock scaffold and its HTTP checks.
-B verified the reconciled D package on the [integration candidate](https://github.com/NemanjaManic/notelens/commit/4c8b9be7c5bddc0979376d13b254c05f6f30e86f),
-which passed all 15 scaffold steps, including 30 shared HTTP cases. That candidate
-awaits merge. B still coordinates F-005 startup and F-014 publication. Run these
+D-010 passed its offline and mock checks on the combined B-004 and current D candidate.
+The [integration record](../../docs/extraction-eval/integration.md#d-010-verification-2026-11-20)
+identifies the tested source and B's remaining checker inventory work. Run these
 commands for owner-local checks:
 
 ```powershell

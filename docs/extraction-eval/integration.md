@@ -1,9 +1,9 @@
 # Member D local integration handoff
 
-**Updated:** 2026-11-13. **Status:** frozen-contract D mock scaffold.
-F-003/F-009 are complete. D's local service now consumes the generated Python package;
-F-004 requires B's coordinated checks and A/C/B contributions. F-014 remains open.
-No provider was activated or deployment performed.
+**Updated:** 2026-11-20. **Status:** frozen-contract D mock service and offline evaluator.
+D consumes the generated Python v1.0.0 package. F-003, F-004 and F-009 are complete.
+The [published F-014 foundation](../team/foundation-checkpoint.md) includes coordinated
+mock verification. D-010 has passed its offline and mock checks on the combined source below.
 
 ## What runs
 
@@ -124,6 +124,27 @@ request correlation, document identity and evidence, partial document answers, a
 literature provenance. Its output reports only mock outcomes. This receipt covers
 wire compatibility for the three default profiles.
 
+### D-010 verification (2026-11-20)
+
+An isolated checkout combined B's D inventory commit `a8ec9fc`, which includes
+D source `4aa9e88`, with B-004 on `main` at `a8e0b3f`. The test input had source
+fingerprint `71f23ed49519e3553a8fc64ef70a8e88e391a23e8d55e682c4cf956d030ee27f`.
+Python and Node environments were installed from the existing locks with offline caches.
+
+- All 97 evaluator tests and all three Promptfoo HTTP cases passed with synthetic inputs.
+- The evaluator smoke passed all five mock API routes. It checked request correlation,
+  prepared document identity, citation validation, partial document answers and RAG
+  provenance. All three service processes stopped and their ports closed.
+- The web build and the shared mock demo smoke passed, including all four answer routes,
+  citations and the partial mixed answer. The separate module HTTP check passed all 30
+  cases and closed all 12 processes and ports. The evaluation and service checks used
+  no model-provider calls.
+
+B's F-011 checker stopped at inventory validation before running any probes on this
+combined tree. `scripts/project/scaffold_inputs.json` still needs the accepted B-004
+platform task digest and five new browser-session paths. The D-010 checks above complete
+the offline evaluator scope. The shared checker needs a new inventory and its own run.
+
 ### Synthetic HTTP evaluation diagnostics
 
 Run `./eval/.venv/Scripts/python.exe -m notelens_eval.http_suite` to evaluate the
@@ -164,9 +185,8 @@ are disabled by the CLI, and no routine document/provider-body logs are produced
 
 ## Current results and limits
 
-The following results are from the earlier provisional adapter and have not been
-remeasured against the frozen contract. The synthetic evaluation contained one document
-and three QA cases. The fake returned
+The following entity scores are from the earlier provisional adapter. Its synthetic
+evaluation contained one document and three QA cases. The fake returned
 four of five authored reference entities: TP=4, FP=0, FN=1, precision=1.0, recall=0.8,
 F1=0.8889. This measures the fixture/catalog demonstration, not real extraction quality.
 Supported, unanswerable and partial QA state expectations passed then. Promptfoo's three
@@ -174,8 +194,8 @@ HTTP cases passed then. Semantic support, English quality beyond declarations/ca
 fixtures, unsupported-item rate, risk/coverage and real-model quality are explicitly
 unavailable with reasons. No human/clinical review or real dataset run took place.
 
-The coordinated F-004/F-014 foundation, C's permitted canonical document manifests,
-the final-set access policy and a provider/model/spending decision remain external
-dependencies. See [the concrete requests](milestone-requests.md) and
+C's permitted canonical document manifests, the final-set access policy and a
+provider/model/spending decision remain external dependencies. See
+[the concrete requests](milestone-requests.md) and
 [annotation commands](annotation-tooling.md). The full 80-QA A/B/C benchmark remains
 future work. Delivery stays 2026-11-24; the earlier phase targets are not claimed met.
