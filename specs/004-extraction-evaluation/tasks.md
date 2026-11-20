@@ -99,12 +99,12 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T003 [US1] D-004: Implement structured Python extraction and bounded semantic/span validation in `services/extraction/src/notelens_extraction/**`, `services/extraction/prompts/**`, `services/extraction/tests/test_evidence.py`, `services/extraction/tests/test_contract.py`
   - [x] Strict generated JSON validation, single-attempt live orchestration and offline OpenAI Responses adapter/HTTPS transport implemented in commits 7ccb1ba, 948bde6, 273b9ed and 3fbb67f. Trial reserves at most USD 0.10 across at most three approved requests. Extraction suite passed 83 tests after transport integration.
-  - [ ] Live trial still requires reviewed pricing, exact input bounds and shared-account authorization.
+  - [x] 2026-11-20: User reports Nemanja approved one synthetic development smoke. Published `gpt-6-luna` standard rates and per-request conservative input bounds are recorded in `docs/extraction-eval/d-004-live-trial-2026-11-20.json`; the two-call reservation is USD 0.0028227 under the USD 0.10 cap.
   - [x] Local request/schema/evidence validation, provider/config boundary, versioned prompts, bounded repair diagnostics, FastAPI/CLI and deterministic fake implemented. Checks live in `tests/test_service.py`, `tests/test_training_checker.py` and `tests/test_http_smoke.py`.
   - [x] Generated extraction and document-answer records use the frozen strict JSON validator. Duplicate keys and nonfinite numbers trigger bounded repair before evidence scoring.
   - [x] Live orchestration makes one provider attempt per request. Regression tests exercise invalid extraction and answer output without making a paid call.
   - [x] F-003, F-004 and F-014 integration is available on the published foundation. The combined B/D inventory candidate and mock integration checks are recorded under D-010 in the [integration record](../../docs/extraction-eval/integration.md#d-010-verification-2026-11-20).
-  - [ ] Remaining: live trial still needs reviewed pricing, exact input/token bounds and shared-account authorization. Semantic support beyond literal claims and narrow catalog guards remains unevaluated; no acceptance is inferred from mock checks.
+  - [ ] Remaining: live trial is not run because no server-side credential is available in this process; shared-account model access is unverified. Semantic support beyond literal claims and narrow catalog guards remains unevaluated; no acceptance is inferred from mock checks.
   - **Owner / story**: D / US1.
   - **Dependencies**: 004-extraction-evaluation/T001 (D-001); 000-foundation/T004 (F-003); 000-foundation/T006 (F-004); 000-foundation/T014 (F-014)
   - **Acceptance**: POST /v1/extract preserves canonical text/status/subject and validates exact offsets/quotes, unsupported items and source-only ICD. Bounded repair; no inferred diagnoses. Live activation requires approved provider policy.

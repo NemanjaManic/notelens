@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-20",
+  "approval": {
+    "status": "reported-approved",
+    "approver": "Nemanja",
+    "reported_by": "user",
+    "scope": "One development-only synthetic trial using the checked-in D demo document and question. No real patient data.",
+    "max_provider_calls": 2,
+    "automatic_retries": 0,
+    "aggregate_spend_cap_usd": "0.10"
+  },
+  "provider": {
+    "name": "OpenAI",
+    "model": "gpt-6-luna",
+    "pricing_tier": "standard",
+    "input_usd_per_million_tokens": "0.10",
+    "output_usd_per_million_tokens": "0.50",
+    "source": "https://developers.openai.com/api/docs/pricing",
+    "model_source": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+    "pricing_checked": "2026-11-20"
+  },
+  "request_limits": {
+    "max_output_tokens_each": 512,
+    "input_bound_method": "UTF-8 byte length of exact prepared JSON request plus 1024 tokens for request framing, keyed by the exact request SHA-256. This is a conservative local budget bound, not a provider-reported token count.",
+    "official_preflight_endpoint": "POST https://api.openai.com/v1/responses/input_tokens",
+    "official_preflight_source": "https://developers.openai.com/api/docs/guides/token-counting",
+    "official_preflight_note": "The endpoint returns the exact model input count, including request structure. It was not called because OPENAI_API_KEY is not present in the local process environment.",
+    "requests": {
+      "extract": {
+        "request_sha256": "e4b7678ef21ea8d4647e9950736a2808743ed2e5892d94b588a687c3a4df6f75",
+        "prepared_json_utf8_bytes": 11342,
+        "approved_input_token_bound": 12366
+      },
+      "answer": {
+        "request_sha256": "9d15e922752db3374643334de3e8f0b80b687b93fda37a316f6e7de1e0151136",
+        "prepared_json_utf8_bytes": 9717,
+        "approved_input_token_bound": 10741
+      }
+    },
+    "worst_case_reservation_for_both_calls_usd": "0.0028227"
+  },
+  "execution": {
+    "status": "not-run",
+    "reason": "No API credential is configured in the local process environment. No provider request was sent.",
+    "required_receipt_path": "services/extraction/.trial-receipt-2026-11-20"
+  }
+}

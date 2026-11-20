@@ -65,11 +65,21 @@ agreed server-side workflow, never secret values in chat. Then D can add the app
 SDK adapter behind the existing boundary and run an authorized development-only live
 smoke. Until then live mode fails with 503 `configuration_required`; no live call ran.
 
-### Proposed first live smoke · 2026-11-20
+### First live smoke decision - 2026-11-20
 
-D identified `gpt-6-luna` from the capstone RAG run and requested a small spend limit.
-Proposed cap: **USD 0.10 total** for one synthetic-only smoke run, with at most three
-provider requests covering extraction, summary and document QA. Disable automatic
-retries for this run. Confirm the shared-account cap, permitted input policy, model
-access and actual pricing before execution. Each request must fit the remaining cap
-using a conservative estimate for input and capped output. The run follows F-014.
+D records the user's report that Nemanja approved a development-only synthetic smoke.
+The scope is the checked-in synthetic demo, one extraction request (which includes
+the summary) and one document-answer request, at most two provider calls, no retries,
+and a USD 0.10 aggregate hard cap. The selected model is `gpt-6-luna`. OpenAI's
+published standard rates checked 2026-11-20 are USD 0.10 per million input tokens
+and USD 0.50 per million output tokens. The per-response output ceiling is 512 tokens.
+
+Exact prepared request hashes and conservative input bounds are recorded in
+[`d-004-live-trial-2026-11-20.json`](d-004-live-trial-2026-11-20.json). The bound is
+the exact serialized UTF-8 request size plus 1,024 tokens for request framing. That
+reserves at most USD 0.0028227 for both requests at the published standard rates.
+The official input-token endpoint can return an exact count including structure, but
+could not be called because no `OPENAI_API_KEY` is available in the local process.
+No provider request was sent. The live run remains unexecuted until the approved
+server-side credential is available and model/account access succeeds. The existing
+transport enforces the aggregate USD 0.10 ceiling and refuses retries. The run follows F-014.
