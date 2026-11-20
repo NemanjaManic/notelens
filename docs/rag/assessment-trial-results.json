@@ -1,0 +1,101 @@
+{
+  "record_format_version": "public-luna-assessment-run-v1",
+  "date": "2026-11-17",
+  "implementation_checkpoint_commit": "a36a05fe5b235457734aee34c38f5fd212aa70d2",
+  "scope_sha256": "d2b584c6078ff29c76a5be7c0f212de0c4dd26f6c796d1f76ead1fffc432ca5a",
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-17",
+    "scope_sha256": "d2b584c6078ff29c76a5be7c0f212de0c4dd26f6c796d1f76ead1fffc432ca5a"
+  },
+  "model": "gpt-6-luna",
+  "prompt_sha256": "137114b199d46e2698db8941345482342dbc41414254f6c430947f94b3d1a10f",
+  "parameters": {
+    "max_output_tokens": 2048,
+    "reasoning_effort": "none",
+    "timeout_seconds": 30
+  },
+  "limits": {
+    "max_input_tokens": 20000,
+    "max_generation_attempts": 3,
+    "max_usd": "0.02"
+  },
+  "prices_rechecked_on": "2026-11-17",
+  "reference_prices": {
+    "input_usd_per_million": "0.10",
+    "output_usd_per_million": "0.50",
+    "checked_on": "2026-11-16",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+  },
+  "status": "halted_after_invalid_assessment",
+  "observed_cli_exit_code": 1,
+  "error_code": "invalid_assessment",
+  "fresh_input_count_calls": 1,
+  "generation_attempts": 1,
+  "validated_assessments": 0,
+  "cases": [
+    {
+      "question_id": "CQ-01",
+      "status": "failed_validation",
+      "coverage": null,
+      "counted_input_tokens": 3571,
+      "reserved_reference_usd": "0.0013811"
+    },
+    {
+      "question_id": "CQ-02",
+      "status": "not_attempted",
+      "reason": "Batch halted after the first failure."
+    },
+    {
+      "question_id": "CQ-08",
+      "status": "not_attempted",
+      "reason": "Batch halted after the first failure."
+    }
+  ],
+  "usage_snapshot": {
+    "attempts": [
+      {
+        "confirmed_usd": "0",
+        "context_sha256": "18b58070201a02890abbe48804c0f4ddef9317a5be10ff643a896113f1fedded",
+        "counted_input_tokens": 3571,
+        "question_id": "CQ-01",
+        "reserved_usd": "0.0013811",
+        "status": "failed"
+      }
+    ],
+    "confirmed_usd": "0",
+    "format": "assessment-usage-v1",
+    "halted": true,
+    "max_usd": "0.02",
+    "reserved_usd": "0.0013811",
+    "scope_sha256": "d2b584c6078ff29c76a5be7c0f212de0c4dd26f6c796d1f76ead1fffc432ca5a"
+  },
+  "source_ledger_sha256": "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+  "actual_billed_usd": null,
+  "provider_invoice_verified": false,
+  "output_tokens_retained": false,
+  "raw_response_retained": false,
+  "limitations": [
+    "The fixed error does not identify the failed assessment field or rule; no specific quote/offset cause is inferred.",
+    "No semantic-quality conclusion can be drawn from one locally invalid assessment.",
+    "Zero confirmed_usd means no fully validated result was recorded; it does not mean the provider charged nothing.",
+    "The USD 0.0013811 reservation is a conservative reference-price reservation for the attempted request, not an invoice."
+  ],
+  "offline_halt_verification": {
+    "blocked_question_ids": [
+      "CQ-01",
+      "CQ-02",
+      "CQ-08"
+    ],
+    "provider_creations": 0,
+    "ledger_unchanged": true
+  },
+  "activation_flag_after_run": false,
+  "runtime_source_unchanged": true,
+  "offline_regression": {
+    "date": "2026-11-17",
+    "passed": 463,
+    "provider_calls": 0
+  },
+  "retry_or_resume_approved": false
+}

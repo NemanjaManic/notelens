@@ -1,0 +1,48 @@
+{
+  "format_version": "public-luna-assessment-trial-v1",
+  "prepared_on": "2026-11-16",
+  "execution_approved": true,
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-17",
+    "scope_sha256": "d2b584c6078ff29c76a5be7c0f212de0c4dd26f6c796d1f76ead1fffc432ca5a"
+  },
+  "public_english_only": true,
+  "model": "gpt-6-luna",
+  "question_ids": [
+    "CQ-01",
+    "CQ-02",
+    "CQ-08"
+  ],
+  "parameters": {
+    "max_output_tokens": 2048,
+    "reasoning_effort": "none",
+    "timeout_seconds": 30
+  },
+  "limits": {
+    "max_input_tokens": 20000,
+    "max_generation_attempts": 3,
+    "max_usd": "0.02"
+  },
+  "prices": {
+    "input_usd_per_million": "0.10",
+    "output_usd_per_million": "0.50",
+    "checked_on": "2026-11-16",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+  },
+  "prompt_sha256": "137114b199d46e2698db8941345482342dbc41414254f6c430947f94b3d1a10f",
+  "sources": {
+    "results": {
+      "path": "docs/rag/retrieval-smoke-results.json",
+      "sha256": "0255dc55a6f648bc369453853a0327b6530cbe7077d43c9f937fd62a3f99a55e"
+    },
+    "review": {
+      "path": "docs/rag/retrieval-content-review.json",
+      "sha256": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57"
+    },
+    "registry": {
+      "path": "docs/rag/retrieval-smoke-questions.json",
+      "sha256": "d22ccc30da77fbe20e3540aba71d3281c23f7377af35c1c4ec68c157786aadb6"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "format_version": "rag-public-local-flow-v1",
+  "transport": "in_process_asgi_http",
+  "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+  "real_chroma_rankings": 8,
+  "answer_replays_or_fixtures": 3,
+  "provider_calls": 0,
+  "protected_cache_and_ledger_files_unchanged": 28,
+  "unregistered_question_http_status": 422,
+  "cases": [
+    {
+      "case_id": "A-QA-01",
+      "http_mode": "mock",
+      "retrieval_state": "sufficient",
+      "evidence_state": "sufficient",
+      "answer_origin": "cached_actual_text",
+      "claims": 2,
+      "cited_topics": [
+        "34",
+        "6450"
+      ],
+      "exact_quote_references": 4
+    },
+    {
+      "case_id": "A-QA-07",
+      "http_mode": "mock",
+      "retrieval_state": "sufficient",
+      "evidence_state": "sufficient",
+      "answer_origin": "authored_fixture",
+      "claims": 2,
+      "cited_topics": [
+        "1624",
+        "179"
+      ],
+      "exact_quote_references": 3
+    },
+    {
+      "case_id": "A-QA-02",
+      "http_mode": "mock",
+      "retrieval_state": "sufficient",
+      "evidence_state": "partial",
+      "answer_origin": "authored_fixture",
+      "claims": 1,
+      "cited_topics": [
+        "3181"
+      ],
+      "exact_quote_references": 1
+    },
+    {
+      "case_id": "A-QA-03",
+      "http_mode": "mock",
+      "retrieval_state": "insufficient",
+      "evidence_state": "insufficient",
+      "answer_origin": "local_abstention",
+      "claims": 0,
+      "cited_topics": [],
+      "exact_quote_references": 0
+    }
+  ]
+}

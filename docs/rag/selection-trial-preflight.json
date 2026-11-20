@@ -1,0 +1,45 @@
+{
+  "record_format_version": "public-selection-trial-preflight-v2",
+  "date": "2026-11-17",
+  "preflight": {
+    "scope_sha256": "31a4334ed974edfb0b84a88d0a8a4b77c0ab1a38fe94834b2ce09fbc3e1b4bc7",
+    "execution_approved": false,
+    "model": "gpt-6-luna",
+    "question_id": "CQ-01",
+    "max_new_attempts": 1,
+    "prompt_version": "literature-support-selection-v2",
+    "prompt_sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+    "selection_sha256": "05f9ad8d9d5510dc0b956c50f0e5f380e9bce2b541e91043d7e11a3626e5660a",
+    "request_sha256": "80446125fd83c4f4da7af137a4a24c2bae4e77f5bef548303367d221c7d13861",
+    "parameters": {
+      "max_output_tokens": 2048,
+      "reasoning_effort": "none",
+      "timeout_seconds": 30
+    },
+    "max_input_tokens": 20000,
+    "cumulative_max_usd": "0.02",
+    "carried_reserved_usd": "0.0027622",
+    "carried_confirmed_usd": "0",
+    "maximum_new_reservation_usd": "0.003024",
+    "maximum_combined_reservation_usd": "0.0057862",
+    "prior_ledgers_verified": true,
+    "input_tokens": "Not counted; execution must obtain a fresh provider count before generation.",
+    "price_basis": "Recorded reference prices; not actual billing or a fresh price check.",
+    "provider_calls": 0
+  },
+  "checks": {
+    "both_prior_ledgers_byte_identical": true,
+    "prior_ledger_sha256": [
+      "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+      "1b04e28fdc04723930820f1d2b04d670951eea7d65e01f84badca3329de96299"
+    ],
+    "carried_amount_includes_both_prior_attempts_once": true,
+    "pending_execution_rejected": true,
+    "key_loading": 0,
+    "provider_creations": 0,
+    "provider_requests": 0,
+    "new_trial_folder_created": false,
+    "actual_env_edited": false,
+    "exact_new_input_tokens": "Not measured; fresh counting is part of separately approved execution."
+  }
+}

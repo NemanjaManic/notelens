@@ -12,9 +12,6 @@ import struct
 import sys
 from uuid import uuid4
 
-import chromadb
-from chromadb.config import Settings as ChromaSettings
-
 from .embeddings import (DIMENSIONS, MODEL, PRICE_PER_MILLION, EmbeddingError,
     OpenAIEmbedder, TokenBudget, identity, plan_corpus, read_settings)
 from .ingestion import CorpusLoadError, load_corpus, owned_file, parse_json, repository_directory
@@ -160,6 +157,9 @@ def inspect_rows(collection, corpus, *, new_vectors=None):
 
 
 def client_for(folder):
+    import chromadb
+    from chromadb.config import Settings as ChromaSettings
+
     # Explicit local persistence; no CloudClient, automatic embedding function or telemetry.
     return chromadb.PersistentClient(path=str(folder / 'chroma'),
         settings=ChromaSettings(anonymized_telemetry=False, allow_reset=False))
@@ -193,12 +193,18 @@ def index_folder(repository_root, spec):
     return owned_file(root, Path('data/knowledge/indexes') / spec['index_version'], 'data/knowledge/indexes')
 
 
-def load_index(corpus, *, repository_root, plan=None, mode='live'):
+def load_index(corpus, *, repository_root, plan=None, mode='live', expected_index_version=None):
     plan = plan if plan is not None else plan_corpus(corpus)
     spec = index_specification(plan, mode=mode)
+    if expected_index_version is not None:
+        require(spec['index_version'] == expected_index_version,
+                'The local index does not match its configured version.', 'index_not_ready')
     folder = index_folder(repository_root, spec)
     manifest = read_json(folder / 'manifest.json')
     require(manifest.get('status') == 'complete', 'The local index is not complete.', 'index_not_ready')
+    if expected_index_version is not None:
+        require((folder / 'chroma/chroma.sqlite3').is_file(),
+                'The stored Chroma database is missing.', 'index_not_ready')
     index = LocalIndex(corpus, folder, spec, manifest)
     index.verify()
     return index

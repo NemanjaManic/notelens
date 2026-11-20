@@ -1,0 +1,119 @@
+{
+  "format_version": "rag-development-handoff-v1",
+  "prepared_on": "2026-11-18",
+  "owner": "Nemanja (A)",
+  "status": "development_reference_pending_team_review",
+  "implementation_checkpoint_commit": "90546eee1516690201fa6a872a394830dd333157",
+  "service_version": "0.1.0",
+  "runtime": {
+    "python": "3.13.5",
+    "uv": "0.12.5",
+    "default_http_mode": "mock",
+    "shared_contract_version": "1.0.0"
+  },
+  "corpus": {
+    "version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+    "snapshot_date": "2026-11-10",
+    "topics": 401,
+    "passages": 617
+  },
+  "retrieval": {
+    "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+    "embedding_space_version": "195ba2152af050b63822f4ff83370df9f917378a461a1e4a440b244865ea5905",
+    "embedding_model": "text-embedding-3-small",
+    "embedding_dimensions": 1536,
+    "store": {
+      "name": "chroma",
+      "version": "1.5.9",
+      "distance": "cosine"
+    },
+    "development_retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+    "top_k": 5,
+    "basis": "The vector baseline and hybrid were tied on the ten cached public development questions."
+  },
+  "responses": {
+    "development_model": "gpt-6-luna",
+    "prompts": {
+      "question_decomposition": {
+        "version": "literature-question-parts-v1",
+        "file": "services/rag/src/notelens_rag/prompts/question-parts-v1.txt",
+        "sha256": "087ce7f264c7d65a04c2962e794a8a02e3e95bd1737b6bafb2ac9278138cb47d",
+        "verification": "simulated_sdk"
+      },
+      "support_selection": {
+        "version": "literature-support-selection-v2",
+        "file": "services/rag/src/notelens_rag/prompts/support-selection-v2.txt",
+        "sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+        "verification": "three_saved_public_probes"
+      },
+      "literature_composition": {
+        "version": "literature-answer-v1",
+        "file": "services/rag/src/notelens_rag/prompts/literature-answer-v1.txt",
+        "sha256": "fa385fcdfbad8ee3dd6b867122bf93ad18f7e18989da0b9fa148c26f064aba48",
+        "verification": "simulated_sdk"
+      }
+    },
+    "composition_version": "rag-cited-claims-v1"
+  },
+  "development_questions": {
+    "cached_registry_identity": "686f74530f9ab77a2e686fb6956bc4dccac81b2c1285ee7569c4407470e810f5",
+    "cached_registry_count": 10,
+    "qa_proposal_version": "member-a-literature-qa-proposals-v1",
+    "qa_proposal_count": 9,
+    "final_question_set_version": null
+  },
+  "historical_authorized_trials": {
+    "corpus_embeddings": {
+      "budget_usd": "0.10",
+      "batch_size_max": 32,
+      "timeout_seconds": 30,
+      "automatic_retries": 0
+    },
+    "development_query_embeddings": {
+      "budget_usd": "0.01",
+      "max_new_questions": 10,
+      "timeout_seconds": 30,
+      "automatic_retries": 0
+    },
+    "development_support_assessments": {
+      "cumulative_budget_usd": "0.02",
+      "reserved_reference_usd": "0.0087813",
+      "max_input_tokens": 20000,
+      "max_output_tokens": 2048,
+      "reasoning_effort": "none",
+      "timeout_seconds": 30,
+      "automatic_retries": 0
+    },
+    "operating_policy": "Historical public trial limits do not authorize new development runs or live service usage."
+  },
+  "final_freeze": {
+    "status": "pending",
+    "selected_configuration": null,
+    "final_run": "not_run",
+    "reason": "Adjudicated QA, multi-topic retrieval and independent answer review are pending. Team confirmation is required for application integration."
+  },
+  "verification": {
+    "full_clean_git_export_tests_passed": 750,
+    "saved_evaluation_reproduced": true,
+    "local_index_passages_verified": 617,
+    "provider_calls": 0
+  },
+  "file_sha256": {
+    "services/rag/src/notelens_rag/prompts/question-parts-v1.txt": "087ce7f264c7d65a04c2962e794a8a02e3e95bd1737b6bafb2ac9278138cb47d",
+    "services/rag/src/notelens_rag/prompts/support-selection-v2.txt": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+    "services/rag/src/notelens_rag/prompts/literature-answer-v1.txt": "fa385fcdfbad8ee3dd6b867122bf93ad18f7e18989da0b9fa148c26f064aba48",
+    "contracts/v1/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "contracts/v1/openapi.json": "e83ddda18a03040e4092e5f1113dbb82d296471c30acc105928f6bd8114143af",
+    "contracts/generated/manifest.json": "a46f3cd3de95a6fcad80867560d5c1606e69822c0dfa962810e9cea5e0e9c169",
+    "services/rag/uv.lock": "edb942e46f5dde9b6b130007527ac98e674e07477384cee840e517d236712107",
+    "data/knowledge/manifests/passages.json": "6afe940765c8e4844278b65843f4d780440c99dfe3a09a5b8c2a1af239b803aa",
+    "data/knowledge/manifests/index-build.json": "14f3f498c693a41c14f4af457ad25d018a1ffd651b3089d93b7b3294dd32deb9",
+    "docs/rag/retrieval-smoke-questions.json": "d22ccc30da77fbe20e3540aba71d3281c23f7377af35c1c4ec68c157786aadb6",
+    "docs/rag/retrieval-smoke-results.json": "0255dc55a6f648bc369453853a0327b6530cbe7077d43c9f937fd62a3f99a55e",
+    "docs/rag/selection-trial-results.json": "f06a0fd36e5cb71004bc815255c8591c7043945d6f2d47bf36e6b717c298c31d",
+    "docs/rag/coverage-trial-results.json": "ec90cee36ed99b70387884c5b673747335eca280b7db2db46ca5204692205c39",
+    "docs/rag/qa-proposals.json": "737a85f41733b6fddc7822ed83f84b2487e83f278a0ecf602c93ed450cd007db",
+    "docs/rag/experiments/hybrid-comparison.json": "67d1847d80754708156149a55ba6982113fdf88ca15c5f2ca12dab6af72acab0",
+    "docs/rag/evaluation/saved-development-evaluation.json": "69a61b4609f6d1aa7c6b75598b02bb99277e2e3c869f4500a61ff1c99d858ffa"
+  }
+}

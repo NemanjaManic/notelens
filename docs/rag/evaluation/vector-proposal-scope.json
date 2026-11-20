@@ -1,0 +1,25 @@
+{
+  "format_version": "rag-qa-vector-trial-v1",
+  "execution_approved": false,
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-18",
+    "scope_sha256": "7e62e6321fc26f2a603371878d5cec8e0086b7100b74e521dfd7cec75c373647"
+  },
+  "question_ids": ["A-QA-05", "A-QA-06", "A-QA-07", "A-QA-08", "A-QA-09"],
+  "proposal_sha256": "737a85f41733b6fddc7822ed83f84b2487e83f278a0ecf602c93ed450cd007db",
+  "prior_registry_sha256": "d22ccc30da77fbe20e3540aba71d3281c23f7377af35c1c4ec68c157786aadb6",
+  "prior_query_ledger_sha256": "6fd1a8081d8724d1ede22136b81fe35e5bb8e24e3bc8ca4c3ebd4d36e65a671c",
+  "embedding_space_version": "195ba2152af050b63822f4ff83370df9f917378a461a1e4a440b244865ea5905",
+  "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+  "model": "text-embedding-3-small",
+  "dimensions": 1536,
+  "input_tokens": 83,
+  "max_usd": "0.00001",
+  "timeout_seconds": 30,
+  "max_attempts_per_question": 1,
+  "automatic_retries": 0,
+  "reference_usd_per_million_tokens": "0.02",
+  "price_checked_on": "2026-11-18",
+  "price_source": "https://developers.openai.com/api/docs/models/text-embedding-3-small"
+}

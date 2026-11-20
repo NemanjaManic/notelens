@@ -1,0 +1,19 @@
+{
+  "format_version": "public-luna-assessment-retry-v1",
+  "prepared_on": "2026-11-17",
+  "execution_approved": true,
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-17",
+    "scope_sha256": "13139aecb51365d4aa0fb2945320fd637541222abe8469a6f455807683708964"
+  },
+  "question_id": "CQ-01",
+  "max_new_attempts": 1,
+  "cumulative_max_usd": "0.02",
+  "prior_trial": {
+    "scope_sha256": "d2b584c6078ff29c76a5be7c0f212de0c4dd26f6c796d1f76ead1fffc432ca5a",
+    "ledger_sha256": "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+    "reserved_usd": "0.0013811",
+    "confirmed_usd": "0"
+  }
+}

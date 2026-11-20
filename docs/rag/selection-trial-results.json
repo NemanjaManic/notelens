@@ -1,0 +1,154 @@
+{
+  "record_format_version": "public-selection-trial-run-v2",
+  "date": "2026-11-18",
+  "implementation_checkpoint_commit": "eaa77b472afab16e22873e5f5826c22c64e70c90",
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-18",
+    "scope_sha256": "31a4334ed974edfb0b84a88d0a8a4b77c0ab1a38fe94834b2ce09fbc3e1b4bc7"
+  },
+  "scope_sha256": "31a4334ed974edfb0b84a88d0a8a4b77c0ab1a38fe94834b2ce09fbc3e1b4bc7",
+  "request_sha256": "80446125fd83c4f4da7af137a4a24c2bae4e77f5bef548303367d221c7d13861",
+  "prompt_version": "literature-support-selection-v2",
+  "prompt_sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+  "selection_sha256": "05f9ad8d9d5510dc0b956c50f0e5f380e9bce2b541e91043d7e11a3626e5660a",
+  "configuration_version": "7d889d5461f08eb549d6f9a460dc956b32dc799ad2dc8fc43acf77d705e35e0f",
+  "model": "gpt-6-luna",
+  "mode": "live",
+  "question_id": "CQ-01",
+  "candidate_source": "Saved public retrieval snapshot; no new query embedding or vector search during this probe.",
+  "question": "What is the difference between systolic and diastolic blood pressure?",
+  "status": "validated_full_coverage",
+  "observed_cli_exit_code": 0,
+  "fresh_input_count_calls": 1,
+  "generation_attempts": 1,
+  "automatic_retries": 0,
+  "validated_assessments": 1,
+  "parameters": {
+    "max_output_tokens": 2048,
+    "reasoning_effort": "none",
+    "timeout_seconds": 30
+  },
+  "max_input_tokens": 20000,
+  "cumulative_max_usd": "0.02",
+  "input_tokens": 11029,
+  "output_tokens": 204,
+  "total_tokens": 11233,
+  "count_matches_reported_input_usage": true,
+  "coverage": "full",
+  "supported_requirement_ids": [
+    "part-1",
+    "part-2"
+  ],
+  "missing_requirement_ids": [],
+  "parts": [
+    {
+      "requirement_id": "part-1",
+      "description": "Meaning of systolic pressure",
+      "model_status": "supported",
+      "evidence": [
+        {
+          "evidence_id": "e2",
+          "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+          "topic_id": "34",
+          "title": "High Blood Pressure",
+          "url": "https://medlineplus.gov/highbloodpressure.html",
+          "start": 25,
+          "end": 384,
+          "quote_sha256": "1c50c77d67378dda8a1735ce06149403c7c18fdec71e848c60e6c77fe992edde"
+        },
+        {
+          "evidence_id": "e28",
+          "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+          "topic_id": "6450",
+          "title": "How to Prevent High Blood Pressure",
+          "url": "https://medlineplus.gov/howtopreventhighbloodpressure.html",
+          "start": 784,
+          "end": 894,
+          "quote_sha256": "b776c4805f0c9a7cccf7e738238e99c16456353062ed9f54fb4c4b450f44e50c"
+        }
+      ]
+    },
+    {
+      "requirement_id": "part-2",
+      "description": "Meaning of diastolic pressure",
+      "model_status": "supported",
+      "evidence": [
+        {
+          "evidence_id": "e2",
+          "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+          "topic_id": "34",
+          "title": "High Blood Pressure",
+          "url": "https://medlineplus.gov/highbloodpressure.html",
+          "start": 25,
+          "end": 384,
+          "quote_sha256": "1c50c77d67378dda8a1735ce06149403c7c18fdec71e848c60e6c77fe992edde"
+        },
+        {
+          "evidence_id": "e29",
+          "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+          "topic_id": "6450",
+          "title": "How to Prevent High Blood Pressure",
+          "url": "https://medlineplus.gov/howtopreventhighbloodpressure.html",
+          "start": 895,
+          "end": 1024,
+          "quote_sha256": "de7494418bedc412b27e461bf89f292cc5be71717a703897c32ebae5f4d836c2"
+        }
+      ]
+    }
+  ],
+  "evidence_references": 4,
+  "unique_evidence_spans": 3,
+  "all_quotes_exact": true,
+  "evidence_ids_reconstructed_from_verified_catalog": true,
+  "agent_review": {
+    "reviewer": "Codex agent, not independent team or clinical acceptance",
+    "date": "2026-11-18",
+    "alignment": "Selected text explicitly describes systolic pressure during heartbeats and diastolic pressure between beats.",
+    "scope": "This one public development question and its four selected evidence references only."
+  },
+  "semantic_support_independently_verified": false,
+  "wire_mapping_applied": false,
+  "new_confirmed_reference_usd": "0.0012049",
+  "new_reserved_reference_usd": "0.0021269",
+  "cumulative_reserved_reference_usd": "0.0048891",
+  "cumulative_confirmed_reference_usd": "0.0012049",
+  "billing_note": "Reference-price calculation from reported usage; actual invoice, cache pricing and earlier failed-request charges were not inspected.",
+  "prices_rechecked_on": "2026-11-18",
+  "reference_prices": {
+    "input_usd_per_million": "0.10",
+    "output_usd_per_million": "0.50",
+    "checked_on": "2026-11-16",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+  },
+  "raw_provider_response_retained": false,
+  "validated_public_result_cache_sha256": "38250279260c53fb1970f21dbd2d2bb317385e3abab423f1b22a3555426c68e6",
+  "cache_reuse_verification": {
+    "cache_hit": true,
+    "provider_creations": 0,
+    "key_loading": 0,
+    "all_three_ledgers_byte_identical": true,
+    "validated_cache_byte_identical": true,
+    "ledger_sha256": [
+      "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+      "1b04e28fdc04723930820f1d2b04d670951eea7d65e01f84badca3329de96299",
+      "290d674c3b61e13e8b2c924349dfa0893224c75be79c6f39a927f86f32b613ca"
+    ],
+    "active_locks": 0
+  },
+  "other_questions_attempted": [],
+  "activation_enabled_after_run": false,
+  "actual_env_edited": false,
+  "runtime_source_changed_for_execution": false,
+  "offline_regression_before_execution": {
+    "passed": 623,
+    "seconds": 18.57,
+    "provider_calls": 0
+  },
+  "limitations": [
+    "One public development probe is not a general semantic-quality or clinical benchmark.",
+    "V2 partial and missing-evidence cases have not been run against the provider.",
+    "No final literature answer, real shared HTTP route or A-004/A-009 completion is claimed.",
+    "No additional generation or other-question scope is approved."
+  ]
+}

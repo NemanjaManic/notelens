@@ -1,0 +1,100 @@
+{
+  "registry_version": "public-corpus-smoke-questions-v1",
+  "language": "en",
+  "public_development_only": true,
+  "review_status": "Prior coding-agent corpus review; not human gold labels or a frozen final benchmark.",
+  "source_document": "docs/rag/corpus-quality-review.md",
+  "source_document_sha256": "cdee314f0ebe32b464e7bfee4e1cfdae8755ef26418055e84db0bd589008003b",
+  "cases": [
+    {
+      "question_id": "CQ-01",
+      "question": "What is the difference between systolic and diastolic blood pressure?",
+      "specialty": "Cardiovascular / Pulmonary",
+      "context_topic_ids": [
+        "34"
+      ],
+      "prior_agent_support_assessment": "fully_supported"
+    },
+    {
+      "question_id": "CQ-02",
+      "question": "What causes COVID-19, and how long can an infected person transmit it to others?",
+      "specialty": "Cardiovascular / Pulmonary",
+      "context_topic_ids": [
+        "3181"
+      ],
+      "prior_agent_support_assessment": "partially_supported"
+    },
+    {
+      "question_id": "CQ-03",
+      "question": "What is carpal tunnel syndrome, and which nerve is affected?",
+      "specialty": "Orthopedic",
+      "context_topic_ids": [
+        "179"
+      ],
+      "prior_agent_support_assessment": "fully_supported"
+    },
+    {
+      "question_id": "CQ-04",
+      "question": "What is the difference between a sprain and a strain?",
+      "specialty": "Orthopedic",
+      "context_topic_ids": [
+        "417"
+      ],
+      "prior_agent_support_assessment": "fully_supported"
+    },
+    {
+      "question_id": "CQ-05",
+      "question": "What is jaundice, and what causes its yellow color?",
+      "specialty": "Gastroenterology",
+      "context_topic_ids": [
+        "4452"
+      ],
+      "prior_agent_support_assessment": "fully_supported"
+    },
+    {
+      "question_id": "CQ-06",
+      "question": "What are some causes and symptoms of intestinal obstruction?",
+      "specialty": "Gastroenterology",
+      "context_topic_ids": [
+        "5275"
+      ],
+      "prior_agent_support_assessment": "fully_supported"
+    },
+    {
+      "question_id": "CQ-07",
+      "question": "What is an acoustic neuroma, and which early symptoms are described?",
+      "specialty": "Neurology",
+      "context_topic_ids": [
+        "1624"
+      ],
+      "prior_agent_support_assessment": "fully_supported"
+    },
+    {
+      "question_id": "CQ-08",
+      "question": "What was the incidence of trigeminal neuralgia in Serbia in 2025, in new cases per 100,000 people?",
+      "specialty": "Neurology",
+      "context_topic_ids": [
+        "2729"
+      ],
+      "prior_agent_support_assessment": "missing_in_reviewed_evidence"
+    },
+    {
+      "question_id": "CQ-09",
+      "question": "What symptoms can occur with a urinary tract infection?",
+      "specialty": "Urology",
+      "context_topic_ids": [
+        "448"
+      ],
+      "prior_agent_support_assessment": "fully_supported"
+    },
+    {
+      "question_id": "CQ-10",
+      "question": "Does a high PSA blood test result alone confirm prostate cancer?",
+      "specialty": "Urology",
+      "context_topic_ids": [
+        "112"
+      ],
+      "prior_agent_support_assessment": "fully_supported"
+    }
+  ]
+}
