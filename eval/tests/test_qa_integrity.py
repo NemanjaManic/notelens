@@ -5,7 +5,7 @@ import json
 
 import pytest
 
-from notelens_eval.qa_inventory import ROOT, digest, inventory
+from notelens_eval.qa_inventory import ROOT, digest, inventory, validate_development_manifest
 
 
 def load_inputs():
@@ -46,3 +46,18 @@ def test_optional_artifact_checks_code_points_and_hash():
     passage["text"] = "\U0001f9ea DEF"
     with pytest.raises(ValueError, match="slice mismatch"):
         inventory(proposals, manifest, passages)
+
+
+def test_development_review_pins_excerpts_and_keeps_overlap_together():
+    review = json.loads((ROOT / "eval/datasets/qa/development-candidates-v1.json").read_bytes())
+    proposal, corpus = ((ROOT / name).read_bytes() for name in (
+        "docs/rag/qa-proposals.json", "data/knowledge/manifests/passages.json",
+    ))
+    validate_development_manifest(review, proposal, corpus)
+    broken = copy.deepcopy(review)
+    next(row for row in broken["cases"] if row["id"] == "A-QA-07")["split_group"] = "A-QA-07"
+    with pytest.raises(ValueError, match="same development split group"):
+        validate_development_manifest(broken, proposal, corpus)
+    review["cases"][0]["parts"][0]["verified_evidence"][0]["quote_sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="differs from its proposed citation"):
+        validate_development_manifest(review, proposal, corpus)

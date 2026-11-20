@@ -93,12 +93,77 @@ def inventory(proposal: dict, manifest: dict, passages: dict | None = None) -> d
     }
 
 
+def validate_development_manifest(development: dict, proposal_raw: bytes, corpus_raw: bytes) -> None:
+    proposal, corpus = json.loads(proposal_raw), json.loads(corpus_raw)
+    report = inventory(proposal, corpus)
+    inputs = development["inputs"]
+    if (development["partition"], development["corpus_version"], inputs["proposal"]["sha256"],
+        inputs["corpus_manifest"]["sha256"], inputs["pinned_passage_artifact_sha256"]) != (
+        report["partition"], report["corpus_version"], digest(proposal_raw), digest(corpus_raw),
+        corpus["artifact"]["sha256"],
+    ):
+        raise ValueError("Development manifest differs from the pinned proposal or corpus.")
+    rows = {row["id"]: row for row in development["cases"]}
+    if len(rows) != len(development["cases"]) or rows.keys() != {case["id"] for case in proposal["cases"]}:
+        raise ValueError("Development manifest must cover each proposal exactly once.")
+    overlap = report["shared_passage_case_pairs"]
+    if (development["shared_passage_case_pairs"] != [list(pair) for pair in overlap]
+            or any(rows[left]["split_group"] != rows[right]["split_group"] for left, right in overlap)
+            or any(row["split_group"] not in rows for row in rows.values())):
+        raise ValueError("Shared passages must stay in the same development split group.")
+    packets = development["review_packets"]
+    if not packets or any(not HASH.fullmatch(packet["sha256"]) for packet in packets.values()):
+        raise ValueError("Review packets require SHA-256 values.")
+    outcomes = Counter()
+    verified_count = 0
+    for case in proposal["cases"]:
+        row = rows[case["id"]]
+        for field in ("answerability", "source_shape", "required_topic_ids"):
+            proposal_field = f"proposed_{field}" if field == "required_topic_ids" else field
+            if row[f"proposed_{field}"] != case[proposal_field]:
+                raise ValueError("Development manifest changed an owner proposal label.")
+        if len(row["parts"]) != len(case["parts"]):
+            raise ValueError("Each proposal part requires one review row.")
+        for index, (part, review) in enumerate(zip(case["parts"], row["parts"], strict=True), 1):
+            evidence = {number: ref["quote_sha256"] for number, ref in enumerate(part["evidence"], 1)}
+            verified = review["verified_evidence"]
+            seen = {ref["evidence_index"] for ref in verified}
+            if review["part"] != index or len(seen) != len(verified) or not seen <= evidence.keys() or any(
+                evidence.get(ref["evidence_index"]) != ref["quote_sha256"] or ref["packet"] not in packets
+                for ref in verified
+            ):
+                raise ValueError("A reviewed excerpt differs from its proposed citation.")
+            allowed = (("gap_in_supplied_top_five",) if not evidence else
+                       ("supported_in_available_excerpt", "insufficient_in_available_excerpt")
+                       if seen == evidence.keys() else ("pending_exact_excerpt",))
+            outcome = review["outcome"]
+            if outcome not in allowed or not review["note"].strip():
+                raise ValueError("A development part has inconsistent review coverage.")
+            outcomes[outcome] += 1
+            verified_count += len(seen)
+    if development["counts"] != {
+        "cases": len(rows), "proposed_evidence_references": report["evidence_references"],
+        "verified_excerpt_references": verified_count, "verified_from_full_passage_artifact": 0,
+        "by_part_review_outcome": outcomes,
+    }:
+        raise ValueError("Development manifest counts differ from the review rows.")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--passages", type=Path, help="Optional pinned A passage JSONL artifact.")
+    parser.add_argument("--development-manifest", type=Path, help="Check D's excerpt review against the proposal.")
     args = parser.parse_args()
-    proposal = json.loads((ROOT / "docs/rag/qa-proposals.json").read_text(encoding="utf-8"))
-    manifest = json.loads((ROOT / "data/knowledge/manifests/passages.json").read_text(encoding="utf-8"))
+    proposal_raw = (ROOT / "docs/rag/qa-proposals.json").read_bytes()
+    corpus_raw = (ROOT / "data/knowledge/manifests/passages.json").read_bytes()
+    proposal, manifest = json.loads(proposal_raw), json.loads(corpus_raw)
+    development = None
+    if args.development_manifest:
+        try:
+            development = json.loads(args.development_manifest.read_bytes())
+            validate_development_manifest(development, proposal_raw, corpus_raw)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            parser.error(str(exc))
     passages = None
     if args.passages:
         raw = args.passages.read_bytes()
@@ -108,7 +173,10 @@ def main() -> None:
         passages = {row["passage_id"]: row for row in rows}
         if len(rows) != len(passages):
             parser.error("Duplicate passage artifact IDs.")
-    print(json.dumps(inventory(proposal, manifest, passages), indent=2))
+    report = inventory(proposal, manifest, passages)
+    if development is not None:
+        report["excerpt_review"] = development["counts"]
+    print(json.dumps(report, indent=2))
 
 
 if __name__ == "__main__":

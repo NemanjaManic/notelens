@@ -2,6 +2,9 @@
 
 Date: 2026-11-12. Source: local run of `d-extraction-qa-synthetic-v2` using the unchanged deterministic mock catalog.
 
+For the 2026-11-21 loopback rerun and its per-answer findings, see the
+[current failure review](synthetic-failure-review-v2.md).
+
 This is a regression review of authored synthetic cases. It does not describe clinical risk or general model performance. Multiple records can occur for one case when extraction and QA both miss expected behavior. Full expected/actual values are in the ignored local `eval/reports/local/synthetic-v3/report.md`.
 
 Reference cases: 24; questions: 48; unique source mentions: 29; invalid/technical output errors: 0.

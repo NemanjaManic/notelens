@@ -64,3 +64,61 @@ The checker compares SHA-256 against the exact file bytes, including whitespace.
 The report records the number of checked artifacts. Keep restricted outputs in
 their approved restricted location. Artifact matching establishes output identity;
 human authorship and semantic review still require reviewer confirmation.
+
+## Synthetic rubric practice (2026-11-21)
+
+One agent applied `d-answer-review-rubric-v1` to seven retained mock HTTP answers
+and one injected operational failure. The [practice records](../../eval/reviews/d008-synthetic-practice-v1.json)
+include each document digest, response digest, scores and a reason for every
+dimension rated below 2 or marked `U`. All practice records declare
+`human_reviewed=false` and `independent_review=false`. This exercise used zero
+provider calls and provides no inter-reviewer agreement measurement.
+
+| Practice case | Outcome | Scoring finding |
+| --- | --- | --- |
+| Complete answer | Answer | All seven dimensions meet. |
+| Correct partial answer | Partial answer | All seven dimensions meet. The question's missing age is named and the available finding is cited. |
+| Correct abstention | Abstain | Evidence gaps score 2. Source support, required facts and context are `U` because there is no applicable fact to score. |
+| Generic refusal on an unanswerable question | Abstain | Evidence gaps score 1 because the reply leaves the requested diagnosis gap unnamed. |
+| False refusal on an answerable question | Abstain | Required facts and evidence gaps score 0. The response action still records what happened. |
+| Incomplete answer marked sufficient | Answer | Source support scores 2 for the emitted claim. Required facts and evidence gaps score 0 because a relevant fact was omitted. |
+| One side of a contradiction marked sufficient | Answer | Source support scores 2 for the retained quote. Required facts, context and evidence gaps score 0. Severity is flagged for adjudication. |
+| Injected HTTP 503 on an unanswerable question | Operational error | The correlated `provider_unavailable` envelope carries no quality scores and earns no rejection credit. |
+
+### Proposed scoring clarifications
+
+- Score required facts against the in-scope evidence available to answer the
+  question. A correct partial answer can earn full marks if it covers all
+  available required facts and names the unavailable part.
+- Use `U` for claim support and factual context when an abstention emits no
+  factual claim. Use `U` for required facts when no requested fact is available.
+  Use 0 for required facts when an abstention omits available evidence. Score
+  the explanation of the abstention under evidence gaps.
+- Treat a generic refusal with no unsupported claim as an abstention. Use
+  evidence-gaps score 1 when the source lacks the requested fact and the reply
+  gives a vague limitation. Use 0 when the refusal hides available evidence or
+  a sufficient answer conceals a material omission. The literal gap-phrase
+  check remains a separate diagnostic.
+- Assess the support for each emitted claim on its own citation. Assess material
+  omissions and unresolved contradictions under required facts and context. The
+  severity boundary for a one-sided sufficient response remains for adjudication.
+- Keep operational failures in their own outcome. Leave all dimensions null
+  and retain the correlated error code and run ID.
+
+### Verification
+
+The seven successful responses come from the [21 November HTTP rerun](synthetic-failure-review-v2.md).
+The response hashes use the parsed `AnswerResult` in UTF-8 JSON with sorted keys,
+compact separators, Unicode preserved and one terminal LF. The injected fault
+uses SHA-256 of the exact HTTP error body. The single fixed request ID is
+recorded in its practice row.
+
+```powershell
+./eval/.venv/Scripts/python.exe -m notelens_eval.answer_review `
+  eval/reviews/d008-synthetic-practice-v1.json
+```
+
+The checker reports seven `incomplete` agent practice records, one operational
+failure, zero invalid records and zero completed human reviews. The agent scores
+are excluded from the human-review denominator. The proposed scoring guidance
+awaits independent review before any rubric version or acceptance decision changes.

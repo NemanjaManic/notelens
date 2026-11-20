@@ -1,0 +1,285 @@
+{
+  "version": "d-public-qa-development-candidates-v1",
+  "reviewed_on": "2026-11-21",
+  "partition": "development_candidate",
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "review_kind": "non-blinded agent review of available excerpts and scoped rankings",
+  "inputs": {
+    "proposal": {
+      "path": "docs/rag/qa-proposals.json",
+      "sha256": "737a85f41733b6fddc7822ed83f84b2487e83f278a0ecf602c93ed450cd007db"
+    },
+    "corpus_manifest": {
+      "path": "data/knowledge/manifests/passages.json",
+      "sha256": "6afe940765c8e4844278b65843f4d780440c99dfe3a09a5b8c2a1af239b803aa"
+    },
+    "pinned_passage_artifact_sha256": "4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938"
+  },
+  "review_packets": {
+    "five_answer_packet": {
+      "name": "rag-five-answer-review-for-d.md",
+      "sha256": "8f9bccce553a3a730d1074d35b2b1be44da42c573195cd271eccd836ce7d7250",
+      "scope": "Supplied excerpts with passage IDs and code-point ranges"
+    },
+    "top_five_packet": {
+      "name": "a004-evidence-review-for-d-2026-11-20.md",
+      "sha256": "9229038a6812eb28eb3b53572916c46d22fe2f144e77ff326efcd435ba84da95",
+      "scope": "Ten supplied full passages and hashes, five per case for A-QA-02 and A-QA-03"
+    },
+    "retrieval_content_review": {
+      "name": "docs/rag/retrieval-content-review.json",
+      "sha256": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57",
+      "scope": "Committed review excerpts with passage coordinates"
+    }
+  },
+  "counts": {
+    "cases": 9,
+    "proposed_evidence_references": 12,
+    "verified_excerpt_references": 9,
+    "verified_from_full_passage_artifact": 0,
+    "by_part_review_outcome": {
+      "supported_in_available_excerpt": 8,
+      "gap_in_supplied_top_five": 2,
+      "pending_exact_excerpt": 3
+    }
+  },
+  "shared_passage_case_pairs": [
+    [
+      "A-QA-05",
+      "A-QA-07"
+    ]
+  ],
+  "cases": [
+    {
+      "id": "A-QA-01",
+      "split_group": "A-QA-01",
+      "proposed_answerability": "full",
+      "proposed_source_shape": "single_topic",
+      "proposed_required_topic_ids": [
+        "34"
+      ],
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_in_available_excerpt",
+          "verified_evidence": [
+            {
+              "evidence_index": 1,
+              "quote_sha256": "77cfb09f866f8e5477259eb28b059549d95f4a9a61298411f817dd1c5adbc5f3",
+              "packet": "five_answer_packet"
+            }
+          ],
+          "note": "The excerpt defines both pressures in relation to the heartbeat."
+        }
+      ]
+    },
+    {
+      "id": "A-QA-02",
+      "split_group": "A-QA-02",
+      "proposed_answerability": "partial",
+      "proposed_source_shape": "single_topic",
+      "proposed_required_topic_ids": [
+        "3181"
+      ],
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_in_available_excerpt",
+          "verified_evidence": [
+            {
+              "evidence_index": 1,
+              "quote_sha256": "e8fc5e6c00c5e87546faeeae19715fa789329e7fbdd2a7468eb5830e9cda47dc",
+              "packet": "top_five_packet"
+            }
+          ],
+          "note": "The exact cause excerpt supports this part."
+        },
+        {
+          "part": 2,
+          "outcome": "gap_in_supplied_top_five",
+          "verified_evidence": [],
+          "note": "The five supplied passages give no COVID-19 transmission duration. Durations in two passages concern other infections."
+        }
+      ]
+    },
+    {
+      "id": "A-QA-03",
+      "split_group": "A-QA-03",
+      "proposed_answerability": "none",
+      "proposed_source_shape": "no_supported_topic",
+      "proposed_required_topic_ids": [],
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "gap_in_supplied_top_five",
+          "verified_evidence": [],
+          "note": "The five supplied passages give no Serbia-specific 2025 incidence rate in the requested unit."
+        }
+      ]
+    },
+    {
+      "id": "A-QA-04",
+      "split_group": "A-QA-04",
+      "proposed_answerability": "full",
+      "proposed_source_shape": "single_topic",
+      "proposed_required_topic_ids": [
+        "6208"
+      ],
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_in_available_excerpt",
+          "verified_evidence": [
+            {
+              "evidence_index": 1,
+              "quote_sha256": "f28fede289f4453ac636034e31d3d8cbd17977c4c30b4f73dac4058151941162",
+              "packet": "retrieval_content_review"
+            }
+          ],
+          "note": "The exact excerpt explicitly says high PSA is insufficient proof."
+        }
+      ]
+    },
+    {
+      "id": "A-QA-05",
+      "split_group": "A-QA-05",
+      "proposed_answerability": "full",
+      "proposed_source_shape": "single_topic",
+      "proposed_required_topic_ids": [
+        "1624"
+      ],
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_in_available_excerpt",
+          "verified_evidence": [
+            {
+              "evidence_index": 1,
+              "quote_sha256": "11b0989e5fe8e8a0c34e486f0a1108a6760980ebf36ddeea7f31ee349bbf4e7e",
+              "packet": "five_answer_packet"
+            }
+          ],
+          "note": "The same exact definition and location excerpt is cited in A-QA-07, part 2."
+        }
+      ]
+    },
+    {
+      "id": "A-QA-06",
+      "split_group": "A-QA-06",
+      "proposed_answerability": "full",
+      "proposed_source_shape": "single_topic",
+      "proposed_required_topic_ids": [
+        "5755"
+      ],
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "pending_exact_excerpt",
+          "verified_evidence": [],
+          "note": "The cited passage ID and offsets are available, but the canonical excerpt was unavailable."
+        }
+      ]
+    },
+    {
+      "id": "A-QA-07",
+      "split_group": "A-QA-05",
+      "proposed_answerability": "full",
+      "proposed_source_shape": "multi_topic",
+      "proposed_required_topic_ids": [
+        "179",
+        "1624"
+      ],
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_in_available_excerpt",
+          "verified_evidence": [
+            {
+              "evidence_index": 1,
+              "quote_sha256": "f9b705e9a4d327c34d876e2e137fffd4cfea01592483e47b3b75b0bb6c03479a",
+              "packet": "five_answer_packet"
+            },
+            {
+              "evidence_index": 2,
+              "quote_sha256": "a9fd677f7a1297863119d346c3a87efafb1461dbd64c9e66f1316b4f1999fded",
+              "packet": "five_answer_packet"
+            }
+          ],
+          "note": "The cited excerpts jointly establish compression in the wrist and identify the nerve through the tunnel. The supplied follow-up excerpt explicitly connects compression to the tunnel."
+        },
+        {
+          "part": 2,
+          "outcome": "supported_in_available_excerpt",
+          "verified_evidence": [
+            {
+              "evidence_index": 1,
+              "quote_sha256": "11b0989e5fe8e8a0c34e486f0a1108a6760980ebf36ddeea7f31ee349bbf4e7e",
+              "packet": "five_answer_packet"
+            }
+          ],
+          "note": "The exact excerpt identifies the nerve connecting the ear and brain. Shared with A-QA-05."
+        }
+      ]
+    },
+    {
+      "id": "A-QA-08",
+      "split_group": "A-QA-08",
+      "proposed_answerability": "full",
+      "proposed_source_shape": "multi_topic",
+      "proposed_required_topic_ids": [
+        "3920",
+        "5275"
+      ],
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "pending_exact_excerpt",
+          "verified_evidence": [],
+          "note": "The pinned definition excerpt was unavailable."
+        },
+        {
+          "part": 2,
+          "outcome": "supported_in_available_excerpt",
+          "verified_evidence": [
+            {
+              "evidence_index": 1,
+              "quote_sha256": "833bdd5250666406d6813f16ce7ab042f49e04fb1a6669d6d1818711b78c3184",
+              "packet": "retrieval_content_review"
+            }
+          ],
+          "note": "The exact excerpt lists hernias as an alternative cause."
+        }
+      ]
+    },
+    {
+      "id": "A-QA-09",
+      "split_group": "A-QA-09",
+      "proposed_answerability": "full",
+      "proposed_source_shape": "multi_topic",
+      "proposed_required_topic_ids": [
+        "4643",
+        "4452"
+      ],
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "pending_exact_excerpt",
+          "verified_evidence": [],
+          "note": "The pinned bile-storage excerpt was unavailable."
+        },
+        {
+          "part": 2,
+          "outcome": "supported_in_available_excerpt",
+          "verified_evidence": [
+            {
+              "evidence_index": 1,
+              "quote_sha256": "aa66ac160d7dc24124b8ccd768e3bef7f67792cd86fb7c757d851e9d074539c3",
+              "packet": "five_answer_packet"
+            }
+          ],
+          "note": "The excerpt attributes the yellowing to excess bilirubin. The separate description of bilirubin is outside this requested fact."
+        }
+      ]
+    }
+  ]
+}

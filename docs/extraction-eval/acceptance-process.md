@@ -15,3 +15,31 @@ Missing measurements or decisions yield pending status. A measured threshold
 violation yields failed status. Only complete passing criteria yield passed
 status and exit code zero. The evaluator reads inputs without updating them.
 The configuration is a proposal awaiting quality decisions and measured evidence.
+
+## Development measurements recorded on 2026-11-21
+
+The [measurement record](../../eval/reports/development/development-measurements-v1.json)
+pins the saved outputs, datasets and configuration by SHA-256. Denominators and
+versions are recorded for each measurement. The consolidation made zero provider calls.
+Repository JSON digests use LF line endings. The ignored HTTP report digest uses
+the exact bytes produced by the Windows run.
+
+| Evidence | Scope | Observed result |
+| --- | --- | --- |
+| C-003 classification | 185 C-002 validation documents, forced choice | 174 correct, 94.05% accuracy, macro-F1 0.9285. The descriptive validation-majority comparator scored 55 correct and macro-F1 0.0917. |
+| Vector retrieval | Eight development cases with proposed topics, five single-topic and three multi-topic | Topic Recall@5 and MRR@5 of 1.000. All required topics and evidence in 8/8 cases. |
+| Hybrid retrieval | Same eight cases | Topic Recall@5 and passage evidence coverage@5 of 0.938. MRR@5 of 1.000. A-QA-09 missed one proposed topic and its required passage. |
+| BM25 retrieval | Same eight cases | Topic Recall@5 and passage evidence coverage@5 of 1.000. MRR@5 of 0.833. |
+| A answer-risk pilot | Two saved answers with scoped agent review | Two answered, zero incorrect in scope. The rejection rate and confidence curve are unavailable. |
+| D synthetic loopback | 24 extraction results and 48 answers | 72/72 schema-valid records, zero evidence or relationship violations, exact and relaxed entity F1 of 0.6512, and 34/48 answers met the literal facts, gaps and extra-quote checks. |
+
+The retrieval replay excludes A-QA-03 from topic and passage scoring because it
+has no proposed required topic. Each distinct cited passage is one provisional
+required evidence group. The saved rankings measure coverage against that
+proposal. D's [excerpt review](qa-development-inventory.md) records the portion
+checked against available text.
+
+The classification result covers validation only. The answer pilot used
+non-blinded agent judgments. The loopback result measures a deterministic mock
+and the cited fixture rules. Acceptance remains pending. The structural targets
+remain 1.0 and substantive quality thresholds remain unset.

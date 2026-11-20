@@ -90,3 +90,6 @@ The blank machine-readable form is [answer-review-template-v1.json](../../eval/f
 Its nulls are empty fields, not negative findings.
 
 Executable integrity checks and read-only reporting are documented in [judge-calibration.md](judge-calibration.md). The rubric remains a draft until actual calibration.
+
+The [synthetic practice findings](judge-calibration.md#synthetic-rubric-practice-2026-11-21)
+propose scoring anchors for partial answers, abstentions and operational failures.

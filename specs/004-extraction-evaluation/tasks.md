@@ -98,6 +98,7 @@ they are not silently assigned defaults.
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T003 [US1] D-004: Implement structured Python extraction and bounded semantic/span validation in `services/extraction/src/notelens_extraction/**`, `services/extraction/prompts/**`, `services/extraction/tests/test_evidence.py`, `services/extraction/tests/test_contract.py`
+  - [x] The 2026-11-21 synthetic HTTP rerun returned 24 structurally valid extractions. The deterministic catalog matched 14 of 29 reference mentions. See the [rerun](../../docs/extraction-eval/synthetic-failure-review-v2.md) for the separate transport and fixture findings.
   - [x] Strict generated JSON validation, single-attempt live orchestration and offline OpenAI Responses adapter/HTTPS transport implemented in commits 7ccb1ba, 948bde6, 273b9ed and 3fbb67f. Trial reserves at most USD 0.10 across at most three approved requests. Extraction suite passed 83 tests after transport integration.
   - [x] 2026-11-20: User reports Nemanja approved one synthetic development smoke. Published `gpt-6-luna` standard rates and per-request conservative input bounds are recorded in `docs/extraction-eval/d-004-live-trial-2026-11-20.json`; the two-call reservation is USD 0.0028227 under the USD 0.10 cap.
   - [x] Added a one-command runner restricted to the two approved synthetic requests; it verifies exact payload hashes before sending and claims a single-use receipt. Invocation and credential setup are documented in `services/extraction/README.md`.
@@ -105,7 +106,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - [x] Generated extraction and document-answer records use the frozen strict JSON validator. Duplicate keys and nonfinite numbers trigger bounded repair before evidence scoring.
   - [x] Live orchestration makes one provider attempt per request. Regression tests exercise invalid extraction and answer output without making a paid call.
   - [x] F-003, F-004 and F-014 integration is available on the published foundation. The combined B/D inventory candidate and mock integration checks are recorded under D-010 in the [integration record](../../docs/extraction-eval/integration.md#d-010-verification-2026-11-20).
-  - [ ] Remaining: live trial is not run because no server-side credential is available in this process; shared-account model access is unverified. Semantic support beyond literal claims and narrow catalog guards remains unevaluated; no acceptance is inferred from mock checks.
+  - [ ] Remaining: record a successful authorized provider trial with verified server-side credential and model access. The existing trial receipt is single-use. Review semantic support separately from structural and literal checks.
   - **Owner / story**: D / US1.
   - **Dependencies**: 004-extraction-evaluation/T001 (D-001); 000-foundation/T004 (F-003); 000-foundation/T006 (F-004); 000-foundation/T014 (F-014)
   - **Acceptance**: POST /v1/extract preserves canonical text/status/subject and validates exact offsets/quotes, unsupported items and source-only ICD. Bounded repair; no inferred diagnoses. Live activation requires approved provider policy.
@@ -120,11 +121,11 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T004 [US2] D-005: Generate English summaries and document answers with supported claims in `services/extraction/src/notelens_extraction/answers.py`, `services/extraction/prompts/**`, `services/extraction/tests/test_answers.py`, `docs/extraction-eval/integration.md`
+  - [x] Reran the 24-document/48-answer synthetic HTTP suite on 2026-11-21. All 72 records passed transport and structural checks. The [failure review](../../docs/extraction-eval/synthetic-failure-review-v2.md) documents all 14 incomplete answers and their exact fixture causes.
   - [x] Multi-part document mock answers preserve supported parts and explicit gaps (09b0573). Synthetic HTTP run returned 72/72 HTTP 200 responses with matching request IDs; literal completeness was 34/48. Responses trial supports the fixed synthetic document question.
-  - [ ] Actual provider-generated summary/answer quality remains unmeasured.
   - [x] Local literal summaries, supported/partial/insufficient document answers, exact citation checks, source-free output guard and targeted injection case pass in mock mode; B handoff prepared.
   - [x] Mock document answers cover explicit catalog topics independently, retain cited supported parts, and disclose gaps. The 72-request synthetic HTTP run preserved the contract and recorded 34 of 48 complete literal answers and 25 of 26 expected gap mentions.
-  - [ ] Remaining: approved real-provider generation, general support/language evaluation and frozen integration. The literal mock is not a general medical QA model.
+  - [ ] Remaining: verify approved provider-generated summaries and answers for source support, completeness, citations and English, then verify the frozen integration.
   - **Owner / story**: D / US2.
   - **Dependencies**: 004-extraction-evaluation/T003 (D-004)
   - **Acceptance**: POST /v1/document-answer and extraction summary explicitly request English, link claims to selected-document evidence and reject unsupported/injected/non-English output; literature cannot fill patient facts. Deliver HTTP checks/startup to B.
@@ -216,10 +217,11 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T010 [US4] D-007: Assemble source-reviewed development/final QA and relevance manifests in `eval/datasets/qa/**`, `eval/references/qa/**`, `eval/tests/test_qa_integrity.py`
+  - [x] Versioned a nine-case development manifest with overlap grouping and a scoped agent review. Nine of twelve proposed citations matched available excerpts. Eight requested parts had supporting excerpts, two were absent in the supplied top five, and three await exact excerpts. See the [inventory](../../docs/extraction-eval/qa-development-inventory.md#development-manifest-and-available-excerpts).
   - [x] Public A proposal inventory validates nine development candidates, twelve evidence references, label counts and shared-passage overlap (68cad50). Optional artifact verification checks pinned SHA-256 and exact source slices.
-  - [ ] Pinned passage artifact was unavailable locally. Independent corpus support review and final benchmark selection remain pending.
+  - [ ] Remaining source review: verify all twelve citations against the pinned passage JSONL, including the three without exact excerpts. Resolve scoped gap labels against the intended benchmark corpus.
   - [x] Initial versioned document-only synthetic case with three QA expectations exists separately from generated predictions; references never enter provider inputs.
-  - [ ] Remaining: actual corpus-reviewed QA, development/final portions and the approximately 80-case cross-module benchmark with A/B.
+  - [ ] Assemble the approximately 80-case cross-module benchmark with A/B and freeze separate development and final references.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T009 (D-006); 001-rag/T003 (A-002)
   - **Acceptance**: Target ~80 QA including ~30 multi-source and ~10 lacking required-source answers plus out-of-scope. Publish exact counts/overlap, necessary topics/passages and answerability against actual corpus; flag >5 topics; no QA indexing.
@@ -228,8 +230,9 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T011 [US4] D-008: Calibrate judge rubrics and coordinate separate generated-output human review in `eval/rubrics/**`, `eval/reviews/**`, `docs/extraction-eval/judge-calibration.md`, `eval/tests/test_review_integrity.py`
+  - [x] Applied the draft rubric to seven retained synthetic answers and one injected HTTP 503. Recorded the agent ratings, proposed scoring anchors and severity question. The [practice check](../../docs/extraction-eval/judge-calibration.md#synthetic-rubric-practice-2026-11-21) confirmed zero completed human reviews and no quality scores for the operational failure.
   - [x] Independent review comparison reports per-dimension agreement and adjudication pairs for identical pinned outputs (d72bec9). Exact retained response artifact verification added (6c7c7d5). Full eval suite passed 95 tests.
-  - [ ] Collect independent completed reviews, adjudicate disagreements and record rubric calibration decisions.
+  - [ ] Collect independent human reviews of answers and entity evidence, adjudicate disagreements and record rubric calibration decisions.
   - [x] Draft seven-dimension answer rubric and blank independent-review form prepared in `docs/extraction-eval/answer-review-rubric.md` and `eval/fixtures/answer-review-template-v1.json`; calibration, reviewers and human records remain pending.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T004 (D-005); 004-extraction-evaluation/T010 (D-007); 004-extraction-evaluation/T008 (D-013)
@@ -239,8 +242,9 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T012 [US4] D-011: Measure development quality and record named threshold decisions in `eval/config/acceptance.json`, `eval/reports/development/**`, `docs/extraction-eval/acceptance-process.md`, `eval/tests/test_acceptance_config.py`
+  - [x] Consolidated the 185-document classification validation, eight-case retrieval replay, two-answer agent pilot and 72 synthetic HTTP records with pinned inputs and denominators. The [development record](../../docs/extraction-eval/acceptance-process.md#development-measurements-recorded-on-2026-11-21) leaves substantive thresholds unset.
   - [x] Acceptance proposal and read-only evaluator added. Structural targets remain 1.0; quality thresholds stay null. Missing decisions/measurements remain pending, violations fail, and numeric quality decisions require a named decision record. Full eval suite passed 97 tests; targeted acceptance tests passed after integer sample validation.
-  - [ ] Remaining: actual development measurements, team threshold decisions and regression review.
+  - [ ] Remaining: measure provider-backed extraction and answers against reviewed development references, record named quality-threshold decisions, and review regressions against the recorded baselines.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T009 (D-006); 004-extraction-evaluation/T010 (D-007); 003-classification/T005 (C-003); 001-rag/T005 (A-004); 004-extraction-evaluation/T003 (D-004); 004-extraction-evaluation/T008 (D-013)
   - **Acceptance**: Keep substantive entries null/unset until first actual development measurement and team decision targeted 2026-11-14; structural/span targets remain 1.0; preserve sample/version/cost evidence and regression process.
