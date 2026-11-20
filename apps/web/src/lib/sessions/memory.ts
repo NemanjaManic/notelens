@@ -1,17 +1,25 @@
-import { randomBytes } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
 import { validateRecord } from '@notelens/contracts/v1';
 import type { PreparedDocument } from '@notelens/contracts/v1';
+import type { RoutedAnswer } from '../routing/answer.ts';
+import type { QuestionPlan } from '../routing/demo-questions.ts';
 import {
   DOCUMENT_LIFETIME_MS, MAX_ACTIVE_DOCUMENTS, MAX_ACTIVE_SESSIONS, MAX_DOCUMENT_CODE_POINTS,
-  MAX_NEW_SESSIONS, SESSION_IDLE_MS, SESSION_LIFETIME_MS, SESSION_RATE_WINDOW_MS, sessionConfiguration,
+  MAX_HISTORY_BYTES, MAX_HISTORY_TURNS, MAX_NEW_SESSIONS, MAX_QUESTIONS_PER_WINDOW,
+  QUESTION_RATE_WINDOW_MS, SESSION_IDLE_MS, SESSION_LIFETIME_MS, SESSION_RATE_WINDOW_MS, sessionConfiguration,
 } from '../config/session-policy.ts';
 
-type Entry = { expiresAt: number; document: PreparedDocument | null; validating: boolean };
+export type QuestionTurn = { id: string; plan: QuestionPlan; answer: RoutedAnswer };
+type StoredTurn = { turn: QuestionTurn; bytes: number };
+type PendingQuestion = { id: string; docId: string; keep: boolean };
+type Entry = { expiresAt: number; document: PreparedDocument | null; validating: boolean; history?: StoredTurn[] };
 type Session = {
   deadline: number;
   lastActivity: number;
   entries: Map<string, Entry>;
   cancel: () => void;
+  questionAdmissions: number[];
+  pendingQuestion?: PendingQuestion;
 };
 export type SessionRuntime = {
   now: () => number;
@@ -41,6 +49,10 @@ export class SessionAdmissionError extends Error {
 
 function sessionDeadline(session: Session): number {
   return Math.min(session.deadline, session.lastActivity + SESSION_IDLE_MS);
+}
+
+function activeDocument(session: Session, docId: string, now: number) {
+  return [...session.entries.values()].find(entry => now < entry.expiresAt && entry.document?.doc_id === docId);
 }
 
 /** Server-only process memory core. Never serialize a store or expose session tokens in logs. */
@@ -103,7 +115,7 @@ export class MemorySessions {
 
     const capability = randomBytes(32).toString('base64url');
     const session: Session = {
-      deadline: now + SESSION_LIFETIME_MS, lastActivity: now, entries: new Map(), cancel: () => {},
+      deadline: now + SESSION_LIFETIME_MS, lastActivity: now, entries: new Map(), cancel: () => {}, questionAdmissions: [],
     };
     this.#scheduleExpiry(capability, session, SESSION_IDLE_MS);
     this.#sessions.set(capability, session);
@@ -173,17 +185,77 @@ export class MemorySessions {
       const now = this.#now();
       const session = this.#activeSession(capability, now);
       if (!session) return UNAVAILABLE;
-      for (const entry of session.entries.values()) {
-        if (now < entry.expiresAt && entry.document?.doc_id === docId) {
-          const document = structuredClone(entry.document);
-          session.lastActivity = now;
-          return document;
-        }
+      const entry = activeDocument(session, docId, now);
+      if (entry?.document) {
+        session.lastActivity = now;
+        return structuredClone(entry.document);
       }
     } catch {
       return UNAVAILABLE;
     }
     return UNAVAILABLE;
+  }
+
+  beginQuestion(capability: string, docId: string) {
+    const now = this.#now();
+    const session = this.#activeSession(capability, now);
+    if (!session || !activeDocument(session, docId, now)) return UNAVAILABLE;
+    if (session.pendingQuestion) return { kind: 'busy' } as const;
+    session.questionAdmissions = session.questionAdmissions.filter(time => now - time < QUESTION_RATE_WINDOW_MS);
+    if (session.questionAdmissions.length >= MAX_QUESTIONS_PER_WINDOW) {
+      const retryAfter = Math.ceil((session.questionAdmissions[0] + QUESTION_RATE_WINDOW_MS - now) / 1000);
+      return { kind: 'rate', retryAfter } as const;
+    }
+    const id = randomUUID();
+    session.pendingQuestion = { id, docId, keep: true };
+    session.questionAdmissions.push(now);
+    session.lastActivity = now;
+    return { kind: 'admitted', id } as const;
+  }
+
+  finishQuestion(capability: string, id: string, plan: QuestionPlan, answer: RoutedAnswer) {
+    const now = this.#now();
+    const session = this.#activeSession(capability, now);
+    const pending = session?.pendingQuestion;
+    if (!session || pending?.id !== id) return UNAVAILABLE;
+    delete session.pendingQuestion;
+    const entry = activeDocument(session, pending.docId, now);
+    if (!entry || !pending.keep) return UNAVAILABLE;
+
+    const turn = { id, plan, answer };
+    const bytes = Buffer.byteLength(JSON.stringify(turn), 'utf8');
+    if (bytes + 2 > MAX_HISTORY_BYTES) return { kind: 'transient', turn } as const;
+    const history = entry.history ??= [];
+    history.push({ turn: structuredClone(turn), bytes });
+    // Count the enclosing array and delimiters along with all serialized turns.
+    while (history.length > MAX_HISTORY_TURNS ||
+        history.reduce((total, stored) => total + stored.bytes + 1, 1) > MAX_HISTORY_BYTES) {
+      history.shift();
+    }
+    return { kind: 'saved', id } as const;
+  }
+
+  cancelQuestion(capability: string, id: string): void {
+    const session = this.#sessions.get(capability);
+    if (session?.pendingQuestion?.id === id) delete session.pendingQuestion;
+  }
+
+  questionHistory(capability: string, docId: string): QuestionTurn[] | null {
+    const now = this.#now();
+    const session = this.#activeSession(capability, now);
+    const entry = session && activeDocument(session, docId, now);
+    return entry ? structuredClone(entry.history?.map(({ turn }) => turn) ?? []) : null;
+  }
+
+  clearQuestionHistory(capability: string, docId: string): boolean {
+    const now = this.#now();
+    const session = this.#activeSession(capability, now);
+    const entry = session && activeDocument(session, docId, now);
+    if (!session || !entry) return false;
+    delete entry.history;
+    if (session.pendingQuestion?.docId === docId) session.pendingQuestion.keep = false;
+    session.lastActivity = now;
+    return true;
   }
 
   deleteDocument(capability: string, docId: string): void {

@@ -41,7 +41,7 @@ function stayActive(s: ReturnType<typeof setup>) {
 test('config/approved-limits-only', () => same(sessionConfiguration('mock'), {
   mode: 'mock', documentLifetimeMs: 3_600_000, maxPdfBytes: 2_097_152, maxDocumentCodePoints: 100_000,
   sessionLifetimeMs: 3_600_000, sessionIdleMs: 1_800_000, maxActiveSessions: 32, maxNewSessions: 10,
-  sessionRateWindowMs: 60_000, maxActiveDocuments: 3, maxPendingPreparations: 1, storedChatTurns: 0, automaticRetries: 0,
+  sessionRateWindowMs: 60_000, maxActiveDocuments: 3, maxPendingPreparations: 1, storedChatTurns: 5, automaticRetries: 0,
 }));
 for (const mode of ['live', 'mixed', '', 'MOCK', 'unknown']) test(`config/reject-${mode || 'empty'}`, () => {
   let rejected = false; try { new MemorySessions({ mode }); } catch { rejected = true; }

@@ -7,6 +7,10 @@ export const MAX_ACTIVE_SESSIONS = 32;
 export const MAX_NEW_SESSIONS = 10;
 export const SESSION_RATE_WINDOW_MS = 60_000;
 export const MAX_ACTIVE_DOCUMENTS = 3;
+export const QUESTION_RATE_WINDOW_MS = 60_000;
+export const MAX_QUESTIONS_PER_WINDOW = 10;
+export const MAX_HISTORY_TURNS = 5;
+export const MAX_HISTORY_BYTES = 32 * 1024;
 
 export function sessionConfiguration(mode: string | undefined = process.env.NOTELENS_MODE) {
   if (mode !== undefined && mode !== 'mock') {
@@ -24,7 +28,7 @@ export function sessionConfiguration(mode: string | undefined = process.env.NOTE
     sessionRateWindowMs: SESSION_RATE_WINDOW_MS,
     maxActiveDocuments: MAX_ACTIVE_DOCUMENTS,
     maxPendingPreparations: 1,
-    storedChatTurns: 0,
+    storedChatTurns: MAX_HISTORY_TURNS,
     automaticRetries: 0,
   });
 }
