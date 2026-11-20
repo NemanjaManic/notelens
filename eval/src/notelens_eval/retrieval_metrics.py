@@ -6,9 +6,9 @@ from statistics import mean
 def indexed_cases(cases: list[dict]) -> dict:
     indexed = {case["id"]: case for case in cases}
     if not cases or len(indexed) != len(cases):
-        raise ValueError("Retrieval case IDs must be nonempty and unique.")
+        raise ValueError("Evaluation case IDs must be nonempty and unique.")
     if any(not isinstance(case_id, str) or not case_id.strip() for case_id in indexed):
-        raise ValueError("Retrieval case IDs must be nonempty strings.")
+        raise ValueError("Evaluation case IDs must be nonempty strings.")
     return indexed
 
 
