@@ -1,7 +1,68 @@
-# Early B-002 fixture-only report workspace
+# B-002 report workspace
 
-Owner: B. Platform task: T004 / B-002, **pending**. Date: 2026-11-17.
-Implementation baseline: `e6d070c5c0771dadd135ae6135fd472070d6af22`.
+Owner: B. Platform task: T004 / B-002, **complete for the key-free mock**.
+
+## Reports from the B-001 document flow
+
+The local demo opens the owner’s prepared document and passes it to the
+loopback extraction mock. The report panels show its validated findings and
+summary citations. The built-in example also provides mock specialty scores
+and preset questions. For pasted text and PDFs, the specialty panel explains
+the mock’s scope. Evidence links keep the document ID and select the validated
+span by key. The selected citation is announced with `aria-current="location"`.
+The demo rechecks session ownership after the mock responses return.
+
+The built app passed 32 key-free Chrome assertions for pasted text and PDF
+reports. The checks covered findings and summary links, two identical quotes,
+a non-BMP character before the second quote, clearing the highlight, an
+unknown evidence key, clicking the second finding link, and denied evidence
+access from a separate session. The 38 report checks and the full key-free mock
+smoke passed.
+
+To reproduce the evidence run, start the [local mock demo](f-005-mock-startup.md)
+and run `apps/web/tests/submitted-input-browser.scenarios.js` in Chrome DevTools
+CLI using `evaluate_script --sourcePath <absolute path> --format function`.
+Open the demo with `#report-text-submit` and run the script. Open the resulting
+report URL with `#report-text` in the same context and run it again. Repeat with
+`#report-pdf-submit` and `#report-pdf`. Open both report URLs with
+`#report-other` in a second isolated context to verify denial. Click the
+second finding’s evidence link on the owner’s text report and run the script
+on the resulting page to verify the selected quote.
+
+## Loading and service failure verification
+
+The demo shows an accessible loading message while the local report mocks
+respond. The fallback contains no document or evidence. The built app was
+verified in Chrome against the normal stack and isolated loopback test
+profiles. All 31 state assertions passed.
+
+| Profile | Assertions | Browser result |
+| --- | ---: | --- |
+| Slow extraction | 5 | Loading appeared before the report and cleared when findings and summary arrived. |
+| Summary failure | 4 | Findings and their evidence remained visible. The summary showed an unavailable state. |
+| Findings failure | 4 | The summary and its citations remained visible. Findings showed an unavailable state. |
+| Extraction service failure | 5 | Both extraction panels showed the unavailable state and the specialty result remained visible. |
+| Classifier service failure | 5 | The specialty panel showed the unavailable state and valid findings and summary remained visible. |
+| Uncertain specialty | 4 | The specialty uncertainty and both evidence panels remained visible. |
+| Empty evidence | 4 | Findings were empty and the summary showed insufficient evidence. |
+
+Build the app, then launch each of the first six profiles separately with
+`scripts/project/tests/report_browser_stack.py <profile>` under the locked
+project Python environment. The profile names are `slow`, `summary-failure`,
+`findings-failure`, `extraction-failure`, `classifier-failure`, and `uncertain`.
+From the printed demo URL, open **Chest pain report** in an isolated Chrome
+context. Open the resulting report URL with the profile name as its URL
+fragment, then evaluate
+`apps/web/tests/report-states-browser.scenarios.js` as a function with the
+Chrome DevTools CLI. For `#empty`, use the normal stack and submit synthetic
+English text that contains no sentence from the mock catalog. The fixtures
+exercise the real report routes and service validation. The early fixture
+preview remains available for independent presentation checks.
+
+## Early fixture workspace
+
+The 2026-11-17 implementation used baseline
+`e6d070c5c0771dadd135ae6135fd472070d6af22`.
 
 ## Explicit execution-order exception
 
