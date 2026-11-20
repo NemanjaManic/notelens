@@ -689,6 +689,7 @@
     "apps/web/tests/tsconfig.preparation.json",
     "apps/web/scripts/check-preparation.mjs",
     "scripts/project/health_probe_app.py",
+    ".github/workflows/f010-key-free.yml",
     "scripts/project/start_mock.py",
     "scripts/project/smoke_mock.py",
     "apps/web/src/app/demo/page.tsx",
