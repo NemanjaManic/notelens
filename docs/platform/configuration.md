@@ -1,9 +1,74 @@
-# Early B-004: memory sessions and guarded configuration
+# B-004 memory sessions and guarded configuration
 
-Owner: B. Date: 2026-11-17. Platform task: T002 / B-004, **pending**.
-Base: `e12791c45f584b5cf35a9ba74f98520abc1cba14`.
+Owner: B. Platform task: T002 / B-004, **complete for the key-free mock**.
+Current branch base: `cde4dd6ab2da6be5937521c97b4875e97fdc496c`.
 
-## Approved F-014 execution-order exception
+## Approved browser session policy
+
+The user approved the local mock defaults on 2026-11-20. Sessions live in one
+web process and expire after 30 minutes of inactivity or 60 minutes from
+issuance. Successful opens, reads, stores and document deletions count as
+activity. Passive ownership checks and failed actions leave the idle deadline
+alone. Session expiry, explicit close and restart clear the document references.
+Each document also has its own deadline of 60 minutes from preparation start.
+The approved input limits are 2,097,152 PDF bytes and 100,000 Unicode code points.
+
+The process admits up to 32 active sessions and 10 new sessions per rolling
+minute. Each session has three document slots, including one in-flight
+preparation. A failed or cancelled preparation releases its reservation.
+Rate-limited creation returns `429` and `Retry-After` in seconds. At capacity,
+creation returns `503`. Existing owners can keep using or close their own session.
+
+`POST /api/session` explicitly opens or reuses a session. `DELETE /api/session`
+revokes the capability and expires the cookie. Both return `204` on success.
+Set `NOTELENS_SESSION_ORIGIN` to the exact browser origin, including its port
+when applicable. The routes reject missing or mismatched request origins with
+`403`, and fail closed if configuration is missing or the execution mode is
+unavailable. They use `Cache-Control: no-store` and an opaque host-only
+`__Host-notelens-session` cookie with `Secure`, `HttpOnly` and `SameSite=Strict`.
+Tabs in one browser context share the cookie. Ownership comes from the cookie
+and the process store. A document ID alone does not confer ownership.
+
+B-004 stores zero chat turns and makes no upstream calls or automatic retries.
+B-001 owns uploads. B-003 owns chat history and upstream timeout policy.
+
+## Key-free verification
+
+From the repository root, `node apps/web/scripts/check-sessions.mjs` runs
+TypeScript noEmit and 39 synthetic cases. The browser scenarios reported 32
+passing assertions in Chrome across seven phases. The built Next app was used
+for the session route smoke. A standalone loopback server ran the same route
+handler and memory store with synthetic fixtures and a controlled clock. Tests
+covered two browser contexts, cookie handling, cross-origin rejection, idle and
+absolute deadlines, explicit revocation, process restart, and admission limits.
+
+To repeat, build with `npm.cmd run build` in mock mode. Start the Next app on
+`127.0.0.1:48317` with `NOTELENS_MODE=mock` and
+`NOTELENS_SESSION_ORIGIN=http://localhost:48317`. Start
+`node apps/web/tests/session-browser-server.mjs 48316` separately. Use the
+bundled Chrome DevTools CLI to open each page with `new_page` and
+`--isolatedContext`, then run `evaluate_script --pageId <id> --sourcePath
+<absolute path to apps/web/tests/session-browser.scenarios.js> --format function`.
+Use fresh Chrome contexts for each run.
+
+| Phase | Browser URL | Context |
+| --- | --- | --- |
+| Next smoke | `http://localhost:48317/?role=next` | Next |
+| Owner access | `http://localhost:48316/?role=owner` | Owner |
+| Second session | `http://localhost:48316/?role=other` | Other |
+| Cross-origin rejection | `http://127.0.0.1:48316/?role=foreign` | Foreign |
+| Expiry and close | `http://localhost:48316/?role=expiry` | Owner |
+| Restart on the same port after stopping the fixture server | `http://localhost:48316/?role=restart` | Owner |
+| Admission limits | `http://localhost:48316/?role=limits` | Owner |
+
+The web checks verify the ratified constitution digest already recorded in the
+foundation inventory. The F-014 publication SHA is recorded in the
+[checkpoint](../team/foundation-checkpoint.md).
+
+## Early work before F-014
+
+The 2026-11-17 increment was based on
+`e12791c45f584b5cf35a9ba74f98520abc1cba14`.
 
 The user explicitly approved implementing this bounded early B-004 package before
 F-014. This exception permits only the B-owned, independently tested memory/config
@@ -11,7 +76,7 @@ core. It preserves the existing F-014 dependency for full B-004 acceptance. It d
 not complete, waive or publish F-014, F-010, F-011 or B-004, authorize other platform
 tasks, alter frozen contracts or grant edits to A/C/D. No commit/push is authorized.
 
-## Scope and design
+## Early scope and design
 
 `MemorySessions` is a server-only, single-process core with no disk, cache, browser,
 network, logging or provider adapter. Random 256-bit capabilities identify sessions
@@ -47,7 +112,7 @@ explicit end/dispose; capacity/abuse policies need approval before exposing rout
 No analysis/answer/history storage is included. Future document-bound results must
 share the document's absolute deadline and teardown before integration acceptance.
 
-## Workflow and verification
+## Early workflow and verification
 
 Used the installed speckit-implement workflow for platform T002 only. Official
 PowerShell prerequisite resolution used SPECIFY_FEATURE_DIRECTORY=specs/002-platform
@@ -55,13 +120,7 @@ and SPECIFY_FEATURE_NO_PERSIST=1 with RequireTasks/IncludeTasks. The existing qu
 checklist is 16/16; no extension hooks are registered. Existing specs/plans/model and
 open decisions informed this bounded implementation; no regeneration or delegation.
 
-Run with the existing installed toolchain:
-
-```powershell
-node apps/web/scripts/check-sessions.mjs
-```
-
-The coordinator typechecks with NodeNext/noEmit and runs 28 synthetic Node tests,
+The early coordinator check used NodeNext/noEmit and ran 28 synthetic Node tests,
 requiring complete passing counts, no skips/cancellations/todo, fresh process output,
 a fresh nonce and unchanged source/protected hashes. It saves metadata only under
 ignored `.cache/review/b004-sessions/`. The noEmit web tsconfig explicitly permits
@@ -71,11 +130,8 @@ uniform failures, input/output copies, deletion, concurrency, deadlines, delayed
 timers, invalid context, text limits and instance recreation as simulated restart.
 An actual deployed-process restart/browser authentication flow is not tested here.
 
-Full B-004 remains pending F-014, approved remaining operational policies and browser
-transport/integration acceptance. F-010/F-011/F-014 stay unchecked; the earlier A
-chromadb advisory remains open. Existing drafts, generated/frozen files and A/C/D
-files must remain unchanged. Final run and preservation evidence is recorded under
-ignored `.cache/review/b004-early/` after checks finish.
+The early run and preservation evidence was recorded under ignored
+`.cache/review/b004-early/`.
 
 ## Retention review follow-up
 
@@ -93,6 +149,5 @@ guard fails only the new validation-expiry case. Each isolated mutant runs all 2
 cases with 27 passing and its expected regression failing. The unmodified source
 passes all 28 and noEmit typechecking. Session/config implementation and frozen
 contracts are unchanged by these fixes. The coordinator requires both retention
-case IDs as well as its complete counts. Fresh mutation evidence and the refreshed
-nine-file commit scope are under `.cache/review/b004-commit-scope/`; no commit or
-push has occurred. B-004/F-010/F-011/F-014 remain pending.
+case IDs as well as its complete counts. Mutation evidence and the early nine-file
+commit scope were recorded under ignored `.cache/review/b004-commit-scope/`.

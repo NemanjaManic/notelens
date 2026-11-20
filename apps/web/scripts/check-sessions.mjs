@@ -7,7 +7,9 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const files = ['apps/web/src/lib/config/session-policy.ts', 'apps/web/src/lib/sessions/memory.ts',
   'apps/web/tests/sessions.test.ts', 'apps/web/tests/tsconfig.sessions.json',
-  'apps/web/scripts/check-sessions.mjs', 'apps/web/tsconfig.json'];
+  'apps/web/scripts/check-sessions.mjs', 'apps/web/tsconfig.json', 'apps/web/src/lib/sessions/browser.ts',
+  'apps/web/src/lib/sessions/route.ts', 'apps/web/src/app/api/session/route.ts'];
+const expectedCases = 39;
 const hash = value => createHash('sha256').update(value).digest('hex');
 const hashes = paths => Object.fromEntries([...paths].sort().map(p => [p, hash(readFileSync(resolve(root, p)))]));
 const cache = resolve(root, '.cache/review/b004-sessions');
@@ -34,9 +36,9 @@ try {
   const tap = tests.stdout ?? '';
   report.counts = Object.fromEntries([...tap.matchAll(/^# (tests|pass|fail|cancelled|skipped|todo) (\d+)\r?$/gm)].map(m => [m[1], Number(m[2])]));
   report.cases = [...tap.matchAll(/^ok \d+ - ([a-zA-Z0-9/-]+)\r?$/gm)].map(m => m[1]);
-  if (tests.status !== 0 || report.counts.tests !== 28 || report.counts.pass !== 28 ||
+  if (tests.status !== 0 || report.counts.tests !== expectedCases || report.counts.pass !== expectedCases ||
     ['fail', 'cancelled', 'skipped', 'todo'].some(k => report.counts[k] !== 0) ||
-    report.cases.length !== 28 || new Set(report.cases).size !== 28 ||
+    report.cases.length !== expectedCases || new Set(report.cases).size !== expectedCases ||
     ['retention/timer-removes-idle-document', 'retention/expires-during-validation'].some(id => !report.cases.includes(id))) throw new Error('SESSION_CASES_FAILED');
   if (JSON.stringify(report.inputs) !== JSON.stringify({ sources: hashes(files), frozen: hashes(Object.keys(inventory.frozen_files)) })) throw new Error('INPUT_CHANGED');
   report.passed = true;

@@ -56,12 +56,11 @@ they are not silently assigned defaults.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T002 B-004: Implement approved memory lifetime, session ownership and guarded configuration in `apps/web/src/lib/sessions/**`, `apps/web/src/lib/config/**`, `apps/web/tests/session-isolation.test.ts`, `apps/web/tests/retention.test.ts`, `docs/platform/configuration.md`, `apps/web/tests/configuration.test.ts`
+- [X] T002 B-004: Implement approved memory lifetime, session ownership and guarded configuration in `apps/web/src/lib/sessions/**`, `apps/web/src/lib/config/**`, `apps/web/src/app/api/session/route.ts`, `apps/web/tests/sessions.test.ts`, `docs/platform/configuration.md`
   - **Owner / story**: B / US3.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014)
-  - **Approved early-work exception (2026-11-17)**: User authorized the bounded B-owned memory/config core before F-014. See [scope, design and limits](../../docs/platform/configuration.md). The exception changes execution order only; B-004/F-010/F-011/F-014 remain pending. Early verification: `node apps/web/scripts/check-sessions.mjs` (28 synthetic isolation/retention/config cases plus noEmit typecheck; R1/R2 idle-cleanup and validation-expiry mutations are detected); browser transport, remaining operational policies and full acceptance stay deferred.
-  - **Acceptance**: Document-bound content stays only in process memory for <=60 minutes, cleared on expiry/restart; fake-clock/two-session tests pass. Ask for remaining history/rate/retry/timeout limits; unconfigured live mode fails closed.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/session-isolation.test.ts tests/retention.test.ts tests/configuration.test.ts`.
+  - **Acceptance**: Document-bound content stays only in process memory for up to 60 minutes and clears on session expiry, close or restart. Browser ownership, session and preparation capacity, issuance rate, and fail-closed mock configuration follow the [approved limits](../../docs/platform/configuration.md).
+  - **Evidence (2026-11-20)**: `node apps/web/scripts/check-sessions.mjs` passed all 39 synthetic cases and TypeScript noEmit. Chrome passed 32 assertions across the built route smoke and loopback fixture scenarios, including two-session isolation, origin rejection, expiry, close, restart, capacity and rate. See the [browser commands](../../docs/platform/configuration.md#key-free-verification).
   - **Coverage**: FR-011, FR-016, FR-017, FR-023, SC-002, SC-003.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
