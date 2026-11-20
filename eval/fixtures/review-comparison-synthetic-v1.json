@@ -1,0 +1,100 @@
+{
+  "kind": "synthetic_review_comparison",
+  "document": {
+    "doc_id": "synthetic-review-01",
+    "text": "The patient denies chest pain. Pneumonia is suspected.",
+    "text_sha256": "03ca1a7bde7ff1c839208e60919551c033361f8504c21be152971c54310b563a"
+  },
+  "primary": {
+    "assignment_id": "synthetic-assignment-review-01",
+    "submission_id": "synthetic-primary-review-01",
+    "role": "primary",
+    "annotator": "member-a",
+    "doc_id": "synthetic-review-01",
+    "text_sha256": "03ca1a7bde7ff1c839208e60919551c033361f8504c21be152971c54310b563a",
+    "entities": [
+      {
+        "type": "symptom",
+        "mention": {
+          "start": 19,
+          "end": 29,
+          "quote": "chest pain"
+        },
+        "assertion": "negated",
+        "temporality": "unknown",
+        "subject": "patient",
+        "evidence": [
+          {
+            "start": 0,
+            "end": 30,
+            "quote": "The patient denies chest pain."
+          }
+        ]
+      },
+      {
+        "type": "diagnosis",
+        "mention": {
+          "start": 31,
+          "end": 40,
+          "quote": "Pneumonia"
+        },
+        "assertion": "suspected",
+        "temporality": "unknown",
+        "subject": "unknown",
+        "evidence": [
+          {
+            "start": 31,
+            "end": 54,
+            "quote": "Pneumonia is suspected."
+          }
+        ]
+      }
+    ]
+  },
+  "secondary": {
+    "assignment_id": "synthetic-assignment-review-01",
+    "submission_id": "synthetic-secondary-review-01",
+    "role": "secondary",
+    "annotator": "member-d",
+    "doc_id": "synthetic-review-01",
+    "text_sha256": "03ca1a7bde7ff1c839208e60919551c033361f8504c21be152971c54310b563a",
+    "entities": [
+      {
+        "type": "symptom",
+        "mention": {
+          "start": 19,
+          "end": 29,
+          "quote": "chest pain"
+        },
+        "assertion": "negated",
+        "temporality": "unknown",
+        "subject": "patient",
+        "evidence": [
+          {
+            "start": 0,
+            "end": 30,
+            "quote": "The patient denies chest pain."
+          }
+        ]
+      },
+      {
+        "type": "diagnosis",
+        "mention": {
+          "start": 31,
+          "end": 40,
+          "quote": "Pneumonia"
+        },
+        "assertion": "confirmed",
+        "temporality": "unknown",
+        "subject": "unknown",
+        "evidence": [
+          {
+            "start": 31,
+            "end": 54,
+            "quote": "Pneumonia is suspected."
+          }
+        ]
+      }
+    ]
+  }
+}

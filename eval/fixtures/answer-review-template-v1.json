@@ -1,0 +1,45 @@
+{
+  "kind": "human_answer_review_template",
+  "rating_scale": {
+    "2": "meets",
+    "1": "partial_or_minor_issue",
+    "0": "fails_or_major_issue",
+    "U": "unable_to_judge"
+  },
+  "rubric_version": "d-answer-review-rubric-v1",
+  "review_id": null,
+  "reviewer_alias": null,
+  "independent_review": true,
+  "human_reviewed": false,
+  "valid_dimension_scores": [
+    0,
+    1,
+    2,
+    "U"
+  ],
+  "case_id": null,
+  "doc_id": null,
+  "text_sha256": null,
+  "response_id": null,
+  "mode": null,
+  "extractor_or_answer_version": null,
+  "prompt_version": null,
+  "answerable_from_document": null,
+  "response_action": null,
+  "dimensions": {
+    "source_support": null,
+    "required_facts": null,
+    "extra_facts": null,
+    "uncertainty_and_context": null,
+    "evidence_gaps": null,
+    "scope_and_safety": null,
+    "clarity_and_english": null
+  },
+  "critical_error": null,
+  "issue_codes": [],
+  "claim_source_notes": [],
+  "needs_adjudication": null,
+  "rationale": null,
+  "completed_at": null,
+  "response_sha256": null
+}

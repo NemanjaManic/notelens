@@ -1,0 +1,37 @@
+{
+  "description": "D synthetic HTTP smoke only; no live providers or judges",
+  "prompts": ["{{question}}"],
+  "providers": [{"id": "file://providers/document_api.py", "label": "local-document-api-mock"}],
+  "defaultTest": {
+    "assert": [
+      {"type": "is-json"},
+      {"type": "contains", "value": "\"mode\": \"mock\""}
+    ]
+  },
+  "tests": [
+    {
+      "description": "Supported document answer with denial preserved",
+      "vars": {"question": "What does the document say about chest pain?"},
+      "assert": [
+        {"type": "contains", "value": "\"evidence_state\": \"sufficient\""},
+        {"type": "contains", "value": "The patient denies chest pain."}
+      ]
+    },
+    {
+      "description": "Absent document fact abstains",
+      "vars": {"question": "What is the patient's age?"},
+      "assert": [
+        {"type": "contains", "value": "\"evidence_state\": \"insufficient\""},
+        {"type": "contains", "value": "\"claims\": []"}
+      ]
+    },
+    {
+      "description": "Partial support retains denial and states the age gap",
+      "vars": {"question": "What does the document say about chest pain and the patient's age?"},
+      "assert": [
+        {"type": "contains", "value": "\"evidence_state\": \"partial\""},
+        {"type": "contains", "value": "does not provide the requested age"}
+      ]
+    }
+  ]
+}
