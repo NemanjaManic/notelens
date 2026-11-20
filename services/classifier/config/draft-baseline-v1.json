@@ -1,0 +1,25 @@
+{
+  "experiment_id": "c-draft-baseline-v1",
+  "status": "exploratory; no final-test access or model selection",
+  "input": "raw transcription only",
+  "tfidf": {
+    "lowercase": true,
+    "ngram_range": [1, 1],
+    "token_pattern": "(?u)\\b\\w\\w+\\b",
+    "stop_words": null,
+    "min_df": 1,
+    "max_df": 1.0,
+    "sublinear_tf": false,
+    "norm": "l2"
+  },
+  "logistic_regression": {
+    "C": 1.0,
+    "solver": "lbfgs",
+    "max_iter": 1000,
+    "tol": 0.0001,
+    "class_weight": null,
+    "random_state": 42
+  },
+  "metrics": "fixed five labels; zero_division=0; row and inverse-group-size weighted",
+  "trials": 1
+}

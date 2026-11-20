@@ -54,6 +54,14 @@ local contribution alone does not complete the whole F-004. B subsequently recor
 F-004 technical completion; C-009 is checked locally in the [interface review](../../docs/ml/interface-review.md).
 See also the historical [scaffold handoff](../../docs/ml/classifier-scaffold-handoff.md).
 
+## Local development candidate
+
+The [integration handoff](../../docs/ml/integration.md) gives Windows commands
+for reproducing the provisional comparison and starting the trained candidate
+on authenticated loopback. See the [validation report](../../docs/ml/validation-report.md)
+and [model card draft](../../docs/ml/model-card.md) for the results, limitations
+and pending final measurement.
+
 ## Future: after foundation prerequisites
 
 The later F-003/F-004/F-005 tasks must create frozen contracts/fixtures, dependency locks,

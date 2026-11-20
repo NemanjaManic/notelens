@@ -89,13 +89,42 @@ def test_explicit_bearer_authentication(body):
         assert response.status_code == 200
 
 
-def test_authenticated_live_mode_still_requires_a_model(body):
-    with TestClient(service.create_app(service.Settings(mode="live", token="synthetic-test-token")),
+@pytest.mark.parametrize("mock_failure", [None, "timeout"])
+def test_authenticated_live_mode_still_requires_a_model(body, mock_failure):
+    settings = service.Settings(mode="live", token="synthetic-test-token", mock_failure=mock_failure)
+    with TestClient(service.create_app(settings),
                     base_url="http://127.0.0.1", client=("127.0.0.1", 50000)) as client:
         response = client.post("/v1/classify", json=body,
             headers={"X-Request-ID": REQUEST_ID, "Authorization": "Bearer synthetic-test-token"})
         data = assert_error(response, 503, "configuration_required")
         assert "classifier configuration" in data["error"]["message"]
+
+
+def test_mock_failure_requires_auth_and_valid_input(body):
+    settings = service.Settings(mode="mock", token="synthetic-test-token", mock_failure="timeout")
+    headers = {"X-Request-ID": REQUEST_ID, "Authorization": "Bearer synthetic-test-token"}
+    with TestClient(service.create_app(settings),
+                    base_url="http://127.0.0.1", client=("127.0.0.1", 50000)) as client:
+        assert_error(client.post("/v1/classify", json=body, headers={"X-Request-ID": REQUEST_ID}),
+                     401, "unauthorized")
+        assert_error(client.post("/v1/classify", content=b"{", headers=headers), 400, "validation_failure")
+        assert_error(client.post("/v1/classify", json={}, headers=headers), 422, "validation_failure")
+        response = client.post("/v1/classify", json=body, headers=headers)
+        assert response.status_code == 504
+
+
+@pytest.mark.parametrize("mock_failure", ["", "invalid-config-marker"])
+def test_invalid_mock_failure_is_a_safe_configuration_error(body, mock_failure):
+    settings = service.Settings(mode="mock", mock_failure=mock_failure)
+    with TestClient(service.create_app(settings),
+                    base_url="http://127.0.0.1", client=("127.0.0.1", 50000)) as client:
+        response = client.post("/v1/classify", json=body, headers={"X-Request-ID": REQUEST_ID})
+        ready = client.get("/health/ready")
+        assert client.get("/health/live").status_code == 200
+    assert_error(response, 503, "configuration_required")
+    assert ready.status_code == 503
+    assert validate_record("HealthResult", ready.json())["status"] == "not_ready"
+    assert "invalid-config-marker" not in response.text + ready.text
 
 
 def test_unauthenticated_remote_peer_is_not_admitted(body):
@@ -116,8 +145,3 @@ def test_nonfinite_generated_output_becomes_safe_error(client, body, monkeypatch
     monkeypatch.setattr(service, "mock_result", bad_result)
     assert_error(client.post("/v1/classify", json=body, headers={"X-Request-ID": REQUEST_ID}),
                  500, "internal_error")
-
-
-def test_health_is_not_claimed_before_f004_checkpoint(client):
-    assert client.get("/health/live").status_code == 404
-    assert client.get("/health/ready").status_code == 404
