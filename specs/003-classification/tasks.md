@@ -2,7 +2,7 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [contract references](contracts/README.md).
-**Owner**: C. **Status**: C-001 and C-009 complete locally; C-011 local F-004 scaffold contribution checked. F-014 is published. The C-002 split is frozen locally and D received the permitted validation metadata.
+**Owner**: C. **Status**: C-001 and C-009 complete locally; C-011 local F-004 scaffold contribution checked. F-014 is published. C-002 is complete and D received the permitted validation metadata.
 **Tests**: Required where the source specifications explicitly require structural, semantic,
 leakage, security or independent module checks. This is not blanket TDD for documentation.
 **Organization**: Setup, foundational, story increments, polish. Every task has one owner
@@ -73,7 +73,7 @@ they are not silently assigned defaults.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T003 [US2] C-002: Group duplicates/conflicting labels and freeze seeded split manifests in `data/mtsamples/**`, `services/classifier/tests/test_splits.py`, `docs/ml/splits.md`
+- [X] T003 [US2] C-002: Group duplicates/conflicting labels and freeze seeded split manifests in `data/mtsamples/**`, `services/classifier/tests/test_splits.py`, `docs/ml/splits.md`
   - **Owner / story**: C / US2.
   - **Dependencies**: 003-classification/T001 (C-001); 003-classification/T002 (C-009); 000-foundation/T014 (F-014)
   - **Authorized draft (2026-11-16)**: Sara authorized C-002 preparation ahead of F-014, with final manifest freeze and downstream handoff deferred for review. [Draft evidence](../../docs/ml/splits.md) records screening and illustrative splits; thresholds, adjudication, canonical text/access and exposure controls remain unresolved. C-002 stays unchecked.
@@ -89,6 +89,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Published foundation baseline (2026-11-20)**: The `f-014-foundation` tag resolves to `7eb12e56f33240a428f916ba583b9e00077712df`. C-002 remains open pending the pair decisions, review sign-off and split freeze. [D handoff](../../docs/ml/c002-handoff-to-d.md#published-foundation-baseline-2026-11-20).
   - **Local freeze (2026-11-20)**: Sara confirmed two duplicate pairs and one unresolved pair reserved for quarantine. `c002-split-v1` has 864 training, 185 validation and 183 test documents. Prior test membership is preserved. Byte reproduction, group and document separation, and all five specialties per partition were verified.
   - **Restricted development handoff (2026-11-20)**: The permitted package `c002-d002-development-v1` contains 185 validation candidates. Manifest membership, checksum and the D selector at `97bf35a` were checked. Sara reported that Milica received the manifest and checksum. [D package status](../../docs/ml/c002-handoff-to-d.md#development-metadata-package-2026-11-20).
+  - **Closure (2026-11-20)**: The temporary draft mapping was deleted and the explicit source-row column was removed from the generated C-001 inspection subset. The audited source checksum and frozen partition checksums were verified. [Cleanup and verification](../../docs/ml/splits.md#post-sign-off-mapping-cleanup-2026-11-20).
   - **Acceptance**: Document exact/near-duplicate criteria, audit-derived feasible proportions/seed and conflict exclusions before splitting; no group overlap. Publish stable IDs early for D.
   - **Verify**: `uv run --directory services/classifier python -m pytest tests/test_splits.py`.
   - **Coverage**: FR-005, FR-006, FR-007, FR-008, FR-017, SC-002.
@@ -117,10 +118,11 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Coverage**: FR-008, FR-009, FR-010, FR-011, SC-003.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T006 [US2] C-004: Run a controlled XGBoost validation comparison in `services/classifier/src/notelens_classifier/training/**`, `services/classifier/tests/test_comparison.py`, `docs/ml/experiments/**`
+- [X] T006 [US2] C-004: Run a controlled XGBoost validation comparison in `services/classifier/src/notelens_classifier/training/**`, `services/classifier/tests/test_comparison.py`, `docs/ml/experiments/**`
   - **Owner / story**: C / US2.
   - **Dependencies**: 003-classification/T005 (C-003)
   - **Local update (2026-11-19)**: Same-feature CPU XGBoost comparison ran locally. Logistic Regression led by 0.0486 validation macro-F1 on the provisional split.
+  - **Local completion (2026-11-20)**: Both estimators used the same train-fitted TF-IDF matrix on the frozen 864/185 cohort. Logistic Regression reproduced C-003 and led XGBoost 0.9285 to 0.8750 in validation macro-F1. The [comparison report](../../docs/ml/experiments/c004-frozen-comparison-v1.md) records class support, per-class metrics, confusion matrices and the selection for C-005. The final test remained locked.
   - **Acceptance**: Use the same split/features/comparison controls; retain better simpler baseline if appropriate. Optional embedding variants do not block core; no benchmark manipulation.
   - **Verify**: `uv run --directory services/classifier python -m pytest tests/test_comparison.py`.
   - **Coverage**: FR-009, FR-010, FR-011, FR-020, SC-003.

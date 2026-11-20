@@ -38,3 +38,13 @@ def test_development_runner_refuses_non_draft_split_before_opening_source(monkey
     monkeypatch.setattr(development.baseline, "SOURCE", tmp_path / "unavailable-holdout.csv")
     with pytest.raises(ValueError, match="requires the provisional split"):
         development.run(tmp_path)
+
+
+def test_frozen_comparison_rejects_wrong_split_pin_before_opening_source(monkeypatch, tmp_path):
+    monkeypatch.syspath_prepend(str(development.baseline.ROOT))
+    monkeypatch.setattr(development.baseline, "SOURCE", tmp_path / "unavailable-source.csv")
+    (tmp_path / "manifest.json").write_bytes(b'{"status": "frozen local split membership"}')
+    output = tmp_path / "comparison"
+    with pytest.raises(ValueError, match="pinned input differs"):
+        development.run_frozen(output, tmp_path, "0" * 64, tmp_path)
+    assert not output.exists()

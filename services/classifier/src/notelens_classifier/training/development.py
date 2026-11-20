@@ -1,11 +1,13 @@
-"""Compare trained candidates on the provisional development split only."""
+"""Compare trained candidates on development data only."""
 
 import argparse
 from collections import Counter
+import csv
 from importlib.metadata import version
 import json
 from pathlib import Path
 import sys
+from tempfile import TemporaryDirectory
 from time import perf_counter
 import unicodedata
 
@@ -18,12 +20,14 @@ from notelens_classifier.training import draft_baseline as baseline
 
 
 CONFIG = baseline.CONFIG.with_name("development-comparison-v1.json")
+FROZEN_EXPERIMENT = "c004-frozen-comparison-v1"
 
 
-def compare(parts, baseline_config, comparison_config):
+def compare(parts, baseline_config, comparison_config, *, canonical=False):
     train, validation = parts["train"], parts["validation"]
-    train_text = [baseline.prepare_training_text(row[3]) for row in train]
-    validation_text = [baseline.prepare_training_text(row[3]) for row in validation]
+    prepare_text = str if canonical else baseline.prepare_training_text
+    train_text = [prepare_text(row[3]) for row in train]
+    validation_text = [prepare_text(row[3]) for row in validation]
     train_labels = [row[2] for row in train]
     truth = [row[2] for row in validation]
     groups = [row[1] for row in validation]
@@ -91,25 +95,42 @@ def selective_metrics(truth, probabilities, has_features, threshold):
 
 
 def run(output: Path):
+    parts, source_sha256, split_sha256 = baseline.load_provisional_data()
+    return run_comparison(output, parts, {"source_sha256": source_sha256, "split_sha256": split_sha256})
+
+
+def run_frozen(output: Path, split_dir: Path, split_sha256: str, handoff_dir: Path):
+    from notelens_classifier.training import frozen_baseline
+
+    parts, provenance = frozen_baseline.load_frozen_development(split_dir, split_sha256, handoff_dir)
+    return run_comparison(
+        output, parts, provenance, experiment_id=FROZEN_EXPERIMENT, loader_path=Path(frozen_baseline.__file__)
+    )
+
+
+def run_comparison(output, parts, provenance, *, experiment_id=None, loader_path=None):
     config_bytes, baseline_bytes = CONFIG.read_bytes(), baseline.CONFIG.read_bytes()
     config, baseline_config = json.loads(config_bytes), json.loads(baseline_bytes)
-    parts, source_sha256, split_sha256 = baseline.load_provisional_data()
-    model, report = compare(parts, baseline_config, config)
+    canonical = loader_path is not None
+    experiment_id = experiment_id or config["experiment_id"]
+    model, report = compare(parts, baseline_config, config, canonical=canonical)
     if report["logistic_convergence_warnings"]:
         raise ValueError("Logistic baseline did not converge.")
     if not report["chosen_policy"]["coverage"]:
         raise ValueError("Development policy accepted no cases.")
 
     packages = {name: version(name) for name in ("scikit-learn", "numpy", "scipy", "joblib", "xgboost-cpu")}
+    sources = [Path(__file__), Path(baseline.__file__), Path(__file__).parents[1] / "inference.py"]
+    if loader_path is not None:
+        sources.append(loader_path)
     report.update(
-        experiment_id=config["experiment_id"], status="provisional development", labels=LABELS,
+        experiment_id=experiment_id, status="frozen split development" if canonical else "provisional development",
+        labels=LABELS,
         python=sys.version.split()[0], unicode_version=unicodedata.unidata_version, packages=packages,
-        source_sha256=source_sha256, split_sha256=split_sha256,
         comparison_config_sha256=baseline.sha(config_bytes), baseline_config_sha256=baseline.sha(baseline_bytes),
         lock_sha256=baseline.sha(baseline.LOCK.read_bytes()),
-        code_sha256={path.name: baseline.sha(path.read_bytes()) for path in
-                     (Path(__file__), Path(baseline.__file__), Path(__file__).parents[1] / "inference.py")},
-        test_scored=False,
+        code_sha256={path.name: baseline.sha(path.read_bytes()) for path in sources},
+        test_scored=False, **provenance,
     )
     joblib.dump(model, output / MODEL_FILE)
     artifact_hash = baseline.sha((output / MODEL_FILE).read_bytes())
@@ -120,7 +141,7 @@ def run(output: Path):
     identity = baseline.sha(json.dumps([artifact_hash, threshold, report["comparison_config_sha256"]]).encode())
     manifest = {
         "stage": "development",
-        "model_version": f"{config['experiment_id']}-{identity}",
+        "model_version": f"{experiment_id}-{identity}",
         "estimator": report["selected"],
         "labels": LABELS,
         "threshold": threshold,
@@ -136,20 +157,39 @@ def run(output: Path):
         "selected": report["selected"], "policy": report["chosen_policy"],
         "manifest_sha256": baseline.sha((output / MANIFEST_FILE).read_bytes()), "test_scored": False,
     }, indent=2))
+    return report
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--split-dir", type=Path)
+    parser.add_argument("--split-sha256")
+    parser.add_argument("--handoff-dir", type=Path)
     args = parser.parse_args()
+    frozen_args = (args.split_dir, args.split_sha256, args.handoff_dir)
+    frozen = any(value is not None for value in frozen_args)
+    if frozen and not all(frozen_args):
+        parser.error("Supply --split-dir, --split-sha256 and --handoff-dir together.")
+    if frozen:
+        raw = baseline.SOURCE.parent.resolve()
+        split_dir, handoff_dir = args.split_dir.resolve(), args.handoff_dir.resolve()
+        if any(path == raw or not path.is_relative_to(raw) for path in (split_dir, handoff_dir)):
+            parser.error("Use frozen inputs inside the ignored local MTSamples directory.")
     cache = (baseline.ROOT / ".cache").resolve()
     output = args.output.resolve()
-    if not output.is_relative_to(cache) or not output.parent.is_dir():
+    if not output.is_relative_to(cache) or not output.parent.is_dir() or output.exists():
         parser.error("Choose a new output directory under the ignored repository cache.")
     try:
-        output.mkdir(exist_ok=False)
-        run(output)
-    except (OSError, ValueError, KeyError):
+        with TemporaryDirectory(dir=output.parent) as staging:
+            pending = Path(staging) / output.name
+            pending.mkdir()
+            if frozen:
+                run_frozen(pending, split_dir, args.split_sha256.lower(), handoff_dir)
+            else:
+                run(pending)
+            pending.rename(output)
+    except (OSError, ValueError, KeyError, TypeError, csv.Error):
         print("Development run failed. Verify the audited input, dependencies and new output path.", file=sys.stderr)
         return 1
     return 0

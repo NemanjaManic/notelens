@@ -110,7 +110,8 @@ def write_json(path, value):
     return baseline.sha(payload)
 
 
-def run(split_dir, split_checksum, handoff_dir, output):
+def load_frozen_development(split_dir, split_checksum, handoff_dir):
+    """Load checked train/validation cohorts with the D handoff's validation digests."""
     summary = json.loads(checked_bytes(split_dir / "manifest.json", split_checksum))
     if summary["status"] != "frozen local split membership":
         raise ValueError("Use a frozen local split.")
@@ -124,6 +125,15 @@ def run(split_dir, split_checksum, handoff_dir, output):
         handoff_dir, membership, split_checksum, split_version
     )
     parts = read_cohorts(baseline.SOURCE, source_checksum, membership, digests)
+    return parts, {
+        "source_sha256": source_checksum, "split_version": split_version, "split_sha256": split_checksum,
+        "handoff_version": handoff_version, "handoff_sha256": handoff_checksum,
+        "preparation_version": CANONICALIZATION_VERSION,
+    }
+
+
+def run(split_dir, split_checksum, handoff_dir, output):
+    parts, provenance = load_frozen_development(split_dir, split_checksum, handoff_dir)
     train, validation = parts["train"], parts["validation"]
     config_bytes = baseline.CONFIG.read_bytes()
     config = json.loads(config_bytes)
@@ -145,9 +155,10 @@ def run(split_dir, split_checksum, handoff_dir, output):
         joblib.dump(model, model_path)
         model_checksum = baseline.sha(model_path.read_bytes())
         versions = {"model_version": f"c003-tfidf-logistic-{model_checksum[:16]}",
-                    "preparation_version": CANONICALIZATION_VERSION, "split_version": split_version}
+                    "preparation_version": provenance["preparation_version"],
+                    "split_version": provenance["split_version"]}
         export = {"export_version": EXPORT_VERSION, **versions, "split_checksum": split_checksum,
-                  "handoff_version": handoff_version, "handoff_checksum": handoff_checksum,
+                  "handoff_version": provenance["handoff_version"], "handoff_checksum": provenance["handoff_sha256"],
                   "decision_policy": "forced_choice", "score_type": "logistic_regression_probability",
                   "documents": [
                       {"doc_id": row[0], "true_specialty": row[2], "predicted_specialty": prediction,
@@ -158,8 +169,8 @@ def run(split_dir, split_checksum, handoff_dir, output):
         (pending / "predictions.sha256").write_text(
             f"{predictions_checksum}  predictions.json\n", encoding="ascii", newline="\n"
         )
-        metrics = {**versions, "source_sha256": source_checksum, "split_checksum": split_checksum,
-                   "handoff_checksum": handoff_checksum, "config_sha256": baseline.sha(config_bytes),
+        metrics = {**versions, "source_sha256": provenance["source_sha256"], "split_checksum": split_checksum,
+                   "handoff_checksum": provenance["handoff_sha256"], "config_sha256": baseline.sha(config_bytes),
                    "lock_sha256": baseline.sha(baseline.LOCK.read_bytes()), "model_sha256": model_checksum,
                    "predictions_sha256": predictions_checksum, "python": platform.python_version(),
                    "dependencies": {name: version(name) for name in ("scikit-learn", "numpy", "scipy", "joblib")},

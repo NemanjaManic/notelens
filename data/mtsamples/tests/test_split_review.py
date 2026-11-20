@@ -1,11 +1,14 @@
 """Synthetic review records test quarantine and exposure invariants."""
 
 from copy import deepcopy
+from hashlib import sha256
 from pathlib import Path
 import sys
+from tempfile import TemporaryDirectory
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from freeze_splits import FOUNDATION_COMMIT, SPLITS, VERSION, json_bytes, verify_frozen
 from prepare_split_review import build_review
 from preview_reviewed_split import preview
 from record_split_review import record_access, record_decision, reserve_pair
@@ -48,6 +51,27 @@ class SplitReviewTests(unittest.TestCase):
         self.draft["near_candidates"][0]["group_b"] = "train"
         with self.assertRaisesRegex(ValueError, "not quarantined"):
             build_review(self.draft, self.receipt, "draft", "receipt")
+
+    def test_frozen_verification_needs_only_pinned_manifests(self):
+        with TemporaryDirectory() as directory:
+            path = Path(directory)
+            checksums = {}
+            for split in SPLITS:
+                name = f"{split}.json"
+                payload = json_bytes({"split": split, "groups": []})
+                (path / name).write_bytes(payload)
+                checksums[name] = sha256(payload).hexdigest()
+            summary = {"status": "frozen local split membership", "manifest_version": VERSION,
+                       "foundation_commit": FOUNDATION_COMMIT, "split_checksums": checksums}
+            summary_bytes = json_bytes(summary)
+            (path / "manifest.json").write_bytes(summary_bytes)
+            pin = sha256(summary_bytes).hexdigest()
+            self.assertEqual(verify_frozen(path, pin), summary)
+            with self.assertRaisesRegex(ValueError, "pinned SHA-256"):
+                verify_frozen(path, "0" * 64)
+            (path / "test.json").write_bytes(b"changed")
+            with self.assertRaisesRegex(ValueError, "partition differs"):
+                verify_frozen(path, pin)
 
 
 def candidate(left, right):

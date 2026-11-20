@@ -128,25 +128,49 @@ def build_files(draft_path, receipt_path, review_dir):
     return files, summary
 
 
+def verify_frozen(output_dir, manifest_checksum):
+    """Verify the signed-off bytes using a pinned digest without source-row mappings."""
+    manifest_bytes = (output_dir / "manifest.json").read_bytes()
+    if sha256(manifest_bytes).hexdigest() != manifest_checksum:
+        raise ValueError("The frozen summary differs from its pinned SHA-256.")
+    summary = json.loads(manifest_bytes)
+    if (summary["manifest_version"] != VERSION or summary["foundation_commit"] != FOUNDATION_COMMIT
+            or summary["status"] != "frozen local split membership"):
+        raise ValueError("Expected a C-002 frozen split summary.")
+    for split in SPLITS:
+        filename = f"{split}.json"
+        payload = (output_dir / filename).read_bytes()
+        if sha256(payload).hexdigest() != summary["split_checksums"][filename]:
+            raise ValueError("A frozen partition differs from its recorded SHA-256.")
+    return summary
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--development-receipt", type=Path, required=True)
+    parser.add_argument("--development-receipt", type=Path)
     parser.add_argument("--review-dir", type=Path, required=True)
-    parser.add_argument("--check", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--check", action="store_true", help="Reproduce the freeze from its original review inputs.")
+    mode.add_argument("--verify-frozen", metavar="SHA256", help="Verify the frozen manifests without the review mapping.")
     args = parser.parse_args()
+    if args.verify_frozen is None and args.development_receipt is None:
+        parser.error("--development-receipt is required to build or reproduce a freeze.")
     raw = DRAFT.parent.resolve()
     review_dir = args.review_dir.resolve()
     if not review_dir.is_relative_to(raw) or review_dir == raw:
         parser.error("Use a review directory inside the Git-ignored local raw directory.")
     output_dir = review_dir / VERSION
     try:
-        files, summary = build_files(DRAFT, args.development_receipt, review_dir)
-        if args.check:
+        if args.verify_frozen is not None:
+            summary = verify_frozen(output_dir, args.verify_frozen.lower())
+        elif args.check:
+            files, summary = build_files(DRAFT, args.development_receipt, review_dir)
             if any((output_dir / name).read_bytes() != data for name, data in files.items()):
                 raise ValueError("Frozen manifests differ from the reproducible result.")
         else:
             if output_dir.exists():
-                raise ValueError("The version already exists. Use --check to verify it.")
+                raise ValueError("The version already exists. Use --verify-frozen to verify it.")
+            files, summary = build_files(DRAFT, args.development_receipt, review_dir)
             with TemporaryDirectory(dir=review_dir) as staging:
                 pending = Path(staging) / VERSION
                 pending.mkdir()

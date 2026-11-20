@@ -56,6 +56,18 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(result["preliminary_exact_text_inventory"]["conflicting_target_label_groups"], 1)
         self.assertEqual(len(rows), 2)
 
+    def test_cleaned_export_can_omit_source_row_mapping(self):
+        original = "  Synthetic\r\n e\u0301  "
+        self.write([self.row("42", " Urology", original)])
+        _, rows = MODULE.audit(self.source)
+        cleaned = MODULE.render_cleaned(rows, include_source_row_id=False)
+        records = list(csv.DictReader(io.StringIO(cleaned, newline="")))
+        self.assertEqual(records, [{
+            "document_id": rows[0]["document_id"],
+            "category": "Urology",
+            "transcription": original,
+        }])
+
     def test_duplicate_source_ids_fail(self):
         self.write([self.row("0", " Urology", "One"), self.row("0", " Neurology", "Two")])
         with self.assertRaises(ValueError):

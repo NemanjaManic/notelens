@@ -121,9 +121,12 @@ def render_json(result):
     return json.dumps(result, indent=2, ensure_ascii=True) + "\n"
 
 
-def render_cleaned(rows):
+def render_cleaned(rows, *, include_source_row_id=True):
     buffer = io.StringIO(newline="")
-    writer = csv.DictWriter(buffer, fieldnames=("document_id", "source_row_id", "category", "transcription"),
+    fields = ("document_id", "source_row_id", "category", "transcription") if include_source_row_id else (
+        "document_id", "category", "transcription"
+    )
+    writer = csv.DictWriter(buffer, fieldnames=fields, extrasaction="ignore" if not include_source_row_id else "raise",
                             lineterminator="\n")
     writer.writeheader()
     writer.writerows(rows)
@@ -135,6 +138,8 @@ def main():
     parser.add_argument("--source", type=Path, default=ROOT / "raw/mtsamples.csv")
     parser.add_argument("--manifest", type=Path, default=ROOT / "manifests/source.json")
     parser.add_argument("--cleaned", type=Path, default=ROOT / "raw/targets-nonempty.csv")
+    parser.add_argument("--omit-source-row-id", action="store_true",
+                        help="Exclude the explicit source-row mapping column from the generated subset.")
     parser.add_argument("--check", action="store_true", help="Verify existing outputs without writing them.")
     args = parser.parse_args()
     try:
@@ -142,7 +147,8 @@ def main():
         if len(set(paths)) != 3:
             raise ValueError("Source, manifest and cleaned output paths must be distinct.")
         result, rows = audit(args.source)
-        outputs = ((args.manifest, render_json(result)), (args.cleaned, render_cleaned(rows)))
+        outputs = ((args.manifest, render_json(result)),
+                   (args.cleaned, render_cleaned(rows, include_source_row_id=not args.omit_source_row_id)))
         for path, content in outputs:
             expected = content.encode("utf-8")
             if args.check:

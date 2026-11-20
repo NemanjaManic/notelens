@@ -162,3 +162,7 @@ The trial saved no assignments.
 On 2026-11-20 Sara reported that Milica received the validation manifest
 and checksum through the restricted handoff folder. Final-test access
 remains restricted. D manages the actual assignment selection.
+
+C-002 closed after the local source-row mapping cleanup. The frozen
+partition digests still match the signed-off version.
+[Cleanup record](splits.md#post-sign-off-mapping-cleanup-2026-11-20).

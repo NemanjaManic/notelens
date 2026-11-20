@@ -12,8 +12,8 @@ Only scripts, aggregate manifests and documentation are intended for later revie
 From the repository root, using Python's standard library (verified with Python 3.11.9):
 
 ```powershell
-python -B data/mtsamples/audit.py
-python -B data/mtsamples/audit.py --check
+python -B data/mtsamples/audit.py --omit-source-row-id
+python -B data/mtsamples/audit.py --omit-source-row-id --check
 python -B -m unittest discover -s data/mtsamples/tests -v
 python -B -m json.tool data/mtsamples/manifests/source.json
 git check-ignore data/mtsamples/raw/mtsamples.csv data/mtsamples/raw/targets-nonempty.csv
@@ -21,6 +21,8 @@ git check-ignore data/mtsamples/raw/mtsamples.csv data/mtsamples/raw/targets-non
 
 The first command regenerates the manifest and local subset. `--check` compares their
 exact bytes to a fresh audit without writing. Run it after receiving data on another machine.
+After C-002 review sign-off, use `--omit-source-row-id` to keep the explicit
+source-row mapping out of the generated inspection subset.
 For a manually supplied CSV, `--source 'C:\path\mtsamples.csv'` is supported; never paste
 credentials into chat. Review changed checksums/counts before accepting a new source.
 No packages, model downloads, credentials or paid calls are needed.
