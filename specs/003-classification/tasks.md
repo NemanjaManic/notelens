@@ -153,10 +153,11 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T008 [US3] C-006: Package full deterministic inference and its FastAPI operation in `services/classifier/src/notelens_classifier/**`, `services/classifier/tests/test_inference.py`, `services/classifier/tests/test_contract.py`
+- [X] T008 [US3] C-006: Package full deterministic inference and its FastAPI operation in `services/classifier/src/notelens_classifier/**`, `services/classifier/tests/test_inference.py`, `services/classifier/tests/test_contract.py`
   - **Owner / story**: C / US3.
   - **Dependencies**: 003-classification/T007 (C-005)
   - **Local update (2026-11-19)**: A trusted development artifact starts explicitly on authenticated loopback and returns frozen-contract performed classification. Both supported and uncertain outputs were verified.
+  - **Local completion (2026-11-20)**: The separately installed classifier wheel loaded the pinned C-005 artifact, validated the fitted estimator and label mapping, and passed 11 real loopback HTTP probes and two rejected startup cases. The classifier and MTSamples suites passed 158 tests and 11 subtests. [Package verification](../../docs/ml/integration.md#c-006-package-verification).
   - **Acceptance**: POST /v1/classify uses frozen training-fitted preprocessing/label mapping/model version; result binds doc_id/hash, conforms to contracts and safely handles missing artifacts/errors. ONNX not required.
   - **Verify**: `uv run --directory services/classifier python -m pytest tests/test_inference.py tests/test_contract.py`.
   - **Coverage**: FR-013, FR-014, FR-015, FR-016, SC-004, SC-005.

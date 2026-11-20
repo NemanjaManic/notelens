@@ -2,6 +2,7 @@
 
 from hashlib import sha256
 import json
+import sys
 
 from fastapi.testclient import TestClient
 import pytest
@@ -68,6 +69,49 @@ def test_artifact_is_verified_before_deserialization(model_bundle, monkeypatch):
     (directory / MODEL_FILE).write_bytes(b"corrupted model")
     with pytest.raises(ValueError, match="model checksum mismatch"):
         load_model(directory, checksum)
+
+
+def test_pinned_artifact_with_wrong_labels_fails_at_startup(model_bundle):
+    directory, _ = model_bundle
+    model_path = directory / MODEL_FILE
+    pipeline = joblib.load(model_path)
+    pipeline.named_steps["classifier"].classes_[0] = "Invalid Specialty"
+    joblib.dump(pipeline, model_path)
+    manifest_path = directory / MANIFEST_FILE
+    manifest = json.loads(manifest_path.read_bytes())
+    manifest["artifact_sha256"] = sha256(model_path.read_bytes()).hexdigest()
+    payload = json.dumps(manifest).encode()
+    manifest_path.write_bytes(payload)
+
+    with pytest.raises(ValueError, match="label mapping differs"):
+        load_model(directory, sha256(payload).hexdigest())
+
+
+def test_startup_checks_full_result_and_score_width(model_bundle, monkeypatch):
+    directory, checksum = model_bundle
+    from sklearn.linear_model import LogisticRegression
+
+    monkeypatch.setattr(LogisticRegression, "predict_proba", lambda *_: [[0.2] * 5 + [0.0]])
+    with pytest.raises(ValueError, match="score width"):
+        load_model(directory, checksum)
+
+
+def test_missing_artifact_stops_launcher_with_safe_error(tmp_path, monkeypatch, capsys):
+    from notelens_classifier import __main__ as launcher
+
+    private_path = tmp_path / "private-artifact-location"
+    monkeypatch.setattr(sys, "argv", ["notelens_classifier", "--development-model", str(private_path),
+                                    "--model-manifest-sha256", "0" * 64])
+    monkeypatch.setenv("NOTELENS_CLASSIFIER_MODE", "live")
+    monkeypatch.setenv("NOTELENS_CLASSIFIER_SERVICE_TOKEN", TOKEN)
+    monkeypatch.setattr(launcher.uvicorn, "run", lambda *args, **kwargs: pytest.fail("Started without the model"))
+
+    with pytest.raises(SystemExit) as stopped:
+        launcher.main()
+    assert stopped.value.code == 2
+    error = capsys.readouterr().err
+    assert "Could not start with the trusted development model" in error
+    assert private_path.name not in error and TOKEN not in error
 
 
 def test_manifest_margin_is_applied_and_legacy_bundle_still_loads(model_bundle):

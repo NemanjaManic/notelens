@@ -9,7 +9,7 @@ from math import isfinite
 from pathlib import Path
 import re
 
-from notelens_contracts.v1 import ClassificationResult, PreparedDocument
+from notelens_contracts.v1 import ClassificationResult, PreparedDocument, validate_record
 
 
 LABELS = ("Cardiovascular / Pulmonary", "Orthopedic", "Gastroenterology", "Neurology", "Urology")
@@ -38,6 +38,8 @@ def score_rows(estimator, features):
         raise ValueError("Unexpected classifier labels.")
     order = [classes.index(label) for label in LABELS]
     for row in estimator.predict_proba(features):
+        if len(row) != len(order):
+            raise ValueError("Unexpected classifier score width.")
         scores = tuple(float(row[index]) for index in order)
         if not all(isfinite(score) and 0 <= score <= 1 for score in scores):
             raise ValueError("Invalid classifier probabilities.")
@@ -255,9 +257,33 @@ def load_model(directory: Path, manifest_sha256: str, *, stage="development") ->
 
     # Joblib is only safe for trusted artifacts. Verify the pinned bytes before loading.
     import joblib
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.pipeline import FeatureUnion, Pipeline
 
     pipeline = joblib.load(BytesIO(raw_model))
+    if not isinstance(pipeline, Pipeline) or tuple(pipeline.named_steps) != ("tfidf", "classifier"):
+        raise ValueError("The artifact must contain the fitted TF-IDF classifier pipeline.")
+    vectorizer, classifier = (pipeline.named_steps[name] for name in ("tfidf", "classifier"))
+    if not isinstance(vectorizer, (TfidfVectorizer, FeatureUnion)):
+        raise ValueError("The artifact uses unexpected preprocessing.")
+    if estimator == "logistic_regression":
+        expected_type, expected_labels = LogisticRegression, set(LABELS)
+    else:
+        from xgboost import XGBClassifier
+
+        expected_type, expected_labels = XGBClassifier, set(range(len(LABELS)))
+    if not isinstance(classifier, expected_type) or set(classifier.classes_) != expected_labels:
+        raise ValueError("The fitted classifier or label mapping differs from its manifest.")
+
     model = DevelopmentModel(pipeline, model_version, threshold, minimum_margin, policy)
-    warm_features = pipeline.named_steps["tfidf"].transform(["Synthetic startup check."])
-    next(score_rows(pipeline.named_steps["classifier"], warm_features))
+    text = "Synthetic startup check."
+    probe: PreparedDocument = {
+        "schema_version": "1.0.0", "doc_id": "synthetic-classifier-startup", "text": text,
+        "text_sha256": sha256(text.encode("utf-8")).hexdigest(), "canonicalization_version": "nfc-lf-v1",
+        "source": {"kind": "synthetic_text"}, "language": "en",
+        "language_validation": {"outcome": "accepted", "language": "en",
+                                "policy_version": "synthetic-startup-probe-v1", "reason": None},
+    }
+    validate_record("ClassificationResult", model.classify(probe), document=probe)
     return model
