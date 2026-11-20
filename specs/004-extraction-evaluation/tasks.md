@@ -103,7 +103,8 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - [x] Local request/schema/evidence validation, provider/config boundary, versioned prompts, bounded repair diagnostics, FastAPI/CLI and deterministic fake implemented. Checks live in `tests/test_service.py`, `tests/test_training_checker.py` and `tests/test_http_smoke.py`.
   - [x] Generated extraction and document-answer records use the frozen strict JSON validator. Duplicate keys and nonfinite numbers trigger bounded repair before evidence scoring.
   - [x] Live orchestration makes one provider attempt per request. Regression tests exercise invalid extraction and answer output without making a paid call.
-  - [ ] Remaining: coordinated F-004/F-014 integration, approved live provider/model, and evaluated semantic support beyond the narrow catalog guards. F-003/F-009 and the local frozen-package adaptation are complete.
+  - [x] F-003, F-004 and F-014 integration is available on the published foundation. The combined B/D inventory candidate and mock integration checks are recorded under D-010 in the [integration record](../../docs/extraction-eval/integration.md#d-010-verification-2026-11-20).
+  - [ ] Remaining: live trial still needs reviewed pricing, exact input/token bounds and shared-account authorization. Semantic support beyond literal claims and narrow catalog guards remains unevaluated; no acceptance is inferred from mock checks.
   - **Owner / story**: D / US1.
   - **Dependencies**: 004-extraction-evaluation/T001 (D-001); 000-foundation/T004 (F-003); 000-foundation/T006 (F-004); 000-foundation/T014 (F-014)
   - **Acceptance**: POST /v1/extract preserves canonical text/status/subject and validates exact offsets/quotes, unsupported items and source-only ICD. Bounded repair; no inferred diagnoses. Live activation requires approved provider policy.
