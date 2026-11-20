@@ -1,0 +1,10 @@
+{
+  "version": "d-acceptance-proposal-v1",
+  "criteria": {
+    "schema_validity": {"kind": "structural", "direction": "minimum", "threshold": 1},
+    "span_validity": {"kind": "structural", "direction": "minimum", "threshold": 1},
+    "entity_exact_f1": {"kind": "quality", "direction": "minimum", "threshold": null},
+    "topic_recall_at_5": {"kind": "quality", "direction": "minimum", "threshold": null},
+    "answer_risk": {"kind": "quality", "direction": "maximum", "threshold": null}
+  }
+}

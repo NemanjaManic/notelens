@@ -228,6 +228,8 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T012 [US4] D-011: Measure development quality and record named threshold decisions in `eval/config/acceptance.json`, `eval/reports/development/**`, `docs/extraction-eval/acceptance-process.md`, `eval/tests/test_acceptance_config.py`
+  - [x] Acceptance proposal and read-only evaluator added. Structural targets remain 1.0; quality thresholds stay null. Missing decisions/measurements remain pending, violations fail, and numeric quality decisions require a named decision record. Full eval suite passed 97 tests; targeted acceptance tests passed after integer sample validation.
+  - [ ] Remaining: actual development measurements, team threshold decisions and regression review.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T009 (D-006); 004-extraction-evaluation/T010 (D-007); 003-classification/T005 (C-003); 001-rag/T005 (A-004); 004-extraction-evaluation/T003 (D-004); 004-extraction-evaluation/T008 (D-013)
   - **Acceptance**: Keep substantive entries null/unset until first actual development measurement and team decision targeted 2026-11-14; structural/span targets remain 1.0; preserve sample/version/cost evidence and regression process.
