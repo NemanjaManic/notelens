@@ -1,0 +1,525 @@
+{
+  "record_format_version": "member-a-literature-qa-proposals-v1",
+  "prepared_on": "2026-11-18",
+  "owner": "Nemanja (A)",
+  "prepared_by": "Codex coding agent",
+  "status": "development_proposals_pending_d_review",
+  "partition": "development_candidate",
+  "language": "en",
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "corpus_snapshot_date": "2026-11-10",
+  "offset_unit": "Unicode code points, half-open [start, end)",
+  "source_policy": "Canonical MedlinePlus source slices are referenced by offsets and hashes. Review sets stay outside the index.",
+  "medquad_attribution": {
+    "authors": [
+      "Asma Ben Abacha",
+      "Dina Demner-Fushman"
+    ],
+    "publication": "A Question-Entailment Approach to Question Answering (2019)",
+    "doi": "10.1186/s12859-019-3119-4",
+    "source": "https://github.com/abachaa/MedQuAD",
+    "source_license": "https://creativecommons.org/licenses/by/4.0/",
+    "scope": "Adaptations from 4_MPlus_Health_Topics_QA. Original XML is identified by pinned path and hash."
+  },
+  "review_scope": {
+    "author_judgments": true,
+    "human_review": false,
+    "held_out": false,
+    "topic_labels": "Proposed topic set for the cited support. Equivalent alternative topics require independent adjudication.",
+    "gap_review_sources": [
+      "docs/rag/retrieval-content-review.json",
+      "docs/rag/experiments/hybrid-comparison.md"
+    ]
+  },
+  "counts": {
+    "total": 9,
+    "by_source_shape": {
+      "single_topic": 5,
+      "no_supported_topic": 1,
+      "multi_topic": 3
+    },
+    "by_answerability": {
+      "full": 7,
+      "partial": 1,
+      "none": 1
+    },
+    "with_medquad_reference": 4
+  },
+  "cases": [
+    {
+      "id": "A-QA-01",
+      "question": "What is the difference between systolic and diastolic blood pressure?",
+      "origin": "existing_public_development_probe",
+      "original_references": [
+        {
+          "type": "notelens_agent_development_review",
+          "case_id": "CQ-01",
+          "path": "docs/rag/retrieval-content-review.json",
+          "sha256": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57"
+        }
+      ],
+      "answerability": "full",
+      "source_shape": "single_topic",
+      "proposed_required_topic_ids": [
+        "34"
+      ],
+      "requires_more_than_five_topics": false,
+      "parts": [
+        {
+          "requested_fact": "Difference between systolic and diastolic pressure",
+          "status": "supported",
+          "expected_fact": "Systolic pressure is the higher pressure when the heart beats. Diastolic pressure is the lower pressure between beats.",
+          "evidence": [
+            {
+              "topic_id": "34",
+              "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+              "title": "High Blood Pressure",
+              "url": "https://medlineplus.gov/highbloodpressure.html",
+              "field": "cleaned_summary",
+              "passage_start": 173,
+              "passage_end": 384,
+              "topic_start": 173,
+              "topic_end": 384,
+              "quote_sha256": "77cfb09f866f8e5477259eb28b059549d95f4a9a61298411f817dd1c5adbc5f3"
+            }
+          ]
+        }
+      ],
+      "review_status": "pending_independent_review"
+    },
+    {
+      "id": "A-QA-02",
+      "question": "What causes COVID-19, and how long can an infected person transmit it to others?",
+      "origin": "existing_public_development_probe",
+      "original_references": [
+        {
+          "type": "notelens_agent_development_review",
+          "case_id": "CQ-02",
+          "path": "docs/rag/retrieval-content-review.json",
+          "sha256": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57"
+        }
+      ],
+      "answerability": "partial",
+      "source_shape": "single_topic",
+      "proposed_required_topic_ids": [
+        "3181"
+      ],
+      "requires_more_than_five_topics": false,
+      "parts": [
+        {
+          "requested_fact": "Cause of COVID-19",
+          "status": "supported",
+          "expected_fact": "COVID-19 is caused by SARS-CoV-2.",
+          "evidence": [
+            {
+              "topic_id": "3181",
+              "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+              "title": "COVID-19 (Coronavirus Disease 2019)",
+              "url": "https://medlineplus.gov/covid19coronavirusdisease2019.html",
+              "field": "cleaned_summary",
+              "passage_start": 0,
+              "passage_end": 115,
+              "topic_start": 0,
+              "topic_end": 115,
+              "quote_sha256": "e8fc5e6c00c5e87546faeeae19715fa789329e7fbdd2a7468eb5830e9cda47dc"
+            }
+          ]
+        },
+        {
+          "requested_fact": "Duration of COVID-19 contagiousness",
+          "status": "missing_in_reviewed_scope",
+          "reason": "The reviewed baseline and hybrid passages do not establish a COVID-19 transmission period.",
+          "evidence": []
+        }
+      ],
+      "review_status": "pending_independent_review",
+      "review_notes": "The evidence label applies to the inspected candidate passages."
+    },
+    {
+      "id": "A-QA-03",
+      "question": "What was the incidence of trigeminal neuralgia in Serbia in 2025, in new cases per 100,000 people?",
+      "origin": "existing_public_development_probe",
+      "original_references": [
+        {
+          "type": "notelens_agent_development_review",
+          "case_id": "CQ-08",
+          "path": "docs/rag/retrieval-content-review.json",
+          "sha256": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57"
+        }
+      ],
+      "answerability": "none",
+      "source_shape": "no_supported_topic",
+      "proposed_required_topic_ids": [],
+      "requires_more_than_five_topics": false,
+      "parts": [
+        {
+          "requested_fact": "Trigeminal neuralgia incidence in Serbia in 2025 as new cases per 100,000 people",
+          "status": "missing_in_reviewed_scope",
+          "reason": "The reviewed baseline and hybrid passages do not contain the requested statistic.",
+          "evidence": []
+        }
+      ],
+      "review_status": "pending_independent_review",
+      "review_notes": "The evidence label applies to the inspected candidate passages. Keep the related trigeminal neuralgia topic as a distractor."
+    },
+    {
+      "id": "A-QA-04",
+      "question": "Does a high PSA blood test result alone confirm prostate cancer?",
+      "origin": "existing_public_development_probe",
+      "original_references": [
+        {
+          "type": "notelens_agent_development_review",
+          "case_id": "CQ-10",
+          "path": "docs/rag/retrieval-content-review.json",
+          "sha256": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57"
+        }
+      ],
+      "answerability": "full",
+      "source_shape": "single_topic",
+      "proposed_required_topic_ids": [
+        "6208"
+      ],
+      "requires_more_than_five_topics": false,
+      "parts": [
+        {
+          "requested_fact": "Does a high PSA value alone prove prostate cancer",
+          "status": "supported",
+          "expected_fact": "A high PSA can occur for several reasons and does not by itself prove prostate cancer.",
+          "evidence": [
+            {
+              "topic_id": "6208",
+              "passage_id": "mplus-6208-cb42a0f4fa0f7d9bf3d923e2742b55ed106926d461fd2d79798e43a61d8a151b",
+              "title": "Prostate Cancer Screening",
+              "url": "https://medlineplus.gov/prostatecancerscreening.html",
+              "field": "cleaned_summary",
+              "passage_start": 1461,
+              "passage_end": 1630,
+              "topic_start": 1461,
+              "topic_end": 1630,
+              "quote_sha256": "f28fede289f4453ac636034e31d3d8cbd17977c4c30b4f73dac4058151941162"
+            }
+          ]
+        }
+      ],
+      "review_status": "pending_independent_review"
+    },
+    {
+      "id": "A-QA-05",
+      "question": "What is an acoustic neuroma, and where does it develop?",
+      "origin": "adapted_medquad",
+      "original_references": [
+        {
+          "type": "medquad",
+          "revision": "577bd37b96c02d1833b2c9eed2de9f96964e96cb",
+          "xml_path": "4_MPlus_Health_Topics_QA/0000006.xml",
+          "xml_url": "https://github.com/abachaa/MedQuAD/blob/577bd37b96c02d1833b2c9eed2de9f96964e96cb/4_MPlus_Health_Topics_QA/0000006.xml",
+          "xml_sha256": "8027dcf8e14278cc722793e3ffa5e56c95057edd285ee11e48dbb6e6955cc100",
+          "record_id": "0000006",
+          "question_id": "0000006-1",
+          "original_question": "What is (are) Acoustic Neuroma ?",
+          "original_source_url": "https://www.nlm.nih.gov/medlineplus/acousticneuroma.html",
+          "original_answer_sha256": "16a1719f382616e04bc5be91f9f2eee6c416e09dec337151bf22053a0283921e"
+        }
+      ],
+      "answerability": "full",
+      "source_shape": "single_topic",
+      "proposed_required_topic_ids": [
+        "1624"
+      ],
+      "requires_more_than_five_topics": false,
+      "parts": [
+        {
+          "requested_fact": "Definition and location of an acoustic neuroma",
+          "status": "supported",
+          "expected_fact": "It is a benign tumor on the nerve connecting the ear and brain.",
+          "evidence": [
+            {
+              "topic_id": "1624",
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "title": "Acoustic Neuroma",
+              "url": "https://medlineplus.gov/acousticneuroma.html",
+              "field": "cleaned_summary",
+              "passage_start": 0,
+              "passage_end": 100,
+              "topic_start": 0,
+              "topic_end": 100,
+              "quote_sha256": "11b0989e5fe8e8a0c34e486f0a1108a6760980ebf36ddeea7f31ee349bbf4e7e"
+            }
+          ]
+        }
+      ],
+      "review_status": "pending_independent_review",
+      "review_notes": "The proposal narrows the original information question to definition and location."
+    },
+    {
+      "id": "A-QA-06",
+      "question": "Which airways become inflamed in acute bronchitis?",
+      "origin": "adapted_medquad",
+      "original_references": [
+        {
+          "type": "medquad",
+          "revision": "577bd37b96c02d1833b2c9eed2de9f96964e96cb",
+          "xml_path": "4_MPlus_Health_Topics_QA/0000008.xml",
+          "xml_url": "https://github.com/abachaa/MedQuAD/blob/577bd37b96c02d1833b2c9eed2de9f96964e96cb/4_MPlus_Health_Topics_QA/0000008.xml",
+          "xml_sha256": "0015e3e401c18778973a144c0814fdc93a21d419eb3635df0bcb24251f3485aa",
+          "record_id": "0000008",
+          "question_id": "0000008-1",
+          "original_question": "What is (are) Acute Bronchitis ?",
+          "original_source_url": "https://www.nlm.nih.gov/medlineplus/acutebronchitis.html",
+          "original_answer_sha256": "e91a22cab544f27ba25766c0cc271d70aa5571a6377c5428b33035fd8e50d6a0"
+        }
+      ],
+      "answerability": "full",
+      "source_shape": "single_topic",
+      "proposed_required_topic_ids": [
+        "5755"
+      ],
+      "requires_more_than_five_topics": false,
+      "parts": [
+        {
+          "requested_fact": "Affected airways in acute bronchitis",
+          "status": "supported",
+          "expected_fact": "The bronchial tubes become inflamed.",
+          "evidence": [
+            {
+              "topic_id": "5755",
+              "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+              "title": "Acute Bronchitis",
+              "url": "https://medlineplus.gov/acutebronchitis.html",
+              "field": "cleaned_summary",
+              "passage_start": 0,
+              "passage_end": 95,
+              "topic_start": 0,
+              "topic_end": 95,
+              "quote_sha256": "e7e6e4b4452e819b0bf80ab6a95f587262d5fe6ed19d644bd1208d582107edd9"
+            }
+          ]
+        }
+      ],
+      "review_status": "pending_independent_review",
+      "review_notes": "The proposal narrows the original information question to the anatomical site."
+    },
+    {
+      "id": "A-QA-07",
+      "question": "Which nerve is squeezed in carpal tunnel syndrome, and which nerve does an acoustic neuroma develop on?",
+      "origin": "authored_multi_topic",
+      "original_references": [
+        {
+          "type": "notelens_agent_development_review",
+          "case_id": "CQ-03",
+          "path": "docs/rag/retrieval-content-review.json",
+          "sha256": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57"
+        },
+        {
+          "type": "medquad",
+          "revision": "577bd37b96c02d1833b2c9eed2de9f96964e96cb",
+          "xml_path": "4_MPlus_Health_Topics_QA/0000006.xml",
+          "xml_url": "https://github.com/abachaa/MedQuAD/blob/577bd37b96c02d1833b2c9eed2de9f96964e96cb/4_MPlus_Health_Topics_QA/0000006.xml",
+          "xml_sha256": "8027dcf8e14278cc722793e3ffa5e56c95057edd285ee11e48dbb6e6955cc100",
+          "record_id": "0000006",
+          "question_id": "0000006-1",
+          "original_question": "What is (are) Acoustic Neuroma ?",
+          "original_source_url": "https://www.nlm.nih.gov/medlineplus/acousticneuroma.html",
+          "original_answer_sha256": "16a1719f382616e04bc5be91f9f2eee6c416e09dec337151bf22053a0283921e"
+        }
+      ],
+      "answerability": "full",
+      "source_shape": "multi_topic",
+      "proposed_required_topic_ids": [
+        "179",
+        "1624"
+      ],
+      "requires_more_than_five_topics": false,
+      "parts": [
+        {
+          "requested_fact": "Nerve affected in carpal tunnel syndrome",
+          "status": "supported",
+          "expected_fact": "Carpal tunnel syndrome involves compression of the median nerve.",
+          "evidence": [
+            {
+              "topic_id": "179",
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "title": "Carpal Tunnel Syndrome",
+              "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+              "field": "cleaned_summary",
+              "passage_start": 33,
+              "passage_end": 253,
+              "topic_start": 33,
+              "topic_end": 253,
+              "quote_sha256": "f9b705e9a4d327c34d876e2e137fffd4cfea01592483e47b3b75b0bb6c03479a"
+            },
+            {
+              "topic_id": "179",
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "title": "Carpal Tunnel Syndrome",
+              "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+              "field": "cleaned_summary",
+              "passage_start": 368,
+              "passage_end": 472,
+              "topic_start": 368,
+              "topic_end": 472,
+              "quote_sha256": "a9fd677f7a1297863119d346c3a87efafb1461dbd64c9e66f1316b4f1999fded"
+            }
+          ]
+        },
+        {
+          "requested_fact": "Nerve where acoustic neuroma develops",
+          "status": "supported",
+          "expected_fact": "An acoustic neuroma develops on the nerve connecting the ear and brain.",
+          "evidence": [
+            {
+              "topic_id": "1624",
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "title": "Acoustic Neuroma",
+              "url": "https://medlineplus.gov/acousticneuroma.html",
+              "field": "cleaned_summary",
+              "passage_start": 0,
+              "passage_end": 100,
+              "topic_start": 0,
+              "topic_end": 100,
+              "quote_sha256": "11b0989e5fe8e8a0c34e486f0a1108a6760980ebf36ddeea7f31ee349bbf4e7e"
+            }
+          ]
+        }
+      ],
+      "review_status": "pending_independent_review",
+      "review_notes": "Each source grounds a different anatomical relationship. A-QA-05 and this case share acoustic neuroma evidence."
+    },
+    {
+      "id": "A-QA-08",
+      "question": "What are adhesions, and what is one cause of intestinal obstruction other than adhesions?",
+      "origin": "authored_multi_topic",
+      "original_references": [
+        {
+          "type": "medquad",
+          "revision": "577bd37b96c02d1833b2c9eed2de9f96964e96cb",
+          "xml_path": "4_MPlus_Health_Topics_QA/0000012.xml",
+          "xml_url": "https://github.com/abachaa/MedQuAD/blob/577bd37b96c02d1833b2c9eed2de9f96964e96cb/4_MPlus_Health_Topics_QA/0000012.xml",
+          "xml_sha256": "7eb76c85f56faaa529c8cb9add553e5ddcc0df244623e2b62d2a29fb314c9baa",
+          "record_id": "0000012",
+          "question_id": "0000012-1",
+          "original_question": "What is (are) Adhesions ?",
+          "original_source_url": "https://www.nlm.nih.gov/medlineplus/adhesions.html",
+          "original_answer_sha256": "8b7655a17425129ecd25d7efa514aa7d7f6beb4bbfc1888b7deb3496a4efc0db"
+        },
+        {
+          "type": "notelens_agent_development_review",
+          "case_id": "CQ-06",
+          "path": "docs/rag/retrieval-content-review.json",
+          "sha256": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57"
+        }
+      ],
+      "answerability": "full",
+      "source_shape": "multi_topic",
+      "proposed_required_topic_ids": [
+        "3920",
+        "5275"
+      ],
+      "requires_more_than_five_topics": false,
+      "parts": [
+        {
+          "requested_fact": "Definition of adhesions",
+          "status": "supported",
+          "expected_fact": "Adhesions are bands of tissue that resemble scars.",
+          "evidence": [
+            {
+              "topic_id": "3920",
+              "passage_id": "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+              "title": "Adhesions",
+              "url": "https://medlineplus.gov/adhesions.html",
+              "field": "cleaned_summary",
+              "passage_start": 0,
+              "passage_end": 40,
+              "topic_start": 0,
+              "topic_end": 40,
+              "quote_sha256": "2ed7b29791c8514137fd4c3f039ca70b046f3bf049641ad704aaf78de86e794d"
+            }
+          ]
+        },
+        {
+          "requested_fact": "One cause of intestinal obstruction other than adhesions",
+          "status": "supported",
+          "expected_fact": "Hernias, cancers or certain medicines are acceptable examples.",
+          "evidence": [
+            {
+              "topic_id": "5275",
+              "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+              "title": "Intestinal Obstruction",
+              "url": "https://medlineplus.gov/intestinalobstruction.html",
+              "field": "cleaned_summary",
+              "passage_start": 132,
+              "passage_end": 226,
+              "topic_start": 132,
+              "topic_end": 226,
+              "quote_sha256": "833bdd5250666406d6813f16ce7ab042f49e04fb1a6669d6d1818711b78c3184"
+            }
+          ]
+        }
+      ],
+      "review_status": "pending_independent_review",
+      "review_notes": "The adhesions passage grounds the definition. The obstruction passage supplies alternative causes."
+    },
+    {
+      "id": "A-QA-09",
+      "question": "Which organ stores bile, and what substance causes the yellowing in jaundice?",
+      "origin": "authored_multi_topic",
+      "original_references": [
+        {
+          "type": "notelens_agent_development_review",
+          "case_id": "CQ-05",
+          "path": "docs/rag/retrieval-content-review.json",
+          "sha256": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57"
+        }
+      ],
+      "answerability": "full",
+      "source_shape": "multi_topic",
+      "proposed_required_topic_ids": [
+        "4643",
+        "4452"
+      ],
+      "requires_more_than_five_topics": false,
+      "parts": [
+        {
+          "requested_fact": "Organ storing bile",
+          "status": "supported",
+          "expected_fact": "The gallbladder stores bile.",
+          "evidence": [
+            {
+              "topic_id": "4643",
+              "passage_id": "mplus-4643-ce65ac50c6728aaea035f8e00c7ced25d2a3c42d272e3a6fcecf9a345af503bf",
+              "title": "Gallstones",
+              "url": "https://medlineplus.gov/gallstones.html",
+              "field": "cleaned_summary",
+              "passage_start": 0,
+              "passage_end": 115,
+              "topic_start": 0,
+              "topic_end": 115,
+              "quote_sha256": "c7e6be99c563e3db897c60b81674a203c50745ad3ff221880166c914d420ee9d"
+            }
+          ]
+        },
+        {
+          "requested_fact": "Substance causing the yellowing in jaundice",
+          "status": "supported",
+          "expected_fact": "Excess bilirubin causes jaundice.",
+          "evidence": [
+            {
+              "topic_id": "4452",
+              "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+              "title": "Jaundice",
+              "url": "https://medlineplus.gov/jaundice.html",
+              "field": "cleaned_summary",
+              "passage_start": 0,
+              "passage_end": 210,
+              "topic_start": 0,
+              "topic_end": 210,
+              "quote_sha256": "aa66ac160d7dc24124b8ccd768e3bef7f67792cd86fb7c757d851e9d074539c3"
+            }
+          ]
+        }
+      ],
+      "review_status": "pending_independent_review",
+      "review_notes": "The Gallstones topic provides the storage fact. The Jaundice topic supplies the color explanation."
+    }
+  ]
+}

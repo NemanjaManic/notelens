@@ -1,0 +1,79 @@
+{
+  "record_format_version": 1,
+  "status": "complete",
+  "owner": "Nemanja (A)",
+  "build_date": "2026-11-15",
+  "source_snapshot_date": "2026-11-10",
+  "implementation_checkpoint_commit": "78d4d7157054648c31c1fe9b7313fed66d1e8589",
+  "provider": "openai",
+  "api_origin": "https://api.openai.com/v1",
+  "model": "text-embedding-3-small",
+  "dimensions": 1536,
+  "mode": "live",
+  "input_policy": "unchanged-canonical-passage-text-v1",
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "passage_manifest_sha256": "6afe940765c8e4844278b65843f4d780440c99dfe3a09a5b8c2a1af239b803aa",
+  "passage_artifact_sha256": "4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938",
+  "embedding_space_version": "195ba2152af050b63822f4ff83370df9f917378a461a1e4a440b244865ea5905",
+  "embedding_plan_version": "03b3a2f39676114ebfda9fb7c9534785c3dcb5f10b87290d33641f1a6ffcea08",
+  "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+  "backend": {
+    "name": "chroma",
+    "version": "1.5.9",
+    "distance": "cosine"
+  },
+  "runtime": {
+    "python": "3.13.5",
+    "openai_sdk": "3.51.0",
+    "tiktoken": "0.14.0"
+  },
+  "counts": {
+    "topics": 401,
+    "passages": 617,
+    "confirmed_input_tokens": 207790,
+    "successful_corpus_requests_this_resume": 20,
+    "previous_failed_probe_requests": 1,
+    "reserved_tokens": 207797
+  },
+  "approved_initial_run": {
+    "budget_usd": "0.10",
+    "batch_size_max": 32,
+    "timeout_seconds": 30,
+    "automatic_retries": 0,
+    "prior_probe_repeated": false,
+    "generative_llm_calls": 0
+  },
+  "cost_reference": {
+    "checked_on": "2026-11-15",
+    "standard_usd_per_million_input_tokens": "0.02",
+    "confirmed_usage_estimate_usd": "0.0041558",
+    "reservation_including_failed_probe_usd": "0.00415594",
+    "provider_invoice_verified": false,
+    "source_url": "https://developers.openai.com/api/docs/models/text-embedding-3-small"
+  },
+  "storage": {
+    "index_directory": "data/knowledge/indexes/209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+    "git_ignored": true,
+    "secrets_or_vectors_in_this_record": false,
+    "submitted_documents_persisted": false
+  },
+  "verification": {
+    "all_canonical_text_metadata_and_stored_vector_hashes": "passed",
+    "read_only_cli": "passed",
+    "complete_index_reuse_provider_calls": 0,
+    "existing_vector_self_queries": 5,
+    "existing_vector_self_queries_passed": 5,
+    "last_full_offline_suite": {
+      "date": "2026-11-14",
+      "passed": 126,
+      "rerun_for_this_data_only_resume": false
+    },
+    "semantic_retrieval_quality_measured": false,
+    "live_http_retrieval_or_generation_verified": false
+  },
+  "limitations": [
+    "No semantic retrieval benchmark or sufficiency threshold is established.",
+    "HTTP business routes remain provisional mocks; shared integration gates are unchanged.",
+    "This record is not a complete index export; other checkouts need the ignored public artifacts."
+  ]
+}

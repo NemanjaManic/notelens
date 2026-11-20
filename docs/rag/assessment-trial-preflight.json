@@ -1,0 +1,50 @@
+{
+  "cases": [
+    {
+      "context_sha256": "18b58070201a02890abbe48804c0f4ddef9317a5be10ff643a896113f1fedded",
+      "estimated_max_generation_usd": "0.0013811",
+      "input_tokens": 3571,
+      "max_output_tokens": 2048,
+      "question_id": "CQ-01",
+      "request_text_bytes": 15919
+    },
+    {
+      "context_sha256": "552957c59b8ede5aabeabeaa1dcd70c3a1a0e6582916d1c95f9c62224d4f4ad3",
+      "estimated_max_generation_usd": "0.0013843",
+      "input_tokens": 3603,
+      "max_output_tokens": 2048,
+      "question_id": "CQ-02",
+      "request_text_bytes": 15251
+    },
+    {
+      "context_sha256": "78f9c5c4328bd6c288244b199613e84bfdbf3ed9bdba071dd2018858ea6eb5f0",
+      "estimated_max_generation_usd": "0.0012574",
+      "input_tokens": 2334,
+      "max_output_tokens": 2048,
+      "question_id": "CQ-08",
+      "request_text_bytes": 9683
+    }
+  ],
+  "count_calls": 3,
+  "estimated_max_generation_usd": "0.0040228",
+  "execution_approved": false,
+  "format_version": "public-luna-input-preflight-v1",
+  "generation_calls": 0,
+  "maximum_output_tokens_total": 6144,
+  "mode": "live",
+  "model": "gpt-6-luna",
+  "prices": {
+    "checked_on": "2026-11-16",
+    "input_usd_per_million": "0.10",
+    "output_usd_per_million": "0.50",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+  },
+  "prompt_sha256": "137114b199d46e2698db8941345482342dbc41414254f6c430947f94b3d1a10f",
+  "proposed_budget_usd": "0.02",
+  "total_input_tokens": 9508,
+  "counted_on": "2026-11-16",
+  "scope_sha256": "d2b584c6078ff29c76a5be7c0f212de0c4dd26f6c796d1f76ead1fffc432ca5a",
+  "proposal_file_sha256": "d6c7aaa6c625317fde7edfaef0c5652ec356e31ea4878a9039d81e2cba7594a9",
+  "provider_invoice_verified": false,
+  "price_note": "Standard uncached text rates; maximum configured output, not an invoice or model-quality result."
+}

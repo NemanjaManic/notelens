@@ -1,0 +1,41 @@
+{
+  "format_version": "public-coverage-trial-v2",
+  "prepared_on": "2026-11-18",
+  "execution_approved": true,
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-18",
+    "scope_sha256": "05dd7b8cabb7e8a5a3e7dab86544f73d0b73ea787f40baa4b7726f55febd3c6b"
+  },
+  "question_ids": [
+    "CQ-02",
+    "CQ-08"
+  ],
+  "max_new_attempts": 2,
+  "max_attempts_per_question": 1,
+  "cumulative_max_usd": "0.02",
+  "prompt_version": "literature-support-selection-v2",
+  "prompt_sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+  "evidence_policy": "canonical-nonblank-lines-v1",
+  "requests": {
+    "CQ-02": {
+      "context_sha256": "552957c59b8ede5aabeabeaa1dcd70c3a1a0e6582916d1c95f9c62224d4f4ad3",
+      "selection_sha256": "7666c4cf4b198c86945ac885da863d0d75b7651f09202f0cde9844a1270f2667",
+      "request_sha256": "d0a6e48dd68f06a9bb8c5140962e8b1969910edc8887ec56be56d116620f485e"
+    },
+    "CQ-08": {
+      "context_sha256": "78f9c5c4328bd6c288244b199613e84bfdbf3ed9bdba071dd2018858ea6eb5f0",
+      "selection_sha256": "807e66d148728c334f15a85cf6db105274e0c3398ed6eccd0999fab8c9d62c86",
+      "request_sha256": "da02de26744e34f48267b5be35dcb3e9377aa2decc63bee29f964f7a2efc7bbc"
+    }
+  },
+  "prior_trial": {
+    "scope_sha256": "31a4334ed974edfb0b84a88d0a8a4b77c0ab1a38fe94834b2ce09fbc3e1b4bc7",
+    "ledger_sha256": "290d674c3b61e13e8b2c924349dfa0893224c75be79c6f39a927f86f32b613ca",
+    "result_sha256": "38250279260c53fb1970f21dbd2d2bb317385e3abab423f1b22a3555426c68e6",
+    "original_ledger_sha256": "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+    "retry_ledger_sha256": "1b04e28fdc04723930820f1d2b04d670951eea7d65e01f84badca3329de96299",
+    "reserved_usd": "0.0048891",
+    "confirmed_usd": "0.0012049"
+  }
+}

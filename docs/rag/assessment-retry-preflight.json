@@ -1,0 +1,41 @@
+{
+  "record_format_version": "public-luna-assessment-retry-preflight-v1",
+  "date": "2026-11-17",
+  "preflight": {
+    "scope_sha256": "13139aecb51365d4aa0fb2945320fd637541222abe8469a6f455807683708964",
+    "execution_approved": false,
+    "model": "gpt-6-luna",
+    "question_id": "CQ-01",
+    "max_new_attempts": 1,
+    "parameters": {
+      "max_output_tokens": 2048,
+      "reasoning_effort": "none",
+      "timeout_seconds": 30
+    },
+    "max_input_tokens": 20000,
+    "cumulative_max_usd": "0.02",
+    "carried_reserved_usd": "0.0013811",
+    "carried_confirmed_usd": "0",
+    "maximum_new_reservation_usd": "0.003024",
+    "maximum_combined_reservation_usd": "0.0044051",
+    "price_basis": "Recorded reference prices; not actual billing or a fresh price check.",
+    "original_ledger_verified": true,
+    "provider_calls": 0
+  },
+  "checks": {
+    "retry_without_fresh_approval": "retry_execution_not_approved",
+    "original_trial_blocked_cases": [
+      "CQ-01",
+      "CQ-02",
+      "CQ-08"
+    ],
+    "original_ledger_sha256": "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+    "original_ledger_byte_identical": true,
+    "retry_folder_created": false,
+    "actual_key_loading": 0,
+    "provider_creations": 0,
+    "provider_requests": 0,
+    "execution_approval_recorded": false,
+    "actual_env_edited": false
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "format_version": "rag-saved-development-evaluation-v1",
+  "input_sha256": {
+    "docs/rag/qa-proposals.json": "737a85f41733b6fddc7822ed83f84b2487e83f278a0ecf602c93ed450cd007db",
+    "docs/rag/retrieval-smoke-results.json": "0255dc55a6f648bc369453853a0327b6530cbe7077d43c9f937fd62a3f99a55e",
+    "docs/rag/retrieval-content-review.json": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57",
+    "docs/rag/selection-trial-results.json": "f06a0fd36e5cb71004bc815255c8591c7043945d6f2d47bf36e6b717c298c31d",
+    "docs/rag/coverage-trial-results.json": "ec90cee36ed99b70387884c5b673747335eca280b7db2db46ca5204692205c39"
+  },
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+  "retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+  "assessment_prompt_version": "literature-support-selection-v2",
+  "assessment_configuration_version": "7d889d5461f08eb549d6f9a460dc956b32dc799ad2dc8fc43acf77d705e35e0f",
+  "groups": {
+    "single_topic": {
+      "proposed_cases": 5,
+      "saved_rankings": 3,
+      "rankings_with_topic_reference": 3,
+      "mean_topic_recall_at_5": 1.0,
+      "topic_mrr_at_5": 1.0,
+      "all_required_topics_at_5_cases": 3,
+      "known_supported_parts": 3,
+      "known_supported_parts_with_all_citations_at_5": 3
+    },
+    "multi_topic": {
+      "proposed_cases": 3,
+      "saved_rankings": 0,
+      "rankings_with_topic_reference": 0,
+      "mean_topic_recall_at_5": null,
+      "topic_mrr_at_5": null,
+      "all_required_topics_at_5_cases": null,
+      "known_supported_parts": 0,
+      "known_supported_parts_with_all_citations_at_5": 0
+    },
+    "no_supported_topic": {
+      "proposed_cases": 1,
+      "saved_rankings": 1,
+      "rankings_with_topic_reference": 0,
+      "mean_topic_recall_at_5": null,
+      "topic_mrr_at_5": null,
+      "all_required_topics_at_5_cases": null,
+      "known_supported_parts": 0,
+      "known_supported_parts_with_all_citations_at_5": 0
+    }
+  },
+  "support_decisions": {
+    "assessed": 3,
+    "would_allow_some_evidence": 2,
+    "overstated_coverage_among_accepted": 0,
+    "potential_coverage": 0.6666666666666666,
+    "observed_overstatement_rate": 0.0,
+    "basis": "Prior support judgments relative to author-reviewed development labels. No final answer was generated."
+  },
+  "new_provider_calls": 0,
+  "cases": [
+    {
+      "case_id": "A-QA-01",
+      "source_shape": "single_topic",
+      "expected_coverage": "full",
+      "over_five_topics": false,
+      "retrieval": {
+        "source_case_id": "CQ-01",
+        "returned_passages": 5,
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "supported_parts_in_reference": 1,
+        "supported_parts_with_all_cited_passages": 1
+      },
+      "support_assessment": "full"
+    },
+    {
+      "case_id": "A-QA-02",
+      "source_shape": "single_topic",
+      "expected_coverage": "partial",
+      "over_five_topics": false,
+      "retrieval": {
+        "source_case_id": "CQ-02",
+        "returned_passages": 5,
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "supported_parts_in_reference": 1,
+        "supported_parts_with_all_cited_passages": 1
+      },
+      "support_assessment": "partial"
+    },
+    {
+      "case_id": "A-QA-03",
+      "source_shape": "no_supported_topic",
+      "expected_coverage": "none",
+      "over_five_topics": false,
+      "retrieval": {
+        "source_case_id": "CQ-08",
+        "returned_passages": 5,
+        "topic_metrics": null,
+        "supported_parts_in_reference": 0,
+        "supported_parts_with_all_cited_passages": 0
+      },
+      "support_assessment": "none"
+    },
+    {
+      "case_id": "A-QA-04",
+      "source_shape": "single_topic",
+      "expected_coverage": "full",
+      "over_five_topics": false,
+      "retrieval": {
+        "source_case_id": "CQ-10",
+        "returned_passages": 5,
+        "topic_metrics": {
+          "recall_at_5": 1.0,
+          "reciprocal_rank_at_5": 1.0,
+          "all_required_topics_at_5": true
+        },
+        "supported_parts_in_reference": 1,
+        "supported_parts_with_all_cited_passages": 1
+      },
+      "support_assessment": null
+    },
+    {
+      "case_id": "A-QA-05",
+      "source_shape": "single_topic",
+      "expected_coverage": "full",
+      "over_five_topics": false,
+      "retrieval": null,
+      "support_assessment": null
+    },
+    {
+      "case_id": "A-QA-06",
+      "source_shape": "single_topic",
+      "expected_coverage": "full",
+      "over_five_topics": false,
+      "retrieval": null,
+      "support_assessment": null
+    },
+    {
+      "case_id": "A-QA-07",
+      "source_shape": "multi_topic",
+      "expected_coverage": "full",
+      "over_five_topics": false,
+      "retrieval": null,
+      "support_assessment": null
+    },
+    {
+      "case_id": "A-QA-08",
+      "source_shape": "multi_topic",
+      "expected_coverage": "full",
+      "over_five_topics": false,
+      "retrieval": null,
+      "support_assessment": null
+    },
+    {
+      "case_id": "A-QA-09",
+      "source_shape": "multi_topic",
+      "expected_coverage": "full",
+      "over_five_topics": false,
+      "retrieval": null,
+      "support_assessment": null
+    }
+  ]
+}

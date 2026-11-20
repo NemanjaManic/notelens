@@ -1,0 +1,66 @@
+{
+  "record_format_version": "evidence-selection-preflight-v2",
+  "date": "2026-11-17",
+  "evidence_policy": "canonical-nonblank-lines-v1",
+  "mode": "local_preparation_only",
+  "cases": [
+    {
+      "question_id": "CQ-01",
+      "context_sha256": "18b58070201a02890abbe48804c0f4ddef9317a5be10ff643a896113f1fedded",
+      "selection_sha256": "05f9ad8d9d5510dc0b956c50f0e5f380e9bce2b541e91043d7e11a3626e5660a",
+      "prompt_sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+      "evidence_options": 89,
+      "passages": 5,
+      "base_input_json_utf8_bytes": 11686,
+      "selection_input_json_utf8_bytes": 33172,
+      "max_option_code_points": 562,
+      "all_options_exact": true,
+      "all_nonwhitespace_source_code_points_covered": true
+    },
+    {
+      "question_id": "CQ-02",
+      "context_sha256": "552957c59b8ede5aabeabeaa1dcd70c3a1a0e6582916d1c95f9c62224d4f4ad3",
+      "selection_sha256": "7666c4cf4b198c86945ac885da863d0d75b7651f09202f0cde9844a1270f2667",
+      "prompt_sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+      "evidence_options": 126,
+      "passages": 5,
+      "base_input_json_utf8_bytes": 11020,
+      "selection_input_json_utf8_bytes": 36272,
+      "max_option_code_points": 374,
+      "all_options_exact": true,
+      "all_nonwhitespace_source_code_points_covered": true
+    },
+    {
+      "question_id": "CQ-08",
+      "context_sha256": "78f9c5c4328bd6c288244b199613e84bfdbf3ed9bdba071dd2018858ea6eb5f0",
+      "selection_sha256": "807e66d148728c334f15a85cf6db105274e0c3398ed6eccd0999fab8c9d62c86",
+      "prompt_sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+      "evidence_options": 34,
+      "passages": 5,
+      "base_input_json_utf8_bytes": 5457,
+      "selection_input_json_utf8_bytes": 14130,
+      "max_option_code_points": 441,
+      "all_options_exact": true,
+      "all_nonwhitespace_source_code_points_covered": true
+    }
+  ],
+  "provider_calls": 0,
+  "key_loading": 0,
+  "live_execution_available": false,
+  "input_token_counts": "Not measured; a separately approved future trial must pre-count and enforce its token cap.",
+  "history_guard": {
+    "both_ledgers_byte_identical": true,
+    "ledger_sha256": [
+      "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+      "1b04e28fdc04723930820f1d2b04d670951eea7d65e01f84badca3329de96299"
+    ],
+    "all_six_trial_case_probes_blocked": true,
+    "provider_creations": 0
+  },
+  "limitations": [
+    "Exact source spans do not establish semantic support.",
+    "A line may contain multiple sentences; no finer sentence or substring option is inferred.",
+    "Complete passages and selectable quotes both appear in model input, increasing input size.",
+    "No real model response, quality result, new paid scope or live HTTP behavior was tested."
+  ]
+}

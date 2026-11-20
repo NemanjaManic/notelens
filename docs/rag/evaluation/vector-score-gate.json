@@ -1,0 +1,614 @@
+{
+  "format_version": "rag-vector-score-gate-development-v1",
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+  "retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+  "question_count": 9,
+  "provider_calls": 0,
+  "cache_state_unchanged": true,
+  "reference_basis": "Owner-local public QA proposals, including one case with missing support in the reviewed passages.",
+  "rule_tested": "Keep each passage at or above the cutoff, and allow a question only if at least one passage remains.",
+  "selected_runtime_cutoff": null,
+  "cases": [
+    {
+      "case_id": "A-QA-01",
+      "review_coverage": "full",
+      "top_score": 0.4854106903076172,
+      "reviewed_parts": [
+        {
+          "requested_fact": "Difference between systolic and diastolic pressure",
+          "minimum_cited_passage_score": 0.4854106903076172
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-02",
+      "review_coverage": "partial",
+      "top_score": 0.5618729591369629,
+      "reviewed_parts": [
+        {
+          "requested_fact": "Cause of COVID-19",
+          "minimum_cited_passage_score": 0.5618729591369629
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-03",
+      "review_coverage": "none",
+      "top_score": 0.49264562129974365,
+      "reviewed_parts": []
+    },
+    {
+      "case_id": "A-QA-04",
+      "review_coverage": "full",
+      "top_score": 0.5539314150810242,
+      "reviewed_parts": [
+        {
+          "requested_fact": "Does a high PSA value alone prove prostate cancer",
+          "minimum_cited_passage_score": 0.5539314150810242
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-05",
+      "review_coverage": "full",
+      "top_score": 0.7301063537597656,
+      "reviewed_parts": [
+        {
+          "requested_fact": "Definition and location of an acoustic neuroma",
+          "minimum_cited_passage_score": 0.7301063537597656
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-06",
+      "review_coverage": "full",
+      "top_score": 0.6166256070137024,
+      "reviewed_parts": [
+        {
+          "requested_fact": "Affected airways in acute bronchitis",
+          "minimum_cited_passage_score": 0.6166256070137024
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-07",
+      "review_coverage": "full",
+      "top_score": 0.6074016690254211,
+      "reviewed_parts": [
+        {
+          "requested_fact": "Nerve affected in carpal tunnel syndrome",
+          "minimum_cited_passage_score": 0.512203574180603
+        },
+        {
+          "requested_fact": "Nerve where acoustic neuroma develops",
+          "minimum_cited_passage_score": 0.6074016690254211
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-08",
+      "review_coverage": "full",
+      "top_score": 0.6941878199577332,
+      "reviewed_parts": [
+        {
+          "requested_fact": "Definition of adhesions",
+          "minimum_cited_passage_score": 0.6941878199577332
+        },
+        {
+          "requested_fact": "One cause of intestinal obstruction other than adhesions",
+          "minimum_cited_passage_score": 0.6604763269424438
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-09",
+      "review_coverage": "full",
+      "top_score": 0.6307340860366821,
+      "reviewed_parts": [
+        {
+          "requested_fact": "Organ storing bile",
+          "minimum_cited_passage_score": 0.4913369417190552
+        },
+        {
+          "requested_fact": "Substance causing the yellowing in jaundice",
+          "minimum_cited_passage_score": 0.6307340860366821
+        }
+      ]
+    }
+  ],
+  "operating_points": {
+    "no_cutoff": {
+      "cutoff": null,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    "strictest_preserving_all_cited_parts": {
+      "cutoff": 0.4854106903076172,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    "loosest_rejecting_all_questions_without_reviewed_support": {
+      "cutoff": 0.4964430332183838,
+      "questions_allowed": 7,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 9,
+      "allowed_case_fraction": 0.7777777777777778,
+      "unsupported_fraction_among_allowed": 0.0
+    }
+  },
+  "sweep": [
+    {
+      "cutoff": 0.2883946895599365,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.31068915128707886,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.31813061237335205,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.3228268623352051,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.32299888134002686,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.324542760848999,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.3302255868911743,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.3310734033584595,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.3374955654144287,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.3816516399383545,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.3850717544555664,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.38629841804504395,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.38897740840911865,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.3898754119873047,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.3904592990875244,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.394137978553772,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.394212543964386,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.4150550365447998,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.42303675413131714,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.4259312152862549,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.42763006687164307,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.43493515253067017,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.4394451379776001,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.44486892223358154,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.46572554111480713,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.4814976453781128,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.4821220636367798,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.4854106903076172,
+      "questions_allowed": 9,
+      "allowed_with_some_reviewed_support": 8,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 0,
+      "cited_parts_retained": 11,
+      "allowed_case_fraction": 1.0,
+      "unsupported_fraction_among_allowed": 0.1111111111111111
+    },
+    {
+      "cutoff": 0.4913369417190552,
+      "questions_allowed": 8,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 10,
+      "allowed_case_fraction": 0.8888888888888888,
+      "unsupported_fraction_among_allowed": 0.125
+    },
+    {
+      "cutoff": 0.49264562129974365,
+      "questions_allowed": 8,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 1,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 9,
+      "allowed_case_fraction": 0.8888888888888888,
+      "unsupported_fraction_among_allowed": 0.125
+    },
+    {
+      "cutoff": 0.4964430332183838,
+      "questions_allowed": 7,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 9,
+      "allowed_case_fraction": 0.7777777777777778,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.4989699125289917,
+      "questions_allowed": 7,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 9,
+      "allowed_case_fraction": 0.7777777777777778,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.5042537450790405,
+      "questions_allowed": 7,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 9,
+      "allowed_case_fraction": 0.7777777777777778,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.512203574180603,
+      "questions_allowed": 7,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 9,
+      "allowed_case_fraction": 0.7777777777777778,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.514144241809845,
+      "questions_allowed": 7,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 8,
+      "allowed_case_fraction": 0.7777777777777778,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.5260838270187378,
+      "questions_allowed": 7,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 8,
+      "allowed_case_fraction": 0.7777777777777778,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.5470196604728699,
+      "questions_allowed": 7,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 8,
+      "allowed_case_fraction": 0.7777777777777778,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.5539314150810242,
+      "questions_allowed": 7,
+      "allowed_with_some_reviewed_support": 7,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 1,
+      "cited_parts_retained": 8,
+      "allowed_case_fraction": 0.7777777777777778,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.5618729591369629,
+      "questions_allowed": 6,
+      "allowed_with_some_reviewed_support": 6,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 2,
+      "cited_parts_retained": 7,
+      "allowed_case_fraction": 0.6666666666666666,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.6074016690254211,
+      "questions_allowed": 5,
+      "allowed_with_some_reviewed_support": 5,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 3,
+      "cited_parts_retained": 6,
+      "allowed_case_fraction": 0.5555555555555556,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.6166256070137024,
+      "questions_allowed": 4,
+      "allowed_with_some_reviewed_support": 4,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 4,
+      "cited_parts_retained": 5,
+      "allowed_case_fraction": 0.4444444444444444,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.6307340860366821,
+      "questions_allowed": 3,
+      "allowed_with_some_reviewed_support": 3,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 5,
+      "cited_parts_retained": 4,
+      "allowed_case_fraction": 0.3333333333333333,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.6604763269424438,
+      "questions_allowed": 2,
+      "allowed_with_some_reviewed_support": 2,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 6,
+      "cited_parts_retained": 3,
+      "allowed_case_fraction": 0.2222222222222222,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.6941878199577332,
+      "questions_allowed": 2,
+      "allowed_with_some_reviewed_support": 2,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 6,
+      "cited_parts_retained": 2,
+      "allowed_case_fraction": 0.2222222222222222,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.7301063537597656,
+      "questions_allowed": 1,
+      "allowed_with_some_reviewed_support": 1,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 7,
+      "cited_parts_retained": 1,
+      "allowed_case_fraction": 0.1111111111111111,
+      "unsupported_fraction_among_allowed": 0.0
+    },
+    {
+      "cutoff": 0.7301063537597657,
+      "questions_allowed": 0,
+      "allowed_with_some_reviewed_support": 0,
+      "allowed_without_reviewed_support": 0,
+      "rejected_with_some_reviewed_support": 8,
+      "cited_parts_retained": 0,
+      "allowed_case_fraction": 0.0,
+      "unsupported_fraction_among_allowed": null
+    }
+  ]
+}

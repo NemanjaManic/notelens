@@ -23,6 +23,53 @@ The HTTP routes remain mock; question retrieval and generation are later increme
 
 Educational demo. Not a doctor. Do not submit real personal medical reports.
 
+The 2026-11-17 [safe diagnostics increment](../../docs/rag/assessment-trial.md#safe-validation-diagnostics-2026-11-17)
+locates rejected model output by rule and numeric field path without retaining raw
+responses. At that checkpoint, all 506 local tests passed without new provider
+requests. The original trial remains halted and its original cause is unknown.
+
+The [single CQ-01 retry](../../docs/rag/assessment-retry.md) was separately approved
+and attempted on 2026-11-17 after all 539 offline tests passed again. Its response
+failed exact-quote validation (quote_mismatch). The retry is halted, the cumulative
+reference-price reservation is USD 0.0027622 and the activation flag is false.
+See [actual results](../../docs/rag/assessment-retry-results.json). No further
+provider attempt is approved; default inspection remains key-free.
+
+The [v2 evidence-selection increment](../../docs/rag/evidence-selection.md) is now
+checked locally: the model selects offered evidence IDs, and Python supplies exact
+canonical quotes/offsets. All 585 tests pass. Retrieval and mock HTTP routes are
+unchanged. Its first separately approved actual public probe is recorded below.
+
+The [single v2 trial](../../docs/rag/selection-trial.md) was approved and run once
+on 2026-11-18 after all 623 offline tests passed again. CQ-01 produced a validated
+full-coverage assessment: 11,029 input tokens, 204 output tokens and four exact
+evidence references. A key-free cache replay made zero provider calls. The old
+histories are unchanged and activation is false again. See [actual results](../../docs/rag/selection-trial-results.json).
+No other case, additional generation, final literature answer or shared HTTP
+integration is approved/completed by this one probe.
+
+The subsequent [two-case coverage trial](../../docs/rag/coverage-trial.md) completed
+on 2026-11-18 after all 659 offline checks passed. CQ-02 correctly retained the
+supported COVID-19 cause and identified missing contagiousness duration; CQ-08
+found no evidence for the requested Serbia 2025 incidence rate. Both actual
+results replayed without a key or provider request, with four ledgers unchanged.
+The three public v2 probes now cover full/partial/none examples; they are not a
+general quality benchmark. Cumulative reserved reference cost is USD 0.0087813
+within the USD 0.02 allowance; actual billing is unverified. The approved attempts
+are consumed and activation is disabled.
+
+The 2026-11-18 owner-local pipeline adds question decomposition, v2 evidence
+selection and cited answer composition through the existing HTTP contract. The
+local tests inject the pipeline via `create_app(settings, backend=service)` and
+simulate the SDK responses. Question decomposition sees only the exact question.
+It checks returned anchors and assigns part IDs before evidence selection. The
+original question also goes to the assessor for its coverage check. Exact anchors
+alone cannot establish whether the model captured all the requested facts.
+Unclear, non-English and out-of-scope fixture questions return a fixed English
+422 response before ranking. All 727 RAG tests passed. The default app uses its
+mock backend. Live question decomposition, answer evaluation and team integration
+remain open.
+
 ## Install and verify
 
 From the repository root in PowerShell, with Python 3.13 already installed:
@@ -40,23 +87,36 @@ root/shared package files are not changed by this service installation. Its loca
 notelens-contracts dependency comes from ../../contracts/generated/python, imported
 through B's published dependency commit. Python 3.14 service execution is unverified.
 
-The default locked install is the checkpoint mock profile. Chroma and its indexing
-dependencies belong to the optional `indexing` extra. The default regression run
-reports the Chroma-specific test module as skipped and exercises the mock HTTP
-routes, contracts, authentication, request IDs, corpus adapter and embedding fixtures.
-
-To install the explicit indexing profile and run its synthetic-vector checks:
+The default locked install runs the key-free checkpoint mock and core RAG tests.
+Use the optional `indexing` extra to open Chroma and run the persistent-index
+and indexed-startup checks.
 
 ```powershell
 uv --system-certs sync --locked --directory services/rag --python 3.13 --dev --extra indexing
 uv run --locked --offline --directory services/rag --extra indexing python -m pytest
 ```
 
-The indexing extra retains the prior Chroma version and its open advisory finding.
-The checkpoint dependency change covers the installed mock profile. B verifies
-the combined checkpoint's actual installed inventory in the shared dependency lane.
+The indexing extra retains the checkpoint's Chroma version and its open advisory
+finding. See the [integration handoff](../../docs/rag/development-handoff.md#configured-index-startup)
+for the pinned assets and explicit backend setup.
 
 ## Run locally
+
+For the separate candidate-ranking CLI over registered public development questions,
+see [retrieval commands, allowance and limitations](../../docs/rag/retrieval.md#public-development-cli-and-separate-query-allowance).
+It does not change the frozen-contract mock HTTP routes documented below.
+
+The approved 2026-11-15 public trial has completed ten real searches, each returning
+five sources. All ten can now be repeated locally without API calls using their
+cached query vectors. For example, from this checkout with its existing local index:
+
+```powershell
+uv run --locked --offline --directory services/rag --extra indexing python -m notelens_rag.query_smoke --question-id CQ-01
+```
+
+This prints exact public passage text and sources. It does not generate an answer
+or assert answerability. Fresh clones do not include the ignored index/query cache;
+the default mock remains independent of those artifacts.
 
 ```powershell
 $env:NOTELENS_RAG_MODE = 'mock'
@@ -172,6 +232,35 @@ corpus_integrity_failure and corpus_version_mismatch. These are CLI/internal cod
 the shared HTTP error enum is unchanged.
 
 ## Contract boundary
+
+The owner-local [support assessment processor](../../docs/rag/support-assessment.md)
+validates supplied per-question-part judgments and exact passage quotes without
+an API key or provider. It does not yet assess new questions semantically or
+activate a real HTTP route. Its 39 new checks and the full 397-test service suite
+passed on Python 3.13.5; the earlier checkpoint results below remain historical.
+
+The [GPT-6 Luna adapter checkpoint](../../docs/rag/luna-assessor.md) adds a versioned
+English assessment prompt and actual Responses SDK wiring through mandatory
+MockTransport. All 43 new checks and the full 440-test suite passed. There is no
+real-key loading or live switch; provider calls and semantic quality measurement
+remain separately gated. The prompt is included and load-tested in the wheel.
+
+The separate [bounded public trial](../../docs/rag/assessment-trial.md) was approved
+on 2026-11-17 and halted after its first invalid assessment. The default inspection
+command remains key-free and makes no API calls:
+
+```powershell
+uv run --locked --offline --directory services/rag python -m notelens_rag.assessment_trial
+```
+
+All 23 trial checks and the full 463-test suite passed again before execution.
+The prior free preflight measured 9,508 input tokens across CQ-01/CQ-02/CQ-08.
+The approved run attempted only CQ-01, failed with invalid_assessment and retained
+a USD 0.0013811 reference-price reservation; no validated assessment was produced.
+CQ-02/CQ-08 were not attempted. Actual billing is unverified. The ledger is halted,
+the flag is disabled again and the real .env is unchanged. Do not reset the ledger
+or repeat/continue the test without separate approval. See the
+[actual run record](../../docs/rag/assessment-trial-results.json).
 
 The installed notelens-contracts 1.0.0 package exports notelens_contracts.v1 TypedDicts
 and validate_json/validate_record. The service uses these runtime validators for
