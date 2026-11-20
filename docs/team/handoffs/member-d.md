@@ -1,31 +1,16 @@
 # Member D: Extraction and Evaluation
 
-**Feature**: specs/004-extraction-evaluation. **Branch**: member-d/extraction-evaluation.
-**Current base**: initial documentation handoff, not the runnable foundation.
-Read the [scope decision](../../decisions/initial-documentation-handoff.md) and
-[working-copy guide](../working-copies.md) before starting.
+**Feature** `specs/004-extraction-evaluation`. `member-d/reconcile-main-2026-11-19` contains D’s current reconciliation. Preserve `member-d/extraction-evaluation` and compare overlapping content before bringing owner work forward.
 
-## Responsibility and paths
+Shared mock base `c5c186c18b2ad74e825c030ad8c993918ea39599` on `origin/main` includes frozen v1.0.0 contracts, the F-005 mock demo, the F-011 health checks and the F-010 workflow. F-010 verification is recorded in the foundation backlog. F-014 publication is pending.
 
-Owned paths: services/extraction/**, eval/** except the explicit member-a/b/c annotation paths, docs/extraction-eval/**, specs/004-extraction-evaluation/**.
-See the [complete matrix](../allowed-paths.md). Member annotation paths override D's parent
-ownership. Read shared context freely; do not edit another owner or canonical contracts
-independently. Submit shared proposals to B and wait for agreement.
+## Recover your working copy
 
-## Read in order
+Read the [root instructions](../../../AGENTS.md), [constitution](../../../.specify/memory/constitution.md), [scope decisions](../open-decisions.md), [frozen contracts](../../../contracts/v1/README.md), and your [feature backlog](../../../specs/004-extraction-evaluation/tasks.md). Use the [working-copy guide](../working-copies.md) for isolation and reconciliation. Its initial documentation base is historical. Check your branch and drafts, fetch `origin/main`, verify the shared checkpoint, and compare overlapping files before reconciling. Preserve unpublished work.
 
-1. [Root instructions](../../../AGENTS.md) and [constitution draft](../../../.specify/memory/constitution.md).
-2. [Original prompt](../../../prompts/NoteLens_Codex_SpecKit_prompt_00.md) as requirements context,
-   not as authorization to rerun setup or implement all workstreams.
-3. Your [spec](../../../specs/004-extraction-evaluation/spec.md),
-   [plan](../../../specs/004-extraction-evaluation/plan.md) and
-   [tasks](../../../specs/004-extraction-evaluation/tasks.md).
-4. [Draft contracts](../../../contracts/v1/README.md), [open decisions](../open-decisions.md)
-   and [your start prompt](../start-prompts/member-d.md).
+The published D reconciliation tip `66ee547` records D-001 complete and owner-local progress on D-010, D-004, D-005 and D-002. The synthetic evaluator exercised all five mock business routes there. The shared mock service and readiness checks are already on `main`.
 
-## Select the feature in your own clone/worktree
-
-PowerShell:
+From the repository root, select the feature without persisting local state.
 
 ```powershell
 $env:SPECIFY_FEATURE_DIRECTORY = 'specs/004-extraction-evaluation'
@@ -33,119 +18,45 @@ $env:SPECIFY_FEATURE_NO_PERSIST = '1'
 & ./.specify/scripts/powershell/check-prerequisites.ps1 -PathsOnly -Json
 ```
 
-Git Bash on Windows:
+On Git Bash for Windows, export `SPECIFY_FEATURE_DIRECTORY=specs/004-extraction-evaluation` and `SPECIFY_FEATURE_NO_PERSIST=1`, then run `powershell.exe -NoProfile -File .specify/scripts/powershell/check-prerequisites.ps1 -PathsOnly -Json`. Confirm the reported feature directory matches the selected path. Use actual Git branch output separately.
 
-```bash
-export SPECIFY_FEATURE_DIRECTORY=specs/004-extraction-evaluation
-export SPECIFY_FEATURE_NO_PERSIST=1
-powershell.exe -NoProfile -File .specify/scripts/powershell/check-prerequisites.ps1 -PathsOnly -Json
-```
+## Ownership and contracts
 
-Expected: FEATURE_DIR selects specs/004-extraction-evaluation, regardless of branch name.
-No package install, provider key or other complete module is needed for this path check.
+`services/extraction/**`, `docs/extraction-eval/**`, `specs/004-extraction-evaluation/**`, and `eval/**` except A, B, and C’s member-specific annotation paths. Follow the [allowed-path matrix](../allowed-paths.md) and seek review from the appropriate owner for shared changes.
 
-## Inputs and outputs
+`ExtractionRequest` and `DocumentQuestionRequest` contain unchanged `PreparedDocument` records. Evaluation consumes versioned outputs and approved reference sets.
 
-- **Inputs**: ExtractionRequest / DocumentQuestionRequest containing unchanged canonical text; versioned module outputs for evaluation.
-- **Outputs**: ExtractionResult, English evidence-linked summaries/document answers, proposed annotation/reference/QA records and shared measured reports.
-- **Canonical source**: contracts/v1/schema.json and its referenced OpenAPI proposal.
-  These remain draft; B coordinates freeze and generated bindings.
-- **Failures**: English safe shared errors for invalid/unsupported input, timeout,
-  rate/provider/configuration problems and insufficient evidence. Partial document support
-  must remain usable when literature is weak. Follow code-point evidence and hash rules.
+Return `ExtractionResult` with document-cited summaries and `AnswerResult` for document questions. Preserve exact offsets and quotes, plus separate assertion, temporality and subject. D coordinates annotation, adjudication and shared evaluation.
 
-## Illustrative payload
+Use `extraction-valid` in the frozen payload catalog for a synthetic extraction with evidence and summary. [Frozen fixture](../../../contracts/v1/fixtures/payloads.json)
 
-**Example type**: ExtractionResult.
-This is a documentation example, not a running mock, real measurement or completed module.
-Mode mock identifies its illustrative nature. No provider/service was called.
+## First five tasks
 
-```json
-{
-  "schema_version": "1.0.0",
-  "mode": "mock",
-  "doc_id": "illustrative-document",
-  "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
-  "items": [
-    {
-      "entity_id": "illustrative-entity",
-      "type": "symptom",
-      "name": "chest pain",
-      "assertion": "suspected",
-      "temporality": "unknown",
-      "subject": "unknown",
-      "evidence": [
-        {
-          "start": 22,
-          "end": 46,
-          "quote": "Chest pain is suspected."
-        }
-      ]
-    }
-  ],
-  "summary": {
-    "language": "en",
-    "text": "The text includes a suspected mention of chest pain.",
-    "claims": [
-      {
-        "claim_id": "illustrative-claim",
-        "text": "The text includes a suspected mention of chest pain.",
-        "scope": "document_fact",
-        "source_ids": [
-          "illustrative-document-source"
-        ]
-      }
-    ],
-    "sources": [
-      {
-        "source_id": "illustrative-document-source",
-        "kind": "document",
-        "doc_id": "illustrative-document",
-        "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
-        "evidence": {
-          "start": 22,
-          "end": 46,
-          "quote": "Chest pain is suspected."
-        }
-      }
-    ],
-    "evidence_state": "sufficient",
-    "warnings": [
-      "Synthetic illustration only; no extraction service was called."
-    ]
-  },
-  "extractor_version": "illustrative-only",
-  "prompt_version": "illustrative-only"
-}
-```
-
-The shared text used for document-bound examples is synthetic. Its exact digest and evidence
-interval were computed for the illustration; no clinical validation or real patient is implied.
-
-## First ready action
-
-D-001: draft entity/status/subject, exact-span, annotation and evidence-support instructions from the agreed requirements.
-Begin with read-only inspection; ask for approval before the first concrete owned change
-package. Do not automatically implement the entire backlog.
-
-## First five-task sequence
-
-| Alias | Local ID | Deliverable | Availability |
+| Alias | Local ID | Deliverable | Status and next dependency |
 | --- | --- | --- | --- |
-| D-001 | T001 | Draft annotation ontology, evidence rules and extraction interface proposals | May start as an approved inspection/proposal package. |
-| D-010 | T002 | Create D's independent offline evaluation packages, fixtures and mock adapters | Wait for listed prerequisites; see tasks.md. |
-| D-004 | T003 | Implement structured Python extraction and bounded semantic/span validation | Wait for listed prerequisites; see tasks.md. |
-| D-005 | T004 | Generate English summaries and document answers with supported claims | Wait for listed prerequisites; see tasks.md. |
-| D-002 | T005 | Select and freeze representative annotation assignment candidates | Wait for listed prerequisites; see tasks.md. |
+| D-001 | T001 | Prepare annotation ontology, evidence rules and proposals | Complete on D’s published reconciliation branch. |
+| D-010 | T002 | Prepare offline evaluation packages, fixtures and mock adapters | Owner-local synthetic adapters and loopback checks exist. Parent task is open. |
+| D-004 | T003 | Implement structured extraction and span validation | Owner-local mock slice exists. Full integration requires F-014. |
+| D-005 | T004 | Generate evidence-linked summaries and document answers | Owner-local literal mock exists. Full implementation depends on D-004. |
+| D-002 | T005 | Select and freeze annotation candidates | Synthetic selector checks exist. Real selection requires C-002 manifests and permitted source access. |
 
-The first audit/rule-drafting task can start without other complete modules. Later tasks remain blocked by their actual contract/scaffold/published-foundation prerequisites.
-This is a five-task sequence, not a claim that five business tasks are immediately ready.
+Verify the D-010 work in the owner checkout. Wait for permitted C-002 document/group IDs, split membership and canonical digests before D-002 selection. Keep D-003 assignments and independent reviews gated by actual selection. D-006 requires D-010 and F-014.
 
-## Checks and honest status
+## Run the key-free mock
 
-The feature path check above exists now. Test/CLI commands in tasks.md are future acceptance
-targets created by the named tasks and prerequisites. There is no service-start/npm script
-available today. Mock checks, actual-module checks and separately authorized live checks
-must be reported distinctly; do not close real tasks based on an illustrative payload.
-English artifacts, the user's approved 60-minute/2-MiB/100,000-code-point policies, held-out
-data protection and no paid calls without approval remain binding.
+Use the Windows setup and build steps in the [mock startup runbook](../../platform/f-005-mock-startup.md). Run these commands separately from the repository root. For the interactive launcher, open the printed loopback URL, select the synthetic report and stop with Ctrl+C. The smoke command starts and stops its own processes.
+
+```powershell
+uv run --locked --offline --directory scripts/project python -B start_mock.py
+uv run --locked --offline --directory scripts/project python -B smoke_mock.py
+```
+
+Run the focused check below after the same locked setup.
+
+```powershell
+uv run --locked --offline --directory services/extraction python -B -m pytest tests/test_http_smoke.py
+```
+
+Report mock, module and separately authorized live results with their actual scope. Use English and approved public or synthetic inputs. Keep document contents out of logs and raw datasets out of Git. Follow the approved memory-only 60-minute limit, 2 MiB PDF limit and 100,000-code-point limit where applicable. Obtain approval for a new change package and separate authorization for publishing or activating providers.
+
+[Member D start prompt](../start-prompts/member-d.md)

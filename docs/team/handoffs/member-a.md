@@ -1,31 +1,16 @@
 # Member A: Python RAG
 
-**Feature**: specs/001-rag. **Branch**: member-a/rag.
-**Current base**: initial documentation handoff, not the runnable foundation.
-Read the [scope decision](../../decisions/initial-documentation-handoff.md) and
-[working-copy guide](../working-copies.md) before starting.
+**Feature** `specs/001-rag`. `rag` is A’s published implementation branch. Preserve its local drafts and pending owner changes.
 
-## Responsibility and paths
+Shared mock base `c5c186c18b2ad74e825c030ad8c993918ea39599` on `origin/main` includes frozen v1.0.0 contracts, the F-005 mock demo, the F-011 health checks and the F-010 workflow. F-010 verification is recorded in the foundation backlog. F-014 publication is pending.
 
-Owned paths: services/rag/**, data/knowledge/**, docs/rag/**, specs/001-rag/**, eval/annotations/member-a/**.
-See the [complete matrix](../allowed-paths.md). Member annotation paths override D's parent
-ownership. Read shared context freely; do not edit another owner or canonical contracts
-independently. Submit shared proposals to B and wait for agreement.
+## Recover your working copy
 
-## Read in order
+Read the [root instructions](../../../AGENTS.md), [constitution](../../../.specify/memory/constitution.md), [scope decisions](../open-decisions.md), [frozen contracts](../../../contracts/v1/README.md), and your [feature backlog](../../../specs/001-rag/tasks.md). Use the [working-copy guide](../working-copies.md) for isolation and reconciliation. Its initial documentation base is historical. Check your branch and drafts, fetch `origin/main`, verify the shared checkpoint, and compare overlapping files before reconciling. Preserve unpublished work.
 
-1. [Root instructions](../../../AGENTS.md) and [constitution draft](../../../.specify/memory/constitution.md).
-2. [Original prompt](../../../prompts/NoteLens_Codex_SpecKit_prompt_00.md) as requirements context,
-   not as authorization to rerun setup or implement all workstreams.
-3. Your [spec](../../../specs/001-rag/spec.md),
-   [plan](../../../specs/001-rag/plan.md) and
-   [tasks](../../../specs/001-rag/tasks.md).
-4. [Draft contracts](../../../contracts/v1/README.md), [open decisions](../open-decisions.md)
-   and [your start prompt](../start-prompts/member-a.md).
+PR #9 merged A's development work into the shared base. The shared backlog now records A-001, A-010 and standalone A-002 complete. A's indexed startup and development checks are recorded in the [RAG development handoff](../../rag/development-handoff.md).
 
-## Select the feature in your own clone/worktree
-
-PowerShell:
+From the repository root, select the feature without persisting local state.
 
 ```powershell
 $env:SPECIFY_FEATURE_DIRECTORY = 'specs/001-rag'
@@ -33,72 +18,45 @@ $env:SPECIFY_FEATURE_NO_PERSIST = '1'
 & ./.specify/scripts/powershell/check-prerequisites.ps1 -PathsOnly -Json
 ```
 
-Git Bash on Windows:
+On Git Bash for Windows, export `SPECIFY_FEATURE_DIRECTORY=specs/001-rag` and `SPECIFY_FEATURE_NO_PERSIST=1`, then run `powershell.exe -NoProfile -File .specify/scripts/powershell/check-prerequisites.ps1 -PathsOnly -Json`. Confirm the reported feature directory matches the selected path. Use actual Git branch output separately.
 
-```bash
-export SPECIFY_FEATURE_DIRECTORY=specs/001-rag
-export SPECIFY_FEATURE_NO_PERSIST=1
-powershell.exe -NoProfile -File .specify/scripts/powershell/check-prerequisites.ps1 -PathsOnly -Json
-```
+## Ownership and contracts
 
-Expected: FEATURE_DIR selects specs/001-rag, regardless of branch name.
-No package install, provider key or other complete module is needed for this path check.
+`services/rag/**`, `data/knowledge/**`, `docs/rag/**`, `specs/001-rag/**`, and `eval/annotations/member-a/**`. Follow the [allowed-path matrix](../allowed-paths.md) and seek review from the appropriate owner for shared changes.
 
-## Inputs and outputs
+A owns public corpus preparation, ingestion, embedding calls, vector-store access, retrieval, and literature-grounded answers. The frozen `RetrievalRequest` and `LiteratureAnswerRequest` carry an English question and any approved context. Specialty and concepts are soft retrieval signals.
 
-- **Inputs**: RetrievalRequest / LiteratureAnswerRequest with an English question, optional concept names and soft specialty hint.
-- **Outputs**: RetrievalResult / AnswerResult with attributable literature passages, versions, English claims and explicit evidence limits.
-- **Canonical source**: contracts/v1/schema.json and its referenced OpenAPI proposal.
-  These remain draft; B coordinates freeze and generated bindings.
-- **Failures**: English safe shared errors for invalid/unsupported input, timeout,
-  rate/provider/configuration problems and insufficient evidence. Partial document support
-  must remain usable when literature is weak. Follow code-point evidence and hash rules.
+Return `RetrievalResult` and literature `AnswerResult` with versioned retrieval provenance, claim-linked passage citations and explicit gaps. Literature supports general information. Preserve patient-specific evidence for the document route.
 
-## Illustrative payload
+Use `answer-literature` in the frozen payload catalog for a supported synthetic literature answer. [Frozen fixture](../../../contracts/v1/fixtures/payloads.json)
 
-**Example type**: RetrievalResult.
-This is a documentation example, not a running mock, real measurement or completed module.
-Mode mock identifies its illustrative nature. No provider/service was called.
+## First five tasks
 
-```json
-{
-  "schema_version": "1.0.0",
-  "mode": "mock",
-  "state": "insufficient",
-  "passages": [],
-  "retriever_version": "illustrative-only",
-  "index_version": "not-built",
-  "score_note": "Illustrative payload only; no retrieval or measurement was performed."
-}
-```
-
-The shared text used for document-bound examples is synthetic. Its exact digest and evidence
-interval were computed for the illustration; no clinical validation or real patient is implied.
-
-## First ready action
-
-A-001: inspect permitted MedlinePlus sources and write an acquisition/provenance proposal.
-Begin with read-only inspection; ask for approval before the first concrete owned change
-package. Do not automatically implement the entire backlog.
-
-## First five-task sequence
-
-| Alias | Local ID | Deliverable | Availability |
+| Alias | Local ID | Deliverable | Status and next dependency |
 | --- | --- | --- | --- |
-| A-001 | T001 | Audit permitted corpus sources and prepare snapshot acquisition/provenance | May start as an approved inspection/proposal package. |
-| A-010 | T002 | Review RAG boundary proposals and local mock consumer checks | Wait for listed prerequisites; see tasks.md. |
-| A-002 | T003 | Implement English XML parsing, cleaning and stable attributed passages | Wait for listed prerequisites; see tasks.md. |
-| A-003 | T004 | Implement embedding/store adapters, versioned index ingestion and cache boundaries | Wait for listed prerequisites; see tasks.md. |
-| A-004 | T005 | Expose an embedding-only retrieval baseline with valid source records | Wait for listed prerequisites; see tasks.md. |
+| A-001 | T001 | Audit MedlinePlus provenance and reuse | Complete in the shared RAG backlog. |
+| A-010 | T002 | Review frozen contracts and mock consumption | Complete on shared `main` through PR #5. |
+| A-002 | T003 | Prepare the standalone English corpus and passages | Standalone corpus preparation is complete in the shared backlog. Shared integration is tracked in A-003. |
+| A-003 | T004 | Connect corpus and implement versioned indexing | Indexed startup and development evidence are on the shared base. Full integration requires F-014. |
+| A-004 | T005 | Deliver a retrieval baseline | Owner-local ranking and trial evidence exists. Full HTTP baseline depends on A-003. |
 
-The first audit/rule-drafting task can start without other complete modules. Later tasks remain blocked by their actual contract/scaffold/published-foundation prerequisites.
-This is a five-task sequence, not a claim that five business tasks are immediately ready.
+Resume A-003 from its owner-local evidence after F-014. Preserve the development/final split and keep evaluation questions and references outside the index. Leave live indexing and provider calls under their separate approval.
 
-## Checks and honest status
+## Run the key-free mock
 
-The feature path check above exists now. Test/CLI commands in tasks.md are future acceptance
-targets created by the named tasks and prerequisites. There is no service-start/npm script
-available today. Mock checks, actual-module checks and separately authorized live checks
-must be reported distinctly; do not close real tasks based on an illustrative payload.
-English artifacts, the user's approved 60-minute/2-MiB/100,000-code-point policies, held-out
-data protection and no paid calls without approval remain binding.
+Use the Windows setup and build steps in the [mock startup runbook](../../platform/f-005-mock-startup.md). Run these commands separately from the repository root. For the interactive launcher, open the printed loopback URL, select the synthetic report and stop with Ctrl+C. The smoke command starts and stops its own processes.
+
+```powershell
+uv run --locked --offline --directory scripts/project python -B start_mock.py
+uv run --locked --offline --directory scripts/project python -B smoke_mock.py
+```
+
+Run the focused check below after the same locked setup.
+
+```powershell
+uv run --locked --offline --directory services/rag python -B -m pytest tests/test_contract.py tests/test_http_smoke.py
+```
+
+Report mock, module and separately authorized live results with their actual scope. Use English and approved public or synthetic inputs. Keep document contents out of logs and raw datasets out of Git. Follow the approved memory-only 60-minute limit, 2 MiB PDF limit and 100,000-code-point limit where applicable. Obtain approval for a new change package and separate authorization for publishing or activating providers.
+
+[Member A start prompt](../start-prompts/member-a.md)
