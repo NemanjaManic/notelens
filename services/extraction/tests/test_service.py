@@ -113,6 +113,21 @@ def test_generated_json_requires_unique_fields_and_finite_numbers(operation, inv
     assert diagnostics == {"attempts": 2, "raw_validation_failures": 1, "repairs": 1}
 
 
+@pytest.mark.parametrize("operation", ["extract", "answer"])
+def test_invalid_live_output_does_not_trigger_another_provider_call(operation):
+    payload = request("What does the document say about chest pain?") if operation == "answer" else request()
+    provider = Scripted(["not json"])
+    provider.mode = "live"
+    diagnostics = Diagnostics()
+
+    with pytest.raises(ServiceError) as failure:
+        run(payload, operation, provider, max_attempts=3, diagnostics=diagnostics)
+
+    assert failure.value.status == 502
+    assert provider.calls == [(payload, False)]
+    assert diagnostics == Diagnostics(attempts=1, raw_validation_failures=1)
+
+
 def test_repair_and_raw_failures_are_separate():
     payload = request()
     good = FakeProvider().generate("extract", payload, "", repair=False)
