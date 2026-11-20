@@ -1,9 +1,10 @@
 """Request-local orchestration with bounded structural repair and safe failures."""
 
-import json
 import copy
 from dataclasses import dataclass, asdict
 from pathlib import Path
+
+from notelens_contracts.v1 import ContractValidationError, validate_json
 
 from .contracts import validate_extraction, validate_generation, validate_request
 from .errors import ServiceError
@@ -43,7 +44,7 @@ def run(request: dict, operation: str, provider: Provider | None = None,
         diagnostics.attempts += 1
         try:
             raw = provider.generate(operation, copy.deepcopy(request), instructions, repair=attempt > 0)
-            result = json.loads(raw)
+            result = validate_json(definition, raw, document=document)
             if request["document"] != document:
                 raise EvidenceError("Canonical request was modified.")
             if operation == "extract":
@@ -61,7 +62,7 @@ def run(request: dict, operation: str, provider: Provider | None = None,
             raise ServiceError(504, "timeout", "The generation request timed out.", True) from exc
         except ConnectionError as exc:
             raise ServiceError(503, "provider_unavailable", "The generation provider is unavailable.", True) from exc
-        except (json.JSONDecodeError, EvidenceError, TypeError) as exc:
+        except (ContractValidationError, EvidenceError, TypeError) as exc:
             diagnostics.raw_validation_failures += 1
             if attempt + 1 == max_attempts:
                 raise ServiceError(502, "internal_error", "Generated output failed validation after bounded repair.") from exc

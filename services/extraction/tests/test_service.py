@@ -99,6 +99,20 @@ def test_invalid_requests(change, status):
     assert failure.value.status == status
 
 
+@pytest.mark.parametrize("invalid_prefix", ['"mode":"live",', '"synthetic_number":NaN,'])
+@pytest.mark.parametrize("operation", ["extract", "answer"])
+def test_generated_json_requires_unique_fields_and_finite_numbers(operation, invalid_prefix):
+    payload = request("What does the document say about chest pain?") if operation == "answer" else request()
+    good = FakeProvider().generate(operation, payload, "", repair=False)
+    malformed = "{" + invalid_prefix + good[1:]
+    provider = Scripted([malformed, good])
+
+    result, diagnostics = run(payload, operation, provider)
+
+    assert result == json.loads(good)
+    assert diagnostics == {"attempts": 2, "raw_validation_failures": 1, "repairs": 1}
+
+
 def test_repair_and_raw_failures_are_separate():
     payload = request()
     good = FakeProvider().generate("extract", payload, "", repair=False)
