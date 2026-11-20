@@ -135,12 +135,13 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Technical completion (2026-11-16)**: [B-owned F-012 execution record](../../docs/platform/f-012-unicode-verification-plan.md) records the separately user-authorized implementation: 54/54 independently calculated Python/TypeScript cases agree; the Node suite and test-only TypeScript check pass; invocation from a separate working directory passes. Three wrong-expectation probes and a real cross-runtime disagreement fail as required. The coordinator checks current generated-source Python origin, local TypeScript workspace resolution and unchanged frozen inputs; reports remain in ignored `.cache/review/f012-unicode/`. No contract/owner/dependency edit, production preparation/highlighting, service/provider call or F-014 completion is implied.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T009 [US2] F-005: Create local startup and the English mock input-to-answer smoke path in `scripts/project/start_mock.py`, `scripts/project/smoke_mock.py`, `apps/web/**`
+- [x] T009 [US2] F-005: Create local startup and the English mock input-to-answer smoke path in `scripts/project/start_mock.py`, `scripts/project/smoke_mock.py`, `apps/web/**`
   - **Owner / story**: B / US2.
   - **Dependencies**: 000-foundation/T006 (F-004); 000-foundation/T007 (F-011); 000-foundation/T008 (F-012)
   - **Acceptance**: Actual documented startup launches only owned processes with clean shutdown; UI labels mock outputs and preserves document/literature/mixed/none provenance and insufficient states.
   - **Verify**: `uv run --directory scripts/project python smoke_mock.py`.
   - **Coverage**: FR-009, FR-010, FR-011, FR-017, SC-004.
+  - **Local completion evidence (2026-11-20)**: The [mock startup runbook](../../docs/platform/f-005-mock-startup.md) documents the Windows launcher and locked smoke command. The smoke followed rendered HTML through the built-in report, four answer routes, document highlights, literature attribution, and a partial mixed answer. Both stacks shut down and closed all eight loopback ports. This records mock foundation behavior. F-014 still requires the shared review and publication steps.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 ## Phase 5: User Story 3
