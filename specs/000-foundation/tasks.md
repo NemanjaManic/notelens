@@ -169,12 +169,13 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Completion evidence (2026-11-20)**: The four member handoffs and four start prompts use the merged PR #9 base, exact feature contexts, frozen examples and runnable mock commands. The locked check_handoffs.py run verified five backlogs, 59 tasks and 113 dependency references. The key-free mock smoke passed on that base. Human foundation acceptance and final checkpoint verification are tracked in F-013 and F-007.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T012 [US3] F-013: Review constitution and foundation acceptance without self-approval in `docs/decisions/**`, `docs/team/**`, `.specify/memory/constitution.md`, `scripts/project/check_handoffs.py`
+- [x] T012 [US3] F-013: Review constitution and foundation acceptance without self-approval in `docs/decisions/**`, `docs/team/**`, `.specify/memory/constitution.md`, `scripts/project/check_handoffs.py`
   - **Owner / story**: B / US3.
   - **Dependencies**: 000-foundation/T011 (F-006)
   - **Acceptance**: Request and record actual user/team acceptance or exceptions; fill ratification only after review and remove temporary sync report before an authorized commit.
   - **Verify**: `uv run --directory scripts/project python check_handoffs.py --require-reviewed-foundation`.
   - **Coverage**: FR-016, FR-018, FR-020, SC-005.
+  - **Completion evidence (2026-11-20)**: Goran ratified constitution v1.0.0 as written at `754f4bb`. Nemanja independently accepted the key-free mock foundation at that commit with no exceptions. The [acceptance record](../../docs/decisions/f-013-foundation-acceptance.md) binds both decisions to the reviewed snapshot. The locked acceptance checker passed. F-007 and F-014 remain open.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T013 [US3] F-007: Record the checked foundation inventory and isolated-working-copy procedure in `docs/team/foundation-checkpoint.md`, `docs/team/working-copies.md`, `scripts/project/check_checkpoint.py`

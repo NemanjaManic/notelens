@@ -1,10 +1,14 @@
 """Verify the local backlog and member handoff references for F-006."""
 
+import argparse
 from dataclasses import dataclass
+from datetime import date
 from graphlib import CycleError, TopologicalSorter
+from hashlib import sha256
 import json
 from pathlib import Path
 import re
+import subprocess
 from urllib.parse import unquote, urlsplit
 
 
@@ -19,6 +23,8 @@ MEMBERS = {
 RUNBOOK = 'docs/platform/f-005-mock-startup.md'
 RESOLVER = '.specify/scripts/powershell/check-prerequisites.ps1'
 MOCK_SCRIPTS = ('start_mock.py', 'smoke_mock.py')
+REVIEW = 'docs/decisions/f-013-foundation-acceptance.md'
+CONSTITUTION = '.specify/memory/constitution.md'
 TASK = re.compile(r'^- \[([ xX])\] (T\d{3})(?: \[[^\]\n]+\])* ([A-Z]-\d{3}):[^\n]+$', re.M)
 TASK_LINE = re.compile(r'^- \[[^\n\]]*\] T[^\n]*$', re.M)
 DEPENDENCY = re.compile(r'(\d{3}-[\w-]+)/(T\d{3}) \(([A-Z]-\d{3})\)')
@@ -26,6 +32,7 @@ DEPENDENCIES = re.compile(r'^  - \*\*Dependencies\*\*:\s*([^\n]+)', re.M)
 LINK = re.compile(r'\]\(([^)]+)\)')
 TABLE_TASK = re.compile(r'^\| ([A-Z]-\d{3}) \| (T\d{3}) \| [^|]+ \| [^|]+ \|$', re.M)
 PROMPT_TASK = re.compile(r'^- ([A-Z]-\d{3}) \S', re.M)
+RATIFICATION = re.compile(rb'(?m)^(\*\*Version\*\*: [^|\r\n]+\| \*\*Ratified\*\*: )[^|\r\n]+( \| \*\*Last Amended\*\*: [^\r\n]+)$')
 
 
 class CheckError(ValueError):
@@ -182,10 +189,71 @@ def check_handoffs(root):
     return tasks, references
 
 
+def review_entry(entry, decisions, label):
+    require(isinstance(entry, dict) and entry.get('decision') in decisions,
+            REVIEW, f'{label} has no accepted decision')
+    for key in ('reviewer', 'date', 'evidence'):
+        value = entry.get(key)
+        require(isinstance(value, str) and value.strip() and 'pending' != value.strip().lower(),
+                REVIEW, f'{label} requires recorded {key}')
+    try:
+        parsed = date.fromisoformat(entry['date'])
+    except ValueError as error:
+        raise CheckError(f'{REVIEW}: {label} requires an ISO decision date') from error
+    require(parsed.isoformat() == entry['date'], REVIEW, f'{label} requires an ISO decision date')
+
+
+def check_reviewed_foundation(root, tasks):
+    require({'F-010', 'F-006'} <= {task.alias for task in tasks.values() if task.done},
+            REVIEW, 'F-010 and F-006 must be recorded complete')
+    source = (root / REVIEW).read_text(encoding='utf-8')
+    records = re.findall(r'^```json\n(.*?)\n^```$', section(source, 'Acceptance record', REVIEW), re.M | re.S)
+    require(len(records) == 1, REVIEW, 'expected one acceptance record')
+    record = json.loads(records[0])
+    require(isinstance(record, dict) and set(record) == {
+        'reviewed_commit', 'constitution_sha256', 'constitution_review', 'foundation_review',
+    }, REVIEW, 'invalid acceptance record fields')
+    pending = [label for key, label in (('constitution_review', 'constitution ratification'),
+                                       ('foundation_review', 'independent foundation acceptance')) if record[key] is None]
+    require(not pending, REVIEW, 'pending ' + ' and '.join(pending))
+
+    constitution_review = record['constitution_review']
+    foundation_review = record['foundation_review']
+    review_entry(constitution_review, ('ratified',), 'constitution review')
+    review_entry(foundation_review, ('accepted', 'accepted_with_exceptions'), 'foundation review')
+    require(foundation_review['reviewer'] in ('A', 'C', 'D'), REVIEW, 'foundation review must be independent of B')
+    exceptions = foundation_review.get('exceptions')
+    require(isinstance(exceptions, list) and all(isinstance(item, str) and item.strip() for item in exceptions)
+            and bool(exceptions) == (foundation_review['decision'] == 'accepted_with_exceptions'),
+            REVIEW, 'foundation decision and exception list disagree')
+
+    commit = record['reviewed_commit']
+    require(isinstance(commit, str) and re.fullmatch(r'[0-9a-f]{40}', commit),
+            REVIEW, 'reviewed commit must be a full Git SHA')
+    git = ['git', '-C', str(root)]
+    ancestry = subprocess.run([*git, 'merge-base', '--is-ancestor', commit, 'HEAD'],
+                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=10)
+    require(ancestry.returncode == 0, REVIEW, 'reviewed commit must be in the current branch history')
+    reviewed = subprocess.check_output([*git, 'show', f'{commit}:{CONSTITUTION}'],
+                                       stderr=subprocess.DEVNULL, timeout=10)
+    require(sha256(reviewed).hexdigest() == record['constitution_sha256'],
+            REVIEW, 'reviewed constitution digest does not match the named commit')
+    day = constitution_review['date'].encode('ascii')
+    ratified, count = RATIFICATION.subn(lambda match: match[1] + day + match[2], reviewed)
+    require(count == 1 and (root / CONSTITUTION).read_bytes() == ratified,
+            REVIEW, 'constitution must match the reviewed text with the recorded ratification date')
+
+
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--require-reviewed-foundation', action='store_true',
+                        help='also require recorded human acceptance and constitution ratification')
+    args = parser.parse_args()
     try:
         tasks, references = check_handoffs(ROOT)
-    except (OSError, ValueError) as error:
+        if args.require_reviewed_foundation:
+            check_reviewed_foundation(ROOT, tasks)
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
         print(f'FAIL: {error}')
         return 1
     print(f'PASS: five backlogs, {len(tasks)} tasks, {references} dependency references, four handoffs, four start prompts.')
@@ -193,6 +261,8 @@ def main():
         task = next(task for task in tasks.values() if task.alias == alias)
         print(f'{alias} backlog status: {"checked" if task.done else "open"}.')
     print('Checked local documentation and references. Runtime evidence and approval are tracked in the backlog.')
+    if args.require_reviewed_foundation:
+        print('PASS: recorded foundation acceptance and constitution ratification are consistent.')
     return 0
 
 
