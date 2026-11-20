@@ -65,6 +65,13 @@ def main() -> int:
         results = {}
         for operation, request in operations:
             results[operation] = run(request, operation, provider)[0]
+    except ValueError:
+        print(
+            "D-004 trial not started: credential must be the raw printable ASCII API key, "
+            "without spaces, quotes, or a 'Bearer ' prefix.",
+            file=sys.stderr,
+        )
+        return 2
     except ServiceError as exc:
         print(f"D-004 trial ended safely: {exc.code}: {exc.message}", file=sys.stderr)
         return 1
