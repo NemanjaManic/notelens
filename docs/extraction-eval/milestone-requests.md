@@ -64,3 +64,12 @@ provider retention terms are recorded. Supply decisions/configuration through th
 agreed server-side workflow, never secret values in chat. Then D can add the approved
 SDK adapter behind the existing boundary and run an authorized development-only live
 smoke. Until then live mode fails with 503 `configuration_required`; no live call ran.
+
+### Proposed first live smoke · 2026-11-20
+
+D identified `gpt-6-luna` from the capstone RAG run and requested a small spend limit.
+Proposed cap: **USD 1 total** for one synthetic-only smoke run, with at most three
+provider requests covering extraction, summary and document QA. Disable automatic
+retries for this run. Confirm the shared-account cap, permitted input policy, model
+access and actual pricing before execution. Each request must fit the remaining cap
+using a conservative estimate for input and capped output. The run follows F-014.
