@@ -78,3 +78,20 @@ def test_agreement_uses_distinct_reviewers_and_exact_pinned_output():
         "dimensions": ["source_support"], "flags": ["critical_error"],
     }]
     assert report["counts"]["invalid"] == 1
+
+
+def test_response_artifacts_verify_exact_bytes_and_reject_path_escape(tmp_path):
+    import hashlib
+    from notelens_eval.answer_review import verify_response_artifacts
+
+    record = completed()
+    raw = b'{"synthetic": true}\n'
+    (tmp_path / "test.json").write_bytes(raw)
+    record["response_sha256"] = hashlib.sha256(raw).hexdigest()
+    assert verify_response_artifacts([record], tmp_path) == 1
+    (tmp_path / "test.json").write_bytes(b'{"synthetic":true}')
+    with pytest.raises(ValueError, match="digest mismatch"):
+        verify_response_artifacts([record], tmp_path)
+    record["response_id"] = "../escape"
+    with pytest.raises(ValueError, match="safely"):
+        verify_response_artifacts([record], tmp_path)

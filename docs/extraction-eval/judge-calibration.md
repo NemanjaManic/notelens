@@ -57,3 +57,10 @@ The checker preserves the original submissions. Pair counts can include
 multiple pairs per output when three or more reviewers score it. Synthetic
 tests exercise the report format. Actual rubric calibration requires
 independent completed reviews and recorded adjudication decisions.
+
+For retained response files, add `--response-artifacts DIRECTORY`. Each completed
+review must identify a UTF-8 JSON file named `RESPONSE_ID.json` in that directory.
+The checker compares SHA-256 against the exact file bytes, including whitespace.
+The report records the number of checked artifacts. Keep restricted outputs in
+their approved restricted location. Artifact matching establishes output identity;
+human authorship and semantic review still require reviewer confirmation.

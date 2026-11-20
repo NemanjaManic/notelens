@@ -1,5 +1,6 @@
 """Read-only integrity checks; human declarations are not verified human authorship."""
 import argparse
+import hashlib
 import json
 import re
 from collections import Counter, defaultdict
@@ -146,15 +147,45 @@ def summarize(records):
             "limitations": "Structural checks only; no clinical validation or reviewer approval is inferred."}
 
 
+def verify_response_artifacts(records, artifact_directory):
+    """Check declared response hashes against exact retained UTF-8 artifact bytes."""
+    checked = 0
+    root = artifact_directory.resolve()
+    for record in records:
+        state = inspect(record)
+        if state != "completed_declared_human_review":
+            continue
+        response_id = record["response_id"]
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}", response_id):
+            raise ValueError("Response ID cannot safely identify an artifact.")
+        path = (root / f"{response_id}.json").resolve()
+        if path.parent != root:
+            raise ValueError("Response artifact must stay within its directory.")
+        raw = path.read_bytes()
+        json.loads(raw.decode("utf-8"))
+        if hashlib.sha256(raw).hexdigest() != record["response_sha256"]:
+            raise ValueError("Reviewed response artifact digest mismatch.")
+        checked += 1
+    return checked
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("inputs", type=Path, nargs="+")
+    parser.add_argument("--response-artifacts", type=Path)
     args = parser.parse_args()
     records = []
     for path in args.inputs:
         value = json.loads(path.read_text(encoding="utf-8"))
         records.extend(value if isinstance(value, list) else [value])
     report = summarize(records)
+    report["verified_response_artifacts"] = None
+    if args.response_artifacts:
+        try:
+            report["verified_response_artifacts"] = verify_response_artifacts(records, args.response_artifacts)
+        except (OSError, ValueError):
+            parser.error("Response artifact verification failed.")
+
     print(json.dumps(report, indent=2))
     return 1 if report["counts"]["invalid"] else 0
 
