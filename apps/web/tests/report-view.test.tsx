@@ -34,6 +34,11 @@ test('evidence/summary-citation', async () => {
   const view = await fixtureWorkspace('ready', 'summary-0');
   equal(view.selected?.sourceId, 'doc-source'); contains(render(view), '<mark>No chest pain.</mark>');
 });
+test('evidence/only-selected-citation-is-current', async () => {
+  const html = render(await fixtureWorkspace('ready', 'summary-0'));
+  contains(html, 'href="?scenario=ready&amp;evidence=summary-0#document-passage" aria-current="location"');
+  equal((html.match(/aria-current="location"/g) ?? []).length, 1);
+});
 test('evidence/invalid-selection-cleared', async () => {
   const view = await fixtureWorkspace('ready', 'PRIVATE_MARKER');
   equal(view.selected, null); equal(render(view).includes('PRIVATE_MARKER'), false);

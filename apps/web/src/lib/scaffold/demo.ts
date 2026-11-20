@@ -88,17 +88,22 @@ async function answerDemo(key: Question, document: PreparedDocument): Promise<De
 export async function demoWorkspace(query: Record<string, string | string[] | undefined>, document: PreparedDocument | null):
     Promise<{ view: Workspace; question?: Question; answer?: DemoAnswer }> {
   if (!document) return { view: await fixtureWorkspace(query.document === undefined ? 'no-document' : 'unavailable') };
-  if (!isBuiltinDemoDocument(document)) {
-    const panel = { state: 'empty' as const, notice: 'Analysis is available for the built-in example.' };
-    return { view: { document, classification: panel, extraction: panel, passages: [],
-      scenario: 'ready', heading: 'Prepared document', selected: null } };
-  }
-  const question = selectedQuestion(query.question);
+  const builtin = isBuiltinDemoDocument(document);
+  const question = builtin ? selectedQuestion(query.question) : undefined;
   const [classification, extraction, answer] = await Promise.all([
-    call('classify', document), call('extract', document),
+    builtin ? call('classify', document) : undefined,
+    call('extract', document),
     question ? answerDemo(question, document) : undefined,
   ]);
   const report = await buildReport(document, classification, extraction);
+  if (!builtin) {
+    report.classification = { state: 'empty', notice: 'Mock specialty classification is available for the built-in example.' };
+  } else if (!classification) {
+    report.classification = { state: 'unavailable', notice: 'The specialty result is unavailable.' };
+  }
+  if (!extraction) {
+    report.extraction = { state: 'unavailable', notice: 'The findings and summary are unavailable.' };
+  }
   for (const branch of answer?.branches ?? []) {
     branch.answer?.sources.forEach((source, index) => {
       if ('evidence' in source) report.passages.push({
@@ -107,5 +112,5 @@ export async function demoWorkspace(query: Record<string, string | string[] | un
     });
   }
   const selected = report.passages.find(passage => passage.key === query.evidence) ?? null;
-  return { view: { ...report, scenario: 'ready', heading: 'Report overview', selected }, question, answer };
+  return { view: { ...report, scenario: 'ready', heading: builtin ? 'Report overview' : 'Prepared document', selected }, question, answer };
 }

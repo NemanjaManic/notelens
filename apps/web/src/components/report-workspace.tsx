@@ -8,6 +8,7 @@ type DemoPanel = { picker: ReactNode; evidenceHref: string; questions: ReactNode
 export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPanel }) {
   const evidenceHref = demo?.evidenceHref ?? `?scenario=${view.scenario}`;
   const passageLink = (passage: Passage) => `${evidenceHref}&evidence=${passage.key}#document-passage`;
+  const currentPassage = (passage: Passage) => view.selected?.key === passage.key ? 'location' as const : undefined;
   const classification = view.classification.state === 'ready' ? view.classification.record : null;
   const extraction = view.extraction.state === 'ready' ? view.extraction.record : null;
   const summary = extraction?.summary.status === 'completed' ? extraction.summary.result : null;
@@ -66,7 +67,7 @@ export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPa
                     <div><dt>Assertion</dt><dd>{item.assertion}</dd></div><div><dt>Temporality</dt><dd>{item.temporality}</dd></div>
                     <div><dt>Subject</dt><dd>{item.subject}</dd></div>{item.procedure_status && <div><dt>Procedure status</dt><dd>{item.procedure_status}</dd></div>}</dl>
                   {item.icd && <p>Source ICD code: {item.icd.code}</p>}
-                  <ul className="passages">{view.passages.filter(p => p.key.startsWith(`finding-${i}-`)).map(p => <li key={p.key}><a href={passageLink(p)}>View passage {Number(p.key.split('-')[2]) + 1}</a><q>{p.span.quote}</q></li>)}</ul>
+                  <ul className="passages">{view.passages.filter(p => p.key.startsWith(`finding-${i}-`)).map(p => <li key={p.key}><a href={passageLink(p)} aria-current={currentPassage(p)}>View passage {Number(p.key.split('-')[2]) + 1}</a><q>{p.span.quote}</q></li>)}</ul>
                 </li>)}</ul>
                 {extraction.warnings.length > 0 && <ul className="caution">{extraction.warnings.map((w, i) => <li key={i}>{w}</li>)}</ul>}
               </> : <p className="state-message">{view.extraction.state !== 'ready' && view.extraction.notice}</p>}
@@ -74,7 +75,7 @@ export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPa
           <section className="panel" aria-labelledby="summary-heading"><h3 id="summary-heading">Document summary</h3>
             {summary ? <><p className="section-state">Evidence: {summary.evidence_state}</p>{summary.claims.length === 0 && <p>{summary.text}</p>}
               <ul className="claims">{summary.claims.map(claim => <li key={claim.claim_id}><p>{claim.text}</p><p className="muted">Document-supported claim</p>
-                {claim.source_ids.map(id => { const p = view.passages.find(p => p.sourceId === id); return p ? <a className="citation" key={id} href={passageLink(p)}>{p.label} · document</a> : null; })}</li>)}</ul>
+                {claim.source_ids.map(id => { const p = view.passages.find(p => p.sourceId === id); return p ? <a className="citation" key={id} href={passageLink(p)} aria-current={currentPassage(p)}>{p.label} · document</a> : null; })}</li>)}</ul>
               {summary.warnings.length > 0 && <ul className="caution">{summary.warnings.map((w, i) => <li key={i}>{w}</li>)}</ul>}
             </> : <p className="state-message">{extraction ? 'Summary unavailable. Valid findings remain visible.' : view.extraction.state !== 'ready' && view.extraction.notice}</p>}
           </section>

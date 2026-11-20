@@ -1,4 +1,6 @@
 import { headers } from 'next/headers';
+import { Suspense } from 'react';
+import type { PreparedDocument } from '@notelens/contracts/v1';
 import { ReportWorkspace } from '../../components/report-workspace.tsx';
 import { SubmissionForm } from '../../components/submission-form.tsx';
 import { demoQuestions, demoWorkspace, isBuiltinDemoDocument, isDemoConfigured } from '../../lib/scaffold/demo.ts';
@@ -7,8 +9,10 @@ import { readBrowserSession } from '../../lib/sessions/browser.ts';
 import { getSessionStore } from '../../lib/sessions/route.ts';
 
 export const dynamic = 'force-dynamic';
+type DemoQuery = Record<string, string | string[] | undefined>;
+type RequestHeaders = Awaited<ReturnType<typeof headers>>;
 
-function ownedDocument(requestHeaders: Awaited<ReturnType<typeof headers>>, id: string | string[] | undefined) {
+function ownedDocument(requestHeaders: RequestHeaders, id: DemoQuery[string]) {
   if (typeof id !== 'string' || !/^[0-9a-f-]{36}$/.test(id)) return null;
   const store = getSessionStore();
   const owner = readBrowserSession(store, requestHeaders);
@@ -49,17 +53,18 @@ function Answer({ answer, href }: { answer: DemoAnswer; href: string }) {
   </section>;
 }
 
-export default async function DemoPage({ searchParams }: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
+async function DemoReport({ query, requestHeaders, document }: {
+  query: DemoQuery;
+  requestHeaders: RequestHeaders;
+  document: PreparedDocument | null;
 }) {
-  if (!isDemoConfigured()) {
-    return <main><h1>NoteLens mock demo</h1><p>Start the local mock stack to open this workspace.</p></main>;
-  }
-  const query = await searchParams;
-  const document = ownedDocument(await headers(), query.document);
-  const { view, question, answer } = await demoWorkspace(query, document);
+  const workspace = await demoWorkspace(query, document);
+  // A session can close while the local mocks are responding.
+  const { view, question, answer } = document && !readBrowserSession(getSessionStore(), requestHeaders)
+    ? await demoWorkspace(query, null)
+    : workspace;
   const builtin = isBuiltinDemoDocument(view.document);
-  const reportHref = document ? `/demo?document=${document.doc_id}` : '/demo';
+  const reportHref = view.document ? `/demo?document=${view.document.doc_id}` : '/demo';
   const evidenceHref = question ? `${reportHref}&question=${question}` : reportHref;
   const picker = <>
     <form action="/api/documents/builtin" method="post">
@@ -77,4 +82,21 @@ export default async function DemoPage({ searchParams }: {
     {answer && <Answer answer={answer} href={evidenceHref} />}
   </> : <p>Choose the built-in example to see its preset questions.</p>;
   return <ReportWorkspace view={view} demo={{ picker, evidenceHref, questions }} />;
+}
+
+export default async function DemoPage({ searchParams }: { searchParams: Promise<DemoQuery> }) {
+  if (!isDemoConfigured()) {
+    return <main><h1>NoteLens mock demo</h1><p>Start the local mock stack to open this workspace.</p></main>;
+  }
+  const [query, requestHeaders] = await Promise.all([searchParams, headers()]);
+  const document = ownedDocument(requestHeaders, query.document);
+  const report = <DemoReport query={query} requestHeaders={requestHeaders} document={document} />;
+  if (!document) return report;
+
+  return <Suspense fallback={<main>
+    <h1>Opening report</h1>
+    <p className="state-message" role="status">Loading report analysis…</p>
+  </main>}>
+    {report}
+  </Suspense>;
 }

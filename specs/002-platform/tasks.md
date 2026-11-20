@@ -80,12 +80,13 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Coverage**: FR-001, FR-002, FR-003, FR-004, FR-012, SC-001, SC-002.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T004 [US1] B-002: Build complete English report panels and exact evidence highlighting in `apps/web/src/components/**`, `apps/web/tests/report-view.test.tsx`
+- [X] T004 [US1] B-002: Build complete English report panels and exact evidence highlighting in `apps/web/src/components/**`, `apps/web/tests/report-view.test.tsx`
   - **Owner / story**: B / US1.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014); 002-platform/T002 (B-004)
   - **Approved early-work exception (2026-11-17)**: User authorized the bounded fixture-only UI before full B-004/F-014. See [scope, implementation and limits](../../docs/platform/b-002-fixture-workspace.md). Early verification: `node apps/web/scripts/check-report.mjs` (37 synthetic render/model/evidence cases). No uploads, session transport, service calls or questions are connected. B-002/B-004/F-010/F-011/F-014 remain pending; the original dependencies apply to full acceptance.
+  - **Acceptance evidence**: The B-001 demo uses local mock findings and summary for the owner's prepared text and PDF. The built-in example provides mock specialty and question results. Passed 32 Chrome evidence and isolation assertions, 31 loading/failure/empty/uncertain state assertions, 38 report checks, and the key-free mock smoke. See [verification](../../docs/platform/b-002-fixture-workspace.md#loading-and-service-failure-verification).
   - **Acceptance**: Document, specialty uncertainty, entities/assertion/temporality/subject, summary and sources work from mocks; emoji/repeated spans and all loading/empty/error states are covered.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/report-view.test.tsx`.
+  - **Verify**: `node apps/web/scripts/check-report.mjs` (38 checks) and the [key-free Chrome scenarios](../../docs/platform/b-002-fixture-workspace.md#loading-and-service-failure-verification).
   - **Coverage**: FR-001, FR-005, FR-006, FR-007, FR-012, FR-013, SC-001, SC-002.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 

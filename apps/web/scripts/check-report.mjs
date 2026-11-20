@@ -7,7 +7,10 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const sources = ['apps/web/src/components/report-workspace.tsx', 'apps/web/src/lib/report/model.ts',
   'apps/web/src/lib/report/evidence.ts', 'apps/web/tests/report-view.test.tsx', 'apps/web/tests/tsconfig.report.json',
-  'apps/web/scripts/check-report.mjs', 'apps/web/src/app/page.tsx', 'apps/web/src/app/globals.css'];
+  'apps/web/scripts/check-report.mjs', 'apps/web/src/app/page.tsx', 'apps/web/src/app/globals.css',
+  'apps/web/src/app/demo/page.tsx', 'apps/web/src/lib/scaffold/demo.ts', 'apps/web/tests/submitted-input-browser.scenarios.js',
+  'apps/web/tests/report-states-browser.scenarios.js', 'scripts/project/tests/report_browser_stack.py'];
+const expectedCases = 38;
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const hashes = paths => Object.fromEntries([...paths].sort().map(p => [p, hash(readFileSync(resolve(root, p)))]));
 const cache = resolve(root, '.cache/review/b002-report');
@@ -39,9 +42,12 @@ try {
   const tap = tests.stdout ?? '';
   report.counts = Object.fromEntries([...tap.matchAll(/^# (tests|pass|fail|cancelled|skipped|todo) (\d+)\r?$/gm)].map(m => [m[1], Number(m[2])]));
   report.cases = [...tap.matchAll(/^ok \d+ - ([a-zA-Z0-9/-]+)\r?$/gm)].map(m => m[1]);
-  if (tests.status !== 0 || report.counts.tests !== 37 || report.counts.pass !== 37 ||
-    ['fail', 'cancelled', 'skipped', 'todo'].some(k => report.counts[k] !== 0) || report.cases.length !== 37 || new Set(report.cases).size !== 37 ||
-    ['evidence/repeated-codepoint-occurrence', 'render/independent-summary-failure', 'render/independent-findings-failure', 'render/invalid-entire-extraction-withheld', 'security/react-escapes-source-text'].some(id => !report.cases.includes(id))) throw new Error('REPORT_CASES_FAILED');
+  if (tests.status !== 0 || report.counts.tests !== expectedCases || report.counts.pass !== expectedCases ||
+    ['fail', 'cancelled', 'skipped', 'todo'].some(k => report.counts[k] !== 0) ||
+    report.cases.length !== expectedCases || new Set(report.cases).size !== expectedCases ||
+    ['evidence/repeated-codepoint-occurrence', 'evidence/only-selected-citation-is-current', 'render/independent-summary-failure',
+      'render/independent-findings-failure', 'render/invalid-entire-extraction-withheld', 'security/react-escapes-source-text']
+      .some(id => !report.cases.includes(id))) throw new Error('REPORT_CASES_FAILED');
   if (JSON.stringify(report.inputs) !== JSON.stringify({ sources: hashes(sources), frozen: hashes(Object.keys(inventory.frozen_files)) })) throw new Error('INPUT_CHANGED');
   report.passed = true;
 } catch (error) {
