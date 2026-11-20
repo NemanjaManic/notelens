@@ -340,3 +340,21 @@ class CiChecks(unittest.TestCase):
         privileged = deepcopy(value)
         privileged['on'] = {'pull_request_target': {}}
         self.assertEqual(['WORKFLOW_EVENTS'], ci.pr_workflow_issues(privileged))
+
+    def test_pull_request_workflow_requires_mock_security_step_after_the_build(self):
+        value = scope.loads((ci.ROOT / ci.PR_WORKFLOW).read_bytes())
+        steps = value['jobs']['key-free']['steps']
+        self.assertEqual('Check mock security and platform regressions', steps[-1]['name'])
+        steps[-2], steps[-1] = steps[-1], steps[-2]
+        self.assertEqual(['STEP_ORDER_OR_COVERAGE'], ci.pr_workflow_issues(value))
+
+    def test_pull_request_workflow_requires_key_free_security_coverage(self):
+        unchanged = scope.loads((ci.ROOT / ci.PR_WORKFLOW).read_bytes())
+        for rule, changes in [
+                ('SECURITY_RUN_POLICY', {'run': 'node apps/web/scripts/check-report.mjs'}),
+                ('SECURITY_ENVIRONMENT', {'env': {'NOTELENS_MODE': 'live'}}),
+                ('RUN_SHAPE', {'continue-on-error': True})]:
+            with self.subTest(rule=rule):
+                changed = deepcopy(unchanged)
+                changed['jobs']['key-free']['steps'][-1].update(changes)
+                self.assertEqual([rule], ci.pr_workflow_issues(changed))

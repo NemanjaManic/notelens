@@ -88,6 +88,16 @@
             "UV_PYTHON_DOWNLOADS": "never"
           },
           "run": "$ErrorActionPreference = 'Stop'\n$PSNativeCommandUseErrorActionPreference = $true\n$tools = './scripts/project/.venv/Scripts/python.exe'\n& $tools -B scripts/project/check_contracts.py --require-freeze\n& $tools -B scripts/project/generate_contracts.py --check\n& $tools -B scripts/project/check_ci.py --pr-dependencies\nnpm.cmd run build\n& $tools -B scripts/project/smoke_mock.py"
+        },
+        {
+          "name": "Check mock security and platform regressions",
+          "shell": "pwsh",
+          "working-directory": "candidate",
+          "env": {
+            "NEXT_TELEMETRY_DISABLED": "1",
+            "NOTELENS_MODE": "mock"
+          },
+          "run": "$ErrorActionPreference = 'Stop'\n$PSNativeCommandUseErrorActionPreference = $true\n& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/check_mock_security.py\nnode apps/web/scripts/check-contracts.mjs\nnode apps/web/scripts/check-preparation.mjs\nnode apps/web/scripts/check-sessions.mjs\nnode apps/web/scripts/check-report.mjs\n& ./node_modules/.bin/tsc.cmd --noEmit --project apps/web/tests/tsconfig.routing.json\nnode --test apps/web/tests/routing.test.ts"
         }
       ]
     }
