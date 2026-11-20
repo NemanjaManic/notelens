@@ -23,9 +23,10 @@ All error outcomes use `ErrorEnvelope` and echo the received valid request ID.
 They omit claims, retrieval provenance, question text and provider details.
 An operational stop carries no literature verdict. In a mixed response B can
 preserve independently supported document claims and describe the literature
-gap or outage separately. B's actual routing and rendering are outside these
-service tests. A partial literature response still needs confirmation of the
-[frozen retrieval semantics](answer-support-policy.md#frozen-interface-interpretation-requiring-confirmation).
+gap or outage separately. On 2026-11-20, B confirmed the [frozen retrieval semantics](answer-support-policy.md#frozen-interface-interpretation).
+For partial coverage, the web app will show cited claims and the unanswered parts
+from `warnings`. The shared application check will verify this behavior over B's
+routing and rendering.
 
 ## Saved development evidence
 
