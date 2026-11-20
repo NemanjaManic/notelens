@@ -34,3 +34,27 @@ shared-contract consumer tests are not implemented yet.
 
 The preceding review was read-only; this file records that feedback only. It does
 not change canonical contracts, complete A-010 or authorize a contract freeze.
+
+## Frozen contract consumer closeout
+
+On 2026-11-19, A's agent verified the published interim checkpoint
+`7aa6c321e7c40c364d234467adbecbab0d06a497` on `origin/main`. Its tree is
+`74ab9bdb1f064b9e049decd0cfbf7a4ebd6f7129` and its foundation backlog records
+F-003 and F-004 as complete. The canonical `contracts/v1` and `contracts/generated`
+trees match RAG revision `24f77211da1395a9da99d7b0f1ca17621c6e64d0`.
+
+With Spec Kit 1.3.3, the PowerShell `check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks`
+resolver selected `specs/001-rag`, with all 16 requirements checklist items checked.
+From the repository root, the following owner-local suite passed all 241 checks.
+
+```powershell
+git diff --exit-code 7aa6c321 HEAD -- contracts/v1 contracts/generated
+uv run --locked --offline --directory services/rag python -B -m pytest -o addopts= -q tests/test_contract.py tests/test_frozen_bindings.py tests/test_http_smoke.py tests/test_failures.py
+```
+
+The checks exercised the generated v1.0.0 bindings, both RAG routes over loopback,
+mock provenance, insufficient-evidence responses, and safe operational errors.
+Unconfigured live mode returned `503 configuration_required` without mock fallback.
+A-010 is complete for the RAG consumer. F-014 remains open on the published foundation
+backlog and is still required for A-003. Application routing, independent semantic
+review and provider activation are outside this closeout.

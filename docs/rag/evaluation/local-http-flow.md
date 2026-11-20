@@ -37,3 +37,24 @@ factory and startup behavior unchanged. The partial wire interpretation is
 enabled only in the harness. B's client, shared routing and live activation remain
 team integration checks. The result measures evidence transfer and abstention in
 the composed flow. Independent semantic evaluation remains open.
+
+## Temporary Uvicorn server
+
+On 2026-11-19 the same replay passed over TCP using a temporary Uvicorn
+listener on `127.0.0.1` and an ephemeral port. Run from the RAG working copy
+with the prepared corpus, Chroma index, verified tokenizer and saved public
+trial caches.
+
+```powershell
+uv run --locked --offline --directory services/rag python -B ../../docs/rag/evaluation/run_local_flow.py --loopback
+```
+
+Both health responses, eight business responses and the unregistered-question
+error passed frozen v1.0.0 validation. Business responses and the error echoed
+their request IDs. The eight Chroma rankings and eight citation spans matched
+the in-process report. The run used three fixture or cached answer compositions,
+made zero provider calls and preserved 28 cache and ledger JSON files.
+
+The command shuts down the temporary listener when the probe finishes. It
+reports `mode=mock` because the question and answer decisions use development
+fixtures and cached evidence. The default app keeps its existing mock startup.

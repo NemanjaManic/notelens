@@ -150,12 +150,76 @@ def build(root):
             'new_provider_calls': 0, 'cases': [first, *fixtures]}
 
 
+def include_actual_partial(root, packet):
+    """Use the recorded completion in a separate v2 development review packet."""
+    files = {'result': 'docs/rag/evaluation/partial-answer-trial-results.json',
+             'proposal': 'docs/rag/evaluation/partial-answer-trial-proposal.json',
+             'assessment': 'docs/rag/coverage-trial-results.json',
+             'retrieval': 'docs/rag/retrieval-smoke-results.json'}
+    raw = {key: (root/path).read_bytes() for key, path in files.items()}
+    result, proposal, assessment, retrieval = (json.loads(raw[key]) for key in files)
+    prior, = (row for row in packet['cases'] if row['case_id'] == 'A-QA-02')
+    decision, = (row for row in assessment['cases'] if row['question_id'] == 'CQ-02')
+    ranked, = (row for row in retrieval['results'] if row['question_id'] == 'CQ-02')
+    if (result['question_id'] != 'CQ-02' or result['mode'] != 'live'
+            or result['evidence_state'] != 'partial' or result['execution_closed'] is not True
+            or decision['coverage'] != 'partial'
+            or proposal['execution_approved'] is not False or result['approval'] != proposal['approval']
+            or result['scope_sha256'] != proposal['approval']['scope_sha256']
+            or result['partial_policy'] != PARTIAL_POLICY
+            or result['question'] != prior['question'] or result['question'] != decision['question']
+            or result['question'] != ranked['question']
+            or result['source_context_sha256'] != decision['context_sha256']
+            or result['source_context_sha256'] != proposal['context_sha256']
+            or any(result[key] != proposal[key] for key in ('request_sha256', 'prompt_sha256'))
+            or result['retrieval_provenance']['corpus_version'] != packet['corpus_version']
+            or result['retrieval_provenance']['index_version'] != packet['index_version']
+            or [item['passage_id'] for item in ranked['passages']] !=
+               [item['passage_id'] for item in prior['candidate_sources']]):
+        raise ValueError('The partial completion differs from its retained development context.')
+    missing_warnings = [f"The retrieved sources do not support the requested information: {part['description']}"
+                        for part in decision['parts'] if part['model_status'] != 'supported']
+    if not result['claims'] or not all(warning in result['warnings'] for warning in missing_warnings):
+        raise ValueError('The partial completion lost its claim or missing-part warning.')
+    corpus = load_corpus(repository_root=root, expected_corpus_version=packet['corpus_version'])
+    selected = {(part['requirement_id'], ref['passage_id'], ref['start'], ref['end'], ref['quote_sha256'])
+                for part in decision['parts'] if part['model_status'] == 'supported' for ref in part['evidence']}
+    claims = []
+    for claim in result['claims']:
+        refs = []
+        for ref in claim['evidence']:
+            key = tuple(ref[field] for field in ('requirement_id', 'passage_id', 'start', 'end', 'quote_sha256'))
+            if key not in selected:
+                raise ValueError('A partial-answer citation is outside the retained support decision.')
+            refs.append(_trace_reference(ref, corpus))
+        if not refs:
+            raise ValueError('A partial-answer claim has no evidence.')
+        claims.append({'claim_id': claim['claim_id'], 'text': claim['text'], 'evidence': refs})
+    sources = [{key: item[key] for key in ('passage_id', 'topic_id', 'url', 'title')}
+               for item in ranked['passages']]
+    actual = {'case_id': 'A-QA-02', 'question_id': 'CQ-02', 'question': result['question'], 'mode': 'live',
+              'origin': 'actual_public_development_completion', 'prompt_version': result['prompt_version'],
+              'answer_version': result['answer_version'],
+              'configuration_version': result['component']['configuration_version'],
+              'route': result['route'], 'evidence_state': result['evidence_state'],
+              'text': '\n\n'.join(claim['text'] for claim in claims), 'claims': claims,
+              'warnings': result['warnings'], 'candidate_sources': sources,
+              'retrieval_provenance': result['retrieval_provenance']}
+    return {**packet, 'format_version': 'rag-development-answer-review-packet-v2',
+            'input_sha256': packet['input_sha256'] | {files[key]: _sha(value) for key, value in raw.items()},
+            'cases': [actual if row['case_id'] == 'A-QA-02' else row for row in packet['cases']]}
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Build a review packet or inspect its exact public source slices.')
     parser.add_argument('--evidence-case', help='Show exact local canonical text for this case only.')
+    parser.add_argument('--include-actual-partial', action='store_true',
+                        help='Build a separate v2 packet using the retained CQ-02 completion.')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[3]
     packet = build(root)
+    if args.include_actual_partial:
+        packet = include_actual_partial(root, packet)
     if args.evidence_case:
         matches = [row for row in packet['cases'] if row['case_id'] == args.evidence_case]
         if not matches:

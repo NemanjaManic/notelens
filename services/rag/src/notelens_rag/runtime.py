@@ -1,10 +1,14 @@
 """Owner-local service composition with explicit providers and no implicit activation."""
 
+from collections.abc import Callable
+from dataclasses import dataclass
+
 from .answers import PARTIAL_POLICY, prepare_answer, retrieval_result, unsupported_answer
 from .assessor import AssessmentError
 from .contracts import Contracts
 from .embeddings import EmbeddingError
-from .retrieval import RetrievalError
+from .ingestion import repository_directory, valid_hash
+from .retrieval import CandidateRetriever, RetrievalError
 from .support import assess_empty_candidates
 
 
@@ -14,6 +18,39 @@ class RagServiceError(ValueError):
     def __init__(self, code):
         self.code = code
         super().__init__('The RAG operation could not be completed safely.')
+
+
+@dataclass(frozen=True)
+class IndexedBackend:
+    """Explicit startup inputs. Adapter construction and activation belong to the caller."""
+
+    index_version: str
+    model_version: str
+    embedder: object
+    admit: Callable
+    requirements: Callable
+    assessor: object
+    generator: object
+    partial_policy: str | None = None
+
+    def bind(self, corpus, *, repository_root, mode):
+        if (not valid_hash(self.index_version) or getattr(self.embedder, 'mode', None) != mode
+                or not callable(getattr(self.embedder, 'embed', None))):
+            raise RagServiceError('configuration_required')
+        try:
+            from .indexing import load_index
+
+            index = load_index(corpus, repository_root=repository_directory(repository_root), mode=mode,
+                               expected_index_version=self.index_version)
+            retriever = CandidateRetriever(index)
+        except Exception:
+            # Startup errors can contain filesystem paths or vector-store internals.
+            raise RagServiceError('configuration_required') from None
+
+        return RagService(mode=mode, admit=self.admit, rank=lambda request: retriever.retrieve(request, self.embedder),
+                          requirements=self.requirements, assessor=self.assessor, generator=self.generator,
+                          health_check=lambda: index.collection.count() == corpus.passage_count,
+                          model_version=self.model_version, partial_policy=self.partial_policy)
 
 
 class RagService:

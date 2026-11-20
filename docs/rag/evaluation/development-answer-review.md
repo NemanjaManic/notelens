@@ -70,3 +70,26 @@ The local run verified all 12 claim-to-passage references. Each two-topic
 fixture kept two claims and evidence from two distinct topics. The absent case
 kept zero claims and sources. There are no new model results or independent
 scores, and neither the QA labels nor an acceptance threshold are frozen here.
+
+## Updated packet with the actual partial answer
+
+The separate [v2 packet](development-answer-review-v2.json), prepared on 2026-11-19,
+uses the completed CQ-02 response for A-QA-02. It gives the reviewer two actual
+public completions and four fixtures. The A-QA-02 claim and the missing-duration
+warning are from the [retained result](partial-answer-trial-results.json).
+The other five cases reproduce their original content. All twelve canonical
+evidence references were checked. Independent scores remain pending.
+
+To reproduce v2 or inspect its exact partial-answer evidence, run from the root
+with the prepared corpus and RAG environment available.
+
+```powershell
+uv run --locked --offline --directory services/rag python -B ../../docs/rag/evaluation/prepare_answer_review.py --include-actual-partial
+uv run --locked --offline --directory services/rag python -B ../../docs/rag/evaluation/prepare_answer_review.py --include-actual-partial --evidence-case A-QA-02
+```
+
+The evidence command includes all five retained candidates for this partial case.
+A portable Markdown copy under A's ignored review folder contains the actual
+answer, these five public passages, source attribution and hashes, blank D rubric
+fields, and a blank B decision on partial-wire behavior. Preparing the packet
+made zero provider calls. The review covers this known development question.

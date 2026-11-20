@@ -1,14 +1,21 @@
-"""Run four public cases through the local ASGI HTTP boundary using saved vectors."""
+"""Replay four public cases through local ASGI or loopback HTTP using saved vectors."""
 
+import argparse
 from collections import Counter
+from contextlib import contextmanager
 import hashlib
 import json
 from pathlib import Path
+import socket
+from threading import Thread
+from time import monotonic, sleep
 from types import SimpleNamespace
 from unittest.mock import patch
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
+import httpx2
+import uvicorn
 
 from notelens_rag.answer_trial import load_answer_trial, prepare_from_history
 from notelens_rag.answers import PARTIAL_POLICY, checked_answer_response
@@ -89,27 +96,62 @@ def cached_retrieval(root, provider_factory):
     return cases, corpus, index, retriever, (old_cache, new_cache), rank
 
 
-def run(root):
+@contextmanager
+def _http_client(app, *, loopback, connect, forbidden):
+    if not loopback:
+        with TestClient(app, client=('127.0.0.1', 45000)) as client:
+            yield client
+        return
+
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listener:
+        listener.bind(('127.0.0.1', 0))
+        address = listener.getsockname()
+
+        def connect_to_server(target, *args, **kwargs):
+            if target != address:
+                return forbidden()
+            return connect(target, *args, **kwargs)
+
+        server = uvicorn.Server(uvicorn.Config(app, host=address[0], port=address[1], proxy_headers=False,
+                                             access_log=False, log_level='warning', timeout_graceful_shutdown=3))
+        worker = Thread(target=server.run, kwargs={'sockets': [listener]}, daemon=True)
+        with patch('socket.create_connection', connect_to_server):
+            worker.start()
+            try:
+                deadline = monotonic() + 15
+                while not server.started and worker.is_alive() and monotonic() < deadline:
+                    sleep(0.05)
+                _require(server.started and worker.is_alive(), 'The local Uvicorn server did not start.')
+                with httpx2.Client(base_url=f'http://{address[0]}:{address[1]}', trust_env=False, timeout=10) as client:
+                    yield client
+            finally:
+                server.should_exit = True
+                worker.join(timeout=10)
+                _require(not worker.is_alive(), 'The local Uvicorn server did not stop.')
+
+
+def run(root, *, loopback=False):
     attempts = []
 
     def forbidden(*args, **kwargs):
-        attempts.append('provider_or_key')
-        raise AssertionError('This offline flow cannot create a provider or load credentials.')
+        attempts.append('offline_guard')
+        raise AssertionError('This offline flow forbids provider creation, credential loading and external connections.')
 
-    cases, corpus, index, retriever, query_folders, rank_cached = cached_retrieval(root, forbidden)
-    completed = load_answer_trial(root)
-    completed.settings = AssessmentSettings()
-    completed.client_factory = forbidden
-    history = completed.coverage
-    check_folders = (*query_folders, history.original_folder, history.retry_folder,
-                     history.previous_folder, history.folder, completed.folder)
-    before = _protected_hashes(check_folders)
     emitted = Counter()
     traces = {}
+    connect = socket.create_connection
 
     with patch('notelens_rag.assessment_trial.read_assessment_settings', forbidden), \
          patch('notelens_rag.assessment_trial._client', forbidden), \
          patch('notelens_rag.query_smoke.read_settings', forbidden), patch('socket.create_connection', forbidden):
+        cases, corpus, index, retriever, query_folders, rank_cached = cached_retrieval(root, forbidden)
+        completed = load_answer_trial(root)
+        completed.settings = AssessmentSettings()
+        completed.client_factory = forbidden
+        history = completed.coverage
+        check_folders = (*query_folders, history.original_folder, history.retry_folder,
+                         history.previous_folder, history.folder, completed.folder)
+        before = _protected_hashes(check_folders)
         saved = completed.run()
         _require(saved['cache_hit'] is True, 'The actual answer must come from its verified cache.')
         original_answer = json.loads(saved['result']['body_json'])
@@ -173,9 +215,13 @@ def run(root):
             health_check=lambda: True, model_version='public-cached-flow-v1', partial_policy=PARTIAL_POLICY)
         contract = Contracts()
         results = []
-        with TestClient(create_app(Settings(mode='mock'), backend=backend), client=('127.0.0.1', 45000)) as client:
-            status = client.get('/health/ready')
-            _require(status.status_code == 200 and status.json()['mode'] == 'mock', 'Unexpected readiness.')
+        app = create_app(Settings(mode='mock'), backend=backend)
+        with _http_client(app, loopback=loopback, connect=connect, forbidden=forbidden) as client:
+            for endpoint, schema, expected in (('live', 'LivenessResult', 'alive'), ('ready', 'HealthResult', 'ok')):
+                status = client.get(f'/health/{endpoint}')
+                body = contract.validate(schema, status.json())
+                _require(status.status_code == 200 and body['status'] == expected and body['mode'] == 'mock',
+                         f'Unexpected {endpoint} health result.')
             for key, (_, state, origin) in CASES.items():
                 question = cases[key]['question']
                 payload = {'schema_version': '1.0.0', 'question': question}
@@ -204,15 +250,18 @@ def run(root):
                                 'evidence_state': body['evidence_state'], 'answer_origin': origin,
                                 'claims': len(body['claims']), 'cited_topics': sorted({p['topic_id'] for p in body['sources']}),
                                 'exact_quote_references': len(traces.get(key, []))})
+            rejected_id = str(uuid4())
             rejected = client.post('/v1/literature-answer', json={'schema_version': '1.0.0', 'question': 'Unregistered synthetic question?'},
-                                   headers={'X-Request-ID': str(uuid4())})
-            _require(rejected.status_code == 422 and rejected.json()['error']['code'] == 'validation_failure',
+                                   headers={'X-Request-ID': rejected_id})
+            body = contract.validate('ErrorEnvelope', rejected.json())
+            _require(rejected.status_code == 422 and rejected.headers['X-Request-ID'] == rejected_id
+                     and body['request_id'] == rejected_id and body['error']['code'] == 'validation_failure',
                      'An unregistered question passed admission.')
 
     _require(not attempts and emitted == {'chroma_rankings': 8, 'answer_replays_or_fixtures': 3}
              and before == _protected_hashes(check_folders)
              and not any((path/'.build.lock').exists() for path in check_folders), 'The offline flow changed protected state.')
-    return {'format_version': 'rag-public-local-flow-v1', 'transport': 'in_process_asgi_http',
+    return {'format_version': 'rag-public-local-flow-v1', 'transport': 'loopback_tcp_http' if loopback else 'in_process_asgi_http',
             'index_version': index.spec['index_version'], 'corpus_version': corpus.corpus_version,
             'retriever_version': retriever.retriever_version, 'real_chroma_rankings': emitted['chroma_rankings'],
             'answer_replays_or_fixtures': emitted['answer_replays_or_fixtures'], 'provider_calls': 0,
@@ -221,4 +270,7 @@ def run(root):
 
 
 if __name__ == '__main__':
-    print(json.dumps(run(Path(__file__).resolve().parents[3]), indent=2, allow_nan=False))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--loopback', action='store_true', help='Replay through a temporary local Uvicorn server.')
+    args = parser.parse_args()
+    print(json.dumps(run(Path(__file__).resolve().parents[3], loopback=args.loopback), indent=2, allow_nan=False))
