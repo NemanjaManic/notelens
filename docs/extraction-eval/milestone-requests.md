@@ -68,7 +68,7 @@ smoke. Until then live mode fails with 503 `configuration_required`; no live cal
 ### Proposed first live smoke · 2026-11-20
 
 D identified `gpt-6-luna` from the capstone RAG run and requested a small spend limit.
-Proposed cap: **USD 1 total** for one synthetic-only smoke run, with at most three
+Proposed cap: **USD 0.10 total** for one synthetic-only smoke run, with at most three
 provider requests covering extraction, summary and document QA. Disable automatic
 retries for this run. Confirm the shared-account cap, permitted input policy, model
 access and actual pricing before execution. Each request must fit the remaining cap
