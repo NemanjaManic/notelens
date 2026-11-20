@@ -4,7 +4,7 @@ const cookieName = '__Host-notelens-session';
 const cookieScope = 'Path=/; Secure; HttpOnly; SameSite=Strict';
 const capabilityPattern = /^[A-Za-z0-9_-]{43}$/;
 
-function cookieCapability(requestHeaders: Headers): string | null {
+function cookieCapability(requestHeaders: Pick<Headers, 'get'>): string | null {
   let capability: string | null = null;
   for (const field of (requestHeaders.get('Cookie') ?? '').split(';')) {
     const separator = field.indexOf('=');
@@ -19,7 +19,7 @@ function cookieCapability(requestHeaders: Headers): string | null {
 }
 
 /** Resolve a server-issued browser capability. A lookup never creates a session. */
-export function readBrowserSession(store: MemorySessions, requestHeaders: Headers): string | null {
+export function readBrowserSession(store: MemorySessions, requestHeaders: Pick<Headers, 'get'>): string | null {
   const capability = cookieCapability(requestHeaders);
   return capability !== null && store.hasSession(capability) ? capability : null;
 }

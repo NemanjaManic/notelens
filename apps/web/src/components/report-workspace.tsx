@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { SCENARIOS } from '../lib/report/model.ts';
 import { evidenceParts } from '../lib/report/evidence.ts';
 
-type DemoPanel = { exampleHref: string; evidenceHref: string; questions: ReactNode };
+type DemoPanel = { picker: ReactNode; evidenceHref: string; questions: ReactNode };
 
 export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPanel }) {
   const evidenceHref = demo?.evidenceHref ?? `?scenario=${view.scenario}`;
@@ -17,24 +17,24 @@ export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPa
     <header><a className="wordmark" href={demo ? '/demo' : '/'}>NoteLens</a><span className="badge">Mock mode</span></header>
     <section className="welcome" aria-labelledby="workspace-title">
       <p className="eyebrow">Educational demonstration</p><h1 id="workspace-title">Explore a report, with its evidence.</h1>
-      <p className="intro">Inspect a synthetic example and follow each finding back to its exact passage.</p>
+      <p className="intro">{demo ? 'Open a built-in example or prepare a public or synthetic document.' : 'Inspect a synthetic example and follow each finding back to its exact passage.'}</p>
       <aside className="notices" aria-label="Demo notices"><strong>This demonstration does not replace a doctor.</strong>
-        <p>Do not upload real personal medical reports. This workspace displays versioned synthetic examples only.</p></aside>
+        <p>Do not upload real personal medical reports.{demo ? '' : ' This workspace displays versioned synthetic examples only.'}</p></aside>
     </section>
     {demo ? <nav className="examples" aria-label="Synthetic examples"><h2>Choose an example</h2>
-      <a href={demo.exampleHref} aria-current={view.document ? 'page' : undefined}>Chest pain report</a>
+      {demo.picker}
     </nav> : <nav className="examples" aria-label="Synthetic example states">
       <h2>Browse fixture previews</h2><p>These links demonstrate UI states. No analysis or service request is started.</p>
       <ul>{SCENARIOS.map(([key, label]) => <li key={key}><a href={`?scenario=${key}`} aria-current={view.scenario === key ? 'page' : undefined}>{label}</a></li>)}</ul>
     </nav>}
     <section id="report-content" aria-labelledby="report-heading">
-      <div className="report-heading"><div><p className="eyebrow">Synthetic report · English</p><h2 id="report-heading">{view.heading}</h2></div><span className="badge">{demo ? 'Local mocks' : 'Fixture preview'}</span></div>
-      <p className="privacy">{demo ? 'This demo uses a built-in synthetic report. Uploads are disabled.'
+      <div className="report-heading"><div><p className="eyebrow">{demo ? 'English document' : 'Synthetic report · English'}</p><h2 id="report-heading">{view.heading}</h2></div><span className="badge">{demo ? 'Local mocks' : 'Fixture preview'}</span></div>
+      <p className="privacy">{demo ? 'Documents stay in server memory for up to 60 minutes and are cleared when the session ends or the server restarts.'
         : 'Submitted reports are not accepted here. The planned submission flow keeps documents in server memory for at most 60 minutes and loses them on restart.'}</p>
       <div className="report-grid">
         <section className="panel document-panel" aria-labelledby="document-heading">
           <h3 id="document-heading">Canonical document</h3>
-          {view.document ? <><p className="muted">Unchanged synthetic text. Select a passage link in the report panels to highlight its exact occurrence.</p>
+          {view.document ? <><p className="muted">Canonical text.{view.passages.length > 0 && ' Select a passage link to highlight its exact occurrence.'}</p>
             <div className="canonical-text" id="document-passage" tabIndex={-1} aria-label="Canonical document text">
               {selected ? <>{selected.before}<mark>{selected.quote}</mark>{selected.after}</> : view.document.text}
             </div>

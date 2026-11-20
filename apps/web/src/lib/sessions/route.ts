@@ -9,6 +9,20 @@ export function getSessionStore(): MemorySessions {
   return processState.notelensSessions ??= new MemorySessions();
 }
 
+export function isSessionRequestFromOrigin(headers: Headers, configuredOrigin = process.env.NOTELENS_SESSION_ORIGIN): boolean {
+  sessionConfiguration();
+  return headers.get('Origin') === sessionOrigin(configuredOrigin);
+}
+
+export function sessionErrorResponse(error: unknown, headers: Headers): Response {
+  if (error instanceof SessionAdmissionError && error.kind === 'rate') {
+    headers.set('Retry-After', String(error.retryAfter));
+    return Response.json({ notice: error.message }, { status: 429, headers });
+  }
+  const notice = error instanceof SessionAdmissionError ? error.message : 'The session service is unavailable.';
+  return Response.json({ notice }, { status: 503, headers });
+}
+
 export function handleSessionRequest(
   request: Request,
   getStore = getSessionStore,
@@ -16,9 +30,7 @@ export function handleSessionRequest(
 ): Response {
   const headers = new Headers({ 'Cache-Control': 'no-store' });
   try {
-    sessionConfiguration();
-    const origin = sessionOrigin(configuredOrigin);
-    if (request.headers.get('Origin') !== origin) {
+    if (!isSessionRequestFromOrigin(request.headers, configuredOrigin)) {
       return Response.json({ notice: 'The session request must come from this site.' }, { status: 403, headers });
     }
 
@@ -32,11 +44,6 @@ export function handleSessionRequest(
     }
     return new Response(null, { status: 204, headers });
   } catch (error) {
-    if (error instanceof SessionAdmissionError && error.kind === 'rate') {
-      headers.set('Retry-After', String(error.retryAfter));
-      return Response.json({ notice: error.message }, { status: 429, headers });
-    }
-    const notice = error instanceof SessionAdmissionError ? error.message : 'The session service is unavailable.';
-    return Response.json({ notice }, { status: 503, headers });
+    return sessionErrorResponse(error, headers);
   }
 }

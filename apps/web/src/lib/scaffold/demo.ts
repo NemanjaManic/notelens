@@ -1,6 +1,4 @@
 import { randomUUID } from 'node:crypto';
-import documents from '../../../../../contracts/v1/fixtures/documents.json' with { type: 'json' };
-import { validateRecord } from '@notelens/contracts/v1';
 import type { AnswerResult, PreparedDocument } from '@notelens/contracts/v1';
 import { consumeExchange, OPERATIONS } from '../contracts/consumer.ts';
 import type { BusinessOperation } from '../contracts/consumer.ts';
@@ -35,6 +33,10 @@ export function isDemoConfigured() {
   return process.env.NOTELENS_MODE === 'mock' && !!process.env.NOTELENS_DEMO_RUN
     && !!process.env.NOTELENS_DEMO_TOKEN && !!loopbackPort('RAG')
     && !!loopbackPort('CLASSIFIER') && !!loopbackPort('EXTRACTION');
+}
+
+export function isBuiltinDemoDocument(document: PreparedDocument | null): boolean {
+  return document?.language_validation.policy_version === 'fixture-language-policy-v0';
 }
 
 async function call(operation: BusinessOperation, document?: PreparedDocument, question?: string) {
@@ -83,10 +85,14 @@ async function answerDemo(key: Question, document: PreparedDocument): Promise<De
   return { route, state, branches };
 }
 
-export async function demoWorkspace(query: Record<string, string | string[] | undefined>):
+export async function demoWorkspace(query: Record<string, string | string[] | undefined>, document: PreparedDocument | null):
     Promise<{ view: Workspace; question?: Question; answer?: DemoAnswer }> {
-  if (query.example !== 'offset') return { view: await fixtureWorkspace('no-document') };
-  const document = await validateRecord('PreparedDocument', structuredClone(documents.offset));
+  if (!document) return { view: await fixtureWorkspace(query.document === undefined ? 'no-document' : 'unavailable') };
+  if (!isBuiltinDemoDocument(document)) {
+    const panel = { state: 'empty' as const, notice: 'Analysis is available for the built-in example.' };
+    return { view: { document, classification: panel, extraction: panel, passages: [],
+      scenario: 'ready', heading: 'Prepared document', selected: null } };
+  }
   const question = selectedQuestion(query.question);
   const [classification, extraction, answer] = await Promise.all([
     call('classify', document), call('extract', document),

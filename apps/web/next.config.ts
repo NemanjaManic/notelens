@@ -6,6 +6,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const config: NextConfig = {
   turbopack: { root },
   outputFileTracingRoot: root,
+  serverExternalPackages: ['pdfjs-dist'],
   poweredByHeader: false,
 };
 export default config;
