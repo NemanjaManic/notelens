@@ -12,7 +12,11 @@ ROOT = Path(__file__).resolve().parents[2]
 STEPS = ('contracts', 'generation', 'project-tests', 'rag-tests', 'rag-bindings',
          'classifier-tests', 'classifier-bindings', 'extraction-tests', 'extraction-bindings',
          'web-typecheck', 'web-build', 'web-bindings', 'web-config', 'web-render', 'http')
-SERVICE_TEST_TOTALS = {'rag': 309, 'classifier': 84, 'extraction': 60}
+SERVICE_TEST_TOTALS = {'rag': 763, 'classifier': 84, 'extraction': 60}
+RAG_OPTIONAL_COLLECTION_SKIPS = {
+    'tests.test_index_version': 'Index tests require the optional indexing extra.',
+    'tests.test_indexed_startup': 'Indexed startup requires the optional indexing extra.',
+}
 HTTP_CASES = (
     'rag-retrieve-sufficient', 'rag-answer-sufficient', 'rag-retrieve-insufficient',
     'rag-answer-insufficient', 'rag-clarification',
@@ -115,14 +119,12 @@ def service_test_counts(path, service):
         raise ValueError('Missing service test suite: ' + service)
     counts = {key: int(suite.attrib[key]) for key in ('tests', 'failures', 'errors', 'skipped')}
     skips = [(case, skipped) for case in suite.findall('testcase') for skipped in case.findall('skipped')]
-    expected_skips = int(service == 'rag')
-    if (counts != {'tests': SERVICE_TEST_TOTALS[service], 'failures': 0, 'errors': 0, 'skipped': expected_skips}
-            or len(skips) != expected_skips):
+    expected = RAG_OPTIONAL_COLLECTION_SKIPS if service == 'rag' else {}
+    if (counts != {'tests': SERVICE_TEST_TOTALS[service], 'failures': 0, 'errors': 0, 'skipped': len(expected)}
+            or Counter(case.get('name') for case, _ in skips) != Counter(expected.keys())):
         raise ValueError('Unexpected service test coverage: ' + service)
-    if skips:
-        case, skipped = skips[0]
-        if (case.get('name') != 'tests.test_index_version' or skipped.get('message') != 'collection skipped'
-                or 'Index tests require the optional indexing extra.' not in (skipped.text or '')):
+    for case, skipped in skips:
+        if skipped.get('message') != 'collection skipped' or expected[case.get('name')] not in (skipped.text or ''):
             raise ValueError('Unexpected skipped service test: ' + service)
     return counts
 
