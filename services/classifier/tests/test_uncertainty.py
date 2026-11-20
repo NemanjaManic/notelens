@@ -1,4 +1,5 @@
 from dataclasses import replace
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -60,3 +61,23 @@ def test_lexical_evidence_counts_distinct_features_and_phrase_support():
     assert evidence.single_word == 0.4
     assert evidence.two_words == pytest.approx(0.7)
     assert evidence.word_or_phrase == pytest.approx(0.95)
+
+
+def test_frozen_policy_preserves_abstentions_in_confusion_counts(monkeypatch):
+    pytest.importorskip("sklearn", reason="Optional training dependency group is not installed")
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[3]))
+    from notelens_classifier.inference import LexicalEvidence
+    from notelens_classifier.training.frozen_uncertainty import Decision, apply_score_gate, validation_metrics
+    from notelens_classifier.training.select_ambiguity_policy import Observation
+
+    observations = [
+        Observation(LABELS[0], LABELS[0], (0.8, 0.05, 0.05, 0.05, 0.05), LexicalEvidence(), [], 1),
+        Observation(LABELS[1], None, (0.1, 0.7, 0.1, 0.05, 0.05), LexicalEvidence(), [], 0),
+        Observation(LABELS[2], LABELS[2], (0.05, 0.42, 0.45, 0.05, 0.03), LexicalEvidence(), [], 1),
+    ]
+    assert [row.reference for row in apply_score_gate(observations, 0.4, 0.1)] == [LABELS[0], None, None]
+    metrics = validation_metrics(observations, ["first", "second", "third"], Decision(0.4, 0.1))
+    assert metrics["accuracy"] == pytest.approx(1 / 3)
+    assert metrics["confusion_columns"][-1] == "uncertain"
+    assert metrics["confusion_matrix"][0] == [1, 0, 0, 0, 0, 0]
+    assert metrics["confusion_matrix"][1] == metrics["confusion_matrix"][2] == [0, 0, 0, 0, 0, 1]

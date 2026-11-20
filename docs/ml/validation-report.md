@@ -102,3 +102,113 @@ additional hand-written cases with the same model and threshold. It found
   were excluded from fitting and scoring. The raw source was hashed and
   streamed with only selected training and validation rows retained.
   Final test measurement and team approval remain pending.
+
+## C-005 uncertainty selection on the frozen split, 2026-11-20
+
+C selected a development policy for the C-004 Logistic Regression
+artifact on `c002-split-v1`. The experiment kept the fitted model fixed
+and used the same 185 validation documents and canonical digests as
+C-003 and C-004. It evaluated 1,620 configurations on those documents
+and 128 synthetic development cases. The selection objective averaged
+the two cohorts' utilities. Correct specialty acceptance contributed
++1, while wrong specialty and inappropriate acceptance contributed
+−1. Abstentions stayed in each cohort's denominator.
+[Selection configuration](../../services/classifier/config/c005-frozen-uncertainty-v1.json)
+
+The selected policy uses a minimum top score of 0.30, a unique winning
+score, and a sum of up to two distinct fitted word coefficient gaps of at
+least 0.80. A single strong word can still meet the cutoff. The section
+rules abstain when competing specialties have independent support at
+section level and sufficient document-level support. The C-004
+unigram vectorizer has zero fitted phrase features, so the word-plus-phrase
+score collapses to the two-word score for this artifact.
+
+| Policy | Threshold / margin | Validation correct / wrong / uncertain | Validation coverage | Development utility |
+| --- | --- | ---: | ---: | ---: |
+| C-004 top-score reference | 0.30 / 0.00 | 171 / 6 / 8 | 95.68% | 0.3913 |
+| Best score-only rule | 0.35 / 0.05 | 158 / 4 / 23 | 87.57% | 0.4826 |
+| Best strongest-word rule, gap 0.80 | 0.30 / 0.00 | 166 / 6 / 13 | 92.97% | 0.5457 |
+| Selected two-word rule, gap sum 0.80 | 0.30 / 0.00 | 169 / 6 / 10 | 94.59% | 0.5538 |
+
+Macro-F1 with abstentions counted as missed specialty labels was
+0.9319 for the C-004 threshold reference and 0.9233 for the selected
+policy. The additional abstentions were two otherwise correct
+Neurology predictions, one for limited word evidence and one for section
+disagreement. Six wrong labels remained accepted, so the error rate
+among accepted validation cases was 3.43% versus 3.39% for the reference.
+Each validation document represents a distinct group.
+
+| Specialty | Support | Precision | Recall | F1 | Uncertain |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Cardiovascular / Pulmonary | 55 | 0.9649 | 1.0000 | 0.9821 | 0 |
+| Orthopedic | 47 | 0.9388 | 0.9787 | 0.9583 | 1 |
+| Gastroenterology | 32 | 0.9655 | 0.8750 | 0.9180 | 2 |
+| Neurology | 28 | 1.0000 | 0.7857 | 0.8800 | 3 |
+| Urology | 23 | 1.0000 | 0.7826 | 0.8780 | 4 |
+
+The first five columns and the rows use the specialty order above.
+The sixth column records `uncertain` results.
+
+```text
+55  0  0  0  0  0
+ 0 46  0  0  0  1
+ 1  1 28  0  0  2
+ 1  2  0 22  0  3
+ 0  0  1  0 18  4
+```
+
+### Fixed synthetic follow-up
+
+The [50-case lexical suite](../../services/classifier/tests/fixtures/model-check-lexical-v4.json)
+was evaluated after selection and shares no exact text with the 128
+development cases. It includes specialty examples with abbreviations
+and technical terms.
+
+| Policy | Clear correct / wrong / uncertain (25) | Low information accepted (12) | Unrelated accepted (8) | Mixed accepted (5) |
+| --- | ---: | ---: | ---: | ---: |
+| C-004 top-score reference | 16 / 7 / 2 | 8 | 7 | 4 |
+| Best score-only rule | 12 / 0 / 13 | 3 | 1 | 2 |
+| Best strongest-word rule | 14 / 0 / 11 | 0 | 0 | 1 |
+| Selected two-word rule | 15 / 0 / 10 | 0 | 0 | 2 |
+
+Compared with the C-004 reference, the selected policy removed all
+seven wrong labels in this clear-case suite and withheld one otherwise
+correct label. Neurology and Urology each received four uncertain
+responses in five clear cases. The previous [provisional candidate](experiments/lexical-evidence-v1.md)
+correctly labeled 24 of these 25 examples. It used different fitted
+features and training, so the figures characterize two distinct
+candidates. The short-text coverage loss and residual mixed-text
+acceptance remain review points before promotion.
+
+### Score meaning and reproducibility
+
+The five raw scores are uncalibrated Logistic Regression probabilities.
+On frozen validation, mean top score was 58.98% and forced-choice
+accuracy was 94.05%. Ten equal-width bins gave descriptive top-label
+ECE of 0.3507. The sum-over-classes multiclass Brier score was 0.2679.
+These are development diagnostics on a single dataset. The synthetic
+counts cover selected failure patterns. They give no distribution-wide
+estimate of unfamiliar input. The local policy returns `uncertain` on
+weak or conflicting support. A dedicated `unsupported` detector
+requires separate scope evidence and evaluation.
+
+From the repository root, use the locked local classifier Python with
+the training group installed. The C-004 reference must be the reviewed
+local bundle.
+
+```powershell
+$reviewDir = 'data/mtsamples/raw/c002-assisted-review/20261120T121852434438Z'
+python -B -m notelens_classifier.training.frozen_uncertainty `
+  --reference-model .cache/c004-frozen-comparison-v1 `
+  --reference-manifest-sha256 7c0f662bec72cf87e11be86179f82354a02babc27f5421daeb11d7a8c8b173b3 `
+  --split-dir "$reviewDir/c002-split-v1" `
+  --split-sha256 21cbaceb2166185613628e347ccac4f3b335cae3bc745d10e77d0854c017185d `
+  --handoff-dir "$reviewDir/c002-d002-development-v1" `
+  --output .cache/c005-frozen-uncertainty-recheck
+```
+
+The executed bundle is `.cache/c005-frozen-uncertainty-v1` with manifest
+SHA-256 `e79fff1c8c8c3b1b14afa32d02bc44f94680bf09902cb82cfa5e4dd71b967f5f`.
+The classifier and MTSamples suites passed 155 tests and 11 subtests.
+The authenticated FastAPI test client passed contract and repeatability
+checks for all 50 follow-up cases. The final test set stayed locked.

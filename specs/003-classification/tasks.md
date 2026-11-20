@@ -134,13 +134,14 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T007 [US1] C-005: Select uncertainty policy and report model/error/confidence limits in `services/classifier/config/**`, `services/classifier/tests/test_uncertainty.py`, `docs/ml/validation-report.md`
+- [X] T007 [US1] C-005: Select uncertainty policy and report model/error/confidence limits in `services/classifier/config/**`, `services/classifier/tests/test_uncertainty.py`, `docs/ml/validation-report.md`
   - **Owner / story**: C / US1.
   - **Dependencies**: 003-classification/T006 (C-004)
   - **Local update (2026-11-19)**: Provisional Logistic Regression threshold and refusal behavior were measured on validation. The [report](../../docs/ml/validation-report.md) records classwise rejection and false acceptance of unrelated synthetic inputs.
   - **Local improvement (2026-11-19)**: Balanced features and training-only short windows improved the local candidate. The [comparison](../../docs/ml/experiments/short-text-improvement-v1.md) records the rerun, fixed follow-up suite and remaining ambiguity limitation.
   - **Ambiguity policy (2026-11-19)**: The [local comparison](../../docs/ml/experiments/ambiguity-policy-v1.md) documents section disagreement, word evidence, fewer mixed-text acceptances and the clear-case coverage cost.
   - **Lexical evidence comparison (2026-11-19)**: [Local checks](../../docs/ml/experiments/lexical-evidence-v1.md) compared single-word, multiword and phrase evidence. The current policy stays selected after the fixed new-case comparison.
+  - **Local completion (2026-11-20)**: Selected the two-word evidence policy for the C-004 Logistic Regression artifact on the frozen 185-document validation set and 128 synthetic development cases. The [C-005 report](../../docs/ml/validation-report.md#c-005-uncertainty-selection-on-the-frozen-split-2026-11-20) records abstention tradeoffs, the separate 50-case follow-up, calibration limits and pending promotion review. Final test remained locked.
   - **Acceptance**: Choose thresholds on validation, report macro/per-class metrics/confusion/support/errors and score calibration/OOD limits. Do not claim universal unsupported detection or clinical certainty.
   - **Verify**: `uv run --directory services/classifier python -m pytest tests/test_uncertainty.py`.
   - **Coverage**: FR-010, FR-011, FR-012, FR-014, FR-015, FR-020, SC-003.

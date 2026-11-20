@@ -47,18 +47,24 @@ def observe(model, examples, lookup):
     return observed
 
 
+def policy_prediction(row, policy):
+    category = row.reference
+    if category and policy:
+        strength = getattr(row.lexical_evidence, policy.document_evidence_kind)
+        reason = policy.abstention_reason(strength, row.scores, row.sections, row.word_count)
+        if reason:
+            return None, reason
+    return category, None
+
+
 def summarize(observations, policy):
     actual, predicted = [], []
     reasons = Counter()
     unrelated_accepted = ambiguous_accepted = low_information_accepted = 0
     for row in observations:
-        category = row.reference
-        if category and policy:
-            strength = getattr(row.lexical_evidence, policy.document_evidence_kind)
-            reason = policy.abstention_reason(strength, row.scores, row.sections, row.word_count)
-            if reason:
-                reasons[reason] += 1
-                category = None
+        category, reason = policy_prediction(row, policy)
+        if reason:
+            reasons[reason] += 1
         if row.expected in LABELS:
             actual.append(row.expected)
             predicted.append(category)
