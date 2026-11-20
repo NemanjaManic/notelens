@@ -980,7 +980,7 @@
     ".specify/integrations/codex.manifest.json": "c3a7e87776247545db1d380c730e1deb9f1c023134eb466230f28d3fdd729ebe",
     ".specify/integrations/speckit.manifest.json": "af5dbbf8b9fac53f07d8d1d506a8e50ce3efacf37067a83c7e82765ec8728165",
     ".specify/memory/.constitution-template.json": "8fc4b39294bae0c10d59547ad7d415b6f0e890d656cbf7171dd567f4e9054711",
-    ".specify/memory/constitution.md": "2f19be05723381540a4c498ae2f817bb62e211cccbb9ab654f7a9e9b2cf87966",
+    ".specify/memory/constitution.md": "b1139d83978ee27d1b78038e2f30968332ff32c287534b24927d4c22508349c7",
     ".specify/scripts/powershell/check-prerequisites.ps1": "f48e586b57cc049ea83ade5acecb466f861aee4fb444dab54bbafc813222da10",
     ".specify/scripts/powershell/common.ps1": "54b59523b13fd8f884ff8b6b4e74fded922cdcc884965ff720392ca64ec1aa47",
     ".specify/scripts/powershell/create-new-feature.ps1": "481c7368541a816b1679e5ed65fa9e5aea84b09f8be3a02ff8a340e3b48dd58a",

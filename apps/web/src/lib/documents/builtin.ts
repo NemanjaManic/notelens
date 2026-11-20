@@ -23,23 +23,27 @@ export async function prepareBuiltin(store: MemorySessions, capability: string, 
     // The absolute deadline begins before text preparation and either validation.
     const ticket = store.beginDocument(capability);
     if (!ticket) return UNAVAILABLE;
-    const example = await validateRecord('PreparedDocument', structuredClone(documents[id as BuiltinId]));
-    const canonical = canonicalText(example.text);
-    if (canonical.kind !== 'canonical') return canonical;
-    const record: PreparedDocument = {
-      schema_version: '1.0.0', doc_id: randomUUID(),
-      text: canonical.text, text_sha256: createHash('sha256').update(canonical.text, 'utf8').digest('hex'),
-      canonicalization_version: 'nfc-lf-v1', source: structuredClone(example.source),
-      language: 'en', language_validation: structuredClone(example.language_validation),
-    };
-    // The accepted English declaration is restricted to these known synthetic
-    // fixtures. It is not an English detector or permission to accept user text.
-    const validated = await validateRecord('PreparedDocument', record);
-    const stored = await store.storeDocument(capability, ticket, validated);
-    if (stored.kind !== 'stored') return UNAVAILABLE;
-    const current = store.getDocument(capability, validated.doc_id);
-    if ('kind' in current) return UNAVAILABLE;
-    return { kind: 'prepared', docId: current.doc_id };
+    try {
+      const example = await validateRecord('PreparedDocument', structuredClone(documents[id as BuiltinId]));
+      const canonical = canonicalText(example.text);
+      if (canonical.kind !== 'canonical') return canonical;
+      const record: PreparedDocument = {
+        schema_version: '1.0.0', doc_id: randomUUID(),
+        text: canonical.text, text_sha256: createHash('sha256').update(canonical.text, 'utf8').digest('hex'),
+        canonicalization_version: 'nfc-lf-v1', source: structuredClone(example.source),
+        language: 'en', language_validation: structuredClone(example.language_validation),
+      };
+      // The accepted English declaration is restricted to these known synthetic
+      // fixtures. It is not an English detector or permission to accept user text.
+      const validated = await validateRecord('PreparedDocument', record);
+      const stored = await store.storeDocument(capability, ticket, validated);
+      if (stored.kind !== 'stored') return UNAVAILABLE;
+      const current = store.getDocument(capability, validated.doc_id);
+      if ('kind' in current) return UNAVAILABLE;
+      return { kind: 'prepared', docId: current.doc_id };
+    } finally {
+      store.cancelPreparation(capability, ticket);
+    }
   } catch {
     // Never echo document text, capability, exception or runtime issue paths.
     return preparationRejected('preparation-unavailable');

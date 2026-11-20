@@ -5,7 +5,7 @@ import documents from '../../../contracts/v1/fixtures/documents.json' with { typ
 import { canonicalText } from '../src/lib/documents/canonical.ts';
 import { BUILTIN_IDS, prepareBuiltin } from '../src/lib/documents/builtin.ts';
 import { MemorySessions, UNAVAILABLE } from '../src/lib/sessions/memory.ts';
-import { DOCUMENT_LIFETIME_MS as TTL } from '../src/lib/config/session-policy.ts';
+import { DOCUMENT_LIFETIME_MS as TTL, SESSION_IDLE_MS as IDLE } from '../src/lib/config/session-policy.ts';
 const same = (a: unknown, b: unknown) => { if (JSON.stringify(a) !== JSON.stringify(b)) throw new Error('PREPARATION_CHECK_FAILED'); };
 const sha = (text: string) => createHash('sha256').update(text, 'utf8').digest('hex');
 function setup(Store: typeof MemorySessions = MemorySessions) {
@@ -80,11 +80,11 @@ for (const id of ['__proto__', 'constructor', '../../secrets', 'PRIVATE_MARKER',
   const s = setup();
   try {
     const result = await prepareBuiltin(s.store, s.session, id);
-    same(result.kind, 'rejected'); same(JSON.stringify(result).includes('PRIVATE_MARKER'), false); same(s.timers.size, 0);
+    same(result.kind, 'rejected'); same(JSON.stringify(result).includes('PRIVATE_MARKER'), false); same(s.timers.size, 1);
   } finally { s.store.dispose(); }
 });
 test('handoff/unknown-capability-unavailable', async () => {
-  const s = setup(); try { same(await prepareBuiltin(s.store, 'PRIVATE_MARKER', 'offset'), UNAVAILABLE); same(s.timers.size, 0); } finally { s.store.dispose(); }
+  const s = setup(); try { same(await prepareBuiltin(s.store, 'PRIVATE_MARKER', 'offset'), UNAVAILABLE); same(s.timers.size, 1); } finally { s.store.dispose(); }
 });
 test('handoff/cross-session-document-denied', async () => {
   const s = setup(); try {
@@ -101,7 +101,12 @@ test('handoff/deadline-starts-before-validation', async () => {
 });
 test('handoff/preparation-time-is-not-renewed', async () => {
   const s = setup(); try {
-    const pending = prepareBuiltin(s.store, s.session, 'offset'); s.advance(TTL - 1);
+    const pending = prepareBuiltin(s.store, s.session, 'offset');
+    s.advance(IDLE - 1);
+    same(s.store.recordActivity(s.session), true);
+    s.advance(TTL - 2);
+    same(s.store.recordActivity(s.session), true);
+    s.advance(TTL - 1);
     const result = await pending;
     if (result.kind !== 'prepared') throw new Error('PREPARATION_CHECK_FAILED');
     s.advance(TTL); same(s.store.getDocument(s.session, result.docId), UNAVAILABLE);
@@ -151,6 +156,6 @@ test('builtin/fixture-and-return-mutations-isolated', async () => {
 test('mode/live-rejected-without-provider-or-session-work', async () => {
   const s = setup(); const prior = process.env.NOTELENS_MODE;
   try { process.env.NOTELENS_MODE = 'live'; const result = await prepareBuiltin(s.store, s.session, 'offset');
-    same(result.kind, 'rejected'); same(s.timers.size, 0);
+    same(result.kind, 'rejected'); same(s.timers.size, 1);
   } finally { if (prior === undefined) delete process.env.NOTELENS_MODE; else process.env.NOTELENS_MODE = prior; s.store.dispose(); }
 });
