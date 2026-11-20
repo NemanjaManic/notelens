@@ -102,6 +102,35 @@ two repeatable synthetic classification payloads (`supported` and `uncertain`),
 and process and port cleanup. The test checked that the token and synthetic
 body text did not appear in captured service logs.
 
+## C-007 owner-local check, 2026-11-20
+
+Verified the published C-006 commit
+`7181a1abdf7831bb247510821c886b0e031d5de0` on `member-c/classification`.
+All 14 classifier files in the installed wheel matched the clean
+checkout's package files. The isolated Python 3.13.7 environment
+ran the focused HTTP and frozen-contract suites with **60 passing tests**.
+
+The installed launcher used the C-005 manifest SHA-256
+`e79fff1c8c8c3b1b14afa32d02bc44f94680bf09902cb82cfa5e4dd71b967f5f`
+and reported model version
+`c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc`.
+All seven authenticated loopback HTTP probes passed.
+
+| Probe | Result |
+| --- | --- |
+| Readiness with the pinned bundle | HTTP 200 with the expected model version |
+| Clear synthetic document, twice | HTTP 200 and repeatable `supported` with `Orthopedic` |
+| Weak synthetic document, twice | HTTP 200 and repeatable `uncertain` with a null category |
+| Readiness without a selected bundle | HTTP 503 and `not_ready` |
+| Classification without a selected bundle | HTTP 503 and `configuration_required` |
+
+The classifier returned the original `doc_id` and `text_sha256`,
+five ordered scores, the admitted request ID in the response header,
+and `Cache-Control: no-store`. Both local test processes stopped and
+their ports closed. Captured service logs excluded the synthetic
+document texts and temporary token. The B integration and D evaluator
+checks remain pending.
+
 ## B and D handoff
 
 - **B:** The [C-012 handoff](f011-classifier-handoff.md) has the scoped mock

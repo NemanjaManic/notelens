@@ -167,6 +167,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Owner / story**: C / US3.
   - **Dependencies**: 003-classification/T008 (C-006)
   - **Local update (2026-11-19)**: [Startup instructions and owner-local HTTP evidence](../../docs/ml/integration.md) are ready. Coordinated integration with the reviewed artifact is pending.
+  - **C check (2026-11-20)**: On published commit `7181a1a`, the installed wheel and pinned C-005 model passed 60 HTTP and contract tests and seven authenticated loopback probes, including both no-model 503 responses. The [owner-local evidence](../../docs/ml/integration.md#c-007-owner-local-check-2026-11-20) records model version, document identity and repeatability. B and D checks are pending.
   - **Acceptance**: B/D can run the independent service and validate HTTP payloads with permitted examples; mocks versus real-model outputs are distinguished.
   - **Verify**: `uv run --directory services/classifier python -m pytest tests/test_http.py tests/test_contract.py`.
   - **Coverage**: FR-013, FR-016, FR-017, SC-005.
