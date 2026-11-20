@@ -1,4 +1,5 @@
-import { inputErrors, prepareSubmitted } from '../../../../lib/documents/submitted.ts';
+import { inputErrors, prepareSubmitted, submissionByteLimit } from '../../../../lib/documents/submitted.ts';
+import { exceedsDeclaredBodyLimit } from '../../../../lib/http/bounded-body.ts';
 import { isDemoConfigured } from '../../../../lib/scaffold/demo.ts';
 import { openBrowserSession } from '../../../../lib/sessions/browser.ts';
 import { getSessionStore, isSessionRequestFromOrigin, sessionErrorResponse } from '../../../../lib/sessions/route.ts';
@@ -16,6 +17,13 @@ export async function POST(request: Request): Promise<Response> {
     if (input === null) return reject(415, 'Submit pasted English text or a text-based PDF.');
     const scope = request.headers.get('X-NoteLens-Input-Scope');
     if (scope !== 'public' && scope !== 'synthetic') return reject(400, 'Confirm that the input is public or synthetic.');
+    const encoding = request.headers.get('Content-Encoding');
+    if (encoding !== null && encoding.trim().toLowerCase() !== 'identity') {
+      return reject(415, 'Submit an uncompressed text or PDF request.');
+    }
+    if (exceedsDeclaredBodyLimit(request, submissionByteLimit(input))) {
+      return reject(413, inputErrors[input === 'pdf' ? 'pdf-too-large' : 'text-too-large']);
+    }
 
     const store = getSessionStore();
     const owner = openBrowserSession(store, request.headers, headers);

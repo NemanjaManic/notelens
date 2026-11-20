@@ -1,5 +1,9 @@
+export function exceedsDeclaredBodyLimit(request: Request, limit: number): boolean {
+  return Number(request.headers.get('Content-Length')) > limit;
+}
+
 export async function boundedBody(request: Request, limit: number): Promise<Uint8Array<ArrayBuffer> | null> {
-  if (Number(request.headers.get('Content-Length')) > limit) return null;
+  if (exceedsDeclaredBodyLimit(request, limit)) return null;
   if (!request.body) return new Uint8Array(0);
   const reader = request.body.getReader();
   const chunks: Uint8Array[] = [];

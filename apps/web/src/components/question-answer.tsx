@@ -1,4 +1,5 @@
 import type { RoutedAnswer } from '../lib/routing/answer.ts';
+import { sourceLink } from '../lib/security/source-link.ts';
 
 const routeNames = { document: 'Document', literature: 'Literature', mixed: 'Document and literature', none: 'None' };
 const stateNames = { sufficient: 'Sufficient evidence', partial: 'Partial evidence',
@@ -24,12 +25,14 @@ export function QuestionAnswer({ answer, href }: { answer: RoutedAnswer; href?: 
               const index = result.record.sources.findIndex(source => source.source_id === id);
               const source = result.record.sources[index];
               if (!source) return null;
-              return source.kind === 'document'
-                ? (href ? <a className="citation" key={id} href={`${href}&evidence=answer-${origin}-${index}#document-passage`}>View document evidence</a>
-                  : <details key={id}><summary>View document evidence</summary><blockquote>{source.evidence.quote}</blockquote></details>)
-                : <div key={id}><cite>{source.title}</cite>
-                  <blockquote>{source.text}</blockquote>
-                  {source.url.startsWith('https://') && <a className="citation" href={source.url}>Literature source URL</a>}</div>;
+              if (source.kind === 'document') {
+                return href ? <a className="citation" key={id} href={`${href}&evidence=answer-${origin}-${index}#document-passage`}>View document evidence</a>
+                  : <details key={id}><summary>View document evidence</summary><blockquote>{source.evidence.quote}</blockquote></details>;
+              }
+              const url = sourceLink(source.url);
+              return <div key={id}><cite>{source.title}</cite>
+                <blockquote>{source.text}</blockquote>
+                {url && <a className="citation" href={url} rel="noreferrer">Literature source URL</a>}</div>;
             })}
           </li>)}</ul>
           {result.record.warnings.length > 0 && <ul className="caution">{result.record.warnings.map((warning, i) => <li key={i}>{warning}</li>)}</ul>}

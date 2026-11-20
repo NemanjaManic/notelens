@@ -119,11 +119,11 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Coverage**: Constitution VII; source prompt sections 7D and 8 (all-member annotation obligation)..
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T007 [US3] B-008: Test and harden injection, uploads, XSS, secrets/logs and abuse boundaries in `apps/web/tests/security/**`, `apps/web/src/lib/security/**`, `docs/platform/security.md`
+- [X] T007 [US3] B-008: Test and harden injection, uploads, XSS, secrets/logs and abuse boundaries in `apps/web/tests/security/**`, `apps/web/src/lib/security/**`, `docs/platform/security.md`
   - **Owner / story**: B / US3.
   - **Dependencies**: 002-platform/T003 (B-001); 002-platform/T005 (B-003); 002-platform/T002 (B-004)
   - **Acceptance**: Finite defined suite covers source/retrieved instructions, unsafe markup, oversized bodies, other-session/expired IDs and no document/secret logging. No arbitrary browsing; approved fetching requires allowlist/SSRF protection.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/security`.
+  - **Verify**: The [B-008 key-free security suite](../../docs/platform/security.md) passed against the production mock build. It includes the HTTP and log audit, three mock smoke scenarios, deterministic render/preparation/session/routing checks, and isolated Chrome checks.
   - **Coverage**: FR-003, FR-011, FR-012, FR-016, FR-018, FR-019, SC-003.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
