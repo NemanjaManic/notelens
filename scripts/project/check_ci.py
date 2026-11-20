@@ -19,6 +19,19 @@ from scaffold_process import run_owned
 ROOT = Path(__file__).resolve().parents[2]
 WORKFLOW = '.github/workflows/key-free-ci.yml'
 PR_WORKFLOW = '.github/workflows/f010-key-free.yml'
+PR_SECURITY_STEP = 'Check mock security and platform regressions'
+PR_SECURITY_ENV = {'NEXT_TELEMETRY_DISABLED': '1', 'NOTELENS_MODE': 'mock'}
+PR_SECURITY_RUN = '\n'.join((
+    "$ErrorActionPreference = 'Stop'",
+    "$PSNativeCommandUseErrorActionPreference = $true",
+    "& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/check_mock_security.py",
+    "node apps/web/scripts/check-contracts.mjs",
+    "node apps/web/scripts/check-preparation.mjs",
+    "node apps/web/scripts/check-sessions.mjs",
+    "node apps/web/scripts/check-report.mjs",
+    "& ./node_modules/.bin/tsc.cmd --noEmit --project apps/web/tests/tsconfig.routing.json",
+    "node --test apps/web/tests/routing.test.ts",
+))
 ACTIONS = {
     'actions/checkout': 'd23441a48e516b6c34aea4fa41551a30e30af803',
     'actions/setup-python': 'ece7cb06caefa5fff74198d8649806c4678c61a1',
@@ -211,7 +224,7 @@ def pr_workflow_issues(value):
         if [step['name'] for step in steps] != [
                 'Checkout trusted base', 'Checkout candidate', 'Setup Python',
                 'Check trusted scope and commit history', 'Setup Node', 'Install locked workspaces',
-                'Check contracts, dependency advisories and mock flow']:
+                'Check contracts, dependency advisories and mock flow', PR_SECURITY_STEP]:
             return ['STEP_ORDER_OR_COVERAGE']
         for step, path, side in zip(steps[:2], ('trusted', 'candidate'), ('base', 'head')):
             if (set(step) != {'name', 'uses', 'with'}
@@ -225,13 +238,17 @@ def pr_workflow_issues(value):
             step = steps[index]
             if set(step) != {'name', 'uses', 'with'} or step['uses'] != action + '@' + ACTIONS[action] or step['with'] != options:
                 return ['ACTION_PIN']
-        for index in (3, 5, 6):
+        for index in (3, 5, 6, 7):
             step = steps[index]
             fields = {'name', 'shell', 'run'} if index == 3 else {'name', 'shell', 'run', 'working-directory', 'env'}
             if (set(step) != fields or step['shell'] != 'pwsh'
                     or (index != 3 and step['working-directory'] != 'candidate')
                     or '${{' in step['run']):
                 return ['RUN_SHAPE']
+        if steps[-1]['env'] != PR_SECURITY_ENV:
+            return ['SECURITY_ENVIRONMENT']
+        if steps[-1]['run'] != PR_SECURITY_RUN:
+            return ['SECURITY_RUN_POLICY']
         return []
     except (KeyError, TypeError, AttributeError):
         return ['WORKFLOW_SHAPE']
