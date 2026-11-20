@@ -42,6 +42,24 @@ denominators. These are exact-match results against A's proposed labels on known
 development questions. They do not confirm the correctness or completeness of those
 labels, and D-007 review and a shared reference-backed evaluation remain open.
 
+The same D scorer was also run against A's saved hybrid and BM25 rankings. A-QA-03
+was excluded because it has no proposed required topics. For passage evidence, each
+distinct cited passage ID was treated as one required group. Results are per-case
+means; A's proposed labels remain unreviewed.
+
+| Retriever | Cases | Topic Recall@5 | Topic MRR@5 | Cases with all topics at 5 | Passage evidence coverage@5 | Cases with all evidence at 5 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Vector | 8 | 1.000 | 1.000 | 8/8 | 1.000 | 8/8 |
+| Hybrid | 8 | 0.938 | 1.000 | 7/8 | 0.938 | 7/8 |
+| BM25 | 8 | 1.000 | 0.833 | 8/8 | 1.000 | 8/8 |
+
+By source shape, hybrid scored 1.000 topic recall and evidence coverage on the five
+single-topic cases. On the three multi-topic cases it scored 0.833 for both measures
+and returned all proposed topics in 2/3 cases. BM25's topic MRR was 0.867 for the
+single-topic cases and 0.778 for the multi-topic cases. These results reproduce
+ranking coverage against A's proposal; they do not judge source entailment or answer
+quality.
+
 The [pinned saved development evaluation](../rag/evaluation/saved-development-evaluation.json)
 records three topical rankings: A-QA-01, A-QA-02 and A-QA-04. Each has one-case
 Recall@5 and MRR of 1.0. It also records a five-passage retrieval for A-QA-03/CQ-08,
@@ -51,7 +69,8 @@ partial and one no-evidence result. A's assessment says it was not blinded, was 
 independently reviewed, and does not claim human gold labels or final-answer evaluation.
 The saved corpus and index versions are recorded in that file.
 
-The rerun therefore verifies scorer behavior and reproduces A's proposed-label vector
-coverage where saved ranks exist. It does not complete D-006's answer-risk measurement,
-multi-topic assessment or independently reviewed corpus evaluation. The pinned passage
-JSONL, reviewed references, and C's development predictions remain outstanding inputs.
+The rerun therefore verifies scorer behavior and reproduces A's proposed-label coverage
+where saved ranks exist. D's limited agent review of A-QA-02/A-QA-03 is recorded in the
+[evidence review](a-qa-02-03-evidence-review.md); it is non-blinded and does not complete
+answer-risk measurement or independently freeze A's reference set. The pinned passage
+JSONL, full reference review and C's development predictions remain outstanding inputs.

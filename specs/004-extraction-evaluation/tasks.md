@@ -136,12 +136,13 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T005 [US3] D-002: Select and freeze representative annotation assignment candidates in `eval/datasets/annotation-assignments.json`, `docs/extraction-eval/selection.md`
+- [x] T005 [US3] D-002: Select and freeze representative annotation assignment candidates in `eval/datasets/annotation-assignments.json`, `docs/extraction-eval/selection.md`
   - [x] Seeded selector and input validation tested on synthetic fixtures, including 40-group algorithm tests.
   - [x] Selector requires explicit boolean annotation permission and rejects identical canonical text placed in different duplicate groups. Both checks are covered by synthetic regressions.
   - [x] The synthetic proposal checks C's development-only review capacity and reserves an independent review when feasible. Infeasible capacity is reported for team review before freeze.
   - [x] Read-only manifest preflight verifies the pinned version and SHA-256, reuses candidate validation and reports aggregate allocation capacity. Selection can recheck the same immutable inputs before writing a proposal.
-  - [ ] Blocked actual selection: C-002 permitted canonical document/group/split manifests and access policy are absent. No actual IDs or dev/final proportions are invented.
+  - [x] Received C's restricted `c002-d002-development-v1` manifest and matching SHA-256 on 2026-11-20. D preflight found 185 unique permitted groups, all in validation/development, with sufficient allocation capacity. A deterministic seed-20261120 selection contains 40 groups, eight per specialty, and records 10 primary assignments per member plus 10 separate reviews in `eval/datasets/annotation-assignments.json`.
+  - [x] The user accepted and froze the D-002 selection on 2026-11-20. The handoff manifest contains metadata and text hashes but no canonical text; source-row delivery remains pending the approved access route.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T001 (D-001); 003-classification/T003 (C-002)
   - **Acceptance**: Target 40 approximately balanced documents; dev/final document/group disjoint, align ML validation/test where feasible. Reserve C's pre-selection annotations to development; report infeasible targets for review.
@@ -149,10 +150,11 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Coverage**: FR-009, FR-010, FR-011, SC-002.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T006 [US3] D-003: Publish ten primary assignments per member and independent-review workflow in `eval/datasets/annotation-assignments.json`, `docs/extraction-eval/review-workflow.md`
+- [x] T006 [US3] D-003: Publish ten primary assignments per member and independent-review workflow in `eval/datasets/annotation-assignments.json`, `docs/extraction-eval/review-workflow.md`
   - [x] Pending-only templates and distinct primary/reviewer allocation implemented under D-owned paths; C remains development-only in the demonstration.
   - [x] Synthetic rehearsal verifies separate submissions linked to the same document and assignment. The linter preserves open questions from both current and earlier templates.
-  - [ ] Blocked actual assignments/publication: D-002, agreed source access and human review workflow. Synthetic allocation is not the real 40-document assignment.
+  - [x] Generated a real-metadata assignment proposal from the received C-002 manifest: 10 primary assignments per member, 10 distinct secondary assignments, all in development. Saved 50 pending templates and a D-owned workflow proposal. After user acceptance, the manifest is frozen; row-level source access remains pending.
+  - [x] The user accepted and froze the assignment allocation and workflow paths on 2026-11-20. The manifest is published locally in the D branch. Row-level delivery remains pending the approved canonical-text access route; no member receipt or annotation is claimed.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T005 (D-002)
   - **Acceptance**: Freeze each member's own submission paths and ten primary IDs; allocate distinct reviewers for at least ten documents. D must not edit A/B/C submissions. Canonical adjudication is D-013 after submissions arrive.
@@ -161,6 +163,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T007 [US3] D-012: Complete D's primary annotations and independent reviews in its own path in `eval/annotations/member-d/**`
+  - [ ] Blocked: the handoff contains no canonical document text or approved row-access location, and no primary or independent-review submissions were provided. The manifest metadata is not annotation evidence.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T006 (D-003)
   - **Acceptance**: Use frozen IDs, separate primary/review files, correct subjects/status/spans and preserved adjudication input; do not edit A/B/C files.
@@ -187,8 +190,9 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T009 [US4] D-006: Implement shared Promptfoo API adapters and deterministic scorers in `eval/providers/**`, `eval/scorers/**`, `eval/profiles/**`, `eval/src/notelens_eval/run.py`, `eval/tests/test_metrics.py`
   - [x] Offline retrieval profile measures unique-topic Recall@5, MRR, all-required topics and independent passage evidence coverage, grouped by single/multi source (269012d).
-  - [x] Replayed A's saved vector rankings against eight proposed public development references on 2026-11-20. All proposed topics and cited passages appeared in the top five; A-QA-03 has no proposed reference topic and was excluded. The [report records that the source passage artifact was absent and proposal labels await review](../../docs/extraction-eval/retrieval-scoring.md#a-public-development-replay).
+  - [x] Replayed A's saved vector, hybrid and BM25 rankings against eight proposed public development references on 2026-11-20. Vector and BM25 retrieved every proposed topic and cited passage in the top five. Hybrid retrieved all proposed topics in 7/8 cases and all cited passages in 7/8; A-QA-03 has no proposed reference topic and was excluded. The [report records that the source passage artifact was absent and proposal labels await review](../../docs/extraction-eval/retrieval-scoring.md#a-public-development-replay).
   - [x] Reconciled A's saved development-evaluation counts. It includes three single-topic rankings and one no-reference case; the retrieved five-passage source slices are not present locally. No new ranking or independent source review is claimed.
+  - [x] Recorded D's evidence review of the supplied A-QA-02/A-QA-03 passages and the retained A-QA-02 partial answer. All ten supplied passage hashes and the answer citation-slice hash match. The review is agent-authored, non-blinded and limited to these cases. It is not a human review or calibrated risk result. See [the review record](../../docs/extraction-eval/a-qa-02-03-evidence-review.md).
   - [x] Offline answer-risk profile measures independently judged answer errors, coverage, answerability and rejection rates, technical errors and optional confidence threshold curves (1d48f2e).
   - [x] Synthetic prediction-file runner, actual-service Promptfoo HTTP adapter, exact/relaxed one-to-one scoring, context-label accuracy and QA state/abstention counts implemented. Unsupported semantic/risk/English-quality metrics are explicitly unavailable.
   - [x] Full 24-document/48-question loopback HTTP runner added in `eval/src/notelens_eval/http_suite.py`; local run: 72 HTTP 200 responses, 0 technical failures, all request IDs matched, and 72 schema-valid outputs. Mock scorer misses are recorded separately; local outputs are ignored under `eval/reports/local/http-suite/`.

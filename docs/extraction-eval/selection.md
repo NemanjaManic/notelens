@@ -1,34 +1,22 @@
 # Annotation Sample Selection Readiness
 
-**Owner:** D. **Status:** preparation checklist only. Actual D-002 selection is blocked
-until C publishes the permitted C-002 canonical document/group/split manifest and the
-team confirms source access. No real document IDs or assignments are recorded here.
+**Owner:** D. **Status:** The user accepted and froze the D-002 selection on 2026-11-20. Distribution remains pending the approved canonical-text access route.
 
-The selector and its synthetic demonstration are documented in
-[annotation tooling](annotation-tooling.md). This page records the handoff checks required
-before running it on a real source manifest.
+## C-002 source and preflight
 
-## C-002 handoff preflight
+The restricted handoff declares source version `c002-d002-development-v1`, canonicalization `nfc-lf-v1`, kind `permitted_benchmark`, and annotation permission for each manifest row. The manifest SHA-256 is `e8596143168c2631eebb60ba080f996d0f9a13efa6d236ceae1de35eaa2769c6`; it matches the separately supplied checksum.
 
-Do not run actual selection until each item below is resolved against C's published
-manifest and the team's access decision:
+D's read-only preflight reported 185 unique groups, all in C's `validation` split, with no structural or capacity issues for 40 selected groups and ten secondary reviews. The selector produced a deterministic selection using seed `20261120`: 40 development groups, eight from each of the five specialties, ten primary assignments per member and ten separate reviewer assignments. No test/final documents were present in this manifest. Following user acceptance, the output status is `frozen_pending_source_access`, `human_reviewed: false`, and `access_state: pending_source_access` for all assignments.
 
-- [ ] C identifies the exact manifest version and provides canonical `doc_id`,
-  `group_id`, specialty, validation/test split, canonical text digest and permission
-  status for each candidate.
-- [ ] C and D agree how those source fields map into the selector's provisional input;
-  the adapter is not a replacement for C's published split format.
-- [ ] B/D confirm how permitted canonical text is accessed and how dataset IDs map to
-  submission IDs. Redistribution and retention permissions are explicit.
-- [ ] The selector's existing checks pass for unique IDs, group/split separation,
-  duplicate hashes, consistent group specialty, permission flags and requested counts.
-- [ ] D reviews the proposed approximately 40-document balance, keeps dev/final groups
-  disjoint, aligns validation/test with C where feasible, and reports infeasible targets
-  instead of silently changing them.
-- [ ] C's pre-selection primary and review material stays development-only. The team
-  decides final-set access before assignment freeze.
-- [ ] The selection seed, source-manifest version/digest, exact selected IDs, split
-  counts and unresolved exceptions are recorded before D-003 assignments are published.
+The frozen manifest and pending templates are [the assignment manifest](../../eval/datasets/annotation-assignments.json) and [the coordinator-held templates](../../eval/datasets/annotation-submission-templates.pending.json). The user accepted the selection proposal. These contain IDs, group IDs, specialties and hashes, not canonical document text. Do not distribute rows until the approved access route is confirmed. The handoff folder contained no canonical text files, and the manifest has no embedded `canonical_text`.
 
-Until the required source, permission and split inputs exist, these are readiness checks
-only. They do not constitute selection, access approval or assignment.
+## Remaining checks before D-002 freeze and D-003 release
+
+- [x] Verify the supplied manifest bytes against the SHA-256 and source version.
+- [x] Validate candidate IDs, duplicate groups, split labels, specialties, permissions and requested allocation capacity with D's preflight.
+- [x] Generate and retain the seeded, development-only 40-group proposal and its separate pending templates.
+- [ ] C and B/D provide the approved route for annotators to retrieve only their assigned canonical rows and verify each `text_sha256` under `nfc-lf-v1`.
+- [x] Freeze the selected development groups and assignment seed after the user's acceptance; no test/final rows were selected.
+- [x] User accepted the specialty balance, reviewer allocation and workflow proposal on 2026-11-20.
+
+The candidate selection is frozen. Annotator distribution and source-text review remain pending the approved access route. This does not constitute completed annotation or independent review.
