@@ -75,7 +75,7 @@ or A corpus/retrieval evaluation was run.
 | D-004 extraction and D-005 answers | Offline mock service exists | B contract/foundation decisions; approved provider and semantic evaluation for real behavior |
 | D-002 select real annotation documents; D-003 publish assignments | No | C-002 permitted canonical docs/manifests, stable group/split IDs and access policy |
 | D-012 annotations; D-013 adjudication | No | Frozen assignments, independent human submissions, A/B/C inputs and adjudicator decisions |
-| D-006 shared evaluator | Local offline suite exists | A/C adapters, actual retrieval/coverage/risk metrics, approved frozen records and live profile gates |
+| D-006 shared evaluator | Offline replay and shared mock smoke verified | See [D-006 verification](integration.md#d-006-verification-2026-11-20) for development coverage and live/final gates |
 | D-007 cross-module QA | Synthetic document QA exists | A's reviewed corpus and B/A/D agreement on approximately 80 source-grounded cases and split |
 | D-008 judge calibration/review | No | Development references, separate human reviewers; budget approval before live judging |
 | D-011 thresholds | No | Actual development measurement and named team decisions; no thresholds inferred from mocks |

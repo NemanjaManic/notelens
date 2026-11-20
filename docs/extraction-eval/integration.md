@@ -96,7 +96,7 @@ Run Promptfoo against a temporary service which the wrapper starts and stops:
 ./eval/.venv/Scripts/python.exe eval/smoke_http.py
 ```
 
-The wrapper disables telemetry, sharing, cache and saved Promptfoo evaluations, places
+The wrapper disables telemetry, update checks, sharing, cache and saved Promptfoo evaluations, places
 tool metadata under ignored `eval/.promptfoo/`, and only submits synthetic fixtures.
 It writes the explicit smoke report under `eval/reports/local/promptfoo.json`.
 The provider connects directly to loopback and checks the response status, request ID,
@@ -108,6 +108,14 @@ agent host, Node's Windows user-info call needed sandbox escalation; it succeede
 without changing machine policy or using a live model.
 
 ### Three-service evaluator smoke
+
+Run the shared Promptfoo configuration from the repository root with the locked
+service environments installed. The shared profile starts and stops all three mock
+services and writes `eval/reports/local/promptfoo-shared-smoke.json`.
+
+```powershell
+./eval/.venv/Scripts/python.exe eval/smoke_http.py --cross-service
+```
 
 Start the accepted A, C and D mock services on loopback ports 8001, 8002 and 8003
 with service tokens and readiness failure overrides unset. Use the `sufficient` RAG
@@ -123,6 +131,20 @@ document for classification and extraction and a separate question for RAG. It c
 request correlation, document identity and evidence, partial document answers, and
 literature provenance. Its output reports only mock outcomes. This receipt covers
 wire compatibility for the three default profiles.
+
+### D-006 verification (2026-11-20)
+
+- All 104 evaluator tests passed. Promptfoo passed the three document cases and
+  the shared case covering all five mock routes. The Windows run confirmed all
+  temporary Promptfoo service ports closed. The full loopback suite returned 72
+  HTTP 200 responses on 24 synthetic documents and 48 questions, with zero transport
+  or record failures.
+- Offline [classification](classification-scoring.md), [retrieval](retrieval-scoring.md)
+  and [answer-risk](answer-risk-scoring.md) profiles score versioned saved outputs.
+  Independent replays reproduced the classification and answer-risk JSON byte for byte.
+- The `live` and `final` profiles reject execution before reading inputs. Both gates
+  were verified locally. D-009 owns the final freeze and execution. D-006 used zero
+  model-provider calls.
 
 ### D-010 verification (2026-11-20)
 
@@ -194,8 +216,9 @@ HTTP cases passed then. Semantic support, English quality beyond declarations/ca
 fixtures, unsupported-item rate, risk/coverage and real-model quality are explicitly
 unavailable with reasons. No human/clinical review or real dataset run took place.
 
-C's permitted canonical document manifests, the final-set access policy and a
-provider/model/spending decision remain external dependencies. See
+C's permitted validation metadata was used for the classification replay. Access to
+canonical documents, the final-set access policy and broader live-evaluation approval
+remain external dependencies. See
 [the concrete requests](milestone-requests.md) and
 [annotation commands](annotation-tooling.md). The full 80-QA A/B/C benchmark remains
 future work. Delivery stays 2026-11-24; the earlier phase targets are not claimed met.

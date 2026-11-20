@@ -73,4 +73,5 @@ The rerun therefore verifies scorer behavior and reproduces A's proposed-label c
 where saved ranks exist. D's limited agent review of A-QA-02/A-QA-03 is recorded in the
 [evidence review](a-qa-02-03-evidence-review.md); it is non-blinded and does not complete
 answer-risk measurement or independently freeze A's reference set. The pinned passage
-JSONL, full reference review and C's development predictions remain outstanding inputs.
+JSONL and full reference review remain D-007 inputs. The C-003 validation replay
+is recorded in [classification scoring](classification-scoring.md).

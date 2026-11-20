@@ -1,4 +1,4 @@
-"""Generate mock predictions separately, then score versioned reference files."""
+"""Run key-free evaluation against synthetic fixtures or saved module outputs."""
 
 import argparse
 import hashlib
@@ -163,12 +163,36 @@ def evaluate(references: dict, predictions: dict) -> dict:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="D's first synthetic/offline evaluation slice")
-    parser.add_argument("--profile", choices=["smoke", "synthetic-suite", "retrieval", "answer-risk"], default="smoke")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--profile", choices=["smoke", "synthetic-suite", "retrieval", "answer-risk",
+                                              "classification", "live", "final"], default="smoke")
     parser.add_argument("--references", type=Path)
     parser.add_argument("--predictions", type=Path)
+    parser.add_argument("--predictions-sha256", type=Path)
+    parser.add_argument("--require-freeze", action="store_true")
     parser.add_argument("--output", type=Path, default=EVAL_ROOT / "reports/local")
     args = parser.parse_args()
+    if args.profile in {"live", "final"}:
+        parser.error(f"The {args.profile} profile is disabled pending an approved freeze and execution scope.")
+    if args.require_freeze:
+        parser.error("--require-freeze is reserved for the final profile.")
+    if args.predictions_sha256 and args.profile != "classification":
+        parser.error("--predictions-sha256 is used by the classification profile.")
+    if args.profile == "classification":
+        from .classification import evaluate_classification
+
+        if not all((args.references, args.predictions, args.predictions_sha256)):
+            parser.error("Classification requires --references, --predictions and --predictions-sha256.")
+        try:
+            report = evaluate_classification(args.predictions, args.predictions_sha256, args.references)
+        except (OSError, UnicodeError):
+            parser.error("Could not read the classification inputs as UTF-8 JSON and an ASCII SHA-256 sidecar.")
+        except ValueError as exc:
+            parser.error(str(exc))
+        args.output.mkdir(parents=True, exist_ok=True)
+        (args.output / "classification-results.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps({key: report["overall"][key] for key in ("documents", "accuracy", "macro_f1")}))
+        return 0
     if args.profile in {"retrieval", "answer-risk"}:
         from .answer_risk import evaluate_answer_risk
         from .retrieval_metrics import evaluate_retrieval
