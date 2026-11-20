@@ -178,12 +178,13 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Completion evidence (2026-11-20)**: Goran ratified constitution v1.0.0 as written at `754f4bb`. Nemanja independently accepted the key-free mock foundation at that commit with no exceptions. The [acceptance record](../../docs/decisions/f-013-foundation-acceptance.md) binds both decisions to the reviewed snapshot. The locked acceptance checker passed. F-007 and F-014 remain open.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T013 [US3] F-007: Record the checked foundation inventory and isolated-working-copy procedure in `docs/team/foundation-checkpoint.md`, `docs/team/working-copies.md`, `scripts/project/check_checkpoint.py`
+- [x] T013 [US3] F-007: Record the checked foundation inventory and isolated-working-copy procedure in `docs/team/foundation-checkpoint.md`, `docs/team/working-copies.md`, `scripts/project/check_checkpoint.py`
   - **Owner / story**: B / US3.
   - **Dependencies**: 000-foundation/T012 (F-013)
   - **Acceptance**: Bash/PowerShell commands use actual remote and explicit feature context. If no commit authorization exists, record prepared files and exact next command, never a fictional hash.
   - **Verify**: `uv run --directory scripts/project python check_checkpoint.py`.
   - **Coverage**: FR-013, FR-014, FR-018, SC-005, SC-006.
+  - **Completion evidence (2026-11-20)**: The [checkpoint record](../../docs/team/foundation-checkpoint.md) identifies merged F-013 base `8ecd4d4`, the verified inventory, working-copy commands and key-free checks. The checkpoint verifier passed with current-source scaffold and service-health evidence. F-014 remains open.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 ## Phase 6: Polish and cross-cutting concerns
