@@ -150,49 +150,54 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T010 [US3] F-010: Prepare review routing, declared scope and key-free CI checks in `.github/**`, `scripts/project/check_scope.py`, `docs/team/**`
+- [x] T010 [US3] F-010: Prepare review routing, declared scope and key-free CI checks in `.github/**`, `scripts/project/check_scope.py`, `docs/team/**`
   - **Owner / story**: B / US3.
   - **Dependencies**: 000-foundation/T006 (F-004)
   - **Acceptance**: CODEOWNERS has no fictional handles and explains branch protection; scope checks honor member exceptions. Secret/dependency/contract/smoke checks exist; live CI disabled.
   - **Verify**: `uv run --directory scripts/project python check_scope.py --self-test`.
   - **Coverage**: FR-012, FR-020, SC-006.
   - **Scoped B progress (2026-11-16)**: [Ownership/CI implementation and limits](../../docs/team/f-010-review-routing.md) provides the declared-scope checker, finite secret/dependency checks, PR template, routing preparation and pinned Windows workflow. T010 remains unchecked pending actual verified handles/access, accepted routing and authorized hosted CI/settings evidence. F-011 and F-014 remain pending; no owner service or frozen contract is changed.
+  - **Completion evidence (2026-11-20)**: [PR #8](https://github.com/NemanjaManic/notelens/pull/8) published CI and CODEOWNERS. GitHub reports protected main, zero CODEOWNERS errors, and the GitHub Actions check NoteLens key-free checks required for everyone. [PR #9](https://github.com/NemanjaManic/notelens/pull/9) received the expected code-owner review request at opening, independent approvals on its exact head, and a [passing hosted run](https://github.com/NemanjaManic/notelens/actions/runs/44700099636). The repository administrator confirmed activation through the coordinator. The B credential could verify the effective required check and observed review behavior. Admin-only details were unavailable to that credential.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T011 [US3] F-006: Complete and verify five backlogs plus four handoffs/start prompts in `specs/**`, `docs/team/**`, `scripts/project/check_handoffs.py`
+- [x] T011 [US3] F-006: Complete and verify five backlogs plus four handoffs/start prompts in `specs/**`, `docs/team/**`, `scripts/project/check_handoffs.py`
   - **Owner / story**: B / US3.
   - **Dependencies**: 000-foundation/T009 (F-005); 000-foundation/T010 (F-010)
   - **Acceptance**: Each owner has first-five task sequence, inputs/outputs, mock example, boundaries, actual startup/check commands and correct feature activation. Cross-feature aliases resolve; mocks do not close business tasks.
   - **Verify**: `uv run --directory scripts/project python check_handoffs.py`.
   - **Coverage**: FR-002, FR-013, FR-014, FR-015, FR-018, SC-001, SC-002.
+  - **Completion evidence (2026-11-20)**: The four member handoffs and four start prompts use the merged PR #9 base, exact feature contexts, frozen examples and runnable mock commands. The locked check_handoffs.py run verified five backlogs, 59 tasks and 113 dependency references. The key-free mock smoke passed on that base. Human foundation acceptance and final checkpoint verification are tracked in F-013 and F-007.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T012 [US3] F-013: Review constitution and foundation acceptance without self-approval in `docs/decisions/**`, `docs/team/**`, `.specify/memory/constitution.md`, `scripts/project/check_handoffs.py`
+- [x] T012 [US3] F-013: Review constitution and foundation acceptance without self-approval in `docs/decisions/**`, `docs/team/**`, `.specify/memory/constitution.md`, `scripts/project/check_handoffs.py`
   - **Owner / story**: B / US3.
   - **Dependencies**: 000-foundation/T011 (F-006)
   - **Acceptance**: Request and record actual user/team acceptance or exceptions; fill ratification only after review and remove temporary sync report before an authorized commit.
   - **Verify**: `uv run --directory scripts/project python check_handoffs.py --require-reviewed-foundation`.
   - **Coverage**: FR-016, FR-018, FR-020, SC-005.
+  - **Completion evidence (2026-11-20)**: Goran ratified constitution v1.0.0 as written at `754f4bb`. Nemanja independently accepted the key-free mock foundation at that commit with no exceptions. The [acceptance record](../../docs/decisions/f-013-foundation-acceptance.md) binds both decisions to the reviewed snapshot. The locked acceptance checker passed. F-007 and F-014 remain open.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T013 [US3] F-007: Record the checked foundation inventory and isolated-working-copy procedure in `docs/team/foundation-checkpoint.md`, `docs/team/working-copies.md`, `scripts/project/check_checkpoint.py`
+- [x] T013 [US3] F-007: Record the checked foundation inventory and isolated-working-copy procedure in `docs/team/foundation-checkpoint.md`, `docs/team/working-copies.md`, `scripts/project/check_checkpoint.py`
   - **Owner / story**: B / US3.
   - **Dependencies**: 000-foundation/T012 (F-013)
   - **Acceptance**: Bash/PowerShell commands use actual remote and explicit feature context. If no commit authorization exists, record prepared files and exact next command, never a fictional hash.
   - **Verify**: `uv run --directory scripts/project python check_checkpoint.py`.
   - **Coverage**: FR-013, FR-014, FR-018, SC-005, SC-006.
+  - **Completion evidence (2026-11-20)**: The [checkpoint record](../../docs/team/foundation-checkpoint.md) identifies merged F-013 base `8ecd4d4`, the verified inventory, working-copy commands and key-free checks. The checkpoint verifier passed with current-source scaffold and service-health evidence. F-014 remains open.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 ## Phase 6: Polish and cross-cutting concerns
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T014 F-014: Publish the reviewed foundation base only after separate commit/push authorization in `docs/team/foundation-checkpoint.md`, `.git (authorized Git operations only)`
+- [x] T014 F-014: Publish the reviewed foundation base only after separate commit/push authorization in `docs/team/foundation-checkpoint.md`, `.git (authorized Git operations only)`
   - **Owner / story**: B / US3.
   - **Dependencies**: 000-foundation/T013 (F-007)
   - **Acceptance**: After explicit authorization, actual commit/push succeeds and the shared base is recorded. Until then remote cloning is not reported ready; no business module is committed as completed.
-  - **Verify**: `git -c 'safe.directory=C:/Nemanja/AI Bootcamp 2026/notelens' log -1 --format=%H`.
+  - **Verify**: `git ls-remote --tags origin refs/tags/f-014-foundation`.
   - **Coverage**: FR-013, FR-018, FR-020, SC-001, SC-006.
+  - **Completion evidence (2026-11-20)**: The user authorized publication after PR #13 review and post-merge checks. The [checkpoint record](../../docs/team/foundation-checkpoint.md) binds the clean-clone verification and published tag to main commit `7eb12e56f33240a428f916ba583b9e00077712df`.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 ## Dependencies & Execution Order

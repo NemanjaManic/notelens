@@ -194,4 +194,4 @@ Use semantic versioning: major for incompatible governance changes, minor for ne
 principles, patch for non-semantic clarification. Reviews MUST record compliance and
 unresolved exceptions. Review routing does not replace branch protection.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): pending user review | **Last Amended**: 2026-11-10
+**Version**: 1.0.0 | **Ratified**: 2026-11-20 | **Last Amended**: 2026-11-10
