@@ -96,11 +96,12 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T005 [US2] B-003: Implement thin service clients, source-preserving routing and bounded state in `apps/web/src/lib/clients/**`, `apps/web/src/lib/routing/**`, `apps/web/tests/routing.test.ts`
+- [X] T005 [US2] B-003: Implement thin service clients, source-preserving routing and bounded state in `apps/web/src/lib/clients/**`, `apps/web/src/lib/routing/**`, `apps/web/tests/routing.test.ts`
   - **Owner / story**: B / US2.
   - **Dependencies**: 002-platform/T003 (B-001); 002-platform/T004 (B-002)
+  - **Mock scope**: Owner-bound free-text and preset submissions route to loopback services. English questions use a combined 1,000 code-point limit and a 16 KiB request limit. Each session allows ten submissions per rolling minute and one in flight. Each document retains up to five completed turns and 32 KiB in memory. Citation and history navigation reuse the saved result. See the [approved limits and local verification](../../docs/platform/f-005-mock-startup.md#question-limits-and-history).
   - **Acceptance**: Document/literature/mixed/none routes call D/A as agreed, namespace claim/source IDs, reject stale hashes and retain supported portions under partial failures; no TypeScript RAG or generation.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/routing.test.ts`.
+  - **Verify**: `.\node_modules\.bin\tsc.cmd --noEmit --project apps/web/tests/tsconfig.routing.json`, `node --test apps/web/tests/routing.test.ts` (17 cases), the three key-free [HTTP smoke scenarios](../../docs/platform/f-005-mock-startup.md), and Chrome verification of the question form, history, and citations.
   - **Coverage**: FR-008, FR-009, FR-010, FR-011, FR-014, FR-015, SC-001, SC-004.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
