@@ -1,0 +1,40 @@
+# Match the B-maintained allowed-path matrix. The first account is the owner.
+# The second account can review an owner's PR. The matrix still governs writes.
+# Member annotation exceptions follow the broad eval rule.
+/apps/web/ @GoranSuvacarev @NemanjaManic
+/services/rag/ @NemanjaManic @GoranSuvacarev
+/services/classifier/ @Obscurestr @GoranSuvacarev
+/services/extraction/ @mileusnicmilica @GoranSuvacarev
+/data/mtsamples/ @Obscurestr @GoranSuvacarev
+/data/knowledge/ @NemanjaManic @GoranSuvacarev
+/eval/ @mileusnicmilica @GoranSuvacarev
+/contracts/ @GoranSuvacarev @NemanjaManic
+/infra/ @GoranSuvacarev @NemanjaManic
+/.github/ @GoranSuvacarev @NemanjaManic
+/scripts/project/ @GoranSuvacarev @NemanjaManic
+/docs/team/ @GoranSuvacarev @NemanjaManic
+/docs/decisions/ @GoranSuvacarev @NemanjaManic
+/docs/rag/ @NemanjaManic @GoranSuvacarev
+/docs/platform/ @GoranSuvacarev @NemanjaManic
+/docs/ml/ @Obscurestr @GoranSuvacarev
+/docs/extraction-eval/ @mileusnicmilica @GoranSuvacarev
+/specs/000-foundation/ @GoranSuvacarev @NemanjaManic
+/specs/001-rag/ @NemanjaManic @GoranSuvacarev
+/specs/002-platform/ @GoranSuvacarev @NemanjaManic
+/specs/003-classification/ @Obscurestr @GoranSuvacarev
+/specs/004-extraction-evaluation/ @mileusnicmilica @GoranSuvacarev
+/README.md @GoranSuvacarev @NemanjaManic
+/AGENTS.md @GoranSuvacarev @NemanjaManic
+/package.json @GoranSuvacarev @NemanjaManic
+/package-lock.json @GoranSuvacarev @NemanjaManic
+/.env.example @GoranSuvacarev @NemanjaManic
+/.gitignore @GoranSuvacarev @NemanjaManic
+/.gitattributes @GoranSuvacarev @NemanjaManic
+/.specify/ @GoranSuvacarev @NemanjaManic
+/.agents/skills/ @GoranSuvacarev @NemanjaManic
+/.codex/ @GoranSuvacarev @NemanjaManic
+/prompts/NoteLens_Codex_SpecKit_prompt_00.md @GoranSuvacarev @NemanjaManic
+/eval/annotations/member-a/ @NemanjaManic @GoranSuvacarev
+/eval/annotations/member-b/ @GoranSuvacarev @NemanjaManic
+/eval/annotations/member-c/ @Obscurestr @GoranSuvacarev
+/eval/annotations/member-d/ @mileusnicmilica @GoranSuvacarev

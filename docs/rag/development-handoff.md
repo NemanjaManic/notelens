@@ -63,7 +63,7 @@ liveness remains available and readiness and valid business requests return
 `503`. The default Uvicorn entry point still starts the checkpoint mock.
 
 ```powershell
-uv run --locked --offline --directory services/rag python -B -m pytest -o addopts= -q tests/test_indexed_startup.py
+uv run --locked --offline --directory services/rag --extra indexing python -B -m pytest -o addopts= -q tests/test_indexed_startup.py
 ```
 
 The check uses a synthetic corpus, a local Chroma index and in-memory SDK
@@ -71,6 +71,14 @@ responses. The existing 617-passage development index was separately verified
 against the recorded corpus and index versions without provider access. A live
 entry point still needs approved provider controls. Application integration
 depends on F-014 and B's partial-response agreement.
+
+The checked-in corpus manifests name the required cleaned and passage artifacts.
+For an indexed rehearsal, provide those verified local artifacts and the
+matching Chroma directory under `data/knowledge/indexes/<index_version>`.
+The startup code reads the pinned versions from the supplied settings and
+checks them against the manifest and stored vectors. The indexed profile
+requires the locally cached tokenizer vocabulary. See the
+[public index run record](indexing.md) for preparation and verification details.
 
 The separate [five-case live smoke](evaluation/live-http-smoke.md) verified
 the complete Python HTTP answer path with one public question per specialty and

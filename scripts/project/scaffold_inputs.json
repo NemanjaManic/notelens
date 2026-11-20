@@ -1,0 +1,972 @@
+{
+  "format": "notelens-f004-inputs-v1",
+  "base_commit": "fd1197bd380de9ba9037ea0b73b42031dc1d4bb2",
+  "owner_commits": {
+    "A": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+    "C": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+    "D": "a8f1599350944faf7e7dd566ec5febad59f6fe3c"
+  },
+  "imports": {
+    "data/knowledge/scripts/prepare_corpus.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "2f2e56be74bd5626cd8ef4800ec1ab36dbdc1d0be7e9ce3775a0e603ac0e74f9"
+    },
+    "services/rag/.env.example": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "29464c410e242bb937c88ad5ed0f0a2aa0029461a6cfd9872220bd9d33d567e0"
+    },
+    "services/rag/AGENTS.md": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "d623983d5e9e2c3ed849432be9bf0322a7aa93fc2614c330d9e6c489b87fb490"
+    },
+    "services/rag/README.md": {
+      "owner": "A",
+      "commit": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+      "sha256": "b54a320895261d847f51c663839fc0504ce6de3e4d51a6dedcc2d7023e62e421"
+    },
+    "services/rag/pyproject.toml": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "07d617394bd9252d7ecd34bb67f91d8603391c3b70874de617d3728476952ca2"
+    },
+    "services/rag/src/notelens_rag/__init__.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "dc420b98a8aa2037663ec8ea8ab481eac66d6109133148921dca39a9d918dd72"
+    },
+    "services/rag/src/notelens_rag/contracts.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "dec26f90a44e3a7207cef1742d943331b6038fa17e52900238f8466aa32a05b2"
+    },
+    "services/rag/src/notelens_rag/embeddings.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "7dec73e3709a5f766ecae0409635af790d268c711589eb636721553ee36f7da6"
+    },
+    "services/rag/src/notelens_rag/indexing.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "393385d9db4ae60ef421bdd866eebdc35038b93129db268eb44931d394b79ddf"
+    },
+    "services/rag/src/notelens_rag/ingestion.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "d29097a40076a5e73a22c0d20e9e1cd3041d34ebfc7b84ebd781442ec5951c4d"
+    },
+    "services/rag/src/notelens_rag/main.py": {
+      "owner": "A",
+      "commit": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+      "sha256": "1deb958bb7874a4c2d72baa75767f0a73f9289479e9122f1a01b108812334ff5"
+    },
+    "services/rag/src/notelens_rag/mock.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "338dc8287a2f19abade2692a23932852908fa2490913ece3d39f71a3441b40b0"
+    },
+    "services/rag/tests/test_contract.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "84aee53ff6451112eb2a4550f9b061bbbb40ff3b590db8e61a40938adbc9e1f4"
+    },
+    "services/rag/tests/test_corpus_adapter.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "abf5a55d92b41e0d1c7c79f1bbe5f629783883caea218cf6db7810f0a5893715"
+    },
+    "services/rag/tests/test_embeddings.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "285bb19dc1d7ad6403af57b5a7042cb78faf77c2145da4549ee24bfbb4ae4776"
+    },
+    "services/rag/tests/test_frozen_bindings.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "8b744b77dd52ea10466a1f741364e5bf779fc96ee496147fc55469123ec5a66a"
+    },
+    "services/rag/tests/test_http_smoke.py": {
+      "owner": "A",
+      "commit": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+      "sha256": "38466478cd0466c519c3904302c3383bf917078980665005923219554ffef928"
+    },
+    "services/rag/tests/test_index_version.py": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "a8cc0170a63438df2c1ba32cfb0a349b15cdba0ab7941bf1d0bdbc849b5cb005"
+    },
+    "services/rag/uv.lock": {
+      "owner": "A",
+      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
+      "sha256": "dd37168fecf9c3ba912fcc6d1e1363974614d1d39e391ddff2cd655f44414729"
+    },
+    "services/classifier/AGENTS.md": {
+      "owner": "C",
+      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
+      "sha256": "0e462f1be31affeeab6bf3089965e62731186397b7cbfad2dd0c8db3aadbc199"
+    },
+    "services/classifier/README.md": {
+      "owner": "C",
+      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
+      "sha256": "b80130833acef9f23ee7dcecc083533b0c35ee0a4a850f406807d280bc657e7f"
+    },
+    "services/classifier/pyproject.toml": {
+      "owner": "C",
+      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
+      "sha256": "adc6c482cdc64f2da43dfe23c7ee0f1fc020b1528ecf71fcd38ac6d4accb2c62"
+    },
+    "services/classifier/src/notelens_classifier/__init__.py": {
+      "owner": "C",
+      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
+      "sha256": "70cfb5dd7f0468395e2ce7e865ac40054f63974b5f368458ca5ebc5e9ce8791b"
+    },
+    "services/classifier/src/notelens_classifier/__main__.py": {
+      "owner": "C",
+      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
+      "sha256": "29c151dbe0663927dbba0409c3406005aeaef874c13bc8706bcd651617d8364e"
+    },
+    "services/classifier/src/notelens_classifier/main.py": {
+      "owner": "C",
+      "commit": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+      "sha256": "e29b583f5ca78eab3a14f8ff32f8d61462efe2cc0be8a67f63a99e25f4203bbb"
+    },
+    "services/classifier/src/notelens_classifier/mock_results.json": {
+      "owner": "C",
+      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
+      "sha256": "a1d18e4dc0ece479254fde1af4f944f8296f6278fefb5278097cc31f18c391e2"
+    },
+    "services/classifier/tests/conftest.py": {
+      "owner": "C",
+      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
+      "sha256": "096d556dfb0cf6f59581f0ee0325188f74ccac3f4755dbf53066a61c4ab1c410"
+    },
+    "services/classifier/tests/test_contract.py": {
+      "owner": "C",
+      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
+      "sha256": "629211fe087d845f8c4e2bc4376aba9102b2973ef0e48e220c5f015e40857c74"
+    },
+    "services/classifier/tests/test_health.py": {
+      "owner": "C",
+      "commit": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+      "sha256": "7522e53b22d183f0aef8b775281df631a245f4fb7c28cf050f591fdc8021d158"
+    },
+    "services/classifier/tests/test_health_transport.py": {
+      "owner": "C",
+      "commit": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+      "sha256": "7b580c1d7d3d676d57687c2aa84393e32e8b2a319b4b03581de6989c3e9c24c8"
+    },
+    "services/classifier/tests/test_http.py": {
+      "owner": "C",
+      "commit": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+      "sha256": "06f33c93de16f03143c75d0a3f0203202c9b6a0488983447b1230e5fe397da63"
+    },
+    "services/classifier/tests/test_privacy.py": {
+      "owner": "C",
+      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
+      "sha256": "93566d69ddbf73b384065b4dce512012c3cb5cc4b117bc1cd53d846bba6c5060"
+    },
+    "services/classifier/tests/test_transport.py": {
+      "owner": "C",
+      "commit": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+      "sha256": "f4f3e1432ff9fabf90a389e0f26dd8df83a105314cc386318930f8dfc46d7c71"
+    },
+    "services/classifier/uv.lock": {
+      "owner": "C",
+      "commit": "49c84181ccca348cae1bd65be4c29328341ea25c",
+      "sha256": "f1550ea9faa712055775ecec8485c7620fd04f693879328328ee20e8e1c62b6d"
+    },
+    "docs/extraction-eval/annotation-training-examples.json": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "803c126ffe98868430c46ee2716b452d82f4de3e63796f4e734c5dd4d8521619"
+    },
+    "docs/extraction-eval/check_training_examples.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "e04b260c76f154529b7058a535c8c9a10ce1cdbc0d15e8f84c213f420654ddb4"
+    },
+    "services/extraction/.gitignore": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "d851ad1451dce97c045cfeb7fc4f7c0dff178c45d78d7013517362e34acc8797"
+    },
+    "services/extraction/AGENTS.md": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "b4f0f87660f457002e44cd76b725a8e57123b13e61d2bab16cdf9288bf6094af"
+    },
+    "services/extraction/README.md": {
+      "owner": "D",
+      "commit": "a8f1599350944faf7e7dd566ec5febad59f6fe3c",
+      "sha256": "5b1b10b5d47b9dff156c9bad8377f1e86997dc6d74f97084af231eb974624c89"
+    },
+    "services/extraction/fixtures/demo-question.json": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "4e70d1116922ecf0bc7958efe6735d7a8565816d6b680823164d3cb2fb67a642"
+    },
+    "services/extraction/fixtures/demo-request.json": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "2a589d84b8a1dd353178e15ea4ab798bcef06bb19118a6c215eb007b8aa9394a"
+    },
+    "services/extraction/pyproject.toml": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "eabba3837b17727629e6bb34c905a54407925dd9bba7e507a0ef1305050924b7"
+    },
+    "services/extraction/src/notelens_extraction/__init__.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "dd4e9ce71cafc967a69552adf9f15642988ed68b9f43be9a94cc3412e82dfc74"
+    },
+    "services/extraction/src/notelens_extraction/cli.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "2f07d773297c641c49f253b4ee0975fb0a70af3baa235e3de20c868f4e008ba2"
+    },
+    "services/extraction/src/notelens_extraction/config.py": {
+      "owner": "D",
+      "commit": "a8f1599350944faf7e7dd566ec5febad59f6fe3c",
+      "sha256": "22c8ba9d71f4a0f6f38fa848a9267b755569d43dd29bd680a31f4e9afc34e130"
+    },
+    "services/extraction/src/notelens_extraction/contracts.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "73368b962283c3ae308ddf437222f627ecbd1bcdc836e5b8ae3eaa4ac820d895"
+    },
+    "services/extraction/src/notelens_extraction/demo.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "ab4f576b16261b6799448718739f6d248121c8d1095c265ac5df478ce759b4a6"
+    },
+    "services/extraction/src/notelens_extraction/errors.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "4612ba99251e79e425e61591570f56307b5f858434ceded017f023924724757c"
+    },
+    "services/extraction/src/notelens_extraction/evidence.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "5ade259269f5d4a68ac9e0ece17a513d3d17ae581300de1ea00f259cae239161"
+    },
+    "services/extraction/src/notelens_extraction/main.py": {
+      "owner": "D",
+      "commit": "a8f1599350944faf7e7dd566ec5febad59f6fe3c",
+      "sha256": "c11f8a9e4e7bcbfe33853b8d88e16ca3739a1b211edfcc1009a309f8ea9d3b08"
+    },
+    "services/extraction/src/notelens_extraction/prompts/answer-v1.txt": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "e9f40eff22c9c1ec0e2db7703bb47c0f886a0b331157821d4187f55de04b4ed1"
+    },
+    "services/extraction/src/notelens_extraction/prompts/extract-v1.txt": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "f50d4c263f42a59aac022175d0bcb765dbc744f656ee879c0407ba4cfd413882"
+    },
+    "services/extraction/src/notelens_extraction/providers.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "f5cc1dc1903161c0c4002835901ae6ae07647d658d65c890902e7a942beed1a1"
+    },
+    "services/extraction/src/notelens_extraction/service.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "a91a38dfec8c2d8b7373da343dd96d36eb543617c11fba0f8ef662eaf34480d8"
+    },
+    "services/extraction/tests/test_frozen_mock.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "0b2ae1292ba465f3ed9a1153c3bdc71fee11cd0e67f4ed7181d4b1b6eb1fd57f"
+    },
+    "services/extraction/tests/test_http_smoke.py": {
+      "owner": "D",
+      "commit": "a8f1599350944faf7e7dd566ec5febad59f6fe3c",
+      "sha256": "74004fca3a0bba462ce3fbadb638ae05f66f863b03a25de5c9f1b36fc7b5c4c7"
+    },
+    "services/extraction/tests/test_service.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "ebb32d4ff5dcdc86019ca4dc92ecfa0de2a9718474e2ce504880f8a1a0df7443"
+    },
+    "services/extraction/tests/test_training_checker.py": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "28301bb38d52b2c3fcd76b2ae159f8cb5c3bb69b4172bbbe11a17d5d5bb034ca"
+    },
+    "services/extraction/uv.lock": {
+      "owner": "D",
+      "commit": "36ea2a1b59e382930daee7d088c883b0d103c619",
+      "sha256": "626b44bcd33a7f2acb782a13b0339949a80adf255a79893bbff94e287cb0dec4"
+    },
+    "docs/rag/evaluation/answer-trial-results.json": {
+      "owner": "A",
+      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "sha256": "77a28f2c372d88b2eb9c93bdf78a1d017e6eaa03a4e20c30cd4a0910aba35b9b"
+    },
+    "docs/rag/evaluation/development-answer-review-v2.json": {
+      "owner": "A",
+      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "sha256": "8687f294da6a9530a9f41717cfde8fb24834d4d88b89cfbbf915f3b86d264e7c"
+    },
+    "docs/rag/evaluation/partial-answer-trial-results.json": {
+      "owner": "A",
+      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "sha256": "d64eecd00018a62fbac85fc31fa6653f8fd721adad0a75f3b48162673c87a3a8"
+    },
+    "docs/rag/evaluation/partial-evidence-flow.json": {
+      "owner": "A",
+      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "sha256": "108c186274f087128b3d0f5ec8843bf97e395a34efb607ec6421d682d2c96b96"
+    },
+    "specs/001-rag/tasks.md": {
+      "owner": "A",
+      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "sha256": "a500ef51bf711c67d6e4c6e5955d222dcddb213d458b8c724660ee8b44cf88c0"
+    }
+  },
+  "b_input_files": {
+    ".env.example": "8352f333155c637ada66497afa73712501ff14417e5bfaf9512471e54c63ba65",
+    ".gitattributes": "4376226f88d48728e1b5fdf641238dc9b3a017036d8606767fc0223ffd217184",
+    ".gitignore": "5792e6dce780e92e14ed8ef9805a4e8e763c3a6dc0d7ea98ec97748926fd8af6",
+    "apps/web/AGENTS.md": "11fef3c36548d5752ccab9371e9b96cf4481833f28fdd3d78eafa44e40d2122f",
+    "apps/web/README.md": "6a1d82a978d2bf782237b4e5fd2ed85816a285b0653ec0be016284b258e92ac6",
+    "apps/web/next-env.d.ts": "0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc",
+    "apps/web/next.config.ts": "cf7aa9553be87a81e5322232c4fb2a0d0edc574744ceb19401595f885cf98ec2",
+    "apps/web/package.json": "2c0062ead3a512b0b6ff63b76c05f510cbf7b8a9a63ae1bf5fb1f313ef963dd9",
+    "apps/web/scripts/check-bindings.mjs": "b7b1b33edd02f78207fea51d8bccab7f3eb55649bf7b0cbfea417411a102c036",
+    "apps/web/scripts/check-config.mjs": "cfe8a737e14be7ff3d89ad56f38bdb8a90007496e020c6fc9b30decc7d879351",
+    "apps/web/scripts/check-render.py": "54a6558058c1f69b113e39b0f846fdadd5d602ae079eea3a5164a4604e7410fa",
+    "apps/web/src/app/globals.css": "67572998c0040359a4eed0f7e939f8e1c41ff050bc711e3e539b759cc89f53c1",
+    "apps/web/src/app/layout.tsx": "e7b4982a8c0a22a8e706cf5c775e1d3c272572b15129e55c33bab5513a050218",
+    "apps/web/src/app/page.tsx": "028ceadf2342b624c17b856726ef8c76b4f6ff5f1edeed075453b02777be635a",
+    "apps/web/src/lib/scaffold/config.ts": "ed70918a793744842cd93147489f1af02151e4a2154ba8e08c27dd7525e62170",
+    "apps/web/src/lib/scaffold/status.ts": "b508ae14f8704f67b0d76e38983e86c72460117895d11d2d82924fad32006fc9",
+    "apps/web/tsconfig.json": "3b44ae3f09f310fdb59930b9539db0d054146d10a3ff86719cbff31d8b4fef9f",
+    "docs/platform/f-004-web-workspace-plan.md": "e5dc83c6643e05ac8bf869883afa2786cf891ab83bb0be0a222dcc7f3272cb8c",
+    "package-lock.json": "6cbc98df5b127194a87de00f260967487fd909f71497d4798c0dab4a48ed942f",
+    "package.json": "d8b0262b9d96a8bbec9e90682504d86f59d8cf253851662a795f1a7887d45895",
+    "scripts/project/check_scaffold.py": "78f20636c61ad604a11652278b0a04d5061391618ff4428cb3f58f8cde11d261",
+    "scripts/project/tests/test_scaffold.py": "7a439c8d1f4ccbb163bd0a73c255eba37fe1c95e47a0cfdfcc66f120ae5e44c1"
+  },
+  "b_input_sha256": "75a1e450d207e6fc2d32add00941831530d41cab9d917f015092154f5fdc38fe",
+  "frozen_files": {
+    ".specify/.gitignore": "0a61c5378b0bb2e0f85babff99c8b166f2170a2c12378cd17d929aa19296ec88",
+    ".specify/init-options.json": "c8b5b9284fe9e15774b03e6afa9ab20fef0fc567a47a22aac236112ebaa507b7",
+    ".specify/integration.json": "b7e4a848350da114995bf0c80e32a7bdc61f6c8bc0925719ca4e2059d62d8357",
+    ".specify/integrations/codex.manifest.json": "c3a7e87776247545db1d380c730e1deb9f1c023134eb466230f28d3fdd729ebe",
+    ".specify/integrations/speckit.manifest.json": "af5dbbf8b9fac53f07d8d1d506a8e50ce3efacf37067a83c7e82765ec8728165",
+    ".specify/memory/.constitution-template.json": "8fc4b39294bae0c10d59547ad7d415b6f0e890d656cbf7171dd567f4e9054711",
+    ".specify/memory/constitution.md": "2f19be05723381540a4c498ae2f817bb62e211cccbb9ab654f7a9e9b2cf87966",
+    ".specify/scripts/powershell/check-prerequisites.ps1": "f48e586b57cc049ea83ade5acecb466f861aee4fb444dab54bbafc813222da10",
+    ".specify/scripts/powershell/common.ps1": "54b59523b13fd8f884ff8b6b4e74fded922cdcc884965ff720392ca64ec1aa47",
+    ".specify/scripts/powershell/create-new-feature.ps1": "481c7368541a816b1679e5ed65fa9e5aea84b09f8be3a02ff8a340e3b48dd58a",
+    ".specify/scripts/powershell/resolve-template.ps1": "e49c565a09902e4ebd4b5a51c4e014d5067fdee5b1592f15cb44ef31f430d745",
+    ".specify/scripts/powershell/setup-plan.ps1": "5939ef98418e8dc8cc722ef53ba359fc814f3d2a9fd7620f04e8d145a7041f1a",
+    ".specify/scripts/powershell/setup-tasks.ps1": "a1a5002280b3016e5f5b150719eb5442b8505abf325ef266139becde2c070d33",
+    ".specify/templates/checklist-template.md": "70bbc48e884fab372ffb09e83e78ff983e28b69caebf8cd9964a02b6836683ac",
+    ".specify/templates/constitution-template.md": "ce7549540fa45543cca797a150201d868e64495fdff39dc38246fb17bd4024b3",
+    ".specify/templates/plan-template.md": "a828ad6206526574ab3fc99be6d0154588cb1c9774c5919d71b81ab5b2dbffa0",
+    ".specify/templates/spec-template.md": "3945437fc35cd30a5b2bf7beea680337c3516826d3efa5a6b92c4a7eca1ba28e",
+    ".specify/templates/tasks-template.md": "b0f527d41e546af0c31903e04f9b20965b6b497b573792198f663a64ce128863",
+    ".specify/workflows/speckit/workflow.yml": "177761c5e7df28126beea043b5cb45aeaf7958090c022dc11ac71399422fcfbc",
+    ".specify/workflows/workflow-registry.json": "c7667c6779d3e64e66c273a9953912eebcba56390bec33fbc00170052ac5c14a",
+    "contracts/AGENTS.md": "b31f74ff97083a3f19dbe0d01a611c4ce6fd01c4b1ab8defc7de7925e5daf50b",
+    "contracts/candidates/p2-rc1/README.md": "bf326c7073f73746a0228d3c6c8ee3932eab47c6469e1e2c380d5fd930451ff7",
+    "contracts/candidates/p2-rc1/candidate.json": "1848e81898c5a98235b49c2e0ad854a777ff3e6afe7bf9517e29c5de8b1ac8bc",
+    "contracts/candidates/p2-rc1/fixtures/documents.json": "89a7debd3e095650bf1289da43604618c3cca95e64690d8a8e361df1ed368f94",
+    "contracts/candidates/p2-rc1/fixtures/manifest.json": "136d566ec41dadd4863062f9163f111947b22f462d327493736ace4d31d8ac99",
+    "contracts/candidates/p2-rc1/fixtures/payloads.json": "8f64b8ba804a644c3fb13f5261a97eaa43573853730269f7d668a0f6f6b65ceb",
+    "contracts/candidates/p2-rc1/fixtures/references.json": "d3a65bab114731ada4165d7b9f920c3e5272ae5980a7458215fb374399a11db9",
+    "contracts/candidates/p2-rc1/openapi.json": "621c4a142aa8517030588d3698976f6a24fa903f790ff6f0653e6c1c6172f8ed",
+    "contracts/candidates/p2-rc1/reviews/member-a-p2-revision-2-response.md": "9f18f9e368109b621fed83fd33d2c3569142dfffa659b64865a2808016c2a656",
+    "contracts/candidates/p2-rc1/reviews/member-b-response-to-c-rc1.md": "5b68b14625c8ea3432e2f218c1fcc80cadc18013e5468a8dc3bcf5048e45ee89",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-rc1-artifact-review.md": "020e7028bb4f2c375fe01dfaaafaeb867568ff9a879b2503726be2c5da9f100c",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-rc1-revision-2-approval.md": "54ede4f13f75dea55bc6cf6ec9c1b0e811c425643cb9e30b491745d04265de0f",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-review-and-next-dependencies.md": "9670af63758521741e01c3d145759d4cf199ef6eca7bf3920cf7adbd6fe6be24",
+    "contracts/candidates/p2-rc1/reviews/member-c-response-to-b-p2-clarifications.md": "3cd08993e233be9587f9e264bbaabce07dfc067bb2b479da5fd99bd9cad89293",
+    "contracts/candidates/p2-rc1/reviews/member-d-p2-proposal-review.md": "03f2afad3fd260dfd1cfa51123d1c2f296abcfeb8c0453c6581e8b6ba858a420",
+    "contracts/candidates/p2-rc1/reviews/revision-3-resolution.md": "4dbec7b1fb561e1df68bd38ab12f0f121234c4e17e869fb7f50fc2d757508a51",
+    "contracts/candidates/p2-rc1/schema.json": "5fcddb1e61dc4f123b15d5dafd23c6bc244ebe1914964edfb86f7b5b2e390723",
+    "contracts/candidates/p2-rc1/transport-cases.json": "d83a4c799767b5e72aa84add0a1d5d5d8b23fda14d60c2be42727aa3a743de43",
+    "contracts/generated/README.md": "85e8e6e3af08fdc2d4fa2fc06763f5878efa224937e4c079990eb903c1b9cd4a",
+    "contracts/generated/manifest.json": "a46f3cd3de95a6fcad80867560d5c1606e69822c0dfa962810e9cea5e0e9c169",
+    "contracts/generated/python/pyproject.toml": "d8cfa372e0f990587d1585394314f6fe5c230d1ff4ef497907c11f8d4c533eff",
+    "contracts/generated/python/src/notelens_contracts/__init__.py": "a03af31d4330d5eb7317531379b1c545b79b55789c35533207ddf50f4a1f9a78",
+    "contracts/generated/python/src/notelens_contracts/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "contracts/generated/python/src/notelens_contracts/runtime.py": "033fe8d47f9c02a81dcd3249b68a2cfd3f7e2a320c2852bfefbe07c765794b48",
+    "contracts/generated/python/src/notelens_contracts/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "contracts/generated/python/src/notelens_contracts/v1.py": "2681129239ff4a1e772a78052d8dd533e1eb6cf225732d9c245e44979fedf002",
+    "contracts/generated/typescript/package-lock.json": "c3129ef39f2db3879c7ed03b4a2bbc3bcac5fa8a97c121a1be2d1b41b7eea261",
+    "contracts/generated/typescript/package.json": "dd76f0bbd6b092a3de7ca4149a3ff508b55fe907b795e0dd8c3946950b157ef8",
+    "contracts/generated/typescript/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "contracts/generated/typescript/v1.d.ts": "b40a38e017c837140ca3692b07778a8c5a40d4a950717bde71008f5c5798df91",
+    "contracts/generated/typescript/v1.mjs": "0789430d7ba23faddbf755cde841a4755b43297764c2523805f8ef23480a196e",
+    "contracts/history/README.md": "08acad0880ab262b509a9a39194aae83da54dbecc8a1a78293f04aeba4fddec9",
+    "contracts/history/p1/README.md": "a2e0a9e0e87180c8aebddf9a61460ccea06f9b9df50ad42b3d30a403aa062fb5",
+    "contracts/history/p1/fixtures/README.md": "14843ab0525f2310a245694fb6954b577b697fc1615866f19c56deeededdbd27",
+    "contracts/history/p1/fixtures/documents.json": "13ceebf3e9c42796f4d24c7ef390e53d9889024d8dd719e919ec3a496682cb55",
+    "contracts/history/p1/fixtures/manifest.json": "41f942f9cdb124ca4a371d3ae82e4862cd792dbedbac54312444bf1e2799e8c8",
+    "contracts/history/p1/fixtures/payloads.json": "21d320dd6e34f6bec070d290d0e61b76ca8e3955334a0b00b13eb52dfaa874fe",
+    "contracts/history/p1/fixtures/references.json": "83ae7fb62cb84641701b7a5abebb87a19186c7b46ae69590ced96e51a67d4fd5",
+    "contracts/history/p1/openapi.json": "c158cb7ba342d54ca82a0bd84833db87e1b9b4faa36a4c6cbcf70f6883bf1263",
+    "contracts/history/p1/schema.json": "27a0eaceaa910d9feb93299179217ffd24554198428a36631aea77dad62757bf",
+    "contracts/runtime/typescript.mjs": "0789430d7ba23faddbf755cde841a4755b43297764c2523805f8ef23480a196e",
+    "contracts/v1/README.md": "251aea56c4402d9ba1e8f3597cbca3bcf85401d272451be967bf7d92ec07c5f3",
+    "contracts/v1/fixtures/README.md": "b5ce5accbc45fd14969352bf818b154dc7cf149fb4a14ae02fbb901588289b76",
+    "contracts/v1/fixtures/documents.json": "89a7debd3e095650bf1289da43604618c3cca95e64690d8a8e361df1ed368f94",
+    "contracts/v1/fixtures/manifest.json": "136d566ec41dadd4863062f9163f111947b22f462d327493736ace4d31d8ac99",
+    "contracts/v1/fixtures/payloads.json": "8f64b8ba804a644c3fb13f5261a97eaa43573853730269f7d668a0f6f6b65ceb",
+    "contracts/v1/fixtures/references.json": "d3a65bab114731ada4165d7b9f920c3e5272ae5980a7458215fb374399a11db9",
+    "contracts/v1/fixtures/transport-cases.json": "d83a4c799767b5e72aa84add0a1d5d5d8b23fda14d60c2be42727aa3a743de43",
+    "contracts/v1/freeze.json": "045a298f98df28c923a72425da7ed7ecb3573a479d8c95ef309ecd2aa9eb5796",
+    "contracts/v1/openapi.json": "e83ddda18a03040e4092e5f1113dbb82d296471c30acc105928f6bd8114143af",
+    "contracts/v1/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "prompts/NoteLens_Codex_SpecKit_prompt_00.md": "d786f8ced251581d38a0f33faea3874bde0a7c4ba0eda53d293b73956d9c0beb"
+  },
+  "excluded": [
+    "eval workspace",
+    "real datasets/indexes/models",
+    "unrelated owner specs/docs",
+    "main working drafts"
+  ],
+  "scope": "Local F-004 candidate only; no publication, F-005, F-011 or F-014 completion",
+  "base_files": {
+    ".agents/skills/speckit-analyze/SKILL.md": "fad1c37a451e017995b15fc3eefe243274642fbb3ff7c8a5ab021908df71aa93",
+    ".agents/skills/speckit-checklist/SKILL.md": "5c1dce9333a2b733422e2dc75de7fc4d63ba91a460833d14ef3966a672328b9d",
+    ".agents/skills/speckit-clarify/SKILL.md": "1e9de2b2a673c923f7ca650fc40e4d5f24654163c577e0f1ceb70edfaa08114b",
+    ".agents/skills/speckit-constitution/SKILL.md": "ff6604c8424d4f4edf80f19ccfda1ede1a1dc5091a397cc1f0078a0bc3b0a538",
+    ".agents/skills/speckit-converge/SKILL.md": "369e168cbcc9f903d1b8f3f360a32d24a7ebf3d07066b8676032cffcafbebd9e",
+    ".agents/skills/speckit-implement/SKILL.md": "4d58a80ede8d837798d13a838b83a88fd4335104d0806d27f8018664a1ee0b85",
+    ".agents/skills/speckit-plan/SKILL.md": "0834b2298c078b0a89ee64a3e47e140cc9b31c4049492bd504491199a0fe3e73",
+    ".agents/skills/speckit-specify/SKILL.md": "37417c591b037e48507a622950f0b5b3596f65bfc0726eb544052dceedcaa92c",
+    ".agents/skills/speckit-tasks/SKILL.md": "1e1d18b34e39d62d6388297f035505905741b07973102e0d44aa8647d85ab093",
+    ".gitattributes": "4376226f88d48728e1b5fdf641238dc9b3a017036d8606767fc0223ffd217184",
+    ".github/AGENTS.md": "e53046f8da5220041f2d7d92fa1a82defa88bea59b0dc276ac6a0811d1a477ec",
+    ".gitignore": "355e001f2a2580483ba745468c416ca3513fa217448c89641e1ca748789fc987",
+    ".specify/.gitignore": "0a61c5378b0bb2e0f85babff99c8b166f2170a2c12378cd17d929aa19296ec88",
+    ".specify/init-options.json": "c8b5b9284fe9e15774b03e6afa9ab20fef0fc567a47a22aac236112ebaa507b7",
+    ".specify/integration.json": "b7e4a848350da114995bf0c80e32a7bdc61f6c8bc0925719ca4e2059d62d8357",
+    ".specify/integrations/codex.manifest.json": "c3a7e87776247545db1d380c730e1deb9f1c023134eb466230f28d3fdd729ebe",
+    ".specify/integrations/speckit.manifest.json": "af5dbbf8b9fac53f07d8d1d506a8e50ce3efacf37067a83c7e82765ec8728165",
+    ".specify/memory/.constitution-template.json": "8fc4b39294bae0c10d59547ad7d415b6f0e890d656cbf7171dd567f4e9054711",
+    ".specify/memory/constitution.md": "2f19be05723381540a4c498ae2f817bb62e211cccbb9ab654f7a9e9b2cf87966",
+    ".specify/scripts/powershell/check-prerequisites.ps1": "f48e586b57cc049ea83ade5acecb466f861aee4fb444dab54bbafc813222da10",
+    ".specify/scripts/powershell/common.ps1": "54b59523b13fd8f884ff8b6b4e74fded922cdcc884965ff720392ca64ec1aa47",
+    ".specify/scripts/powershell/create-new-feature.ps1": "481c7368541a816b1679e5ed65fa9e5aea84b09f8be3a02ff8a340e3b48dd58a",
+    ".specify/scripts/powershell/resolve-template.ps1": "e49c565a09902e4ebd4b5a51c4e014d5067fdee5b1592f15cb44ef31f430d745",
+    ".specify/scripts/powershell/setup-plan.ps1": "5939ef98418e8dc8cc722ef53ba359fc814f3d2a9fd7620f04e8d145a7041f1a",
+    ".specify/scripts/powershell/setup-tasks.ps1": "a1a5002280b3016e5f5b150719eb5442b8505abf325ef266139becde2c070d33",
+    ".specify/templates/checklist-template.md": "70bbc48e884fab372ffb09e83e78ff983e28b69caebf8cd9964a02b6836683ac",
+    ".specify/templates/constitution-template.md": "ce7549540fa45543cca797a150201d868e64495fdff39dc38246fb17bd4024b3",
+    ".specify/templates/plan-template.md": "a828ad6206526574ab3fc99be6d0154588cb1c9774c5919d71b81ab5b2dbffa0",
+    ".specify/templates/spec-template.md": "3945437fc35cd30a5b2bf7beea680337c3516826d3efa5a6b92c4a7eca1ba28e",
+    ".specify/templates/tasks-template.md": "b0f527d41e546af0c31903e04f9b20965b6b497b573792198f663a64ce128863",
+    ".specify/workflows/speckit/workflow.yml": "177761c5e7df28126beea043b5cb45aeaf7958090c022dc11ac71399422fcfbc",
+    ".specify/workflows/workflow-registry.json": "c7667c6779d3e64e66c273a9953912eebcba56390bec33fbc00170052ac5c14a",
+    "AGENTS.md": "b871af902c5bcda866238a0db8579735b4159f513784a65ccdb6a480ad81dcfc",
+    "README.md": "2fea6133666c40923a5a2db6b02a3baab34cfa4ac1305ddef8c2dbcb6bbed62e",
+    "apps/web/AGENTS.md": "11fef3c36548d5752ccab9371e9b96cf4481833f28fdd3d78eafa44e40d2122f",
+    "contracts/AGENTS.md": "b31f74ff97083a3f19dbe0d01a611c4ce6fd01c4b1ab8defc7de7925e5daf50b",
+    "contracts/candidates/p2-rc1/README.md": "bf326c7073f73746a0228d3c6c8ee3932eab47c6469e1e2c380d5fd930451ff7",
+    "contracts/candidates/p2-rc1/candidate.json": "1848e81898c5a98235b49c2e0ad854a777ff3e6afe7bf9517e29c5de8b1ac8bc",
+    "contracts/candidates/p2-rc1/fixtures/documents.json": "89a7debd3e095650bf1289da43604618c3cca95e64690d8a8e361df1ed368f94",
+    "contracts/candidates/p2-rc1/fixtures/manifest.json": "136d566ec41dadd4863062f9163f111947b22f462d327493736ace4d31d8ac99",
+    "contracts/candidates/p2-rc1/fixtures/payloads.json": "8f64b8ba804a644c3fb13f5261a97eaa43573853730269f7d668a0f6f6b65ceb",
+    "contracts/candidates/p2-rc1/fixtures/references.json": "d3a65bab114731ada4165d7b9f920c3e5272ae5980a7458215fb374399a11db9",
+    "contracts/candidates/p2-rc1/openapi.json": "621c4a142aa8517030588d3698976f6a24fa903f790ff6f0653e6c1c6172f8ed",
+    "contracts/candidates/p2-rc1/reviews/member-a-p2-revision-2-response.md": "9f18f9e368109b621fed83fd33d2c3569142dfffa659b64865a2808016c2a656",
+    "contracts/candidates/p2-rc1/reviews/member-b-response-to-c-rc1.md": "5b68b14625c8ea3432e2f218c1fcc80cadc18013e5468a8dc3bcf5048e45ee89",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-rc1-artifact-review.md": "020e7028bb4f2c375fe01dfaaafaeb867568ff9a879b2503726be2c5da9f100c",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-rc1-revision-2-approval.md": "54ede4f13f75dea55bc6cf6ec9c1b0e811c425643cb9e30b491745d04265de0f",
+    "contracts/candidates/p2-rc1/reviews/member-c-p2-review-and-next-dependencies.md": "9670af63758521741e01c3d145759d4cf199ef6eca7bf3920cf7adbd6fe6be24",
+    "contracts/candidates/p2-rc1/reviews/member-c-response-to-b-p2-clarifications.md": "3cd08993e233be9587f9e264bbaabce07dfc067bb2b479da5fd99bd9cad89293",
+    "contracts/candidates/p2-rc1/reviews/member-d-p2-proposal-review.md": "03f2afad3fd260dfd1cfa51123d1c2f296abcfeb8c0453c6581e8b6ba858a420",
+    "contracts/candidates/p2-rc1/reviews/revision-3-resolution.md": "4dbec7b1fb561e1df68bd38ab12f0f121234c4e17e869fb7f50fc2d757508a51",
+    "contracts/candidates/p2-rc1/schema.json": "5fcddb1e61dc4f123b15d5dafd23c6bc244ebe1914964edfb86f7b5b2e390723",
+    "contracts/candidates/p2-rc1/transport-cases.json": "d83a4c799767b5e72aa84add0a1d5d5d8b23fda14d60c2be42727aa3a743de43",
+    "contracts/generated/README.md": "85e8e6e3af08fdc2d4fa2fc06763f5878efa224937e4c079990eb903c1b9cd4a",
+    "contracts/generated/manifest.json": "a46f3cd3de95a6fcad80867560d5c1606e69822c0dfa962810e9cea5e0e9c169",
+    "contracts/generated/python/pyproject.toml": "d8cfa372e0f990587d1585394314f6fe5c230d1ff4ef497907c11f8d4c533eff",
+    "contracts/generated/python/src/notelens_contracts/__init__.py": "a03af31d4330d5eb7317531379b1c545b79b55789c35533207ddf50f4a1f9a78",
+    "contracts/generated/python/src/notelens_contracts/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "contracts/generated/python/src/notelens_contracts/runtime.py": "033fe8d47f9c02a81dcd3249b68a2cfd3f7e2a320c2852bfefbe07c765794b48",
+    "contracts/generated/python/src/notelens_contracts/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "contracts/generated/python/src/notelens_contracts/v1.py": "2681129239ff4a1e772a78052d8dd533e1eb6cf225732d9c245e44979fedf002",
+    "contracts/generated/typescript/package-lock.json": "c3129ef39f2db3879c7ed03b4a2bbc3bcac5fa8a97c121a1be2d1b41b7eea261",
+    "contracts/generated/typescript/package.json": "dd76f0bbd6b092a3de7ca4149a3ff508b55fe907b795e0dd8c3946950b157ef8",
+    "contracts/generated/typescript/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "contracts/generated/typescript/v1.d.ts": "b40a38e017c837140ca3692b07778a8c5a40d4a950717bde71008f5c5798df91",
+    "contracts/generated/typescript/v1.mjs": "0789430d7ba23faddbf755cde841a4755b43297764c2523805f8ef23480a196e",
+    "contracts/history/README.md": "08acad0880ab262b509a9a39194aae83da54dbecc8a1a78293f04aeba4fddec9",
+    "contracts/history/p1/README.md": "a2e0a9e0e87180c8aebddf9a61460ccea06f9b9df50ad42b3d30a403aa062fb5",
+    "contracts/history/p1/fixtures/README.md": "14843ab0525f2310a245694fb6954b577b697fc1615866f19c56deeededdbd27",
+    "contracts/history/p1/fixtures/documents.json": "13ceebf3e9c42796f4d24c7ef390e53d9889024d8dd719e919ec3a496682cb55",
+    "contracts/history/p1/fixtures/manifest.json": "41f942f9cdb124ca4a371d3ae82e4862cd792dbedbac54312444bf1e2799e8c8",
+    "contracts/history/p1/fixtures/payloads.json": "21d320dd6e34f6bec070d290d0e61b76ca8e3955334a0b00b13eb52dfaa874fe",
+    "contracts/history/p1/fixtures/references.json": "83ae7fb62cb84641701b7a5abebb87a19186c7b46ae69590ced96e51a67d4fd5",
+    "contracts/history/p1/openapi.json": "c158cb7ba342d54ca82a0bd84833db87e1b9b4faa36a4c6cbcf70f6883bf1263",
+    "contracts/history/p1/schema.json": "27a0eaceaa910d9feb93299179217ffd24554198428a36631aea77dad62757bf",
+    "contracts/runtime/typescript.mjs": "0789430d7ba23faddbf755cde841a4755b43297764c2523805f8ef23480a196e",
+    "contracts/v1/README.md": "251aea56c4402d9ba1e8f3597cbca3bcf85401d272451be967bf7d92ec07c5f3",
+    "contracts/v1/fixtures/README.md": "b5ce5accbc45fd14969352bf818b154dc7cf149fb4a14ae02fbb901588289b76",
+    "contracts/v1/fixtures/documents.json": "89a7debd3e095650bf1289da43604618c3cca95e64690d8a8e361df1ed368f94",
+    "contracts/v1/fixtures/manifest.json": "136d566ec41dadd4863062f9163f111947b22f462d327493736ace4d31d8ac99",
+    "contracts/v1/fixtures/payloads.json": "8f64b8ba804a644c3fb13f5261a97eaa43573853730269f7d668a0f6f6b65ceb",
+    "contracts/v1/fixtures/references.json": "d3a65bab114731ada4165d7b9f920c3e5272ae5980a7458215fb374399a11db9",
+    "contracts/v1/fixtures/transport-cases.json": "d83a4c799767b5e72aa84add0a1d5d5d8b23fda14d60c2be42727aa3a743de43",
+    "contracts/v1/freeze.json": "045a298f98df28c923a72425da7ed7ecb3573a479d8c95ef309ecd2aa9eb5796",
+    "contracts/v1/openapi.json": "e83ddda18a03040e4092e5f1113dbb82d296471c30acc105928f6bd8114143af",
+    "contracts/v1/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "data/knowledge/AGENTS.md": "6c7954c065154e01937b22f412bb88af71353d6c363f048bc85fa0012381f056",
+    "data/mtsamples/AGENTS.md": "f3267e2aa8c20abef6984a6b39b54e5429283dbdd3b3afb99d8f9c5682b59002",
+    "docs/decisions/AGENTS.md": "632a5e146ea122d4cf78cb4aac15596a2167cd09fe0b3e7bc9b89fd8a0f94035",
+    "docs/decisions/contract-freeze.md": "7b2db847f0b8334ec22530cc7eb41e1eede98ea4d8ca5ff735f46f46f5f22fbc",
+    "docs/decisions/contract-p2-proposal.md": "d1d668027dee762be8325c417ac085043b519e6be0fc713af3669c7f7b8a923f",
+    "docs/decisions/initial-documentation-handoff.md": "dfe3d7ca2732e7a50a914f977345873c62ae35a546da4a34b692232263b84ac8",
+    "docs/decisions/technical-feasibility.md": "0dddfb5ab472300d884ba4b3ad8d23ffdd878dead6c2f755f3f34b48d27a4cfc",
+    "docs/extraction-eval/AGENTS.md": "b1125d3ab26fa3be03cd157c45851c4885ab8294c886a62463a2b2875ca8799c",
+    "docs/ml/AGENTS.md": "c9f9c0c119b1bb0c339f3663e29e6645427149db547494c8fc27917d13c7144e",
+    "docs/platform/AGENTS.md": "0c2eefe912deb6553586e7389e2c67c01cf97df1e1baa611f4aef28e3f8b11e9",
+    "docs/platform/interface-review.md": "7d723444cb203b7d36862c63273ce38c6b346bb86ba80147e0d34911c433b0bb",
+    "docs/rag/AGENTS.md": "8fd75ae44620d8b218a53d519eb5fec3d52bdb98e33b0bed4065256a6ff6a850",
+    "docs/team/AGENTS.md": "01ceadfbfea90ecee8a304e529d7aaf37e580959b8c6050a5a9c0480e044fe6e",
+    "docs/team/allowed-paths.md": "24877a46edc4d7237e32b10ad2efa2b1b94acfff1a1c1982fecddbe54d925a96",
+    "docs/team/classifier-scaffold-p2.md": "7fd20cbc5bc3784de454a9f56d5c9260765482d8221793a2f52acd644297acbf",
+    "docs/team/contract-reviews/p1/README.md": "f5ff69ef3da669e85146cb6aef9a44e83ac6f722b5636f23c7da2f241e477863",
+    "docs/team/contract-reviews/p1/member-a-response-to-b.md": "21168f48333e2e318dc1976a960e5da60ca0e09bf05f4f9dc14e606e8f4f4d4a",
+    "docs/team/contract-reviews/p1/member-c-response-to-b.md": "a61319dd7a5086a9a84dab8dfce851d2ad2713d209dc60f0500ed998b7bf01b2",
+    "docs/team/contract-reviews/p1/member-d-response-to-b.md": "b80b8febcd4d52e29b9e831d79154ca8e44d2d8fa65266e0886abbb75633cb00",
+    "docs/team/contract-reviews/p2-revision-3/README.md": "e77a5128a5738683d60faa2d88e3e5f00fc0b63d4ddcaaafe9a79aefcb695651",
+    "docs/team/contract-reviews/p2-revision-3/member-a-agent-review.md": "d156b696d287576e2866552a76a9f519557f435fd992461a43c49be8c72948f3",
+    "docs/team/contract-reviews/p2-revision-3/member-c-approval.md": "e129ce92c4b142ff50c48717850aab8b04fceb568fef4357238ff43f687867b5",
+    "docs/team/contract-reviews/p2-revision-3/member-d-access-response.md": "5657e57654625f6c6a0298e95d96a14acb89935af277641c136ac43fdee76c8e",
+    "docs/team/contract-reviews/p2-revision-3/member-d-agent-review.md": "6d6d5cc3a82fdf56859cbd8fa56f93551b581fe156a65135cfb51527950e80d7",
+    "docs/team/contract-reviews/p2-revision-3/user-owner-confirmation.md": "b1c07cea2c94e6e0d93752fdd327a18931ed31722d7d33f6da8b2b21e5a18458",
+    "docs/team/documentation-checkpoint.md": "f9138f8e671b8a3b996a646c611618c69d1c59b79f4a543a30243e385bac8f8f",
+    "docs/team/frozen-contracts-handoff.md": "ea297d32f6a744a41ed131f10ddbe0a478c216ae6c149cb9baa130795c60fe22",
+    "docs/team/handoffs/member-a.md": "fc31cb7e4d95b644472f2c226b2be7049617bd914a6f7af715faed7aa1a69cd3",
+    "docs/team/handoffs/member-b.md": "4e6dca38a06134742beaf170aaac6a39ab7dfc7173ab5e099d9cf40ed232c3ef",
+    "docs/team/handoffs/member-c.md": "cf7369466e966a4934f8eafe8a1bdeaf8ea63ef741810305b74f5d24ee56d59b",
+    "docs/team/handoffs/member-d.md": "7d84c4ba8d9f15702b6a6042ada19cd3336a9e75c1cd37966f0f77ea6ab524a5",
+    "docs/team/open-decisions.md": "b1513ee3ca3a256a9ffd4b27c065af251329d6d1d82193dcb861a732e58d2dac",
+    "docs/team/p2-revision-3-review-request.md": "6bca92d894443147c9d8528171049ef24cd2de63b13d632aad71506582aa4dd3",
+    "docs/team/planning-analysis-record.md": "3b069c34475ac267e3b00567b0730fc012af0d66e754d3b4b21b688f5802a6f1",
+    "docs/team/planning-status.md": "6b23d7852d397e4860b7a325f42f26c8ea9a011ae3a4e7cde6b33c3c24f26ccc",
+    "docs/team/preparation-status.md": "e5657de20e740f28fcf2533ecc0803009156f9d64ec285eb33e264a2dd051930",
+    "docs/team/start-prompts/member-a.md": "146301e47541c514e03d466e2d07e335ea8cff54608374dfacec048b72b23538",
+    "docs/team/start-prompts/member-b.md": "e45d7404506323a7389bb9b48de7005cdd7161cda52362153b41e98af7e95ab4",
+    "docs/team/start-prompts/member-c.md": "d7c469e74c7f03cc17f7da99063eb74595486f1bbf9759f38f8cb10a78a0798b",
+    "docs/team/start-prompts/member-d.md": "d2315e5bbf1a350a7c79d686ff0f2bad627369f633c82bf5c9b244d517cd3813",
+    "docs/team/working-copies.md": "de90416fc8848ffc20bdd687315c3772fb6743e55b68370ecff0441683e2a2fe",
+    "eval/AGENTS.md": "a5aa4d463dc301be5d6b065c0e3e256c42fac3065de2d11f97f3ee5b6ce0bfae",
+    "eval/annotations/member-a/AGENTS.md": "e31266445d9138f15eeaaebfac8c36063b990c11404257226abe5b513ba667b2",
+    "eval/annotations/member-b/AGENTS.md": "0c628e02e74909dd31ed4f922d60752b4c8dbc463aa1353468eb02597fe9d1a3",
+    "eval/annotations/member-c/AGENTS.md": "843e8cd4b3fb72f0b19b915d87b106a78a77044ef4c69a4710ac342deb4643cd",
+    "eval/annotations/member-d/AGENTS.md": "921c45237bcd00ab512c5a3efd47255c8d7268bbb10a0f4bda3c73aac5c82f08",
+    "infra/AGENTS.md": "eb26cd35ed32c37f265cddccd07f6cfd31947d878e55f179a3c6b597bd855189",
+    "prompts/NoteLens_Codex_SpecKit_prompt_00.md": "d786f8ced251581d38a0f33faea3874bde0a7c4ba0eda53d293b73956d9c0beb",
+    "scripts/project/AGENTS.md": "4c8092b73303f59685e3268df8936c162a3d33e46311cc194928bdcb37fb4bef",
+    "scripts/project/README.md": "de2a3e6ff7668e27d68906c2f2036fe212b71112ae9d848bb65d4f71ecddb0bd",
+    "scripts/project/build_candidate.py": "5ba482549b22fb5404629fd92da5fc6922fb55e9caad5436baeb47e4865f0aac",
+    "scripts/project/check_bindings.mjs": "89556453399704218e98f6437de123dfc5976191567ce664098eaf1fb6fe1a12",
+    "scripts/project/check_bindings.py": "d788263bf96518891b67f67a14491a6237b72682ffa3076f9d49f6d050c3c8c8",
+    "scripts/project/check_candidate.py": "f87afa8f38817f320241e2bf797fc5b9ccd9528502a0193ea52f430a0942f439",
+    "scripts/project/check_contracts.py": "9af95e2721cf7abadf3e7c39f1cb3be7897d2a2b87774dc5bcad11fb2b30d660",
+    "scripts/project/consumers/python/pyproject.toml": "cae03fbf137c0410e0e7f9112fe65207941dd4c833ed0c420dbb73097c5886ee",
+    "scripts/project/consumers/python/uv.lock": "e4e7ef95422dc999557041a49b45d83a3890a3c28371abae674e955b6a291abf",
+    "scripts/project/consumers/typescript/consumer.ts": "9cc013c2c133cedb2777eaf958b10f143289cfa1a48b54545a2055378ad57fba",
+    "scripts/project/consumers/typescript/package-lock.json": "612e8e0a7f2de8797a3abb8f4c131caa70498ea40958dd668b07d4e4391a1b72",
+    "scripts/project/consumers/typescript/package.json": "aba6a64ef331d9d29ed03be469b701c10ff91fa39780ff6ba8afd35c268cf354",
+    "scripts/project/consumers/typescript/smoke.mjs": "81b87dffa36af9038ab02ac4d61c0606c52f482e36306658248314d623dcaddc",
+    "scripts/project/consumers/typescript/tsconfig.json": "9aa013b93fcbae87f89db93084b4f10a40bcf658988548252faa82b562ce1b83",
+    "scripts/project/frozen_contracts.py": "9724cb5972cf3a7050d15788a1bf990fa1a09e1f969935af47e3550766e67f47",
+    "scripts/project/generate_contracts.py": "6a007e43f1b499290d59d981a454e7287c1c9be797714a46f02bec943fefb91f",
+    "scripts/project/pyproject.toml": "6cfa88fe3193a46975884871fe311570ca51e4928eaaa9fbcef2f42f10691140",
+    "scripts/project/tests/test_candidate.py": "68f64bf39f5ee322ae83c5d1303ec1d8cd66c255dcf383c4992564de49ec560c",
+    "scripts/project/tests/test_contracts.py": "f62486d9491c379a81d521d4779c3cb46175e012966b2e96d961c995b454e4b4",
+    "scripts/project/uv.lock": "0ba40994c52aca378f85b9776af0169f5ef9dbc81b0df83105f87dca57c20983",
+    "services/classifier/AGENTS.md": "0e462f1be31affeeab6bf3089965e62731186397b7cbfad2dd0c8db3aadbc199",
+    "services/extraction/AGENTS.md": "b4f0f87660f457002e44cd76b725a8e57123b13e61d2bab16cdf9288bf6094af",
+    "services/rag/AGENTS.md": "d623983d5e9e2c3ed849432be9bf0322a7aa93fc2614c330d9e6c489b87fb490",
+    "specs/000-foundation/AGENTS.md": "268321f5f6d6fcd14a758083829b582eab752c7f0f5aeb6c09df5e2b15343faa",
+    "specs/000-foundation/checklists/requirements.md": "085c546099723528e1fe3cb71682f456488310bb7360365335188c2d544bcdb1",
+    "specs/000-foundation/contracts/README.md": "6fe75cdc32bc2333e2aaaed28475dffb658cc9abee6c4356385978f0981ec327",
+    "specs/000-foundation/data-model.md": "1dd72a96983b2cad8a94c08df6b1b1a4671bd2f4526b7bf3a66320ad2c6a97f5",
+    "specs/000-foundation/plan.md": "08464b8a3ac3c5ec73cbd2511be77fc778a8f7df564d9fbb2bc32de006c3edbd",
+    "specs/000-foundation/quickstart.md": "537cf23f2994c0c4d34388e75dad35eeb14299219d3437638c860b41abc651e2",
+    "specs/000-foundation/research.md": "1051b0c853b15aac1c18ff5c0be477ec5b8c36ec896afb81690bb3f538d29c15",
+    "specs/000-foundation/spec.md": "4875678fbbd509e4b5fb3a0a57d0dfd29e257eec160d5d4b670ad5bc6e2379e3",
+    "specs/000-foundation/tasks.md": "8d035e76216de4425583370001ad72313879df698b6235486a4d90ec8a354133",
+    "specs/001-rag/AGENTS.md": "d794076b0dc3c295854abbbd93e7310a48a283acef311e4876f368d85a2f410a",
+    "specs/001-rag/checklists/requirements.md": "e00f8f47235ef016d8b8f365b36630b22b76c21ca4b12a55f514921a729ad6a3",
+    "specs/001-rag/contracts/README.md": "0fcaffebb6896859a86669f599fd66a7c91cfd263213c935242c7ff8c54ce503",
+    "specs/001-rag/data-model.md": "14d2dd892a8589cca88021a7d52f8fbb6716e5bac1151f9ae374a50e061e5f63",
+    "specs/001-rag/plan.md": "e09854a0dc26714bc9643f9fb841eeadf61925aa8b140c0f9b6ac98535294c3a",
+    "specs/001-rag/quickstart.md": "92bee3a1875f9f9f0a4104b838603571e9da21d136923a1978e5d362fb9a9235",
+    "specs/001-rag/research.md": "36a03f2413a358b9d705816cc3b6ebc22ea603b1b478126be1724acd1856b388",
+    "specs/001-rag/spec.md": "d541fbe4f84d3b1b28500d8a68a83ee49b647d16e2764b70eeff30ecf41a93a9",
+    "specs/001-rag/tasks.md": "50f9e989e1fd079c12072ff620f24600672ebd5503160657814ccd14bf8786fd",
+    "specs/002-platform/AGENTS.md": "4c81f0727f3d23e0af12a3907a87f6c4fe70005aab6f96fbfd6c00a545469bab",
+    "specs/002-platform/checklists/requirements.md": "5810808665606ac6249f746fa501725c90ad79e147e8024d26a82133ddf3b429",
+    "specs/002-platform/contracts/README.md": "568497238cbc97ea811e6f05fbcb850f56bffd018a09278afbeb0eecb6d432a4",
+    "specs/002-platform/data-model.md": "44dcb2a62079786f23e95fae109f12bb55c81b89848f675e114f638e6e7e6ad0",
+    "specs/002-platform/plan.md": "c033219c7bfd3e907763a76d2b0bd16f91b0f011b4348573eaa7b975acf2fe92",
+    "specs/002-platform/quickstart.md": "4861ee863ee0e6be8c8da0596f776c4fa0b557e8294008b284cdfd60ddb29420",
+    "specs/002-platform/research.md": "f37eb7e85a95ab929a2999d3dd232511de0ea544353f80bd903655d32c8f588f",
+    "specs/002-platform/spec.md": "e35053b69786004b301242daa3c6974471cce93f95a70a775d5f5ea66bf08954",
+    "specs/002-platform/tasks.md": "faf9d3ac9459b3679497b97b73e18db12d025b794c2fbd406ad046ce1a61cb19",
+    "specs/003-classification/AGENTS.md": "74154a8a364ff506dcc8aba97e193d18b86d6a5285c81ef28c42e8216e51f05f",
+    "specs/003-classification/checklists/requirements.md": "871f06899d27a3d363b6a75694045171bdd2a35c19ae0d55b380e6e3f297f5a4",
+    "specs/003-classification/contracts/README.md": "dfa7926ff67b9b04f8e94db305d07b4c08bd6ee55b991d0e8069011cb60c94fb",
+    "specs/003-classification/data-model.md": "6c2ab282ca634e194f68681f468b0ee10c5466e474280c80fcbd851d431b768f",
+    "specs/003-classification/plan.md": "ea9f3d5afa2ff4193d685baa8a325eb02c28f0a254118525a74c1c400892e8fa",
+    "specs/003-classification/quickstart.md": "4531954419299dffc11afbdac71d574db9edb4d0d1e1118be4f9c47e642fb812",
+    "specs/003-classification/research.md": "4463067fc362c976135f3ad50e4218284c7e20590145d714a21db6a5d664af20",
+    "specs/003-classification/spec.md": "5fbef4192134eca44591394ead95fdc399f91a1b21968730df2c6187173514f4",
+    "specs/003-classification/tasks.md": "526b640da6706922c827031aa51628378387778ac3310a728a556854ea8bec04",
+    "specs/004-extraction-evaluation/AGENTS.md": "3263c959a4acb39e05d96d816486ed6fbb96f7d67167d0af5cd66587a0d7a29f",
+    "specs/004-extraction-evaluation/checklists/requirements.md": "b4fb9f6db963c06dffe2592d8688a11bdf16d55d7d8657ab695a7a6bd01ecccc",
+    "specs/004-extraction-evaluation/contracts/README.md": "73cd1a9d3a01a294d8831f2dd593cd62b58c79f638245fab83ce6c233467d36c",
+    "specs/004-extraction-evaluation/data-model.md": "d9a2ad456af9117c7db35635a89255660801a168be9a1ca6c8e8f53567660479",
+    "specs/004-extraction-evaluation/plan.md": "165db1a119dcfff84d66cffa0d1590d6915e00d64e71b5533494b7d25c75e1db",
+    "specs/004-extraction-evaluation/quickstart.md": "0e290939f72d671c34231e5ee02ec4e87a996d0f96d38e7c23614609a4f7c98c",
+    "specs/004-extraction-evaluation/research.md": "3d5b730e6d436fcfa5a147b513e740f9730f3ecadf8681dad08616c2ad6e1b57",
+    "specs/004-extraction-evaluation/spec.md": "4a78745aca31ce0cb1e16684df3d58eac76d91c8ac260eb00e33c48ef35e861f",
+    "specs/004-extraction-evaluation/tasks.md": "b21f690208eca9c7d02a95d7f5f911c1881b32f29a964e20db15f95f674ba931"
+  },
+  "b_editable": [
+    "scripts/project/check_scaffold.py",
+    "scripts/project/tests/test_scaffold.py",
+    "apps/web/tsconfig.json",
+    "apps/web/src/app/page.tsx",
+    "apps/web/src/app/globals.css"
+  ],
+  "b_additions": [
+    "scripts/project/scaffold_inputs.json",
+    "scripts/project/scaffold_state.py",
+    "scripts/project/scaffold_process.py",
+    "scripts/project/run_scaffold_checks.py",
+    "scripts/project/scaffold_http.mjs",
+    "scripts/project/scaffold_guard/sitecustomize.py",
+    "docs/platform/f004-candidate-runbook.md",
+    "scripts/project/check_unicode.py",
+    "apps/web/tests/canonical-text.test.ts",
+    "apps/web/tests/helpers/unicode-reference.ts",
+    "apps/web/tests/fixtures/unicode-vectors.json",
+    "apps/web/tests/tsconfig.unicode.json",
+    "scripts/project/check_health.py",
+    "scripts/project/tests/test_health.py",
+    ".github/CODEOWNERS",
+    ".github/pull_request_template.md",
+    ".github/scope-policy.json",
+    "scripts/project/tests/fixtures/key-free-bootstrap-workflow.json",
+    "scripts/project/check_scope.py",
+    "scripts/project/check_ci.py",
+    "scripts/project/tests/test_scope.py",
+    "scripts/project/tests/test_ci.py",
+    "apps/web/src/lib/contracts/consumer.ts",
+    "apps/web/tests/contracts.test.ts",
+    "apps/web/tests/tsconfig.contracts.json",
+    "apps/web/scripts/check-contracts.mjs",
+    "apps/web/src/lib/config/session-policy.ts",
+    "apps/web/src/lib/sessions/memory.ts",
+    "apps/web/tests/sessions.test.ts",
+    "apps/web/tests/tsconfig.sessions.json",
+    "apps/web/scripts/check-sessions.mjs",
+    "apps/web/src/lib/report/evidence.ts",
+    "apps/web/src/lib/report/model.ts",
+    "apps/web/src/components/report-workspace.tsx",
+    "apps/web/tests/report-view.test.tsx",
+    "apps/web/tests/tsconfig.report.json",
+    "apps/web/scripts/check-report.mjs",
+    "apps/web/src/lib/documents/canonical.ts",
+    "apps/web/src/lib/documents/builtin.ts",
+    "apps/web/tests/preparation.test.ts",
+    "apps/web/tests/tsconfig.preparation.json",
+    "apps/web/scripts/check-preparation.mjs",
+    "scripts/project/health_probe_app.py",
+    ".github/workflows/f010-key-free.yml",
+    "scripts/project/start_mock.py",
+    "scripts/project/smoke_mock.py",
+    "apps/web/src/app/demo/page.tsx",
+    "apps/web/src/app/demo/health/route.ts",
+    "apps/web/src/lib/scaffold/demo.ts"
+  ],
+  "http_cases": [
+    "rag-retrieve-sufficient",
+    "rag-answer-sufficient",
+    "rag-retrieve-insufficient",
+    "rag-answer-insufficient",
+    "rag-clarification",
+    "rag-retrieve-timeout",
+    "rag-answer-timeout",
+    "rag-retrieve-rate_limit",
+    "rag-answer-rate_limit",
+    "rag-retrieve-provider_unavailable",
+    "rag-answer-provider_unavailable",
+    "rag-retrieve-internal_error",
+    "rag-answer-internal_error",
+    "classifier-supported-offset",
+    "classifier-supported-history",
+    "classifier-uncertain-offset",
+    "classifier-uncertain-history",
+    "classifier-unsupported_skipped-offset",
+    "classifier-unsupported_skipped-history",
+    "classifier-unsupported_performed-offset",
+    "classifier-unsupported_performed-history",
+    "extraction-planned",
+    "extraction-procedure-answer",
+    "extraction-summary",
+    "extraction-partial-answer",
+    "extraction-no-answer",
+    "extraction-invalid-digest",
+    "rag-invalid-id",
+    "classifier-invalid-id",
+    "extraction-invalid-id"
+  ],
+  "b_generated_outputs": {
+    "apps/web/next-env.d.ts": "1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b"
+  },
+  "generated_output_reason": "Next typegen/build changed only dev-to-production declaration imports; original B input remains pinned",
+  "b_documentation_updates": [
+    {
+      "date": "2026-11-16",
+      "reason": "User-authorized F-004 technical completion and scoped F-012 planning; no owner/frozen/runtime-source change",
+      "reviewed_source_commit": "8282a739727f3c696be8b63d5c1c13ea13ae81fc",
+      "base_document_hashes": {
+        "specs/000-foundation/tasks.md": {
+          "before": "9c47f7a32ca08e70aa6a14096bf549933a24efef89ca24ecf60a530b06dddcd4",
+          "after": "9385074763f5863ac02011aa7283ea7a3c739dde008d36b8f7015233c584cd6f"
+        },
+        "specs/000-foundation/plan.md": {
+          "before": "f7cacef81def3a645e870c46bdf405d26550c3fa3f3ce12046022363349c26b9",
+          "after": "08464b8a3ac3c5ec73cbd2511be77fc778a8f7df564d9fbb2bc32de006c3edbd"
+        }
+      },
+      "new_document_paths": [
+        "docs/team/f-004-technical-completion.md",
+        "docs/platform/f-012-unicode-verification-plan.md"
+      ]
+    }
+  ],
+  "b_verification_updates": [
+    {
+      "date": "2026-11-16",
+      "task": "F-012",
+      "implementation_base_commit": "f4173b87d304eb36b9d016c5685484ad9539c1e6",
+      "reason": "User-approved B-owned Unicode fixture verification; frozen contracts, owner sources and dependency locks unchanged",
+      "added_source_sha256": {
+        "scripts/project/check_unicode.py": "f26ebef094d142388ba47e19553e1af289b5cb5d61a2e4215a3d65a31908de1c",
+        "apps/web/tests/canonical-text.test.ts": "25527d44955f82a48769a54df5c1e012ddbd596cf204eb5f5000abc2401a53bd",
+        "apps/web/tests/helpers/unicode-reference.ts": "e46e06e439d222328b2909727574dfb715b5335078976019f3c3e24bb333e1a3",
+        "apps/web/tests/fixtures/unicode-vectors.json": "42d83a9ec0064f5a501d4a1814b2754ae41347c6aa4bd0f5fbe060e65a66d8f5",
+        "apps/web/tests/tsconfig.unicode.json": "dcee0cce441721d624925fcd1cf1f8a8427059ca4375a34d3646c23b34d0050a"
+      },
+      "task_document_hash": {
+        "before": "9385074763f5863ac02011aa7283ea7a3c739dde008d36b8f7015233c584cd6f",
+        "after": "efcd186f01adb193071bed84220831d0969e3d9deb72f0926fb227c0fde0febc"
+      }
+    },
+    {
+      "date": "2026-11-16",
+      "task": "F-011 B-owned checker",
+      "implementation_base_commit": "8a20f2c9b2128605d1863c9a722978657976cd91",
+      "reason": "User-approved mock health checker; owner services unchanged; full F-011 remains incomplete pending owner capabilities",
+      "added_source_sha256": {
+        "scripts/project/check_health.py": "fbb202671c92d03b62334c0e538fd9f192d09897035250a349eb379350a8476f",
+        "scripts/project/tests/test_health.py": "ec669e80da3df29ea4a2e695ce0cdbc28e2e532573ebc23db5af9cd168578652"
+      },
+      "task_document_hash": {
+        "before": "efcd186f01adb193071bed84220831d0969e3d9deb72f0926fb227c0fde0febc",
+        "after": "ac376bbb37bb5dddf2b90acb0409490eba44a4b85a3945ab4640cdf0099f7e54"
+      },
+      "shared_gate_status": "incomplete; T007/F-014 remain pending"
+    },
+    {
+      "date": "2026-11-16",
+      "task": "F-010 B-owned ownership and CI tooling",
+      "implementation_base_commit": "60b2b27986649e230f90723693c4e05b88e8891a",
+      "reason": "User-approved local checkers and unactivated key-free workflow; owner/frozen files unchanged",
+      "added_source_sha256": {
+        ".github/CODEOWNERS": "0ee585d9b126f189deba6d382a4cfa57a60725d1e87ca9c84443fb659dfa9e2f",
+        ".github/pull_request_template.md": "5e522afd8c5c7860daa56c09b7817b1985b4d1201f529c4f80318eb8edf6b439",
+        ".github/scope-policy.json": "2497c3b2fee5bcdee44f3e1f5cf5453d2010039002dd02b63b24ae1b443a5d78",
+        ".github/workflows/key-free-ci.yml": "c5b74705109173c30f9a250d16d5dab1fa015460ac44d9499e0db7a244854860",
+        "scripts/project/check_scope.py": "96272373f9852bb24d4f9b291db4ff99cd7ea520321fbe1c7f36ac630281b9d0",
+        "scripts/project/check_ci.py": "864a3c491c5ff29c270d68891f823a3230464e42984f302477575a2b475046b8",
+        "scripts/project/tests/test_scope.py": "0077b8b9dc6d5c2b3ebc4113082a54a081a46d2c401ac074be5529697ef3ef4e",
+        "scripts/project/tests/test_ci.py": "c3250e4c022b44376de6c09d3c1a3f53d73f69fcec4ff829c88e2ed85bfd06fd"
+      },
+      "base_document_hashes": {
+        "scripts/project/pyproject.toml": {
+          "before": "71ed3e41964ff9f1ad7e163be32a29b42fe11d52d70b8399203da57ccbd3a57b",
+          "after": "6cfa88fe3193a46975884871fe311570ca51e4928eaaa9fbcef2f42f10691140"
+        },
+        "scripts/project/uv.lock": {
+          "before": "18fdd2b1da535d470ab722323b6ecfd1e22e81abb12f9f296a82082f2c69051f",
+          "after": "0ba40994c52aca378f85b9776af0169f5ef9dbc81b0df83105f87dca57c20983"
+        },
+        "specs/000-foundation/tasks.md": {
+          "before": "ac376bbb37bb5dddf2b90acb0409490eba44a4b85a3945ab4640cdf0099f7e54",
+          "after": "04e6e91c505b4dbdffae16075eca88219e106d79f65f3a1709ca08f7f16f9ab8"
+        }
+      },
+      "shared_gate_status": "F-010 routing/hosted evidence pending; F-011/F-014 pending"
+    },
+    {
+      "date": "2026-11-17",
+      "task": "B-010 web contract-consumer suite",
+      "implementation_base_commit": "e84856d9aa2d8fea82b40305a63af2db2438e5ec",
+      "reason": "User-approved B-owned pure mock consumer and standalone tests; existing commands, snapshots, frozen and owner files preserved",
+      "added_source_sha256": {
+        "apps/web/src/lib/contracts/consumer.ts": "aada38b4f28b9f90e17da04fcec73c64ead36cb8be3b3eb11a1da27f6339e24c",
+        "apps/web/tests/contracts.test.ts": "fe7ae328d24adc0fdc5027225aa3d1d17402ac498a3919df29ea56d51dbc1a87",
+        "apps/web/tests/tsconfig.contracts.json": "26ccf24c744b8cae7e330c2a5487fb899553fba465435044cfbae19c6476c8a6",
+        "apps/web/scripts/check-contracts.mjs": "5ab8be6279ca3b281ac8de7b86eec7526b1eb4af67cb6be0b0149d919593bd69"
+      },
+      "task_document_hash": {
+        "before": "e1d70430ae4c4b704f06a263e24ef36f7ad1f1e1e529e23150fbe4ed35631131",
+        "after": "b11be3fc1b31bb4324218d68c51ab0a8cb2df44a7d9d36bf9dbd8433f28125ac"
+      },
+      "shared_gate_status": "F-010/F-011/F-014 pending; standalone suite is not hosted CI evidence",
+      "base_document_hashes": {
+        "docs/platform/interface-review.md": {
+          "before": "fc2367011b0f5869e26dbbbfb136f682618b3373fe8831c001f1df7d47d55a81",
+          "after": "7d723444cb203b7d36862c63273ce38c6b346bb86ba80147e0d34911c433b0bb",
+          "preservation": "Historical P1 review preserved byte-for-byte as prefix; current B-010 evidence appended"
+        }
+      }
+    },
+    {
+      "date": "2026-11-17",
+      "task": "B-004 bounded early memory/config core",
+      "implementation_base_commit": "e12791c45f584b5cf35a9ba74f98520abc1cba14",
+      "reason": "Explicit user-approved F-014 execution-order exception; full dependency and gates retained",
+      "added_source_sha256": {
+        "apps/web/src/lib/config/session-policy.ts": "c4d0171a5dd1ac7cdc42c092c537a77fbd6aed0c1f65f09d1223fc3ec643785c",
+        "apps/web/src/lib/sessions/memory.ts": "ab8047867bd9f985c9850e7ae4d0575d10dc2995bc3f672a413dfde181596e15",
+        "apps/web/tests/sessions.test.ts": "49e39b0bcb067e9aea5ebe16fc6ba760f0a35e922ea11dabd03b6ba546fc51fb",
+        "apps/web/tests/tsconfig.sessions.json": "47d05d6dc845be4ad81bdca84b6c4ccf5cac3bb6e643c5f7bccce049bdc5be0e",
+        "apps/web/scripts/check-sessions.mjs": "2eb12e8fb8b9cea86a111c578a0c5b7ddd1032480d21edae0146ae07a0770ba3"
+      },
+      "base_document_hashes": {
+        "apps/web/tsconfig.json": {
+          "before": "3b44ae3f09f310fdb59930b9539db0d054146d10a3ff86719cbff31d8b4fef9f",
+          "after": "0172d791af1ead8bfd8b8f109386b74aa822596c2845b8379f97055279c0d98b"
+        },
+        "specs/002-platform/tasks.md": {
+          "before": "b11be3fc1b31bb4324218d68c51ab0a8cb2df44a7d9d36bf9dbd8433f28125ac",
+          "after": "de848a0b5a64170611ba74b1abefa9e50e90a73e18ad6e02f1d3b0e474e229b3"
+        }
+      },
+      "shared_gate_status": "B-004/F-010/F-011/F-014 pending",
+      "approved_b_editable_addition": {
+        "path": "apps/web/tsconfig.json",
+        "reason": "User-approved noEmit TypeScript import compatibility; original B input snapshot/hash retained unchanged; current hash recorded above and in session checker evidence"
+      },
+      "retention_review_follow_up": {
+        "resolved": [
+          "R1 idle cleanup regression coverage",
+          "R2 expiry during validation coverage"
+        ],
+        "cases": 28,
+        "session_implementation_sha256_unchanged": "ab8047867bd9f985c9850e7ae4d0575d10dc2995bc3f672a413dfde181596e15",
+        "prior_test_sha256": "171e5077033c0c00244f0d5553f62e3542d4732ca96a557c383427c86ad50c49",
+        "reason": "User-approved test corrections within the existing nine-file scope; all four gates remain pending"
+      }
+    },
+    {
+      "date": "2026-11-17",
+      "task": "B-002 bounded early fixture workspace",
+      "implementation_base_commit": "e6d070c5c0771dadd135ae6135fd472070d6af22",
+      "reason": "Explicit user-approved execution ahead of full B-004/F-014; fixture-only presentation with all dependencies/gates retained",
+      "added_source_sha256": {
+        "apps/web/src/lib/report/evidence.ts": "ad1d2d09d66e02cf8ad2df75f316ef30f6fe2e9c65adb8161c464c701f8fe5da",
+        "apps/web/src/lib/report/model.ts": "68b08e45f5b63363691eb7a0e108dad84af410ed9ee1485ad1eff8d095729d35",
+        "apps/web/src/components/report-workspace.tsx": "75988bbcd63a1229455c6e3959e2113b7b69c5cf54fcbfad740170435495ab85",
+        "apps/web/tests/report-view.test.tsx": "26c7a8977f9d5a913472bb08b1872f6e43809c98052ccf6b61cd24ad1d8e340a",
+        "apps/web/tests/tsconfig.report.json": "5c8ab5b4708a7ef568fa6a8c102fe22a8be5ca7e015569d1b8ed13b2ca2dd8fc",
+        "apps/web/scripts/check-report.mjs": "ed3821434f7d61dd084f32028be0e1e9d7e490dc5a310cb4178180dba41a1f5b"
+      },
+      "base_document_hashes": {
+        "apps/web/src/app/page.tsx": {
+          "before": "028ceadf2342b624c17b856726ef8c76b4f6ff5f1edeed075453b02777be635a",
+          "after": "bb77a1184a061563b33b3d3db4c1b5f8ca1d37e81fb209e2bf20e4b417ace552"
+        },
+        "apps/web/src/app/globals.css": {
+          "before": "67572998c0040359a4eed0f7e939f8e1c41ff050bc711e3e539b759cc89f53c1",
+          "after": "be3e4f285ab178161cd76c6cf54a5435fb571b000f4985326340ad764394d0ad"
+        },
+        "specs/002-platform/tasks.md": {
+          "before": "de848a0b5a64170611ba74b1abefa9e50e90a73e18ad6e02f1d3b0e474e229b3",
+          "after": "334c4cb6e1bf7159501eaa19de6986af4a5530cfc3ed4350f6029f2396b3bc0d"
+        }
+      },
+      "approved_b_editable_additions": {
+        "paths": [
+          "apps/web/src/app/page.tsx",
+          "apps/web/src/app/globals.css"
+        ],
+        "reason": "User-approved replacement of mock shell by fixture-only report page/styles; original B snapshots and aggregate hash retained"
+      },
+      "report_cases": 37,
+      "shared_gate_status": "B-002/B-004/F-010/F-011/F-014 pending"
+    },
+    {
+      "date": "2026-11-17",
+      "task": "B-001 bounded early built-in preparation",
+      "implementation_base_commit": "c4a20ce37ba1164f34624e0867b6361419cf4deb",
+      "reason": "Explicit user-approved execution before full B-004/F-014; allowlisted synthetic examples and memory-session handoff only",
+      "added_source_sha256": {
+        "apps/web/src/lib/documents/canonical.ts": "a41b9b0531691a88a8d9c1fc534b3535593a38c073dd51bbd0dd62592c25612e",
+        "apps/web/src/lib/documents/builtin.ts": "8e4c40f3a361b2f317a8abe2636d6e39bc71ea4857e636a7d3bf6a8db541735e",
+        "apps/web/tests/preparation.test.ts": "5872099b7354a3adf6ee88e0c53a37fc124dfcf74224dbb2bc1464c58af0d06f",
+        "apps/web/tests/tsconfig.preparation.json": "5f6e8667eeae99a5e84f7cd2feddb0f5a67edbe8bd95c998242ca72d5d3154a2",
+        "apps/web/scripts/check-preparation.mjs": "73b35024207aa2490806b8db6c97d26cdd3159821333f7f4a591e5f86ddfd564"
+      },
+      "task_document_hash": {
+        "before": "334c4cb6e1bf7159501eaa19de6986af4a5530cfc3ed4350f6029f2396b3bc0d",
+        "after": "faf9d3ac9459b3679497b97b73e18db12d025b794c2fbd406ad046ce1a61cb19"
+      },
+      "preparation_cases": 47,
+      "detected_mutations": [
+        "late-ticket",
+        "missing-final-availability"
+      ],
+      "shared_gate_status": "B-001/B-002/B-004/F-010/F-011/F-014 pending"
+    },
+    {
+      "date": "2026-11-18",
+      "task": "F-011 D factory and six failure probes",
+      "implementation_base_commit": "05c70c2508e84cdb64890e271376bca95aa7f785",
+      "reason": "User-approved bounded five-file isolated candidate; D confirmed the existing provider factory seam.",
+      "added_source_paths": [
+        "scripts/project/health_probe_app.py"
+      ],
+      "shared_gate_status": "F-011/F-014 pending",
+      "owner_source_changes": false
+    },
+    {
+      "date": "2026-11-19",
+      "task": "F-011 coordinated mock health and failure verification",
+      "implementation_base_commit": "82ce4d566819abda8be23315d6502e4691824278",
+      "owner_commits": {
+        "A": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+        "C": "4080f9b3c41a0dba70238929e765d9ce535910eb",
+        "D": "a8f1599350944faf7e7dd566ec5febad59f6fe3c"
+      },
+      "existing_main_handoff_commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
+      "task_document_hash": {
+        "before": "04e6e91c505b4dbdffae16075eca88219e106d79f65f3a1709ca08f7f16f9ab8",
+        "after": "17ae17c3ae1b2b21beb5a385f032914816b7abc03e25557f99fe38be2ab70014"
+      },
+      "http_cases_passed": 213,
+      "service_processes_cleaned_up": 19,
+      "shared_gate_status": "F-011 complete"
+    }
+  ]
+}

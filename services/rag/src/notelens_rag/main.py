@@ -36,6 +36,7 @@ class Settings:
     corpus_manifest: str | None = None
     repository_root: str | None = None
     expected_corpus_version: str | None = None
+    mock_ready: bool = True
 
     def __post_init__(self):
         if self.mode not in {"mock", "live"} or self.scenario not in SCENARIOS:
@@ -45,12 +46,16 @@ class Settings:
 
     @classmethod
     def from_environment(cls):
+        mock_ready = os.environ.get("NOTELENS_RAG_MOCK_READY", "true")
+        if mock_ready not in ("true", "false"):
+            raise ValueError("NOTELENS_RAG_MOCK_READY must be true or false.")
         return cls(mode=os.environ.get("NOTELENS_RAG_MODE", "mock"),
                    service_token=os.environ.get("NOTELENS_RAG_SERVICE_TOKEN"),
                    scenario=os.environ.get("NOTELENS_RAG_MOCK_SCENARIO", "sufficient"),
                    corpus_manifest=os.environ.get("NOTELENS_RAG_CORPUS_MANIFEST"),
                    repository_root=os.environ.get("NOTELENS_RAG_REPOSITORY_ROOT"),
-                   expected_corpus_version=os.environ.get("NOTELENS_RAG_EXPECTED_CORPUS_VERSION"))
+                   expected_corpus_version=os.environ.get("NOTELENS_RAG_EXPECTED_CORPUS_VERSION"),
+                   mock_ready=mock_ready == "true")
 
 
 def create_app(settings=None, *, backend=None, indexed_backend=None):
@@ -142,6 +147,11 @@ def create_app(settings=None, *, backend=None, indexed_backend=None):
         if not authenticated(request):
             return error(401, "unauthorized", str(uuid4()), "Service authentication is required.")
         reason = startup_error()
+        if reason is None:
+            if configuration.mode == "mock" and not configuration.mock_ready:
+                reason = "Mock readiness is disabled by server configuration."
+            elif backend is None and configuration.mode == "live":
+                reason = "Live retrieval and generation are not configured."
         ready = False
         if reason is None:
             ready = configuration.mode == "mock" if backend is None else await run_in_threadpool(backend.is_ready)

@@ -13,6 +13,8 @@ from fastapi.testclient import TestClient
 import httpx2 as httpx
 import pytest
 
+pytest.importorskip('chromadb', reason='Indexed startup requires the optional indexing extra.')
+
 from notelens_rag.answers import OfflineLiteratureGenerator
 from notelens_rag.assessor import AssessmentParameters
 from notelens_rag.embeddings import EmbeddingBatch, plan_corpus

@@ -1,0 +1,12 @@
+{
+  "name": "notelens",
+  "private": true,
+  "workspaces": ["apps/web", "contracts/generated/typescript"],
+  "engines": { "node": ">=24 <25", "npm": ">=11 <12" },
+  "scripts": {
+    "dev": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspace apps/web",
+    "start": "npm run start --workspace apps/web",
+    "typecheck": "npm run typecheck --workspace apps/web"
+  }
+}

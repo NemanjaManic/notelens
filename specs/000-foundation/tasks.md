@@ -18,8 +18,11 @@ start now; business prerequisites and unchecked implementation tasks remain unch
 
 No task is marked [P]: dependencies or shared files make an unconditional parallel claim
 unwarranted. Different workstreams can progress independently after the shared base.
-Foundation F-001/F-002/F-008 and F-003/F-009 are checked, reflecting recorded
-documentation/tooling, the user-confirmed contract freeze and generated-binding checks.
+Foundation F-001/F-002/F-008, F-003/F-009 and F-004 are checked, reflecting recorded
+documentation/tooling, the user-confirmed contract freeze, generated-binding checks
+and the technically verified web/three-service scaffold at `8282a73`.
+F-004's technical completion and review limits are recorded in
+[the completion record](../../docs/team/f-004-technical-completion.md).
 The runnable mock foundation and its publication remain incomplete. Writing plans/mocks does not close a business task.
 
 ## Path Conventions and Command Availability
@@ -98,20 +101,23 @@ they are not silently assigned defaults.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T006 [US1] F-004: Scaffold the web workspace and three independent Python mock services in `apps/web/**`, `services/rag/**`, `services/classifier/**`, `services/extraction/**`, `package.json`, `package-lock.json`, `.env.example`, `scripts/project/check_scaffold.py`, `.gitignore`, `.gitattributes`
+- [x] T006 [US1] F-004: Scaffold the web workspace and three independent Python mock services in `apps/web/**`, `services/rag/**`, `services/classifier/**`, `services/extraction/**`, `package.json`, `package-lock.json`, `.env.example`, `scripts/project/check_scaffold.py`, `.gitignore`, `.gitattributes`
   - **Owner / story**: B / US1.
   - **Dependencies**: 000-foundation/T004 (F-003); 000-foundation/T005 (F-009)
   - **Acceptance**: Create independent service pyproject/uv.lock and src/notelens_<service>/main.py, pytest dependencies, npm web workspace, lazy mock adapters and key-free configuration; verify actual installs/build compatibility. Ignore secrets/raw data/indexes/local state; define stable UTF-8/LF text handling without repository-wide reformatting.
   - **Verify**: `uv run --directory scripts/project python check_scaffold.py`.
   - **Coverage**: FR-010, FR-011, FR-017, SC-001.
+  - **Technical completion recorded (2026-11-16)**: [Evidence and review status](../../docs/team/f-004-technical-completion.md) binds the delivered scope to published commit `8282a739727f3c696be8b63d5c1c13ea13ae81fc`. B's executed checks passed: 80 tooling tests; A/C/D 319/51/59 service tests; 30 real Node-to-Python HTTP cases; all 12 processes stopped; web build/typecheck/render and frozen package checks. The user supplied A's independent exact-commit pass and C's shared-package pass report; D's corrected source is included, while D's exact shared-commit review remains unconfirmed. This checkbox records the scoped technical scaffold deliverable, not F-013 human/team acceptance, F-014 completion, business-module completion or live-provider quality.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T007 [US1] F-011: Add service health/readiness and safe mock failure records in `services/rag/**`, `services/classifier/**`, `services/extraction/**`, `scripts/project/check_health.py`
+- [x] T007 [US1] F-011: Add service health/readiness and safe mock failure records in `services/rag/**`, `services/classifier/**`, `services/extraction/**`, `scripts/project/check_health.py`
   - **Owner / story**: B / US1.
   - **Dependencies**: 000-foundation/T006 (F-004)
   - **Acceptance**: All three stubs expose health with explicit mode=mock and valid errors for timeout/rate/outage/validation; no model downloads or paid calls.
   - **Verify**: `uv run --directory scripts/project python check_health.py --mode mock`.
   - **Coverage**: FR-010, FR-011.
+  - **Scoped B progress (2026-11-16)**: [Implementation and limits](../../docs/platform/f-011-health-verification-plan.md): the B-owned checker and 31 self-tests are implemented. The 210-case inventory contains 198 actual HTTP probes (148 passed; 50 C missing-health-route outcomes) and 12 owner-blocked/unexercised cases. All 10 service processes stopped and ports closed. The default checker correctly returns 1/incomplete; T007 remains unchecked. No A/C/D source, frozen contract, dependency or owner test count was changed. Owner health/failure seams and the agreed full runtime matrix must be completed before shared F-011 closure.
+  - **Closure evidence (2026-11-19)**: The coordinated key-free run passed 213/213 HTTP checks with zero failures or blockers. All 19 service processes exited and their ports closed. The [F-011 closure record](../../docs/platform/f-011-health-verification-plan.md#f-011-closure-2026-11-19) lists the three verified owner commits. Live-provider checks were outside this mock task.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 ## Phase 4: User Story 2
@@ -120,20 +126,22 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T008 [US2] F-012: Verify cross-language canonicalization and evidence examples in `contracts/v1/**`, `contracts/generated/**`, `apps/web/tests/canonical-text.test.ts`, `scripts/project/check_unicode.py`
+- [x] T008 [US2] F-012: Verify cross-language canonicalization and evidence examples in `contracts/v1/**`, `contracts/generated/**`, `apps/web/tests/canonical-text.test.ts`, `scripts/project/check_unicode.py`
   - **Owner / story**: B / US2.
   - **Dependencies**: 000-foundation/T006 (F-004); 000-foundation/T003 (F-008)
   - **Acceptance**: Executable Python/TypeScript examples cover exact UTF-8 hash, [start,end) code points, emoji and second repeated passage; invalid UTF-16 offsets fail.
   - **Verify**: `uv run --directory scripts/project python check_unicode.py`.
   - **Coverage**: FR-005, FR-006, FR-007, SC-003.
+  - **Technical completion (2026-11-16)**: [B-owned F-012 execution record](../../docs/platform/f-012-unicode-verification-plan.md) records the separately user-authorized implementation: 54/54 independently calculated Python/TypeScript cases agree; the Node suite and test-only TypeScript check pass; invocation from a separate working directory passes. Three wrong-expectation probes and a real cross-runtime disagreement fail as required. The coordinator checks current generated-source Python origin, local TypeScript workspace resolution and unchanged frozen inputs; reports remain in ignored `.cache/review/f012-unicode/`. No contract/owner/dependency edit, production preparation/highlighting, service/provider call or F-014 completion is implied.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T009 [US2] F-005: Create local startup and the English mock input-to-answer smoke path in `scripts/project/start_mock.py`, `scripts/project/smoke_mock.py`, `apps/web/**`
+- [x] T009 [US2] F-005: Create local startup and the English mock input-to-answer smoke path in `scripts/project/start_mock.py`, `scripts/project/smoke_mock.py`, `apps/web/**`
   - **Owner / story**: B / US2.
   - **Dependencies**: 000-foundation/T006 (F-004); 000-foundation/T007 (F-011); 000-foundation/T008 (F-012)
   - **Acceptance**: Actual documented startup launches only owned processes with clean shutdown; UI labels mock outputs and preserves document/literature/mixed/none provenance and insufficient states.
   - **Verify**: `uv run --directory scripts/project python smoke_mock.py`.
   - **Coverage**: FR-009, FR-010, FR-011, FR-017, SC-004.
+  - **Local completion evidence (2026-11-20)**: The [mock startup runbook](../../docs/platform/f-005-mock-startup.md) documents the Windows launcher and locked smoke command. The smoke followed rendered HTML through the built-in report, four answer routes, document highlights, literature attribution, and a partial mixed answer. Both stacks shut down and closed all eight loopback ports. This records mock foundation behavior. F-014 still requires the shared review and publication steps.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 ## Phase 5: User Story 3
@@ -148,6 +156,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Acceptance**: CODEOWNERS has no fictional handles and explains branch protection; scope checks honor member exceptions. Secret/dependency/contract/smoke checks exist; live CI disabled.
   - **Verify**: `uv run --directory scripts/project python check_scope.py --self-test`.
   - **Coverage**: FR-012, FR-020, SC-006.
+  - **Scoped B progress (2026-11-16)**: [Ownership/CI implementation and limits](../../docs/team/f-010-review-routing.md) provides the declared-scope checker, finite secret/dependency checks, PR template, routing preparation and pinned Windows workflow. T010 remains unchecked pending actual verified handles/access, accepted routing and authorized hosted CI/settings evidence. F-011 and F-014 remain pending; no owner service or frozen contract is changed.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T011 [US3] F-006: Complete and verify five backlogs plus four handoffs/start prompts in `specs/**`, `docs/team/**`, `scripts/project/check_handoffs.py`

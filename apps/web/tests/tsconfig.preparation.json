@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.contracts.json",
+  "compilerOptions": { "resolveJsonModule": true },
+  "include": ["preparation.test.ts", "../src/lib/documents/*.ts"]
+}

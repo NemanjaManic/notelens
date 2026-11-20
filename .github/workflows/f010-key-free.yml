@@ -1,0 +1,95 @@
+{
+  "name": "NoteLens key-free CI",
+  "on": {
+    "pull_request": {
+      "branches": [
+        "main"
+      ],
+      "types": [
+        "opened",
+        "reopened",
+        "synchronize",
+        "ready_for_review",
+        "edited"
+      ]
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "concurrency": {
+    "group": "notelens-key-free-${{ github.event.pull_request.number }}",
+    "cancel-in-progress": true
+  },
+  "jobs": {
+    "key-free": {
+      "name": "NoteLens key-free checks",
+      "runs-on": "windows-2022",
+      "timeout-minutes": 45,
+      "steps": [
+        {
+          "name": "Checkout trusted base",
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "path": "trusted",
+            "ref": "${{ github.event.pull_request.base.sha }}",
+            "fetch-depth": 0,
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Checkout candidate",
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "path": "candidate",
+            "ref": "${{ github.event.pull_request.head.sha }}",
+            "fetch-depth": 0,
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Setup Python",
+          "uses": "actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "with": {
+            "python-version": "3.13.7"
+          }
+        },
+        {
+          "name": "Check trusted scope and commit history",
+          "shell": "pwsh",
+          "run": "$ErrorActionPreference = 'Stop'\n& python -B trusted/scripts/project/check_scope.py --repo candidate --event $env:GITHUB_EVENT_PATH\nif ($LASTEXITCODE -ne 0) { throw 'Scope review failed.' }\n& python -B trusted/scripts/project/check_ci.py --repo candidate --secrets --event $env:GITHUB_EVENT_PATH\nif ($LASTEXITCODE -ne 0) { throw 'Secret scan failed.' }"
+        },
+        {
+          "name": "Setup Node",
+          "uses": "actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e",
+          "with": {
+            "node-version": "24",
+            "package-manager-cache": false
+          }
+        },
+        {
+          "name": "Install locked workspaces",
+          "shell": "pwsh",
+          "working-directory": "candidate",
+          "env": {
+            "UV_PYTHON_DOWNLOADS": "never",
+            "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+            "NEXT_TELEMETRY_DISABLED": "1"
+          },
+          "run": "$ErrorActionPreference = 'Stop'\n$PSNativeCommandUseErrorActionPreference = $true\npython -m pip install uv==0.13.9\nforeach ($project in @('scripts/project', 'services/rag', 'services/classifier', 'services/extraction')) {\n  uv sync --locked --directory $project --python 3.13.7\n}\nnpm.cmd ci --no-audit --no-fund"
+        },
+        {
+          "name": "Check contracts, dependency advisories and mock flow",
+          "shell": "pwsh",
+          "working-directory": "candidate",
+          "env": {
+            "NEXT_TELEMETRY_DISABLED": "1",
+            "NOTELENS_MODE": "mock",
+            "UV_PYTHON_DOWNLOADS": "never"
+          },
+          "run": "$ErrorActionPreference = 'Stop'\n$PSNativeCommandUseErrorActionPreference = $true\n$tools = './scripts/project/.venv/Scripts/python.exe'\n& $tools -B scripts/project/check_contracts.py --require-freeze\n& $tools -B scripts/project/generate_contracts.py --check\n& $tools -B scripts/project/check_ci.py --pr-dependencies\nnpm.cmd run build\n& $tools -B scripts/project/smoke_mock.py"
+        }
+      ]
+    }
+  }
+}

@@ -82,7 +82,12 @@ def test_default_mock_needs_no_key_corpus_index_or_provider(monkeypatch):
     def forbidden(*args,**kwargs): raise AssertionError('Mock must not use a corpus, index or provider.')
     monkeypatch.setattr('notelens_rag.main.load_corpus',forbidden)
     monkeypatch.setattr('openai.OpenAI',forbidden)
-    monkeypatch.setattr('chromadb.PersistentClient',forbidden)
+    original_import = __import__
+    def mock_import(name, *args, **kwargs):
+        if name == 'chromadb' or name.startswith('chromadb.'):
+            raise AssertionError('The default mock must run without Chroma.')
+        return original_import(name, *args, **kwargs)
+    monkeypatch.setattr('builtins.__import__', mock_import)
     with TestClient(create_app(Settings()),client=('127.0.0.1',45000)) as client:
         assert client.get('/health/ready').status_code==200
         for path,definition in [('/v1/retrieve','RetrievalResult'),('/v1/literature-answer','AnswerResult')]:

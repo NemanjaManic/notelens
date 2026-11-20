@@ -87,6 +87,19 @@ root/shared package files are not changed by this service installation. Its loca
 notelens-contracts dependency comes from ../../contracts/generated/python, imported
 through B's published dependency commit. Python 3.14 service execution is unverified.
 
+The default locked install runs the key-free checkpoint mock and core RAG tests.
+Use the optional `indexing` extra to open Chroma and run the persistent-index
+and indexed-startup checks.
+
+```powershell
+uv --system-certs sync --locked --directory services/rag --python 3.13 --dev --extra indexing
+uv run --locked --offline --directory services/rag --extra indexing python -m pytest
+```
+
+The indexing extra retains the checkpoint's Chroma version and its open advisory
+finding. See the [integration handoff](../../docs/rag/development-handoff.md#configured-index-startup)
+for the pinned assets and explicit backend setup.
+
 ## Run locally
 
 For the separate candidate-ranking CLI over registered public development questions,
@@ -98,7 +111,7 @@ five sources. All ten can now be repeated locally without API calls using their
 cached query vectors. For example, from this checkout with its existing local index:
 
 ```powershell
-uv run --locked --offline --directory services/rag python -m notelens_rag.query_smoke --question-id CQ-01
+uv run --locked --offline --directory services/rag --extra indexing python -m notelens_rag.query_smoke --question-id CQ-01
 ```
 
 This prints exact public passage text and sources. It does not generate an answer
@@ -135,7 +148,12 @@ but do not run a classifier or affect a real search.
 ## Implemented behavior
 
 - GET /health/live returns a truthful process/mode record.
-- GET /health/ready reports ready for mock; unconfigured live mode returns 503 HealthResult.
+- GET /health/ready reports ready by default in mock mode. To exercise F-011's
+  key-free unavailable case, start the service with `NOTELENS_RAG_MODE=mock`
+  and `NOTELENS_RAG_MOCK_READY=false`. Readiness returns HTTP 503 with
+  `status=not_ready`, `mode=mock` and a reason. Liveness still returns HTTP 200
+  with `status=alive`. Omit the flag or set it to `true` for normal mock
+  readiness. Unconfigured live mode reports HTTP 503.
 - POST /v1/retrieve and /v1/literature-answer return explicit synthetic mock examples.
 - Business POSTs require one canonical lowercase UUID X-Request-ID. Valid IDs are echoed
   on successes/errors. Bad or duplicate IDs produce 400 with a fresh diagnostic UUID.
