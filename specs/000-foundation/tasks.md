@@ -191,12 +191,13 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T014 F-014: Publish the reviewed foundation base only after separate commit/push authorization in `docs/team/foundation-checkpoint.md`, `.git (authorized Git operations only)`
+- [x] T014 F-014: Publish the reviewed foundation base only after separate commit/push authorization in `docs/team/foundation-checkpoint.md`, `.git (authorized Git operations only)`
   - **Owner / story**: B / US3.
   - **Dependencies**: 000-foundation/T013 (F-007)
   - **Acceptance**: After explicit authorization, actual commit/push succeeds and the shared base is recorded. Until then remote cloning is not reported ready; no business module is committed as completed.
-  - **Verify**: `git -c 'safe.directory=C:/Nemanja/AI Bootcamp 2026/notelens' log -1 --format=%H`.
+  - **Verify**: `git ls-remote --tags origin refs/tags/f-014-foundation`.
   - **Coverage**: FR-013, FR-018, FR-020, SC-001, SC-006.
+  - **Completion evidence (2026-11-20)**: The user authorized publication after PR #13 review and post-merge checks. The [checkpoint record](../../docs/team/foundation-checkpoint.md) binds the clean-clone verification and published tag to main commit `7eb12e56f33240a428f916ba583b9e00077712df`.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 ## Dependencies & Execution Order
