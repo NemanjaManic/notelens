@@ -22,8 +22,12 @@ type InputError = keyof typeof inputErrors;
 type Rejection = { kind: 'rejected'; code: InputError };
 type Input = 'text' | 'pdf';
 
+export function submissionByteLimit(input: Input): number {
+  return input === 'pdf' ? MAX_PDF_BYTES : MAX_DOCUMENT_CODE_POINTS * 4;
+}
+
 async function readText(request: Request, input: Input): Promise<{ kind: 'text'; text: string } | Rejection> {
-  const bytes = await boundedBody(request, input === 'pdf' ? MAX_PDF_BYTES : MAX_DOCUMENT_CODE_POINTS * 4);
+  const bytes = await boundedBody(request, submissionByteLimit(input));
   if (!bytes) return { kind: 'rejected', code: input === 'pdf' ? 'pdf-too-large' : 'text-too-large' };
   if (input === 'pdf') {
     const result = await pdfText(bytes);
