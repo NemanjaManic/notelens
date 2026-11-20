@@ -133,12 +133,13 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T008 [US4] B-006: Add deterministic integration CI and review/scope checks in `.github/**`, `scripts/project/**`, `docs/platform/ci.md`
+- [X] T008 [US4] B-006: Add deterministic integration CI and review/scope checks in `.github/**`, `scripts/project/**`, `docs/platform/ci.md`
   - **Owner / story**: B / US4.
   - **Dependencies**: 000-foundation/T010 (F-010); 002-platform/T007 (B-008)
   - **Acceptance**: Contracts, secrets/dependencies, declared path ownership and mock smoke checks run without keys; paid/live workflows are disabled unless explicitly triggered.
   - **Implementation**: The existing key-free job runs the B-008 HTTP and log audit and the web regressions after the production build. The workflow guard verifies the new step's order, commands and mock environment.
   - **Verify**: Run the [key-free CI suite](../../docs/platform/ci.md) locally and verify the updated hosted PR check before closing B-006.
+  - **Evidence**: The full local suite and the [hosted key-free job](https://github.com/NemanjaManic/notelens/actions/runs/44786567870) passed on the B-006 implementation at `c14e3cd`, including the new B-008 check.
   - **Coverage**: FR-014, FR-017, FR-018, FR-021, SC-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 

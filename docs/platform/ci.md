@@ -48,5 +48,11 @@ The B-006 branch passed on Windows with Python 3.13.7 and Node 24.22.1. The
 staged-snapshot scope and secret checks, 25 scope tests, 34 CI policy tests,
 frozen contracts, generated bindings, and public dependency audit passed.
 The production build, all three mock smoke scenarios, the B-008 HTTP and
-four-process log audit, and 369 web regressions also passed. Hosted verification
-of the updated job is pending.
+four-process log audit, and 369 web regressions also passed.
+
+## B-006 hosted verification
+
+The [first hosted run of PR #21](https://github.com/NemanjaManic/notelens/actions/runs/44786567870)
+passed on `c14e3cd`. The required Windows job completed the trusted scope and
+secret checks, locked installation, contracts, advisories, production build,
+and mock smoke. The new mock security and platform regression step also passed.
