@@ -1,31 +1,16 @@
 # Member B: Frontend and Integration
 
-**Feature**: specs/002-platform. **Branch**: member-b/platform.
-**Current base**: initial documentation handoff, not the runnable foundation.
-Read the [scope decision](../../decisions/initial-documentation-handoff.md) and
-[working-copy guide](../working-copies.md) before starting.
+**Feature** `specs/002-platform`. Use a B-owned branch for the approved package. Select `specs/000-foundation` when the task belongs to the shared foundation.
 
-## Responsibility and paths
+Shared mock base `c5c186c18b2ad74e825c030ad8c993918ea39599` on `origin/main` includes frozen v1.0.0 contracts, the F-005 mock demo, the F-011 health checks and the F-010 workflow. F-010 verification is recorded in the foundation backlog. F-014 publication is pending.
 
-Owned paths: apps/web/**, contracts/**, infra/**, .github/**, scripts/project/**, docs/platform/**, docs/team/**, docs/decisions/**, specs/000-foundation/**, specs/002-platform/**, root/shared configuration, eval/annotations/member-b/**.
-See the [complete matrix](../allowed-paths.md). Member annotation paths override D's parent
-ownership. Read shared context freely; do not edit another owner or canonical contracts
-independently. Submit shared proposals to B and wait for agreement.
+## Recover your working copy
 
-## Read in order
+Read the [root instructions](../../../AGENTS.md), [constitution](../../../.specify/memory/constitution.md), [scope decisions](../open-decisions.md), [frozen contracts](../../../contracts/v1/README.md), and your [feature backlog](../../../specs/002-platform/tasks.md). Use the [working-copy guide](../working-copies.md) for isolation and reconciliation. Its initial documentation base is historical. Check your branch and drafts, fetch `origin/main`, verify the shared checkpoint, and compare overlapping files before reconciling. Preserve unpublished work.
 
-1. [Root instructions](../../../AGENTS.md) and [constitution draft](../../../.specify/memory/constitution.md).
-2. [Original prompt](../../../prompts/NoteLens_Codex_SpecKit_prompt_00.md) as requirements context,
-   not as authorization to rerun setup or implement all workstreams.
-3. Your [spec](../../../specs/002-platform/spec.md),
-   [plan](../../../specs/002-platform/plan.md) and
-   [tasks](../../../specs/002-platform/tasks.md).
-4. [Draft contracts](../../../contracts/v1/README.md), [open decisions](../open-decisions.md)
-   and [your start prompt](../start-prompts/member-b.md).
+F-005, F-011 and F-012 have shared evidence. PR #8 added key-free CI and CODEOWNERS. Protected main, review routing and the hosted check were verified with PR #9.
 
-## Select the feature in your own clone/worktree
-
-PowerShell:
+From the repository root, select the feature without persisting local state.
 
 ```powershell
 $env:SPECIFY_FEATURE_DIRECTORY = 'specs/002-platform'
@@ -33,75 +18,45 @@ $env:SPECIFY_FEATURE_NO_PERSIST = '1'
 & ./.specify/scripts/powershell/check-prerequisites.ps1 -PathsOnly -Json
 ```
 
-Git Bash on Windows:
+On Git Bash for Windows, export `SPECIFY_FEATURE_DIRECTORY=specs/002-platform` and `SPECIFY_FEATURE_NO_PERSIST=1`, then run `powershell.exe -NoProfile -File .specify/scripts/powershell/check-prerequisites.ps1 -PathsOnly -Json`. Confirm the reported feature directory matches the selected path. Use actual Git branch output separately.
 
-```bash
-export SPECIFY_FEATURE_DIRECTORY=specs/002-platform
-export SPECIFY_FEATURE_NO_PERSIST=1
-powershell.exe -NoProfile -File .specify/scripts/powershell/check-prerequisites.ps1 -PathsOnly -Json
-```
+## Ownership and contracts
 
-Expected: FEATURE_DIR selects specs/002-platform, regardless of branch name.
-No package install, provider key or other complete module is needed for this path check.
+`apps/web/**`, `contracts/**`, `infra/**`, `.github/**`, `scripts/project/**`, `docs/platform/**`, `docs/team/**`, `docs/decisions/**`, `specs/000-foundation/**`, `specs/002-platform/**`, owned root/shared configuration, and `eval/annotations/member-b/**`. Follow the [allowed-path matrix](../allowed-paths.md) and seek review from the appropriate owner for shared changes.
 
-## Inputs and outputs
+Consume prepared documents and validated classifier, extraction, retrieval and answer records. B prepares canonical text once, owns session isolation, and uses thin clients for A, C, and D.
 
-- **Inputs**: Prepared documents and the agreed classifier/extraction/retrieval/answer records.
-- **Outputs**: Canonical PreparedDocument and the complete English document/report/chat experience with preserved claim/source links. Real UI work is a later approved package.
-- **Canonical source**: contracts/v1/schema.json and its referenced OpenAPI proposal.
-  These remain draft; B coordinates freeze and generated bindings.
-- **Failures**: English safe shared errors for invalid/unsupported input, timeout,
-  rate/provider/configuration problems and insufficient evidence. Partial document support
-  must remain usable when literature is weak. Follow code-point evidence and hash rules.
+Produce `PreparedDocument` and the English report and chat experience. Preserve claim origins when combining results. Keep document-supported claims visible when literature is insufficient or unavailable.
 
-## Illustrative payload
+Use `offset` in the frozen document catalog to inspect the canonical digest and repeated passages. [Frozen fixture](../../../contracts/v1/fixtures/documents.json)
 
-**Example type**: PreparedDocument.
-This is a documentation example, not a running mock, real measurement or completed module.
-Mode mock identifies its illustrative nature. No provider/service was called.
+## First five tasks
 
-```json
-{
-  "schema_version": "1.0.0",
-  "doc_id": "illustrative-document",
-  "text_sha256": "329f8b7de91dbd8671fda013973ca76abb355254624d2fd746e5cf4d66e41f3e",
-  "text": "Demo 🩺\nNo chest pain.\nChest pain is suspected.\nNo chest pain.",
-  "canonicalization_version": "nfc-lf-v1",
-  "source": {
-    "kind": "synthetic_text",
-    "name": "Illustrative handoff text"
-  },
-  "language": "en"
-}
-```
-
-The shared text used for document-bound examples is synthetic. Its exact digest and evidence
-interval were computed for the illustration; no clinical validation or real patient is implied.
-
-## First ready action
-
-Review the draft contracts and collect A/C/D feedback for F-003; record proposals without pretending that freeze/fixtures are complete.
-Begin with read-only inspection; ask for approval before the first concrete owned change
-package. Do not automatically implement the entire backlog.
-
-## First five-task sequence
-
-| Alias | Local ID | Deliverable | Availability |
+| Alias | Local ID | Deliverable | Status and next dependency |
 | --- | --- | --- | --- |
-| B-010 | T001 | Review shared-record proposals and establish the web mock consumer suite | Wait for listed prerequisites; see tasks.md. |
-| B-004 | T002 | Implement approved memory lifetime, session ownership and guarded configuration | Wait for listed prerequisites; see tasks.md. |
-| B-001 | T003 | Implement built-in/text/PDF input and canonical preparation | Wait for listed prerequisites; see tasks.md. |
-| B-002 | T004 | Build complete English report panels and exact evidence highlighting | Wait for listed prerequisites; see tasks.md. |
-| B-003 | T005 | Implement thin service clients, source-preserving routing and bounded state | Wait for listed prerequisites; see tasks.md. |
+| B-010 | T001 | Review the frozen records and web mock consumer | Complete in the shared platform backlog. |
+| B-004 | T002 | Implement bounded sessions and configuration | Approved early memory/config core verified. Full transport and acceptance depend on F-014. |
+| B-001 | T003 | Prepare built-in, text and PDF inputs | Approved built-in core verified. Full input flow depends on F-014 and B-004. |
+| B-002 | T004 | Render reports and exact evidence highlights | Approved fixture workspace verified. Full acceptance depends on F-014 and B-004. |
+| B-003 | T005 | Implement service clients and source-preserving routing | Depends on B-001 and B-002. F-005 exercises the preset mock flow. |
 
-B's immediate ready contribution is shared proposal review/coordination. The first platform implementation tasks remain gated; the user deferred UI/mock implementation during this initial handoff.
-This is a five-task sequence, not a claim that five business tasks are immediately ready.
+After F-006 review, proceed through F-013 human acceptance and F-007 checkpoint verification. F-014 publication requires separate authorization.
 
-## Checks and honest status
+## Run the key-free mock
 
-The feature path check above exists now. Test/CLI commands in tasks.md are future acceptance
-targets created by the named tasks and prerequisites. There is no service-start/npm script
-available today. Mock checks, actual-module checks and separately authorized live checks
-must be reported distinctly; do not close real tasks based on an illustrative payload.
-English artifacts, the user's approved 60-minute/2-MiB/100,000-code-point policies, held-out
-data protection and no paid calls without approval remain binding.
+Use the Windows setup and build steps in the [mock startup runbook](../../platform/f-005-mock-startup.md). Run these commands separately from the repository root. For the interactive launcher, open the printed loopback URL, select the synthetic report and stop with Ctrl+C. The smoke command starts and stops its own processes.
+
+```powershell
+uv run --locked --offline --directory scripts/project python -B start_mock.py
+uv run --locked --offline --directory scripts/project python -B smoke_mock.py
+```
+
+Run the focused check below after the same locked setup.
+
+```powershell
+node apps/web/scripts/check-contracts.mjs
+```
+
+Report mock, module and separately authorized live results with their actual scope. Use English and approved public or synthetic inputs. Keep document contents out of logs and raw datasets out of Git. Follow the approved memory-only 60-minute limit, 2 MiB PDF limit and 100,000-code-point limit where applicable. Obtain approval for a new change package and separate authorization for publishing or activating providers.
+
+[Member B start prompt](../start-prompts/member-b.md)
