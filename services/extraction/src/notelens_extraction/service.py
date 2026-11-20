@@ -19,6 +19,13 @@ class Diagnostics:
     repairs: int = 0
 
 
+def generation_instructions(operation: str) -> tuple[str, str]:
+    instructions = (Path(__file__).parent / "prompts" / f"{operation}-v1.txt").read_text(encoding="utf-8")
+    definition = "ExtractionResult" if operation == "extract" else "AnswerResult"
+    instructions += "\nReturn the frozen NoteLens 1.0.0 " + definition + " record."
+    return instructions, definition
+
+
 def run(request: dict, operation: str, provider: Provider | None = None,
         *, max_attempts: int = 2, diagnostics: Diagnostics | None = None) -> tuple[dict, dict]:
     """Allow bounded repair in mock mode and a single attempt in live mode."""
@@ -38,9 +45,7 @@ def run(request: dict, operation: str, provider: Provider | None = None,
     except EvidenceError as exc:
         raise ServiceError(422, "validation_failure", str(exc)) from exc
     document = copy.deepcopy(document)
-    instructions = (Path(__file__).parent / "prompts" / f"{operation}-v1.txt").read_text(encoding="utf-8")
-    definition = "ExtractionResult" if operation == "extract" else "AnswerResult"
-    instructions += "\nReturn the frozen NoteLens 1.0.0 " + definition + " record."
+    instructions, definition = generation_instructions(operation)
     for attempt in range(attempt_limit):
         diagnostics.attempts += 1
         try:

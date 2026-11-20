@@ -46,3 +46,17 @@ Activation requires an explicitly supplied synchronous transport that enforces
 the approved aggregate budget, request count, timeouts and no retries. A
 per-response output token limit alone cannot enforce a dollar cap. The default
 service configuration continues to fail closed for live generation.
+
+Trial preflight can call `OpenAITrialProvider.prepare` with the built-in request
+and `generation_instructions(operation)[0]` to compute the exact outgoing
+payload without sending it. Record its `request_sha256`, a reviewed upper
+bound on all billable input tokens for that payload, and reviewed standard
+input and output token rates. The output ceiling comes from the same payload.
+
+`openai_transport.trial_provider` connects those reviewed bounds to HTTPS.
+It uses the full worst-case reservation, including for timeouts and HTTP
+errors, and permits at most three distinct approved requests within USD 0.10.
+The current adapter prepares only two operations. Use one stable receipt
+path for the approved trial across processes and restarts. The transport
+claims that path exclusively before it can send and does not resume a
+previous trial. The receipt contains no credential, input, or output.

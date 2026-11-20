@@ -82,10 +82,13 @@ class OpenAITrialProvider:
         self._max_output_tokens = max_output_tokens
 
     def generate(self, operation: str, request: dict, instructions: str, *, repair: bool) -> str:
+        return completion_text(self._send(self.prepare(operation, request, instructions, repair=repair)))
+
+    def prepare(self, operation: str, request: dict, instructions: str, *, repair: bool = False) -> dict:
         if (repair or operation not in DEFINITIONS
                 or request != demo_request(DEMO_QUESTION if operation == "answer" else None)):
             raise ServiceError(422, "validation_failure", "Request is outside the synthetic provider trial.")
-        return completion_text(self._send({
+        return {
             "model": MODEL,
             "instructions": instructions + "\nSet mode to live and identify the provider as openai "
             f"and the model as {MODEL} in component provenance.\n"
@@ -94,10 +97,11 @@ class OpenAITrialProvider:
             "text": {"format": {"type": "json_object"}},
             "max_output_tokens": self._max_output_tokens,
             "reasoning": {"effort": "none"},
+            "service_tier": "default",
             "store": False,
             "stream": False,
             "background": False,
             "truncation": "disabled",
             "tools": [],
             "tool_choice": "none",
-        }))
+        }
