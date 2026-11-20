@@ -60,3 +60,15 @@ The current adapter prepares only two operations. Use one stable receipt
 path for the approved trial across processes and restarts. The transport
 claims that path exclusively before it can send and does not resume a
 previous trial. The receipt contains no credential, input, or output.
+
+To execute the approved one-time smoke after configuring the server-side
+`OPENAI_API_KEY`, run from the repository root:
+
+```powershell
+./services/extraction/.venv/Scripts/python.exe services/extraction/scripts/run_synthetic_live_trial.py
+```
+
+The runner accepts no document or question arguments. It rechecks both approved
+payload hashes before sending, uses the two recorded input bounds and 512-token
+output limit, and creates the fixed receipt before the first provider call. A
+failed or interrupted run consumes the receipt and cannot be resumed or retried.
