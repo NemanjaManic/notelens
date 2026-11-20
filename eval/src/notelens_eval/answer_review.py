@@ -1,9 +1,11 @@
 """Read-only integrity checks; human declarations are not verified human authorship."""
 import argparse
+import hashlib
 import json
 import re
-from collections import Counter
+from collections import Counter, defaultdict
 from datetime import datetime
+from itertools import combinations
 from pathlib import Path
 
 DIMENSIONS = {"source_support", "required_facts", "extra_facts", "uncertainty_and_context",
@@ -66,12 +68,44 @@ def inspect(record):
     return "completed_declared_human_review" if complete else "incomplete"
 
 
+def compare_reviewers(groups):
+    """Compare independent declarations about the same pinned output."""
+    dimensions = {key: Counter(comparable=0, exact=0, major_disagreement=0, unable=0)
+                  for key in sorted(DIMENSIONS)}
+    adjudication = []
+    pairs = 0
+    for reviewers in groups.values():
+        for left, right in combinations(sorted(reviewers.values(), key=lambda row: row["review_id"]), 2):
+            pairs += 1
+            disagreements = []
+            for key, totals in dimensions.items():
+                first, second = left["dimensions"][key], right["dimensions"][key]
+                if "U" in (first, second):
+                    totals["unable"] += 1
+                    continue
+                totals["comparable"] += 1
+                totals["exact"] += int(first == second)
+                totals["major_disagreement"] += int(abs(first - second) == 2)
+                if first != second:
+                    disagreements.append(key)
+            flags = [key for key in ("response_action", "answerable_from_document", "critical_error")
+                     if left[key] != right[key]]
+            if disagreements or flags or left["needs_adjudication"] or right["needs_adjudication"]:
+                adjudication.append({
+                    "case_id": left["case_id"], "response_id": left["response_id"],
+                    "review_ids": [left["review_id"], right["review_id"]],
+                    "dimensions": disagreements, "flags": flags,
+                })
+    return {"matched_pairs": pairs, "by_dimension": dimensions, "adjudication_pairs": adjudication}
+
+
 def summarize(records):
     counts = Counter({k: 0 for k in ("blank", "incomplete", "operational_error", "completed_declared_human_review", "invalid")})
     dimensions = {k: {"rated": 0, "unable_to_judge": 0, "sum": 0, "score_counts": {"0": 0, "1": 0, "2": 0}} for k in sorted(DIMENSIONS)}
     seen = set()
     errors = []
     outcomes = Counter()
+    groups = defaultdict(dict)
     critical_errors = adjudication_pending = 0
     for index, record in enumerate(records):
         try:
@@ -81,6 +115,12 @@ def summarize(records):
                 if identifier in seen:
                     raise ValueError("Duplicate review ID.")
                 seen.add(identifier)
+            if state == "completed_declared_human_review":
+                identity = tuple(record[key] for key in IDENTITY[2:])
+                alias = record["reviewer_alias"].strip().casefold()
+                if alias in groups[identity]:
+                    raise ValueError("Duplicate reviewer for the same pinned output.")
+                groups[identity][alias] = record
             counts[state] += 1
             if state == "completed_declared_human_review":
                 outcomes[record["response_action"]] += 1
@@ -102,19 +142,50 @@ def summarize(records):
     return {"rubric_status": "draft_uncalibrated", "counts": dict(counts), "dimensions": dimensions,
             "completed_outcomes": dict(outcomes), "critical_errors": critical_errors,
             "adjudication_pending": adjudication_pending,
+            "reviewer_agreement": compare_reviewers(groups),
             "errors": errors, "human_authorship_verified": False,
             "limitations": "Structural checks only; no clinical validation or reviewer approval is inferred."}
+
+
+def verify_response_artifacts(records, artifact_directory):
+    """Check declared response hashes against exact retained UTF-8 artifact bytes."""
+    checked = 0
+    root = artifact_directory.resolve()
+    for record in records:
+        state = inspect(record)
+        if state != "completed_declared_human_review":
+            continue
+        response_id = record["response_id"]
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}", response_id):
+            raise ValueError("Response ID cannot safely identify an artifact.")
+        path = (root / f"{response_id}.json").resolve()
+        if path.parent != root:
+            raise ValueError("Response artifact must stay within its directory.")
+        raw = path.read_bytes()
+        json.loads(raw.decode("utf-8"))
+        if hashlib.sha256(raw).hexdigest() != record["response_sha256"]:
+            raise ValueError("Reviewed response artifact digest mismatch.")
+        checked += 1
+    return checked
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("inputs", type=Path, nargs="+")
+    parser.add_argument("--response-artifacts", type=Path)
     args = parser.parse_args()
     records = []
     for path in args.inputs:
         value = json.loads(path.read_text(encoding="utf-8"))
         records.extend(value if isinstance(value, list) else [value])
     report = summarize(records)
+    report["verified_response_artifacts"] = None
+    if args.response_artifacts:
+        try:
+            report["verified_response_artifacts"] = verify_response_artifacts(records, args.response_artifacts)
+        except (OSError, ValueError):
+            parser.error("Response artifact verification failed.")
+
     print(json.dumps(report, indent=2))
     return 1 if report["counts"]["invalid"] else 0
 

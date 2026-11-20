@@ -128,6 +128,8 @@ Each annotator fills only their own primary/review record in their own annotatio
 path after assignments and permissions are agreed. The blank template needs a unique
 `submission_id` when filled. Primary and secondary records remain separate; a second
 reviewer first creates an independent record before seeing the primary labels.
+Record unresolved issues under `unresolved_questions`. The linter also reads the
+older `questions` field so earlier templates retain any open issues.
 
 The `merge` command reads a permitted bundle containing `kind`, `assignment`,
 `document`, `submissions` and an optional explicit `decision`, and writes a separate

@@ -1,0 +1,91 @@
+{
+  "record_format_version": "public-luna-assessment-retry-run-v1",
+  "date": "2026-11-17",
+  "implementation_checkpoint_commit": "b9b62c130ad781b5d2fb7b0e4a25dcd8f01460dc",
+  "scope_sha256": "13139aecb51365d4aa0fb2945320fd637541222abe8469a6f455807683708964",
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-17",
+    "scope_sha256": "13139aecb51365d4aa0fb2945320fd637541222abe8469a6f455807683708964"
+  },
+  "model": "gpt-6-luna",
+  "question_id": "CQ-01",
+  "parameters": {
+    "max_output_tokens": 2048,
+    "reasoning_effort": "none",
+    "timeout_seconds": 30
+  },
+  "max_input_tokens": 20000,
+  "cumulative_max_usd": "0.02",
+  "fresh_input_count_calls": 1,
+  "generation_attempts": 1,
+  "automatic_retries": 0,
+  "validated_assessments": 0,
+  "observed_cli_exit_code": 1,
+  "status": "halted_after_quote_mismatch",
+  "error_code": "invalid_assessment",
+  "diagnostic": {
+    "format_version": "rag-validation-diagnostic-v1",
+    "path": "/assessment/parts/0/evidence/0/quote",
+    "rule": "quote_mismatch",
+    "stage": "assessment"
+  },
+  "counted_input_tokens": 3571,
+  "new_reserved_reference_usd": "0.0013811",
+  "cumulative_reserved_reference_usd": "0.0027622",
+  "cumulative_confirmed_reference_usd": "0",
+  "actual_billing": "Unverified; zero confirmed usage does not imply a free request.",
+  "prices_rechecked_on": "2026-11-17",
+  "reference_prices": {
+    "input_usd_per_million": "0.10",
+    "output_usd_per_million": "0.50",
+    "checked_on": "2026-11-16",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+  },
+  "free_counting_source": "https://help.openai.com/en/articles/4936856-understanding-and-counting-tokens",
+  "prompt_sha256": "137114b199d46e2698db8941345482342dbc41414254f6c430947f94b3d1a10f",
+  "raw_failed_response_retained": false,
+  "output_usage_retained": false,
+  "additional_attempt_approved": false,
+  "interpretation": "The nonempty first quote in the first part differs from the exact canonical slice at its supplied valid offsets.",
+  "limitations": [
+    "The diagnostic does not distinguish incorrect quote text from incorrect otherwise valid offsets.",
+    "The raw failed response is not retained; no specific text edit or offset correction is inferred.",
+    "The first historical failure remains undiagnosed; this later diagnostic does not prove the same cause.",
+    "No accepted semantic verdict, clinical quality metric or live HTTP answer is produced."
+  ],
+  "offline_halt_verification": {
+    "blocked_retry_cases": [
+      {
+        "question_id": "CQ-01",
+        "code": "trial_retry_not_approved"
+      },
+      {
+        "question_id": "CQ-02",
+        "code": "retry_scope_invalid"
+      },
+      {
+        "question_id": "CQ-08",
+        "code": "retry_scope_invalid"
+      }
+    ],
+    "original_trial_blocked_cases": [
+      "CQ-01",
+      "CQ-02",
+      "CQ-08"
+    ],
+    "provider_creations": 0,
+    "original_ledger_sha256": "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+    "retry_ledger_sha256": "1b04e28fdc04723930820f1d2b04d670951eea7d65e01f84badca3329de96299",
+    "both_ledgers_byte_identical_during_guard_check": true,
+    "active_locks": 0
+  },
+  "activation_enabled_after_run": false,
+  "actual_env_edited": false,
+  "runtime_source_changed": false,
+  "offline_regression_before_execution": {
+    "passed": 539,
+    "seconds": 13.83,
+    "provider_calls": 0
+  }
+}

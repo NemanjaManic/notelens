@@ -2,9 +2,9 @@
   "format": "notelens-f004-inputs-v1",
   "base_commit": "fd1197bd380de9ba9037ea0b73b42031dc1d4bb2",
   "owner_commits": {
-    "A": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
+    "A": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
     "C": "4080f9b3c41a0dba70238929e765d9ce535910eb",
-    "D": "66ee54778b545f8d2c72f525ab4f60fc8393cec8"
+    "D": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec"
   },
   "imports": {
     "data/knowledge/scripts/prepare_corpus.py": {
@@ -14,8 +14,8 @@
     },
     "services/rag/.env.example": {
       "owner": "A",
-      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
-      "sha256": "29464c410e242bb937c88ad5ed0f0a2aa0029461a6cfd9872220bd9d33d567e0"
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "66e5b8c729f453a490dded16a95c3b2e7668a8a06ae58a25466b04d476e15a86"
     },
     "services/rag/AGENTS.md": {
       "owner": "A",
@@ -24,8 +24,8 @@
     },
     "services/rag/README.md": {
       "owner": "A",
-      "commit": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
-      "sha256": "b54a320895261d847f51c663839fc0504ce6de3e4d51a6dedcc2d7023e62e421"
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "f8127ab272e99b075db42bd3c75d29f591ddead8d9fe37596bbe05a83c6ef2c3"
     },
     "services/rag/pyproject.toml": {
       "owner": "A",
@@ -49,8 +49,8 @@
     },
     "services/rag/src/notelens_rag/indexing.py": {
       "owner": "A",
-      "commit": "ad08e147d7586d530cdff69db25a3b382de36d7c",
-      "sha256": "393385d9db4ae60ef421bdd866eebdc35038b93129db268eb44931d394b79ddf"
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "c8a539f4f41cef4c600a17675760a9a06b717ec618495b9ec674ba1ea5d30c89"
     },
     "services/rag/src/notelens_rag/ingestion.py": {
       "owner": "A",
@@ -59,8 +59,8 @@
     },
     "services/rag/src/notelens_rag/main.py": {
       "owner": "A",
-      "commit": "3a24d4a2491d27c040d6f72ae9b2aa50dcab6b0a",
-      "sha256": "1deb958bb7874a4c2d72baa75767f0a73f9289479e9122f1a01b108812334ff5"
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "6600dd3638c3de592081bf16082e5f843e074917544443d42e5407a2ca97826a"
     },
     "services/rag/src/notelens_rag/mock.py": {
       "owner": "A",
@@ -179,127 +179,127 @@
     },
     "docs/extraction-eval/annotation-training-examples.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "803c126ffe98868430c46ee2716b452d82f4de3e63796f4e734c5dd4d8521619"
     },
     "docs/extraction-eval/check_training_examples.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "e04b260c76f154529b7058a535c8c9a10ce1cdbc0d15e8f84c213f420654ddb4"
     },
     "services/extraction/.gitignore": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "d851ad1451dce97c045cfeb7fc4f7c0dff178c45d78d7013517362e34acc8797"
     },
     "services/extraction/AGENTS.md": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "b4f0f87660f457002e44cd76b725a8e57123b13e61d2bab16cdf9288bf6094af"
     },
     "services/extraction/README.md": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "5b1b10b5d47b9dff156c9bad8377f1e86997dc6d74f97084af231eb974624c89"
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "87146fef10d65297cb20ba12e03bf6eb92fbf1c2c334dfddbafb425fcd7964cb"
     },
     "services/extraction/fixtures/demo-question.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "4e70d1116922ecf0bc7958efe6735d7a8565816d6b680823164d3cb2fb67a642"
     },
     "services/extraction/fixtures/demo-request.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "2a589d84b8a1dd353178e15ea4ab798bcef06bb19118a6c215eb007b8aa9394a"
     },
     "services/extraction/pyproject.toml": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "eabba3837b17727629e6bb34c905a54407925dd9bba7e507a0ef1305050924b7"
     },
     "services/extraction/src/notelens_extraction/__init__.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "dd4e9ce71cafc967a69552adf9f15642988ed68b9f43be9a94cc3412e82dfc74"
     },
     "services/extraction/src/notelens_extraction/cli.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "2f07d773297c641c49f253b4ee0975fb0a70af3baa235e3de20c868f4e008ba2"
     },
     "services/extraction/src/notelens_extraction/config.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "22c8ba9d71f4a0f6f38fa848a9267b755569d43dd29bd680a31f4e9afc34e130"
     },
     "services/extraction/src/notelens_extraction/contracts.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "73368b962283c3ae308ddf437222f627ecbd1bcdc836e5b8ae3eaa4ac820d895"
     },
     "services/extraction/src/notelens_extraction/demo.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "ab4f576b16261b6799448718739f6d248121c8d1095c265ac5df478ce759b4a6"
     },
     "services/extraction/src/notelens_extraction/errors.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "4612ba99251e79e425e61591570f56307b5f858434ceded017f023924724757c"
     },
     "services/extraction/src/notelens_extraction/evidence.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "5ade259269f5d4a68ac9e0ece17a513d3d17ae581300de1ea00f259cae239161"
     },
     "services/extraction/src/notelens_extraction/main.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "c11f8a9e4e7bcbfe33853b8d88e16ca3739a1b211edfcc1009a309f8ea9d3b08"
     },
     "services/extraction/src/notelens_extraction/prompts/answer-v1.txt": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "e9f40eff22c9c1ec0e2db7703bb47c0f886a0b331157821d4187f55de04b4ed1"
     },
     "services/extraction/src/notelens_extraction/prompts/extract-v1.txt": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "f50d4c263f42a59aac022175d0bcb765dbc744f656ee879c0407ba4cfd413882"
     },
     "services/extraction/src/notelens_extraction/providers.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "f5cc1dc1903161c0c4002835901ae6ae07647d658d65c890902e7a942beed1a1"
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "da07fd8d083f824b85da723b477f6d3c19be3f1f3b4e495c2dbdd38695af2e63"
     },
     "services/extraction/src/notelens_extraction/service.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "a91a38dfec8c2d8b7373da343dd96d36eb543617c11fba0f8ef662eaf34480d8"
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "282dfe9c634d955607d41e0f3a7ddeed95c4a5c75cecdf1f7a217e64143cfcf8"
     },
     "services/extraction/tests/test_frozen_mock.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "0b2ae1292ba465f3ed9a1153c3bdc71fee11cd0e67f4ed7181d4b1b6eb1fd57f"
     },
     "services/extraction/tests/test_http_smoke.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "74004fca3a0bba462ce3fbadb638ae05f66f863b03a25de5c9f1b36fc7b5c4c7"
     },
     "services/extraction/tests/test_service.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "ebb32d4ff5dcdc86019ca4dc92ecfa0de2a9718474e2ce504880f8a1a0df7443"
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "384f65f1c226cd46eac7702869add0741d440b2480ac8b2b9b396f59ec2eb86f"
     },
     "services/extraction/tests/test_training_checker.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "28301bb38d52b2c3fcd76b2ae159f8cb5c3bb69b4172bbbe11a17d5d5bb034ca"
     },
     "services/extraction/uv.lock": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "626b44bcd33a7f2acb782a13b0339949a80adf255a79893bbff94e287cb0dec4"
     },
     "docs/rag/evaluation/answer-trial-results.json": {
@@ -324,213 +324,928 @@
     },
     "specs/001-rag/tasks.md": {
       "owner": "A",
-      "commit": "567f9b9d097fafe389aa5b597b6f49ea7b94fe7f",
-      "sha256": "a500ef51bf711c67d6e4c6e5955d222dcddb213d458b8c724660ee8b44cf88c0"
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "4bc6bed871da47ff9d2b4d83aa810834ca90bcda78fef79a9c7244f5013ae079"
+    },
+    "data/knowledge/manifests/cleaned-corpus.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "08d77bc6deb9ccb3fbf999adc5507d81f7264f16e101f27021084191d5c3903b"
+    },
+    "data/knowledge/manifests/index-build.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "14f3f498c693a41c14f4af457ad25d018a1ffd651b3089d93b7b3294dd32deb9"
+    },
+    "data/knowledge/manifests/passages.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "6afe940765c8e4844278b65843f4d780440c99dfe3a09a5b8c2a1af239b803aa"
+    },
+    "data/knowledge/manifests/prepared-corpus.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "dece58d5fca104126a62e0125c8a4230eb4d0487fc9242392e37cee98ba6f45b"
+    },
+    "data/knowledge/manifests/snapshot.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "ed7dbae0b3326c562c6460a27256d0ed52516d8b5ca323e352733a70de49f3d2"
+    },
+    "data/knowledge/tests/test_prepare_corpus.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "9ea5694b9d46b6120234cbacbd1109329809cbd62536f1670b9276a1a0f8aa65"
+    },
+    "docs/rag/answer-support-policy.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "549efeaa0e46582c9ce4fffa261c133f4390e3a704cf5a0bc6c6c18aaeb56b1d"
+    },
+    "docs/rag/assessment-diagnostics-results.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "7099ab7c6e43a29b27899109113261c30021e429e29501ee56d4f5e4a4f2da7a"
+    },
+    "docs/rag/assessment-retry-preflight.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "f4a9fc5228101e4e5d0ff037dd7764eb65f1fe1adfd0f9d13e2e70d1b46f5857"
+    },
+    "docs/rag/assessment-retry-proposal.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "ca3a7de724f35a29aff6f1b65b965569a9970e8748972dfbab1c8af72eb75ae7"
+    },
+    "docs/rag/assessment-retry-results.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "320a6ee2605e5bb6ab1fd02c3f0c8cbb441e182c2ae3cb8839783bc1f4fb88cd"
+    },
+    "docs/rag/assessment-retry.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "2671bb1df4f6f61ee3d7179388d718021a170c5f1fa7b97e3be402bad40ac40f"
+    },
+    "docs/rag/assessment-trial-preflight.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "77acb1c3c75b2aab7959e52be2c4b937ffee01b521c3459523c5023c4b917d9b"
+    },
+    "docs/rag/assessment-trial-proposal.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "7b15a5cc580f3662f0177dd8315b6c9b50eb307f1728ce4d0d49faeb904dbada"
+    },
+    "docs/rag/assessment-trial-results.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "82e17121e3557eb15b1ad7a9ef0de40dd6d4f1a9429800bc4ec27ef11259415a"
+    },
+    "docs/rag/assessment-trial.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "e2beca2430edbce63776a750b0cf7411e039842e08b936a72c2414fdb8ca0cd3"
+    },
+    "docs/rag/chunking.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "399103006d55c511053c7306a4a1bdb7ea3a779ad7af573433f220b5a6ba1c64"
+    },
+    "docs/rag/corpus-quality-review.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "cdee314f0ebe32b464e7bfee4e1cfdae8755ef26418055e84db0bd589008003b"
+    },
+    "docs/rag/coverage-trial-preflight.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "e42442de864b828f2f76fc3c2ff081f7ef2b1f1171ee6651ea520a9baf82d2a8"
+    },
+    "docs/rag/coverage-trial-proposal.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "18d098c606d398bd4c18ffa58bf6499cd8f25f8677845a2f6b33208cd56ab714"
+    },
+    "docs/rag/coverage-trial-results.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "ec90cee36ed99b70387884c5b673747335eca280b7db2db46ca5204692205c39"
+    },
+    "docs/rag/coverage-trial.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "d732c9345406960bcba914c4986def9fbe1fae5fc55f48a2b02aa15a14057909"
+    },
+    "docs/rag/development-handoff.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "3c0f1cf668433854b06f1055d1ad612c5fb13d7b50e9cdfe76161c72612d0ccb"
+    },
+    "docs/rag/embeddings.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "f1c276bb7f3dacabde46a2339bd5d24baf23b9954436fb521b1ff39f17d0d376"
+    },
+    "docs/rag/evaluation/answer-trial-proposal.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "ac52ce97f8a17a723995e70336b0e4e641eb382a2b3aafa6827a42bc41545546"
+    },
+    "docs/rag/evaluation/answer-trial.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "7e7c8eba949eae7b481f84e7b06b9b70fc019c98cd685846f56a8eb31d48a9b1"
+    },
+    "docs/rag/evaluation/development-answer-review.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "33db0829aba1bb8ea1b2edcefa4ace81f393b9aa413c33b8663cdc8e3157668b"
+    },
+    "docs/rag/evaluation/evidence-gap-proposals.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "6af11963b6cf4a210341f64df7fd2848022a4ceae39edf8b028e8100d4d9e468"
+    },
+    "docs/rag/evaluation/evidence-gap-proposals.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "f9887a088f0b74663f5a601eb69068575ee48079e78885d843aed8f15b46fac8"
+    },
+    "docs/rag/evaluation/lexical-proposal-evaluation.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "758688d9f6111f173268ae6dd5ed9a5269fff1730cc5bfdd00f50d439e3afe09"
+    },
+    "docs/rag/evaluation/lexical-proposal-evaluation.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "2ac467d49c85bdfb3ccd8e5d1b68fe4278913005974b9db11ff90dae9f93ed73"
+    },
+    "docs/rag/evaluation/live-http-smoke-review.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "636e62fc72707d84d033c173c704acde09b8894efd59371d2a06c1a44e036220"
+    },
+    "docs/rag/evaluation/live-http-smoke.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "2cb4e61cefc08f572ef3296d37fe1431759b91455ae3ceb03c62e3dc5578a7d7"
+    },
+    "docs/rag/evaluation/local-http-flow.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "fb8d5f1fcdcb73cb53fd05a7d8986d1e8b3823b102a188debd5f48a5754578d7"
+    },
+    "docs/rag/evaluation/local-http-flow.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "ae6b27287db7dbf9b9f257dfe224ccd83993d6f454baffe44a763c08198a5fdc"
+    },
+    "docs/rag/evaluation/measure_lexical.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "52c5086058fc94d96f85e157b6f1e7e079143522e43852a85eacd287c0cf9760"
+    },
+    "docs/rag/evaluation/measure_saved.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "9d17e7311e046518a46612de9691d82e76ac696834ed388283c00d2aa160dea0"
+    },
+    "docs/rag/evaluation/measure_score_gate.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "b6554f3c71a0f869adf10777a8365f8b00a44972d6f91b5c9770e0d50ca58ae9"
+    },
+    "docs/rag/evaluation/partial-answer-trial-proposal.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "22b82601496d9bc3256757627c64a5ccf2918776737a855b3d8b180e0cdda592"
+    },
+    "docs/rag/evaluation/partial-answer-trial.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "6cae64df2ea08428016533acd0068b96315225f76090464bbbe49d5ea386d539"
+    },
+    "docs/rag/evaluation/partial-evidence-flow.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "b0fbce832939caf99ca77ac8533c895468114ee5664619c2ac0d91ae861884f7"
+    },
+    "docs/rag/evaluation/prepare_answer_review.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "ff1898bae1636d0586a091d846a512051e800573907ba8625822d0966d2f44d0"
+    },
+    "docs/rag/evaluation/run_live_http_smoke.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "5794b6bf38793b7fa63b605bff76e82e2f71cc3242db0ca410f898cfccb1e638"
+    },
+    "docs/rag/evaluation/run_local_flow.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "95d4969c5f1c04477c7f801481cbaf3032b61ee37c44d30084e400ced8078d05"
+    },
+    "docs/rag/evaluation/run_partial_evidence_flow.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "6ce9e281843ffa6d220af9bffbc73e749c6e063a83d37aead4a0f9948ea1e8e9"
+    },
+    "docs/rag/evaluation/saved-development-evaluation.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "69a61b4609f6d1aa7c6b75598b02bb99277e2e3c869f4500a61ff1c99d858ffa"
+    },
+    "docs/rag/evaluation/vector-proposal-comparison.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "6c2ee5c2bfbd29202b1c8b3b9cbdd6dd4ad9d0b677f4d67f4e771182e63305ee"
+    },
+    "docs/rag/evaluation/vector-proposal-comparison.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "fdedd8e6ffc0d39d5f6a3ef3e8eae164851ec266ca89b58498242d97be94ed86"
+    },
+    "docs/rag/evaluation/vector-proposal-scope.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "e5c635416e5ea008cd5fa271354cb6eab1ecc48d1da446e0d8bb7e1b18733e84"
+    },
+    "docs/rag/evaluation/vector-proposal-trial.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "2ef38f951576817fa07edd05f0bfd6503fe0219fe657aaa9b946ef737ee5f8ed"
+    },
+    "docs/rag/evaluation/vector-score-gate.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "a535e73248e52cbb0ded759d326400b88b4a021eaf9f652f9dd193bde7f34c73"
+    },
+    "docs/rag/evaluation/vector-score-gate.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "00015301e0a15f50a4ac2b845068f19a2f91cb4b7792acc6584ee23812ea907e"
+    },
+    "docs/rag/evaluation/verify_evidence_gap_proposals.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "3ff047b8dc8a0c452cdaf22bdb0b70f6525b6446a5fc2ff5ebefbe5af0fb024a"
+    },
+    "docs/rag/evidence-selection-preflight.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "b29ef3b34a676726d4a36d7f8687f394ac5e0d09e1800f95230ec87ca38977ca"
+    },
+    "docs/rag/evidence-selection.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "e99930f09dc59d6ca338856b75387691a82c3769a2179c93029ee27630c2bd22"
+    },
+    "docs/rag/experiments/hybrid-comparison.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "67d1847d80754708156149a55ba6982113fdf88ca15c5f2ca12dab6af72acab0"
+    },
+    "docs/rag/experiments/hybrid-comparison.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "67c8da395f34ea13f5cb4653c8c712653a3c6c9d1d5afb9f16e4d724f6bb855a"
+    },
+    "docs/rag/frozen-contracts-adaptation.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "121869934472f4176bdd83823b50e0d02b8b95e88c071f15747da146f9782755"
+    },
+    "docs/rag/indexing.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "8e65c578a3a77b31e9db8eb38607220afc9ef32897110963d899d0b7e06ad5ee"
+    },
+    "docs/rag/integration.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "012f42db497bb8c0d3599f1f7e1df8312cd6f00ac9009b0561a240958349d1ac"
+    },
+    "docs/rag/luna-assessor.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "87b3192cefbca7ca683e4c4ee12dbaed5228f34447c2d74e8e7a97ecef2a2353"
+    },
+    "docs/rag/p2-rc1-review.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "0e31e4b042847336c16177184ceaa635f44d7b04222755c0e466c3b94d93518c"
+    },
+    "docs/rag/qa-proposals.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "737a85f41733b6fddc7822ed83f84b2487e83f278a0ecf602c93ed450cd007db"
+    },
+    "docs/rag/qa-proposals.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "5acd072e0250e5914ab166ddc5ed6451427d09288cac979e878ad46427746e22"
+    },
+    "docs/rag/retrieval-content-review.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "0c16cf572d50fe3a904232daf026e89f11cfc08a294cb395a5e6007ad6fa4a57"
+    },
+    "docs/rag/retrieval-content-review.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "e084a0c05f1c051f12da401dae24dfd6caecd9017d1962a92833c0ff4aedde3e"
+    },
+    "docs/rag/retrieval-smoke-questions.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "d22ccc30da77fbe20e3540aba71d3281c23f7377af35c1c4ec68c157786aadb6"
+    },
+    "docs/rag/retrieval-smoke-results.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "0255dc55a6f648bc369453853a0327b6530cbe7077d43c9f937fd62a3f99a55e"
+    },
+    "docs/rag/retrieval.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "683ee1fc76899da8667749de78acb4e2f64a0d1587dea8df57024f3b04a6a86a"
+    },
+    "docs/rag/selection-trial-preflight.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "eccc4270fe752d68164560d7c536fe549b52fa43408b8b0f62eb47304ec2d0cd"
+    },
+    "docs/rag/selection-trial-proposal.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "03842342a14b6a919b6fbdc87a09b64a75a2b7c799c9c465fbf1a117428bb71e"
+    },
+    "docs/rag/selection-trial-results.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "f06a0fd36e5cb71004bc815255c8591c7043945d6f2d47bf36e6b717c298c31d"
+    },
+    "docs/rag/selection-trial.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "4d5c67d4812486e81f9bab10997e83859e01fad4d96e3f7022a4136d58104889"
+    },
+    "docs/rag/sources.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "730ec2b54f7760065e0efada8529fe553bc5c9dcff0d2af3583f44cbc2aa710d"
+    },
+    "docs/rag/support-assessment.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "5abe946191e1261b16558ba4a44bcde1985e71707dc52251c9df4430fd88fd62"
+    },
+    "services/rag/config/development-handoff.json": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "80cb11202d67c5c3993fc18e4577b18585cf55992a71adaff89f9af5feeb9fb5"
+    },
+    "services/rag/src/notelens_rag/answer_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "4a2ff2b67e78ea241c0f67164b6f18808f8509236158d3bb7f8ea9e93569fefc"
+    },
+    "services/rag/src/notelens_rag/answers.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "0ec93753d3eadeaba4ffa824a6b8d6fc169dafccf6ebf5605ca171364434e18f"
+    },
+    "services/rag/src/notelens_rag/assessment_retry.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "c2c38ba1704e6ad78196bd5d7cbf09a542eb471c9da6dd76d54ae6b7d479f908"
+    },
+    "services/rag/src/notelens_rag/assessment_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "2f76068e2ac9998bb77e483bb8f3c48dc602c433ab1e2ea5754d1c639f973421"
+    },
+    "services/rag/src/notelens_rag/assessor.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "bfce93fb0335d1eed256bf589f87e3b358b8edaf74c503c7b02ee2a0f90b6c61"
+    },
+    "services/rag/src/notelens_rag/coverage_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "bb45a300f24e1d9521c39f83a63501e20eb9ed6fe4ccaf979f854d75910d97a3"
+    },
+    "services/rag/src/notelens_rag/diagnostics.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "af0b51ce9459427a72ba74b29df8bcf8a494c871a2c393462ba7681aa706cb41"
+    },
+    "services/rag/src/notelens_rag/evidence_selection.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "523521a9ff2f60216885c87bb8d58653efcfb0a0f1a684b6125874592f5f461b"
+    },
+    "services/rag/src/notelens_rag/hybrid.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "9c4e6eb31098497522e2f5398d7c5a1b90a4931ab53c8394dd595bb16f1e92f9"
+    },
+    "services/rag/src/notelens_rag/hybrid_smoke.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "9af5b91fcd7a628b79d6bf1f0bd212202adec2bca32e055c9a6385affdc075c8"
+    },
+    "services/rag/src/notelens_rag/partial_answer_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "9a9e0114f8d85426ad80d0a4e308a8c108c585a5432d384e324325eeab1fce04"
+    },
+    "services/rag/src/notelens_rag/prompts/literature-answer-v1.txt": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "fa385fcdfbad8ee3dd6b867122bf93ad18f7e18989da0b9fa148c26f064aba48"
+    },
+    "services/rag/src/notelens_rag/prompts/question-parts-v1.txt": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "087ce7f264c7d65a04c2962e794a8a02e3e95bd1737b6bafb2ac9278138cb47d"
+    },
+    "services/rag/src/notelens_rag/prompts/support-assessment-v1.txt": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "137114b199d46e2698db8941345482342dbc41414254f6c430947f94b3d1a10f"
+    },
+    "services/rag/src/notelens_rag/prompts/support-selection-v2.txt": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9"
+    },
+    "services/rag/src/notelens_rag/qa_vector_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "d113c66c275a503a0bc99798ea4a2b064cf9840bae704f772dc1b5bb92692566"
+    },
+    "services/rag/src/notelens_rag/query.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "be4be13ab72106ac81a9e8fee6a5a291e9645e359c6397877be9c9b5d6f0a5d4"
+    },
+    "services/rag/src/notelens_rag/query_smoke.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "d07ef17d3e86ee68aaf29da845b97ef59b1e62c6c1d26ecee251fab421227a47"
+    },
+    "services/rag/src/notelens_rag/question_parts.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "10211f66953b063fec07052ee4ab6fbc8ef050a86853971ecdd0958a06c9cb4f"
+    },
+    "services/rag/src/notelens_rag/retrieval.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "7e019e4ba423a59822b7baef2d9dfa9762370e8982ad6d3ddddcbc39a118bb71"
+    },
+    "services/rag/src/notelens_rag/runtime.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "6d3d156e2101f54c3cac5815e6a6eeb7c9d6df32f3a0359678c3ba10e439eec5"
+    },
+    "services/rag/src/notelens_rag/selection_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "111d34647bb5947aad171173672b21c181b7dc2734cae82b20dc71f04fe4f02e"
+    },
+    "services/rag/src/notelens_rag/support.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "18b9756063aa9f200b7e96154575b75c5d30a3ad76d3ebc9cee69b6204ec01d8"
+    },
+    "services/rag/tests/test_answer_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "665a7b2a02b52ca68704d4e07d949377df70cdd514e7d78ca83fbd4649479150"
+    },
+    "services/rag/tests/test_answers.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "4479101b3ed5e3722481510c01d35fcb62cdc102554afba1d8c48c4ea885d99c"
+    },
+    "services/rag/tests/test_assessment_retry.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "1d651bfb8c6bd2f04b0e9c04e6cb3875a66d350805ce4e38fa0a962e4b08b90b"
+    },
+    "services/rag/tests/test_assessment_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "c392a12ea1304f03d309251da78625e7814d8df48251c47ed15e2cf294e5a536"
+    },
+    "services/rag/tests/test_assessor.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "a6413193b60d037d5d2bc8740a5855783be495890681ed50def53dc23c1c90e5"
+    },
+    "services/rag/tests/test_coverage_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "d5ab40ebde89d37f7e7405bdeee4d928a2e8fd8c73f0bc12bcccf464fbb233fd"
+    },
+    "services/rag/tests/test_diagnostics.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "8abbafae044a4b0ee1b7f5d577d2670a707d71fac9649369b2de33acc35fe06e"
+    },
+    "services/rag/tests/test_evidence_selection.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "b0384ca9677bbb71c4457d7ff16ec18ba056b876e0ef2cf1fa860ad04d694ef4"
+    },
+    "services/rag/tests/test_failures.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "2fedbf836257521cd7ec74d883ba2526646e1b9fb2c0123754fcfef3de29cb0b"
+    },
+    "services/rag/tests/test_hybrid.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "3887ac79a803527f1d2ac2c2259010fa59696bf5c7b868a5366149c1e500acd6"
+    },
+    "services/rag/tests/test_indexed_startup.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "ee842b5fddc0a8f534d38b73a9a2b8870532ea6fbefe053d6314b821748c033a"
+    },
+    "services/rag/tests/test_partial_answer_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "e91f9a28ef310bf5719ea4791fd94d13bb357239c761a280b5ebb5e7ceed3c9b"
+    },
+    "services/rag/tests/test_qa_vector_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "8e0c498c1b3243d01243deed269c0d614e6271ddf509a5b01e736bc5969a43b4"
+    },
+    "services/rag/tests/test_query_signals.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "16a9daad9c24c68d872126cd52fd06267da2bc29697f704088fa42cf4dca9d5b"
+    },
+    "services/rag/tests/test_query_smoke.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "700f9204fcdc8b7ed52e9b1999547e2d9e497b823622d4bc53c83af80d0c8e66"
+    },
+    "services/rag/tests/test_question_parts.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "7a0f434c83d29bdd367d64b660348e53e2652000e53336efa7df3a07f43222eb"
+    },
+    "services/rag/tests/test_retrieval.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "1192696804cd4c04edee9bb295f628d2875724b0508420f3dd474ff261e420a9"
+    },
+    "services/rag/tests/test_runtime.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "a6480821b281545da582e2f48ea008b02ed0479e1bd4035dbb92c6a4487942e1"
+    },
+    "services/rag/tests/test_selection_trial.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "ca217798c66c1554976d773b66f68d9fbca723d39bf2ec6fcd396a246d11659b"
+    },
+    "services/rag/tests/test_support.py": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "b08bdb69a9a6ea463e01a77ed65aa84377465aa0f3429b66a4f8126f667cb41c"
+    },
+    "specs/001-rag/contracts/README.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "1944632fe6e8ecebeb24f78e91f4c7cea0a3b42e7b5a4fdcc5ee4d3ae421ae54"
+    },
+    "specs/001-rag/data-model.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "7a3921f725d8a06c1798d377cfc82aec047db84e0e2a72de46614dbdb28b47d1"
+    },
+    "specs/001-rag/plan.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "3ad1305661386d965c8bf03ad8ea93d6c5d24199eaf8c23a374899977635e707"
+    },
+    "specs/001-rag/quickstart.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "9aa80215251cdb4b1bf70fdd8c9f785d11bde08d3fc373a3d0893d5b259625c8"
+    },
+    "specs/001-rag/research.md": {
+      "owner": "A",
+      "commit": "a7d1c66cab0355e711e0ed72bc9ea60f8274af8b",
+      "sha256": "7faa1d26399d1ee11d98b611eea16d045a1b13f5dc7e0c97209a6d8585b8fe16"
+    },
+    "docs/extraction-eval/acceptance-process.md": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "ee6723c3661b9c44cc2ec87d0494301ce9832a752978a244c4f8f6e0aa83ec14"
+    },
+    "docs/extraction-eval/annotation-tooling.md": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "e4cfb37510a91fe24de1bf6853b56ad95214bec3c6589533733e69ec37db474f"
+    },
+    "docs/extraction-eval/answer-risk-scoring.md": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "1e76e5b1aa6961f130a2756f77a5ee25ae0b71ff1dee893d71016fa20ae8ae96"
+    },
+    "docs/extraction-eval/integration.md": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "6cf9d85155c800f3c7c597d1d98ed9d08dbb50357c56327dff3708997a23bdb3"
+    },
+    "docs/extraction-eval/judge-calibration.md": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "49c09dc472d24048721a64fea1d3faf2cb59eed3be7d3592d4a68d59b1a7459b"
+    },
+    "docs/extraction-eval/milestone-requests.md": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "bfbdee69f051493c0303efde3fe44a161b806e51a9e273570c40a8541b710bac"
+    },
+    "docs/extraction-eval/qa-development-inventory.md": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "2deac64bd69f817ef9d267ec5c770e0fb742cc62c7e34500602bedfad243d5e0"
+    },
+    "docs/extraction-eval/retrieval-scoring.md": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "367b6c580cd4ec7fa1ee31341b1d9d4a8ed7f89066aa61f9e48e112160b4eaca"
     },
     "eval/.gitignore": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "2310e3d22907da6179580fca570d1c2e57a0fd4f2ffc0779461450ad7fc76983"
+    },
+    "eval/config/acceptance.json": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "e1833109fa4e81f284d1d6bc5c3d648f0725dbd1b3c1af1700c82e6b4853c866"
     },
     "eval/fixtures/annotation-lint-synthetic-v1.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "2766013132ff13906fec17102ef80aee2041460894a4b0f4a70f15f54b4976ae"
     },
     "eval/fixtures/annotation-source-synthetic.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "c3bc6fdf33778c8969df576ea551ebc1e2de32cca1cac2b9f90954a6da45c211"
     },
     "eval/fixtures/answer-review-template-v1.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "5ca8eac9bf563e2087089b82f827ec5c44272a6f52034a066a9d5119eb3a9b40"
     },
     "eval/fixtures/extraction-qa-synthetic-v1.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "b0d1e77dbac3fd68a65d9244d098e0f30d16e3695e2f59075382b205421f0e9d"
     },
     "eval/fixtures/pending-merge-bundle.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "bc0aa6f4f41bef5db92c84d33223be3fb0d788ce0ef631d348ac015a91072a0e"
     },
     "eval/fixtures/review-comparison-synthetic-v1.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "7eb9dfcb14612baffe0d721f2a3b07538df147f973320de2e4e117641e4ed18b"
     },
     "eval/fixtures/smoke-references.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "6570a8e09e505e4826daa35f2b3eade1f6ac8db48ceeb272f39e38688470d826"
     },
     "eval/package-lock.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "f21f19e76017ef5ce2436302d8989c004ff000e4b0594e8fd7d99f2c60e3cc6e"
     },
     "eval/package.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "36250a28a4a5b647c8b3228f01d2a3af86c8f796daba68081b6f3bb0ef1aebe4"
     },
     "eval/promptfooconfig.json": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "85a7a6ca57db95249935af8966d22a03527702f62c48abd6a71e9a8f264d8712"
     },
     "eval/providers/document_api.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "c99480240425bb9d3301c43c09463675b3317704cbdea483d89d81b354bbbba3"
     },
     "eval/pyproject.toml": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "187f8f69c8d95787c2991422c4b90d82d7b0f8ea5493bc1552ddd0f3768e42e4"
     },
     "eval/smoke_http.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "33772f3b825b51a6c1f0224c32f9b084641522e2181b8273a967900a7e695ed8"
     },
     "eval/src/notelens_eval/__init__.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "40f394cb48f8d754e2b532ae9ab247d78c11942119bf88e9738fc324fa56c666"
+    },
+    "eval/src/notelens_eval/acceptance.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "6e30433c361c800aba7f88a88ef207f7e51ce287716a9edb79a84f9947c71578"
     },
     "eval/src/notelens_eval/annotations.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "8973535dc50d9c3a99d6e374a45d9b223d2cb62c4b88d87c4e029e10be1ff7ea"
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "a69aeab820a732b58f256b53240b8b5d8b636eb4f9fa2d9cdb36b2293f541c03"
     },
     "eval/src/notelens_eval/answer_review.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "e67b1c00e2857dc397d3ffd25da724abc8854c39e6d5edc9c7a0d96d906500d1"
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "94bd04d8ea6f432b679cfb931d8282174f8534058cc2779fa532879df31a5037"
+    },
+    "eval/src/notelens_eval/answer_risk.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "c1a239dec6775b462ea56682d73ed510eb84c5847dcf7cae501c6fd508d261a6"
+    },
+    "eval/src/notelens_eval/cross_service_smoke.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "8e08e33df6e272aa56b7476998cfbe1ed58809f44b6664751bee8ebe1806f325"
     },
     "eval/src/notelens_eval/http_suite.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "619a56ac208f47a0b0375ff92df8aee3e7ffe47238a2e448b9904727b6a88ab0"
     },
     "eval/src/notelens_eval/metrics.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "8915c8d2b982a71c3adcc6682a6bb7c6e807150d51b8ad959c215539634123ad"
+    },
+    "eval/src/notelens_eval/mock_http.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "9dbb66d6de938f03e9476fa5b3f3638a9c0b414298875d83dd1eb347a419743d"
+    },
+    "eval/src/notelens_eval/qa_inventory.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "bdaabca3ed9d79595149b4a733df2896cee21a9ad6480e8644b9070bb0610e63"
     },
     "eval/src/notelens_eval/readiness.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "56e6f48abfb4b596b9fb153e83f21b45933fffeb13b879558b4b2a74912041ce"
+    },
+    "eval/src/notelens_eval/retrieval_metrics.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "36536f78dfd9f399cabe31b247d9265d40c951c42fb85de03ee17a04d50d4590"
     },
     "eval/src/notelens_eval/review.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "168cf37985883f617dbc141a2afa7b22a004c23f771e48ba1c37937f80f58088"
     },
     "eval/src/notelens_eval/run.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "f9aa72b010d216ffc9841a6ab8cb7b71b2bb2c8773fe82acdfdc2eaffcbbc250"
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "001a4e62a93915eeeed64d8c3555a39bd9952b8b448009637ffe9e13a318231c"
     },
     "eval/src/notelens_eval/suite.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "9d647c6c761631831c76740e516812bd1b4dae4b403d588ef020ac3e6136b9df"
+    },
+    "eval/tests/test_acceptance_config.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "52c9fd2df325386577019a23d224b3ee101369e9543067c83497f803501e2e79"
+    },
+    "eval/tests/test_annotation_preflight.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "554af6e407fe927c01817c57360423f1b94982c1142e93ed0372631273738ef5"
+    },
+    "eval/tests/test_answer_risk.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "64f4a7050b1c54c1a414a606b4ce12af94558373aac55854827830de7ee7003f"
+    },
+    "eval/tests/test_http_suite.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "31dda485fa25359438332ef4da73d3df12e1983a462376fb4fa41898dd6d9f25"
     },
     "eval/tests/test_offline_adapter.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "2c546035d82dc27a17d30930fc385c4618c604512a405b74c823334a13b8c74e"
+    },
+    "eval/tests/test_qa_integrity.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "96e5d19cd2cb09578200c41175572ebec077d50ee234bf9bcae834f8ca2f001d"
     },
     "eval/tests/test_readiness.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "cd3f156aea3bc7be453d4ccf1c21b8430c3591f5fed75c7039e0758513f524a2"
+    },
+    "eval/tests/test_retrieval_metrics.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "dc5aaa28c0309b13b968670aa2ab27dd376bcb151f7270f3efdda66f8ee01991"
     },
     "eval/tests/test_review_integrity.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "82b090bc0e2ca0dbb0b281a944c247b95121b68051826d366a8215492ee683d1"
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "9d858224bac367f07dee6f04c97eb61223fb4384f01fecb73eb5ece14774536b"
     },
     "eval/tests/test_slice.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "e561f03a8896777b8d308ccd925c19b733e64dca32647c5ec5367eb43230352a"
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "c3b141d17ea8a830eb96c1ee2cf69e4d8320d0d72f600ec9645fbf400e6109a6"
     },
     "eval/tests/test_synthetic_suite.py": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "36249b1407970d0d52fc4c551f9c8f1cde989e6bd85ff5377b7c456fd624edaf"
     },
     "eval/uv.lock": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "af49abb593208d01645e63ffd960d4d8cd9079d62f8b8e5ddcaa2cefec1bc908"
+    },
+    "services/extraction/src/notelens_extraction/openai_transport.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "28ad2fa0e6d302f8aad0126550f720d905b6431b2d6b7d0da491b3586ce0b2cb"
+    },
+    "services/extraction/src/notelens_extraction/openai_trial.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "52b4b7cc7ef1c466e469f45539eb605024fc430b5005a437db8e5354e4206f27"
+    },
+    "services/extraction/tests/test_openai_transport.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "99eb3c7440f0e99e7705ccd17c55c7bf5fe87379b04954e1edaf58ecf4c50727"
+    },
+    "services/extraction/tests/test_openai_trial.py": {
+      "owner": "D",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "30d4c18cfd68d8a66f76a3a642d7eb9cbabcd09dbb03b576da1705dcb860c51d"
     },
     "specs/004-extraction-evaluation/contracts/README.md": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "20892cb2bd18e5415f10ccf7b8a08c42bf0f2a114eb7e94fd1ac76210f36cfb0"
     },
     "specs/004-extraction-evaluation/data-model.md": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "2a3d63cd6c6b0a0789c6487676f5dec20deffc672cc5fb1f5b1df141e43bc788"
     },
     "specs/004-extraction-evaluation/plan.md": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "3a7da01c95f76bee191268c4cc8e81c394fbd0e99d93aaae26773767a6fa822f"
     },
     "specs/004-extraction-evaluation/quickstart.md": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "aa66619679f911012288763f5a2a65ef1ac79ac41a37a35619e64fc7514501c6"
     },
     "specs/004-extraction-evaluation/spec.md": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
       "sha256": "feeb87be20ae114a484fc6309edc216d9552dfbbd8f3fffd97a246c7ba084465"
     },
     "specs/004-extraction-evaluation/tasks.md": {
       "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "7bb07b059c98f78f6db685d9d82fc1c278da0952ada0846f9f876cf58ec98e75"
-    },
-    "docs/extraction-eval/annotation-tooling.md": {
-      "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "cebc308b5a0c6ca05e782adb09ff8054460406f4d78e2eb2a5845cfcb04fe6c5"
-    },
-    "docs/extraction-eval/integration.md": {
-      "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "6cf9d85155c800f3c7c597d1d98ed9d08dbb50357c56327dff3708997a23bdb3"
-    },
-    "eval/src/notelens_eval/cross_service_smoke.py": {
-      "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "8e08e33df6e272aa56b7476998cfbe1ed58809f44b6664751bee8ebe1806f325"
-    },
-    "eval/src/notelens_eval/mock_http.py": {
-      "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "9dbb66d6de938f03e9476fa5b3f3638a9c0b414298875d83dd1eb347a419743d"
-    },
-    "eval/tests/test_annotation_preflight.py": {
-      "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "554af6e407fe927c01817c57360423f1b94982c1142e93ed0372631273738ef5"
-    },
-    "eval/tests/test_http_suite.py": {
-      "owner": "D",
-      "commit": "66ee54778b545f8d2c72f525ab4f60fc8393cec8",
-      "sha256": "31dda485fa25359438332ef4da73d3df12e1983a462376fb4fa41898dd6d9f25"
+      "commit": "4aa9e8805dce1b001d71aef2aa257df5319ea4ec",
+      "sha256": "c30dc5e7a4b15fcb1360600530bd269a25d1fe7b2a2a49018731ceed89242682"
     }
   },
   "b_input_files": {
@@ -658,7 +1373,7 @@
     ".specify/integrations/codex.manifest.json": "c3a7e87776247545db1d380c730e1deb9f1c023134eb466230f28d3fdd729ebe",
     ".specify/integrations/speckit.manifest.json": "af5dbbf8b9fac53f07d8d1d506a8e50ce3efacf37067a83c7e82765ec8728165",
     ".specify/memory/.constitution-template.json": "8fc4b39294bae0c10d59547ad7d415b6f0e890d656cbf7171dd567f4e9054711",
-    ".specify/memory/constitution.md": "2f19be05723381540a4c498ae2f817bb62e211cccbb9ab654f7a9e9b2cf87966",
+    ".specify/memory/constitution.md": "b1139d83978ee27d1b78038e2f30968332ff32c287534b24927d4c22508349c7",
     ".specify/scripts/powershell/check-prerequisites.ps1": "f48e586b57cc049ea83ade5acecb466f861aee4fb444dab54bbafc813222da10",
     ".specify/scripts/powershell/common.ps1": "54b59523b13fd8f884ff8b6b4e74fded922cdcc884965ff720392ca64ec1aa47",
     ".specify/scripts/powershell/create-new-feature.ps1": "481c7368541a816b1679e5ed65fa9e5aea84b09f8be3a02ff8a340e3b48dd58a",
@@ -753,20 +1468,20 @@
     "docs/team/contract-reviews/p2-revision-3/user-owner-confirmation.md": "b1c07cea2c94e6e0d93752fdd327a18931ed31722d7d33f6da8b2b21e5a18458",
     "docs/team/documentation-checkpoint.md": "f9138f8e671b8a3b996a646c611618c69d1c59b79f4a543a30243e385bac8f8f",
     "docs/team/frozen-contracts-handoff.md": "ea297d32f6a744a41ed131f10ddbe0a478c216ae6c149cb9baa130795c60fe22",
-    "docs/team/handoffs/member-a.md": "fc31cb7e4d95b644472f2c226b2be7049617bd914a6f7af715faed7aa1a69cd3",
-    "docs/team/handoffs/member-b.md": "4e6dca38a06134742beaf170aaac6a39ab7dfc7173ab5e099d9cf40ed232c3ef",
-    "docs/team/handoffs/member-c.md": "cf7369466e966a4934f8eafe8a1bdeaf8ea63ef741810305b74f5d24ee56d59b",
-    "docs/team/handoffs/member-d.md": "7d84c4ba8d9f15702b6a6042ada19cd3336a9e75c1cd37966f0f77ea6ab524a5",
+    "docs/team/handoffs/member-a.md": "7a4c6512b65d836e59b3e10f0cb5c740e4fd3834309c8cdcf7a22c99b8a84a79",
+    "docs/team/handoffs/member-b.md": "67abbf5ee46b5eeed3eac704e99c7e46f8eda117e1dbd20d0694dcd6691c1f31",
+    "docs/team/handoffs/member-c.md": "3a1df115d81e0eb8afc1145a0efd846885a04e3d2c28a18aa7744aa9d30f0549",
+    "docs/team/handoffs/member-d.md": "1ec8fd47d69a8f9e70e5293a0e6b357ee274dcc7b7b328bb71d0833d48bd391c",
     "docs/team/open-decisions.md": "b1513ee3ca3a256a9ffd4b27c065af251329d6d1d82193dcb861a732e58d2dac",
     "docs/team/p2-revision-3-review-request.md": "6bca92d894443147c9d8528171049ef24cd2de63b13d632aad71506582aa4dd3",
     "docs/team/planning-analysis-record.md": "3b069c34475ac267e3b00567b0730fc012af0d66e754d3b4b21b688f5802a6f1",
     "docs/team/planning-status.md": "6b23d7852d397e4860b7a325f42f26c8ea9a011ae3a4e7cde6b33c3c24f26ccc",
     "docs/team/preparation-status.md": "e5657de20e740f28fcf2533ecc0803009156f9d64ec285eb33e264a2dd051930",
-    "docs/team/start-prompts/member-a.md": "146301e47541c514e03d466e2d07e335ea8cff54608374dfacec048b72b23538",
-    "docs/team/start-prompts/member-b.md": "e45d7404506323a7389bb9b48de7005cdd7161cda52362153b41e98af7e95ab4",
-    "docs/team/start-prompts/member-c.md": "d7c469e74c7f03cc17f7da99063eb74595486f1bbf9759f38f8cb10a78a0798b",
-    "docs/team/start-prompts/member-d.md": "d2315e5bbf1a350a7c79d686ff0f2bad627369f633c82bf5c9b244d517cd3813",
-    "docs/team/working-copies.md": "de90416fc8848ffc20bdd687315c3772fb6743e55b68370ecff0441683e2a2fe",
+    "docs/team/start-prompts/member-a.md": "767d283c76d4c6381ab8458321afc90e83186d559745e53ca210053c27cf4955",
+    "docs/team/start-prompts/member-b.md": "f786ceff934412e120127f512db7bc2d81a089d209f192e4c1d54ae32daad9e8",
+    "docs/team/start-prompts/member-c.md": "ebe5281fb2d0706dd04ace4f5b3fe48dd4cdd56a005f31c142382a3e5144755b",
+    "docs/team/start-prompts/member-d.md": "710383954662f5b12cce48360f1969186d2834f9b99fc4aedb77fe76b6dedae8",
+    "docs/team/working-copies.md": "5225eccbd4a7696af5e4b7afdc992a891857210ace611e7c18c2490536788032",
     "eval/AGENTS.md": "a5aa4d463dc301be5d6b065c0e3e256c42fac3065de2d11f97f3ee5b6ce0bfae",
     "eval/annotations/member-a/AGENTS.md": "e31266445d9138f15eeaaebfac8c36063b990c11404257226abe5b513ba667b2",
     "eval/annotations/member-b/AGENTS.md": "0c628e02e74909dd31ed4f922d60752b4c8dbc463aa1353468eb02597fe9d1a3",
@@ -805,7 +1520,7 @@
     "specs/000-foundation/quickstart.md": "537cf23f2994c0c4d34388e75dad35eeb14299219d3437638c860b41abc651e2",
     "specs/000-foundation/research.md": "1051b0c853b15aac1c18ff5c0be477ec5b8c36ec896afb81690bb3f538d29c15",
     "specs/000-foundation/spec.md": "4875678fbbd509e4b5fb3a0a57d0dfd29e257eec160d5d4b670ad5bc6e2379e3",
-    "specs/000-foundation/tasks.md": "8d035e76216de4425583370001ad72313879df698b6235486a4d90ec8a354133",
+    "specs/000-foundation/tasks.md": "22c77e04bddd8c68d19ac2ff36e4c233fd42267943ec285b4506ad236d122fba",
     "specs/001-rag/AGENTS.md": "d794076b0dc3c295854abbbd93e7310a48a283acef311e4876f368d85a2f410a",
     "specs/001-rag/checklists/requirements.md": "e00f8f47235ef016d8b8f365b36630b22b76c21ca4b12a55f514921a729ad6a3",
     "specs/001-rag/contracts/README.md": "0fcaffebb6896859a86669f599fd66a7c91cfd263213c935242c7ff8c54ce503",
@@ -870,6 +1585,7 @@
     ".github/scope-policy.json",
     "scripts/project/tests/fixtures/key-free-bootstrap-workflow.json",
     "scripts/project/check_scope.py",
+    "scripts/project/check_handoffs.py",
     "scripts/project/check_ci.py",
     "scripts/project/tests/test_scope.py",
     "scripts/project/tests/test_ci.py",
@@ -899,7 +1615,10 @@
     "scripts/project/smoke_mock.py",
     "apps/web/src/app/demo/page.tsx",
     "apps/web/src/app/demo/health/route.ts",
-    "apps/web/src/lib/scaffold/demo.ts"
+    "apps/web/src/lib/scaffold/demo.ts",
+    "docs/decisions/f-013-foundation-acceptance.md",
+    "docs/team/foundation-checkpoint.md",
+    "scripts/project/check_checkpoint.py"
   ],
   "http_cases": [
     "rag-retrieve-sufficient",

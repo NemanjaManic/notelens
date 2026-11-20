@@ -182,7 +182,7 @@ def templates(manifest: dict) -> list[dict]:
                            "annotator": member, "doc_id": assignment["doc_id"],
                            "text_sha256": assignment["text_sha256"], "guide_version": "draft-2026-11-11",
                            "review_state": "pending", "human_reviewed": False, "entities": None,
-                           "questions": [], "complete_document_review": False})
+                           "unresolved_questions": [], "complete_document_review": False})
     return result
 
 
@@ -216,12 +216,14 @@ def lint_submission(assignment: dict, document: dict, submission: dict) -> dict:
     if not isinstance(entities, list):
         issue("entities_must_be_explicit_list")
         entities = []
-    unresolved = submission.get("unresolved_questions", [])
-    if not isinstance(unresolved, list):
-        issue("unresolved_questions_must_be_list")
-        unresolved = []
-    else:
-        questions.extend(f"unresolved_question_{index + 1}" for index, value in enumerate(unresolved) if value)
+    unresolved = []
+    for field in ("unresolved_questions", "questions"):
+        entries = submission.get(field, [])
+        if isinstance(entries, list):
+            unresolved.extend(entries)
+        else:
+            issue(f"{field}_must_be_list")
+    questions.extend(f"unresolved_question_{index + 1}" for index, value in enumerate(unresolved) if value)
     seen = set()
     text = document.get("text", "") if isinstance(document.get("text", ""), str) else ""
     for index, entity in enumerate(entities):

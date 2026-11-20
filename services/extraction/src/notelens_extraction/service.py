@@ -1,9 +1,10 @@
 """Request-local orchestration with bounded structural repair and safe failures."""
 
-import json
 import copy
 from dataclasses import dataclass, asdict
 from pathlib import Path
+
+from notelens_contracts.v1 import ContractValidationError, validate_json
 
 from .contracts import validate_extraction, validate_generation, validate_request
 from .errors import ServiceError
@@ -18,12 +19,20 @@ class Diagnostics:
     repairs: int = 0
 
 
+def generation_instructions(operation: str) -> tuple[str, str]:
+    instructions = (Path(__file__).parent / "prompts" / f"{operation}-v1.txt").read_text(encoding="utf-8")
+    definition = "ExtractionResult" if operation == "extract" else "AnswerResult"
+    instructions += "\nReturn the frozen NoteLens 1.0.0 " + definition + " record."
+    return instructions, definition
+
+
 def run(request: dict, operation: str, provider: Provider | None = None,
         *, max_attempts: int = 2, diagnostics: Diagnostics | None = None) -> tuple[dict, dict]:
-    """Offline attempts default to two; this is not an approved live retry policy."""
+    """Allow bounded repair in mock mode and a single attempt in live mode."""
     if operation not in {"extract", "answer"} or not 1 <= max_attempts <= 3:
         raise ValueError("Invalid local operation or attempt bound.")
     provider = provider or FakeProvider()
+    attempt_limit = max_attempts if provider.mode == "mock" else 1
     diagnostics = diagnostics if diagnostics is not None else Diagnostics()
     if isinstance(request, dict):
         doc = request.get("document")
@@ -36,14 +45,12 @@ def run(request: dict, operation: str, provider: Provider | None = None,
     except EvidenceError as exc:
         raise ServiceError(422, "validation_failure", str(exc)) from exc
     document = copy.deepcopy(document)
-    instructions = (Path(__file__).parent / "prompts" / f"{operation}-v1.txt").read_text(encoding="utf-8")
-    definition = "ExtractionResult" if operation == "extract" else "AnswerResult"
-    instructions += "\nReturn the frozen NoteLens 1.0.0 " + definition + " record."
-    for attempt in range(max_attempts):
+    instructions, definition = generation_instructions(operation)
+    for attempt in range(attempt_limit):
         diagnostics.attempts += 1
         try:
             raw = provider.generate(operation, copy.deepcopy(request), instructions, repair=attempt > 0)
-            result = json.loads(raw)
+            result = validate_json(definition, raw, document=document)
             if request["document"] != document:
                 raise EvidenceError("Canonical request was modified.")
             if operation == "extract":
@@ -61,8 +68,11 @@ def run(request: dict, operation: str, provider: Provider | None = None,
             raise ServiceError(504, "timeout", "The generation request timed out.", True) from exc
         except ConnectionError as exc:
             raise ServiceError(503, "provider_unavailable", "The generation provider is unavailable.", True) from exc
-        except (json.JSONDecodeError, EvidenceError, TypeError) as exc:
+        except (ContractValidationError, EvidenceError, TypeError) as exc:
             diagnostics.raw_validation_failures += 1
-            if attempt + 1 == max_attempts:
-                raise ServiceError(502, "internal_error", "Generated output failed validation after bounded repair.") from exc
+            if attempt + 1 == attempt_limit:
+                message = "Generated output failed validation."
+                if attempt:
+                    message = "Generated output failed validation after bounded repair."
+                raise ServiceError(502, "internal_error", message) from exc
     raise AssertionError("Unreachable attempt loop.")

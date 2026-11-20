@@ -58,3 +58,40 @@ def test_operational_error_not_quality_and_missing_declaration():
     record["response_action"] = "operational_error"
     with pytest.raises(ValueError):
         inspect(record)
+
+
+def test_agreement_uses_distinct_reviewers_and_exact_pinned_output():
+    first, second, different, duplicate = [completed() for _ in range(4)]
+    second.update(review_id="review-b", reviewer_alias="B", critical_error=True)
+    second["dimensions"].update(source_support=0, required_facts="U")
+    different.update(review_id="review-c", reviewer_alias="C", response_sha256="c" * 64)
+    duplicate.update(review_id="review-d", reviewer_alias=" b ")
+    report = summarize([first, second, different, duplicate])
+    agreement = report["reviewer_agreement"]
+    assert agreement["matched_pairs"] == 1
+    assert agreement["by_dimension"]["source_support"]["major_disagreement"] == 1
+    assert agreement["by_dimension"]["required_facts"]["comparable"] == 0
+    assert agreement["by_dimension"]["required_facts"]["unable"] == 1
+    assert agreement["adjudication_pairs"] == [{
+        "case_id": "test", "response_id": "test",
+        "review_ids": ["review-b", "synthetic-test"],
+        "dimensions": ["source_support"], "flags": ["critical_error"],
+    }]
+    assert report["counts"]["invalid"] == 1
+
+
+def test_response_artifacts_verify_exact_bytes_and_reject_path_escape(tmp_path):
+    import hashlib
+    from notelens_eval.answer_review import verify_response_artifacts
+
+    record = completed()
+    raw = b'{"synthetic": true}\n'
+    (tmp_path / "test.json").write_bytes(raw)
+    record["response_sha256"] = hashlib.sha256(raw).hexdigest()
+    assert verify_response_artifacts([record], tmp_path) == 1
+    (tmp_path / "test.json").write_bytes(b'{"synthetic":true}')
+    with pytest.raises(ValueError, match="digest mismatch"):
+        verify_response_artifacts([record], tmp_path)
+    record["response_id"] = "../escape"
+    with pytest.raises(ValueError, match="safely"):
+        verify_response_artifacts([record], tmp_path)

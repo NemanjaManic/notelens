@@ -1,0 +1,28 @@
+{
+  "format_version": "public-literature-answer-trial-v1",
+  "prepared_on": "2026-11-18",
+  "execution_approved": false,
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-18",
+    "scope_sha256": "d24a62b9767c0acc60c3da6a79c795b27017b7a466d9da3b2a43d1f23ba63748"
+  },
+  "question_id": "CQ-01",
+  "model": "gpt-6-luna",
+  "context_sha256": "18b58070201a02890abbe48804c0f4ddef9317a5be10ff643a896113f1fedded",
+  "prompt_sha256": "fa385fcdfbad8ee3dd6b867122bf93ad18f7e18989da0b9fa148c26f064aba48",
+  "request_sha256": "04937efcbba4d7f36737edcc0e39da6d140e9ca29f0402435d5596ee131f2455",
+  "max_attempts": 1,
+  "automatic_retries": 0,
+  "coverage_ledger_sha256": "a416700874bd7aadaf3ce874e8dbe88f7cd4718c15642e54b85fecfaf89cc65c",
+  "limits": {
+    "max_input_tokens": 4096,
+    "max_usd": "0.02"
+  },
+  "prices": {
+    "input_usd_per_million": "0.10",
+    "output_usd_per_million": "0.50",
+    "checked_on": "2026-11-18",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+  }
+}

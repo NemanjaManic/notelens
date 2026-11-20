@@ -1,0 +1,60 @@
+{
+  "record_format_version": "public-coverage-preflight-v2",
+  "date": "2026-11-18",
+  "preflight": {
+    "scope_sha256": "05dd7b8cabb7e8a5a3e7dab86544f73d0b73ea787f40baa4b7726f55febd3c6b",
+    "execution_approved": false,
+    "model": "gpt-6-luna",
+    "question_ids": [
+      "CQ-02",
+      "CQ-08"
+    ],
+    "max_new_attempts": 2,
+    "max_attempts_per_question": 1,
+    "prompt_version": "literature-support-selection-v2",
+    "prompt_sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+    "requests": {
+      "CQ-02": {
+        "context_sha256": "552957c59b8ede5aabeabeaa1dcd70c3a1a0e6582916d1c95f9c62224d4f4ad3",
+        "selection_sha256": "7666c4cf4b198c86945ac885da863d0d75b7651f09202f0cde9844a1270f2667",
+        "request_sha256": "d0a6e48dd68f06a9bb8c5140962e8b1969910edc8887ec56be56d116620f485e"
+      },
+      "CQ-08": {
+        "context_sha256": "78f9c5c4328bd6c288244b199613e84bfdbf3ed9bdba071dd2018858ea6eb5f0",
+        "selection_sha256": "807e66d148728c334f15a85cf6db105274e0c3398ed6eccd0999fab8c9d62c86",
+        "request_sha256": "da02de26744e34f48267b5be35dcb3e9377aa2decc63bee29f964f7a2efc7bbc"
+      }
+    },
+    "parameters": {
+      "max_output_tokens": 2048,
+      "reasoning_effort": "none",
+      "timeout_seconds": 30
+    },
+    "max_input_tokens": 20000,
+    "cumulative_max_usd": "0.02",
+    "carried_reserved_usd": "0.0048891",
+    "carried_confirmed_usd": "0.0012049",
+    "maximum_new_reservation_usd": "0.006048",
+    "maximum_combined_reservation_usd": "0.0109371",
+    "prior_histories_verified": true,
+    "input_tokens": "Not counted; each separately authorized execution must count its exact input.",
+    "execution": "One explicitly selected question per invocation, in declared order; no automatic batch.",
+    "price_basis": "Recorded reference prices, not actual billing or a fresh price check.",
+    "provider_calls": 0
+  },
+  "checks": {
+    "pending_execution_rejected_for_both_cases": true,
+    "all_prior_ledgers_byte_identical": true,
+    "validated_cq01_cache_byte_identical": true,
+    "prior_ledger_sha256": [
+      "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+      "1b04e28fdc04723930820f1d2b04d670951eea7d65e01f84badca3329de96299",
+      "290d674c3b61e13e8b2c924349dfa0893224c75be79c6f39a927f86f32b613ca"
+    ],
+    "provider_creations": 0,
+    "key_loading": 0,
+    "provider_requests": 0,
+    "new_trial_directory_created": false,
+    "expected_verdicts_added_to_model_input": false
+  }
+}

@@ -164,11 +164,31 @@ def evaluate(references: dict, predictions: dict) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="D's first synthetic/offline evaluation slice")
-    parser.add_argument("--profile", choices=["smoke", "synthetic-suite"], default="smoke")
+    parser.add_argument("--profile", choices=["smoke", "synthetic-suite", "retrieval", "answer-risk"], default="smoke")
     parser.add_argument("--references", type=Path)
     parser.add_argument("--predictions", type=Path)
     parser.add_argument("--output", type=Path, default=EVAL_ROOT / "reports/local")
     args = parser.parse_args()
+    if args.profile in {"retrieval", "answer-risk"}:
+        from .answer_risk import evaluate_answer_risk
+        from .retrieval_metrics import evaluate_retrieval
+
+        scorer = evaluate_retrieval if args.profile == "retrieval" else evaluate_answer_risk
+
+        if not args.references or not args.predictions:
+            parser.error(f"The {args.profile} profile requires --references and --predictions.")
+        try:
+            references = json.loads(args.references.read_text(encoding="utf-8"))
+            predictions = json.loads(args.predictions.read_text(encoding="utf-8"))
+            report = scorer(references, predictions)
+        except (OSError, KeyError, TypeError, ValueError):
+            parser.error(f"Invalid {args.profile} reference or prediction input.")
+        args.output.mkdir(parents=True, exist_ok=True)
+        (args.output / f"{args.profile}-results.json").write_text(
+            json.dumps(report, indent=2) + "\n", encoding="utf-8",
+        )
+        print(json.dumps({"label": report["label"], "overall": report["overall"]}))
+        return 0
     reference_path = args.references or EVAL_ROOT / "fixtures" / (
         "extraction-qa-synthetic-v1.json" if args.profile == "synthetic-suite" else "smoke-references.json")
     references = json.loads(reference_path.read_text(encoding="utf-8"))

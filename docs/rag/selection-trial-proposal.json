@@ -1,0 +1,25 @@
+{
+  "format_version": "public-selection-trial-v2",
+  "prepared_on": "2026-11-17",
+  "execution_approved": true,
+  "approval": {
+    "actor": "Nemanja (A)",
+    "date": "2026-11-18",
+    "scope_sha256": "31a4334ed974edfb0b84a88d0a8a4b77c0ab1a38fe94834b2ce09fbc3e1b4bc7"
+  },
+  "question_id": "CQ-01",
+  "max_new_attempts": 1,
+  "cumulative_max_usd": "0.02",
+  "prompt_version": "literature-support-selection-v2",
+  "evidence_policy": "canonical-nonblank-lines-v1",
+  "prompt_sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+  "selection_sha256": "05f9ad8d9d5510dc0b956c50f0e5f380e9bce2b541e91043d7e11a3626e5660a",
+  "request_sha256": "80446125fd83c4f4da7af137a4a24c2bae4e77f5bef548303367d221c7d13861",
+  "prior_trial": {
+    "scope_sha256": "13139aecb51365d4aa0fb2945320fd637541222abe8469a6f455807683708964",
+    "ledger_sha256": "1b04e28fdc04723930820f1d2b04d670951eea7d65e01f84badca3329de96299",
+    "original_ledger_sha256": "4d078067ef2df168281ebe8aa99f3bd59b933cdeea792c62cb8e53415092db05",
+    "reserved_usd": "0.0027622",
+    "confirmed_usd": "0"
+  }
+}

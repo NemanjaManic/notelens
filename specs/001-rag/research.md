@@ -32,9 +32,18 @@ Primary source details and retrieval limitations are recorded in the
 
 ## Activation and empirical gates
 
+On 2026-11-14 the user selected OpenAI text-embedding-3-small with 1,536 dimensions
+for the first embedding-only baseline and approved local Chroma. The public-corpus
+preflight measured 207,790 tokens; its documented price-based estimate is USD 0.0041558.
+The separately approved initial live step is capped at USD 0.10, covers the public
+corpus and one small probe, uses batches up to 32 and a 30-second timeout, and has
+no automatic retries. The key is kept in ignored services/rag/.env. These are
+specific local approvals; they do not activate generation or deployment. See
+[implementation and pricing sources](../../docs/rag/embeddings.md).
+
 No source facts are inferred from unreadable data pages. Acquisition audits decide actual
 counts, permitted redistribution, duplicate/split feasibility and topic/QA evidence.
-No live model ID, account quota, price, timeout/retry/rate policy or quality threshold is
-silently chosen. Local mocks need none of those paid/live settings.
+No other live model ID, account quota, operational policy or quality threshold is
+silently chosen. Local mocks need none of the paid/live settings.
 This design is complete for local preparation; deployment and live-provider configuration
 must remain blocked until the corresponding owner/user approval and actual checks.
