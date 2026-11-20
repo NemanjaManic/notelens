@@ -117,6 +117,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T004 [US2] D-005: Generate English summaries and document answers with supported claims in `services/extraction/src/notelens_extraction/answers.py`, `services/extraction/prompts/**`, `services/extraction/tests/test_answers.py`, `docs/extraction-eval/integration.md`
   - [x] Local literal summaries, supported/partial/insufficient document answers, exact citation checks, source-free output guard and targeted injection case pass in mock mode; B handoff prepared.
+  - [x] Mock document answers cover explicit catalog topics independently, retain cited supported parts, and disclose gaps. The 72-request synthetic HTTP run preserved the contract and recorded 34 of 48 complete literal answers and 25 of 26 expected gap mentions.
   - [ ] Remaining: approved real-provider generation, general support/language evaluation and frozen integration. The literal mock is not a general medical QA model.
   - **Owner / story**: D / US2.
   - **Dependencies**: 004-extraction-evaluation/T003 (D-004)

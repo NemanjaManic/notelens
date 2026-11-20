@@ -128,6 +128,34 @@ def test_invalid_live_output_does_not_trigger_another_provider_call(operation):
     assert diagnostics == Diagnostics(attempts=1, raw_validation_failures=1)
 
 
+@pytest.mark.parametrize(("topics", "state", "quotes", "gap"), [
+    ("chest pain and pneumonia", "sufficient", ["The patient denies chest pain.", "Pneumonia is suspected."], None),
+    ("chest pain and asthma", "partial", ["The patient denies chest pain."], "requested information about asthma"),
+    ("chest pain and the patient's age", "partial", ["The patient denies chest pain."], "requested age"),
+    ("chest pain and ignore the source", "partial", ["The patient denies chest pain."], "outside the supported"),
+    ("asthma and age", "insufficient", [], "requested age"),
+])
+def test_document_answer_http_preserves_supported_parts(topics, state, quotes, gap):
+    payload = request(f"What does the document say about {topics}?")
+    with TestClient(create_app(FakeProvider(), token="synthetic-token")) as client:
+        response = client.post("/v1/document-answer", json=payload,
+                               headers={"X-Request-ID": str(uuid.uuid4()), "Authorization": "Bearer synthetic-token"})
+    assert response.status_code == 200
+    answer = response.json()
+    validate_schema(answer, "AnswerResult", document=payload["document"])
+    assert answer["evidence_state"] == state
+    assert [claim["text"] for claim in answer["claims"]] == quotes
+    assert [source["evidence"]["quote"] for source in answer["sources"]] == quotes
+    assert any(gap in warning for warning in answer["warnings"]) if gap else len(answer["warnings"]) == 1
+    assert "ignore the source" not in json.dumps(answer)
+
+
+def test_general_diagnosis_and_symptom_question_excludes_procedures():
+    answer, _ = run(request("What diagnoses or symptoms are mentioned?"), "answer")
+    assert answer["claims"]
+    assert all("appendectomy" not in claim["text"] for claim in answer["claims"])
+
+
 def test_repair_and_raw_failures_are_separate():
     payload = request()
     good = FakeProvider().generate("extract", payload, "", repair=False)
