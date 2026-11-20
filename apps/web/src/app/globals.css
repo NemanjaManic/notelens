@@ -24,7 +24,14 @@ p { line-height: 1.65; margin: 12px 0; }
 .examples h2 { font-size: 16px; }
 .examples p, .privacy { font-size: 13px; color: #486260; }
 .examples ul { display: flex; gap: 8px; flex-wrap: wrap; list-style: none; padding: 0; margin: 16px 0 0; }
-.examples a { display: inline-block; padding: 8px 12px; font-size: 13px; border: 1px solid #c5d8cb; border-radius: 8px; background: white; text-decoration: none; }
+.examples a, .examples button { display: inline-block; padding: 8px 12px; font-size: 13px; border: 1px solid #c5d8cb; border-radius: 8px; background: white; text-decoration: none; }
+.examples button { color: inherit; font-family: inherit; cursor: pointer; }
+.submission-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-top: 12px; }
+.submission-grid fieldset { display: grid; gap: 8px; min-width: 0; padding: 12px; border: 1px solid #c5d8cb; border-radius: 8px; }
+.submission-grid legend { font-weight: 600; }
+.submission-grid textarea, .submission-grid select, .submission-grid input { min-width: 0; font: inherit; }
+.submission-grid textarea { resize: vertical; }
+.submission-grid button { justify-self: start; }
 .examples a[aria-current="page"] { color: white; background: #225b47; border-color: #225b47; }
 .report-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 28px; }
 .report-heading .eyebrow { margin: 0 0 8px; }

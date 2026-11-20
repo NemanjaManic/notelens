@@ -4,10 +4,15 @@ import { validateRecord } from '@notelens/contracts/v1';
 import documents from '../../../contracts/v1/fixtures/documents.json' with { type: 'json' };
 import { canonicalText } from '../src/lib/documents/canonical.ts';
 import { BUILTIN_IDS, prepareBuiltin } from '../src/lib/documents/builtin.ts';
+import { prepareSubmitted } from '../src/lib/documents/submitted.ts';
 import { MemorySessions, UNAVAILABLE } from '../src/lib/sessions/memory.ts';
 import { DOCUMENT_LIFETIME_MS as TTL, SESSION_IDLE_MS as IDLE } from '../src/lib/config/session-policy.ts';
 const same = (a: unknown, b: unknown) => { if (JSON.stringify(a) !== JSON.stringify(b)) throw new Error('PREPARATION_CHECK_FAILED'); };
 const sha = (text: string) => createHash('sha256').update(text, 'utf8').digest('hex');
+const english = 'This synthetic medical report describes a scheduled follow-up. The patient reports no new symptoms today.';
+function submission(body: string | Uint8Array<ArrayBuffer>) {
+  return new Request('https://notelens.test/api/documents/submit', { method: 'POST', body });
+}
 function setup(Store: typeof MemorySessions = MemorySessions) {
   let time = 0;
   let cancellations = 0;
@@ -158,4 +163,54 @@ test('mode/live-rejected-without-provider-or-session-work', async () => {
   try { process.env.NOTELENS_MODE = 'live'; const result = await prepareBuiltin(s.store, s.session, 'offset');
     same(result.kind, 'rejected'); same(s.timers.size, 1);
   } finally { if (prior === undefined) delete process.env.NOTELENS_MODE; else process.env.NOTELENS_MODE = prior; s.store.dispose(); }
+});
+
+test('submission/canonical-pasted-text-and-provenance', async () => {
+  const s = setup();
+  try {
+    const raw = english + '\r\nThe patient met the care team at the Cafe\u0301.';
+    const expected = english + '\nThe patient met the care team at the Caf\u00e9.';
+    const result = await prepareSubmitted(s.store, s.session, submission(raw), 'text', 'public');
+    if (result.kind !== 'prepared') throw new Error('PREPARATION_CHECK_FAILED');
+    const stored = s.store.getDocument(s.session, result.docId);
+    if ('kind' in stored) throw new Error('PREPARATION_CHECK_FAILED');
+    same(stored.text, expected);
+    same(stored.text_sha256, sha(expected));
+    same(stored.source, { kind: 'public_text' });
+    same(stored.language_validation, { outcome: 'accepted', language: 'en', policy_version: 'franc-6.2.0-en-v1', reason: null });
+  } finally { s.store.dispose(); }
+});
+
+test('submission/failure-releases-session-reservation', async () => {
+  const s = setup();
+  try {
+    same(await prepareSubmitted(s.store, s.session, submission(new Uint8Array([0xc3, 0x28])), 'text', 'synthetic'),
+      { kind: 'rejected', code: 'invalid-unicode' });
+    same(await prepareSubmitted(s.store, s.session, submission('Report.'), 'text', 'synthetic'),
+      { kind: 'rejected', code: 'inconclusive' });
+    same((await prepareSubmitted(s.store, s.session, submission(english), 'text', 'synthetic')).kind, 'prepared');
+  } finally { s.store.dispose(); }
+});
+
+test('submission/streamed-pdf-byte-limit', async () => {
+  const s = setup();
+  try {
+    const request = submission(new Uint8Array(2_097_153));
+    same(request.headers.get('Content-Length'), null);
+    same(await prepareSubmitted(s.store, s.session, request, 'pdf', 'synthetic'), { kind: 'rejected', code: 'pdf-too-large' });
+  } finally { s.store.dispose(); }
+});
+
+test('submission/accepts-exact-codepoint-limit', async () => {
+  const s = setup();
+  try {
+    const text = (english + ' ').repeat(1_000).slice(0, 100_000);
+    same(Array.from(text).length, 100_000);
+    const result = await prepareSubmitted(s.store, s.session, submission(text), 'text', 'synthetic');
+    if (result.kind !== 'prepared') throw new Error('PREPARATION_CHECK_FAILED');
+    const stored = s.store.getDocument(s.session, result.docId);
+    if ('kind' in stored) throw new Error('PREPARATION_CHECK_FAILED');
+    same(stored.text.length, 100_000);
+    same(stored.text_sha256, sha(text));
+  } finally { s.store.dispose(); }
 });

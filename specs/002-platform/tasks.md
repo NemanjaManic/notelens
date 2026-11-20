@@ -70,12 +70,13 @@ they are not silently assigned defaults.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T003 [US1] B-001: Implement built-in/text/PDF input and canonical preparation in `apps/web/src/app/**`, `apps/web/src/lib/documents/**`, `apps/web/tests/canonical-text.test.ts`, `apps/web/tests/uploads.test.ts`
+- [X] T003 [US1] B-001: Implement built-in/text/PDF input and canonical preparation in `apps/web/src/app/**`, `apps/web/src/lib/documents/**`, `apps/web/tests/preparation.test.ts`, and the browser scenarios.
   - **Owner / story**: B / US1.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014); 002-platform/T002 (B-004)
   - **Approved early-work exception (2026-11-17)**: User authorized the built-in-only preparation core before full B-004/F-014. See [scope and limits](../../docs/platform/b-001-builtin-preparation.md). Early verification: `node apps/web/scripts/check-preparation.mjs` (47 normalization/identity/metadata/session-handoff cases plus noEmit typecheck; two deadline mutations detected). Arbitrary text/PDF admission, language detection and browser transport remain deferred. B-001/B-002/B-004/F-010/F-011/F-014 remain pending; full acceptance retains the original dependencies.
+  - **Acceptance evidence**: Both upload forms and the built-in picker prepare documents in the owning B-004 session. Chrome passed 26 submitted-input assertions and 15 built-in picker assertions. The owner-only mock smoke and locked dependency advisory checks passed. See the [verification record](../../docs/platform/b-001-builtin-preparation.md#key-free-acceptance).
   - **Acceptance**: At most 2,097,152 PDF bytes and 100,000 code points; reject excess/scanned/unsupported language, never truncate. One nfc-lf-v1 preparation/hash; in-memory parsing only.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/canonical-text.test.ts tests/uploads.test.ts`.
+  - **Verify**: `node apps/web/scripts/check-preparation.mjs` (51 cases), `npm.cmd run build`, and the [Chrome and mock smoke checks](../../docs/platform/b-001-builtin-preparation.md#key-free-acceptance).
   - **Coverage**: FR-001, FR-002, FR-003, FR-004, FR-012, SC-001, SC-002.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 

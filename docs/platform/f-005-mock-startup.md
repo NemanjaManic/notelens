@@ -18,7 +18,7 @@ Start the stack from the repository root.
 uv run --locked --offline --directory scripts/project python -B start_mock.py
 ```
 
-Open the printed `http://127.0.0.1:<port>/demo` URL, select **Chest pain report**,
+Open the printed `http://localhost:<port>/demo` URL, select **Chest pain report**,
 and choose one of the preset questions. Use the document links to highlight
 canonical passages. Press Ctrl+C in the launcher terminal to stop the stack.
 Each invocation reserves independent loopback ports and owns its process trees.
@@ -30,12 +30,13 @@ Run the finite smoke check against the built workspace.
 uv run --locked --offline --directory scripts/project python -B smoke_mock.py
 ```
 
-The smoke check follows rendered HTML links from example selection through
-classification, extraction, summary, and document, literature, mixed, and
+The smoke check submits the built-in example form and verifies that the prepared
+report opens only with the owning session cookie. It follows rendered HTML links
+through classification, extraction, summary, and document, literature, mixed, and
 insufficient-evidence answers. It follows document citations, checks the
 literature attribution, exercises a partial mixed answer with insufficient
 literature, and verifies that all child jobs exit and their listening ports close.
-The demo uses one versioned synthetic document and preset questions. This
+The smoke uses one versioned synthetic document and preset questions. This
 foundation check does not require API keys, model downloads, or a corpus.
 
 ## Local verification

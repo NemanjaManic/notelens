@@ -8,7 +8,10 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const sources = ['apps/web/src/lib/documents/canonical.ts', 'apps/web/src/lib/documents/builtin.ts',
   'apps/web/tests/preparation.test.ts', 'apps/web/tests/tsconfig.preparation.json', 'apps/web/scripts/check-preparation.mjs',
   'apps/web/src/lib/sessions/memory.ts', 'apps/web/src/lib/config/session-policy.ts', 'apps/web/tsconfig.json',
-  'apps/web/tests/tsconfig.contracts.json'];
+  'apps/web/tests/tsconfig.contracts.json', 'apps/web/src/lib/documents/prepared.ts',
+  'apps/web/src/lib/documents/submitted.ts', 'apps/web/src/lib/documents/language.ts',
+  'apps/web/src/lib/documents/pdf.ts', 'apps/web/src/lib/documents/pdf-worker.mjs', 'apps/web/package.json', 'package-lock.json'];
+const expectedCases = 51;
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const hashes = paths => Object.fromEntries([...paths].sort().map(p => [p, hash(readFileSync(resolve(root, p)))]));
 const cache = resolve(root, '.cache/review/b001-preparation');
@@ -35,10 +38,14 @@ try {
   const tap = tests.stdout ?? '';
   report.counts = Object.fromEntries([...tap.matchAll(/^# (tests|pass|fail|cancelled|skipped|todo) (\d+)\r?$/gm)].map(m => [m[1], Number(m[2])]));
   report.cases = [...tap.matchAll(/^ok \d+ - ([a-zA-Z0-9/_-]+)\r?$/gm)].map(m => m[1]);
-  if (tests.status !== 0 || report.counts.tests !== 47 || report.counts.pass !== 47 ||
-    ['fail', 'cancelled', 'skipped', 'todo'].some(k => report.counts[k] !== 0) || report.cases.length !== 47 || new Set(report.cases).size !== 47 ||
+  if (tests.status !== 0 || report.counts.tests !== expectedCases || report.counts.pass !== expectedCases ||
+    ['fail', 'cancelled', 'skipped', 'todo'].some(k => report.counts[k] !== 0) ||
+    report.cases.length !== expectedCases || new Set(report.cases).size !== expectedCases ||
     ['canonical/non-bmp-limit-is-not-utf16', 'canonical/reject-nfc-expansion-excess', 'handoff/deadline-starts-before-validation',
-      'handoff/expiry-after-store-before-receipt'].some(id => !report.cases.includes(id))) throw new Error('PREPARATION_CASES_FAILED');
+      'handoff/expiry-after-store-before-receipt', 'submission/canonical-pasted-text-and-provenance',
+      'submission/streamed-pdf-byte-limit', 'submission/accepts-exact-codepoint-limit'].some(id => !report.cases.includes(id))) {
+    throw new Error('PREPARATION_CASES_FAILED');
+  }
   if (JSON.stringify(report.inputs) !== JSON.stringify({ sources: hashes(sources), frozen: hashes(Object.keys(inventory.frozen_files)) })) throw new Error('INPUT_CHANGED');
   report.passed = true;
 } catch (error) {
