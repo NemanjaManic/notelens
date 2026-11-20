@@ -2,8 +2,9 @@
 import argparse
 import json
 import re
-from collections import Counter
+from collections import Counter, defaultdict
 from datetime import datetime
+from itertools import combinations
 from pathlib import Path
 
 DIMENSIONS = {"source_support", "required_facts", "extra_facts", "uncertainty_and_context",
@@ -66,12 +67,44 @@ def inspect(record):
     return "completed_declared_human_review" if complete else "incomplete"
 
 
+def compare_reviewers(groups):
+    """Compare independent declarations about the same pinned output."""
+    dimensions = {key: Counter(comparable=0, exact=0, major_disagreement=0, unable=0)
+                  for key in sorted(DIMENSIONS)}
+    adjudication = []
+    pairs = 0
+    for reviewers in groups.values():
+        for left, right in combinations(sorted(reviewers.values(), key=lambda row: row["review_id"]), 2):
+            pairs += 1
+            disagreements = []
+            for key, totals in dimensions.items():
+                first, second = left["dimensions"][key], right["dimensions"][key]
+                if "U" in (first, second):
+                    totals["unable"] += 1
+                    continue
+                totals["comparable"] += 1
+                totals["exact"] += int(first == second)
+                totals["major_disagreement"] += int(abs(first - second) == 2)
+                if first != second:
+                    disagreements.append(key)
+            flags = [key for key in ("response_action", "answerable_from_document", "critical_error")
+                     if left[key] != right[key]]
+            if disagreements or flags or left["needs_adjudication"] or right["needs_adjudication"]:
+                adjudication.append({
+                    "case_id": left["case_id"], "response_id": left["response_id"],
+                    "review_ids": [left["review_id"], right["review_id"]],
+                    "dimensions": disagreements, "flags": flags,
+                })
+    return {"matched_pairs": pairs, "by_dimension": dimensions, "adjudication_pairs": adjudication}
+
+
 def summarize(records):
     counts = Counter({k: 0 for k in ("blank", "incomplete", "operational_error", "completed_declared_human_review", "invalid")})
     dimensions = {k: {"rated": 0, "unable_to_judge": 0, "sum": 0, "score_counts": {"0": 0, "1": 0, "2": 0}} for k in sorted(DIMENSIONS)}
     seen = set()
     errors = []
     outcomes = Counter()
+    groups = defaultdict(dict)
     critical_errors = adjudication_pending = 0
     for index, record in enumerate(records):
         try:
@@ -81,6 +114,12 @@ def summarize(records):
                 if identifier in seen:
                     raise ValueError("Duplicate review ID.")
                 seen.add(identifier)
+            if state == "completed_declared_human_review":
+                identity = tuple(record[key] for key in IDENTITY[2:])
+                alias = record["reviewer_alias"].strip().casefold()
+                if alias in groups[identity]:
+                    raise ValueError("Duplicate reviewer for the same pinned output.")
+                groups[identity][alias] = record
             counts[state] += 1
             if state == "completed_declared_human_review":
                 outcomes[record["response_action"]] += 1
@@ -102,6 +141,7 @@ def summarize(records):
     return {"rubric_status": "draft_uncalibrated", "counts": dict(counts), "dimensions": dimensions,
             "completed_outcomes": dict(outcomes), "critical_errors": critical_errors,
             "adjudication_pending": adjudication_pending,
+            "reviewer_agreement": compare_reviewers(groups),
             "errors": errors, "human_authorship_verified": False,
             "limitations": "Structural checks only; no clinical validation or reviewer approval is inferred."}
 

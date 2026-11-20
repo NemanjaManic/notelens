@@ -58,3 +58,23 @@ def test_operational_error_not_quality_and_missing_declaration():
     record["response_action"] = "operational_error"
     with pytest.raises(ValueError):
         inspect(record)
+
+
+def test_agreement_uses_distinct_reviewers_and_exact_pinned_output():
+    first, second, different, duplicate = [completed() for _ in range(4)]
+    second.update(review_id="review-b", reviewer_alias="B", critical_error=True)
+    second["dimensions"].update(source_support=0, required_facts="U")
+    different.update(review_id="review-c", reviewer_alias="C", response_sha256="c" * 64)
+    duplicate.update(review_id="review-d", reviewer_alias=" b ")
+    report = summarize([first, second, different, duplicate])
+    agreement = report["reviewer_agreement"]
+    assert agreement["matched_pairs"] == 1
+    assert agreement["by_dimension"]["source_support"]["major_disagreement"] == 1
+    assert agreement["by_dimension"]["required_facts"]["comparable"] == 0
+    assert agreement["by_dimension"]["required_facts"]["unable"] == 1
+    assert agreement["adjudication_pairs"] == [{
+        "case_id": "test", "response_id": "test",
+        "review_ids": ["review-b", "synthetic-test"],
+        "dimensions": ["source_support"], "flags": ["critical_error"],
+    }]
+    assert report["counts"]["invalid"] == 1

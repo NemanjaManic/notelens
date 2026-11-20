@@ -42,3 +42,18 @@ Preserve a new record/ID for each revised assessment. D may practice on public
 synthetic examples independently, but team adoption and calibration require
 actual reviewers. Keep final examples for final reporting, never prompt tuning.
 The approximate 40-answer and 20-entity/evidence targets remain planned, not done.
+
+## Comparing independent review submissions
+
+Run the review checker on both submissions using
+`python -m notelens_eval.answer_review REVIEW_A.json REVIEW_B.json`.
+It pairs distinct reviewer aliases only when case, document, response hashes,
+mode and versions match. The report includes exact agreement, two-point
+disagreement and unable-to-judge counts by dimension. Its adjudication list
+identifies score differences, outcome or critical-error disagreements and
+pairs explicitly flagged for adjudication.
+
+The checker preserves the original submissions. Pair counts can include
+multiple pairs per output when three or more reviewers score it. Synthetic
+tests exercise the report format. Actual rubric calibration requires
+independent completed reviews and recorded adjudication decisions.
