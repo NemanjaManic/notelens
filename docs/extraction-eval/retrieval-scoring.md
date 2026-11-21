@@ -72,6 +72,8 @@ The saved corpus and index versions are recorded in that file.
 The rerun therefore verifies scorer behavior and reproduces A's proposed-label coverage
 where saved ranks exist. D's limited agent review of A-QA-02/A-QA-03 is recorded in the
 [evidence review](a-qa-02-03-evidence-review.md); it is non-blinded and does not complete
-answer-risk measurement or independently freeze A's reference set. The pinned passage
-JSONL and full reference review remain D-007 inputs. The C-003 validation replay
-is recorded in [classification scoring](classification-scoring.md).
+answer-risk measurement or independently freeze A's reference set. A subsequently
+supplied the pinned JSONL. The [D-007 source review](qa-development-inventory.md#pinned-source-review-after-as-handoff)
+verifies the twelve cited slices and records alternate supporting sources for
+benchmark relevance review. The results above use the original proposal labels.
+The C-003 validation replay is recorded in [classification scoring](classification-scoring.md).

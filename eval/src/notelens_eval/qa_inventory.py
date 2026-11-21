@@ -149,6 +149,17 @@ def validate_development_manifest(development: dict, proposal_raw: bytes, corpus
         raise ValueError("Development manifest counts differ from the review rows.")
 
 
+def load_pinned_passages(path: Path, manifest: dict) -> dict:
+    raw = path.read_bytes()
+    if digest(raw) != manifest["artifact"]["sha256"]:
+        raise ValueError("Passage artifact differs from A's pinned SHA-256.")
+    rows = [json.loads(line) for line in raw.decode("utf-8").split("\n") if line]
+    passages = {row["passage_id"]: row for row in rows}
+    if len(rows) != len(passages):
+        raise ValueError("Duplicate passage artifact IDs.")
+    return passages
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--passages", type=Path, help="Optional pinned A passage JSONL artifact.")
@@ -166,13 +177,10 @@ def main() -> None:
             parser.error(str(exc))
     passages = None
     if args.passages:
-        raw = args.passages.read_bytes()
-        if digest(raw) != manifest["artifact"]["sha256"]:
-            parser.error("Passage artifact differs from A's pinned SHA-256.")
-        rows = [json.loads(line) for line in raw.decode("utf-8").split("\n") if line]
-        passages = {row["passage_id"]: row for row in rows}
-        if len(rows) != len(passages):
-            parser.error("Duplicate passage artifact IDs.")
+        try:
+            passages = load_pinned_passages(args.passages, manifest)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            parser.error(str(exc))
     report = inventory(proposal, manifest, passages)
     if development is not None:
         report["excerpt_review"] = development["counts"]

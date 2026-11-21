@@ -106,7 +106,8 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - [x] Generated extraction and document-answer records use the frozen strict JSON validator. Duplicate keys and nonfinite numbers trigger bounded repair before evidence scoring.
   - [x] Live orchestration makes one provider attempt per request. Regression tests exercise invalid extraction and answer output without making a paid call.
   - [x] F-003, F-004 and F-014 integration is available on the published foundation. The combined B/D inventory candidate and mock integration checks are recorded under D-010 in the [integration record](../../docs/extraction-eval/integration.md#d-010-verification-2026-11-20).
-  - [ ] Remaining: record a successful authorized provider trial with verified server-side credential and model access. The existing trial receipt is single-use. Review semantic support separately from structural and literal checks.
+  - [x] Nemanja's 2026-11-21 handoff records approval for one fresh attempt with the same two synthetic requests, zero retries and the existing cumulative USD 0.10 limit. D verified both prepared request hashes offline against the pinned scope and the handoff.
+  - [ ] Remaining: confirm the authorized server operator, access to the approved model and the remaining balance under the cumulative cap. Record the fresh attempt separately from the original single-use receipt. Verify the provider output for structural and semantic support.
   - **Owner / story**: D / US1.
   - **Dependencies**: 004-extraction-evaluation/T001 (D-001); 000-foundation/T004 (F-003); 000-foundation/T006 (F-004); 000-foundation/T014 (F-014)
   - **Acceptance**: POST /v1/extract preserves canonical text/status/subject and validates exact offsets/quotes, unsupported items and source-only ICD. Bounded repair; no inferred diagnoses. Live activation requires approved provider policy.
@@ -125,7 +126,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - [x] Multi-part document mock answers preserve supported parts and explicit gaps (09b0573). Synthetic HTTP run returned 72/72 HTTP 200 responses with matching request IDs; literal completeness was 34/48. Responses trial supports the fixed synthetic document question.
   - [x] Local literal summaries, supported/partial/insufficient document answers, exact citation checks, source-free output guard and targeted injection case pass in mock mode; B handoff prepared.
   - [x] Mock document answers cover explicit catalog topics independently, retain cited supported parts, and disclose gaps. The 72-request synthetic HTTP run preserved the contract and recorded 34 of 48 complete literal answers and 25 of 26 expected gap mentions.
-  - [ ] Remaining: verify approved provider-generated summaries and answers for source support, completeness, citations and English, then verify the frozen integration.
+  - [ ] Remaining: after D-004, verify the provider-generated summary and document answer for source support, completeness, citations and English. Supply the reviewed service evidence to B for the integration check.
   - **Owner / story**: D / US2.
   - **Dependencies**: 004-extraction-evaluation/T003 (D-004)
   - **Acceptance**: POST /v1/document-answer and extraction summary explicitly request English, link claims to selected-document evidence and reject unsupported/injected/non-English output; literature cannot fill patient facts. Deliver HTTP checks/startup to B.
@@ -166,7 +167,11 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T007 [US3] D-012: Complete D's primary annotations and independent reviews in its own path in `eval/annotations/member-d/**`
-  - [ ] Blocked: the handoff contains no canonical document text or approved row-access location, and no primary or independent-review submissions were provided. The manifest metadata is not annotation evidence.
+  - [x] Verified Sara's Milica-only development packet against D-003 and C-002. All 13 canonical text hashes matched. Separate local draft forms are ready for 10 primary annotations and 3 independent reviews. See the [verification receipt](../../eval/reports/development/d012-member-d-packet-verification-v1.json).
+  - [x] Milica confirmed full-document review of assignments 002, 005 and 008. All three reviewed secondary records are packaged locally, with one source gap retained for assignment 005.
+  - [x] Milica confirmed the full read of assignment 033 and approved all ten revised primary drafts in review workspace v3. The ten human-reviewed records are packaged for private submission. D verified 293 mention spans and 301 evidence spans against the frozen canonical texts. All ten records passed structural validation.
+  - [x] Verified the combined private submission folder with separate `primary` and `reviews` subfolders and a top-level `submission-manifest.json` for Milica's 13 records.
+  - [ ] Deliver Milica's verified folder through the approved private route and record the submission.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T006 (D-003)
   - **Acceptance**: Use frozen IDs, separate primary/review files, correct subjects/status/spans and preserved adjudication input; do not edit A/B/C files.
@@ -175,9 +180,14 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T008 [US3] D-013: Adjudicate preserved primary/secondary submissions into canonical references in `eval/references/**`, `docs/extraction-eval/adjudication.md`, `eval/tests/test_annotation_integrity.py`
+  - [x] Received A's 10 primary and 3 independent submissions. Verified all package digests and frozen assignment identities. The [intake receipt](../../eval/reports/development/d013-member-a-intake-v1.json) records A's 27 open questions. Nemanja confirmed access and canonical digests for his own 13 assigned texts.
   - [x] Explicit-decision merge/pending workflow implemented and tested; preserves input-record provenance and never promotes synthetic decisions to human review.
-  - [x] Independent exact-boundary comparison report is prepared as a separate pre-adjudication aid; no human submissions have been compared and no winner is selected automatically.
-  - [ ] Remaining: actual independent submissions and human adjudication. No completed A/B/C annotations were generated.
+  - [x] Verified C's updated 11-draft package against the frozen allocation and canonical texts. Verified 278 mention and 307 evidence spans. Replaced the preliminary comparison inputs with the new C drafts for 000, 003, 006 and 010, and checked three C/D pairs for 002, 005 and 008. C's full-document confirmation remains pending.
+  - [x] Prepared a restricted adjudication queue with proposed guidance and a source check for each of A's 27 open questions. The queue separates 12 attribute differences, 50 evidence-only differences and 56 groups of non-exact mentions for review. Final decisions await approved canonical-text verification and human adjudication.
+  - [x] Prepared feedback on C's 14 questions. A's complete private packet verified against the frozen allocation and all 13 canonical text hashes. D checked A's 271 mention spans and 393 evidence spans and prepared source-grounded proposals for all 27 open questions.
+  - [x] Milica reported team confirmation of Goran for 034, Sara for 036 and Nemanja for 038. Prepared and verified separate private canonical-text and metadata packets for all three D-013 reviews.
+  - [x] Prepared a restricted review workspace for Milica to inspect canonical evidence and record decisions on A's 27 questions, with input hashes pinned to the reviewed records.
+  - [ ] Remaining: collect outstanding human-reviewed submissions, resolve the open questions and paired disagreements, and record human decisions before preparing references.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T006 (D-003); 004-extraction-evaluation/T007 (D-012); 001-rag/T009 (A-007); 002-platform/T006 (B-011); 003-classification/T004 (C-010)
   - **Acceptance**: Keep all submissions immutable; adjudicate disagreements with provenance and >=10 independent secondary reviews; confirm group-separated development/final references. Call references human-reviewed, not clinically validated.
@@ -217,11 +227,14 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
 - [ ] T010 [US4] D-007: Assemble source-reviewed development/final QA and relevance manifests in `eval/datasets/qa/**`, `eval/references/qa/**`, `eval/tests/test_qa_integrity.py`
-  - [x] Versioned a nine-case development manifest with overlap grouping and a scoped agent review. Nine of twelve proposed citations matched available excerpts. Eight requested parts had supporting excerpts, two were absent in the supplied top five, and three await exact excerpts. See the [inventory](../../docs/extraction-eval/qa-development-inventory.md#development-manifest-and-available-excerpts).
+  - [x] Versioned a nine-case development manifest with overlap grouping and scoped excerpt review. Nine of twelve citations matched at the excerpt-only checkpoint. See the [inventory](../../docs/extraction-eval/qa-development-inventory.md#development-manifest-and-available-excerpts).
   - [x] Public A proposal inventory validates nine development candidates, twelve evidence references, label counts and shared-passage overlap (68cad50). Optional artifact verification checks pinned SHA-256 and exact source slices.
-  - [ ] Remaining source review: verify all twelve citations against the pinned passage JSONL, including the three without exact excerpts. Resolve scoped gap labels against the intended benchmark corpus.
+  - [x] A supplied the pinned passage JSONL and SHA-256. D verified both pins, checked 12/12 exact citation slices, and reviewed all 13 requested parts against the available source material. Eleven parts are supported and two remain gaps in the pinned snapshot. The [source review](../../docs/extraction-eval/qa-development-inventory.md#pinned-source-review-after-as-handoff) records the gap search and alternate supporting passages.
   - [x] Initial versioned document-only synthetic case with three QA expectations exists separately from generated predictions; references never enter provider inputs.
-  - [ ] Assemble the approximately 80-case cross-module benchmark with A/B and freeze separate development and final references.
+  - [x] Built a 66-case development candidate inventory with ten new mixed requests. Deduplicated one identical document question, preserved cross-case source groups and validated all 12 original literature citations. See the [cross-module candidate inventory](../../docs/extraction-eval/qa-development-inventory.md#cross-module-development-candidates).
+  - [x] Expanded the development inventory to 74 candidates and 21 multi-source requests. The [v2 coverage record](../../eval/reports/development/d007-development-coverage-v2.json) tracks source overlap, 12 verified original citation slices and four proposed additional reference slices.
+  - [x] Prepared a [benchmark selection proposal](../../eval/reports/development/d007-benchmark-selection-proposal-v1.json) with 54 development cases and 26 unseen cases to source for the held-out partition. The proposal keeps the nine A cases and all 21 development multi-source cases. It omits 20 repetitive age-only probes from this proposed selection.
+  - [ ] Record joint A/D confirmation for the nine development cases and their alternate references. Agree the remaining cross-module inventory and development/final allocation, then freeze references for the approximately 80-case benchmark.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T009 (D-006); 001-rag/T003 (A-002)
   - **Acceptance**: Target ~80 QA including ~30 multi-source and ~10 lacking required-source answers plus out-of-scope. Publish exact counts/overlap, necessary topics/passages and answerability against actual corpus; flag >5 topics; no QA indexing.
@@ -231,6 +244,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [ ] T011 [US4] D-008: Calibrate judge rubrics and coordinate separate generated-output human review in `eval/rubrics/**`, `eval/reviews/**`, `docs/extraction-eval/judge-calibration.md`, `eval/tests/test_review_integrity.py`
   - [x] Applied the draft rubric to seven retained synthetic answers and one injected HTTP 503. Recorded the agent ratings, proposed scoring anchors and severity question. The [practice check](../../docs/extraction-eval/judge-calibration.md#synthetic-rubric-practice-2026-11-21) confirmed zero completed human reviews and no quality scores for the operational failure.
+  - [x] Prepared a separate human calibration packet with seven exact retained mock answers, their synthetic inputs, the rubric and blank rating forms. The packet supports independent scoring of identical responses.
   - [x] Independent review comparison reports per-dimension agreement and adjudication pairs for identical pinned outputs (d72bec9). Exact retained response artifact verification added (6c7c7d5). Full eval suite passed 95 tests.
   - [ ] Collect independent human reviews of answers and entity evidence, adjudicate disagreements and record rubric calibration decisions.
   - [x] Draft seven-dimension answer rubric and blank independent-review form prepared in `docs/extraction-eval/answer-review-rubric.md` and `eval/fixtures/answer-review-template-v1.json`; calibration, reviewers and human records remain pending.
@@ -257,6 +271,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
 - [ ] T013 D-009: Freeze final evaluation configuration and produce the English measured report in `eval/reports/final/**`, `eval/config/**`, `docs/extraction-eval/final-report.md`, `eval/src/notelens_eval/run.py`
+  - [ ] Resolve the listed dependencies, record the approved freeze, run the final evaluation and publish the measured report.
   - **Owner / story**: D / US4.
   - **Dependencies**: 004-extraction-evaluation/T011 (D-008); 004-extraction-evaluation/T012 (D-011); 004-extraction-evaluation/T007 (D-012); 001-rag/T010 (A-008); 003-classification/T010 (C-008); 002-platform/T007 (B-008); 002-platform/T011 (B-009); 004-extraction-evaluation/T008 (D-013)
   - **Acceptance**: Run frozen final versions only after approved gates; report counts/versions, baseline comparisons, costs, limits, security/English suite and accepted regressions. Optional silver data separately; no hidden threshold reduction or universal security claim.

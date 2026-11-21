@@ -1,0 +1,174 @@
+{
+  "version": "d-c007-b005-owner-c005-replay-v1",
+  "date": "2026-11-21",
+  "evaluator_commit": "585ef0f",
+  "classifier_commit": "7181a1abdf7831bb247510821c886b0e031d5de0",
+  "owner_receipt_commit": "9fc84e9afc1ce7045dff653cb57bb9db1a29c300",
+  "platform_commit": "f8bba16397c49f9e58233a3854ca1c0492244048",
+  "input_scope": "synthetic requests over authenticated Windows loopback",
+  "owner_bundle": {
+    "stage": "development",
+    "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+    "manifest_sha256": "e79fff1c8c8c3b1b14afa32d02bc44f94680bf09902cb82cfa5e4dd71b967f5f",
+    "model_artifact_sha256": "3bbf1c648c6ebd69036ee933c58b7e96cf1a0f5bf60975d1cafe7f59ec09fd6a",
+    "model_artifact_size_bytes": 882052,
+    "python": "3.13.7",
+    "verified_installed_packages": {
+      "scikit-learn": "1.7.2",
+      "numpy": "2.5.5",
+      "scipy": "1.18.1",
+      "joblib": "1.6.0"
+    },
+    "classifier_package_files_matched_to_source": 22
+  },
+  "observations": [
+    {
+      "evaluator": {
+        "case": "supported",
+        "category": "Cardiovascular / Pulmonary",
+        "doc_id": "d-c007-supported-v1",
+        "http_successes": 2,
+        "input": "synthetic",
+        "mode": "mock",
+        "model_version": "fixture-classifier-v0",
+        "outcome": "classified",
+        "repeatable": true,
+        "score_kind": "decision_score",
+        "score_labels": [
+          "Cardiovascular / Pulmonary",
+          "Orthopedic",
+          "Gastroenterology",
+          "Neurology",
+          "Urology"
+        ],
+        "status": "supported",
+        "text_sha256": "319e075e889d4b053c2a19d98c50aefe64f439ff32daa95aa66fe8f6a064b2ba"
+      },
+      "platform": {
+        "http_status": 200,
+        "wire_mode": "mock",
+        "wire_status": "supported",
+        "client_outcome": "accepted",
+        "consumer_code": null,
+        "consumer_rules": [],
+        "report_state": "ready",
+        "display_status": "supported"
+      }
+    },
+    {
+      "evaluator": {
+        "case": "uncertain",
+        "category": null,
+        "doc_id": "d-c007-uncertain-v1",
+        "http_successes": 2,
+        "input": "synthetic",
+        "mode": "mock",
+        "model_version": "fixture-classifier-v0",
+        "outcome": "abstained",
+        "repeatable": true,
+        "score_kind": "decision_score",
+        "score_labels": [
+          "Cardiovascular / Pulmonary",
+          "Orthopedic",
+          "Gastroenterology",
+          "Neurology",
+          "Urology"
+        ],
+        "status": "uncertain",
+        "text_sha256": "9d4c9b04c50773623c56864ada93a6ae6fcddd42131ef4a426b7c70fece63d65"
+      },
+      "platform": {
+        "http_status": 200,
+        "wire_mode": "mock",
+        "wire_status": "uncertain",
+        "client_outcome": "accepted",
+        "consumer_code": null,
+        "consumer_rules": [],
+        "report_state": "ready",
+        "display_status": "uncertain"
+      }
+    },
+    {
+      "evaluator": {
+        "case": "supported",
+        "category": "Orthopedic",
+        "doc_id": "d-c007-supported-v1",
+        "http_successes": 2,
+        "input": "synthetic",
+        "mode": "live",
+        "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+        "outcome": "classified",
+        "repeatable": true,
+        "score_kind": "probability",
+        "score_labels": [
+          "Cardiovascular / Pulmonary",
+          "Orthopedic",
+          "Gastroenterology",
+          "Neurology",
+          "Urology"
+        ],
+        "status": "supported",
+        "text_sha256": "319e075e889d4b053c2a19d98c50aefe64f439ff32daa95aa66fe8f6a064b2ba"
+      },
+      "platform": {
+        "http_status": 200,
+        "wire_mode": "live",
+        "wire_status": "supported",
+        "client_outcome": "invalid",
+        "consumer_code": "mock-mode",
+        "consumer_rules": [
+          "MOCK_MODE_REQUIRED"
+        ],
+        "report_state": "invalid",
+        "display_status": null
+      }
+    },
+    {
+      "evaluator": {
+        "case": "uncertain",
+        "category": null,
+        "doc_id": "d-c007-uncertain-v1",
+        "http_successes": 2,
+        "input": "synthetic",
+        "mode": "live",
+        "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+        "outcome": "abstained",
+        "repeatable": true,
+        "score_kind": "probability",
+        "score_labels": [
+          "Cardiovascular / Pulmonary",
+          "Orthopedic",
+          "Gastroenterology",
+          "Neurology",
+          "Urology"
+        ],
+        "status": "uncertain",
+        "text_sha256": "9d4c9b04c50773623c56864ada93a6ae6fcddd42131ef4a426b7c70fece63d65"
+      },
+      "platform": {
+        "http_status": 200,
+        "wire_mode": "live",
+        "wire_status": "uncertain",
+        "client_outcome": "invalid",
+        "consumer_code": "mock-mode",
+        "consumer_rules": [
+          "MOCK_MODE_REQUIRED"
+        ],
+        "report_state": "invalid",
+        "display_status": null
+      }
+    }
+  ],
+  "unauthenticated_responses": {
+    "readiness_401": 3,
+    "classify_401": 3
+  },
+  "wrong_fitted_mode_and_version_rejected": true,
+  "temporary_ports_closed": 3,
+  "targeted_evaluator_tests_passed": 16,
+  "model_provider_calls": 0,
+  "status": {
+    "d_c007_evaluator": "passed_on_owner_artifact",
+    "b005_classifier": "blocked_by_mock_only_consumer"
+  }
+}

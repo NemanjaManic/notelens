@@ -1,12 +1,54 @@
 # Annotation Assignment and Independent Review Workflow
 
-**Owner:** D. **Status:** The user accepted the D-003 assignment and workflow proposal on 2026-11-20. The assignment manifest is frozen. Row-level distribution awaits the approved canonical-text access route.
+**Owner:** D. **Status:** The user accepted the D-003 assignment and workflow proposal on 2026-11-20. The assignment manifest is frozen. Packet access is confirmed per member.
 
 ## Current D-003 proposal
 
 The accepted assignment manifest uses C's source version `c002-d002-development-v1` and SHA-256 `e8596143168c2631eebb60ba080f996d0f9a13efa6d236ceae1de35eaa2769c6`. It contains 40 unique validation groups from the development portion, balanced at eight documents per specialty. A, B, C and D each have ten primary assignments. Ten additional assignments have a distinct secondary reviewer. Assignment IDs and workflow paths are frozen; every annotation/review template remains pending and none is a completed annotation.
 
 See [the assignment manifest](../../eval/datasets/annotation-assignments.json), [pending coordinator templates](../../eval/datasets/annotation-submission-templates.pending.json), and [selection preflight](selection.md). The manifest has no canonical text, and all assignments say `access_state: pending_source_access`. Distribute assigned rows only after C and B/D provide the approved text-access path.
+
+### Nemanja's development packet
+
+D checked the frozen manifest for Nemanja and found ten primary assignments
+and three independent reviews, all in development. Goran reported that Sara
+verified all 13 canonical UTF-8 digests and that the packet's `assignments.json`
+maps each file to its assignment ID, document ID and SHA-256. On 2026-11-21,
+Nemanja confirmed that he could open the private packet, that all 13 canonical
+UTF-8 text digests matched the frozen allocation, and that the assignment IDs,
+document IDs and roles matched his reviewed submission. He also confirmed that
+the packet contained zero primary label records for his three independent reviews.
+
+On 2026-11-21, D received Nemanja's completed A-007 submission packet through
+the user and verified all six listed file digests. The ten primary submissions
+and three secondary reviews match the frozen allocation. All 13 carry an A
+review attestation and `needs_clarification`, with 27 open questions. D checked
+the internal span lengths and mention/evidence alignment for 271 mentions and
+393 evidence spans. Nemanja's validation receipt records zero structural errors.
+D received the complete private source packet and verified all 13 text hashes
+against the frozen allocation. D checked all 271 mention spans and 393 evidence
+spans against the canonical texts. All 27 open questions have source-grounded
+proposals ready for human adjudication.
+
+The [D-013 intake receipt](../../eval/reports/development/d013-member-a-intake-v1.json)
+identifies the four counterparts from C. D verified the updated drafts for 000,
+003, 006 and 010 against the supplied canonical texts and compared them with A's
+reviewed records. D also checked three C/D pairs for 002, 005 and 008. The C
+handoff contains 11 drafts, 278 mentions, 307 evidence spans and 14 open questions.
+D prepared feedback for C. C's human confirmation and the adjudication
+decisions remain pending.
+
+### Milica's development packet
+
+On 2026-11-21, Sara supplied Milica's private development packet. D verified
+the ten primary and three independent review assignments against the frozen
+D-003 allocation and the pinned C-002 manifest. All 13 UTF-8 files matched
+their canonical SHA-256 values and `nfc-lf-v1`. The packet contained the
+assigned texts and metadata. Independent review label files were absent.
+Separate local draft forms are ready for Milica's review and submission.
+The [verification receipt](../../eval/reports/development/d012-member-d-packet-verification-v1.json)
+records the checks and counts. The frozen assignment manifest preserves the
+original allocation checkpoint.
 
 ## Per-assignment procedure
 
@@ -41,4 +83,13 @@ The user accepted these path conventions. D changes only D's member directory an
 
 ## D-012 boundary
 
-D's primary annotation and independent review are separate submissions. D cannot serve as the independent reviewer of D's own primary work. Complete D-012 only after D's assigned canonical rows are accessible, D's primary submissions are actually made, and separate human reviewers have submitted their reviews. No labels or review records are inferred from the manifest metadata.
+D-012 is complete when Milica's ten primary annotations and three assigned
+independent reviews are delivered through the approved private route. The
+submission folder has separate `primary` and `reviews` subfolders and a root
+`submission-manifest.json`. Milica's records are prepared and verified locally.
+
+Independent reviews by other members of selected D primary annotations contribute
+to D-013's team-wide minimum of ten independent reviews. Milica reported that the
+team confirmed Goran for 034, Sara for 036 and Nemanja for 038. The individual
+private handoffs contain each assigned canonical text and its metadata. Hold the
+primary labels until each reviewer returns their independent record.

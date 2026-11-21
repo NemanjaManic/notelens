@@ -1,0 +1,18 @@
+{
+  "version": "d012-member-d-canonical-packet-verification-v1",
+  "date": "2026-11-21",
+  "participant": "member-d",
+  "scope": "development",
+  "split": "validation",
+  "canonicalization_version": "nfc-lf-v1",
+  "packet_assignments_sha256": "e250f9e50c523205227ed9d5bf00cde9768d93cae2be8413a49dee67b9ceac0f",
+  "frozen_allocation_sha256": "7b7cc6d3c9cb8afd4455d48075b24e8579f7a78e49295decfc09a9f04aed32a6",
+  "c002_source_manifest_sha256": "e8596143168c2631eebb60ba080f996d0f9a13efa6d236ceae1de35eaa2769c6",
+  "verified": {
+    "primary": 10,
+    "independent_reviews": 3,
+    "matching_document_hashes": 13
+  },
+  "packet_contains_primary_label_files": false,
+  "human_submissions_completed_in_this_step": 0
+}

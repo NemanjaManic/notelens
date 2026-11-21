@@ -1,0 +1,286 @@
+{
+  "version": "d007-benchmark-selection-proposal-v1",
+  "date": "2026-11-21",
+  "status": "proposed_pending_team_and_reference_confirmation",
+  "input_inventory": {
+    "path": "eval/datasets/qa/cross-module-development-v2.json",
+    "sha256": "f01dd8c4c4aa3deb7b7d6842643fec17f8680b0991e875e38905499019203896"
+  },
+  "input_coverage_sha256": "8efdd7ccd1190f57e23b21427dcfbde022a36c77b829e665ffd06625e89aff07",
+  "planning_targets": {
+    "total": 80,
+    "multi_source": 30,
+    "insufficient_evidence_approximately": 10
+  },
+  "development_proposal": {
+    "count": 54,
+    "multi_source": 21,
+    "insufficient_evidence": 7,
+    "by_route_and_state": {
+      "document": {
+        "sufficient": 22,
+        "insufficient": 4,
+        "partial": 1
+      },
+      "literature": {
+        "sufficient": 7,
+        "insufficient": 1,
+        "partial": 1
+      },
+      "mixed": {
+        "partial": 6,
+        "sufficient": 10,
+        "insufficient": 2
+      }
+    },
+    "selected_case_ids": [
+      "A-QA-01",
+      "A-QA-02",
+      "A-QA-03",
+      "A-QA-04",
+      "A-QA-05",
+      "A-QA-06",
+      "A-QA-07",
+      "A-QA-08",
+      "A-QA-09",
+      "D-DOC/complex-01/supported",
+      "D-DOC/complex-02/supported",
+      "D-DOC/complex-03/supported",
+      "D-DOC/complex-04/supported",
+      "D-DOC/confirmed-01/absent",
+      "D-DOC/confirmed-01/supported",
+      "D-DOC/confirmed-02/supported",
+      "D-DOC/confirmed-03/supported",
+      "D-DOC/confirmed-04/supported",
+      "D-DOC/history-01/supported",
+      "D-DOC/history-02/supported",
+      "D-DOC/history-03/absent",
+      "D-DOC/history-03/supported",
+      "D-DOC/history-04/supported",
+      "D-DOC/limited-01/absent-clinical",
+      "D-DOC/limited-02/supported",
+      "D-DOC/limited-03/supported",
+      "D-DOC/limited-04/supported",
+      "D-DOC/negation-01/supported",
+      "D-DOC/negation-02/supported",
+      "D-DOC/negation-03/supported",
+      "D-DOC/negation-04/supported",
+      "D-DOC/procedure-01/supported",
+      "D-DOC/procedure-02/absent",
+      "D-DOC/procedure-02/supported",
+      "D-DOC/procedure-03/supported",
+      "D-DOC/procedure-04/supported",
+      "D-MIX-01",
+      "D-MIX-02",
+      "D-MIX-03",
+      "D-MIX-04",
+      "D-MIX-05",
+      "D-MIX-06",
+      "D-MIX-07",
+      "D-MIX-08",
+      "D-MIX-09",
+      "D-MIX-10",
+      "D-MIX-11",
+      "D-MIX-12",
+      "D-MIX-13",
+      "D-MIX-14",
+      "D-MIX-15",
+      "D-MIX-16",
+      "D-MIX-17",
+      "D-MIX-18"
+    ],
+    "unused_repetitive_age_case_ids": [
+      "D-DOC/complex-01/absent",
+      "D-DOC/complex-02/absent",
+      "D-DOC/complex-03/absent",
+      "D-DOC/complex-04/absent",
+      "D-DOC/confirmed-02/absent",
+      "D-DOC/confirmed-03/absent",
+      "D-DOC/confirmed-04/absent",
+      "D-DOC/history-01/absent",
+      "D-DOC/history-02/absent",
+      "D-DOC/history-04/absent",
+      "D-DOC/limited-01/absent",
+      "D-DOC/limited-02/absent",
+      "D-DOC/limited-03/absent",
+      "D-DOC/negation-01/absent",
+      "D-DOC/negation-02/absent",
+      "D-DOC/negation-03/absent",
+      "D-DOC/negation-04/absent",
+      "D-DOC/procedure-01/absent",
+      "D-DOC/procedure-03/absent",
+      "D-DOC/procedure-04/absent"
+    ],
+    "exposed_source_groups": {
+      "A-QA-01": {
+        "selected_development": [
+          "A-QA-01",
+          "D-DOC/confirmed-03/supported",
+          "D-DOC/limited-04/supported",
+          "D-DOC/negation-01/supported",
+          "D-MIX-01",
+          "D-MIX-04",
+          "D-MIX-05"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/confirmed-03/absent",
+          "D-DOC/negation-01/absent"
+        ]
+      },
+      "A-QA-02": {
+        "selected_development": [
+          "A-QA-02",
+          "A-QA-03",
+          "A-QA-09",
+          "D-DOC/complex-02/supported",
+          "D-DOC/complex-03/supported",
+          "D-DOC/history-02/supported",
+          "D-DOC/limited-01/absent-clinical",
+          "D-DOC/negation-02/supported",
+          "D-DOC/procedure-01/supported",
+          "D-MIX-02",
+          "D-MIX-03",
+          "D-MIX-06",
+          "D-MIX-13",
+          "D-MIX-14",
+          "D-MIX-15",
+          "D-MIX-16",
+          "D-MIX-18"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/complex-02/absent",
+          "D-DOC/complex-03/absent",
+          "D-DOC/history-02/absent",
+          "D-DOC/limited-01/absent",
+          "D-DOC/negation-02/absent",
+          "D-DOC/procedure-01/absent"
+        ]
+      },
+      "A-QA-04": {
+        "selected_development": [
+          "A-QA-04",
+          "D-DOC/negation-04/supported",
+          "D-DOC/procedure-03/supported",
+          "D-MIX-10",
+          "D-MIX-11"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/negation-04/absent",
+          "D-DOC/procedure-03/absent"
+        ]
+      },
+      "A-QA-05": {
+        "selected_development": [
+          "A-QA-05",
+          "A-QA-07",
+          "D-DOC/confirmed-04/supported",
+          "D-DOC/history-01/supported",
+          "D-DOC/history-03/absent",
+          "D-DOC/history-03/supported",
+          "D-MIX-07",
+          "D-MIX-12",
+          "D-MIX-17"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/confirmed-04/absent",
+          "D-DOC/history-01/absent"
+        ]
+      },
+      "A-QA-06": {
+        "selected_development": [
+          "A-QA-06",
+          "D-DOC/history-04/supported",
+          "D-MIX-09"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/history-04/absent"
+        ]
+      },
+      "A-QA-08": {
+        "selected_development": [
+          "A-QA-08",
+          "D-DOC/procedure-02/absent",
+          "D-DOC/procedure-02/supported",
+          "D-MIX-08"
+        ],
+        "unused_development_candidates": []
+      },
+      "D-DOC/complex-01/absent": {
+        "selected_development": [
+          "D-DOC/complex-01/supported"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/complex-01/absent"
+        ]
+      },
+      "D-DOC/complex-04/absent": {
+        "selected_development": [
+          "D-DOC/complex-04/supported"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/complex-04/absent"
+        ]
+      },
+      "D-DOC/confirmed-01/absent": {
+        "selected_development": [
+          "D-DOC/confirmed-01/absent",
+          "D-DOC/confirmed-01/supported"
+        ],
+        "unused_development_candidates": []
+      },
+      "D-DOC/confirmed-02/absent": {
+        "selected_development": [
+          "D-DOC/confirmed-02/supported"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/confirmed-02/absent"
+        ]
+      },
+      "D-DOC/limited-02/absent": {
+        "selected_development": [
+          "D-DOC/limited-02/supported"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/limited-02/absent"
+        ]
+      },
+      "D-DOC/limited-03/absent": {
+        "selected_development": [
+          "D-DOC/limited-03/supported"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/limited-03/absent"
+        ]
+      },
+      "D-DOC/negation-03/absent": {
+        "selected_development": [
+          "D-DOC/negation-03/supported"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/negation-03/absent"
+        ]
+      },
+      "D-DOC/procedure-04/absent": {
+        "selected_development": [
+          "D-DOC/procedure-04/supported"
+        ],
+        "unused_development_candidates": [
+          "D-DOC/procedure-04/absent"
+        ]
+      }
+    }
+  },
+  "held_out_proposal": {
+    "unseen_cases_needed": 26,
+    "multi_source_target": 9,
+    "insufficient_evidence_target": 3,
+    "include_out_of_scope_cases": true,
+    "status": "inputs_and_owners_to_be_agreed"
+  },
+  "decisions_pending": [
+    "Confirm the A/D references and alternative citations.",
+    "Approve or adjust the proposed selection and split.",
+    "Assign authors, independent reviewers and custodians for unseen held-out sources.",
+    "Confirm source-group disjointness and freeze after review."
+  ]
+}

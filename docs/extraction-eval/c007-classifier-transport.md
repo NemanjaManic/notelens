@@ -11,11 +11,10 @@ C's owner receipt in `9fc84e9afc1ce7045dff653cb57bb9db1a29c300` pins the manifes
 and the model version
 `c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc`.
 The startup instructions refer to the ignored `.cache/c005-frozen-uncertainty-v1`
-directory. The classifier branch and its history provide configuration and
-verification records. The model bundle was unavailable in the D environment.
-The shared run used a separate TF-IDF and Logistic Regression pipeline fitted on
-five synthetic tokens, following C's `model_bundle` test fixture. The C-005
-artifact check remains pending receipt of the trusted bundle.
+directory. During the initial shared check the bundle was unavailable to D,
+so the initial run used a separate TF-IDF and Logistic Regression pipeline fitted
+on five synthetic tokens, following C's `model_bundle` test fixture. Sara later
+provided the pinned bundle. The owner-bundle replay is recorded below.
 
 ## Observed results
 
@@ -46,6 +45,33 @@ its own synthetic bundle produced the same outcomes. The D evaluator passed
 113 tests. C's HTTP, contract and inference suites passed 68 tests. The pinned B
 consumer passed 221 contract checks, and its report and security suites passed
 41 checks. The two HTTP runs used zero model-provider calls.
+
+## Replay with Sara's pinned C-005 bundle
+
+On 2026-11-21, D verified the supplied manifest against C's published SHA-256
+and the `model.joblib` bytes against the manifest's artifact SHA-256
+`3bbf1c648c6ebd69036ee933c58b7e96cf1a0f5bf60975d1cafe7f59ec09fd6a`.
+The installed classifier code matched the pinned C source. Python 3.13.7 and
+all four fitted-model dependencies matched the run configuration. The launcher
+loaded the verified bundle on temporary authenticated loopback.
+
+| Synthetic case | D evaluator on exact C-005 | B client on pinned `main` |
+| --- | --- | --- |
+| Supported | Two identical HTTP 200 responses, `supported`, `Orthopedic` | HTTP 200, `MOCK_MODE_REQUIRED`, report state `invalid` |
+| Uncertain | Two identical HTTP 200 responses, `uncertain`, null category, recorded as abstained | HTTP 200, `MOCK_MODE_REQUIRED`, report state `invalid` |
+
+Both fitted cases had the published model version, original document ID and
+canonical text SHA-256, and five probability scores in contract order. D also
+verified request correlation and `no-store`. Readiness reported the expected
+version. The evaluator rejected deliberately wrong mode and model-version
+expectations. Both mock control states were accepted by B. Six unauthenticated
+probes returned HTTP 401 and all three temporary ports closed. The 16 targeted
+evaluator tests passed. The run made zero model-provider calls.
+
+The D-side C-007 exact-artifact check passed. B-005 remains open because the
+current B web consumer denies fitted responses before either state can appear
+in the report panel. The [owner-bundle receipt](../../eval/reports/development/c007-owner-c005-transport-v1.json)
+preserves the exact pins and observed outcomes.
 
 ## Reproduce the evaluator check
 
