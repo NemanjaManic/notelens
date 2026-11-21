@@ -1,6 +1,6 @@
 # B-005 classifier integration status
 
-**Status, 2026-11-20.** B-005 remains open. This branch adds a server-side classifier
+**Status, 2026-11-21.** B-005 remains open. This branch adds a server-side classifier
 test client and a loopback HTTP suite. The application and hosted CI continue in mock
 mode. Literature, extraction and document answers stay on their existing mocks while
 A-008 and D-005 are open.
@@ -11,18 +11,16 @@ The branch starts from `origin/main` at `f8bba16`. Sara's published
 `origin/member-c/classification` advanced to `9fc84e9`. Her branch marks C-006 complete and
 records 60 focused HTTP and contract tests and seven loopback probes against the installed
 classifier from `7181a1abdf7831bb247510821c886b0e031d5de0`. The probes covered readiness,
-repeatable supported and uncertain results, and both no-model 503 responses. C-007 still
-lists B's integration and D's evaluator verification as pending.
+repeatable supported and uncertain results, and both no-model 503 responses. That published
+snapshot predates the B verification recorded below.
 [C-006 and C-007 evidence](https://github.com/NemanjaManic/notelens/blob/9fc84e9afc1ce7045dff653cb57bb9db1a29c300/docs/ml/integration.md#c-007-owner-local-check-2026-11-20)
 
 Sara's recorded development candidate has manifest SHA-256
 `e79fff1c8c8c3b1b14afa32d02bc44f94680bf09902cb82cfa5e4dd71b967f5f` and model version
 `c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc`.
-The bundle is absent from B's checkout. The fitted check requires Sara to confirm the
-reviewed classifier commit, the approved bundle access or supervised run, the manifest
-digest and model version, the exact locked Windows launch, and approved smoke examples.
-Use the approved public or synthetic examples only. Preserve C-002's restricted access
-to reports and source mappings, and keep the final test locked.
+The bundle stays in Sara's environment. Use approved public or synthetic examples for
+smoke runs. Preserve C-002's restricted access to reports and source mappings, and keep
+the final test locked.
 
 ## Local fixture check
 
@@ -49,8 +47,8 @@ existing web regressions passed locally. Hosted CI was outside this local check.
 
 ## Joint fitted-model verification
 
-Once Sara confirms the handoff, start the pinned classifier with the reviewed artifact
-using her locked Windows startup instructions. The runner connects only to
+Start the pinned classifier with the reviewed artifact using Sara's locked Windows
+startup instructions. The runner connects only to
 `127.0.0.1`. Use the same temporary local bearer token in the classifier process and
 the Node test process through `NOTELENS_CLASSIFIER_SERVICE_TOKEN`. Keep the token
 out of command arguments, files, chat and logs.
@@ -69,9 +67,32 @@ $env:NOTELENS_CLASSIFIER_TEST_EXAMPLES = '<path to approved examples JSON>'
 node --test apps/web/tests/integration/classifier-http.test.ts
 ```
 
-In this profile, wire mode `live` means fitted local inference. The joint run must confirm
-authenticated readiness and the pinned model version, repeatable supported and uncertain
-classification with matching identities and request IDs, and rejection of unauthorized
-calls and unexpected model versions. Confirm with Sara which startup, redacted log and
-shutdown checks should be repeated jointly and which C-007 evaluator checks D will run.
-The fitted profile is pending this handoff.
+In this profile, wire mode `live` means fitted local inference. The fitted test suite
+checks readiness and the pinned version, repeatable classifications, document identity
+and request-ID correlation, and rejection of a wrong token and unexpected model version.
+
+## B verification for C-007
+
+B reviewed Sara's receipt on 2026-11-21. Sara ran the supplied B integration check on
+her Windows machine using the `cd599d8` patch on `f8bba16`, the C-006 wheel verified
+against `7181a1a`, Node `24.20.0`, and Python `3.13.7`. The receipt's patch and
+runbook SHA-256 values match B's local copies, and its C-005 manifest digest and model
+version match the pins above. The private receipt has SHA-256
+`5cf6ee2e1b465c7920860dece45c0022f44efc4da6e63814f3917ad831144607`.
+
+| Case | HTTP and wire outcome | B adapter outcome |
+| --- | --- | --- |
+| Fitted readiness | `200`, `ok` | `accepted` |
+| Fitted supported classification | `200`, `supported`, `Orthopedic` | `accepted` |
+| Fitted uncertain classification | `200`, `uncertain`, null category | `accepted` |
+| Readiness without a bundle | `503`, `not_ready` | `not-ready` |
+| Classification without a bundle | `503`, `configuration_required` | `unavailable` |
+
+The receipt records six passing fitted-profile tests over two synthetic examples.
+Document ID, canonical text SHA-256, request-ID correlation, repeatability, and
+listener cleanup passed. The wrong-token and wrong-model-version cases were rejected.
+B accepts these results as its C-007 adapter verification from Sara's run.
+
+D's evaluator confirmation remains pending. B-005 still needs the classifier
+connected through the app's explicit integration profile and the remaining
+service integrations after A-008 and D-005.
