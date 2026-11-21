@@ -56,12 +56,11 @@ they are not silently assigned defaults.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T002 B-004: Implement approved memory lifetime, session ownership and guarded configuration in `apps/web/src/lib/sessions/**`, `apps/web/src/lib/config/**`, `apps/web/tests/session-isolation.test.ts`, `apps/web/tests/retention.test.ts`, `docs/platform/configuration.md`, `apps/web/tests/configuration.test.ts`
+- [X] T002 B-004: Implement approved memory lifetime, session ownership and guarded configuration in `apps/web/src/lib/sessions/**`, `apps/web/src/lib/config/**`, `apps/web/src/app/api/session/route.ts`, `apps/web/tests/sessions.test.ts`, `docs/platform/configuration.md`
   - **Owner / story**: B / US3.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014)
-  - **Approved early-work exception (2026-11-17)**: User authorized the bounded B-owned memory/config core before F-014. See [scope, design and limits](../../docs/platform/configuration.md). The exception changes execution order only; B-004/F-010/F-011/F-014 remain pending. Early verification: `node apps/web/scripts/check-sessions.mjs` (28 synthetic isolation/retention/config cases plus noEmit typecheck; R1/R2 idle-cleanup and validation-expiry mutations are detected); browser transport, remaining operational policies and full acceptance stay deferred.
-  - **Acceptance**: Document-bound content stays only in process memory for <=60 minutes, cleared on expiry/restart; fake-clock/two-session tests pass. Ask for remaining history/rate/retry/timeout limits; unconfigured live mode fails closed.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/session-isolation.test.ts tests/retention.test.ts tests/configuration.test.ts`.
+  - **Acceptance**: Document-bound content stays only in process memory for up to 60 minutes and clears on session expiry, close or restart. Browser ownership, session and preparation capacity, issuance rate, and fail-closed mock configuration follow the [approved limits](../../docs/platform/configuration.md).
+  - **Evidence (2026-11-20)**: `node apps/web/scripts/check-sessions.mjs` passed all 39 synthetic cases and TypeScript noEmit. Chrome passed 32 assertions across the built route smoke and loopback fixture scenarios, including two-session isolation, origin rejection, expiry, close, restart, capacity and rate. See the [browser commands](../../docs/platform/configuration.md#key-free-verification).
   - **Coverage**: FR-011, FR-016, FR-017, FR-023, SC-002, SC-003.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -71,21 +70,23 @@ they are not silently assigned defaults.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T003 [US1] B-001: Implement built-in/text/PDF input and canonical preparation in `apps/web/src/app/**`, `apps/web/src/lib/documents/**`, `apps/web/tests/canonical-text.test.ts`, `apps/web/tests/uploads.test.ts`
+- [X] T003 [US1] B-001: Implement built-in/text/PDF input and canonical preparation in `apps/web/src/app/**`, `apps/web/src/lib/documents/**`, `apps/web/tests/preparation.test.ts`, and the browser scenarios.
   - **Owner / story**: B / US1.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014); 002-platform/T002 (B-004)
   - **Approved early-work exception (2026-11-17)**: User authorized the built-in-only preparation core before full B-004/F-014. See [scope and limits](../../docs/platform/b-001-builtin-preparation.md). Early verification: `node apps/web/scripts/check-preparation.mjs` (47 normalization/identity/metadata/session-handoff cases plus noEmit typecheck; two deadline mutations detected). Arbitrary text/PDF admission, language detection and browser transport remain deferred. B-001/B-002/B-004/F-010/F-011/F-014 remain pending; full acceptance retains the original dependencies.
+  - **Acceptance evidence**: Both upload forms and the built-in picker prepare documents in the owning B-004 session. Chrome passed 26 submitted-input assertions and 15 built-in picker assertions. The owner-only mock smoke and locked dependency advisory checks passed. See the [verification record](../../docs/platform/b-001-builtin-preparation.md#key-free-acceptance).
   - **Acceptance**: At most 2,097,152 PDF bytes and 100,000 code points; reject excess/scanned/unsupported language, never truncate. One nfc-lf-v1 preparation/hash; in-memory parsing only.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/canonical-text.test.ts tests/uploads.test.ts`.
+  - **Verify**: `node apps/web/scripts/check-preparation.mjs` (51 cases), `npm.cmd run build`, and the [Chrome and mock smoke checks](../../docs/platform/b-001-builtin-preparation.md#key-free-acceptance).
   - **Coverage**: FR-001, FR-002, FR-003, FR-004, FR-012, SC-001, SC-002.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T004 [US1] B-002: Build complete English report panels and exact evidence highlighting in `apps/web/src/components/**`, `apps/web/tests/report-view.test.tsx`
+- [X] T004 [US1] B-002: Build complete English report panels and exact evidence highlighting in `apps/web/src/components/**`, `apps/web/tests/report-view.test.tsx`
   - **Owner / story**: B / US1.
   - **Dependencies**: 002-platform/T001 (B-010); 000-foundation/T014 (F-014); 002-platform/T002 (B-004)
   - **Approved early-work exception (2026-11-17)**: User authorized the bounded fixture-only UI before full B-004/F-014. See [scope, implementation and limits](../../docs/platform/b-002-fixture-workspace.md). Early verification: `node apps/web/scripts/check-report.mjs` (37 synthetic render/model/evidence cases). No uploads, session transport, service calls or questions are connected. B-002/B-004/F-010/F-011/F-014 remain pending; the original dependencies apply to full acceptance.
+  - **Acceptance evidence**: The B-001 demo uses local mock findings and summary for the owner's prepared text and PDF. The built-in example provides mock specialty and question results. Passed 32 Chrome evidence and isolation assertions, 31 loading/failure/empty/uncertain state assertions, 38 report checks, and the key-free mock smoke. See [verification](../../docs/platform/b-002-fixture-workspace.md#loading-and-service-failure-verification).
   - **Acceptance**: Document, specialty uncertainty, entities/assertion/temporality/subject, summary and sources work from mocks; emoji/repeated spans and all loading/empty/error states are covered.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/report-view.test.tsx`.
+  - **Verify**: `node apps/web/scripts/check-report.mjs` (38 checks) and the [key-free Chrome scenarios](../../docs/platform/b-002-fixture-workspace.md#loading-and-service-failure-verification).
   - **Coverage**: FR-001, FR-005, FR-006, FR-007, FR-012, FR-013, SC-001, SC-002.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -95,11 +96,12 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T005 [US2] B-003: Implement thin service clients, source-preserving routing and bounded state in `apps/web/src/lib/clients/**`, `apps/web/src/lib/routing/**`, `apps/web/tests/routing.test.ts`
+- [X] T005 [US2] B-003: Implement thin service clients, source-preserving routing and bounded state in `apps/web/src/lib/clients/**`, `apps/web/src/lib/routing/**`, `apps/web/tests/routing.test.ts`
   - **Owner / story**: B / US2.
   - **Dependencies**: 002-platform/T003 (B-001); 002-platform/T004 (B-002)
+  - **Mock scope**: Owner-bound free-text and preset submissions route to loopback services. English questions use a combined 1,000 code-point limit and a 16 KiB request limit. Each session allows ten submissions per rolling minute and one in flight. Each document retains up to five completed turns and 32 KiB in memory. Citation and history navigation reuse the saved result. See the [approved limits and local verification](../../docs/platform/f-005-mock-startup.md#question-limits-and-history).
   - **Acceptance**: Document/literature/mixed/none routes call D/A as agreed, namespace claim/source IDs, reject stale hashes and retain supported portions under partial failures; no TypeScript RAG or generation.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/routing.test.ts`.
+  - **Verify**: `.\node_modules\.bin\tsc.cmd --noEmit --project apps/web/tests/tsconfig.routing.json`, `node --test apps/web/tests/routing.test.ts` (17 cases), the three key-free [HTTP smoke scenarios](../../docs/platform/f-005-mock-startup.md), and Chrome verification of the question form, history, and citations.
   - **Coverage**: FR-008, FR-009, FR-010, FR-011, FR-014, FR-015, SC-001, SC-004.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -117,11 +119,11 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Coverage**: Constitution VII; source prompt sections 7D and 8 (all-member annotation obligation)..
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T007 [US3] B-008: Test and harden injection, uploads, XSS, secrets/logs and abuse boundaries in `apps/web/tests/security/**`, `apps/web/src/lib/security/**`, `docs/platform/security.md`
+- [X] T007 [US3] B-008: Test and harden injection, uploads, XSS, secrets/logs and abuse boundaries in `apps/web/tests/security/**`, `apps/web/src/lib/security/**`, `docs/platform/security.md`
   - **Owner / story**: B / US3.
   - **Dependencies**: 002-platform/T003 (B-001); 002-platform/T005 (B-003); 002-platform/T002 (B-004)
   - **Acceptance**: Finite defined suite covers source/retrieved instructions, unsafe markup, oversized bodies, other-session/expired IDs and no document/secret logging. No arbitrary browsing; approved fetching requires allowlist/SSRF protection.
-  - **Verify**: `npm exec --workspace apps/web -- vitest run tests/security`.
+  - **Verify**: The [B-008 key-free security suite](../../docs/platform/security.md) passed against the production mock build. It includes the HTTP and log audit, three mock smoke scenarios, deterministic render/preparation/session/routing checks, and isolated Chrome checks.
   - **Coverage**: FR-003, FR-011, FR-012, FR-016, FR-018, FR-019, SC-003.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -131,11 +133,13 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T008 [US4] B-006: Add deterministic integration CI and review/scope checks in `.github/**`, `scripts/project/**`, `docs/platform/ci.md`
+- [X] T008 [US4] B-006: Add deterministic integration CI and review/scope checks in `.github/**`, `scripts/project/**`, `docs/platform/ci.md`
   - **Owner / story**: B / US4.
   - **Dependencies**: 000-foundation/T010 (F-010); 002-platform/T007 (B-008)
   - **Acceptance**: Contracts, secrets/dependencies, declared path ownership and mock smoke checks run without keys; paid/live workflows are disabled unless explicitly triggered.
-  - **Verify**: `uv run --directory scripts/project python check_scope.py --self-test`.
+  - **Implementation**: The existing key-free job runs the B-008 HTTP and log audit and the web regressions after the production build. The workflow guard verifies the new step's order, commands and mock environment.
+  - **Verify**: Run the [key-free CI suite](../../docs/platform/ci.md) locally and verify the updated hosted PR check before closing B-006.
+  - **Evidence**: The full local suite and the [hosted key-free job](https://github.com/NemanjaManic/notelens/actions/runs/44786567870) passed on the B-006 implementation at `c14e3cd`, including the new B-008 check.
   - **Coverage**: FR-014, FR-017, FR-018, FR-021, SC-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 

@@ -1,6 +1,8 @@
 """Follow the rendered demo controls against the local stack and verify shutdown."""
 
+import http.client
 from html.parser import HTMLParser
+import json
 import socket
 import sys
 import time
@@ -16,6 +18,7 @@ class DemoPage(HTMLParser):
         self.text = []
         self.highlights = []
         self.answer = None
+        self.example_action = None
         self.current_link = None
         self.highlighted = False
         self.ignored_tag = None
@@ -27,6 +30,8 @@ class DemoPage(HTMLParser):
             self.ignored_tag = tag
         if tag == 'a':
             self.current_link = fields.get('href')
+        if tag == 'form' and fields.get('method') == 'post' and fields.get('action') == '/api/documents/builtin':
+            self.example_action = fields.get('action')
         if tag == 'mark':
             self.highlighted = True
         if 'data-answer-route' in fields:
@@ -58,44 +63,106 @@ def require(condition, label):
         raise MockStartupError(f'Mock smoke check failed: {label}.')
 
 
-def read_page(stack, href):
+def read_page(stack, href, cookie=None):
     path, _ = urldefrag(href)
     require(path.startswith('/demo') and not path.startswith('//'), 'local demo navigation')
-    status, body = get(stack.web_port, path)
+    status, body = get(stack.web_port, path, {'Cookie': cookie} if cookie else None)
     require(status == 200, 'web response')
     return DemoPage(body)
+
+
+def prepare_example(stack, action):
+    require(action == '/api/documents/builtin', 'local example form action')
+    connection = http.client.HTTPConnection('localhost', stack.web_port, timeout=2)
+    try:
+        connection.request('POST', action, headers={'Origin': stack.web_origin})
+        response = connection.getresponse()
+        require(response.status == 303 and response.getheader('Cache-Control') == 'no-store', 'example preparation response')
+        location = response.getheader('Location', '')
+        cookie = response.getheader('Set-Cookie', '').split(';', 1)[0]
+        require(location.startswith('/demo?document=') and cookie.startswith('__Host-notelens-session='), 'prepared report redirect')
+        return location, cookie
+    finally:
+        connection.close()
+
+
+def prepare_submitted_text(stack, cookie):
+    connection = http.client.HTTPConnection('localhost', stack.web_port, timeout=2)
+    try:
+        body = 'This synthetic medical report describes a scheduled follow-up. No chest pain.'
+        connection.request('POST', '/api/documents/submit', body=body, headers={
+            'Origin': stack.web_origin, 'Cookie': cookie, 'Content-Type': 'text/plain; charset=utf-8',
+            'X-NoteLens-Input-Scope': 'synthetic',
+        })
+        response = connection.getresponse()
+        require(response.status == 201, 'synthetic text preparation')
+        return '/demo?document=' + json.loads(response.read())['document']
+    finally:
+        connection.close()
+
+
+def question_request(stack, cookie, method='POST', path='/api/questions', payload=None, origin=None):
+    connection = http.client.HTTPConnection('localhost', stack.web_port, timeout=8)
+    try:
+        body = payload if isinstance(payload, bytes) else json.dumps(payload).encode('utf-8') if payload else None
+        headers = {'Origin': origin or stack.web_origin, 'Content-Type': 'application/json'}
+        if cookie:
+            headers['Cookie'] = cookie
+        connection.request(method, path, body=body, headers=headers)
+        response = connection.getresponse()
+        data = response.read()
+        require(response.getheader('Cache-Control') == 'no-store', 'question response is no-store')
+        return response.status, json.loads(data) if data else None, response.getheader('Retry-After')
+    finally:
+        connection.close()
+
+
+def ask(stack, cookie, path, **question):
+    status, response, _ = question_request(stack, cookie, payload={'document': path.split('=', 1)[1], **question})
+    require(status == 200 and response.get('kind') == 'saved', 'question response stored by opaque ID')
+    return path + '&turn=' + response['id']
 
 
 def exercise(stack, scenario):
     landing = read_page(stack, '/demo')
     require(landing.contains('Mock mode') and landing.contains('does not replace a doctor')
             and landing.contains('Do not upload real personal medical reports'), 'English demo notices')
-    report = read_page(stack, landing.links['Chest pain report'])
+    path, cookie = prepare_example(stack, landing.example_action)
+    denied = read_page(stack, path)
+    require(denied.contains('The document is unavailable') and not denied.contains('No chest pain.'), 'non-owner report denied')
+    report = read_page(stack, path, cookie)
     require(report.contains('Cardiovascular / Pulmonary') and report.contains('Extraction: completed')
             and report.contains('Document-supported claim') and report.contains('No chest pain.'), 'report results')
     require(report.answer is None, 'answers only after a question is selected')
 
-    mixed = 'What does the report say about chest pain, and what is the synthetic demo topic?'
-    if scenario == 'insufficient':
-        partial = read_page(stack, report.links[mixed])
+    doc_question = 'What does the document say about chest pain?'
+    lit_question = 'What is the synthetic demo topic?'
+    if scenario in ('insufficient', 'provider_unavailable'):
+        partial = read_page(stack, ask(stack, cookie, path, scope='both',
+                            documentQuestion=doc_question, literatureQuestion=lit_question), cookie)
+        literature_gap = ('The available sources do not support an answer.' if scenario == 'insufficient'
+                          else 'Literature answer unavailable.')
         require(partial.answer == ('document', 'partial') and 'View document evidence' in partial.links
-                and 'Literature source URL' not in partial.links
-                and partial.contains('The available sources do not support an answer.'), 'partial mixed answer')
+                and 'Literature source URL' not in partial.links and partial.contains(literature_gap), 'partial mixed answer')
         return
 
     questions = (
-        ('What does the document say about chest pain?', 'document', 'sufficient', True, False),
-        ('What is the synthetic demo topic?', 'literature', 'sufficient', False, True),
-        (mixed, 'mixed', 'sufficient', True, True),
-        ("What is the patient's age?", 'none', 'insufficient', False, False),
+        ({'scope': 'document', 'documentQuestion': doc_question}, 'document', 'sufficient', True, False),
+        ({'scope': 'literature', 'literatureQuestion': lit_question}, 'literature', 'sufficient', False, True),
+        ({'scope': 'both', 'documentQuestion': doc_question, 'literatureQuestion': lit_question},
+         'mixed', 'sufficient', True, True),
+        ({'preset': 'insufficient'}, 'none', 'insufficient', False, False),
     )
-    for label, route, state, document, literature in questions:
-        answer = read_page(stack, report.links[label])
+    saved = []
+    for question, route, state, document, literature in questions:
+        turn_path = ask(stack, cookie, path, **question)
+        saved.append(turn_path)
+        answer = read_page(stack, turn_path, cookie)
         require(answer.answer == (route, state), f'{route} answer state')
         require(('View document evidence' in answer.links) == document, f'{route} document citation')
         require(('Literature source URL' in answer.links) == literature, f'{route} literature citation')
         if document:
-            evidence = read_page(stack, answer.links['View document evidence'])
+            evidence = read_page(stack, answer.links['View document evidence'], cookie)
             require(evidence.answer == (route, state) and len(evidence.highlights) == 1
                     and 'chest pain' in evidence.highlights[0].lower()
                     and evidence.contains('code points ['), 'document citation highlight')
@@ -103,6 +170,50 @@ def exercise(stack, scenario):
             require(answer.contains('Synthetic NoteLens Literature Example')
                     and answer.links['Literature source URL'] == 'https://example.invalid/notelens/synthetic',
                     'literature source attribution')
+
+    partial = read_page(stack, ask(stack, cookie, path, preset='partial-document'), cookie)
+    require(partial.answer == ('document', 'partial') and 'View document evidence' in partial.links
+            and partial.contains('The document does not provide the requested age.'), 'partial document citation and gap')
+    unsupported = read_page(stack, ask(stack, cookie, path, preset='out-of-scope'), cookie)
+    require(unsupported.answer == ('none', 'unsupported') and 'View document evidence' not in unsupported.links
+            and 'Literature source URL' not in unsupported.links, 'out-of-scope question')
+
+    evicted = read_page(stack, saved[0], cookie)
+    require(evicted.answer is None and evicted.contains('no longer in the conversation history'), 'oldest turn evicted')
+    unchanged = read_page(stack, path + '&question=mixed', cookie)
+    require(unchanged.answer is None, 'legacy GET cannot ask a question')
+    unsupported_text = ask(stack, cookie, path, scope='literature',
+                           literatureQuestion='What does the published evidence say about this synthetic medical example?')
+    answer = read_page(stack, unsupported_text, cookie)
+    require(answer.answer == ('none', 'unsupported') and answer.contains('limited set of questions'),
+            'honest free-text mock scope')
+
+    submitted_path = prepare_submitted_text(stack, cookie)
+    findings_path = ask(stack, cookie, submitted_path, preset='findings')
+    findings = read_page(stack, findings_path, cookie)
+    require(findings.answer == ('document', 'sufficient') and 'View document evidence' in findings.links
+            and 'Literature source URL' not in findings.links, 'submitted document question')
+    denied_answer = read_page(stack, findings_path)
+    require(denied_answer.answer is None and not denied_answer.contains('No chest pain.'), 'submitted answer owner isolation')
+
+    clear_path = '/api/questions?' + path.split('?', 1)[1]
+    document = path.split('=', 1)[1]
+    valid = {'document': document, 'scope': 'document', 'documentQuestion': doc_question}
+    require(question_request(stack, None, payload=valid)[0] == 404, 'non-owner question denied')
+    require(question_request(stack, cookie, payload=valid, origin='http://example.invalid')[0] == 403,
+            'cross-origin question denied')
+    require(question_request(stack, cookie, payload={**valid, 'documentQuestion': 'Age?'})[0] == 422,
+            'inconclusive language asks for longer input')
+    require(question_request(stack, cookie, payload={**valid, 'documentQuestion': '😀' * 1001})[0] == 413,
+            'excess question rejected')
+    require(question_request(stack, cookie, payload=b' ' * (16 * 1024 + 1))[0] == 413, 'excess body rejected')
+    require(question_request(stack, cookie, method='DELETE', path=clear_path)[0] == 204, 'owner can clear history')
+    require(read_page(stack, unsupported_text, cookie).answer is None and read_page(stack, findings_path, cookie).answer,
+            'clear drops saved answer from the selected document only')
+    ask(stack, cookie, path, preset='document')
+    ask(stack, cookie, path, preset='document')
+    status, _, retry = question_request(stack, cookie, payload=valid)
+    require(status == 429 and int(retry) > 0, 'rolling session submission limit')
 
 
 def smoke(scenario):
@@ -128,10 +239,11 @@ def main():
     try:
         smoke('sufficient')
         smoke('insufficient')
+        smoke('provider_unavailable')
     except (MockStartupError, OSError, KeyError, RuntimeError) as exc:
         print(str(exc) if isinstance(exc, MockStartupError) else 'Mock smoke could not complete.', file=sys.stderr)
         return 1
-    print('PASS: mock report, four answer routes, citations, partial mixed answer and shutdown of both stacks.')
+    print('PASS: owner-only mock reports, free-text routing, citations, history, question limits and mock stack shutdown.')
     return 0
 
 

@@ -1,7 +1,9 @@
 # Runnable foundation checkpoint
 
-**Status** F-007 candidate verified locally. F-014 publication pending.
+**Status** F-014 foundation published and verified.
 **Preparation base** `8ecd4d4621c0700d0e90f5f58200d51bb81ee80b`.
+**Published foundation** `7eb12e56f33240a428f916ba583b9e00077712df`.
+**Publication tag** `f-014-foundation`.
 
 This branch starts from the F-013 acceptance record merged in
 [PR #12](https://github.com/NemanjaManic/notelens/pull/12). The human
@@ -45,11 +47,39 @@ and the F-005 mock smoke. The default test lane recorded 761 RAG, 84 classifier
 and 60 extraction passes. Two RAG collections were skipped because the
 optional indexing extra was absent. The PowerShell and Git Bash clone
 rehearsals verified SHA and feature selection on the published preparation
-base. The final F-014 SHA is still pending separate publication authorization.
+base.
+
+## Verified publication
+
+On 2026-11-20, B merged [PR #13](https://github.com/NemanjaManic/notelens/pull/13)
+after Nemanja approved the exact head and
+[hosted CI passed](https://github.com/NemanjaManic/notelens/actions/runs/44722263169).
+The published merge tree matched the approved PR tree
+`f5e548d4ce09806782e7f6066d25da859648dd6b`.
+
+An independent clone of the merged commit passed the human acceptance checker,
+all 15 scaffold steps, 30 shared HTTP cases, 213 mock health cases and the F-005
+mock smoke. All 19 health processes exited and closed their ports. The
+checkpoint verifier matched source SHA-256
+`3ceeaa80d09d7e872356b1b1e5a240ae0854dd6252a2546f1ea7b1bb35066dae`.
+The official resolver selected the foundation and all four member contexts
+without persisting local state.
+
+| Local receipt | SHA-256 |
+| --- | --- |
+| Scaffold | `ab1018e1c29bb7eaba5c92baa7c65c64a66e848982b34b2789b4394ce526ba2e` |
+| Service health | `dc2ca2e2184dffc895b08fa9903e1ec401258adffea7d286e6ce7968391ab901` |
+
+The authorized public [tag](https://github.com/NemanjaManic/notelens/tree/f-014-foundation)
+points to the same commit checked on `main`. Verify the tag and compare its
+reported SHA with the published foundation above.
+
+```powershell
+git ls-remote --tags origin refs/tags/f-014-foundation
+```
 
 ## Share the reviewed base
 
-Use the [separate Windows working-copy instructions](working-copies.md) for
-the exact remote and feature directories. The candidate's final published
-SHA will be recorded only after the reviewed commit is published under F-014.
-Keep owner-local artifacts, raw data and credentials out of Git.
+Use the [separate Windows working-copy instructions](working-copies.md), with
+`NOTELENS_FOUNDATION_SHA` set to the published foundation above. Keep
+owner-local artifacts, raw data and credentials out of Git.

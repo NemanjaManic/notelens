@@ -37,8 +37,12 @@ class MockStack:
     ports: dict[str, int]
 
     @property
+    def web_origin(self):
+        return f'http://localhost:{self.web_port}'
+
+    @property
     def demo_url(self):
-        return f'http://127.0.0.1:{self.web_port}/demo'
+        return self.web_origin + '/demo'
 
 
 def get(port, path, headers=None):
@@ -120,13 +124,15 @@ def start_stack(*, rag_scenario='sufficient') -> Iterator[MockStack]:
                 command, cwd=ROOT, env={**service_env, token_key: token}, stdout=subprocess.DEVNULL))
         for name in SERVICES:
             await_ready(name, ports[name], processes[name], token)
+        stack = MockStack(ports['web'], processes, ports)
         web_env = {**env, 'NOTELENS_DEMO_RUN': run_marker, 'NOTELENS_DEMO_TOKEN': token,
+                   'NOTELENS_SESSION_ORIGIN': stack.web_origin,
                    **{f'NOTELENS_DEMO_{name.upper()}_PORT': str(ports[name]) for name in SERVICES}}
         command = [node, str(next_bin), 'start', '--hostname', '127.0.0.1', '--port', str(ports['web'])]
         sockets['web'].close()
         processes['web'] = owned.enter_context(owned_process(command, cwd=WEB, env=web_env, stdout=subprocess.DEVNULL))
         await_ready('web', ports['web'], processes['web'], run_marker)
-        yield MockStack(ports['web'], processes, ports)
+        yield stack
 
 
 def main():
