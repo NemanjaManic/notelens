@@ -2,10 +2,22 @@
 
 Owner: Nemanja (A). Verified on Windows with Python 3.13.5 and uv 0.12.5.
 
-This is a runnable, owner-local mock service using B's frozen v1.0.0 bindings.
-It is not a production RAG implementation or the shared-foundation checkpoint. The prepared
-401-topic/617-passage corpus is unchanged. A read-only adapter can now load it for future
-indexing; the synthetic HTTP routes still return their explicit mock examples.
+The service implements candidate retrieval, evidence selection and cited literature
+answers using B's frozen v1.0.0 bindings. The prepared public corpus has 401 topics
+and 617 passages. The default HTTP entry point starts the key-free protocol mock;
+an explicit indexed backend can be constructed for configured integration.
+
+The portable synthetic indexed profile below exercises full, partial and absent
+support through both HTTP routes without a provider, public corpus or saved query
+cache. On 2026-11-21, 116 targeted tests and its authenticated TCP smoke passed.
+The same smoke passed from an isolated Git export plus A's local changes, with a
+new environment installed from the locked dependency cache. General live startup,
+the shared evaluation and B's real application integration remain open.
+
+See the [development handoff](../../docs/rag/development-handoff.md) for current
+commands and the [reviewed development results](../../docs/rag/evaluation/reviewed-development-evaluation.md)
+for the nine-question ranking evaluation. Earlier dated checkpoints below retain
+their original scope; their historical paid-call approvals are not live activation.
 
 The 2026-11-14 local continuation adds an OpenAI embedding adapter and a key-free
 token/cost preflight. See [embedding configuration and evidence](../../docs/rag/embeddings.md).
@@ -99,6 +111,22 @@ uv run --locked --offline --directory services/rag --extra indexing python -m py
 The indexing extra retains the checkpoint's Chroma version and its open advisory
 finding. See the [integration handoff](../../docs/rag/development-handoff.md#configured-index-startup)
 for the pinned assets and explicit backend setup.
+
+The [key-free indexed demo](../../docs/rag/development-handoff.md#run-the-indexed-demo-without-a-provider)
+starts a separate RAG process with a small synthetic Chroma index for application
+integration checks.
+
+Run its complete loopback smoke from the repository root:
+
+```powershell
+uv run --locked --offline --directory services/rag --extra indexing python -B ../../docs/rag/evaluation/serve_indexed_demo.py --check
+```
+
+This revision must contain the launcher; the earlier published handoff at
+`94884c9` does not. The probe checks both health routes, six business responses,
+request IDs and rejection of an unregistered question. If a service token is
+configured, it also verifies unauthorized access is denied. Its temporary
+listener stops when the check finishes. No model call or tokenizer download runs.
 
 ## Run locally
 

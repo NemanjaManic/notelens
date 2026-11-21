@@ -49,9 +49,18 @@ A-QA-03 in the exact five vector results supplied for each case. D's separate
 CQ-01 answer review supports full coverage for the A-QA-01 question. The complete
 development reference set still awaits D's adjudication. [Evidence review](../../specs/001-rag/tasks.md#phase-3-user-story-1) · [CQ-01 answer review](evaluation/live-http-smoke-review.md)
 
-C-002 and D-003 remain open on the reviewed team branches. Assigned document
-annotations and independent secondary reviews follow D's publication of the
-assignments. Canonical QA and final-set decisions belong to D under D-007.
+On 2026-11-21, Nemanja relayed D's coverage ratings for all nine cases and
+confirmation that all 12 original citations match the pinned corpus. A's
+13 assigned canonical files also match the frozen allocation, and D has
+confirmed receipt and local checking of the 10 primary annotation records
+and three independent reviews. The 27 annotation questions and D's later
+canonical-span verification remain under D-013. C-002 and D-003 are now
+recorded complete on the owner branches.
+
+The [updated development evaluation](evaluation/reviewed-development-evaluation.md)
+records the scoped alternative-reference proposals and exact ranges checked
+locally by A. D owns the canonical joint-review record, wider benchmark and
+final-set decisions under D-007. No final set has been opened or frozen here.
 
 From the repository root, validate the JSON syntax with:
 

@@ -1,6 +1,27 @@
 # RAG development integration evidence
 
-Owner: Nemanja (A). Checkpoint: 2026-11-18. A-008 remains open.
+Owner: Nemanja (A). Initial checkpoint: 2026-11-18. Latest local evaluation: 2026-11-21. A-008 remains open.
+
+The [D-reviewed development evaluation](evaluation/reviewed-development-evaluation.md)
+adds the relayed nine-case D ratings and scoped alternative references to a
+reproducible re-score of the existing vector, hybrid and BM25 rankings.
+Vector retains all reference topics for eight of eight cases with topic
+labels and all 11 supported parts. The no-support case is excluded from
+topic-recall denominators, and partial coverage remains explicit. Fourteen
+canonical spans and all source input hashes were checked without provider
+calls. All 105 targeted metric/contract/answer/failure tests passed. D's
+canonical joint record, wider benchmark and B's application routing remain
+open; this local report does not freeze the shared evaluation.
+
+The portable [synthetic indexed profile](development-handoff.md#run-the-indexed-demo-without-a-provider)
+now supplies a key-free TCP probe for sufficient, partial and insufficient
+responses without A's ignored corpus or query caches. It checks both health
+routes, six business responses, request correlation, unregistered-question
+rejection and configured service-token denial. A fresh source export with A's
+local overlay and a new locked environment reproduced the smoke. The targeted
+suite including the portable profile and indexed startup passed 116 tests.
+This is Python service integration evidence; B's frontend routing and the
+shared/final evaluation remain separate gates.
 
 The default RAG app exposes the frozen mock routes. B can verify the contract
 and error handling locally using the [service startup guide](../../services/rag/README.md)
