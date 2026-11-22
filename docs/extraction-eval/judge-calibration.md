@@ -78,9 +78,12 @@ On 2026-11-22, Milica submitted all 49 dimension scores for the seven synthetic
 answers. D verified the response and document digests and saved the scores
 with the observed response actions. The original review page linked to each
 exact response and omitted warnings and citations from its inline display.
-D prepared a full view with both fields visible. CAL-02 and CAL-03 each carry
-an explicit missing-age warning. The submitted scores are preserved while
-Milica checks the full view and confirms rationales and assessment flags.
+D prepared a full view with both fields visible. Milica confirmed her scores
+and reasons for CAL-02 and CAL-03. Her reasons address the main answer, which
+omits the age explanation in both cases. Both responses carry the explanation
+in a separate structured warning. Preserve her scores and use this difference
+to calibrate whether the evidence-gaps dimension credits a separate warning.
+The remaining reviewer rationales and assessment flags are pending.
 
 | Practice case | Outcome | Scoring finding |
 | --- | --- | --- |
