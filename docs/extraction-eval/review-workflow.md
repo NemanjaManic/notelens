@@ -134,7 +134,7 @@ submission folder has separate `primary` and `reviews` subfolders and a root
 2026-11-22. Goran confirmed readability and the listed hashes. Sara also
 confirmed receipt, readability and verified checksums. D recorded
 [completion](../../eval/reports/development/d012-private-submission-receipt-v1.json).
-The source-gap question on 005 remains under D-013.
+The source-gap question on 005 was carried into D-013.
 
 Independent reviews by other members of selected D primary annotations contribute
 to D-013's team-wide minimum of ten independent reviews. Milica reported that the
@@ -154,8 +154,12 @@ and 24 evidence citations. D paired it with Milica's submitted primary record
 and queued its four open questions for human adjudication. It is a non-blinded
 secondary review with zero credit toward the ten-review independent minimum.
 Nemanja reconfirmed that v2 was submitted. Assignment 038 has no outstanding
-submission request for him. D prepared proposed decisions for all four
-questions in the private adjudication workspace with exact source anchors.
+submission request for him. Milica accepted the 005 source-gap proposal and
+all four 038 proposals based on the excerpts shared with her. She reported
+that the separate full-evidence file did not open. D verified seven shared
+anchors and the retained 005 evidence span against the full canonical texts
+and preserved the five decisions in the private workspace. Paired differences
+and final reference assembly remain pending.
 If the team needs a replacement to reach that minimum, arrange a reviewer
 without prior label exposure for 038 or another eligible assignment through
 the approved private workflow.
