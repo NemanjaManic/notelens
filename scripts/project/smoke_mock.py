@@ -216,6 +216,19 @@ def exercise(stack, scenario):
     require(status == 429 and int(retry) > 0, 'rolling session submission limit')
 
 
+def verify_shutdown(stack):
+    require(all(process.poll() is not None for process in stack.processes.values()), 'process shutdown')
+    for name, port in stack.ports.items():
+        deadline = time.monotonic() + 3
+        while True:
+            with socket.socket() as probe:
+                probe.settimeout(0.25)
+                if probe.connect_ex(('127.0.0.1', port)) != 0:
+                    break
+            require(time.monotonic() < deadline, f'{name} loopback port closed')
+            time.sleep(0.05)
+
+
 def smoke(scenario):
     stack = None
     try:
@@ -223,16 +236,7 @@ def smoke(scenario):
             exercise(stack, scenario)
     finally:
         if stack:
-            require(all(process.poll() is not None for process in stack.processes.values()), 'process shutdown')
-            for name, port in stack.ports.items():
-                deadline = time.monotonic() + 3
-                while True:
-                    with socket.socket() as probe:
-                        probe.settimeout(0.25)
-                        if probe.connect_ex(('127.0.0.1', port)) != 0:
-                            break
-                    require(time.monotonic() < deadline, f'{name} loopback port closed')
-                    time.sleep(0.05)
+            verify_shutdown(stack)
 
 
 def main():

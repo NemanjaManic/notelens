@@ -55,6 +55,7 @@ class MockStack:
     web_port: int
     processes: dict[str, subprocess.Popen]
     ports: dict[str, int]
+    service_token: str = field(default='', repr=False)
 
     @property
     def web_origin(self):
@@ -108,12 +109,17 @@ def child_environment():
 
 
 @contextmanager
-def start_stack(*, rag_scenario='sufficient', fitted_classifier: FittedClassifier | None = None) -> Iterator[MockStack]:
+def start_stack(
+    *, rag_scenario='sufficient', fitted_classifier: FittedClassifier | None = None,
+    extraction_root: Path = ROOT,
+) -> Iterator[MockStack]:
     node = shutil.which('node')
     next_bin = ROOT / 'node_modules/next/dist/bin/next'
     if not node or not next_bin.is_file() or not (WEB / '.next/BUILD_ID').is_file():
         raise MockStartupError('Install the locked web workspace and run npm.cmd run build first.')
-    interpreters = {name: ROOT / 'services' / name / '.venv/Scripts/python.exe' for name in SERVICES}
+    service_roots = {**dict.fromkeys(SERVICES, ROOT), 'extraction': extraction_root}
+    interpreters = {name: service_roots[name] / 'services' / name / '.venv/Scripts/python.exe'
+                    for name in SERVICES}
     for name, interpreter in interpreters.items():
         if not interpreter.is_file():
             raise MockStartupError(f'Install the locked {name} environment first.')
@@ -141,10 +147,10 @@ def start_stack(*, rag_scenario='sufficient', fitted_classifier: FittedClassifie
                        '--no-access-log', '--log-level', 'error']
             sockets[name].close()
             processes[name] = owned.enter_context(owned_process(
-                command, cwd=ROOT, env={**service_env, token_key: token}, stdout=subprocess.DEVNULL))
+                command, cwd=service_roots[name], env={**service_env, token_key: token}, stdout=subprocess.DEVNULL))
         for name in SERVICES:
             await_ready(name, ports[name], processes[name], token)
-        stack = MockStack(ports['web'], processes, ports)
+        stack = MockStack(ports['web'], processes, ports, service_token=token)
         web_env = {**env, 'NOTELENS_DEMO_RUN': run_marker, 'NOTELENS_DEMO_TOKEN': token,
                    'NOTELENS_SESSION_ORIGIN': stack.web_origin,
                    **{f'NOTELENS_DEMO_{name.upper()}_PORT': str(ports[name]) for name in SERVICES}}
