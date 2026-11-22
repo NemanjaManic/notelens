@@ -1,0 +1,16 @@
+{
+  "version": "d013-paired-human-decision-receipt-v1",
+  "date": "2026-11-22",
+  "adjudicator": "member-d",
+  "private_decision_artifact_sha256": "b34bcd24cf8447faffc0444ae817ed015da14cea7bc517ed14f4bc861425448f",
+  "decisions_recorded": 1,
+  "assignment_ids": [
+    "assignment-036"
+  ],
+  "decided_attribute": "temporality",
+  "decision": "current",
+  "review_basis": "Milica explicitly accepted the displayed excerpt-based proposal.",
+  "canonical_identity_and_target_span_verified": true,
+  "all_pair_disagreements_resolved": false,
+  "canonical_references_merged": false
+}
