@@ -142,3 +142,30 @@ The checker reports seven `incomplete` agent practice records, one operational
 failure, zero invalid records and zero completed human reviews. The agent scores
 are excluded from the human-review denominator. The proposed scoring guidance
 awaits independent review before any rubric version or acceptance decision changes.
+
+## Member A calibration handoff
+
+The proposed A packet has seven pinned synthetic document answers and five
+separate generated entity-evidence items. It contains the questions, exact
+canonical source content, response files, versions and SHA-256 checksums. The
+answer files are byte-identical to the retained first-round artifacts. The
+entity results are serialized copies of the pinned mock HTTP extraction
+records. The packet includes blank forms and excludes gold labels and other
+reviewers' scores. Reviewer exposure and self-authorship are declared per
+case before scoring and can trigger a replacement.
+
+For new answer intake, validate the current form and the exact reviewed
+response files before counting the submissions as complete.
+
+```powershell
+./eval/.venv/Scripts/python.exe -B -m notelens_eval.answer_review `
+  $reviewFile --require-current-form --response-artifacts $responseDirectory
+```
+
+The current form requires a reason and minimum correction for each score
+of 0, 1 or U, and a separate component outcome for mixed responses. The reports
+show component failures alongside the answer-quality counts. Earlier reviews
+are preserved and can be read without the current-form intake flag. The A
+packet is a first round within the proposed 40 answer and 20 entity-evidence
+review targets. A's scoring, remaining assignments and team calibration await
+confirmation.

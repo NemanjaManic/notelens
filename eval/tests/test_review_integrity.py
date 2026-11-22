@@ -3,7 +3,7 @@ import copy
 import json
 from pathlib import Path
 import pytest
-from notelens_eval.answer_review import inspect, summarize
+from notelens_eval.answer_review import CURRENT_FORM_VERSION, inspect, summarize
 
 
 def blank():
@@ -72,6 +72,73 @@ def test_abstention_preserves_explicit_null_prompt_version():
     assert report["reviewer_agreement"]["matched_pairs"] == 1
     del first["prompt_version"]
     assert inspect(first) == "incomplete"
+
+
+def current_form():
+    record = completed()
+    record.update(review_form_version=CURRENT_FORM_VERSION, reviewed_output="document_answer",
+                  prior_exposure=False, self_authored_output=False, component_outcomes=[])
+    return record
+
+
+def test_current_form_requires_note_for_each_zero_one_and_unable_score():
+    record = current_form()
+    record["dimensions"].update(source_support=0, required_facts=1, evidence_gaps="U")
+    assert inspect(record) == "incomplete"
+
+    for expected in ("source_support", "required_facts", "evidence_gaps"):
+        record["claim_source_notes"].append({
+            "dimension": expected, "reason": "The synthetic evidence is insufficient.",
+            "minimum_correction": "State which evidence is missing.", "claim_id": None, "source_id": None,
+        })
+    assert inspect(record, require_current_form=True) == "completed_declared_human_review"
+    record["claim_source_notes"][0]["reason"] = " "
+    with pytest.raises(ValueError, match="dimension note"):
+        inspect(record)
+
+
+def test_current_intake_requires_form_and_keeps_exposed_reviews_out_of_pairs():
+    older = completed()
+    record = current_form()
+    assert inspect(older) == "completed_declared_human_review"
+    assert summarize([older], require_current_form=True)["counts"]["invalid"] == 1
+    record["self_authored_output"] = True
+    with pytest.raises(ValueError, match="cannot be independent"):
+        inspect(record)
+    record.update(independent_review=False, exposure_note="Reviewer authored this synthetic response.")
+    assert inspect(record) == "incomplete"
+    assert summarize([record])["reviewer_agreement"]["matched_pairs"] == 0
+
+
+def test_mixed_review_scores_surviving_content_and_records_failure_separately():
+    record = current_form()
+    record.update(reviewed_output="mixed_answer", response_action="partial_answer",
+                  source_snapshot_id="synthetic-literature", source_snapshot_sha256="c" * 64,
+                  component_outcomes=[
+                      {"route": "document", "outcome": "answer"},
+                      {"route": "literature", "outcome": "operational_error", "error_code": "provider_unavailable",
+                       "request_or_run_id": "synthetic-run"},
+                  ])
+    assert inspect(record) == "completed_declared_human_review"
+    report = summarize([record])
+    assert report["completed_outcomes"] == {"partial_answer": 1}
+    assert report["component_outcomes"] == {"document": {"answer": 1}, "literature": {"operational_error": 1}}
+    assert report["component_failures"][0]["request_or_run_id"] == "synthetic-run"
+    record["response_action"] = "abstain"
+    with pytest.raises(ValueError, match="surviving content"):
+        inspect(record)
+    record["response_action"] = "partial_answer"
+    del record["component_outcomes"][1]["request_or_run_id"]
+    with pytest.raises(ValueError, match="request or run ID"):
+        inspect(record)
+
+
+def test_literature_review_requires_snapshot_and_can_omit_document_pin():
+    record = current_form()
+    record.update(reviewed_output="literature_answer", doc_id=None, text_sha256=None)
+    assert inspect(record) == "incomplete"
+    record.update(source_snapshot_id="synthetic-literature", source_snapshot_sha256="c" * 64)
+    assert inspect(record) == "completed_declared_human_review"
 
 
 def test_agreement_uses_distinct_reviewers_and_exact_pinned_output():

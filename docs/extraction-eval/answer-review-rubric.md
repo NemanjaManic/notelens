@@ -18,6 +18,10 @@ When comparing generated systems, hide system/provider identity and randomize re
 order where feasible. Reviewers should first score independently. Show no other
 reviewer's scores before submission. If the purpose is independent answer-quality
 review, keep the gold/reference labels hidden until the first score is recorded.
+Record `prior_exposure` and `self_authored_output` separately on the current
+form. Disclose either with an `exposure_note`, set `independent_review` to
+`false`, and arrange a replacement case. D excludes the exposed record from
+independent agreement.
 
 The reviewer may inspect source passages needed to judge evidence. A citation that
 exists or an exact quote that is present is not automatically a supported claim.
@@ -46,6 +50,21 @@ Structural integrity is checked separately by the service/evaluator: schema vali
 document ID/hash, source linkage, exact code-point quote offsets, and safe error handling.
 A structural pass does not earn a semantic score.
 
+## Applying the same dimensions by output type
+
+| `reviewed_output` | Review scope |
+| --- | --- |
+| `document_answer` | Compare the claims and omissions with the question and the pinned canonical document. |
+| `summary` | Compare the claims with the canonical document and the requested summary scope. Required facts are salient in-scope findings, actions and context, including material qualifiers or explicit unknowns. |
+| `literature_answer` | Compare claims and omissions with the question and the pinned literature evidence. Inspect cited passages, source ownership and qualifiers. Record `source_snapshot_id` and `source_snapshot_sha256`. |
+| `mixed_answer` | Review the document and literature claims against their respective pinned sources. Check whether surviving claims preserve source attribution, stated gaps and uncertainty. Record both source pins and the two component outcomes. |
+
+Use `answerable_from_document` for answerability from the applicable pinned
+sources. For a summary, use it for support for the requested summary scope.
+For literature-only review, the source snapshot identifies the evidence
+and the document-only identity fields can be null. Source-specific evidence
+rules, dimension scale and human-declaration requirements apply to every type.
+
 ## Required reviewer notes
 
 For every score below 2, record the affected claim/source ID if available, a short
@@ -53,6 +72,14 @@ reason, and the minimum correction. Do not copy an entire report passage into th
 Mark whether the issue is omission, unsupported claim, wrong question, context reversal,
 unclear limitation, scope/safety or language. For contradictions, describe both source
 statements and leave clinical truth unresolved.
+
+On `d-answer-review-form-v2`, add a `claim_source_notes` row for every
+dimension scored `0`, `1` or `U`. Each row needs `dimension`, a nonempty
+`reason` and a nonempty `minimum_correction`. Set `claim_id` and `source_id`
+when the output identifies them. Use `null` for an unavailable identifier,
+including an omitted claim, and explain the missing material for `U`. D's
+current-form intake keeps any record missing a required note out of the
+completed review count. Earlier form records are preserved for review history.
 
 Use these outcome flags independently from dimension scores:
 
@@ -64,6 +91,17 @@ Use these outcome flags independently from dimension scores:
 An operational error (timeout, invalid response, unavailable service) is recorded as
 an operational failure, never as a correct abstention. Record the error code and run
 ID, not document text.
+
+For a mixed answer, record one `component_outcomes` row for `document` and one
+for `literature`. Use `answer`, `partial_answer`, `abstain` or `operational_error`
+for each `outcome`. For a failed branch include its `error_code` and
+`request_or_run_id`. When a supported answer survives, record the overall
+`response_action` as `partial_answer` and score the content actually returned,
+including whether the failure is disclosed. The failed branch is counted as an
+operational failure with no branch-level quality scores. If a failure leaves
+no supported answer, record the overall action as `operational_error`, with
+empty quality scores. A completed evidence search with zero support uses
+`abstain` on the applicable branch.
 
 ## Calibration and sampling proposal
 
@@ -78,6 +116,12 @@ entity-evidence reviews. This is a planning target only. Final sample size, assi
 reviewer access, adjudication and score summaries require team agreement. No live judge,
 provider spend or substantive acceptance threshold is authorized by this rubric.
 
+Entity-evidence review uses a generated extraction item and its exact source
+text. Check mention and evidence offsets, semantic support and the assigned
+type, assertion, timing, subject and procedure status. Record pass, fail or
+unclear and a reason separately from the answer review. Keep existing human
+annotations and citation checks separate from these generated-output ratings.
+
 ## Reporting
 
 Report counts per dimension and each score value, `U` counts, outcome flags, critical
@@ -86,8 +130,8 @@ and their hashes. Report raw counts before percentages, distinguish operational 
 answer-quality failures, and include unresolved items. Do not call reviewer agreement
 clinical validation. Do not tune prompts on final-reference reviews.
 
-The blank machine-readable form is [answer-review-template-v1.json](../../eval/fixtures/answer-review-template-v1.json).
-Its nulls are empty fields, not negative findings.
+The current blank form is [answer-review-template-v2.json](../../eval/fixtures/answer-review-template-v2.json).
+The [v1 form](../../eval/fixtures/answer-review-template-v1.json) remains available for the first review round.
 
 Executable integrity checks and read-only reporting are documented in [judge-calibration.md](judge-calibration.md). The rubric remains a draft until actual calibration.
 
