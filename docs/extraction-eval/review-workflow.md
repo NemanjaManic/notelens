@@ -37,16 +37,20 @@ already-received reviewed ZIP matched its archive digest and six listed file
 digests. All 271 mention spans and 393 evidence spans matched the canonical
 texts. Sara approved Nemanja's existing direct private chat with Milica for
 any revised D-013 packet, with an updated submission manifest and SHA-256
-checksums. Sara and Goran still need to confirm the shared private route for
-team-reviewed submissions and the pinned passages packet.
+checksums. The team-wide private route for reviewed submissions remains
+pending. Nemanja still needs to confirm the approved retrieval location for
+the pinned passages packet.
 
 The [D-013 intake receipt](../../eval/reports/development/d013-member-a-intake-v1.json)
 identifies the four counterparts from C. D verified the updated drafts for 000,
 003, 006 and 010 against the supplied canonical texts and compared them with A's
 reviewed records. D also checked three C/D pairs for 002, 005 and 008. The C
 handoff contains 11 drafts, 278 mentions, 307 evidence spans and 14 open questions.
-D prepared feedback for C. C's human confirmation and the adjudication
-decisions remain pending.
+D prepared feedback for C. Sara confirmed that she reviewed the full canonical
+document for all 11 assignments and reported sharing her finalized C-010
+package privately. The accessible local ZIP is still the earlier draft with
+all 11 records marked pending. D needs the finalized records, their manifest
+and checksums to verify intake and continue adjudication.
 
 ### Milica's development packet
 
@@ -66,9 +70,11 @@ D verified Goran's ten frozen primary assignments, 020 through 029, and three
 independent reviews, 001, 004 and 007. Goran's allocation CSV contains the role,
 assignment ID, document ID and canonical SHA-256 for each of these 13 rows.
 Goran reported that all 13 canonical hashes in his ZIP matched the frozen
-allocation. Sara's confirmation of the authorized package and approved private
-retrieval route remains pending. Hold the three primary label records until
-Goran submits his independent reviews.
+allocation. Sara confirmed that the ZIP is Goran's authorized frozen D-003
+packet and that she sent the access instructions directly to him. She will
+hold the primary labels for 001, 004 and 007 until Goran submits those
+independent reviews. The B-011 access handoff is confirmed and annotation
+submissions remain pending.
 
 ## Per-assignment procedure
 
