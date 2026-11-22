@@ -74,6 +74,14 @@ dimension rated below 2 or marked `U`. All practice records declare
 `human_reviewed=false` and `independent_review=false`. This exercise used zero
 provider calls and provides no inter-reviewer agreement measurement.
 
+On 2026-11-22, Milica submitted all 49 dimension scores for the seven synthetic
+answers. D verified the response and document digests and saved the scores
+with the observed response actions. The original review page linked to each
+exact response and omitted warnings and citations from its inline display.
+D prepared a full view with both fields visible. CAL-02 and CAL-03 each carry
+an explicit missing-age warning. The submitted scores are preserved while
+Milica checks the full view and confirms rationales and assessment flags.
+
 | Practice case | Outcome | Scoring finding |
 | --- | --- | --- |
 | Complete answer | Answer | All seven dimensions meet. |

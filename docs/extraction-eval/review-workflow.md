@@ -30,6 +30,13 @@ against the frozen allocation. D checked all 271 mention spans and 393 evidence
 spans against the canonical texts. All 27 open questions have source-grounded
 proposals ready for human adjudication.
 
+Milica submitted decisions for all 27 questions. D matched the decision export
+to the pinned review inputs and reverified 72 canonical evidence anchors.
+Milica accepted 20 proposals and supplied seven replacement decisions. The
+decision notes are preserved in the private adjudication workspace. Paired
+record differences and the remaining D-013 questions still need decisions
+before the reference merge.
+
 On 2026-11-22, Sara confirmed Milica's access to Nemanja's 13 canonical texts.
 D reopened the local private packet and matched all 13 UTF-8 texts, document
 IDs and SHA-256 digests to the frozen allocation. A fresh check of Nemanja's
