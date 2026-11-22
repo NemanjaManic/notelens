@@ -83,7 +83,16 @@ and reasons for CAL-02 and CAL-03. Her reasons address the main answer, which
 omits the age explanation in both cases. Both responses carry the explanation
 in a separate structured warning. Preserve her scores and use this difference
 to calibrate whether the evidence-gaps dimension credits a separate warning.
-The remaining reviewer rationales and assessment flags are pending.
+
+Milica supplied the other five rationales and outcome assessments. D verified
+all seven completed reviewer records against their exact response bytes and
+preserved all 49 scores. Milica marked CAL-05, CAL-06 and CAL-07 as critical.
+She requested joint review of the conflicting source statements in CAL-07.
+D recorded CAL-02 and CAL-03 as partly answerable and unanswerable respectively
+from the missing-age evidence. The treatment of separate warnings and CAL-04's
+explicit negative answer remain calibration questions. The first Milica
+review is complete. Independent counterpart reviews and team calibration
+remain pending.
 
 | Practice case | Outcome | Scoring finding |
 | --- | --- | --- |
