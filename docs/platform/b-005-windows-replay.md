@@ -16,10 +16,8 @@ Use the same two approved synthetic examples from Milica’s private JSON file i
   The [pinned classifier instructions][classifier-pin] identify the C-005 and C-008
   startup manifests. The frozen evaluation manifest is separate from the C-008 startup
   manifest.
-- **Inputs**. Keep Milica’s JSON outside the working copies. The fitted probe needs
-  UTF-8 JSON without a BOM, with `supported` and `uncertain` entries containing
-  `text` and `source_kind: "synthetic_text"`. The supported entry must include
-  `category: "Orthopedic"`. Preserve the two text values when using the app.
+- **Inputs**. Keep Milica’s original JSON and the converted probe file outside the
+  working copies. Use the exact two approved synthetic texts for both models.
 
 From the platform root, use Python 3.13, Node 24, npm 11, and uv. The launcher needs the
 three service-local environments even though the report uses an external classifier.
@@ -37,14 +35,56 @@ npm.cmd run build
 if ($LASTEXITCODE -ne 0) { throw 'Platform build failed.' }
 ```
 
-From a PowerShell window, enter the actual local paths and open two shells that inherit
-one temporary bearer token. The new shells are used to run and stop their respective
-processes. Keep the token in process environments.
+## Convert Milica’s JSON for the fitted probe
+
+Milica’s original JSON has an `examples` array. The probe reads a UTF-8 file
+without a BOM with top-level `supported` and `uncertain` objects. Passing the
+original file directly fails before the first HTTP request.
+
+In the parent PowerShell window, identify which row has the expected
+`supported / Orthopedic` result and which has the expected `uncertain / null`
+result. Set the zero-based indexes below to match your file. The example assumes
+the supported input is first and reads each row’s `text` field. Keep the two
+decoded text values exactly as supplied, including line breaks and whitespace.
+
+```powershell
+$originalExamplesPath = (Resolve-Path -LiteralPath 'C:\private\milica-examples.json').Path
+$originalExamples = Get-Content -LiteralPath $originalExamplesPath -Raw -Encoding UTF8 |
+  ConvertFrom-Json -ErrorAction Stop
+$rows = @($originalExamples.examples)
+$supportedIndex = 0
+$uncertainIndex = 1
+if ($rows.Count -ne 2 -or $supportedIndex -eq $uncertainIndex -or
+    $supportedIndex -notin 0, 1 -or $uncertainIndex -notin 0, 1) {
+  throw 'Select the two approved inputs from the examples array.'
+}
+
+$supportedText = $rows[$supportedIndex].text
+$uncertainText = $rows[$uncertainIndex].text
+if ($supportedText -isnot [string] -or [string]::IsNullOrWhiteSpace($supportedText) -or
+    $uncertainText -isnot [string] -or [string]::IsNullOrWhiteSpace($uncertainText)) {
+  throw 'The selected inputs must contain non-empty text strings.'
+}
+
+$probeExamples = [ordered]@{
+  supported = @{ text = $supportedText; source_kind = 'synthetic_text'; category = 'Orthopedic' }
+  uncertain = @{ text = $uncertainText; source_kind = 'synthetic_text'; category = $null }
+}
+$probeExamplesPath = Join-Path (Split-Path -Parent $originalExamplesPath) (
+  [IO.Path]::GetFileNameWithoutExtension($originalExamplesPath) + '-fitted.json'
+)
+[IO.File]::WriteAllText($probeExamplesPath, ($probeExamples | ConvertTo-Json -Depth 4),
+  [Text.UTF8Encoding]::new($false))
+```
+
+In the same parent window, enter the working-copy paths and open both shells.
+They inherit the converted file path and the same temporary bearer token. Keep
+the token in process environments.
 
 ```powershell
 $platformRoot = 'C:\path\to\reviewed-platform'
 $classifierRoot = 'C:\path\to\reviewed-classifier'
-$env:NOTELENS_CLASSIFIER_TEST_EXAMPLES = (Resolve-Path -LiteralPath 'C:\private\milica-examples.json').Path
+$env:NOTELENS_CLASSIFIER_TEST_EXAMPLES = $probeExamplesPath
 $env:NOTELENS_CLASSIFIER_SERVICE_TOKEN = [Guid]::NewGuid().ToString('N')
 Start-Process powershell.exe -ArgumentList '-NoProfile', '-NoExit' -WorkingDirectory $classifierRoot
 Start-Process powershell.exe -ArgumentList '-NoProfile', '-NoExit' -WorkingDirectory $platformRoot
@@ -124,6 +164,8 @@ status or redacted startup error and mark both downstream checks blocked.
 ## Transport and report procedure for each bundle
 
 In the platform window, run the authenticated fitted HTTP probe and then launch the app.
+Resolve and invoke an installed Python 3.13 executable explicitly so the launch
+works when the shell’s default Python is 3.11.
 
 ```powershell
 $env:NOTELENS_CLASSIFIER_TEST_PROFILE = 'fitted'
@@ -132,12 +174,14 @@ $env:NOTELENS_CLASSIFIER_TEST_MODEL_VERSION = $env:NOTELENS_LOCAL_CLASSIFIER_MOD
 $env:NOTELENS_LOCAL_CLASSIFIER_PORT = '8002'
 node --test apps/web/tests/integration/classifier-http.test.ts
 if ($LASTEXITCODE -ne 0) { throw 'Fitted classifier transport check failed.' }
-python -B scripts/project/start_mock.py --fitted-classifier
+$platformPython = uv --offline python find --system 3.13
+if ($LASTEXITCODE -ne 0 -or -not $platformPython) { throw 'Could not locate Python 3.13.' }
+& $platformPython -B scripts/project/start_mock.py --fitted-classifier
 ```
 
 Open the printed `localhost` URL. On the demo page, submit each of Milica’s two
 examples through the pasted-text form as synthetic input. Use the exact text from
-the JSON and check both reports.
+the converted file and check both reports.
 
 | Input | Classifier response expected | Report expected |
 | --- | --- | --- |
