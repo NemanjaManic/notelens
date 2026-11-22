@@ -1,0 +1,16 @@
+{
+  "version": "d007-source-planning-progress-v1",
+  "date": "2026-11-22",
+  "source": "Sara message relayed by Milica",
+  "final_slots_total": 26,
+  "sara_preliminary_slots_reported_checked": 13,
+  "sara_preliminary_overlap_matches_reported": 0,
+  "goran_planned_sources_pending": 13,
+  "joint_overlap_check_completed": false,
+  "planned_source_list_version": null,
+  "planned_source_list_sha256": null,
+  "d_source_slots_verified": 0,
+  "named_editor_account_confirmation": "Sara requested Goran to confirm an additional named account before Editor access; not confirmed by D.",
+  "final_qa_content_received_by_d": false,
+  "final_freeze_completed": false
+}

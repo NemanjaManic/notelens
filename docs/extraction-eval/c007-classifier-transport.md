@@ -124,12 +124,23 @@ Specialty uncertain with no assigned specialty for the uncertain input. Goran
 verified the recheck receipt against both model pins and found no mismatch.
 
 The authoritative new file is `b005-joint-replay-recheck-receipt.json`.
-Sara's earlier attachment was the failed receipt sent by mistake. The passing
-file has not reached D's available local files, so its intake and D pin check
-remain pending. This is the owner's reported successful classifier integration;
-the broader B-005 task also includes the other services. The
-[preflight record](../../eval/reports/development/b005-c005-c008-joint-preflight-v1.json)
-preserves D's earlier independent results and both chronological owner reports.
+Sara's earlier attachment was the failed receipt sent by mistake. D received
+the passing file with SHA-256
+`a7a0412720b243c1aac4cb86e27ad5f64c861b985e60084f06d8502d5c2dda06`
+and checked both manifest pins and loaded model versions. All four report rows
+have distinct valid document IDs, the exact expected canonical text hashes,
+HTTP 201 and the expected rendered labels and assigned-specialty values.
+Both fitted probes record six passes, HTTP 200 readiness and successful
+request-ID correlation. No receipt mismatch was found.
+
+The classifier integration evidence intake is complete. D verified the owner
+receipt against the pins and exact synthetic inputs; D did not rerun the
+Windows browser workflow. The receipt supplies correlation outcomes, not raw
+request-ID pairs or score vectors. Findings, summaries and answers remain
+mocked in these runs, so the broader B-005 task still includes the other
+services. The [verification record](../../eval/reports/development/b005-joint-recheck-receipt-verification-v1.json)
+and [preflight history](../../eval/reports/development/b005-c005-c008-joint-preflight-v1.json)
+preserve the verification scope and earlier reports.
 
 ## Reproduce the evaluator check
 

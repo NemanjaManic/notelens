@@ -161,6 +161,11 @@ The ten entity-evidence items across A and C are distinct. Both packets use
 `d-answer-review-rubric-v1` with `d-answer-review-form-v2`. D verified all 24
 checksums in the Member C packet. A and C scoring remain pending.
 
+Sara later reported drafts covering all seven answers and five entity-evidence
+items. Her personal review, exposure declaration and final private submission
+remain pending. Draft coverage adds no completed human reviews and no scores
+for comparison until the finalized forms and exact artifact pins are checked.
+
 For new answer intake, validate the current form and the exact reviewed
 response files before counting the submissions as complete.
 

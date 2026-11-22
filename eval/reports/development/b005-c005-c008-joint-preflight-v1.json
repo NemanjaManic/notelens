@@ -1,7 +1,7 @@
 {
   "version": "b005-c005-c008-joint-preflight-v1",
   "date": "2026-11-22",
-  "status": "owner_joint_recheck_passed_private_receipt_intake_pending",
+  "status": "owner_joint_classifier_receipt_verified_other_service_integrations_pending",
   "examples": {
     "path": "eval/reports/development/c007-b005-admitted-synthetic-examples-v1.json",
     "sha256": "fcef39b7a13d056b8fcf85e837756ab30ef70db3491c592ffa2dea74c6752239"
@@ -141,18 +141,18 @@
       "C-005",
       "C-008"
     ],
-    "pending_from_team": [
-      "Provide the passing b005-joint-replay-recheck-receipt.json privately for D intake and pin verification."
-    ],
+    "pending_from_team": [],
     "checks_per_model": [
       "Confirm the classifier commit, startup manifest, artifact digest and readiness model version.",
       "Submit both exact examples through normal app admission. Record HTTP status, prepared document IDs and digests.",
       "Check fitted HTTP 200, response identity, model version, score order and request correlation.",
       "Verify both rendered report states and record any mismatch alongside the pinned app and model versions."
     ],
-    "rendered_report_verified": false,
+    "rendered_report_verified": true,
     "app_commit": "9cdab928923056f31dd1f37ab4b569cc638999ab",
-    "rendered_report_reported_passed": true
+    "rendered_report_reported_passed": true,
+    "verification_basis": "Owner rendered-report receipt checked against exact examples and model pins.",
+    "verification_record": "eval/reports/development/b005-joint-recheck-receipt-verification-v1.json"
   },
   "provider_calls": 0,
   "goran_2026_11_22_passing_recheck": {
@@ -187,11 +187,13 @@
     "goran_reported_mismatches": 0,
     "receipt_to_use": "b005-joint-replay-recheck-receipt.json",
     "earlier_attached_receipt": "Earlier failed receipt was attached by mistake; do not use it as the latest result.",
-    "passing_receipt_received_by_d": false,
-    "d_independent_verification_of_passing_receipt": false,
+    "passing_receipt_received_by_d": true,
+    "d_independent_verification_of_passing_receipt": true,
     "supersedes_earlier_joint_blockers": [
       "C-005 authenticated readiness",
       "C-008 browser runner stopped before report capture"
-    ]
+    ],
+    "receipt_sha256": "a7a0412720b243c1aac4cb86e27ad5f64c861b985e60084f06d8502d5c2dda06",
+    "d_verification_scope": "Receipt consistency and pin validation only; no new D runtime replay."
   }
 }

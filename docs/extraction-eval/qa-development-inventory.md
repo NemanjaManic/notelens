@@ -282,3 +282,12 @@ insufficient evidence, then repeat the two mixed questions with RAG running
 and after stopping only RAG. Preserve document claims and clickable citations,
 and record separate insufficiency and unavailability notices. These commands
 and outcomes are B's handoff, not an additional D execution.
+
+Sara subsequently reported a preliminary overlap check of her 13 planned
+slots with zero matches. Goran's 13 planned sources are still missing from
+the joint list. D has not received the list version or SHA-256 and has not
+independently checked any final source slots. Record these counts separately:
+13 preliminary checks reported by Sara, zero joint final checks completed,
+and zero slots independently verified by D. Sara requested Goran's confirmation
+of an additional named Editor account. D does not approve that account on
+Goran's behalf. See the [planning progress record](../../eval/reports/development/d007-source-planning-progress-v1.json).
