@@ -54,9 +54,14 @@ package privately. She confirmed that the final manifest covers ten primary
 annotations and one independent review and that all eleven record hashes
 matched. Her final manifest SHA-256 is
 `9d7e71d05cee8339d29b104be8117fc19ecc8ccb1417b9f62fad35ae113a6e48`.
-The shared folder requires Google sign-in. The local ZIP is the earlier
-draft. D's verification of the final manifest, record hashes, assignment
-identities and canonical spans awaits receipt of the finalized files.
+D received the final ZIP through Milica, matched the manifest and all eleven
+record hashes, and checked its assignment identities against the frozen D-003
+allocation. All 305 mention spans and 335 evidence spans match the hashed
+canonical texts. Structural validation found zero errors. The eleven records
+include ten primary annotations and the secondary review for 010. Sara's
+final records retain zero open questions. D prepared seven comparisons using
+the final C records and the received A and D counterparts. The comparisons
+remain pending human adjudication.
 
 ### Milica's development packet
 
