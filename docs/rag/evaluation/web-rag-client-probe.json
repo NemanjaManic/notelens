@@ -1,0 +1,162 @@
+{
+  "format_version": "rag-web-client-routing-probe-v1",
+  "checked_at_utc": "2026-11-22T12:34:29.734895+00:00",
+  "mode": "mock",
+  "base_reference": "986adfb70913315ad4d0bfb00ceb9caf09034674",
+  "probe_source_sha256": {
+    "run_web_rag_probe.py": "d552826b20aa361b2b543c0fb79acfc81cda232cbb8f36f49bed9f7570e9ee0b",
+    "probe_web_routing.mjs": "e5163735d06dd444878ce97140929595ba51ce4bf7cd1cf82bbe2b1389becd94"
+  },
+  "web_source_sha256": {
+    "apps/web/src/lib/clients/mock-services.ts": "74d3c178ae0551ac6b5277e9048f73b5b25174a1d422d9c74a9553455f30390d",
+    "apps/web/src/lib/routing/answer.ts": "d004439ddd59983b9e176c1552f347c5a531100419406ed5516f27ea3d838b0f",
+    "apps/web/src/lib/contracts/consumer.ts": "aada38b4f28b9f90e17da04fcec73c64ead36cb8be3b3eb11a1da27f6339e24c",
+    "contracts/generated/typescript/v1.mjs": "0789430d7ba23faddbf755cde841a4755b43297764c2523805f8ef23480a196e",
+    "contracts/generated/typescript/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "contracts/v1/fixtures/documents.json": "89a7debd3e095650bf1289da43604618c3cca95e64690d8a8e361df1ed368f94",
+    "contracts/v1/fixtures/payloads.json": "8f64b8ba804a644c3fb13f5261a97eaa43573853730269f7d668a0f6f6b65ceb",
+    "package-lock.json": "836900efb9403b1b51a8377600f93113b69162800704d810f9192f17a2182796"
+  },
+  "protected_web_sources_unchanged": true,
+  "document_backend": "Frozen synthetic contract fixture; no D HTTP integration is claimed.",
+  "RAG_backend": "Actual local Python HTTP service with a synthetic Chroma index and fixture adapters.",
+  "case_count": 12,
+  "health_responses": 2,
+  "provider_calls": 0,
+  "final_test_accessed": false,
+  "phases": [
+    {
+      "phase": "healthy",
+      "cases": [
+        {
+          "case_id": "literature-full",
+          "route": "literature",
+          "state": "sufficient",
+          "document_claims_preserved": null,
+          "literature_result_kind": "accepted",
+          "literature_evidence_state": "sufficient"
+        },
+        {
+          "case_id": "literature-partial",
+          "route": "literature",
+          "state": "partial",
+          "document_claims_preserved": null,
+          "literature_result_kind": "accepted",
+          "literature_evidence_state": "partial"
+        },
+        {
+          "case_id": "literature-insufficient",
+          "route": "none",
+          "state": "insufficient",
+          "document_claims_preserved": null,
+          "literature_result_kind": "accepted",
+          "literature_evidence_state": "insufficient"
+        },
+        {
+          "case_id": "mixed-full",
+          "route": "mixed",
+          "state": "sufficient",
+          "document_claims_preserved": true,
+          "literature_result_kind": "accepted",
+          "literature_evidence_state": "sufficient"
+        },
+        {
+          "case_id": "mixed-partial",
+          "route": "mixed",
+          "state": "partial",
+          "document_claims_preserved": true,
+          "literature_result_kind": "accepted",
+          "literature_evidence_state": "partial"
+        },
+        {
+          "case_id": "mixed-insufficient-literature",
+          "route": "document",
+          "state": "partial",
+          "document_claims_preserved": true,
+          "literature_result_kind": "accepted",
+          "literature_evidence_state": "insufficient"
+        },
+        {
+          "case_id": "literature-unregistered",
+          "route": "none",
+          "state": "unsupported",
+          "document_claims_preserved": null,
+          "literature_result_kind": "unsupported",
+          "literature_evidence_state": null
+        },
+        {
+          "case_id": "mixed-unregistered",
+          "route": "document",
+          "state": "partial",
+          "document_claims_preserved": true,
+          "literature_result_kind": "unsupported",
+          "literature_evidence_state": null
+        },
+        {
+          "case_id": "literature-auth-denied",
+          "route": "none",
+          "state": "unavailable",
+          "document_claims_preserved": null,
+          "literature_result_kind": "unavailable",
+          "literature_evidence_state": null
+        },
+        {
+          "case_id": "mixed-auth-denied",
+          "route": "document",
+          "state": "partial",
+          "document_claims_preserved": true,
+          "literature_result_kind": "unavailable",
+          "literature_evidence_state": null
+        }
+      ],
+      "literature_attempts": 10,
+      "http_statuses": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        422,
+        422,
+        401,
+        401
+      ],
+      "document_fixture_calls": 5,
+      "real_document_service_calls": 0,
+      "document_text_sent_to_RAG": false,
+      "provider_calls": 0
+    },
+    {
+      "phase": "stopped",
+      "cases": [
+        {
+          "case_id": "literature-service-stopped",
+          "route": "none",
+          "state": "unavailable",
+          "document_claims_preserved": null,
+          "literature_result_kind": "unavailable",
+          "literature_evidence_state": null
+        },
+        {
+          "case_id": "mixed-service-stopped",
+          "route": "document",
+          "state": "partial",
+          "document_claims_preserved": true,
+          "literature_result_kind": "unavailable",
+          "literature_evidence_state": null
+        }
+      ],
+      "literature_attempts": 2,
+      "http_statuses": [],
+      "document_fixture_calls": 1,
+      "real_document_service_calls": 0,
+      "document_text_sent_to_RAG": false,
+      "provider_calls": 0
+    }
+  ],
+  "acceptance_limits": [
+    "Owner-local client/router verification; B application/browser acceptance remains separate.",
+    "The D-owned shared QA benchmark and final freeze are not completed by this probe."
+  ]
+}
