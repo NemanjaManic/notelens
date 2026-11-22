@@ -1,0 +1,26 @@
+{
+  "version": "d008-member-c-exposure-intake-v1",
+  "date": "2026-11-22",
+  "reviewer": "Sara",
+  "status": "received_and_excluded_from_independent_calibration",
+  "file_sha256": {
+    "d008-member-c-answer-reviews.exposure-disclosed.json": "cae31e848999f59c49bac903f0926c3bcadff2790f047d02d7aa14f651e74c26",
+    "d008-member-c-entity-evidence-reviews.exposure-disclosed.json": "42c25a1f06fd9f76e79deb5779207a998fb350cfb2cb29b20c59a1d525362899"
+  },
+  "answer_records": 7,
+  "entity_evidence_records": 5,
+  "source_and_response_pins_verified": 12,
+  "prior_exposure_disclosed_for_all_items": true,
+  "preparation_involvement_disclosed_for_all_items": true,
+  "independent_answer_review_credit": 0,
+  "independent_entity_evidence_review_credit": 0,
+  "independent_calibration_pairs_added": 0,
+  "original_forms_preserved_without_edits": true,
+  "answer_validator_invalid": 0,
+  "answer_validator_incomplete_due_to_independence_gate": 7,
+  "disposition": "Keep as disclosed non-independent feedback. Do not request repairs to regain independent status for these same outputs.",
+  "replacement_required": {
+    "answer_reviews": 7,
+    "entity_evidence_reviews": 5
+  }
+}

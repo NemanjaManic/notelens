@@ -1,9 +1,10 @@
 # D-007 final QA source planning
 
-Use the pinned v2 staffing plan for the 26 proposed slots and the development
-exclusion list supplied with it. Goran's assignment acceptance and the 54/26
-split remain pending. Sara is the custodian and has confirmed restricted
-authoring and review access for herself and Goran.
+Use the pinned v2 staffing plan for the 26 slots and the development exclusion
+list supplied with it. Goran accepted his assignments and the 54/26 split.
+Sara is the custodian and has confirmed restricted authoring and review access
+for herself and Goran. Keep current named permissions until any additional
+account is separately confirmed by its owner.
 
 ## Where to find source candidates
 
@@ -28,6 +29,12 @@ authoring and review access for herself and Goran.
   explicitly.
 
 ## Check and handoff
+
+Also apply the additive [D-008 replacement family exclusions](../../eval/reports/development/d008-replacement-development-source-exclusions-v1.json)
+when checking final-source candidates. These seven fresh synthetic calibration
+documents and their reworded family variants are development-only. They add
+exclusions without changing the frozen 54-case QA selection or the original
+74-candidate inventory. Keep the new examples outside the unseen final set.
 
 1. Sara and Goran fill the blank source-list template in the restricted folder
    before drafting. List intended sources, documented families or origins and

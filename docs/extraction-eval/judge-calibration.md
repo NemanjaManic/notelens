@@ -163,8 +163,8 @@ checksums in the Member C packet. A and C scoring remain pending.
 
 Sara later reported drafts covering all seven answers and five entity-evidence
 items. Her personal review, exposure declaration and final private submission
-remain pending. Draft coverage adds no completed human reviews and no scores
-for comparison until the finalized forms and exact artifact pins are checked.
+were pending at that checkpoint. Her subsequent disclosure and the replacement
+assignment below supersede this first-round packet for independent calibration.
 
 For new answer intake, validate the current form and the exact reviewed
 response files before counting the submissions as complete.
@@ -204,3 +204,44 @@ form v2 and proposed 23 November 12:00 Europe/Belgrade return. He will check
 capacity, confirm a full or reduced scope and return time, and declare prior
 exposure before scoring. This acknowledgement does not confirm capacity,
 packet readability, checksum verification or completed reviews.
+
+## Member C exposure disclosure and replacement packet
+
+Sara submitted seven answer and five entity-evidence forms declaring prior
+exposure and preparation involvement on every record, with
+`independent_review: false`. D preserved the originals privately and verified
+all twelve response and source identities against her original packet. The
+answer validator reports zero invalid records and zero completed independent
+reviews. Its seven `incomplete` states reflect the independence gate; they do
+not ask Sara to repair those exposed records into independent reviews. Keep
+all twelve as disclosed non-independent feedback, excluded from independent
+calibration denominators and reviewer-agreement pairs. See the
+[exposure intake](../../eval/reports/development/d008-member-c-exposure-intake-v1.json).
+
+D prepared `D008-member-C-replacement-calibration-v1.zip`, containing seven
+new document-answer reviews and five separate entity-evidence reviews. The
+unchanged mock service generated fresh outputs over authenticated loopback
+HTTP from seven new synthetic document/question combinations. The seven
+canonical texts, seven answer hashes and five assigned document/entity pairs
+differ from the old packets. Fourteen final-run requests returned HTTP 200,
+correlated request IDs and `no-store`, with schema and exact-span checks.
+All 43 package checksums and twelve HTML review sections were verified. The
+fourteen review-integrity tests passed. No paid provider calls were made.
+
+Use rubric `d-answer-review-rubric-v1` and form `d-answer-review-form-v2`.
+The replacement has blank scores and exposure declarations; Sara must confirm
+exposure and authorship before scoring. No independent credit or completed
+review is inferred from generating a replacement. No new return deadline is
+agreed. The previous forms remain preserved without edits.
+
+A second independent reviewer for these exact new answers is not yet assigned.
+Do not compare the replacement ratings with the old seven outputs as paired
+agreement. Preserve matching case IDs, canonical hashes, exact response hashes
+and rubric versions for any future comparison. This packet measures mock
+development behavior and does not supply real-model quality evidence. See the
+[replacement verification](../../eval/reports/development/d008-member-c-replacement-packet-verification-v1.json).
+
+The new calibration family is development-only and is excluded from unseen
+final QA, including reworded family variants. Its additional
+[source exclusions](../../eval/reports/development/d008-replacement-development-source-exclusions-v1.json)
+do not amend the frozen 54-case QA manifest or its 74-candidate inventory.
