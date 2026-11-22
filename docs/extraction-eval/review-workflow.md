@@ -37,9 +37,11 @@ already-received reviewed ZIP matched its archive digest and six listed file
 digests. All 271 mention spans and 393 evidence spans matched the canonical
 texts. Sara approved Nemanja's existing direct private chat with Milica for
 any revised D-013 packet, with an updated submission manifest and SHA-256
-checksums. The team-wide private route for reviewed submissions remains
-pending. Nemanja still needs to confirm the approved retrieval location for
-the pinned passages packet.
+checksums. Sara approved extending the one-to-one private chat route to the
+other team members from C's side, with a submission manifest and checksums
+for every package. Team-wide confirmation from Goran remains pending.
+Nemanja still needs to confirm the approved retrieval location for the pinned
+passages packet.
 
 The [D-013 intake receipt](../../eval/reports/development/d013-member-a-intake-v1.json)
 identifies the four counterparts from C. D verified the updated drafts for 000,
@@ -48,9 +50,13 @@ reviewed records. D also checked three C/D pairs for 002, 005 and 008. The C
 handoff contains 11 drafts, 278 mentions, 307 evidence spans and 14 open questions.
 D prepared feedback for C. Sara confirmed that she reviewed the full canonical
 document for all 11 assignments and reported sharing her finalized C-010
-package privately. The accessible local ZIP is still the earlier draft with
-all 11 records marked pending. D needs the finalized records, their manifest
-and checksums to verify intake and continue adjudication.
+package privately. She confirmed that the final manifest covers ten primary
+annotations and one independent review and that all eleven record hashes
+matched. Her final manifest SHA-256 is
+`9d7e71d05cee8339d29b104be8117fc19ecc8ccb1417b9f62fad35ae113a6e48`.
+The shared folder requires Google sign-in. The local ZIP is the earlier
+draft. D's verification of the final manifest, record hashes, assignment
+identities and canonical spans awaits receipt of the finalized files.
 
 ### Milica's development packet
 
