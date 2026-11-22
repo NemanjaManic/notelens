@@ -1,6 +1,15 @@
 # RAG development handoff for B and D
 
-Owner: Nemanja (A). Prepared: 2026-11-18. Branch: `rag`.
+Owner: Nemanja (A). Initial checkpoint: 2026-11-18. Latest owner-local verification: 2026-11-21. Branch: `rag`.
+
+The current portable indexed profile passed 116 targeted tests and an
+authenticated TCP smoke in the owner checkout. It also passed from a complete
+Git export plus A's local changes, with a new Python 3.13.5 environment installed
+offline from the locked package cache and no public corpus, saved queries or
+provider credentials. The earlier published reference `94884c9` does not contain
+the launcher; use a revision that includes `evaluation/serve_indexed_demo.py`.
+This owner-local result prepares B's integration probe and leaves A-008 open
+for the shared benchmark and B's application acceptance.
 
 This checkpoint provides a key-free HTTP demo for B and saved development
 evidence for D. The [checkpoint manifest](../../services/rag/config/development-handoff.json)
@@ -44,6 +53,55 @@ process with Ctrl+C. The [routing evidence](integration.md) lists expected
 error outcomes and how to preserve separate document evidence. Use the
 [service README](../../services/rag/README.md) for other mock scenarios and
 service authentication. The mock needs no API key or local index.
+
+### Run the indexed demo without a provider
+
+Install the locked optional `indexing` extra once. From a checkout with the
+locked packages available, this command starts RAG on `127.0.0.1:8001`.
+
+```powershell
+uv run --locked --offline --directory services/rag --python 3.13 --extra indexing python -B ../../docs/rag/evaluation/serve_indexed_demo.py
+```
+
+The launcher builds or verifies a local two-passage synthetic Chroma index in
+`services/rag/.cache/indexed-demo`. It uses fixture embeddings, assessments and
+answer text. The HTTP app, candidate ranking and citation validation run
+through the RAG service. It needs no API key, public corpus, saved embeddings
+or tokenizer download. Use `--port` for another loopback port and Ctrl+C to stop.
+
+For a web-side integration probe, point `NOTELENS_DEMO_RAG_PORT` at the
+listener. If the client uses `NOTELENS_DEMO_TOKEN`, set the RAG process's
+`NOTELENS_RAG_SERVICE_TOKEN` to the same test token. The existing web preset
+uses the first question below. The two other questions are available through
+the RAG HTTP endpoints for routing checks.
+
+| Question | Literature answer evidence state |
+| --- | --- |
+| What is the synthetic demo topic? | Sufficient with a cited claim |
+| What is the synthetic demo topic, and when did it begin? | Partial with a cited claim and a start-date gap |
+| When did the synthetic demo topic begin? | Insufficient with zero claims |
+
+Append `--check` to validate liveness, readiness, both business routes, correlation
+IDs and rejection of an unregistered question over TCP. When a service token is
+configured, the check also verifies unauthenticated access is denied. It uses a
+temporary listener and stops it after all three questions. Partial output uses
+the existing partial-evidence policy in this isolated synthetic profile.
+
+Expected: two successful health responses, six successful business responses,
+an unregistered-question `422`, and a `401` for unauthenticated readiness when
+a token is configured. The unit check independently verifies two compositions
+for the three answer questions: the missing-only question skips generation.
+The optional-indexing targeted suite passed 116 tests:
+
+```powershell
+uv run --locked --offline --directory services/rag --extra indexing python -B -m pytest tests/test_indexed_demo.py tests/test_indexed_startup.py tests/test_reference_metrics.py tests/test_hybrid.py tests/test_failures.py tests/test_answers.py tests/test_contract.py
+```
+
+The normal smoke expects `NOTELENS_RAG_MOCK_READY=true` or an unset variable.
+To rehearse F-011 with the long-running indexed profile, set it to `false`
+before startup: liveness stays `200/alive` and readiness becomes `503/not_ready`.
+Restore `true` before the normal smoke. This profile remains loopback-only and
+reports `mode=mock`; it does not supply clinical outputs or activate a provider.
 
 In A's working copy, the [loopback replay](evaluation/local-http-flow.md#temporary-uvicorn-server)
 also exercises both HTTP routes against the prepared Chroma index and saved public

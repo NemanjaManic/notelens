@@ -1,0 +1,1526 @@
+{
+  "format_version": "rag-reviewed-development-evaluation-v1",
+  "partition": "development",
+  "reference_status": "owner_local_candidate_pending_D_canonical_record",
+  "review_provenance": {
+    "D_reviewer": "Milica (D)",
+    "D_coverage_review": "Nine-row table relayed by Nemanja on 2026-11-21; seven full, one partial, one none.",
+    "D_citation_review": "All 12 original citations verified against the pinned corpus, as reported by D.",
+    "reference_decisions": "D proposed topics 6450 and 363 as scoped alternatives, context under 179, and original 4643/4452 with a narrower 4452 quote.",
+    "A_agent_verification": "New exact ranges were independently checked against the pinned corpus; these ranges are A proposals because the separate attachment was not received.",
+    "joint_team_record": "Reply prepared for Nemanja; delivery and canonical D record are not confirmed."
+  },
+  "input_sha256": {
+    "docs/rag/evaluation/reviewed-development-references.json": "0065fbd8cce868c9ce52f1039984870ffafe64f91ef8ac06df65e5c05fa58adb",
+    "docs/rag/qa-proposals.json": "737a85f41733b6fddc7822ed83f84b2487e83f278a0ecf602c93ed450cd007db",
+    "docs/rag/evaluation/vector-proposal-comparison.json": "6c2ee5c2bfbd29202b1c8b3b9cbdd6dd4ad9d0b677f4d67f4e771182e63305ee",
+    "docs/rag/evaluation/lexical-proposal-evaluation.json": "758688d9f6111f173268ae6dd5ed9a5269fff1730cc5bfdd00f50d439e3afe09",
+    "docs/rag/evaluation/vector-proposal-scope.json": "e5c635416e5ea008cd5fa271354cb6eab1ecc48d1da446e0d8bb7e1b18733e84",
+    "data/knowledge/.cache/corpus/passages.jsonl": "4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938"
+  },
+  "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+  "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+  "retriever_versions": {
+    "vector": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+    "hybrid": "55a529e4f9060d0a731e695fb7b844aff3a38b5c10499198178f76543471670d",
+    "bm25": "7f8f726967b1c41b03c8b07f509294f2038c183e36678fa08941ef91991035bc"
+  },
+  "verified_unique_reference_spans": 14,
+  "case_count": 9,
+  "methods": {
+    "vector": {
+      "groups": {
+        "single_topic": {
+          "case_count": 5,
+          "topic_metric_denominator": 5,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 1.0,
+          "all_required_topics_at_5_cases": 5,
+          "supported_part_denominator": 5,
+          "supported_parts_with_evidence_at_5": 5,
+          "cases_with_all_supported_parts_at_5": 5
+        },
+        "multi_topic": {
+          "case_count": 3,
+          "topic_metric_denominator": 3,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 1.0,
+          "all_required_topics_at_5_cases": 3,
+          "supported_part_denominator": 6,
+          "supported_parts_with_evidence_at_5": 6,
+          "cases_with_all_supported_parts_at_5": 3
+        },
+        "no_supported_topic": {
+          "case_count": 1,
+          "topic_metric_denominator": 0,
+          "mean_topic_recall_at_5": null,
+          "topic_mrr_at_5": null,
+          "all_required_topics_at_5_cases": 0,
+          "supported_part_denominator": 0,
+          "supported_parts_with_evidence_at_5": 0,
+          "cases_with_all_supported_parts_at_5": 0
+        }
+      },
+      "overall": {
+        "case_count": 9,
+        "topic_metric_denominator": 8,
+        "mean_topic_recall_at_5": 1.0,
+        "topic_mrr_at_5": 1.0,
+        "all_required_topics_at_5_cases": 8,
+        "supported_part_denominator": 11,
+        "supported_parts_with_evidence_at_5": 11,
+        "cases_with_all_supported_parts_at_5": 8
+      },
+      "cases": [
+        {
+          "case_id": "A-QA-01",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "34"
+            ],
+            [
+              "6450"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Difference between systolic and diastolic pressure",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+              "topic_id": "34"
+            },
+            {
+              "passage_id": "mplus-1225-6d4949953cb698d8145ce038dc4557e30724518687ca27e01331ea135c731f4a",
+              "topic_id": "1225"
+            },
+            {
+              "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+              "topic_id": "6450"
+            },
+            {
+              "passage_id": "mplus-4939-4eb0e7f3efa78e8302f7d5795f7461a7726ffb3df1f324fe2ee84e6fbdd32a45",
+              "topic_id": "4939"
+            },
+            {
+              "passage_id": "mplus-6450-f98ec222244835649927fab00e0aa26d4aacba513bad83b88f8a2cc496a645da",
+              "topic_id": "6450"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-02",
+          "source_shape": "single_topic",
+          "expected_coverage": "partial",
+          "accepted_candidate_topic_sets": [
+            [
+              "3181"
+            ],
+            [
+              "363"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Cause of COVID-19",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "Duration of COVID-19 contagiousness",
+              "expected_status": "missing_in_reviewed_scope",
+              "evidence_at_5": null
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+              "topic_id": "3181"
+            },
+            {
+              "passage_id": "mplus-299-ddad4f171ca2f16e0ede75cb8dfd4d1776e8a946226d38240b01277d7f8fb0b8",
+              "topic_id": "299"
+            },
+            {
+              "passage_id": "mplus-461-7fb358bfabdac1a3530aa1e613a5e40e587270e8badd61342ba5d44d80775256",
+              "topic_id": "461"
+            },
+            {
+              "passage_id": "mplus-3101-dc714fd88f63e588e9cb284bc89ca6aad5defdac4bc7c94c4b9907a6413e08b6",
+              "topic_id": "3101"
+            },
+            {
+              "passage_id": "mplus-41-9131fbe97a8b9bc905c394e49ac50e1da5966a89ad4460fa17130fb79329878d",
+              "topic_id": "41"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-03",
+          "source_shape": "no_supported_topic",
+          "expected_coverage": "none",
+          "accepted_candidate_topic_sets": [],
+          "topic_metrics": null,
+          "supported_parts": 0,
+          "parts": [
+            {
+              "requested_fact": "Trigeminal neuralgia incidence in Serbia in 2025 as new cases per 100,000 people",
+              "expected_status": "missing_in_reviewed_scope",
+              "evidence_at_5": null
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-2729-80534db9d68bb13ced80de19a85ce94dd7e84fb4b829030a1087e1b754b2dfec",
+              "topic_id": "2729"
+            },
+            {
+              "passage_id": "mplus-1219-d81f8d90fe5054a40e7b78a368d6e24dfe0a0972dea3749d895649592fe4b250",
+              "topic_id": "1219"
+            },
+            {
+              "passage_id": "mplus-1084-c48301dece04c5ee7de283aeec44158464b1692be7c3606a2acd9aff22d3c3e4",
+              "topic_id": "1084"
+            },
+            {
+              "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+              "topic_id": "1387"
+            },
+            {
+              "passage_id": "mplus-1574-b3e3f677e3820e37eab608d7b245a5634f91b730e4a85a3e3f9be3eb174ad8fa",
+              "topic_id": "1574"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-04",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "6208"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Does a high PSA value alone prove prostate cancer",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-6208-cb42a0f4fa0f7d9bf3d923e2742b55ed106926d461fd2d79798e43a61d8a151b",
+              "topic_id": "6208"
+            },
+            {
+              "passage_id": "mplus-112-5dee21a75bd44c8b7d55f0d9f46e4f65a0e463380d44c2dd9d459d70c3e610ae",
+              "topic_id": "112"
+            },
+            {
+              "passage_id": "mplus-6208-492909da4f18cc925d4a9d75fca1125876ab420ec1da2e2c4756c557f4349c5c",
+              "topic_id": "6208"
+            },
+            {
+              "passage_id": "mplus-112-1f55cb71378a3ff44d19cb129fdc9d9077aec51ae399ede0a7f75eb631747e0c",
+              "topic_id": "112"
+            },
+            {
+              "passage_id": "mplus-6208-6414cd6f9cf9989d7954ab259476a7a2b33b5629e207afc88f73cd03aaf20e90",
+              "topic_id": "6208"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-05",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "1624"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Definition and location of an acoustic neuroma",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "topic_id": "1624"
+            },
+            {
+              "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+              "topic_id": "1387"
+            },
+            {
+              "passage_id": "mplus-4553-f6313a5e9ddc68975d885a7dd89fa94d50b0081f7955b90f46ea489d7a7fc4e3",
+              "topic_id": "4553"
+            },
+            {
+              "passage_id": "mplus-6164-dbc42ad9f85071f238881cbc86ca46a46067e9434ce6189e40d424c0b3e191ed",
+              "topic_id": "6164"
+            },
+            {
+              "passage_id": "mplus-330-d24504e5cbd5a3538ab07218b95e8ac22ba93973b9020ab3f78c7c9f6f16d302",
+              "topic_id": "330"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-06",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "5755"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Affected airways in acute bronchitis",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+              "topic_id": "5755"
+            },
+            {
+              "passage_id": "mplus-5977-766dab74021205d00633dddaa2fd1b1a7a4918dad4f1623c2c37da084cc475d4",
+              "topic_id": "5977"
+            },
+            {
+              "passage_id": "mplus-1608-e574243666ce456f93cae983f356d6ecac2d07c53d898ef622df49022c16e10c",
+              "topic_id": "1608"
+            },
+            {
+              "passage_id": "mplus-5448-033be5e9f8b0920b06bfcd8e0b63fec2874e9917e009cc922d455ca96cbc7405",
+              "topic_id": "5448"
+            },
+            {
+              "passage_id": "mplus-1608-317a191a1e2ff4814836bc77e236afe7d1cd6fbe249660bc30032a940915f052",
+              "topic_id": "1608"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-07",
+          "source_shape": "multi_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "1624",
+              "179"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 2,
+          "parts": [
+            {
+              "requested_fact": "Nerve affected in carpal tunnel syndrome",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "Nerve where acoustic neuroma develops",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "topic_id": "1624"
+            },
+            {
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "topic_id": "179"
+            },
+            {
+              "passage_id": "mplus-179-83e6e8e70588af11c4fb55f02989a56f6e51292b769ec4bd4991681fa3edfd4f",
+              "topic_id": "179"
+            },
+            {
+              "passage_id": "mplus-179-82f9719e2c4fd2b072e4ba01a0b839b8fb6f7eb9bacacf0adc63be2e4e185938",
+              "topic_id": "179"
+            },
+            {
+              "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+              "topic_id": "1387"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-08",
+          "source_shape": "multi_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "3920",
+              "5275"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 2,
+          "parts": [
+            {
+              "requested_fact": "Definition of adhesions",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "One cause of intestinal obstruction other than adhesions",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+              "topic_id": "3920"
+            },
+            {
+              "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+              "topic_id": "5275"
+            },
+            {
+              "passage_id": "mplus-3038-086fb89d1c9c701b2b2c808f01a7429591a0c1dca634d862e083525340bf004b",
+              "topic_id": "3038"
+            },
+            {
+              "passage_id": "mplus-3054-d8bbe0616a948896ee3b43439852b3b7ec0c69f26566361d89c49459d3039216",
+              "topic_id": "3054"
+            },
+            {
+              "passage_id": "mplus-5446-0f4d01e41f083f7a38d0136ed25e3ebf1eb1897fc6c62c23b70ce71d89386a66",
+              "topic_id": "5446"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-09",
+          "source_shape": "multi_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "4452",
+              "4643"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 2,
+          "parts": [
+            {
+              "requested_fact": "Organ storing bile",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "Substance causing the yellowing in jaundice",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+              "topic_id": "4452"
+            },
+            {
+              "passage_id": "mplus-3787-0b7350b8aef61e4f1e9e9f648babe84c9a4e8a057dd9f02448e3f2ebe9bf6adc",
+              "topic_id": "3787"
+            },
+            {
+              "passage_id": "mplus-5905-f3d86dbdf4be1b6fc16866df922c8b9c08324122d8a2ec4183bf0b6b59545e73",
+              "topic_id": "5905"
+            },
+            {
+              "passage_id": "mplus-259-fcb64ff3c43b2c238c4110300b6222d1f827ad69f8d9bb1119ac310dee9c05ad",
+              "topic_id": "259"
+            },
+            {
+              "passage_id": "mplus-4643-ce65ac50c6728aaea035f8e00c7ced25d2a3c42d272e3a6fcecf9a345af503bf",
+              "topic_id": "4643"
+            }
+          ]
+        }
+      ]
+    },
+    "hybrid": {
+      "groups": {
+        "single_topic": {
+          "case_count": 5,
+          "topic_metric_denominator": 5,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 1.0,
+          "all_required_topics_at_5_cases": 5,
+          "supported_part_denominator": 5,
+          "supported_parts_with_evidence_at_5": 5,
+          "cases_with_all_supported_parts_at_5": 5
+        },
+        "multi_topic": {
+          "case_count": 3,
+          "topic_metric_denominator": 3,
+          "mean_topic_recall_at_5": 0.8333333333333334,
+          "topic_mrr_at_5": 1.0,
+          "all_required_topics_at_5_cases": 2,
+          "supported_part_denominator": 6,
+          "supported_parts_with_evidence_at_5": 5,
+          "cases_with_all_supported_parts_at_5": 2
+        },
+        "no_supported_topic": {
+          "case_count": 1,
+          "topic_metric_denominator": 0,
+          "mean_topic_recall_at_5": null,
+          "topic_mrr_at_5": null,
+          "all_required_topics_at_5_cases": 0,
+          "supported_part_denominator": 0,
+          "supported_parts_with_evidence_at_5": 0,
+          "cases_with_all_supported_parts_at_5": 0
+        }
+      },
+      "overall": {
+        "case_count": 9,
+        "topic_metric_denominator": 8,
+        "mean_topic_recall_at_5": 0.9375,
+        "topic_mrr_at_5": 1.0,
+        "all_required_topics_at_5_cases": 7,
+        "supported_part_denominator": 11,
+        "supported_parts_with_evidence_at_5": 10,
+        "cases_with_all_supported_parts_at_5": 7
+      },
+      "cases": [
+        {
+          "case_id": "A-QA-01",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "34"
+            ],
+            [
+              "6450"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Difference between systolic and diastolic pressure",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+              "topic_id": "34"
+            },
+            {
+              "passage_id": "mplus-1225-6d4949953cb698d8145ce038dc4557e30724518687ca27e01331ea135c731f4a",
+              "topic_id": "1225"
+            },
+            {
+              "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+              "topic_id": "6450"
+            },
+            {
+              "passage_id": "mplus-4939-4eb0e7f3efa78e8302f7d5795f7461a7726ffb3df1f324fe2ee84e6fbdd32a45",
+              "topic_id": "4939"
+            },
+            {
+              "passage_id": "mplus-3634-1e1eaca41e44ecb668af7e7b58c5f2222acb2de2c18e143fd1eb39b33345064d",
+              "topic_id": "3634"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-02",
+          "source_shape": "single_topic",
+          "expected_coverage": "partial",
+          "accepted_candidate_topic_sets": [
+            [
+              "3181"
+            ],
+            [
+              "363"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Cause of COVID-19",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "Duration of COVID-19 contagiousness",
+              "expected_status": "missing_in_reviewed_scope",
+              "evidence_at_5": null
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+              "topic_id": "3181"
+            },
+            {
+              "passage_id": "mplus-41-9131fbe97a8b9bc905c394e49ac50e1da5966a89ad4460fa17130fb79329878d",
+              "topic_id": "41"
+            },
+            {
+              "passage_id": "mplus-3101-dc714fd88f63e588e9cb284bc89ca6aad5defdac4bc7c94c4b9907a6413e08b6",
+              "topic_id": "3101"
+            },
+            {
+              "passage_id": "mplus-365-385bbf957e2edf7c089556a0beb91d63ca0724846718875ed59da5123abc7e7a",
+              "topic_id": "365"
+            },
+            {
+              "passage_id": "mplus-109-f8a8546b71b48a215065a64579a0d9b1fd18fa20763cff53805446fe9a21392f",
+              "topic_id": "109"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-03",
+          "source_shape": "no_supported_topic",
+          "expected_coverage": "none",
+          "accepted_candidate_topic_sets": [],
+          "topic_metrics": null,
+          "supported_parts": 0,
+          "parts": [
+            {
+              "requested_fact": "Trigeminal neuralgia incidence in Serbia in 2025 as new cases per 100,000 people",
+              "expected_status": "missing_in_reviewed_scope",
+              "evidence_at_5": null
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-2729-80534db9d68bb13ced80de19a85ce94dd7e84fb4b829030a1087e1b754b2dfec",
+              "topic_id": "2729"
+            },
+            {
+              "passage_id": "mplus-1574-b3e3f677e3820e37eab608d7b245a5634f91b730e4a85a3e3f9be3eb174ad8fa",
+              "topic_id": "1574"
+            },
+            {
+              "passage_id": "mplus-90-e56c5d86a47ffdb155aff36d190a2dd2f07f2f7a79f5adf5a55b9bbf4c7e979f",
+              "topic_id": "90"
+            },
+            {
+              "passage_id": "mplus-1219-d81f8d90fe5054a40e7b78a368d6e24dfe0a0972dea3749d895649592fe4b250",
+              "topic_id": "1219"
+            },
+            {
+              "passage_id": "mplus-1084-c48301dece04c5ee7de283aeec44158464b1692be7c3606a2acd9aff22d3c3e4",
+              "topic_id": "1084"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-04",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "6208"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Does a high PSA value alone prove prostate cancer",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-6208-cb42a0f4fa0f7d9bf3d923e2742b55ed106926d461fd2d79798e43a61d8a151b",
+              "topic_id": "6208"
+            },
+            {
+              "passage_id": "mplus-112-5dee21a75bd44c8b7d55f0d9f46e4f65a0e463380d44c2dd9d459d70c3e610ae",
+              "topic_id": "112"
+            },
+            {
+              "passage_id": "mplus-6208-492909da4f18cc925d4a9d75fca1125876ab420ec1da2e2c4756c557f4349c5c",
+              "topic_id": "6208"
+            },
+            {
+              "passage_id": "mplus-112-1f55cb71378a3ff44d19cb129fdc9d9077aec51ae399ede0a7f75eb631747e0c",
+              "topic_id": "112"
+            },
+            {
+              "passage_id": "mplus-7-766fc427f908eaf9ea6c5554975300343a145b623e2ecbc0e5451f8d8ae2157d",
+              "topic_id": "7"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-05",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "1624"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Definition and location of an acoustic neuroma",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "topic_id": "1624"
+            },
+            {
+              "passage_id": "mplus-4553-f6313a5e9ddc68975d885a7dd89fa94d50b0081f7955b90f46ea489d7a7fc4e3",
+              "topic_id": "4553"
+            },
+            {
+              "passage_id": "mplus-330-d24504e5cbd5a3538ab07218b95e8ac22ba93973b9020ab3f78c7c9f6f16d302",
+              "topic_id": "330"
+            },
+            {
+              "passage_id": "mplus-336-600d4c52a2067e736404767d6c6d47dea75be89f931baf0b87a38897a134da3c",
+              "topic_id": "336"
+            },
+            {
+              "passage_id": "mplus-1387-0c2c3f1f66cd1f8ec08a896d36b706e1a6bc26b27d75f6d53734a12cc5c351c3",
+              "topic_id": "1387"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-06",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "5755"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Affected airways in acute bronchitis",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+              "topic_id": "5755"
+            },
+            {
+              "passage_id": "mplus-5977-766dab74021205d00633dddaa2fd1b1a7a4918dad4f1623c2c37da084cc475d4",
+              "topic_id": "5977"
+            },
+            {
+              "passage_id": "mplus-1608-e574243666ce456f93cae983f356d6ecac2d07c53d898ef622df49022c16e10c",
+              "topic_id": "1608"
+            },
+            {
+              "passage_id": "mplus-1608-317a191a1e2ff4814836bc77e236afe7d1cd6fbe249660bc30032a940915f052",
+              "topic_id": "1608"
+            },
+            {
+              "passage_id": "mplus-1543-155330cbba486cfaedb3ffa30f1933441a7b47f40b9baabd072b1630471e97cc",
+              "topic_id": "1543"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-07",
+          "source_shape": "multi_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "1624",
+              "179"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 2,
+          "parts": [
+            {
+              "requested_fact": "Nerve affected in carpal tunnel syndrome",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "Nerve where acoustic neuroma develops",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "topic_id": "179"
+            },
+            {
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "topic_id": "1624"
+            },
+            {
+              "passage_id": "mplus-179-83e6e8e70588af11c4fb55f02989a56f6e51292b769ec4bd4991681fa3edfd4f",
+              "topic_id": "179"
+            },
+            {
+              "passage_id": "mplus-179-82f9719e2c4fd2b072e4ba01a0b839b8fb6f7eb9bacacf0adc63be2e4e185938",
+              "topic_id": "179"
+            },
+            {
+              "passage_id": "mplus-1251-f8512bdc6b4f71259eef6e69bbe956ddac983d2d092f86a40052fbcb5ce7dce0",
+              "topic_id": "1251"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-08",
+          "source_shape": "multi_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "3920",
+              "5275"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 2,
+          "parts": [
+            {
+              "requested_fact": "Definition of adhesions",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "One cause of intestinal obstruction other than adhesions",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+              "topic_id": "3920"
+            },
+            {
+              "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+              "topic_id": "5275"
+            },
+            {
+              "passage_id": "mplus-5446-0f4d01e41f083f7a38d0136ed25e3ebf1eb1897fc6c62c23b70ce71d89386a66",
+              "topic_id": "5446"
+            },
+            {
+              "passage_id": "mplus-119-cb9948bb01457eee61f762c5724f28620ccc44db1750144c6b2bb0085f59131f",
+              "topic_id": "119"
+            },
+            {
+              "passage_id": "mplus-214-c40abe16d582adbd4e1d81d555a2a77367b065ff2975e1b2eaa6135eb5241e91",
+              "topic_id": "214"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-09",
+          "source_shape": "multi_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "4452",
+              "4643"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 0.5,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": false,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 2,
+          "parts": [
+            {
+              "requested_fact": "Organ storing bile",
+              "expected_status": "supported",
+              "evidence_at_5": false
+            },
+            {
+              "requested_fact": "Substance causing the yellowing in jaundice",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+              "topic_id": "4452"
+            },
+            {
+              "passage_id": "mplus-5905-f3d86dbdf4be1b6fc16866df922c8b9c08324122d8a2ec4183bf0b6b59545e73",
+              "topic_id": "5905"
+            },
+            {
+              "passage_id": "mplus-4645-9db3143e3b6de193c03c7fbe12e5ab3f6af9fd2326bbfbb559f774a662bdeb30",
+              "topic_id": "4645"
+            },
+            {
+              "passage_id": "mplus-3787-0b7350b8aef61e4f1e9e9f648babe84c9a4e8a057dd9f02448e3f2ebe9bf6adc",
+              "topic_id": "3787"
+            },
+            {
+              "passage_id": "mplus-259-fcb64ff3c43b2c238c4110300b6222d1f827ad69f8d9bb1119ac310dee9c05ad",
+              "topic_id": "259"
+            }
+          ]
+        }
+      ]
+    },
+    "bm25": {
+      "groups": {
+        "single_topic": {
+          "case_count": 5,
+          "topic_metric_denominator": 5,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.8666666666666667,
+          "all_required_topics_at_5_cases": 5,
+          "supported_part_denominator": 5,
+          "supported_parts_with_evidence_at_5": 5,
+          "cases_with_all_supported_parts_at_5": 5
+        },
+        "multi_topic": {
+          "case_count": 3,
+          "topic_metric_denominator": 3,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.7777777777777778,
+          "all_required_topics_at_5_cases": 3,
+          "supported_part_denominator": 6,
+          "supported_parts_with_evidence_at_5": 6,
+          "cases_with_all_supported_parts_at_5": 3
+        },
+        "no_supported_topic": {
+          "case_count": 1,
+          "topic_metric_denominator": 0,
+          "mean_topic_recall_at_5": null,
+          "topic_mrr_at_5": null,
+          "all_required_topics_at_5_cases": 0,
+          "supported_part_denominator": 0,
+          "supported_parts_with_evidence_at_5": 0,
+          "cases_with_all_supported_parts_at_5": 0
+        }
+      },
+      "overall": {
+        "case_count": 9,
+        "topic_metric_denominator": 8,
+        "mean_topic_recall_at_5": 1.0,
+        "topic_mrr_at_5": 0.8333333333333334,
+        "all_required_topics_at_5_cases": 8,
+        "supported_part_denominator": 11,
+        "supported_parts_with_evidence_at_5": 11,
+        "cases_with_all_supported_parts_at_5": 8
+      },
+      "cases": [
+        {
+          "case_id": "A-QA-01",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "34"
+            ],
+            [
+              "6450"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Difference between systolic and diastolic pressure",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+              "topic_id": "34",
+              "title": "High Blood Pressure"
+            },
+            {
+              "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+              "topic_id": "6450",
+              "title": "How to Prevent High Blood Pressure"
+            },
+            {
+              "passage_id": "mplus-1225-6d4949953cb698d8145ce038dc4557e30724518687ca27e01331ea135c731f4a",
+              "topic_id": "1225",
+              "title": "Low Blood Pressure"
+            },
+            {
+              "passage_id": "mplus-4014-12859de9a9b0617def931c78cad85d959118fb22eaa752572a5fef130ce304cd",
+              "topic_id": "4014",
+              "title": "Mesothelioma"
+            },
+            {
+              "passage_id": "mplus-198-1a700fc3be7340c31f0b1b701d04ac3af7e26b16ff9d053159c7606512154480",
+              "topic_id": "198",
+              "title": "Congenital Heart Defects"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-02",
+          "source_shape": "single_topic",
+          "expected_coverage": "partial",
+          "accepted_candidate_topic_sets": [
+            [
+              "3181"
+            ],
+            [
+              "363"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Cause of COVID-19",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "Duration of COVID-19 contagiousness",
+              "expected_status": "missing_in_reviewed_scope",
+              "evidence_at_5": null
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+              "topic_id": "3181",
+              "title": "COVID-19 (Coronavirus Disease 2019)"
+            },
+            {
+              "passage_id": "mplus-5334-0d6cdb1a3a6449ea5c5f5031ceac4202665ec4036702f092ae2fe72bf8b67c2b",
+              "topic_id": "5334",
+              "title": "Oxygen Therapy"
+            },
+            {
+              "passage_id": "mplus-109-f8a8546b71b48a215065a64579a0d9b1fd18fa20763cff53805446fe9a21392f",
+              "topic_id": "109",
+              "title": "Hepatitis"
+            },
+            {
+              "passage_id": "mplus-1686-509eed66a95bfb12e4fccdfc8fcfee495402c13c13231fad2010198e46e82d51",
+              "topic_id": "1686",
+              "title": "Hepatitis A"
+            },
+            {
+              "passage_id": "mplus-41-9131fbe97a8b9bc905c394e49ac50e1da5966a89ad4460fa17130fb79329878d",
+              "topic_id": "41",
+              "title": "Tuberculosis"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-03",
+          "source_shape": "no_supported_topic",
+          "expected_coverage": "none",
+          "accepted_candidate_topic_sets": [],
+          "topic_metrics": null,
+          "supported_parts": 0,
+          "parts": [
+            {
+              "requested_fact": "Trigeminal neuralgia incidence in Serbia in 2025 as new cases per 100,000 people",
+              "expected_status": "missing_in_reviewed_scope",
+              "evidence_at_5": null
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-2729-80534db9d68bb13ced80de19a85ce94dd7e84fb4b829030a1087e1b754b2dfec",
+              "topic_id": "2729",
+              "title": "Trigeminal Neuralgia"
+            },
+            {
+              "passage_id": "mplus-1574-b3e3f677e3820e37eab608d7b245a5634f91b730e4a85a3e3f9be3eb174ad8fa",
+              "topic_id": "1574",
+              "title": "Facial Injuries and Disorders"
+            },
+            {
+              "passage_id": "mplus-6807-a6fdb517adea4b857d9ccbc0b7da48d061372d07fe4cb8bf8ff6f545c9143f1f",
+              "topic_id": "6807",
+              "title": "How to Lower Cholesterol with Diet"
+            },
+            {
+              "passage_id": "mplus-2780-188e9e78c59effa68f84018d43f7b6c3c9870eff28f87b044b178dc8fdc06fec",
+              "topic_id": "2780",
+              "title": "Calcium"
+            },
+            {
+              "passage_id": "mplus-6781-df276acc28d7ba4524a1b9824f809fa5a92517f6af93690611782b543992617e",
+              "topic_id": "6781",
+              "title": "Cholesterol Levels: What You Need to Know"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-04",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "6208"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Does a high PSA value alone prove prostate cancer",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-6208-cb42a0f4fa0f7d9bf3d923e2742b55ed106926d461fd2d79798e43a61d8a151b",
+              "topic_id": "6208",
+              "title": "Prostate Cancer Screening"
+            },
+            {
+              "passage_id": "mplus-6208-492909da4f18cc925d4a9d75fca1125876ab420ec1da2e2c4756c557f4349c5c",
+              "topic_id": "6208",
+              "title": "Prostate Cancer Screening"
+            },
+            {
+              "passage_id": "mplus-112-5dee21a75bd44c8b7d55f0d9f46e4f65a0e463380d44c2dd9d459d70c3e610ae",
+              "topic_id": "112",
+              "title": "Prostate Cancer"
+            },
+            {
+              "passage_id": "mplus-7-766fc427f908eaf9ea6c5554975300343a145b623e2ecbc0e5451f8d8ae2157d",
+              "topic_id": "7",
+              "title": "Prostate Diseases"
+            },
+            {
+              "passage_id": "mplus-6196-9c0d1398accb16e8a7e30e9b04d7792e8bba04505609cc2170da312cbe73824a",
+              "topic_id": "6196",
+              "title": "Enlarged Prostate (BPH)"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-05",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "1624"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Definition and location of an acoustic neuroma",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "topic_id": "1624",
+              "title": "Acoustic Neuroma"
+            },
+            {
+              "passage_id": "mplus-365-385bbf957e2edf7c089556a0beb91d63ca0724846718875ed59da5123abc7e7a",
+              "topic_id": "365",
+              "title": "Polio and Post-Polio Syndrome"
+            },
+            {
+              "passage_id": "mplus-279-34a99aee014ab2e1a8ea14e56b1ed1ab3c67e966f1863e47fc9d44637c709fd1",
+              "topic_id": "279",
+              "title": "Heart Valve Diseases"
+            },
+            {
+              "passage_id": "mplus-88-254444c7a2ba75305c386f9704d4a94c9e2a3d91471e46ba1d4f92ec00a25480",
+              "topic_id": "88",
+              "title": "Colorectal Cancer"
+            },
+            {
+              "passage_id": "mplus-3054-d8bbe0616a948896ee3b43439852b3b7ec0c69f26566361d89c49459d3039216",
+              "topic_id": "3054",
+              "title": "Fistulas"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-06",
+          "source_shape": "single_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "5755"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 0.3333333333333333,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 1,
+          "parts": [
+            {
+              "requested_fact": "Affected airways in acute bronchitis",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-27-31717207037a17ef9f0117f915fec103b03cefb4e228fdaa54c439d5529ae026",
+              "topic_id": "27",
+              "title": "COPD"
+            },
+            {
+              "passage_id": "mplus-5977-766dab74021205d00633dddaa2fd1b1a7a4918dad4f1623c2c37da084cc475d4",
+              "topic_id": "5977",
+              "title": "Bronchial Disorders"
+            },
+            {
+              "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+              "topic_id": "5755",
+              "title": "Acute Bronchitis"
+            },
+            {
+              "passage_id": "mplus-1543-155330cbba486cfaedb3ffa30f1933441a7b47f40b9baabd072b1630471e97cc",
+              "topic_id": "1543",
+              "title": "Cough"
+            },
+            {
+              "passage_id": "mplus-1608-e574243666ce456f93cae983f356d6ecac2d07c53d898ef622df49022c16e10c",
+              "topic_id": "1608",
+              "title": "Chronic Bronchitis"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-07",
+          "source_shape": "multi_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "1624",
+              "179"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 2,
+          "parts": [
+            {
+              "requested_fact": "Nerve affected in carpal tunnel syndrome",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "Nerve where acoustic neuroma develops",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "topic_id": "179",
+              "title": "Carpal Tunnel Syndrome"
+            },
+            {
+              "passage_id": "mplus-179-83e6e8e70588af11c4fb55f02989a56f6e51292b769ec4bd4991681fa3edfd4f",
+              "topic_id": "179",
+              "title": "Carpal Tunnel Syndrome"
+            },
+            {
+              "passage_id": "mplus-179-82f9719e2c4fd2b072e4ba01a0b839b8fb6f7eb9bacacf0adc63be2e4e185938",
+              "topic_id": "179",
+              "title": "Carpal Tunnel Syndrome"
+            },
+            {
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "topic_id": "1624",
+              "title": "Acoustic Neuroma"
+            },
+            {
+              "passage_id": "mplus-507-e46340a96e50ab9bcaffa22ddfb6785543ee4f119ae7ea9ea5383b051eac86a7",
+              "topic_id": "507",
+              "title": "Hand Injuries and Disorders"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-08",
+          "source_shape": "multi_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "3920",
+              "5275"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 1.0,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 2,
+          "parts": [
+            {
+              "requested_fact": "Definition of adhesions",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "One cause of intestinal obstruction other than adhesions",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+              "topic_id": "5275",
+              "title": "Intestinal Obstruction"
+            },
+            {
+              "passage_id": "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+              "topic_id": "3920",
+              "title": "Adhesions"
+            },
+            {
+              "passage_id": "mplus-5446-0f4d01e41f083f7a38d0136ed25e3ebf1eb1897fc6c62c23b70ce71d89386a66",
+              "topic_id": "5446",
+              "title": "Small Intestine Disorders"
+            },
+            {
+              "passage_id": "mplus-119-cb9948bb01457eee61f762c5724f28620ccc44db1750144c6b2bb0085f59131f",
+              "topic_id": "119",
+              "title": "Crohn's Disease"
+            },
+            {
+              "passage_id": "mplus-489-727e380dc592b390582bf4023d6c4f7492a7ac3f3d7f2e4477b56a60740b771c",
+              "topic_id": "489",
+              "title": "Nausea and Vomiting"
+            }
+          ]
+        },
+        {
+          "case_id": "A-QA-09",
+          "source_shape": "multi_topic",
+          "expected_coverage": "full",
+          "accepted_candidate_topic_sets": [
+            [
+              "4452",
+              "4643"
+            ]
+          ],
+          "topic_metrics": {
+            "recall_at_5": 1.0,
+            "reciprocal_rank_at_5": 0.3333333333333333,
+            "all_required_topics_at_5": true,
+            "any_reference_set_over_five_topics": false
+          },
+          "supported_parts": 2,
+          "parts": [
+            {
+              "requested_fact": "Organ storing bile",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            },
+            {
+              "requested_fact": "Substance causing the yellowing in jaundice",
+              "expected_status": "supported",
+              "evidence_at_5": true
+            }
+          ],
+          "top_five": [
+            {
+              "passage_id": "mplus-4645-9db3143e3b6de193c03c7fbe12e5ab3f6af9fd2326bbfbb559f774a662bdeb30",
+              "topic_id": "4645",
+              "title": "Gallbladder Cancer"
+            },
+            {
+              "passage_id": "mplus-5905-f3d86dbdf4be1b6fc16866df922c8b9c08324122d8a2ec4183bf0b6b59545e73",
+              "topic_id": "5905",
+              "title": "Bile Duct Cancer"
+            },
+            {
+              "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+              "topic_id": "4452",
+              "title": "Jaundice"
+            },
+            {
+              "passage_id": "mplus-259-fcb64ff3c43b2c238c4110300b6222d1f827ad69f8d9bb1119ac310dee9c05ad",
+              "topic_id": "259",
+              "title": "Gallbladder Diseases"
+            },
+            {
+              "passage_id": "mplus-4643-ce65ac50c6728aaea035f8e00c7ced25d2a3c42d272e3a6fcecf9a345af503bf",
+              "topic_id": "4643",
+              "title": "Gallstones"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "new_provider_calls": 0,
+  "fresh_rankings": 0,
+  "semantic_support_model_run": false,
+  "final_test_accessed": false,
+  "limitations": [
+    "Saved rankings re-scored; no new retrieval, generation or semantic assessment.",
+    "Missing requested parts remain gaps even when their supported subset is retrieved.",
+    "D owns the shared canonical reference freeze; B still verifies application routing."
+  ]
+}

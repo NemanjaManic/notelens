@@ -2,13 +2,11 @@
 
 Owner: Nemanja (A). Author: Codex coding agent for Nemanja (A).
 Date: 2026-11-15. Proposal: rag-answer-support-policy-proposal-v1.
-Status: proposed behavior; local validation processor implemented, semantic
-assessment/activation and policy acceptance pending.
+Status: A and B agreed on the frozen retrieval and answer states on 2026-11-20.
+The remaining proposal and live activation decisions are tracked below.
 
-Nemanja approved preparing this proposal. That approval does not mean that its
-rules, unresolved interface interpretation, semantic assessor, thresholds or
-paid execution have been accepted. The existing candidate CLI and HTTP mock
-remain unchanged. A-004 and A-009 remain incomplete.
+Nemanja approved preparing the original proposal on 2026-11-15. The scoped
+agreement below covers A-004. A-009 tracks literature answer acceptance.
 
 ## Purpose and evidence
 
@@ -75,7 +73,9 @@ These examples specify proposed behavior, not newly generated/model-validated
 answers. Their original [review evidence](retrieval-content-review.json) is
 unchanged; missing evidence is relative to the inspected passages.
 
-## Frozen interface interpretation requiring confirmation
+<a name="frozen-interface-interpretation-requiring-confirmation"></a>
+
+## Frozen interface interpretation
 
 The frozen RetrievalResult has only sufficient/insufficient states, while
 AnswerResult.evidence_state also allows partial. The runtime validator rejects
@@ -83,7 +83,8 @@ a RAG generation component when retrieval_provenance.state is insufficient.
 It also requires a gap warning for a partial answer. Do not add a partial state
 to RetrievalResult or silently change any shared schema.
 
-The proposed interpretation is:
+Goran (B) confirmed the following interpretation on 2026-11-20 in feedback
+relayed by A.
 
 - Retrieval is sufficient to permit generation when it supports at least one
   useful, independently answerable requested part. This is permission for a
@@ -94,17 +95,12 @@ The proposed interpretation is:
   generator runs. Related candidates may remain in RetrievalResult for diagnostics;
   they are not promoted to cited answer sources.
 
-This is **a proposed semantic interpretation**, not recorded A/B agreement.
-Before live partial-literature generation, B and A must confirm whether this
-matches the frozen gate's intended meaning. If sufficient was intended to mean
-complete question coverage, an explicit affected-owner behavior/change proposal
-is required. Do not bypass the gate by falsifying provenance. Preparing other
-A-owned work does not depend on resolving this interpretation today.
-
-For mixed requests, B must retain independently supported D document information
-when literature is missing or unavailable. A must not instruct B to suppress it.
-Existing mixed-answer fixtures already cover that boundary. A does not create
-document claims or modify B's composition logic in this package.
+The web app will use `AnswerResult.evidence_state` for overall coverage. For
+`partial`, it will show the supported claims with their citations and display
+the unanswered parts from `warnings`. In mixed responses it will preserve
+independently supported document claims and distinguish insufficient literature
+evidence from a service outage. The RAG adapter already supports the agreed
+behavior through `supported-subset-v1`. See the [development verification](../../specs/001-rag/tasks.md#phase-3-user-story-1).
 
 ## Implementation and measurement decisions still open
 
@@ -174,8 +170,8 @@ remains historical evidence and was not rerun for this documentation-only change
 | --- | --- |
 | Permission to prepare this proposal | Approved by Nemanja in chat on 2026-11-15 |
 | AS-01 through AS-10 behavior acceptance | Pending Nemanja review of this specific proposal |
-| Binary retrieval gate interpretation for partial literature answers | Still unresolved; affected A/B confirmation required before activation |
-| Semantic assessor, development thresholds and model budget | Still unresolved; no selection or activation claimed |
+| Binary retrieval gate interpretation for partial literature answers | Confirmed by A and B on 2026-11-20. The A-004 development check matched independent review on full, partial and absent support. |
+| Final assessment settings, numeric score cutoff and model budget | Pending separate measurement or approval. The development evidence rule operates on support for requested parts. |
 | Agent compatibility review | Completed: six expected accept/reject outcomes; not human/team approval |
 
 ## Owner-local continuation, 2026-11-16
