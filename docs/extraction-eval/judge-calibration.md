@@ -198,3 +198,9 @@ checksums and the response/source pins were verified. Across the A, B and C
 packets there are 13 distinct entity-evidence items. Additional items are
 required for the wider review plan. Capacity, delivery and completed scoring
 are pending. See the [packet verification](../../eval/reports/development/d008-member-b-packet-verification-v1.json).
+
+Goran subsequently acknowledged the seven-answer/three-entity scope, rubric v1,
+form v2 and proposed 23 November 12:00 Europe/Belgrade return. He will check
+capacity, confirm a full or reduced scope and return time, and declare prior
+exposure before scoring. This acknowledgement does not confirm capacity,
+packet readability, checksum verification or completed reviews.
