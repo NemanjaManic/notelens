@@ -1,0 +1,30 @@
+{
+  "stage": "frozen",
+  "estimator": "logistic_regression",
+  "labels": [
+    "Cardiovascular / Pulmonary",
+    "Orthopedic",
+    "Gastroenterology",
+    "Neurology",
+    "Urology"
+  ],
+  "model_version": "c008-short-text-matched-v1-ec4f77b94c735790aca7cf8a3eb8a83cdc4e263ce2ad56e599e477f219fe6e8d",
+  "artifact_sha256": "5951f751949747cb3c251987b1503ffaf1d79df9933862c7a692f01a5d65622c",
+  "packages": {
+    "scikit-learn": "1.7.2",
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "joblib": "1.6.0"
+  },
+  "threshold": 0.3,
+  "minimum_margin": 0.0,
+  "ambiguity_policy": {
+    "minimum_word_evidence": 0.2,
+    "segment_threshold": 0.38,
+    "segment_margin": 0.05,
+    "competing_score_ratio": 0.35,
+    "minimum_section_share": 0.1,
+    "document_evidence_kind": "two_words",
+    "minimum_document_evidence": 0.8
+  }
+}

@@ -95,15 +95,17 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Coverage**: FR-005, FR-006, FR-007, FR-008, FR-017, SC-002.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T004 [US2] C-010: Complete C's development-only primary annotations and independent reviews in `eval/annotations/member-c/**`
+- [X] T004 [US2] C-010: Complete C's development-only primary annotations and independent reviews in `eval/annotations/member-c/**`
   - **Owner / story**: C / US2.
   - **Dependencies**: 004-extraction-evaluation/T006 (D-003)
   - **Local update (2026-11-19)**: [Assignment intake and exposure steps](../../docs/ml/integration.md#b-and-d-handoff) are ready for D-003. Actual assignments and submissions are pending.
   - **D confirmation (2026-11-19)**: D confirmed that C's primary and independent review assignments will be separate and development-only, with independent reviews of other annotators' work. Assignment selection waits for the reviewed manifest and approved access.
   - **Assignment convention (2026-11-20)**: Primary and independent review records share the dataset `doc_id`, D-issued `assignment_id` and canonical text digest. Each submission has a unique `submission_id`. D issues assignment IDs when assignments are frozen.
   - **Selector publication (2026-11-20)**: D published `97bf35a` with a synthetic-verified development-only independent review reservation when capacity permits. The [handoff record](../../docs/ml/c002-handoff-to-d.md#published-selector-and-evaluator-update-2026-11-20) records the candidate interface and pending real selection.
+  - **Verified package (2026-11-21)**: D supplied C's frozen development allocation of ten primary annotations and one independent review and verified the 278-mention draft package. C addressed all 14 items in D's proposed guidance and followed up with an AI-assisted full-source coverage review. Sara confirmed full-document review of all 11 assignments. The confirmed package passed D's linter for all 11 records, with 305 exact mentions and 335 evidence spans.
+  - **Completed (2026-11-22)**: Sara confirmed that Milica received the final C-010 package in the private handoff. The 11 submissions matched the recorded digests and roles in the restricted manifest. [Handoff record](../../docs/ml/integration.md#b-and-d-handoff).
   - **Acceptance**: Before model selection C annotates development documents only; preserve separate submissions and leave final-reference decisions to D. Do not use annotation exposure as test-set feedback.
-  - **Verify**: `python -B -m json.tool eval/annotations/member-c/submission-manifest.json`.
+  - **Verify**: Parse the restricted `submission-manifest.json` and compare each submission SHA-256 to the manifest. Check the 10 primary records and one independent review against the frozen development allocation.
   - **Coverage**: FR-018.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -163,11 +165,12 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Coverage**: FR-013, FR-014, FR-015, FR-016, SC-004, SC-005.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T009 [US3] C-007: Deliver actual startup and contract/smoke integration evidence to B/D in `docs/ml/integration.md`, `services/classifier/tests/test_http.py`
+- [X] T009 [US3] C-007: Deliver actual startup and contract/smoke integration evidence to B/D in `docs/ml/integration.md`, `services/classifier/tests/test_http.py`
   - **Owner / story**: C / US3.
   - **Dependencies**: 003-classification/T008 (C-006)
-  - **Local update (2026-11-19)**: [Startup instructions and owner-local HTTP evidence](../../docs/ml/integration.md) are ready. Coordinated integration with the reviewed artifact is pending.
-  - **C check (2026-11-20)**: On published commit `7181a1a`, the installed wheel and pinned C-005 model passed 60 HTTP and contract tests and seven authenticated loopback probes, including both no-model 503 responses. The [owner-local evidence](../../docs/ml/integration.md#c-007-owner-local-check-2026-11-20) records model version, document identity and repeatability. B and D checks are pending.
+  - **Local update (2026-11-19)**: [Startup instructions and owner-local HTTP evidence](../../docs/ml/integration.md) are ready.
+  - **C check (2026-11-20)**: On published commit `7181a1a`, the installed wheel and pinned C-005 model passed 60 HTTP and contract tests and seven authenticated loopback probes, including both no-model 503 responses. The [owner-local evidence](../../docs/ml/integration.md#c-007-owner-local-check-2026-11-20) records model version, document identity and repeatability.
+  - **Completed (2026-11-21)**: B recorded its five adapter outcomes on the pinned C-005 bundle. D independently verified the same bundle on evaluator commit `585ef0f`, with 16 passing targeted tests, repeatable fitted outcomes and abstention tracking. The [coordinated verification](../../docs/ml/integration.md#c-007-coordinated-verification-2026-11-21) records both confirmations and the remaining B-005 web consumer blocker.
   - **Acceptance**: B/D can run the independent service and validate HTTP payloads with permitted examples; mocks versus real-model outputs are distinguished.
   - **Verify**: `uv run --directory services/classifier python -m pytest tests/test_http.py tests/test_contract.py`.
   - **Coverage**: FR-013, FR-016, FR-017, SC-005.
@@ -177,10 +180,14 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T010 C-008: Freeze the chosen model and run the locked final measurement/model card in `docs/ml/model-card.md`, `services/classifier/artifacts/manifests/**`, `services/classifier/tests/test_final_freeze.py`
+- [X] T010 C-008: Freeze the chosen model and run the locked final measurement/model card in `docs/ml/model-card.md`, `services/classifier/artifacts/manifests/**`, `services/classifier/tests/test_final_freeze.py`
   - **Owner / story**: C / US3.
   - **Dependencies**: 003-classification/T009 (C-007); 003-classification/T004 (C-010)
   - **Local update (2026-11-19)**: Final measurement guards and scoring were exercised on a synthetic held-out package. The [model card draft](../../docs/ml/model-card.md) records the required freeze and final evidence.
+  - **Preparation (2026-11-22)**: The initial proposal pinned the previously verified C-005 artifact and complete score policy. The development membership and locked dependency versions reconciled, two synthetic fitted-model probes passed, and all four synthetic final-run guard tests passed. [Model card and preflight](../../docs/ml/model-card.md#prepared-final-measurement).
+  - **Development follow-up (2026-11-22)**: One training-only short-text candidate improved validation and the pinned synthetic follow-up with the C-005 policy. The alternative is packaged for selection review. [Measured comparison](../../docs/ml/experiments/c008-short-text-v1.md).
+  - **Selection frozen (2026-11-22)**: Sara approved the new short-text model with the existing C-005 policy. The owner-local authenticated HTTP checks passed on the selected development bundle. Its frozen evaluation copy preserved the fitted bytes and reproduced all 50 synthetic follow-up responses. [Selected bundle](../../docs/ml/integration.md#c-008-selected-bundle-2026-11-22).
+  - **Completed (2026-11-22)**: The single authorized run evaluated 183 locked C-002 documents in 183 groups. Forced-choice accuracy was 96.17% and macro-F1 was 0.9582. The selective result was 169 correct, five wrong and nine uncertain. The verified frozen manifest and the aggregate results are recorded in the [model card](../../docs/ml/model-card.md#locked-final-results).
   - **Acceptance**: Record actual final results/versions/counts, baseline comparisons and limitations after selection freeze. A repeated final run requires new version/reason; supplementary distributions are reported separately.
   - **Verify**: `uv run --directory services/classifier python -m pytest tests/test_final_freeze.py`.
   - **Coverage**: FR-010, FR-011, FR-019, FR-020, FR-021, SC-006.

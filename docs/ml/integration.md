@@ -1,9 +1,9 @@
 # C classifier local development handoff
 
-**Updated** 2026-11-20. **Owner** Sara / C.
+**Updated** 2026-11-22. **Owner** Sara / C.
 
-The current development bundle combines the Logistic Regression pipeline
-fitted on the frozen C-002 split with the C-005 uncertainty policy. It runs
+The development bundle originally verified for C-007 combines the Logistic
+Regression pipeline fitted on the frozen C-002 split with the C-005 uncertainty policy. It runs
 on authenticated loopback without providers. Use public and synthetic
 examples in the local demo. The validation report records the observed
 short-text limitations and mixed-text acceptance.
@@ -84,7 +84,7 @@ configuration error. The missing-artifact and wrong-checksum launch
 attempts exited before serving. Both test processes stopped, the test
 ports closed, and service output omitted the synthetic bodies and
 temporary token. The classifier and MTSamples suites passed 158 tests
-and 11 subtests. Coordinated B/D verification remains in C-007.
+and 11 subtests.
 
 Earlier owner verification on Python 3.13.7 passed 121 classifier tests and the
 installed binding suite. The default locked mock environment passed 103 tests
@@ -128,21 +128,71 @@ The classifier returned the original `doc_id` and `text_sha256`,
 five ordered scores, the admitted request ID in the response header,
 and `Cache-Control: no-store`. Both local test processes stopped and
 their ports closed. Captured service logs excluded the synthetic
-document texts and temporary token. The B integration and D evaluator
-checks remain pending.
+document texts and temporary token.
+
+## C-007 coordinated verification, 2026-11-21
+
+Goran recorded B's verification of the classifier commit and C-005 bundle
+pinned above. On platform baseline `f8bba16`, B's test adapter accepted
+readiness with the model, `supported` with `Orthopedic`, and `uncertain`
+with a null category. The adapter verified the document ID, canonical
+SHA-256 and request ID. With no bundle, it reported `not-ready` for
+readiness (`503`, `not_ready`) and `unavailable` for classification
+(`503`, `configuration_required`). Six fitted-profile checks passed.
+
+Milica confirmed D's independent authenticated replay on evaluator commit
+`585ef0f`. The receipt matched the classifier commit, model version and
+manifest SHA-256 from the B run. The model artifact matched the local
+`model.joblib` SHA-256
+`3bbf1c648c6ebd69036ee933c58b7e96cf1a0f5bf60975d1cafe7f59ec09fd6a`.
+D validated the document ID, canonical SHA-256 and five scores in contract
+order. Both fitted outcomes were repeatable, and D recorded `uncertain`
+with a null category as an abstention. D distinguished mock and fitted
+responses, rejected wrong fitted modes and model versions, and reported
+16 passing targeted evaluator tests.
+
+Receipt checksums for the local evidence:
+
+| Receipt | SHA-256 |
+| --- | --- |
+| B adapter `b005-joint/receipt.json` | `5cf6ee2e1b465c7920860dece45c0022f44efc4da6e63814f3917ad831144607` |
+| D evaluator `c007-owner-c005-transport-v1.json` | `bac46d0535a099daf67038b00b81bcf96496c0e7dd4619772133ee1886fa1155` |
+
+C-007 is complete for authenticated local inference with synthetic inputs.
+B-005 remains open for web integration. On the tested platform baseline,
+the report consumer accepted mock responses and rejected fitted responses
+under its `MOCK_MODE_REQUIRED` policy even though the classifier returned
+HTTP 200. Both checks ran on loopback without provider calls.
+
+## C-008 selected bundle, 2026-11-22
+
+Sara selected the short-text model with the existing C-005 policy. The
+classifier code is the same as in the C-007 checks. Use the Windows
+environment and token setup above, then start the selected bundle with its
+own manifest checksum:
+
+```powershell
+& $classifierPython -B -m notelens_classifier --port 8002 `
+  --development-model .cache/c008-short-text-v1/matched-policy `
+  --model-manifest-sha256 affe7af9e2d0f8df46d25642fd2e0cbf0ff3e45f2a8576b9c87cc2cc257d7f32
+```
+
+Owner-local HTTP verified readiness with authentication, `401` without
+authentication, and `200` for `supported` with `Orthopedic` and `uncertain`
+with a null category. Both classifications preserved document identity,
+canonical digest and request ID. The separate frozen evaluation manifest
+reproduced all 50 synthetic follow-up outputs. [Frozen model card](model-card.md)
 
 ## B and D handoff
 
 - **B:** The [C-012 handoff](f011-classifier-handoff.md) has the scoped mock
   failure patch for the published checkpoint. Review that contribution
   separately from the development model. Shared readiness and failure probes
-  remain in F-011. Coordinated real-inference integration remains in C-007.
-- **D:** Assign development-only primary annotations and independent reviews
-  for C through D-003 after the grouped split and canonical text/ID handoff.
-  C will check each assigned document against the development group list and
-  pinned canonical text digest before opening it. Record substantive review
-  exposure by document and group so related cases remain in development.
-  Keep C's primary and secondary files separate and route adjudication to D.
-  Actual assignments and annotations are pending.
-- **Final measurement:** See the [model card draft](model-card.md) for the
-  evidence needed to freeze and measure the held-out evaluation.
+  remain in F-011.
+- **D:** C verified the development groups and pinned canonical text digests
+  before annotating. The private C-010 handoff contains 10 primary annotations
+  and one independent review, with full-document confirmation and a checksum
+  manifest. On 2026-11-22 Sara reported that Milica received this package and
+  the separate revised independent review for D-013. D owns adjudication.
+- **Final measurement:** The [model card](model-card.md#locked-final-results)
+  records the frozen model and aggregate held-out results.
