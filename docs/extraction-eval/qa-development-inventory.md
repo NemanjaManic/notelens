@@ -184,9 +184,16 @@ across 12 topics.
 
 Before authoring, Sara and Goran should list each slot's intended sources in
 the restricted folder and compare them with the pinned [development exclusions](../../eval/reports/development/d007-development-source-exclusions-v1.json).
-Sara confirmed receipt of that list and reported zero of 26 slots checked.
+Sara confirmed the handoff package checksums and verified that all 26 blank
+intake slots match the v2 staffing plan. She reported zero source slots checked
+while Goran's acceptance and the 54/26 split are pending.
 The [source guidance](d007-final-source-intake.md) and [blank intake template](../../eval/reports/development/d007-final-source-intake-template-v1.json)
 pin the exact v2 staffing plan and the existing MedlinePlus passage snapshot.
+Sara requested the pinned `passages.jsonl` from Nemanja for the literature
+slots. D reverified the A-supplied ZIP's two members and confirmed that the
+JSONL and its checksum match the passage manifest and index pin. The artifact
+contains 617 passages across 401 topics. Its delivery to Sara and Goran awaits
+A's private handoff.
 Check document families and canonical digests, and literature origins,
 passages and corpus topics. The custodian can share the source-list version,
 digest, number of checked slots and overlap disposition with D. The planned
