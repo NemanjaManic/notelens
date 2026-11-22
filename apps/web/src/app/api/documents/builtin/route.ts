@@ -18,6 +18,12 @@ export async function POST(request: Request): Promise<Response> {
     const store = getSessionStore();
     const owner = openBrowserSession(store, request.headers, headers);
     const result = await prepareBuiltin(store, owner, 'offset');
+    headers.set('Vary', 'Accept');
+    if (request.headers.get('Accept') === 'application/json') {
+      return result.kind === 'prepared'
+        ? Response.json({ document: result.docId }, { status: 201, headers })
+        : Response.json({ notice: result.notice }, { status: 409, headers });
+    }
     headers.set('Location', result.kind === 'prepared' ? `/demo?document=${result.docId}` : '/demo?prepare=unavailable');
     return new Response(null, { status: 303, headers });
   } catch (error) {
