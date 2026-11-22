@@ -266,10 +266,24 @@ frozen by this development handoff. A/D final access remains restricted.
 
 Goran subsequently confirmed verifying the v3 handoff and frozen v2 manifest
 checksum, and asked Nemanja to use that exact version for development
-measurement. Delivery to B is confirmed. The two-file web-admission fix remains
-on B's local `member-b/a-008-prompt-admission` branch based on `d2f85fb`.
-B reports a passing production build, all 18 routing tests and the key-free
-rehearsal. Its exact published, reviewed web commit remains outstanding.
+measurement. Delivery to B is confirmed. Goran published the two-file
+web-admission fix on `origin/member-b/a-008-prompt-admission` at
+`4fb192eb157d5e2fb47fc6afdda890af8c229d7e`. D fetched the branch and
+independently verified the remote SHA and direct parent
+`d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4`. The change admits one exact
+reviewed synthetic question and adds a regression for literature-only and
+mixed question planning. D found no blocking issue in this scoped review.
+
+D extracted the exact commit sources to an ignored snapshot and ran
+`node --experimental-strip-types --test apps/web/tests/routing.test.ts`.
+All 18 tests passed on Node v24.20.0. The first attempt lacked `franc`;
+D reused existing cached platform dependencies and verified franc 6.2.0
+against the reviewed commit lock. No dependency download, provider call or
+production build was performed by D. B reports its production build and
+key-free app rehearsal passed. See the [web-fix review](../../eval/reports/development/a008-web-admission-fix-review-v1.json).
+The published-reviewed-commit gate is satisfied. Development measurement
+against the frozen manifest remains pending from Nemanja. This does not close
+A-008 on A's behalf or replace A-011's final freeze.
 
 B's reproduction instructions build the web checkout with `npm.cmd ci` and
 `npm.cmd run build`, start the pinned indexed RAG service on `127.0.0.1:8001`,
@@ -291,3 +305,9 @@ independently checked any final source slots. Record these counts separately:
 and zero slots independently verified by D. Sara requested Goran's confirmation
 of an additional named Editor account. D does not approve that account on
 Goran's behalf. See the [planning progress record](../../eval/reports/development/d007-source-planning-progress-v1.json).
+
+Goran subsequently instructed Sara to keep the current named permissions.
+An additional Editor account awaits his separate confirmation. He will add
+his planned sources for thirteen slots, then the authors will check all
+26 slots jointly before drafting. No new source-list version, digest or
+completed joint check was supplied with that commitment.

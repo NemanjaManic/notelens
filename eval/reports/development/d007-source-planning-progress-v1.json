@@ -10,7 +10,8 @@
   "planned_source_list_version": null,
   "planned_source_list_sha256": null,
   "d_source_slots_verified": 0,
-  "named_editor_account_confirmation": "Sara requested Goran to confirm an additional named account before Editor access; not confirmed by D.",
+  "named_editor_account_confirmation": "Goran explicitly requested keeping current named permissions. Any additional Editor account awaits his separate confirmation.",
   "final_qa_content_received_by_d": false,
-  "final_freeze_completed": false
+  "final_freeze_completed": false,
+  "goran_source_entry_commitment": "Goran will add sources for his thirteen slots before the joint 26-slot check; no completed entries were supplied."
 }
