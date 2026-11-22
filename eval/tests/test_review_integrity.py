@@ -60,6 +60,20 @@ def test_operational_error_not_quality_and_missing_declaration():
         inspect(record)
 
 
+def test_abstention_preserves_explicit_null_prompt_version():
+    first, second = completed(), completed()
+    first.update(response_action="abstain", answerable_from_document="no", prompt_version=None)
+    second.update(response_action="abstain", answerable_from_document="no", prompt_version=None,
+                  review_id="review-b", reviewer_alias="B")
+
+    report = summarize([first, second])
+
+    assert report["counts"]["completed_declared_human_review"] == 2
+    assert report["reviewer_agreement"]["matched_pairs"] == 1
+    del first["prompt_version"]
+    assert inspect(first) == "incomplete"
+
+
 def test_agreement_uses_distinct_reviewers_and_exact_pinned_output():
     first, second, different, duplicate = [completed() for _ in range(4)]
     second.update(review_id="review-b", reviewer_alias="B", critical_error=True)

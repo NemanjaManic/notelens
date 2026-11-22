@@ -61,7 +61,11 @@ def inspect(record):
     started = any(record.get(k) is not None for k in IDENTITY + ("rationale", "completed_at", "response_action")) or any(v is not None for v in scores.values()) or record["human_reviewed"]
     if not started:
         return "blank"
-    complete = (all(record.get(k) is not None for k in IDENTITY)
+    # A response can abstain before generating, with an explicit null prompt version.
+    identity_present = "prompt_version" in record and all(
+        record.get(key) is not None for key in IDENTITY if key != "prompt_version"
+    )
+    complete = (identity_present
                 and record["human_reviewed"] and record["independent_review"]
                 and all(v is not None for v in scores.values())
                 and all(record.get(k) is not None for k in ("critical_error", "needs_adjudication", "answerable_from_document", "rationale", "completed_at", "response_action")))
