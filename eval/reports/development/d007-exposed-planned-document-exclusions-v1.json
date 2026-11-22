@@ -1,0 +1,36 @@
+{
+  "version": "d007-exposed-planned-document-exclusions-v1",
+  "date": "2026-11-22",
+  "partition": "development_only",
+  "scope": "Additive source-family exclusions caused by D early access. Does not amend the frozen 54-case QA selection.",
+  "affected_slots": [
+    "F-MIX-05",
+    "F-MIX-06",
+    "F-MIX-07",
+    "F-MIX-08"
+  ],
+  "reason": "D evaluation assistant viewed these source texts before the final manifest/configuration freeze.",
+  "documents": [
+    {
+      "doc_id": "d007-goran-f-mix-05-source-v1",
+      "canonical_text_sha256": "9539245f423b613463e714e48ab832e3466b0f44ba5e963bdf1f7e4b744f31fc",
+      "source_family_id": "d007-goran-synthetic-bone-density-appointment-v1"
+    },
+    {
+      "doc_id": "d007-goran-f-mix-06-source-v1",
+      "canonical_text_sha256": "6c813e7a7c1d6c10272a1230b54e1d907bacace9739836e24cfa4c45512753f4",
+      "source_family_id": "d007-goran-synthetic-communication-assessment-v1"
+    },
+    {
+      "doc_id": "d007-goran-f-mix-07-source-v1",
+      "canonical_text_sha256": "42a156bb34b2b38f5739fdf6390166c6fb807b12a45a4dc57dec89e8dc3dd348",
+      "source_family_id": "d007-goran-synthetic-pacemaker-device-check-v1"
+    },
+    {
+      "doc_id": "d007-goran-f-mix-08-source-v1",
+      "canonical_text_sha256": "5344006a12bac908d144d4d52986d89dbbf610509863800c20e6916cdc383460",
+      "source_family_id": "d007-goran-synthetic-ostomy-teaching-record-v1"
+    }
+  ],
+  "replacement_required_for_unseen_final": true
+}

@@ -311,3 +311,40 @@ An additional Editor account awaits his separate confirmation. He will add
 his planned sources for thirteen slots, then the authors will check all
 26 slots jointly before drafting. No new source-list version, digest or
 completed joint check was supplied with that commitment.
+
+## Local joint planned-source draft intake
+
+D received `d007-goran-planned-sources-v1.zip` locally. The intake's
+`source_list_version` is `d007-final-source-intake-joint-draft-v1` and its
+JSON SHA-256 is
+`62ea81cd89207ab029ffca163a688ee59f0c15fe7f533e0960c60867a03026da`.
+The ZIP itself has SHA-256
+`605ee2a50d68cee5f088f61abb92f8ebe6c521f99b891f642c356b05f0d176cd`.
+All six listed file checksums match. The draft contains all 26 metadata slots,
+with the expected author/reviewer allocation, corpus pins and route mix.
+No upload has occurred and no restricted-folder copy has been confirmed.
+
+D screened the metadata against the known development exclusions, including
+the later D-008 replacement family. No exact document/family identifier,
+digest, literature topic, passage, origin, topic digest or normalized title/alias
+match was found. No repeated declared source identifier was found within the
+draft. These checks do not prove full provenance or semantic separation.
+Only four of sixteen referenced source files are in the ZIP; D hashed those
+bytes against their declared digests. The other twelve files remain with the
+custodian and must not be sent to D for early reading.
+
+During the first ZIP inspection D's assistant displayed the four source texts
+for F-MIX-05 through F-MIX-08 before the final freeze. This early source
+exposure is recorded explicitly. The four exposed document families must
+remain development-only and be replaced by unexposed families for unseen final
+evaluation. No final questions or answer keys were supplied, and the frozen
+54-case manifest is unchanged. Apply the additive
+[exposed-document exclusions](../../eval/reports/development/d007-exposed-planned-document-exclusions-v1.json).
+
+The custodian should reconcile the local draft with the current restricted
+copy, retain newer entries, replace the four exposed source families and run
+the joint provenance/exposure review of all 26 slots before question authoring.
+Share only the revised list version, SHA-256, checked count and dispositions
+with D. Further unseen source texts, questions and answers remain restricted
+until the agreed freeze. D's 26-slot metadata screen is not a formal joint
+overlap pass or a final freeze. See the [intake receipt](../../eval/reports/development/d007-goran-planned-source-intake-receipt-v1.json).

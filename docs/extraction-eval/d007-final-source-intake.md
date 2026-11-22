@@ -36,6 +36,12 @@ documents and their reworded family variants are development-only. They add
 exclusions without changing the frozen 54-case QA selection or the original
 74-candidate inventory. Keep the new examples outside the unseen final set.
 
+Apply the [early-exposed planned-document exclusions](../../eval/reports/development/d007-exposed-planned-document-exclusions-v1.json)
+as well. The document families originally assigned to F-MIX-05 through
+F-MIX-08 were viewed by D's assistant before the freeze. Replace those source
+families in the restricted workflow. Send D metadata and check dispositions,
+not further unseen canonical texts or final questions/answers before release.
+
 1. Sara and Goran fill the blank source-list template in the restricted folder
    before drafting. List intended sources, documented families or origins and
    identifiers. Keep each reviewed development case, reserve and exposed
