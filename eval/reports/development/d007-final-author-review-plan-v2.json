@@ -2,7 +2,18 @@
   "version": "d007-final-author-review-plan-v2",
   "date": "2026-11-22",
   "source": "Nemanja (member A), proposal relayed by Milica",
-  "status": "proposed_pending_availability_split_and_private_access_approval",
+  "status": "split_and_staffing_confirmed_source_list_and_freeze_pending",
+  "team_confirmation_2026_11_22": {
+    "source": "Goran message relayed by Milica on 2026-11-22",
+    "development_cases": 54,
+    "unseen_final_cases": 26,
+    "coverage_plan": "v2 confirmed",
+    "goran_assignments": {"author": 13, "independent_review": 13, "accepted": true},
+    "sara_custodian_confirmed": true,
+    "source_list": "to be completed in Sara's restricted folder; Sara will report version, SHA-256, checked-slot count, and overlap dispositions",
+    "source_slots_checked": 0,
+    "manifest_and_configuration_frozen": false
+  },
   "previous_proposal": {
     "path": "eval/reports/development/d007-final-author-review-plan-v1.json",
     "sha256": "c6814fe1792c3b0d99ba5b2fa5a8ff0093dd2c95583cd3e8eaea3ffe13af0c6c"

@@ -106,15 +106,29 @@
     "owner_handoff": "Sara reported both pinned bundles verified over HTTP with the exact D pair.",
     "d_fitted_replay": "pending_matching_local_artifact"
   },
+  "goran_2026_11_22_update": {
+    "source": "Goran message relayed by Milica on 2026-11-22",
+    "b005_commit": "9cdab928923056f31dd1f37ab4b569cc638999ab",
+    "c005": {"status": "blocked_before_probe_and_report_replay", "blocker": "authenticated classifier readiness", "startup_diagnostic_requested_from_sara": true},
+    "c008": {
+      "model_version": "c008-short-text-matched-v1-ec4f77b94c735790aca7cf8a3eb8a83cdc4e263ce2ad56e599e477f219fe6e8d",
+      "reported_fitted_http_checks_passed": 6,
+      "supported": {"status": "supported", "category": "Orthopedic", "document_id_and_canonical_sha256_match": true, "app_submission_http_status": 201, "rendered_report_captured": false},
+      "uncertain": {"status": "uncertain", "category": null, "document_id_and_canonical_sha256_match": true, "app_submission_http_status": null, "rendered_report_captured": false},
+      "browser_runner": "stopped_before_report_capture"
+    },
+    "remaining_report_evidence": "Sara to provide C-005 readiness diagnostic and rendered-report evidence for applicable model replays"
+  },
   "joint_report": {
     "host": "Sara's Windows machine",
     "order": [
       "C-005",
       "C-008"
     ],
-    "pending_from_goran": [
-      "opt-in B-005 commit",
-      "Windows build and startup steps"
+    "pending_from_team": [
+      "C-005 authenticated readiness diagnostic and successful replay",
+      "rendered report capture for supported and uncertain examples",
+      "resolve any report mismatch and record exact model/app pins"
     ],
     "checks_per_model": [
       "Confirm the classifier commit, startup manifest, artifact digest and readiness model version.",

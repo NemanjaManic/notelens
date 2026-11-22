@@ -185,8 +185,14 @@ across 12 topics.
 Before authoring, Sara and Goran should list each slot's intended sources in
 the restricted folder and compare them with the pinned [development exclusions](../../eval/reports/development/d007-development-source-exclusions-v1.json).
 Sara confirmed the handoff package checksums and verified that all 26 blank
-intake slots match the v2 staffing plan. She reported zero source slots checked
-while Goran's acceptance and the 54/26 split are pending.
+intake slots match the v2 staffing plan. On 2026-11-22 Goran confirmed the 54
+development / 26 unseen-final split and v2 coverage plan, accepted his 13 author
+and 13 independent-review assignments, and confirmed Sara as custodian. Sara and
+Goran will complete the source list in Sara's restricted folder and check every
+slot for source-group overlap before drafting. Sara will send the list version,
+SHA-256, checked-slot count, and overlap dispositions. The current intake still
+has zero checked source slots. Nemanja's pinned-passage handoff to the authors
+remains outstanding.
 The [source guidance](d007-final-source-intake.md) and [blank intake template](../../eval/reports/development/d007-final-source-intake-template-v1.json)
 pin the exact v2 staffing plan and the existing MedlinePlus passage snapshot.
 Sara requested the pinned `passages.jsonl` from Nemanja for the literature
@@ -220,8 +226,9 @@ HTTP startup because Windows Application Control blocked Python's `_sqlite3`
 extension during Chroma initialization. The 26 targeted failure, runtime and
 non-indexed HTTP tests passed on repeat after an initial readiness timeout.
 
-B owns application acceptance. Record the app commit and the full, partial
-and insufficient-evidence outcomes. In the mixed route, verify that supported
-document claims and citations survive insufficient literature evidence and an
-unavailable RAG service. Record those two scenarios separately. A-008 also
-awaits the shared benchmark freeze.
+B reported that the key-free app-routing check passed on `d2f85fb`: the partial
+literature answer retained its citation and disclosed the missing start date.
+Both mixed runs preserved supported document claims and citation links, with
+separate notices for insufficient literature evidence and service unavailability.
+Record this as B's owner report. The shared benchmark manifest and configuration
+freeze remain open, so A-008 is not closed.
