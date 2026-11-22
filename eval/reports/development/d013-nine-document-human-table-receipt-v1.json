@@ -1,0 +1,37 @@
+{
+  "version": "d013-nine-document-human-table-receipt-v1",
+  "date": "2026-11-22",
+  "status": "human_final_for_listed_topics_source_verified",
+  "user_input_sha256": "b6b600ff4451eefbb591f7120af15e09741b9140e6e9488be43f03c97cfcbef6",
+  "verified_private_decision_artifact_sha256": "73fde54ae123fd7f6ef170b20789f130ca604663c73eec541a6703fa22a6d6ef",
+  "documents": 9,
+  "assignment_ids": [
+    "assignment-000",
+    "assignment-002",
+    "assignment-003",
+    "assignment-005",
+    "assignment-006",
+    "assignment-008",
+    "assignment-010",
+    "assignment-036",
+    "assignment-038"
+  ],
+  "final_scoped_table_rows": 50,
+  "canonical_text_hashes_verified": 9,
+  "canonical_evidence_anchors_checked": 86,
+  "prior_036_occurrence_decisions_reaffirmed": 4,
+  "duplicate_independent_review_credit_added": 0,
+  "conditional_decisions_preserved": true,
+  "original_member_submissions_modified": false,
+  "new_full_document_read_attestation_claimed": false,
+  "unlisted_pair_differences_automatically_accepted": false,
+  "canonical_reference_merge_completed": false,
+  "remaining_work": [
+    "Map scoped decisions onto exact annotation occurrences and identify unlisted pair differences.",
+    "Preserve and resolve any remaining disagreements with source provenance.",
+    "Receive outstanding B submissions and verify at least ten eligible independent reviews before D-013 closure."
+  ],
+  "application_queue_prepared": true,
+  "application_queue_sha256": "8f72c2fe0c4b205901182cac330011e8def3fab7acfa53c8003cfb7c11ea8a0e",
+  "application_queue_scope": "Source-linked mapping aid; no unlisted attribute or disagreement is automatically approved."
+}

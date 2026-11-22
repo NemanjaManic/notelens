@@ -1,5 +1,28 @@
 # Annotation Assignment and Independent Review Workflow
 
+### Final human topic decisions for nine paired documents
+
+Milica submitted tables for 000, 002, 003, 005, 006, 008, 010, 036 and 038,
+and explicitly confirmed they are her final decisions. D preserved the
+submission and recorded fifty scoped topic rows privately, with English
+decision text and the original row hashes. All nine canonical text hashes
+and eighty-six exact source anchors were verified. Conditional statements
+remain conditional; no new full-document reading attestation is inferred.
+
+The table consolidates and reaffirms earlier decisions, including the four
+036 temporality decisions, the unnamed 005 source gap and the 038 source
+interpretations. It does not add independent-review credit. The original
+member submissions and earlier decision artifacts remain unchanged.
+
+D prepared a private source-linked application queue for all nine comparisons.
+Source overlap links the final topic guidance to candidate occurrences but
+does not automatically decide unlisted attributes or concepts. Evidence-span
+and mention-boundary alternatives are mapping work, not automatically new
+clinical questions for Milica. Apply the final guidance with provenance,
+identify genuinely uncovered decisions, and preserve the outstanding B
+submissions and minimum-ten-independent-review gate before canonical merge
+and D-013 closure. See the [decision receipt](../../eval/reports/development/d013-nine-document-human-table-receipt-v1.json).
+
 ### C-010 final ZIP resend verified on 2026-11-22
 
 Sara resent `NoteLens-C010-Sara-final-v1.zip` with SHA-256
