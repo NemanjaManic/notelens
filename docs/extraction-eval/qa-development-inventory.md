@@ -263,3 +263,22 @@ needs delivery. Development measurement and the admission-fix commit remain
 outstanding. A-011 retains the separate final RAG freeze and measurement.
 The final QA source checks, final manifest and system configuration are not
 frozen by this development handoff. A/D final access remains restricted.
+
+Goran subsequently confirmed verifying the v3 handoff and frozen v2 manifest
+checksum, and asked Nemanja to use that exact version for development
+measurement. Delivery to B is confirmed. The two-file web-admission fix remains
+on B's local `member-b/a-008-prompt-admission` branch based on `d2f85fb`.
+B reports a passing production build, all 18 routing tests and the key-free
+rehearsal. Its exact published, reviewed web commit remains outstanding.
+
+B's reproduction instructions build the web checkout with `npm.cmd ci` and
+`npm.cmd run build`, start the pinned indexed RAG service on `127.0.0.1:8001`,
+and start the web process separately with the matching RAG port and local
+service tokens. Keep classifier and extraction in mock mode for this RAG
+rehearsal. `start_mock.py` assigns its own RAG port, so it must not replace
+that separately configured web process. Check the three pinned literature
+questions in the built-in Chest pain report for sufficient, partial and
+insufficient evidence, then repeat the two mixed questions with RAG running
+and after stopping only RAG. Preserve document claims and clickable citations,
+and record separate insufficiency and unavailability notices. These commands
+and outcomes are B's handoff, not an additional D execution.

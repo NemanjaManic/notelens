@@ -25,5 +25,12 @@
   "development_quality_measurement_completed": false,
   "reviewed_web_admission_fix_commit": "awaiting_goran",
   "final_sources_checked": 0,
-  "final_cases_attached": 0
+  "final_cases_attached": 0,
+  "b_receipt_confirmation": {
+    "source": "Goran message relayed by Milica",
+    "v3_handoff_verified": true,
+    "frozen_v2_manifest_checksum_verified": true,
+    "development_measurement_assigned_to": "Nemanja",
+    "reviewed_web_admission_fix_commit": "pending_publication_from_goran"
+  }
 }

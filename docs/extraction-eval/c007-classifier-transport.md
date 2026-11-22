@@ -112,11 +112,24 @@ uses `.cache/c008-short-text-v1/matched-policy`. The matching model file is
 unavailable in the local D workspace, so D's independent C-008 replay is
 pending. Sara has both bundles for the hosted run.
 
-Goran's exact opt-in B-005 commit and Windows startup instructions are needed
-to check the report. Use C-005 first and then C-008 on Sara's host. For both,
-record normal admission, classifier HTTP identity, model version, and the
-two rendered report states. The [preflight receipt](../../eval/reports/development/b005-c005-c008-joint-preflight-v1.json)
-records the pins and separates D's observed results from Sara's report.
+Goran subsequently identified opt-in B-005 commit
+`9cdab928923056f31dd1f37ab4b569cc638999ab`. His initial report recorded a
+C-005 authenticated-readiness blocker and an interrupted C-008 browser capture.
+
+At 22:23 Europe/Belgrade on 2026-11-22 Goran reported the passing Windows
+recheck: C-005 first, then C-008 in a fresh session. Both bundles passed six
+fitted HTTP checks, including request-ID correlation. All four app submissions
+returned HTTP 201. Both models rendered Orthopedic for the supported input and
+Specialty uncertain with no assigned specialty for the uncertain input. Goran
+verified the recheck receipt against both model pins and found no mismatch.
+
+The authoritative new file is `b005-joint-replay-recheck-receipt.json`.
+Sara's earlier attachment was the failed receipt sent by mistake. The passing
+file has not reached D's available local files, so its intake and D pin check
+remain pending. This is the owner's reported successful classifier integration;
+the broader B-005 task also includes the other services. The
+[preflight record](../../eval/reports/development/b005-c005-c008-joint-preflight-v1.json)
+preserves D's earlier independent results and both chronological owner reports.
 
 ## Reproduce the evaluator check
 

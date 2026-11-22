@@ -176,3 +176,20 @@ are preserved and can be read without the current-form intake flag. These are
 first-round packets within the proposed 40 answer and 20 entity-evidence
 review targets. The remaining assignments and team calibration await
 confirmation.
+
+## Proposed Member B first round, 2026-11-22
+
+Goran requested counts, rubric version and the review window before confirming
+capacity. D prepared a private packet with the same seven exact calibration
+answers and three generated entity-evidence items not assigned to A or C.
+Only three unused distinct items remain in the retained mock output inventory.
+The packet therefore proposes three entity reviews; no additional outputs or
+human ratings are invented to fill the wider plan.
+
+Use `d-answer-review-rubric-v1` and `d-answer-review-form-v2`. The proposed
+return time is 23 November 2026 at 12:00 Europe/Belgrade, subject to Goran's
+capacity confirmation. Scores and gold labels are excluded. All 20 package
+checksums and the response/source pins were verified. Across the A, B and C
+packets there are 13 distinct entity-evidence items. Additional items are
+required for the wider review plan. Capacity, delivery and completed scoring
+are pending. See the [packet verification](../../eval/reports/development/d008-member-b-packet-verification-v1.json).

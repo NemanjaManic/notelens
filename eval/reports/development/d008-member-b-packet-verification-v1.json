@@ -1,0 +1,23 @@
+{
+  "version": "d008-member-b-packet-verification-v1",
+  "date": "2026-11-22",
+  "recipient": "Goran (member B)",
+  "status": "prepared_capacity_and_delivery_pending",
+  "archive_sha256": "791bf015683fa14b973d7c9e2ccfd6248021c7a51b2f50b381b4dea22328e83a",
+  "manifest_sha256": "0dceab823104ca64dd364bc524c17721696acc0fee3f59a92ae01deac67fea1a",
+  "answer_reviews": 7,
+  "entity_evidence_reviews": 3,
+  "answer_responses_identical_to_a_c_calibration_packets": true,
+  "entity_pairs_distinct_from_a_c_assignments": true,
+  "checksums_verified": 20,
+  "rubric_version": "d-answer-review-rubric-v1",
+  "review_form_version": "d-answer-review-form-v2",
+  "other_reviewer_scores_included": false,
+  "gold_labels_included": false,
+  "proposed_return_by": "2026-11-23T12:00:00+01:00",
+  "review_window_confirmed": false,
+  "capacity_confirmed": false,
+  "completed_reviews": 0,
+  "distinct_entity_pairs_assigned_across_a_b_c": 13,
+  "additional_distinct_pairs_needed_to_reach_20": 7
+}

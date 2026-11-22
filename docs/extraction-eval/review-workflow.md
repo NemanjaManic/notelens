@@ -155,6 +155,15 @@ team confirmed Goran for 034, Sara for 036 and Nemanja for 038. The individual
 private handoffs contain each assigned canonical text and its metadata. Hold the
 primary labels until each reviewer returns their independent record.
 
+Goran confirmed receiving and opening 034 and reported its canonical SHA-256
+`a96c3c6d40f221286b2063367350a1d65afd29494376804e908ada042ce1f44f`.
+D matched the reported digest to the supplemental allocation. His prior
+primary-label exposure declaration and return date remain pending. This is an
+access receipt, with zero submitted reviews or added independent-review credit.
+Goran also acknowledged the one-to-one private submission route and will return
+001, 004 and 007 before receiving their primary labels, followed by his primary
+package. See the [034 access receipt](../../eval/reports/development/d013-goran-034-access-receipt-v1.json).
+
 On 2026-11-22, Sara returned her reviewed 036 submission v2. D verified its
 canonical spans and its link to the superseded v1 record. The v2 clarification
 retains separate planned counseling and consult mentions and a hypothetical
