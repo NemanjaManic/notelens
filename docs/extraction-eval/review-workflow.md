@@ -30,6 +30,16 @@ against the frozen allocation. D checked all 271 mention spans and 393 evidence
 spans against the canonical texts. All 27 open questions have source-grounded
 proposals ready for human adjudication.
 
+On 2026-11-22, Sara confirmed Milica's access to Nemanja's 13 canonical texts.
+D reopened the local private packet and matched all 13 UTF-8 texts, document
+IDs and SHA-256 digests to the frozen allocation. A fresh check of Nemanja's
+already-received reviewed ZIP matched its archive digest and six listed file
+digests. All 271 mention spans and 393 evidence spans matched the canonical
+texts. Sara approved Nemanja's existing direct private chat with Milica for
+any revised D-013 packet, with an updated submission manifest and SHA-256
+checksums. Sara and Goran still need to confirm the shared private route for
+team-reviewed submissions and the pinned passages packet.
+
 The [D-013 intake receipt](../../eval/reports/development/d013-member-a-intake-v1.json)
 identifies the four counterparts from C. D verified the updated drafts for 000,
 003, 006 and 010 against the supplied canonical texts and compared them with A's
@@ -49,6 +59,16 @@ Separate local draft forms are ready for Milica's review and submission.
 The [verification receipt](../../eval/reports/development/d012-member-d-packet-verification-v1.json)
 records the checks and counts. The frozen assignment manifest preserves the
 original allocation checkpoint.
+
+### Goran's development packet
+
+D verified Goran's ten frozen primary assignments, 020 through 029, and three
+independent reviews, 001, 004 and 007. Goran's allocation CSV contains the role,
+assignment ID, document ID and canonical SHA-256 for each of these 13 rows.
+Goran reported that all 13 canonical hashes in his ZIP matched the frozen
+allocation. Sara's confirmation of the authorized package and approved private
+retrieval route remains pending. Hold the three primary label records until
+Goran submits his independent reviews.
 
 ## Per-assignment procedure
 
@@ -86,10 +106,32 @@ The user accepted these path conventions. D changes only D's member directory an
 D-012 is complete when Milica's ten primary annotations and three assigned
 independent reviews are delivered through the approved private route. The
 submission folder has separate `primary` and `reviews` subfolders and a root
-`submission-manifest.json`. Milica's records are prepared and verified locally.
+`submission-manifest.json`. Nemanja confirmed receipt and verification on
+2026-11-22. Goran confirmed readability and the listed hashes. Sara also
+confirmed receipt, readability and verified checksums. D recorded
+[completion](../../eval/reports/development/d012-private-submission-receipt-v1.json).
+The source-gap question on 005 remains under D-013.
 
 Independent reviews by other members of selected D primary annotations contribute
 to D-013's team-wide minimum of ten independent reviews. Milica reported that the
 team confirmed Goran for 034, Sara for 036 and Nemanja for 038. The individual
 private handoffs contain each assigned canonical text and its metadata. Hold the
 primary labels until each reviewer returns their independent record.
+
+On 2026-11-22, Sara returned her reviewed 036 submission v2. D verified its
+canonical spans and its link to the superseded v1 record. The v2 clarification
+retains separate planned counseling and consult mentions and a hypothetical
+primary-care referral. The paired comparison is ready for D-013 adjudication.
+
+Nemanja returned his reviewed 038 submission v2 and confirmed prior exposure
+to the primary labels. D verified all ten package checksums, the frozen
+assignment and canonical text, and the exact spans of all 24 secondary mentions
+and 24 evidence citations. D paired it with Milica's submitted primary record
+and queued its four open questions for human adjudication. It is a non-blinded
+secondary review with zero credit toward the ten-review independent minimum.
+Nemanja reconfirmed that v2 was submitted. Assignment 038 has no outstanding
+submission request for him. D prepared proposed decisions for all four
+questions in the private adjudication workspace with exact source anchors.
+If the team needs a replacement to reach that minimum, arrange a reviewer
+without prior label exposure for 038 or another eligible assignment through
+the approved private workflow.

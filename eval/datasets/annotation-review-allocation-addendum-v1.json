@@ -1,0 +1,41 @@
+{
+  "version": "d003-review-allocation-addendum-v1",
+  "date": "2026-11-22",
+  "status": "supplemental_allocation_team_confirmation_reported_by_milica",
+  "base_allocation_version": "assignment-proposal-v1",
+  "base_allocation_sha256": "7b7cc6d3c9cb8afd4455d48075b24e8579f7a78e49295decfc09a9f04aed32a6",
+  "source_version": "c002-d002-development-v1",
+  "source_manifest_sha256": "e8596143168c2631eebb60ba080f996d0f9a13efa6d236ceae1de35eaa2769c6",
+  "independent_review_assignments": [
+    {
+      "assignment_id": "assignment-034",
+      "doc_id": "mtsamples-a92cb78569f46060-147",
+      "group_id": "group-6d91ebccfbc88b7f86cc197bcc2fb6a80be87d4c06245a30bc85f456e9c4e634",
+      "text_sha256": "a96c3c6d40f221286b2063367350a1d65afd29494376804e908ada042ce1f44f",
+      "primary": "member-d",
+      "reviewer": "member-b",
+      "purpose": "D-013",
+      "portion": "development"
+    },
+    {
+      "assignment_id": "assignment-036",
+      "doc_id": "mtsamples-a92cb78569f46060-2868",
+      "group_id": "group-e78c1b91935012b8d4fee8df824652d31ef203696abb24a23f44f48b542d9268",
+      "text_sha256": "d513d7000a05c0c9ba0c4d0493fe31bdfb0fa8fedf1dd36b9916be0600e6e1dc",
+      "primary": "member-d",
+      "reviewer": "member-c",
+      "purpose": "D-013",
+      "portion": "development"
+    },
+    {
+      "assignment_id": "assignment-038",
+      "doc_id": "mtsamples-a92cb78569f46060-3646",
+      "group_id": "group-6a5206893f0fe6a1237f619752c207ae57e3bb5db954ffc2524caca959e0909d",
+      "text_sha256": "6d261e8c9f9e400578a6f04d36a8d611271ba530dbd941207f609c9a1d3fc828",
+      "primary": "member-d",
+      "reviewer": "member-a",
+      "purpose": "D-013",
+      "portion": "development"
+    }
+  ]
+}
