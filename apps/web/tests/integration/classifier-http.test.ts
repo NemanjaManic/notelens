@@ -9,11 +9,11 @@ import { validateJson } from '@notelens/contracts/v1';
 import type { ClassificationResult, HealthResult, PreparedDocument } from '@notelens/contracts/v1';
 import documents from '../../../../contracts/v1/fixtures/documents.json' with { type: 'json' };
 import payloads from '../../../../contracts/v1/fixtures/payloads.json' with { type: 'json' };
-import { classifierTestClient } from '../../src/lib/clients/classifier-test-client.ts';
+import { classifierClient } from '../../src/lib/clients/classifier-client.ts';
 import { canonicalText } from '../../src/lib/documents/canonical.ts';
 
 type Example = { document: PreparedDocument; status: 'supported' | 'uncertain'; category: ClassificationResult['category'] };
-type Target = Parameters<typeof classifierTestClient>[0];
+type Target = Parameters<typeof classifierClient>[0];
 type Fault = 'none' | 'not-ready' | 'request-id' | 'document-id' | 'digest' | 'error-id';
 
 const categories = ['Cardiovascular / Pulmonary', 'Orthopedic', 'Gastroenterology', 'Neurology', 'Urology'];
@@ -94,7 +94,7 @@ async function startFixture(t: TestContext) {
 }
 
 async function smoke(t: TestContext, target: Target, examples: Example[]) {
-  const client = classifierTestClient(target);
+  const client = classifierClient(target);
   await t.test('accepts authenticated readiness for the selected mode and model', async () => {
     const result = await client.readiness();
     assert.ok(result.kind === 'accepted', 'Classifier readiness failed.');
@@ -118,7 +118,7 @@ async function smoke(t: TestContext, target: Target, examples: Example[]) {
   }
 
   await t.test('rejects a wrong bearer token for readiness and classification without exposing its response', async () => {
-    const denied = classifierTestClient({ ...target, token: randomUUID() });
+    const denied = classifierClient({ ...target, token: randomUUID() });
     for (const outcome of [await denied.readiness(), await denied.classify(examples[0].document)]) {
       assert.ok(outcome.kind === 'unauthorized' && Object.keys(outcome).length === 1, 'Expected a redacted authorization failure.');
     }
@@ -164,7 +164,7 @@ if (profile === 'fitted') {
     const target = { profile, port: Number(port), token, modelVersion } as const;
     await smoke(t, target, examples);
     await t.test('rejects readiness and classification for an unexpected fitted model version', async () => {
-      const wrongVersion = classifierTestClient({ ...target, modelVersion: `${modelVersion}-unexpected` });
+      const wrongVersion = classifierClient({ ...target, modelVersion: `${modelVersion}-unexpected` });
       assert.ok((await wrongVersion.readiness()).kind === 'invalid');
       assert.ok((await wrongVersion.classify(examples[0].document)).kind === 'invalid');
     });
@@ -174,7 +174,7 @@ if (profile === 'fitted') {
     assert.equal(profile, 'fixture', 'Select either the fixture or fitted classifier test profile.');
     const { target, setFault } = await startFixture(t);
     await smoke(t, target, fixtureExamples);
-    const client = classifierTestClient(target);
+    const client = classifierClient(target);
     const { document } = fixtureExamples[0];
 
     await t.test('distinguishes an authenticated not-ready health response', async () => {
@@ -186,7 +186,7 @@ if (profile === 'fitted') {
     for (const fault of ['request-id', 'document-id', 'digest', 'error-id'] as const) {
       await t.test(`rejects a mismatched ${fault} over HTTP`, async () => {
         setFault(fault);
-        const caller = fault === 'error-id' ? classifierTestClient({ ...target, token: randomUUID() }) : client;
+        const caller = fault === 'error-id' ? classifierClient({ ...target, token: randomUUID() }) : client;
         const outcome = await caller.classify(document);
         assert.ok(outcome.kind === 'invalid' && Object.keys(outcome).length === 1, 'Expected a redacted response rejection.');
         setFault('none');
@@ -194,7 +194,7 @@ if (profile === 'fitted') {
     }
 
     await t.test('the fitted profile rejects mock readiness and classification', async () => {
-      const fitted = classifierTestClient({ ...target, profile: 'fitted', modelVersion: 'expected-fitted-model' });
+      const fitted = classifierClient({ ...target, profile: 'fitted', modelVersion: 'expected-fitted-model' });
       assert.ok((await fitted.readiness()).kind === 'invalid');
       assert.ok((await fitted.classify(document)).kind === 'invalid');
     });

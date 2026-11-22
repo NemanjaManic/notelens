@@ -13,8 +13,8 @@ type Reply = { status: number; headers: [string, string][]; json: string };
 const readyPath = '/health/ready';
 const classify = OPERATIONS.classify;
 
-/** Server-side loopback client for the explicit classifier integration test profiles. */
-export function classifierTestClient(target: Target) {
+/** Server-side loopback client for the classifier integration profiles. */
+export function classifierClient(target: Target) {
   const { port, token } = target;
   if (!Number.isInteger(port) || port < 1 || port > 65535 || !/^\S+$/.test(token) ||
       (target.profile === 'fitted' && !target.modelVersion.trim())) {
@@ -95,4 +95,17 @@ export function classifierTestClient(target: Target) {
       }
     },
   };
+}
+
+export function localFittedClassifier(env: NodeJS.ProcessEnv = process.env) {
+  if (env.NOTELENS_LOCAL_CLASSIFIER_PROFILE !== 'fitted') return null;
+  const port = env.NOTELENS_LOCAL_CLASSIFIER_PORT;
+  const modelVersion = env.NOTELENS_LOCAL_CLASSIFIER_MODEL_VERSION;
+  const token = env.NOTELENS_CLASSIFIER_SERVICE_TOKEN;
+  if (env.NOTELENS_MODE !== 'mock' || !/^http:\/\/localhost:[1-9][0-9]{0,4}$/.test(env.NOTELENS_SESSION_ORIGIN ?? '') ||
+      !port || !/^[1-9][0-9]{0,4}$/.test(port) || Number(port) > 65535 ||
+      !token || !/^\S+$/.test(token) || !modelVersion?.trim()) {
+    return { client: null };
+  }
+  return { client: classifierClient({ profile: 'fitted', port: Number(port), token, modelVersion }) };
 }

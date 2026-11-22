@@ -1,9 +1,9 @@
 # B-005 classifier integration status
 
-**Status, 2026-11-21.** B-005 remains open. This branch adds a server-side classifier
-test client and a loopback HTTP suite. The application and hosted CI continue in mock
-mode. Literature, extraction and document answers stay on their existing mocks while
-A-008 and D-005 are open.
+**Status, 2026-11-22.** B-005 remains open. The report can use the fitted classifier
+through an opt-in local profile. The default application and hosted CI run in mock
+mode. Literature, extraction and document answers use their existing mocks while A-008
+and D-005 are open.
 
 ## Published classifier evidence
 
@@ -93,6 +93,48 @@ Document ID, canonical text SHA-256, request-ID correlation, repeatability, and
 listener cleanup passed. The wrong-token and wrong-model-version cases were rejected.
 B accepts these results as its C-007 adapter verification from Sara's run.
 
-D's evaluator confirmation remains pending. B-005 still needs the classifier
-connected through the app's explicit integration profile and the remaining
-service integrations after A-008 and D-005.
+On 2026-11-22 Milica reported a passing D evaluator run at `585ef0f` against the same
+C-005 bundle, with `supported / Orthopedic` and `uncertain / null`. Both calls reached the
+web mock consumer over HTTP and returned 200 from the classifier. That consumer rejected
+the fitted responses with `MOCK_MODE_REQUIRED`. The opt-in profile below is the report
+path for those responses.
+
+## Opt-in report profile
+
+Start Sara's pinned classifier on loopback with the reviewed bundle and a temporary
+service token. Build the web app from this checkout, then use a PowerShell session that
+already holds the same server-side `NOTELENS_CLASSIFIER_SERVICE_TOKEN`. From the
+repository root, use the model version above and the classifier's loopback port:
+
+```powershell
+$env:NEXT_TELEMETRY_DISABLED = '1'
+npm.cmd run build
+if ($LASTEXITCODE -ne 0) { throw 'The web build failed.' }
+$env:NOTELENS_LOCAL_CLASSIFIER_PORT = '8002'
+$env:NOTELENS_LOCAL_CLASSIFIER_MODEL_VERSION = 'c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc'
+& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/start_mock.py --fitted-classifier
+```
+
+Open the printed localhost URL. The report badge identifies the local classifier profile
+and labels findings, summaries and answers as mocked. A classifier outage or missing
+profile configuration leaves the specialty unavailable. The regular launcher without
+the flag starts the all-mock workspace, independent of the classifier settings in the
+parent shell.
+
+The local report check uses the built app and real loopback HTTP with a test double
+that supplies fitted-classifier response shapes. It verifies report HTTP 200 for
+`supported / Orthopedic`, `uncertain` with no selected specialty, an unavailable
+classifier, and rejection of a mismatched digest. It also checks session isolation,
+request IDs, and that the service token stays server-side.
+
+```powershell
+& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/check_classifier_report.py
+```
+
+The fitted C-005 adapter evidence above came from Sara's run before the app wiring.
+The fitted bundle is absent from this checkout. To verify the new report path against
+that bundle, use one permitted English sample for each outcome that passes the app's
+language admission and has a confirmed fitted response. The earlier short supported
+sample and synthetic uncertain probe fail the app's language admission. The joint
+fitted report replay and the remaining service integrations after A-008 and D-005
+are still pending.
