@@ -1,0 +1,380 @@
+{
+  "version": "d007-final-author-review-plan-v2",
+  "date": "2026-11-22",
+  "source": "Nemanja (member A), proposal relayed by Milica",
+  "status": "proposed_pending_availability_split_and_private_access_approval",
+  "previous_proposal": {
+    "path": "eval/reports/development/d007-final-author-review-plan-v1.json",
+    "sha256": "c6814fe1792c3b0d99ba5b2fa5a8ff0093dd2c95583cd3e8eaea3ffe13af0c6c"
+  },
+  "development_qa_manifest": {
+    "version": "d007-a008-development-qa-manifest-v1",
+    "path": "eval/references/qa/d007-a008-development-qa-manifest-v1.json",
+    "sha256": "f1503766dba3819da38e6fd178fa5ec0e364fdbfe74ad026af98399e1504a178"
+  },
+  "proposed_split": {
+    "development": 54,
+    "unseen_final": 26,
+    "final_route_counts": {
+      "document_only": 8,
+      "literature_only": 8,
+      "mixed": 8,
+      "out_of_scope": 2
+    },
+    "planned_multi_source_supported": 9,
+    "planned_insufficient_evidence_supported": 3
+  },
+  "workload": {
+    "Sara": {
+      "author": 13,
+      "independent_review": 13
+    },
+    "Goran": {
+      "author": 13,
+      "independent_review": 13
+    }
+  },
+  "private_access_proposal": {
+    "proposed_custodian": {
+      "member": "member-c",
+      "name": "Sara"
+    },
+    "approved_upload_location": null,
+    "confirmed_folder_owner": null,
+    "confirmed_named_permissions": null,
+    "authoring_access": "Sara and Goran only, via named accounts in a separate restricted final-QA folder.",
+    "evaluation_access": "Release to A/D via the agreed route after manifest and configuration freeze."
+  },
+  "before_freeze": [
+    "Confirm the split, route counts, staffing, custodian and private permissions.",
+    "Keep all reviewed development cases, development reserves and exposed document families out of final.",
+    "Verify source-group separation and the reviewers' evidence coverage against the completed cases."
+  ],
+  "held_out_cases_attached": 0,
+  "slots": [
+    {
+      "case_slot": "F-DOC-01",
+      "route": "document_only",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      }
+    },
+    {
+      "case_slot": "F-DOC-02",
+      "route": "document_only",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      }
+    },
+    {
+      "case_slot": "F-DOC-03",
+      "route": "document_only",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      }
+    },
+    {
+      "case_slot": "F-DOC-04",
+      "route": "document_only",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      }
+    },
+    {
+      "case_slot": "F-DOC-05",
+      "route": "document_only",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      }
+    },
+    {
+      "case_slot": "F-DOC-06",
+      "route": "document_only",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      }
+    },
+    {
+      "case_slot": "F-DOC-07",
+      "route": "document_only",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "required_evidence": "Insufficient within the supported route"
+    },
+    {
+      "case_slot": "F-DOC-08",
+      "route": "document_only",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "required_evidence": "Insufficient within the supported route"
+    },
+    {
+      "case_slot": "F-LIT-01",
+      "route": "literature_only",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      }
+    },
+    {
+      "case_slot": "F-LIT-02",
+      "route": "literature_only",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      }
+    },
+    {
+      "case_slot": "F-LIT-03",
+      "route": "literature_only",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      }
+    },
+    {
+      "case_slot": "F-LIT-04",
+      "route": "literature_only",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      }
+    },
+    {
+      "case_slot": "F-LIT-05",
+      "route": "literature_only",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      }
+    },
+    {
+      "case_slot": "F-LIT-06",
+      "route": "literature_only",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      }
+    },
+    {
+      "case_slot": "F-LIT-07",
+      "route": "literature_only",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "required_evidence": "Insufficient within the supported route"
+    },
+    {
+      "case_slot": "F-LIT-08",
+      "route": "literature_only",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "required_distinct_literature_topics": 2
+    },
+    {
+      "case_slot": "F-MIX-01",
+      "route": "mixed",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "required_evidence": "Independent support from document and literature sources"
+    },
+    {
+      "case_slot": "F-MIX-02",
+      "route": "mixed",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "required_evidence": "Independent support from document and literature sources"
+    },
+    {
+      "case_slot": "F-MIX-03",
+      "route": "mixed",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "required_evidence": "Independent support from document and literature sources"
+    },
+    {
+      "case_slot": "F-MIX-04",
+      "route": "mixed",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "required_evidence": "Independent support from document and literature sources"
+    },
+    {
+      "case_slot": "F-MIX-05",
+      "route": "mixed",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "required_evidence": "Independent support from document and literature sources"
+    },
+    {
+      "case_slot": "F-MIX-06",
+      "route": "mixed",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "required_evidence": "Independent support from document and literature sources"
+    },
+    {
+      "case_slot": "F-MIX-07",
+      "route": "mixed",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "required_evidence": "Independent support from document and literature sources"
+    },
+    {
+      "case_slot": "F-MIX-08",
+      "route": "mixed",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "required_evidence": "Independent support from document and literature sources"
+    },
+    {
+      "case_slot": "F-OOS-01",
+      "route": "out_of_scope",
+      "author": {
+        "member": "member-c",
+        "name": "Sara"
+      },
+      "independent_reviewer": {
+        "member": "member-b",
+        "name": "Goran"
+      }
+    },
+    {
+      "case_slot": "F-OOS-02",
+      "route": "out_of_scope",
+      "author": {
+        "member": "member-b",
+        "name": "Goran"
+      },
+      "independent_reviewer": {
+        "member": "member-c",
+        "name": "Sara"
+      }
+    }
+  ]
+}

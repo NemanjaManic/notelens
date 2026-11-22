@@ -132,3 +132,89 @@ slices against the pinned MedlinePlus snapshot. Reused document and literature
 sources connect the 74 candidates into 14 groups, the largest with 23 cases.
 Keep these exposed groups in development. The held-out inventory still needs
 unexposed inputs and an agreed split.
+
+## Joint A/D reference decisions
+
+Nemanja confirmed the nine development ratings and four source-reference
+decisions on 2026-11-22. The [development QA manifest](../../eval/references/qa/d007-a008-development-qa-manifest-v1.json)
+applies the cause-only alternate for A-QA-02 and the exact A-QA-09 topic 4452
+slice `[0,105)`. The review establishes source support for these development
+references. It does not establish clinical validation.
+
+The input has 75 QA rows. `D-DOC/limited-04/absent` has the same document digest,
+normalized question and outcome as `D-DOC/negation-01/absent`. The latter is the
+retained development reserve. The former is recorded as an excluded duplicate.
+The proposed 54 selected candidates and 20 reserves account for all 74 unique
+rows. All of these source families stay in development.
+
+The A/D split proposal has 54 development cases and 26 unseen final cases. The
+final proposal is eight document-only, eight literature-only, eight mixed and
+two out-of-scope cases. At least nine cases in the supported routes should
+require multiple sources and at least three should have insufficient evidence.
+B's agreement and the final source and review evidence remain pending before
+freeze.
+
+Nemanja confirmed the v2 handoff ZIP, the duplicate exclusion and the nine
+joint references on 2026-11-22. D independently checked both identical ZIP
+copies at SHA-256 `c05f7a2001f94fd7f1df0c2ac63f3ccab63cd5ed46f480da20d686e8041c6b7c`.
+All ten file checksums passed. D reproduced 75 raw rows, 74 unique candidates,
+54 proposed selections, and 20 reserves. The nine ratings and part states
+match A's source review. D matched 12 original and 15 current reference
+entries to the pinned passages, including A-QA-09 topic 4452 at `[0,105)`.
+The eight targeted QA tests passed.
+
+## B's coverage check and final source separation
+
+Goran checked the [26 proposed final slots](../../eval/reports/development/d007-final-author-review-plan-v2.json)
+and confirmed the coverage counts. His availability for 13 author assignments
+and 13 independent reviews is pending. Sara accepted her assignments and the
+custodian role. She supplied the restricted Drive link and confirmed that she
+owns the folder and Goran is its named editor. During authoring and review,
+these are the two accounts with access. The split still awaits explicit
+approval. B's key-free app-routing check can proceed with development or
+synthetic inputs.
+
+D rebuilt the development source inventory from its pinned inputs. The 54
+proposed selections and 20 reserves account for all 74 unique candidates and
+include all nine reviewed cases. The excluded duplicate belongs to an exposed
+development family. Including accepted reference alternatives and additional
+context, the development inventory contains 14 connected source groups, 23
+distinct canonical document digests, and 12 distinct literature passage IDs
+across 12 topics.
+
+Before authoring, Sara and Goran should list each slot's intended sources in
+the restricted folder and compare them with the pinned [development exclusions](../../eval/reports/development/d007-development-source-exclusions-v1.json).
+Sara confirmed receipt of that list and reported zero of 26 slots checked.
+The [source guidance](d007-final-source-intake.md) and [blank intake template](../../eval/reports/development/d007-final-source-intake-template-v1.json)
+pin the exact v2 staffing plan and the existing MedlinePlus passage snapshot.
+Check document families and canonical digests, and literature origins,
+passages and corpus topics. The custodian can share the source-list version,
+digest, number of checked slots and overlap disposition with D. The planned
+source list is pending. Recheck the completed inventory before freezing,
+including any source substitutions, and record the result and manifest
+versions. A/D evaluation access follows configuration and manifest freeze.
+
+## A-008 pinned RAG handoff
+
+Nemanja selected `d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4` for the key-free
+A-008 app rehearsal. D retrieved the exact GitHub archive and installed the
+locked indexing dependencies in an isolated Python 3.13.7 environment. From
+the repository root, A's commands are:
+
+```powershell
+uv sync --locked --directory services/rag --python 3.13 --extra indexing
+uv run --locked --offline --directory services/rag --python 3.13 --extra indexing python -B ../../docs/rag/evaluation/serve_indexed_demo.py
+```
+
+The launcher defaults to `127.0.0.1:8001`. Set `NOTELENS_DEMO_RAG_PORT=8001`
+in the web process and match the service tokens if configured. Append
+`--check` for the standalone TCP smoke. D's indexed check stopped before
+HTTP startup because Windows Application Control blocked Python's `_sqlite3`
+extension during Chroma initialization. The 26 targeted failure, runtime and
+non-indexed HTTP tests passed on repeat after an initial readiness timeout.
+
+B owns application acceptance. Record the app commit and the full, partial
+and insufficient-evidence outcomes. In the mixed route, verify that supported
+document claims and citations survive insufficient literature evidence and an
+unavailable RAG service. Record those two scenarios separately. A-008 also
+awaits the shared benchmark freeze.
