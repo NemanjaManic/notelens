@@ -38,10 +38,10 @@ digests. All 271 mention spans and 393 evidence spans matched the canonical
 texts. Sara approved Nemanja's existing direct private chat with Milica for
 any revised D-013 packet, with an updated submission manifest and SHA-256
 checksums. Sara approved extending the one-to-one private chat route to the
-other team members from C's side, with a submission manifest and checksums
-for every package. Team-wide confirmation from Goran remains pending.
-Nemanja still needs to confirm the approved retrieval location for the pinned
-passages packet.
+whole team, and Milica relayed the team's confirmation. Each member sends
+their reviewed package directly to Milica in a one-to-one private chat with
+the submission manifest and SHA-256 checksums. Nemanja still needs to confirm
+the approved retrieval location for the pinned passages packet.
 
 The [D-013 intake receipt](../../eval/reports/development/d013-member-a-intake-v1.json)
 identifies the four counterparts from C. D verified the updated drafts for 000,
