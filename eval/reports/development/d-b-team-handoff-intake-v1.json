@@ -1,0 +1,77 @@
+{
+  "version": "d-b-team-handoff-intake-v1",
+  "date": "2026-11-22",
+  "inputs": {
+    "goran_handoff_sha256": "101aa6cdf0a5377447d97aa7585df24443e694b4bc67b1f7c498f8a820680d90",
+    "goran_screenshot_sha256": "dc0fcd3be4af78a3844e57382cdb5d0031649b02fbab18beca1fbdd82c4ab76c"
+  },
+  "b005_classifier": {
+    "selected_d_pair": "eval/reports/development/c007-b005-admitted-synthetic-examples-v1.json",
+    "pair_sha256": "fcef39b7a13d056b8fcf85e837756ab30ef70db3491c592ffa2dea74c6752239",
+    "b_built_app_admission": {
+      "source": "goran_handoff",
+      "http_status": 201,
+      "matching_canonical_digests": 2
+    },
+    "examples": [
+      {
+        "id": "b005-supported-synthetic-v1",
+        "canonical_sha256": "1e38492039e7589e4d52423d038fb46a850a966848633221af56d4cb18b1c6d6",
+        "expected_report_status": "supported",
+        "expected_category": "Orthopedic"
+      },
+      {
+        "id": "b005-uncertain-synthetic-v1",
+        "canonical_sha256": "5ca32e86251ef3344d007c47ee0a955c85f73ba138f71a231fa2fb03405cbbe2",
+        "expected_report_status": "uncertain",
+        "expected_category": null
+      }
+    ],
+    "first_replay": {
+      "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+      "required_startup_manifest_sha256": "e79fff1c8c8c3b1b14afa32d02bc44f94680bf09902cb82cfa5e4dd71b967f5f",
+      "required_artifact_sha256": "3bbf1c648c6ebd69036ee933c58b7e96cf1a0f5bf60975d1cafe7f59ec09fd6a",
+      "proposed_host": "Sara's Windows machine using the pinned owner bundle",
+      "status": "b_fitted_http_to_rendered_report_pending"
+    },
+    "second_replay": {
+      "model_version": "c008-short-text-matched-v1-ec4f77b94c735790aca7cf8a3eb8a83cdc4e263ce2ad56e599e477f219fe6e8d",
+      "published_frozen_manifest_sha256": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+      "published_artifact_sha256": "5951f751949747cb3c251987b1503ffaf1d79df9933862c7a692f01a5d65622c",
+      "published_manifest_stage": "frozen",
+      "status": "awaiting_exact_owner_startup_manifest_and_launch_instructions"
+    }
+  },
+  "b011": {
+    "canonical_text_count_reported_verified_by_b": 13,
+    "primary": 10,
+    "independent_reviews": 3,
+    "authorized_packet_private_route": "awaiting_sara_confirmation",
+    "primary_labels_held_for": [
+      "assignment-001",
+      "assignment-004",
+      "assignment-007"
+    ]
+  },
+  "d012": {
+    "status": "submitted_and_confirmed",
+    "receipt": "eval/reports/development/d012-private-submission-receipt-v1.json"
+  },
+  "d013": {
+    "a_canonical_packet_received_and_verified": true,
+    "canonical_digests_verified": 13,
+    "mentions_verified": 271,
+    "evidence_spans_verified": 393,
+    "d012_question_carried_to_d013": "assignment-005",
+    "approved_delivery_location_for_team_records": "awaiting_confirmation"
+  },
+  "d004_d005": {
+    "d004_status": "paused_pending_operator_route_model_access_and_cumulative_balance",
+    "approved_max_requests": 2,
+    "approved_retries": 0,
+    "cumulative_usd_cap": "0.10",
+    "model": "gpt-6-luna",
+    "mock_service_commit": "e61140d",
+    "d005_provider_source_review": "pending_d004"
+  }
+}

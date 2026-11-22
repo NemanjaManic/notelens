@@ -73,6 +73,51 @@ current B web consumer denies fitted responses before either state can appear
 in the report panel. The [owner-bundle receipt](../../eval/reports/development/c007-owner-c005-transport-v1.json)
 preserves the exact pins and observed outcomes.
 
+## Submitted-text examples for B-005
+
+On 2026-11-22, D verified two English synthetic examples through
+`prepareSubmitted` on the pinned B baseline `f8bba16`. Both passed
+`franc-6.2.0-en-v1` through the normal synthetic text submission path. D sent
+the resulting prepared documents to Sara's pinned C-005 classifier at `7181a1a`.
+Each returned HTTP 200 twice with identical results and matching document ID,
+canonical text SHA-256, model version and five scores in contract order. The
+knee note returned `supported` and `Orthopedic`. The follow-up note returned
+`uncertain` and a null category. The run used zero provider calls.
+
+The [example receipt](../../eval/reports/development/c007-b005-admitted-synthetic-examples-v1.json)
+contains the exact paste text, expected responses and report states. B's joint
+check of the current opt-in app and rendered report remains open.
+
+Goran reported that both exact examples also returned HTTP 201 through the
+built app's submitted-text route, with matching canonical digests. D selected
+that same pair for the C-005 replay first, using Sara's pinned Windows bundle.
+The same inputs are pinned for the C-008 follow-up. See the
+[team handoff record](../../eval/reports/development/d-b-team-handoff-intake-v1.json).
+
+## Joint C-005 and C-008 report preflight
+
+Sara offered to host the joint run on Windows and reported verifying both
+pinned classifiers over HTTP with D's exact synthetic pair. D independently
+replayed that pair through baseline text admission and authenticated fitted
+C-005 inference. All four classification requests returned HTTP 200. The two
+per case were identical and matched the expected identity, model version and
+ordered scores. The knee note was `supported` and `Orthopedic`. The follow-up
+note was `uncertain` with a null category, recorded as an abstention.
+
+D verified the supplied C-008 development startup manifest against SHA-256
+`affe7af9e2d0f8df46d25642fd2e0cbf0ff3e45f2a8576b9c87cc2cc257d7f32`.
+Its parsed fields match the published frozen manifest except for `stage`.
+Both pin the same model version and artifact SHA-256. The startup command
+uses `.cache/c008-short-text-v1/matched-policy`. The matching model file is
+unavailable in the local D workspace, so D's independent C-008 replay is
+pending. Sara has both bundles for the hosted run.
+
+Goran's exact opt-in B-005 commit and Windows startup instructions are needed
+to check the report. Use C-005 first and then C-008 on Sara's host. For both,
+record normal admission, classifier HTTP identity, model version, and the
+two rendered report states. The [preflight receipt](../../eval/reports/development/b005-c005-c008-joint-preflight-v1.json)
+records the pins and separates D's observed results from Sara's report.
+
 ## Reproduce the evaluator check
 
 Start C's authenticated loopback launcher using the startup instructions in

@@ -1,0 +1,109 @@
+{
+  "version": "c007-b005-admitted-synthetic-examples-v1",
+  "date": "2026-11-22",
+  "purpose": "Synthetic examples for B-005 joint HTTP and rendered report verification",
+  "admission_commit": "f8bba16397c49f9e58233a3854ca1c0492244048",
+  "admission_entry_point": "prepareSubmitted",
+  "classifier_commit": "7181a1abdf7831bb247510821c886b0e031d5de0",
+  "evaluator_commit": "585ef0f",
+  "pinned_bundle": {
+    "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+    "manifest_sha256": "e79fff1c8c8c3b1b14afa32d02bc44f94680bf09902cb82cfa5e4dd71b967f5f",
+    "artifact_sha256": "3bbf1c648c6ebd69036ee933c58b7e96cf1a0f5bf60975d1cafe7f59ec09fd6a"
+  },
+  "scope": "Normal submitted-text admission on the pinned B baseline, then authenticated loopback inference using the produced documents.",
+  "joint_report_verification": "pending_b005_current_opt_in_app_http_and_rendered_report_run",
+  "provider_calls": 0,
+  "examples": [
+    {
+      "id": "b005-supported-synthetic-v1",
+      "text": "The patient reports pain and swelling in the right knee after a sports injury. She has trouble walking and bending the knee. The orthopedic examination describes tenderness around the knee and pain with movement.",
+      "canonical_text_sha256": "1e38492039e7589e4d52423d038fb46a850a966848633221af56d4cb18b1c6d6",
+      "admission": {
+        "source": "synthetic_text",
+        "outcome": "accepted",
+        "language": "en",
+        "policy_version": "franc-6.2.0-en-v1",
+        "reason": null
+      },
+      "expected_http": {
+        "status_code": 200,
+        "status": "supported",
+        "category": "Orthopedic",
+        "mode": "live",
+        "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+        "score_kind": "probability",
+        "score_labels": [
+          "Cardiovascular / Pulmonary",
+          "Orthopedic",
+          "Gastroenterology",
+          "Neurology",
+          "Urology"
+        ],
+        "identity_rule": "Echo the app-prepared doc_id and canonical text SHA-256."
+      },
+      "observed_test": {
+        "repeatable_http_responses": 2,
+        "doc_id_matches_admitted_document": true,
+        "canonical_sha256_matches": true,
+        "observed_score_values": [
+          0.09749691095070978,
+          0.6747041376018149,
+          0.08928088981475131,
+          0.06878418710842385,
+          0.06973387452430026
+        ]
+      },
+      "expected_report": {
+        "classification_status": "supported",
+        "category": "Orthopedic",
+        "outcome": "classified"
+      }
+    },
+    {
+      "id": "b005-uncertain-synthetic-v1",
+      "text": "The patient returned for a follow-up visit. No other details are available. The note does not say what was discussed or why the visit took place. The rest of the record was not provided.",
+      "canonical_text_sha256": "5ca32e86251ef3344d007c47ee0a955c85f73ba138f71a231fa2fb03405cbbe2",
+      "admission": {
+        "source": "synthetic_text",
+        "outcome": "accepted",
+        "language": "en",
+        "policy_version": "franc-6.2.0-en-v1",
+        "reason": null
+      },
+      "expected_http": {
+        "status_code": 200,
+        "status": "uncertain",
+        "category": null,
+        "mode": "live",
+        "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+        "score_kind": "probability",
+        "score_labels": [
+          "Cardiovascular / Pulmonary",
+          "Orthopedic",
+          "Gastroenterology",
+          "Neurology",
+          "Urology"
+        ],
+        "identity_rule": "Echo the app-prepared doc_id and canonical text SHA-256."
+      },
+      "observed_test": {
+        "repeatable_http_responses": 2,
+        "doc_id_matches_admitted_document": true,
+        "canonical_sha256_matches": true,
+        "observed_score_values": [
+          0.2850562905051594,
+          0.1560560739484263,
+          0.19202202042055594,
+          0.16495184308718927,
+          0.20191377203866914
+        ]
+      },
+      "expected_report": {
+        "classification_status": "uncertain",
+        "category": null,
+        "outcome": "abstained"
+      }
+    }
+  ]
+}

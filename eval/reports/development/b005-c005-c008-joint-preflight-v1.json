@@ -1,0 +1,128 @@
+{
+  "version": "b005-c005-c008-joint-preflight-v1",
+  "date": "2026-11-22",
+  "status": "d_preflight_complete_joint_opt_in_report_pending",
+  "examples": {
+    "path": "eval/reports/development/c007-b005-admitted-synthetic-examples-v1.json",
+    "sha256": "fcef39b7a13d056b8fcf85e837756ab30ef70db3491c592ffa2dea74c6752239"
+  },
+  "d_evaluator_commit": "585ef0f",
+  "c005": {
+    "admission_baseline_commit": "f8bba16397c49f9e58233a3854ca1c0492244048",
+    "classifier_commit": "7181a1abdf7831bb247510821c886b0e031d5de0",
+    "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+    "manifest_sha256": "e79fff1c8c8c3b1b14afa32d02bc44f94680bf09902cb82cfa5e4dd71b967f5f",
+    "artifact_sha256": "3bbf1c648c6ebd69036ee933c58b7e96cf1a0f5bf60975d1cafe7f59ec09fd6a",
+    "unauthenticated_readiness_status": 401,
+    "temporary_port_closed": true,
+    "observations": [
+      {
+        "example_id": "b005-supported-synthetic-v1",
+        "http_status": 200,
+        "identical_responses": 2,
+        "validated": [
+          "document_id",
+          "canonical_sha256",
+          "request_id",
+          "no_store",
+          "ordered_five_probabilities"
+        ],
+        "input": "synthetic",
+        "case": "supported",
+        "mode": "live",
+        "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+        "doc_id": "d45cf9e4-c642-4c9a-9fe7-5a40b17f32e4",
+        "text_sha256": "1e38492039e7589e4d52423d038fb46a850a966848633221af56d4cb18b1c6d6",
+        "status": "supported",
+        "category": "Orthopedic",
+        "outcome": "classified",
+        "score_kind": "probability",
+        "score_labels": [
+          "Cardiovascular / Pulmonary",
+          "Orthopedic",
+          "Gastroenterology",
+          "Neurology",
+          "Urology"
+        ],
+        "scores": [
+          0.09749691095070978,
+          0.6747041376018149,
+          0.08928088981475131,
+          0.06878418710842385,
+          0.06973387452430026
+        ],
+        "maximum_score_delta_from_prior_d_receipt": 0.0
+      },
+      {
+        "example_id": "b005-uncertain-synthetic-v1",
+        "http_status": 200,
+        "identical_responses": 2,
+        "validated": [
+          "document_id",
+          "canonical_sha256",
+          "request_id",
+          "no_store",
+          "ordered_five_probabilities"
+        ],
+        "input": "synthetic",
+        "case": "uncertain",
+        "mode": "live",
+        "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+        "doc_id": "166ac671-787e-4a51-98f9-4624a08413f5",
+        "text_sha256": "5ca32e86251ef3344d007c47ee0a955c85f73ba138f71a231fa2fb03405cbbe2",
+        "status": "uncertain",
+        "category": null,
+        "outcome": "abstained",
+        "score_kind": "probability",
+        "score_labels": [
+          "Cardiovascular / Pulmonary",
+          "Orthopedic",
+          "Gastroenterology",
+          "Neurology",
+          "Urology"
+        ],
+        "scores": [
+          0.2850562905051594,
+          0.1560560739484263,
+          0.19202202042055594,
+          0.16495184308718927,
+          0.20191377203866914
+        ],
+        "maximum_score_delta_from_prior_d_receipt": 0.0
+      }
+    ]
+  },
+  "c008": {
+    "startup_manifest_sha256": "affe7af9e2d0f8df46d25642fd2e0cbf0ff3e45f2a8576b9c87cc2cc257d7f32",
+    "startup_stage": "development",
+    "bundle_directory_on_owner_host": ".cache/c008-short-text-v1/matched-policy",
+    "published_manifest_sha256": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+    "published_stage": "frozen",
+    "manifest_semantic_difference": [
+      "stage"
+    ],
+    "model_version": "c008-short-text-matched-v1-ec4f77b94c735790aca7cf8a3eb8a83cdc4e263ce2ad56e599e477f219fe6e8d",
+    "artifact_sha256": "5951f751949747cb3c251987b1503ffaf1d79df9933862c7a692f01a5d65622c",
+    "owner_handoff": "Sara reported both pinned bundles verified over HTTP with the exact D pair.",
+    "d_fitted_replay": "pending_matching_local_artifact"
+  },
+  "joint_report": {
+    "host": "Sara's Windows machine",
+    "order": [
+      "C-005",
+      "C-008"
+    ],
+    "pending_from_goran": [
+      "opt-in B-005 commit",
+      "Windows build and startup steps"
+    ],
+    "checks_per_model": [
+      "Confirm the classifier commit, startup manifest, artifact digest and readiness model version.",
+      "Submit both exact examples through normal app admission. Record HTTP status, prepared document IDs and digests.",
+      "Check fitted HTTP 200, response identity, model version, score order and request correlation.",
+      "Verify both rendered report states and record any mismatch alongside the pinned app and model versions."
+    ],
+    "rendered_report_verified": false
+  },
+  "provider_calls": 0
+}
