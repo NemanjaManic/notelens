@@ -232,3 +232,34 @@ Both mixed runs preserved supported document claims and citation links, with
 separate notices for insufficient literature evidence and service unavailability.
 Record this as B's owner report. The shared benchmark manifest and configuration
 freeze remain open, so A-008 is not closed.
+
+## Frozen development handoff for A-008
+
+On 2026-11-22 D froze the 54-case development selection in
+[`d007-a008-development-qa-manifest-v2`](../../eval/references/qa/d007-a008-development-qa-manifest-v2.json).
+Its SHA-256 is
+`04d14df1a578e4dde2ebd17ef48fae3872e2924b8a0c9b211720bbf0f1aad1ee`.
+This supersedes v1 for development measurement and preserves its nine joint
+A/D reference decisions, alternatives and A-QA-09 topic 4452 slice `[0,105)`.
+The selection contains 27 document-only, nine literature-only and 18 mixed
+cases. All 20 reserves and the excluded duplicate remain development-only.
+
+D rebuilt the 74-candidate inventory from the pinned sources and verified the
+54 selected IDs, all source pins, 12 original citation slices and 15 current
+reference entries including alternatives and context. The nine literature
+references have joint A/D technical confirmation. Document and mixed references
+retain their synthetic-fixture provenance. This freeze adds no human quality
+ratings or provider-generated outputs.
+
+The private handoff `D007-A008-development-freeze-v3.zip` contains the frozen
+manifest, its pinned inputs and checksum list. Send it through the approved
+one-to-one private chat. No unseen final cases are included. Preserve the v1
+manifest and previous packages as historical artifacts.
+
+Nemanja's latest A-008 update identifies three remaining gates: this frozen
+development handoff, development measurement against it, and Goran's published,
+reviewed web-admission fix commit. The handoff is now prepared locally and still
+needs delivery. Development measurement and the admission-fix commit remain
+outstanding. A-011 retains the separate final RAG freeze and measurement.
+The final QA source checks, final manifest and system configuration are not
+frozen by this development handoff. A/D final access remains restricted.

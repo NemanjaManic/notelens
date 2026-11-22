@@ -1,5 +1,18 @@
 # Annotation Assignment and Independent Review Workflow
 
+### C-010 final ZIP resend verified on 2026-11-22
+
+Sara resent `NoteLens-C010-Sara-final-v1.zip` with SHA-256
+`1c45a159671fde474465daf91deb6c0769b91b73d97f0c4bbdeee771bacaeb75`.
+D verified all 12 listed checksums, including the submission manifest. Its
+SHA-256 remains `9d7e71d05cee8339d29b104be8117fc19ecc8ccb1417b9f62fad35ae113a6e48`.
+All ten primary records and the one secondary record are byte-identical to the
+previously verified final submission. Their 305 mention spans and 335 evidence
+spans retain the earlier canonical-source verification. Sara reconfirmed full
+document review. The resend adds no independent-review credit and does not
+change the seven existing C-010 paired comparisons. See the
+[resend receipt](../../eval/reports/development/d013-c010-final-resend-receipt-v1.json).
+
 **Owner:** D. **Status:** The user accepted the D-003 assignment and workflow proposal on 2026-11-20. The assignment manifest is frozen. Packet access is confirmed per member.
 
 ## Current D-003 proposal
