@@ -1,6 +1,14 @@
 # RAG development integration evidence
 
-Owner: Nemanja (A). Initial checkpoint: 2026-11-18. Latest local evaluation: 2026-11-21. A-008 remains open.
+Owner: Nemanja (A). Initial checkpoint: 2026-11-18. Latest local evaluation: 2026-11-22. A-008 remains open.
+
+The [received D source record](evaluation/reviewed-development-evaluation.md#received-d-source-record-2026-11-22)
+now supplies the exact ratings and additional slices for the nine cases. All
+12 original citations and four additions checked against the pinned corpus;
+the received decisions match the A evaluator. Its v2 provenance/result records
+reproduce the earlier method results with zero provider calls. D's wider
+candidate inventory still needs reconciliation and a team-approved split;
+receiving this package does not freeze the benchmark or complete B acceptance.
 
 The [D-reviewed development evaluation](evaluation/reviewed-development-evaluation.md)
 adds the relayed nine-case D ratings and scoped alternative references to a
@@ -22,6 +30,52 @@ local overlay and a new locked environment reproduced the smoke. The targeted
 suite including the portable profile and indexed startup passed 116 tests.
 This is Python service integration evidence; B's frontend routing and the
 shared/final evaluation remain separate gates.
+
+## Actual web client/router probe, 2026-11-22
+
+The [probe runner](evaluation/run_web_rag_probe.py) starts A's synthetic indexed
+HTTP profile and invokes B's unchanged TypeScript HTTP client and routing module
+through [the Node probe](evaluation/probe_web_routing.mjs). The [result record](evaluation/web-rag-client-probe.json)
+contains 12 passing cases and two successful health responses. It binds the
+inspected web sources, generated bindings, fixtures and workspace lock by SHA-256;
+their bytes were unchanged after execution.
+
+| Cases | Observed result |
+| --- | --- |
+| Literature full / partial / absent support | `literature/sufficient`, `literature/partial`, `none/insufficient`. |
+| Mixed full / partial support | `mixed/sufficient`, `mixed/partial`; both origins retain claim/source/component links. |
+| Mixed absent literature support | `document/partial`; document claims remain, and the literature branch retains its accepted insufficient-evidence record. |
+| Unregistered question, literature-only / mixed | `none/unsupported`, `document/partial`. |
+| Invalid service token, literature-only / mixed | `none/unavailable`, `document/partial`. |
+| Stopped RAG service, literature-only / mixed | `none/unavailable`, `document/partial`. |
+
+The healthy phase made ten actual RAG HTTP requests: six `200`, two `422` and
+two `401`. After stopping the listener, two connection attempts confirmed the
+unavailable outcomes. Each case made one literature attempt, with no retries.
+Only question/schema fields went to RAG; document text stayed out of that request.
+Partial responses retained the explicit missing start-date warning. Supported
+document claim text and source text were preserved in every mixed case.
+
+The document branch uses the frozen synthetic document-answer fixture. No D HTTP
+service, browser, web session or submitted-report flow is exercised here. This
+is an owner-local check of B's client/router with actual A HTTP, not B's complete
+application acceptance or a real-model measurement. There were zero provider calls
+and no final-test access. A-008 remains open for the canonical shared benchmark
+and B's application review.
+
+Run from a working copy with Node 24 and the locked Node workspace installed:
+
+```powershell
+uv run --locked --offline --extra indexing --directory services/rag python -B ../../docs/rag/evaluation/run_web_rag_probe.py
+```
+
+Use `--web-root <working-copy-root>` to select another dependency-equipped copy;
+its protected source/fixture/lock hashes must match the inspected checkout. The
+recorded execution used an isolated export of `986adfb`, Node 24.12.0 and Python
+3.13.5. Initial offline npm installation lacked one cached package. The normal
+locked install then required Node's `--use-system-ca` option for the local Windows
+certificate setup; TLS verification remained enabled. Root configuration and
+lockfiles were not changed. Temporary RAG indexes contain only synthetic fixtures.
 
 The default RAG app exposes the frozen mock routes. B can verify the contract
 and error handling locally using the [service startup guide](../../services/rag/README.md)

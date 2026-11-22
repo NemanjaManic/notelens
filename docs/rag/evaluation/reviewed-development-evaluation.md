@@ -2,6 +2,39 @@
 
 Owner: Nemanja (A). Prepared: 2026-11-21. Scope: nine public development cases.
 
+## Received D source record, 2026-11-22
+
+Nemanja supplied D's private development-review package. Its candidate manifest
+`d-cross-module-development-v2` matches SHA-256
+`f01dd8c4c4aa3deb7b7d6842643fec17f8680b0991e875e38905499019203896`.
+All nine package checksum entries passed. D's source-review record
+`d007-public-qa-pinned-source-review-v1` has SHA-256
+`e129e7e8cb8b2f8af269ca2a690e35b99444b7aa9970ed080e0b145fe07f40dd`.
+It explicitly describes a non-blinded agent source review over the pinned
+snapshot. Its original 12 citations and four additional observations reverified
+locally and exactly match A's effective reference choices and new ranges.
+
+The [v2 provenance record](reviewed-development-references-v2.json) now binds
+that received D source, and the [v2 result](reviewed-development-evaluation-v2.json)
+reproduces the earlier results for all three retrieval methods. The default v1
+record and report remain unchanged and also reproduce. No case label, evidence
+bundle, model, prompt, index, threshold or ranking was changed by this update.
+The private D source package and cross-module document fixtures are not copied
+into A's versioned records.
+
+```powershell
+uv run --locked --offline --directory services/rag python -B ../../docs/rag/evaluation/measure_reviewed.py --references docs/rag/evaluation/reviewed-development-references-v2.json
+```
+
+D's broader manifest is still a candidate. A found an inventory reconciliation
+item for D to resolve before freeze; the selected 54-case route/state totals are
+consistent. The proposed 54/26 and 66/14 splits, unseen final source/reviewer
+assignments, out-of-scope coverage and private upload location still require the
+responsible team confirmations. The exact inventory finding is retained in the
+private handoff review. A-008 and A-011 remain open.
+
+The initial 2026-11-21 checkpoint below preserves the earlier evidence state.
+
 The [reference record](reviewed-development-references.json) incorporates the
 nine-row coverage table relayed from Milica (D): seven full cases, one partial
 case and one case without support. D also confirmed all 12 original citations.
@@ -9,7 +42,7 @@ The two scoped alternatives are topic `6450` for A-QA-01 and topic `363` for
 the cause part of A-QA-02. Additional A-QA-07 context stays under topic `179`.
 A-QA-09 retains `4643` and `4452`, with the narrower bilirubin citation.
 
-The exact new ranges are A's locally verified proposals: the separately
+At that initial checkpoint, the exact new ranges were A's locally verified proposals: the separately
 mentioned attachment was not received. A reply was prepared for Nemanja, but
 its delivery and D's canonical joint-review record are unconfirmed. This is
 an owner-local evaluation candidate, not the shared benchmark freeze.

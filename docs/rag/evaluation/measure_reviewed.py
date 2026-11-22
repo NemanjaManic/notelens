@@ -142,9 +142,10 @@ def evaluate_reviewed(root, *, references=REFERENCE_FILE):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--references', default=REFERENCE_FILE, help='A-owned development reference version to evaluate.')
     parser.add_argument('--output', type=Path, help='Write a new result file; existing files are preserved.')
     args = parser.parse_args()
-    report = evaluate_reviewed(Path(__file__).resolve().parents[3])
+    report = evaluate_reviewed(Path(__file__).resolve().parents[3], references=args.references)
     encoded = json.dumps(report, indent=2, allow_nan=False) + '\n'
     if args.output:
         with args.output.open('x', encoding='utf-8', newline='\n') as handle:
