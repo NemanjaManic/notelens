@@ -187,6 +187,25 @@ Goran also acknowledged the one-to-one private submission route and will return
 001, 004 and 007 before receiving their primary labels, followed by his primary
 package. See the [034 access receipt](../../eval/reports/development/d013-goran-034-access-receipt-v1.json).
 
+Goran's `assignment-034-ai-assisted-draft.json` subsequently arrived, and
+Milica explicitly accepted its supplied annotation content as valid. D closed
+the draft receipt and technical verification: the frozen document identity
+matches, all thirty mentions and thirty evidence spans match the canonical
+text, and label fields pass validation. The source file is preserved unchanged.
+D recorded Milica's acceptance separately and compared the draft with her
+27-mention primary record: twenty exact matches, seven primary-only mentions
+and ten draft-only mentions.
+
+The source still explicitly says `human_reviewed: false`,
+`complete_document_review: false`, `review_state: pending`, and
+`independent_human_review: false`. Its twelve open questions remain preserved.
+Milica's acceptance does not attest Goran's full-document read or prior-label
+exposure. The received file therefore adds zero independent-review credit.
+Goran must personally review and finalize his record and declare exposure
+before independent eligibility can be assessed. D keeps specific primary-label
+and adjudication feedback private until that initial review is submitted.
+See the [draft intake receipt](../../eval/reports/development/d013-goran-034-draft-intake-v1.json).
+
 On 2026-11-22, Sara returned her reviewed 036 submission v2. D verified its
 canonical spans and its link to the superseded v1 record. The v2 clarification
 retains separate planned counseling and consult mentions and a hypothetical

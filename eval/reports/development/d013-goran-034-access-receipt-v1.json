@@ -17,5 +17,9 @@
     "assignment-004",
     "assignment-007"
   ],
-  "b011_primary_labels_held_until_reviews_submitted": true
+  "b011_primary_labels_held_until_reviews_submitted": true,
+  "ai_assisted_draft_received": true,
+  "ai_assisted_draft_sha256": "cbe197b72f6723b661183cb683c01f166e946e7ceaedd056cde794f8f21e99ad",
+  "milica_accepted_draft_content": true,
+  "review_submission_status": "AI draft received; completed independent human review not yet attested"
 }
