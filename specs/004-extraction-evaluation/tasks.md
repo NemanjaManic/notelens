@@ -197,6 +197,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - [x] Received Milica's verified D-012 submission. Its one source-gap question on 005 remains in D-013 adjudication.
   - [x] Prepared a restricted review workspace for Milica to inspect canonical evidence and record decisions on A's 27 questions, with input hashes pinned to the reviewed records.
   - [x] Verified Milica's decisions for all 27 A questions against the pinned review and 72 exact source anchors. Recorded 20 accepted proposals and seven replacements in the restricted workspace. Paired disagreements and the final reference merge remain pending.
+  - [x] Verified the unnamed condition gap in 005 against the canonical source and both preserved submissions. Prepared a private review with the 005 proposal and the four 038 questions for Milica's decisions.
   - [ ] Remaining: collect outstanding human-reviewed submissions, resolve the open questions and paired disagreements, and record human decisions before preparing references.
   - **Owner / story**: D / US3.
   - **Dependencies**: 004-extraction-evaluation/T006 (D-003); 004-extraction-evaluation/T007 (D-012); 001-rag/T009 (A-007); 002-platform/T006 (B-011); 003-classification/T004 (C-010)

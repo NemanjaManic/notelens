@@ -105,6 +105,14 @@ validation. The full synthetic suite passed transport and structural checks for
 This handoff is ready for B's mock transport integration. D-005 provider-backed
 quality verification awaits a successful authorized D-004 run.
 
+On 2026-11-22, D rechecked the service source, prompts, lock and contracts
+against the pinned handoff and repeated the six business probes. Extraction
+and summary completed with four entities and four cited summary claims.
+Document answers returned sufficient, partial and insufficient states with
+matching citations and the expected explicit age gaps. The auth and invalid
+digest responses returned HTTP 401 and 422. The temporary port closed and no
+provider calls were made. All 83 extraction tests passed.
+
 The separate [D C-007 verification](c007-classifier-transport.md#replay-with-saras-pinned-c-005-bundle)
 passed on Sara's pinned C-005 model. The current B mock client returned
 `MOCK_MODE_REQUIRED` for both fitted responses after HTTP 200.
