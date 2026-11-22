@@ -142,6 +142,22 @@ services. The [verification record](../../eval/reports/development/b005-joint-re
 and [preflight history](../../eval/reports/development/b005-c005-c008-joint-preflight-v1.json)
 preserve the verification scope and earlier reports.
 
+Goran published the platform notes and Windows runbook in documentation commit
+[`22ca6a38c9b83fb1616aab2bd5ede73f3a60f9fd`](https://github.com/NemanjaManic/notelens/commit/22ca6a38c9b83fb1616aab2bd5ede73f3a60f9fd).
+D fetched the published object, verified its direct parent is the replayed web
+commit `9cdab928923056f31dd1f37ab4b569cc638999ab`, and reviewed both changed
+documentation files. The published receipt hash, classifier commit, startup
+manifest hashes and model versions match the already verified private receipt.
+The runbook covers authenticated C-005 readiness and C-008 report capture after
+HTTP 201. No runtime code changed in this commit, so D did not repeat runtime
+tests for this documentation update. The [documentation review](../../eval/reports/development/b005-published-documentation-review-v1.json)
+closes D's outstanding request for the exact published platform documentation pin.
+
+Keep the three platform pins separate: `9cdab928` is the executed classifier
+replay, `22ca6a3` publishes its notes and runbook, and `4fb192e` is the separately
+reviewed A-008 web-admission fix. These do not close the remaining service
+integrations or Nemanja's development measurement.
+
 ## Reproduce the evaluator check
 
 Start C's authenticated loopback launcher using the startup instructions in

@@ -1,0 +1,23 @@
+{
+  "version": "d-b005-published-documentation-review-v1",
+  "date": "2026-11-22",
+  "documentation_commit": "22ca6a38c9b83fb1616aab2bd5ede73f3a60f9fd",
+  "published_object_fetched_from_origin": true,
+  "parent_and_replayed_platform_commit": "9cdab928923056f31dd1f37ab4b569cc638999ab",
+  "changed_files": [
+    "docs/platform/b-005-windows-replay.md",
+    "docs/platform/integration-status.md"
+  ],
+  "documentation_blob_sha256": {
+    "docs/platform/b-005-windows-replay.md": "768f04314e0e8266586cff374f4d2a7a7c1a5a9380d57ba2c8325f0704521cbe",
+    "docs/platform/integration-status.md": "99f4b2019481c113033f71ccdf2e31ba6fee87ab8308fa572df5f8d435790754"
+  },
+  "receipt_sha256_matches_published_notes": true,
+  "model_versions_and_manifest_pins_match_verified_receipt": true,
+  "runbook_scope": "C-005 then C-008 fitted classifier replay; findings, summaries and answers remain mocked.",
+  "review_result": "Published notes and startup pins match the verified private receipt.",
+  "runtime_code_changed_in_commit": false,
+  "tests_repeated_for_documentation_only_commit": false,
+  "full_b005_task_closed": false,
+  "separate_a008_web_fix_commit": "4fb192eb157d5e2fb47fc6afdda890af8c229d7e"
+}
