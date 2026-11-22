@@ -143,7 +143,7 @@ failure, zero invalid records and zero completed human reviews. The agent scores
 are excluded from the human-review denominator. The proposed scoring guidance
 awaits independent review before any rubric version or acceptance decision changes.
 
-## Member A calibration handoff
+## Member A and C calibration handoffs
 
 The proposed A packet has seven pinned synthetic document answers and five
 separate generated entity-evidence items. It contains the questions, exact
@@ -153,6 +153,13 @@ entity results are serialized copies of the pinned mock HTTP extraction
 records. The packet includes blank forms and excludes gold labels and other
 reviewers' scores. Reviewer exposure and self-authorship are declared per
 case before scoring and can trigger a replacement.
+
+Sara requested her D-008 review inputs. D prepared a separate Member C packet
+using the same seven exact answers, questions and canonical sources, with blank
+forms for Sara and a different set of five generated entity-evidence items.
+The ten entity-evidence items across A and C are distinct. Both packets use
+`d-answer-review-rubric-v1` with `d-answer-review-form-v2`. D verified all 24
+checksums in the Member C packet. A and C scoring remain pending.
 
 For new answer intake, validate the current form and the exact reviewed
 response files before counting the submissions as complete.
@@ -165,7 +172,7 @@ response files before counting the submissions as complete.
 The current form requires a reason and minimum correction for each score
 of 0, 1 or U, and a separate component outcome for mixed responses. The reports
 show component failures alongside the answer-quality counts. Earlier reviews
-are preserved and can be read without the current-form intake flag. The A
-packet is a first round within the proposed 40 answer and 20 entity-evidence
-review targets. A's scoring, remaining assignments and team calibration await
+are preserved and can be read without the current-form intake flag. These are
+first-round packets within the proposed 40 answer and 20 entity-evidence
+review targets. The remaining assignments and team calibration await
 confirmation.
