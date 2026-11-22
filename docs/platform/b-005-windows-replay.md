@@ -71,6 +71,56 @@ procedure below.
 $env:NOTELENS_LOCAL_CLASSIFIER_MODEL_VERSION = 'c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc'
 ```
 
+### C-005 readiness troubleshooting
+
+Keep the classifier in the foreground. If it exits, record the first redacted startup
+error and the exit code before trying again. If port `8002` is already listening before
+startup, use `Get-NetTCPConnection -LocalPort 8002 -State Listen` to identify the owner.
+Stop a previous replay only if you own its process.
+
+From the **platform** window, check readiness while the classifier is running. This uses
+the token inherited by the platform window and prints only readiness metadata.
+
+```powershell
+if (-not $env:NOTELENS_CLASSIFIER_SERVICE_TOKEN) {
+  throw 'The platform window did not inherit the classifier token.'
+}
+$headers = @{ Authorization = "Bearer $env:NOTELENS_CLASSIFIER_SERVICE_TOKEN" }
+try {
+  $ready = Invoke-WebRequest -UseBasicParsing -Uri 'http://127.0.0.1:8002/health/ready' `
+    -Headers $headers -TimeoutSec 5 -MaximumRedirection 0 -ErrorAction Stop
+} catch {
+  $response = $_.Exception.Response
+  if ($null -eq $response) {
+    throw 'No readiness HTTP response. Check the classifier console and port 8002.'
+  }
+  throw "Classifier readiness returned HTTP $([int]$response.StatusCode)."
+}
+$health = $ready.Content | ConvertFrom-Json
+if ($ready.StatusCode -ne 200 -or $health.service -cne 'classifier' -or
+    $health.status -cne 'ok' -or $health.mode -cne 'live' -or
+    $health.model_version -cne $env:NOTELENS_LOCAL_CLASSIFIER_MODEL_VERSION) {
+  throw 'Readiness did not identify the pinned fitted C-005 model.'
+}
+[pscustomobject]@{
+  HttpStatus   = $ready.StatusCode
+  ModelVersion = $health.model_version
+}
+```
+
+- **No HTTP response**. Check whether the process exited or whether the expected
+  classifier is listening on loopback port `8002`.
+- **HTTP 401**. Confirm both shells inherited the same temporary token. If needed,
+  reopen both shells from the same parent after generating a fresh token.
+- **HTTP 503 or a mismatched mode or version**. Check that the classifier used the
+  reviewed interpreter and the C-005 bundle. Verify `model-manifest.json` against
+  the C-005 pin above, `model.joblib` against the manifest’s `artifact_sha256`, and
+  the installed package versions against its `packages` entries.
+
+Continue with the fitted probe and both reports after authenticated HTTP `200` confirms
+`live` mode and the pinned C-005 version. If readiness still fails, record the observed
+status or redacted startup error and mark both downstream checks blocked.
+
 ## Transport and report procedure for each bundle
 
 In the platform window, run the authenticated fitted HTTP probe and then launch the app.
@@ -107,7 +157,7 @@ classifications, canonical digest and document-ID binding, request-ID correlatio
 and rejection of a wrong token or model version. The probe creates its own document
 and request IDs. The app validates the same bindings before showing the classifier
 result, and its rendered report does not expose the raw classifier request ID.
-Record a failure as observed and stop that bundle’s replay if a step fails.
+If the troubleshooting steps do not resolve a failure, record it and stop that bundle’s replay.
 
 After C-005, close the demo tab and stop the platform launcher with Ctrl+C, then stop
 the classifier with Ctrl+C. Confirm port `8002` is free before starting C-008.
@@ -130,6 +180,24 @@ empty document sessions, so submit both examples again.
 ```powershell
 $env:NOTELENS_LOCAL_CLASSIFIER_MODEL_VERSION = 'c008-short-text-matched-v1-ec4f77b94c735790aca7cf8a3eb8a83cdc4e263ce2ad56e599e477f219fe6e8d'
 ```
+
+### C-008 fallback after HTTP 201
+
+If the browser runner records HTTP `201` for `POST /api/documents/submit` but cannot read
+the response body, let the app finish navigating in the same browser tab and session.
+Use the `document` query parameter from the resulting report URL
+(`http://localhost:<web-port>/demo?document=<id>`) as the document ID. In a runner,
+wait for navigation, then read the query parameter from the current tab URL.
+For a manual replay, read the ID from the address bar. If the report already opened,
+use that report for the check.
+
+Check the rendered specialty state, fitted-model version, and mock notices on the
+report page. Repeat for the other example. Record the submission status, URL document
+ID, canonical SHA-256, rendered specialty, and model version for each example. Keep
+the fitted HTTP probe’s request-ID correlation result as a separate receipt entry.
+
+If the app stays on the submission page or shows an error, record the HTTP status
+and the redacted page notice or runner error. Treat that report as unverified.
 
 After the run, close the demo tab, stop both launchers and close the two replay
 shells. Clear the temporary token from the parent shell.

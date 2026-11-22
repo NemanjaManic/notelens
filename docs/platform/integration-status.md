@@ -1,9 +1,8 @@
 # B-005 classifier integration status
 
-**Status, 2026-11-22.** B-005 remains open. The report can use the fitted classifier
-through an opt-in local profile. The default application and hosted CI run in mock
-mode. Literature, extraction and document answers use their existing mocks while A-008
-and D-005 are open.
+**Status.** B-005 remains open. The opt-in classifier report passed the joint Windows
+replay with the C-005 and C-008 fitted bundles. The default application and hosted CI
+run in mock mode. The RAG and D-005 service integrations remain open.
 
 ## Published classifier evidence
 
@@ -131,10 +130,32 @@ request IDs, and that the service token stays server-side.
 & ./scripts/project/.venv/Scripts/python.exe -B scripts/project/check_classifier_report.py
 ```
 
-The fitted C-005 adapter evidence above came from Sara's run before the app wiring.
-The fitted bundle is absent from this checkout. To verify the new report path against
-that bundle, use one permitted English sample for each outcome that passes the app's
-language admission and has a confirmed fitted response. The earlier short supported
-sample and synthetic uncertain probe fail the app's language admission. The joint
-fitted report replay and the remaining service integrations after A-008 and D-005
-are still pending.
+## Joint Windows fitted report replay
+
+Sara ran the pushed platform commit `9cdab928923056f31dd1f37ab4b569cc638999ab` on
+Windows with classifier commit `7181a1abdf7831bb247510821c886b0e031d5de0`. She ran
+C-005 first, then C-008 in a fresh app session, using the same two approved synthetic
+examples. B checked the reported model versions and manifest pins against the
+[Windows replay runbook](b-005-windows-replay.md).
+
+| Bundle | Loaded model version | Startup manifest SHA-256 |
+| --- | --- | --- |
+| C-005 | `c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc` | `e79fff1c8c8c3b1b14afa32d02bc44f94680bf09902cb82cfa5e4dd71b967f5f` |
+| C-008 | `c008-short-text-matched-v1-ec4f77b94c735790aca7cf8a3eb8a83cdc4e263ce2ad56e599e477f219fe6e8d` | `affe7af9e2d0f8df46d25642fd2e0cbf0ff3e45f2a8576b9c87cc2cc257d7f32` |
+
+Both bundles returned authenticated HTTP `200` readiness on loopback port `8002` and
+passed all six fitted HTTP checks each. Both classifications returned HTTP `200`
+with the expected document identity, canonical SHA-256, and request-ID correlation.
+
+All four form submissions returned HTTP `201`. Sara captured each document ID from
+the report URL. Both bundles displayed **Orthopedic** for the supported example and
+**Specialty uncertain** with no assigned specialty for the uncertain example. Each
+report showed the pinned fitted model version and identified findings, summaries,
+and answers as mocked. B verified that the four report IDs were distinct and that
+each example's canonical digest matched across both bundles and the transport probe.
+The receipt confirms port `8002` was released.
+
+The private passing receipt has SHA-256
+`a7a0412720b243c1aac4cb86e27ad5f64c861b985e60084f06d8502d5c2dda06`.
+The fitted classifier report replay is verified. B-005 remains open for the
+remaining RAG and D-005 service integrations.
