@@ -2,8 +2,8 @@
   "version": "d013-paired-human-decision-receipt-v1",
   "date": "2026-11-22",
   "adjudicator": "member-d",
-  "private_decision_artifact_sha256": "b34bcd24cf8447faffc0444ae817ed015da14cea7bc517ed14f4bc861425448f",
-  "decisions_recorded": 1,
+  "private_decision_artifact_sha256": "e81dbbdb1522dd4b55e1d15ed02d5fc3bab6a4403a6ebdfd3b67da8fcb06461e",
+  "decisions_recorded": 4,
   "assignment_ids": [
     "assignment-036"
   ],
