@@ -271,6 +271,57 @@ and rubric versions for any future comparison. This packet measures mock
 development behavior and does not supply real-model quality evidence. See the
 [replacement verification](../../eval/reports/development/d008-member-c-replacement-packet-verification-v1.json).
 
+### Sara's personal replacement review: non-independent feedback (2026-11-23)
+
+D received the preparation-disclosed forms and dated disclosure in
+`D008-Milica-non-independent-feedback-v1.zip`. All three checksum entries and
+all twelve case/document/response pin sets match the original replacement packet.
+The unchanged originals and archive are retained in the restricted local D-008
+handoff area; the shareable [intake receipt](../../eval/reports/development/d008-sara-non-independent-feedback-intake-v1.json)
+contains metadata and hashes, not sources or ratings.
+
+Sara personally reviewed all seven answers and five entity-evidence items on
+2026-11-23 and reports no viewing of the replacement outputs before receiving
+the packet. She helped prepare replacement materials; the specific affected
+outputs remain unidentified. The assistant drafted ratings and reasons. This
+supersedes the earlier pending-personal-review/preparation-disclosure status,
+while preserving the older receipts unchanged.
+
+Record all twelve as non-independent feedback. Add zero independent review
+credit and zero agreement pairs. The answer validator reports zero invalid and
+seven incomplete records due to its independent-review gate and null case-level
+authorship declarations; this does not ask Sara to repeat her disclosed review.
+Seven answer records have dated completion fields; the dated disclosure covers
+the five entity-evidence records. Do not change unknown authorship to false.
+
+Paired independent agreement requires two eligible reviewers for the exact same
+seven replacement answers. Goran and Nemanja are proposed candidates, not
+confirmed eligible assignees. Each must confirm availability, lack of prior
+exposure to these outputs and lack of preparation/authorship involvement before
+private assignment. Withhold Sara's ratings and the other reviewer's ratings.
+Sara's feedback cannot fill either independent slot. D-008 remains open.
+
+Following Sara's subsequent workflow recommendation, D prepared two separate
+private seven-answer-only packets for Goran and Nemanja. Each has the same exact
+questions, canonical sources, saved responses/citations/warnings, rubric v1 and
+form v2, plus a local reader and a per-case eligibility/AI-assistance declaration.
+All 17 common content files match byte-for-byte; each archive's 21 checksum
+entries verify. Forms have blank scores and unknown exposure/authorship fields;
+independent status must be explicitly set only after truthful eligibility checks.
+No reference labels or any submitted ratings are packaged. Preparation is not
+delivery, reviewer acceptance or independent completion. See the
+[preparation receipt](../../eval/reports/development/d008-two-reviewer-packets-preparation-v1.json).
+
+Before sharing outputs, ask each candidate privately for availability, a return
+date/timezone and per-case prior exposure/preparation disclosure. If a case is
+affected, assign that slot to another eligible reviewer so the same case still
+has two independent ratings. Do not show either reviewer the other's ratings or
+Sara's feedback until both initial forms are submitted and verified. Every 0, 1
+or U needs a reason and minimum correction. Return forms privately with their
+SHA-256, completion date and AI-assistance disclosure. Verify exact case/source/
+response/rubric pins and record initial agreement and disagreements before any
+joint score discussion. No candidates are confirmed by Sara's proposal alone.
+
 The new calibration family is development-only and is excluded from unseen
 final QA, including reworded family variants. Its additional
 [source exclusions](../../eval/reports/development/d008-replacement-development-source-exclusions-v1.json)

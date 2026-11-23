@@ -1,0 +1,111 @@
+{
+  "version": "d008-two-reviewer-packets-preparation-v1",
+  "date": "2026-11-23",
+  "source": "Sara recommendation relayed by Milica; packets prepared locally without sending.",
+  "status": "two_private_packets_prepared_pending_reviewer_confirmation",
+  "reviewers": [
+    {
+      "proposed_reviewer": "Goran",
+      "private_archive": "Predaja-NoteLens/D-008/D008-paired-independent-review-v1/Goran/D008-Goran-seven-answer-review-v1.zip",
+      "archive_sha256": "5cc4051a183accd08fe24e715b2974c52515b46916404d152c9a1ed6315b5341",
+      "checksum_entries_verified": 21,
+      "availability_confirmed": false,
+      "return_date_confirmed": false,
+      "eligibility_confirmed": false,
+      "sent": false
+    },
+    {
+      "proposed_reviewer": "Nemanja",
+      "private_archive": "Predaja-NoteLens/D-008/D008-paired-independent-review-v1/Nemanja/D008-Nemanja-seven-answer-review-v1.zip",
+      "archive_sha256": "19fd0dad813032b8780490ef7a01d121729edb98f4a9688dde293bc73186a464",
+      "checksum_entries_verified": 21,
+      "availability_confirmed": false,
+      "return_date_confirmed": false,
+      "eligibility_confirmed": false,
+      "sent": false
+    }
+  ],
+  "answer_cases_per_reviewer": 7,
+  "planned_independent_ratings_per_case": 2,
+  "case_identity_pins": [
+    {
+      "case_id": "D008-C-REPL-01",
+      "doc_id": "942395ac-2533-5e14-89f8-5d83078f798d",
+      "text_sha256": "7ab14f32fc86c6bd27e7374ee52646f9af24f64a32f24ac66ccfb48f14729f22",
+      "response_id": "d008-c-repl-01",
+      "response_sha256": "b6d4cee5c8adf4d4269d347108f4a160a2ab7afbbd22ac04309423027343db54",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2"
+    },
+    {
+      "case_id": "D008-C-REPL-02",
+      "doc_id": "34d4b9e6-0a22-55f1-a5f3-508d27272c55",
+      "text_sha256": "70602f423bbc3aed111734067206c4b2c3554b26ffe75f4ac9e878d13b831ac7",
+      "response_id": "d008-c-repl-02",
+      "response_sha256": "c82671527757c08993ebc91870d03de78cc88431ded69f8dfe0f36dd76ca9343",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2"
+    },
+    {
+      "case_id": "D008-C-REPL-03",
+      "doc_id": "69418dac-162a-5986-be22-a27fe6254104",
+      "text_sha256": "4847b53b7fef6e7d8bc2444851be0972bacd0491b500b38ee628abe278231853",
+      "response_id": "d008-c-repl-03",
+      "response_sha256": "46e6bf18b3bcd0f09f16bb309c6ac948984d46955166f554301b62969e75e0f4",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2"
+    },
+    {
+      "case_id": "D008-C-REPL-04",
+      "doc_id": "ea72293f-5648-5487-adf1-62981f7513dc",
+      "text_sha256": "acb3eb29635fa9252ec75866a344cc20cf573a80f174763a26986441078a0203",
+      "response_id": "d008-c-repl-04",
+      "response_sha256": "b7fde99766bce72940935f69d0f1d10ee1dd0e15a04227eef847ff967953202e",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2"
+    },
+    {
+      "case_id": "D008-C-REPL-05",
+      "doc_id": "15ea9e8d-f804-50b3-b51d-5ad187873608",
+      "text_sha256": "9dfd92d1b9365f8482ce4ad717b7933adaf462f2f28237085377fe8a14171377",
+      "response_id": "d008-c-repl-05",
+      "response_sha256": "88a0facd70fdbaa8bd361442c46521ab5d426a012cebd7c5951ad6b308cd67c4",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2"
+    },
+    {
+      "case_id": "D008-C-REPL-06",
+      "doc_id": "3334da5e-f8a9-59fa-9383-89fdfa54243a",
+      "text_sha256": "0a0327421fed19db0ffec798408015fe85e6837c1b2f69c7988c0b65b925d9d4",
+      "response_id": "d008-c-repl-06",
+      "response_sha256": "9d404a0e650e2bbc2152164b1850cc0d5112bf450a155f5ef49b965cad8dc2d5",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2"
+    },
+    {
+      "case_id": "D008-C-REPL-07",
+      "doc_id": "c9d7e062-2d59-5dff-ab52-5a9e3bd7a95d",
+      "text_sha256": "8514b4ded57ab2edc69b50f32d0117bafaa180f995379bebc3caf2843a4bf5a9",
+      "response_id": "d008-c-repl-07",
+      "response_sha256": "52eaea4e8bdf1bd2c73ab87047487eae436526b82af420d0a7fa7a82905f545b",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2"
+    }
+  ],
+  "common_source_response_rubric_and_viewer_bytes_identical": true,
+  "case_source_and_response_pins_verified": 7,
+  "canonical_source_hashes_verified": 7,
+  "blank_scores_verified": true,
+  "sara_ratings_included": false,
+  "reference_labels_included": false,
+  "other_reviewer_ratings_included": false,
+  "sara_feedback_remains_non_independent": true,
+  "per_case_reassignment_rule": "Any affected slot must go to another eligible reviewer. Do not count an exposed/preparing reviewer or invent two eligible reviewers.",
+  "agreement_sequence": "Receive both private forms/checksums/disclosures; verify identities, versions and eligibility; record initial agreement/disagreements before sharing scores.",
+  "completed_reviews_added": 0,
+  "agreement_pairs_added": 0,
+  "external_messages_sent": false,
+  "new_provider_calls": 0,
+  "unseen_final_accessed": false,
+  "full_d008_closed": false
+}
