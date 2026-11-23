@@ -1,0 +1,174 @@
+{
+  "version": "d009-final-readiness-v1",
+  "date": "2026-11-23",
+  "status": "blocked_no_joint_final_execution",
+  "user_scope_decision": "Milica explicitly retains the full D-009 scope and waits for Goran app verification. No reduced development-only closure is approved.",
+  "system_candidate": {
+    "rag": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
+    "classifier": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+    "extraction": "f50df177fe5dae3926e0e98eb8d11fb4ee664412"
+  },
+  "freeze_candidate": "eval/config/d009-final-freeze-candidate-v1.json",
+  "freeze_candidate_sha256": "8278a94f89b90f57b2f5b59d246e863216b28291626c7483d0c168751a8c26ad",
+  "final_case_identity_count": 26,
+  "final_versions": {
+    "v1": 25,
+    "v2": 1
+  },
+  "final_route_counts": {
+    "document_only": 8,
+    "literature_only": 8,
+    "mixed": 8,
+    "out_of_scope": 2
+  },
+  "frozen_reference_manifest_verified": true,
+  "known_prior_exposure_cases": [
+    "F-DOC-01",
+    "F-DOC-02",
+    "F-DOC-03"
+  ],
+  "classifier_final_aggregate_verified": {
+    "label": "C-owned locked final classification evidence",
+    "overall": {
+      "documents": 183,
+      "correct": 176,
+      "accuracy": 0.9617486338797814,
+      "macro_f1": 0.9582034716493505,
+      "per_class": {
+        "Cardiovascular / Pulmonary": {
+          "support": 55,
+          "predicted": 56,
+          "true_positives": 54,
+          "precision": 0.9642857142857143,
+          "recall": 0.9818181818181818,
+          "f1": 0.972972972972973
+        },
+        "Orthopedic": {
+          "support": 47,
+          "predicted": 48,
+          "true_positives": 46,
+          "precision": 0.9583333333333334,
+          "recall": 0.9787234042553191,
+          "f1": 0.968421052631579
+        },
+        "Gastroenterology": {
+          "support": 32,
+          "predicted": 33,
+          "true_positives": 31,
+          "precision": 0.9393939393939394,
+          "recall": 0.96875,
+          "f1": 0.9538461538461539
+        },
+        "Neurology": {
+          "support": 27,
+          "predicted": 26,
+          "true_positives": 25,
+          "precision": 0.9615384615384616,
+          "recall": 0.9259259259259259,
+          "f1": 0.9433962264150944
+        },
+        "Urology": {
+          "support": 22,
+          "predicted": 20,
+          "true_positives": 20,
+          "precision": 1.0,
+          "recall": 0.9090909090909091,
+          "f1": 0.9523809523809523
+        }
+      },
+      "confusion_matrix": {
+        "Cardiovascular / Pulmonary": {
+          "Cardiovascular / Pulmonary": 54,
+          "Orthopedic": 1,
+          "Gastroenterology": 0,
+          "Neurology": 0,
+          "Urology": 0
+        },
+        "Orthopedic": {
+          "Cardiovascular / Pulmonary": 0,
+          "Orthopedic": 46,
+          "Gastroenterology": 0,
+          "Neurology": 1,
+          "Urology": 0
+        },
+        "Gastroenterology": {
+          "Cardiovascular / Pulmonary": 1,
+          "Orthopedic": 0,
+          "Gastroenterology": 31,
+          "Neurology": 0,
+          "Urology": 0
+        },
+        "Neurology": {
+          "Cardiovascular / Pulmonary": 1,
+          "Orthopedic": 1,
+          "Gastroenterology": 0,
+          "Neurology": 25,
+          "Urology": 0
+        },
+        "Urology": {
+          "Cardiovascular / Pulmonary": 0,
+          "Orthopedic": 0,
+          "Gastroenterology": 2,
+          "Neurology": 0,
+          "Urology": 20
+        }
+      }
+    },
+    "model_manifest_sha256": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+    "source_run": "c008-final-short-text-v1"
+  },
+  "development_acceptance_status": "failed",
+  "local_readiness": {
+    "contracts": "pass",
+    "transport": "pass",
+    "cross_service": "not_run"
+  },
+  "offline_eval_tests_passed": 141,
+  "offline_service_tests_last_passed": 114,
+  "provider_known_cumulative_reservation_usd": "0.0554055",
+  "actual_billing_confirmed": false,
+  "blockers": [
+    {
+      "id": "quality",
+      "owner": "D agent/service implementation; Milica for release decision",
+      "needed": "Fix measured development contract/summary/evidence failures and remeasure against frozen references. Retain approved thresholds and obtain independently justified semantic answer-risk evidence."
+    },
+    {
+      "id": "app",
+      "owner": "Goran",
+      "needed": "Configured D-005 app receipt with exact app/service SHAs, profile, identity/highlights/partial/insufficient/out-of-scope findings."
+    },
+    {
+      "id": "final_artifacts",
+      "owner": "Sara/Goran restricted custodians; A/D selected-system operators",
+      "needed": "After approved system/reference/eligibility freeze, execute the 26 exact cases without gold answers in runtime inputs. Supply separate pinned references, saved predictions, provenance and review evidence for final scorer."
+    },
+    {
+      "id": "exposure",
+      "owner": "Milica with Sara/Goran and named freeze approvers",
+      "needed": "Resolve prior technical-note exposure for F-DOC-01/02/03. Do not count all 26 as fully unseen without explicit disposition."
+    },
+    {
+      "id": "freeze",
+      "owner": "Milica with A/B/C/D selected-system owners",
+      "needed": "Approve the exact joint freeze only after preceding gates clear; fill missing artifact hashes and record bounded execution scope."
+    }
+  ],
+  "final_extraction_references_note": "D-013 references are development, not unseen final. Final extraction ground truth must be provided separately if extraction is included in full final scoring.",
+  "full_case_texts_questions_answer_keys_opened": false,
+  "final_provider_calls": 0,
+  "joint_final_saved_output_scoring_executed": false,
+  "d009_closed": false,
+  "deployment_accepted": false,
+  "published_or_pushed": false,
+  "unapproved_candidate_rejected_before_final_artifact_access": true,
+  "final_execution_receipt_created": false,
+  "measured_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "remediation_service_sha": "f50df177fe5dae3926e0e98eb8d11fb4ee664412",
+  "remediation_replay": {
+    "valid_extractions": 2,
+    "valid_answers": 5,
+    "scope": "saved outputs only; acceptance remains failed"
+  },
+  "archive_serialization": "Public prepared JSON uses canonical LF for Git portability; original pre-measurement CRLF snapshots remain private and byte-pinned."
+}

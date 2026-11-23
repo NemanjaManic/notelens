@@ -1,0 +1,75 @@
+{
+  "version": "notelens-final-evaluation-v1",
+  "approved": false,
+  "partition": "final",
+  "execution": "saved_outputs",
+  "approved_by": null,
+  "scope": "Full joint final evaluation after cleared quality/app/eligibility gates; not development scoring.",
+  "reason": "Preparation only. D-011 acceptance failed, Goran app acceptance is pending, restricted final references/outputs and exposure dispositions are missing.",
+  "run_id": "notelens-joint-final-v1",
+  "system_versions": {
+    "rag": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
+    "classifier": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+    "extraction": "f50df177fe5dae3926e0e98eb8d11fb4ee664412"
+  },
+  "development_groups": {
+    "path": "development-group-exclusions-v1.json",
+    "sha256": "f0c7adccef68b242cccd1b1453287bef15e1b9728215cf03781c88d82ef5d963"
+  },
+  "acceptance": {
+    "path": "acceptance.json",
+    "sha256": "cc537d27919d56602222994f39c9914ad44aa0ece155402daf8572eb58df1992"
+  },
+  "components": {
+    "extraction": {
+      "mode": "live",
+      "references": {
+        "path": "restricted/extraction-references.json",
+        "sha256": null
+      },
+      "predictions": {
+        "path": "restricted/extraction-predictions.json",
+        "sha256": null
+      }
+    },
+    "retrieval": {
+      "references": {
+        "path": "restricted/retrieval-references.json",
+        "sha256": null
+      },
+      "predictions": {
+        "path": "restricted/retrieval-predictions.json",
+        "sha256": null
+      }
+    },
+    "answer-risk": {
+      "references": {
+        "path": "restricted/answer-risk-references.json",
+        "sha256": null
+      },
+      "predictions": {
+        "path": "restricted/answer-risk-predictions.json",
+        "sha256": null
+      }
+    },
+    "classification": {
+      "report": {
+        "path": "../reports/final/c008-owner-classification-evidence-v1.json",
+        "sha256": "11c335b57b5ff5c404adde6eac3c258035eb79cb8c38e2b76df44a7d09dc156d"
+      }
+    }
+  },
+  "selected_system_status": "Remediation candidate identified; saved-output replay still fails and no fresh quality acceptance or app receipt exists for this pin.",
+  "reference_identity_manifest": {
+    "path": "../references/qa/d007-final-reference-freeze-v1.manifest.json",
+    "sha256": "01751714755b1c6344065f8786bb99cf28156f58612e6c98be99fb5e12f25740"
+  },
+  "unseen_eligibility_pending_cases": [
+    "F-DOC-01",
+    "F-DOC-02",
+    "F-DOC-03"
+  ],
+  "final_generation_authorized_by_this_candidate": false,
+  "status": "blocked_not_approved_not_executed",
+  "measured_extraction_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813"
+}
