@@ -18,7 +18,9 @@ const presets = {
 export type DemoQuestion = keyof typeof presets;
 
 export function isReviewedQuestion(text: string): boolean {
-  return (Object.values(presets) as QuestionPlan[]).some(plan => text === plan.document || text === plan.literature);
+  // The indexed RAG demo also supports this reviewed free-text question.
+  return text === 'What is the synthetic demo topic, and when did it begin?' ||
+    (Object.values(presets) as QuestionPlan[]).some(plan => text === plan.document || text === plan.literature);
 }
 
 export function demoQuestions(builtin: boolean) {

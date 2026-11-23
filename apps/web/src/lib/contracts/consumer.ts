@@ -49,6 +49,7 @@ function invalid(error: unknown, code: Rejected['code'] = 'invalid-result'): Rej
 /** Consume a generated result without coercion, text repair, composition or I/O. */
 export async function consumeRecord<K extends ResultDefinition>(
   definition: K, input: RecordInput, context: Context = {},
+  classificationMode: 'mock' | 'live' = 'mock',
 ): Promise<Accepted<K> | Rejected> {
   try {
     if (!['ClassificationResult', 'ExtractionResult', 'RetrievalResult', 'AnswerResult'].includes(definition)) {
@@ -69,7 +70,11 @@ export async function consumeRecord<K extends ResultDefinition>(
         return rejected('document-context', ['DOCUMENT_CONTEXT']);
       }
     }
-    if (record.mode !== 'mock') return rejected('mock-mode', ['MOCK_MODE_REQUIRED']);
+    if (definition === 'ClassificationResult' && classificationMode === 'live') {
+      if (record.mode !== 'live') return rejected('invalid-result', ['FITTED_CLASSIFIER_MODE_REQUIRED']);
+    } else if (record.mode !== 'mock') {
+      return rejected('mock-mode', ['MOCK_MODE_REQUIRED']);
+    }
     return { kind: 'accepted', record };
   } catch (error) {
     return invalid(error);
