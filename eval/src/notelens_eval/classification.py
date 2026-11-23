@@ -25,8 +25,8 @@ def classification_metrics(pairs: list[tuple[str, str]]) -> dict:
         per_class[label] = {
             "support": support, "predicted": predicted, "true_positives": tp,
             "precision": tp / predicted if predicted else 0.0,
-            "recall": tp / support,
-            "f1": 2 * tp / (support + predicted),
+            "recall": tp / support if support else 0.0,
+            "f1": 2 * tp / (support + predicted) if support + predicted else 0.0,
         }
     correct = sum(matrix[label][label] for label in SPECIALTIES)
     return {"documents": len(pairs), "correct": correct, "accuracy": correct / len(pairs),

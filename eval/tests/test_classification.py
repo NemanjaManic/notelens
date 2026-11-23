@@ -4,13 +4,20 @@ import json
 import pytest
 
 from notelens_eval.annotations import SPECIALTIES
-from notelens_eval.classification import evaluate_classification
+from notelens_eval.classification import classification_metrics, evaluate_classification
 
 
 def write_json(path, record):
     raw = json.dumps(record).encode("utf-8")
     path.write_bytes(raw)
     return hashlib.sha256(raw).hexdigest()
+
+
+def test_fixed_label_metrics_handle_classes_absent_from_a_scoring_slice():
+    report = classification_metrics([(SPECIALTIES[0], SPECIALTIES[0])])
+    assert report["accuracy"] == 1
+    assert report["macro_f1"] == 0.2
+    assert report["per_class"][SPECIALTIES[1]]["recall"] == 0
 
 
 @pytest.fixture
