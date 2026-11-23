@@ -1,0 +1,166 @@
+{
+  "version": "d008-reduced-pilot-analysis-v1",
+  "date": "2026-11-23",
+  "status": "analysis_complete_calibration_proposal_and_team_adoption_pending",
+  "scope_receipt": "eval/reports/development/d008-reduced-development-pilot-scope-v1.json",
+  "rubric_version": "d-answer-review-rubric-v1",
+  "returned_form_version": "d-answer-review-form-v2; legacy first-round records preserved",
+  "accepted_answer_rating_records": 14,
+  "matched_case_pairs": 7,
+  "initial_exact_dimension_agreement": {
+    "matching": 43,
+    "comparable": 49,
+    "percent": 87.76
+  },
+  "initial_by_dimension": {
+    "clarity_and_english": {
+      "comparable": 7,
+      "exact": 7,
+      "major_disagreement": 0,
+      "unable": 0
+    },
+    "evidence_gaps": {
+      "comparable": 7,
+      "exact": 5,
+      "major_disagreement": 1,
+      "unable": 0
+    },
+    "extra_facts": {
+      "comparable": 7,
+      "exact": 7,
+      "major_disagreement": 0,
+      "unable": 0
+    },
+    "required_facts": {
+      "comparable": 7,
+      "exact": 6,
+      "major_disagreement": 0,
+      "unable": 0
+    },
+    "scope_and_safety": {
+      "comparable": 7,
+      "exact": 6,
+      "major_disagreement": 0,
+      "unable": 0
+    },
+    "source_support": {
+      "comparable": 7,
+      "exact": 6,
+      "major_disagreement": 0,
+      "unable": 0
+    },
+    "uncertainty_and_context": {
+      "comparable": 7,
+      "exact": 6,
+      "major_disagreement": 1,
+      "unable": 0
+    }
+  },
+  "initial_dimension_score_counts": {
+    "clarity_and_english": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 14
+      },
+      "mean": 2.0
+    },
+    "evidence_gaps": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 7,
+        "1": 3,
+        "2": 4
+      },
+      "mean": 0.7857142857142857
+    },
+    "extra_facts": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 14
+      },
+      "mean": 2.0
+    },
+    "required_facts": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 6,
+        "1": 1,
+        "2": 7
+      },
+      "mean": 1.0714285714285714
+    },
+    "scope_and_safety": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 0,
+        "1": 1,
+        "2": 13
+      },
+      "mean": 1.9285714285714286
+    },
+    "source_support": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 2,
+        "1": 1,
+        "2": 11
+      },
+      "mean": 1.6428571428571428
+    },
+    "uncertainty_and_context": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 3,
+        "1": 0,
+        "2": 11
+      },
+      "mean": 1.5714285714285714
+    }
+  },
+  "initial_outcomes": {
+    "answer": 6,
+    "partial_answer": 2,
+    "abstain": 6
+  },
+  "initial_critical_error_flags": 4,
+  "initial_cases_with_disagreements": 6,
+  "initial_report_sha256": "c89aa73626fb0ebfaaa3000f5aed0a494bb753b11ae0725d526cc393c2134ff8",
+  "accepted_entity_evidence_reviews": 5,
+  "entity_mention_offset_pass": 5,
+  "entity_evidence_offset_pass": 5,
+  "entity_semantic_support_declared_pass": 5,
+  "entity_inter_reviewer_agreement": "Not measured: these five items have one accepted review each.",
+  "first_round_scores_modified": false,
+  "new_independent_reviews_added": 0,
+  "post_adjudication_independent_agreement_reported": false,
+  "agent_proposed_case_decisions": 6,
+  "human_approval_of_case_decisions_recorded": false,
+  "later_replacement_exposure_disclosure": "Applies to D008-C-REPL slots. It is not silently extended to invalidate the previously accepted distinct D008-CAL records.",
+  "independence_limitations": "Prior reviewer declarations and disclosed AI assistance were accepted by Milica in the earlier intake. This analysis does not authenticate human authorship or claim a new blinded round.",
+  "same_refusal_hash_different_sources": "CAL-04/CAL-05 share response bytes but are distinct source/question contexts; answerability differs. They are not collapsed into a single case.",
+  "shortfall_to_original_plan": {
+    "answer_rating_records_below_40_planning_target": 26,
+    "entity_evidence_reviews_below_20_planning_target": 15
+  },
+  "team_adoption_confirmed": false,
+  "quality_thresholds_changed": false,
+  "clinical_validation_claimed": false,
+  "provider_calls": 0,
+  "unseen_final_accessed": false,
+  "full_d008_closed": false,
+  "remaining": "Coordinator approval of the concrete six-case calibration proposal and recorded team adoption of the reduced delivery scope. No new ratings from released reviewers are requested.",
+  "private_pilot_route": "Predaja-NoteLens/D-008/D008-reduced-development-pilot-v1",
+  "private_adjudication_proposal_sha256": "b1522b6e83fd29c9ef05ce11e009b13760bab84a67931038ef5efe5c42f2a058",
+  "private_initial_analysis_sha256": "c89aa73626fb0ebfaaa3000f5aed0a494bb753b11ae0725d526cc393c2134ff8"
+}

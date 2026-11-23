@@ -23,6 +23,13 @@
   "goran_prior_exposure": "Not inferred; release is a coordinator decision, not an exposure finding.",
   "supplementary_feedback_requested": false,
   "prepared_packets": "Retained as historical artifacts; not active assignments.",
+  "reduced_scope_followup": {
+    "receipt": "eval/reports/development/d008-reduced-development-pilot-scope-v1.json",
+    "coordinator_approved_limited_pilot": true,
+    "new_replacement_ratings_requested": false,
+    "team_adoption_and_calibration_rules": "pending",
+    "earlier_capacity_requirement": "Historical full-scope requirement; no longer a request to the released reviewers."
+  },
   "independent_rating_requirement": {
     "required_per_case": 2,
     "confirmed_replacement_reviewers": [],

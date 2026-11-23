@@ -1,0 +1,36 @@
+{
+  "version": "d008-reduced-development-pilot-scope-v1",
+  "date": "2026-11-23",
+  "source": "Milica explicitly selects the reduced-scope delivery scenario and reports no replacement reviewers can be found.",
+  "scope_approval_annotation_id": "641a4026-a172-4e9d-bc3d-e5f9170d335e",
+  "capacity_annotation_id": "88b88675-3f88-45ce-bfce-d302d9a8c1b5",
+  "coordinator_scope_approved": true,
+  "scope_approved_by": "Milica",
+  "delivery_scope": "Limited synthetic mock development calibration pilot only.",
+  "included": {
+    "accepted_answer_rating_records": 14,
+    "matched_source_question_response_cases": 7,
+    "accepted_entity_evidence_reviews": 5
+  },
+  "original_plan": {
+    "approximate_answer_review_target": 40,
+    "entity_evidence_review_target": 20
+  },
+  "shortfalls": {
+    "answer_rating_records_below_40_planning_target": 26,
+    "entity_evidence_reviews_below_20_planning_target": 15
+  },
+  "replacement_reviews_cancelled": true,
+  "goran_and_nemanja_new_reviews_required": false,
+  "sara_feedback": "Retained separately as non-independent; adds no independent count or agreement pair.",
+  "team_adoption_confirmed": false,
+  "team_adoption_status": "Prepare the concrete scope/limitations note for team confirmation; no team reply is invented.",
+  "six_case_calibration_decisions_approved": false,
+  "proposed_decisions": 6,
+  "provider_backed_quality_verified": false,
+  "unseen_final_measurement": false,
+  "d005_d007_d011_d009_gates_waived": false,
+  "d013_reference_freeze_affected": false,
+  "full_d008_closed": false,
+  "private_pilot_route": "Predaja-NoteLens/D-008/D008-reduced-development-pilot-v1"
+}

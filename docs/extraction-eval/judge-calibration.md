@@ -1,4 +1,55 @@
-# D-008 review preparation
+# D-008 review and calibration
+
+## Reduced development-pilot scope (2026-11-23)
+
+Milica explicitly selected the reduced delivery scenario and reported that new
+eligible reviewer capacity is unavailable. Her scope decision is recorded in the
+[scope receipt](../../eval/reports/development/d008-reduced-development-pilot-scope-v1.json).
+This authorizes preparation of a limited synthetic mock development calibration
+pilot, not a claim that the original review-volume plan was fulfilled. Goran and
+Nemanja remain released from new replacement reviews. Sara's feedback remains
+separate and non-independent.
+
+D reverified the exact accepted first-round inputs and saved response/source
+hashes, reproduced fourteen accepted answer-rating records and seven paired
+source/question/response cases, and matched all five accepted entity-evidence
+records to their original packet pins. Initial dimension agreement is **43/49
+(87.76%)**. It is preserved before adjudication. Dimension-level exact counts are:
+clarity/English 7/7, extra facts 7/7, evidence gaps 5/7, required facts 6/7,
+scope/safety 6/7, source support 6/7, and uncertainty/context 6/7. No single summed
+quality score or new acceptance threshold is introduced.
+
+The five entity-evidence records declare pass for mention/evidence offsets and
+semantic support; applicable attribute checks also pass. These are five singly
+reviewed items, not five inter-reviewer agreement pairs. The fourteen answer
+ratings are not fourteen distinct evaluated answers: they cover seven cases.
+CAL-04 and CAL-05 have identical refusal bytes but different source/question
+contexts, which remain separate.
+
+The original plan was approximately 40 answer reviews and at least 20 entity-
+evidence reviews. This pilot is 26 and 15 records/items below those planning
+counts respectively. The sample is small, synthetic and mock-only. It establishes
+neither provider-backed quality, unseen-final performance nor clinical validity.
+Previously accepted declarations and AI-assistance disclosures remain part of
+the provenance; no new blind review or verified human authorship is claimed.
+
+The private `D008-reduced-development-pilot-v1` package preserves the original
+ratings and contains a six-case adjudication proposal, not new human or independent
+ratings. It proposes counting complete structured warnings, separating justified
+abstention from false refusal, a named benchmark-critical omission convention,
+and separating support for an emitted atom from an omitted contradiction.
+Proposed profiles are explicitly non-human and non-independent and are not used
+to recompute independent agreement. See the [analysis](../../eval/reports/development/d008-reduced-pilot-analysis-v1.json).
+
+Remaining: coordinator approval of these concrete calibration conventions and a
+recorded team decision adopting the reduced delivery scope. Milica's scope choice
+is already recorded and need not be requested again. No team confirmation is
+invented. The private package includes `FINAL-REVIEW.txt` and a ready team message
+requesting scope adoption, without new scoring work. D-008 remains open pending
+those decisions; D-005/D-007/D-011/D-009 gates and D-013's completed freeze are
+unaffected. The preparation and reviewer-capacity histories below remain preserved.
+
+## Historical initial preparation
 
 Updated 2026-11-13. Agent implementation evidence only. Rubric remains an
 uncalibrated draft; no human reviews, clinical validation or owner approval are claimed.
