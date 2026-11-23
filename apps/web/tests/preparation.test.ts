@@ -181,6 +181,27 @@ test('submission/canonical-pasted-text-and-provenance', async () => {
   } finally { s.store.dispose(); }
 });
 
+test('submission/reviewed-replay-requires-exact-synthetic-text', async () => {
+  const s = setup();
+  const text = 'No fever today.';
+  const reviewed = [sha(text)];
+  try {
+    same(await prepareSubmitted(s.store, s.session, submission(text), 'text', 'synthetic'),
+      { kind: 'rejected', code: 'inconclusive' });
+    same(await prepareSubmitted(s.store, s.session, submission(text + '!'), 'text', 'synthetic', reviewed),
+      { kind: 'rejected', code: 'inconclusive' });
+    same(await prepareSubmitted(s.store, s.session, submission(text), 'text', 'public', reviewed),
+      { kind: 'rejected', code: 'inconclusive' });
+    const result = await prepareSubmitted(s.store, s.session, submission(text), 'text', 'synthetic', reviewed);
+    if (result.kind !== 'prepared') throw new Error('PREPARATION_CHECK_FAILED');
+    const stored = s.store.getDocument(s.session, result.docId);
+    if ('kind' in stored) throw new Error('PREPARATION_CHECK_FAILED');
+    same(stored.text, text);
+    same(stored.text_sha256, reviewed[0]);
+    same(stored.language_validation.policy_version, 'saved-replay-english-v1');
+  } finally { s.store.dispose(); }
+});
+
 test('submission/failure-releases-session-reservation', async () => {
   const s = setup();
   try {

@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { MAX_DOCUMENT_CODE_POINTS, MAX_PDF_BYTES } from '../config/session-policy.ts';
 import { boundedBody } from '../http/bounded-body.ts';
 import type { MemorySessions } from '../sessions/memory.ts';
@@ -41,7 +42,10 @@ async function readText(request: Request, input: Input): Promise<{ kind: 'text';
   }
 }
 
-export async function prepareSubmitted(store: MemorySessions, owner: string, request: Request, input: Input, scope: 'public' | 'synthetic') {
+export async function prepareSubmitted(
+  store: MemorySessions, owner: string, request: Request, input: Input, scope: 'public' | 'synthetic',
+  reviewedReplayHashes?: readonly string[],
+) {
   const ticket = store.beginDocument(owner);
   if (!ticket) return UNAVAILABLE;
   try {
@@ -52,11 +56,17 @@ export async function prepareSubmitted(store: MemorySessions, owner: string, req
       const code = canonical.code === 'unknown-builtin' || canonical.code === 'preparation-unavailable' ? 'invalid-text' : canonical.code;
       return { kind: 'rejected', code } satisfies Rejection;
     }
-    const english = englishLanguage(canonical.text);
-    if (english !== 'accepted') return { kind: 'rejected', code: english } satisfies Rejection;
+    const reviewedReplay = input === 'text' && scope === 'synthetic' && reviewedReplayHashes?.includes(
+      createHash('sha256').update(canonical.text, 'utf8').digest('hex'),
+    );
+    if (!reviewedReplay) {
+      const english = englishLanguage(canonical.text);
+      if (english !== 'accepted') return { kind: 'rejected', code: english } satisfies Rejection;
+    }
     const source = input === 'pdf' ? 'text_pdf' : scope === 'public' ? 'public_text' : 'synthetic_text';
     return await storePreparedDocument(store, owner, ticket, canonical.text, { kind: source }, {
-      outcome: 'accepted', language: 'en', policy_version: SUBMITTED_LANGUAGE_POLICY, reason: null,
+      outcome: 'accepted', language: 'en',
+      policy_version: reviewedReplay ? 'saved-replay-english-v1' : SUBMITTED_LANGUAGE_POLICY, reason: null,
     });
   } finally {
     store.cancelPreparation(owner, ticket);

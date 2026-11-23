@@ -20,7 +20,8 @@ export function QuestionAnswer({ answer, href }: { answer: RoutedAnswer; href?: 
           : `${routeNames[origin]} answer unavailable. Try again.`}</p>
         : <>
           {result.record.claims.length === 0 && <><p>{result.record.text}</p>
-            {origin === 'document' && <p>This document mock answers a limited set of questions. Try a preset.</p>}</>}
+            {origin === 'document' && result.record.mode === 'mock' &&
+              <p>This document mock answers a limited set of questions. Try a preset.</p>}</>}
           <ul className="claims">{result.record.claims.map(claim => <li key={claim.claim_id}>
             <p>{claim.text}</p>
             {claim.source_ids.map(id => {

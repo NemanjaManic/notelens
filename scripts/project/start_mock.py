@@ -119,6 +119,7 @@ def start_stack(
     indexed_rag_job: ExitStack | None = None,
     extraction_root: Path = ROOT,
     d005_replay: D005Replay | None = None,
+    reviewed_replay_text_sha256: tuple[str, ...] = (),
 ) -> Iterator[MockStack]:
     """Use the caller's job for indexed RAG when it must be stopped independently."""
     node = shutil.which('node')
@@ -175,6 +176,8 @@ def start_stack(
                    **{f'NOTELENS_DEMO_{name.upper()}_PORT': str(ports[name]) for name in SERVICES}}
         if d005_replay is not None:
             web_env['NOTELENS_LOCAL_D005_PROFILE'] = 'saved-replay'
+            if reviewed_replay_text_sha256:
+                web_env['NOTELENS_LOCAL_D005_REVIEWED_TEXT_SHA256'] = ','.join(reviewed_replay_text_sha256)
         if fitted_classifier is not None:
             web_env.update(NOTELENS_LOCAL_CLASSIFIER_PROFILE='fitted',
                            NOTELENS_LOCAL_CLASSIFIER_PORT=str(fitted_classifier.port),
