@@ -182,12 +182,47 @@ source identities and audit pins. Browser/HTTP results in this intake retain
 their owner-reported execution provenance. B-005/B-009 formal acceptance and
 provider-backed D-005 verification remain pending. See the [RAG/platform intake](../../eval/reports/development/d009-rag-platform-intake-2026-11-23.json).
 
-The D-009 command currently has an implementation gap. `notelens_eval.run` rejects
-every `--profile final` invocation before reading a freeze manifest. Completing
-the final profile and its frozen-input execution checks is required alongside
-the remaining reference, review and operational handoffs. The documented final
-command becomes executable after that implementation and the approved scope
-are available.
+The D-009 final profile now scores frozen saved outputs. Use a completed copy of
+`eval/config/final-freeze.template.json` in the approved private bundle. Record
+the named approval, execution scope and reason, unique run ID, selected RAG,
+classifier and extraction identities, and exact artifact hashes. The template
+contains pending values and activation approval remains explicit.
+
+The bundle contains four components. Extraction references use the existing
+`cases`/`request`/`entities`/`qa` representation. Retrieval and answer-risk inputs
+use the existing scorer formats. Their references declare `kind=permitted_benchmark`,
+`partition=final`, `human_reviewed=true`, and a source `group` on every case.
+Prediction wrappers declare `partition=final` and the same `system_versions`
+object as the freeze. Extraction outputs must be saved live-mode records.
+Retrieval cases with no reviewed support explicitly declare
+`expected_status=insufficient` with empty required-topic and passage-group lists.
+Those cases are outside recall denominators. Independent answer-correctness
+labels remain required for the answer-risk component.
+
+Classification consumes C's aggregate final evidence in the format already
+recorded in `eval/reports/final/c008-owner-classification-evidence-v1.json`.
+Its selected model manifest digest must equal `system_versions.classifier`.
+The runner verifies the confusion matrix, document count, accuracy and macro-F1
+without opening C's held-out texts. A pinned `development-groups.json` supplies
+the nonempty `group_ids` exclusion list, and the pinned acceptance configuration
+supplies the named threshold decisions. All artifact paths resolve inside the
+approved bundle.
+
+```powershell
+$freeze = 'C:\approved-final-bundle\freeze.json'
+$freezeSha256 = (Get-FileHash -LiteralPath $freeze -Algorithm SHA256).Hash.ToLowerInvariant()
+# Compare this digest with the recorded approved freeze before execution.
+./eval/.venv/Scripts/python.exe -B -m notelens_eval.run --profile final `
+  --require-freeze --freeze $freeze --freeze-sha256 $freezeSha256 `
+  --output eval/reports/local/final
+```
+
+The runner claims a single-use `.final-SHA256.receipt` before opening final case
+artifacts. A failed run retains its receipt. Results and the English report are
+published together under the run ID. Changed hashes, source-group overlap,
+version mismatches, duplicate execution and invalid inputs stop the run. Missing
+quality thresholds remain pending. The output records per-component denominators
+and the summed component-observation count. It performs zero new provider calls.
 
 ### Local evaluation commands
 
