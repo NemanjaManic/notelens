@@ -294,7 +294,18 @@ authorship declarations; this does not ask Sara to repeat her disclosed review.
 Seven answer records have dated completion fields; the dated disclosure covers
 the five entity-evidence records. Do not change unknown authorship to false.
 
-**Latest reviewer-status update:** Milica relayed an AI-assisted draft disclosure
+**Coordinator release:** Milica subsequently released both Nemanja and Goran
+from the proposed independent review of the seven replacement answers. No forms,
+availability responses or return dates are now expected from either person for
+this assignment. Their prepared packets remain historical artifacts, not active
+assignments. Nemanja's earlier exposure disclosure is preserved; no exposure is
+inferred for Goran. This release does not waive the two-independent-ratings
+requirement or name eligible replacements. D-008 retains an unresolved reviewer-
+capacity requirement pending replacement staffing or an explicit approved scope
+decision; D-013 remains closed. See the
+[release record](../../eval/reports/development/d008-reviewer-release-v1.json).
+
+**Earlier reviewer-status update:** Milica relayed an AI-assisted draft disclosure
 attributed to Nemanja reporting prior exposure to all seven exact replacement
 answers and involvement in RAG corpus, literature-question and development-output
 preparation. Treat all seven proposed independent slots as affected and remove

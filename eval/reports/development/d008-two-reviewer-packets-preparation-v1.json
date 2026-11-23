@@ -2,7 +2,13 @@
   "version": "d008-two-reviewer-packets-preparation-v1",
   "date": "2026-11-23",
   "source": "Sara recommendation relayed by Milica; packets prepared locally without sending.",
-  "status": "nemanja_exposure_reported_for_all_seven_replacement_reviewer_required",
+  "status": "both_proposed_reviewer_assignments_withdrawn_by_milica",
+  "coordinator_release": {
+    "receipt": "eval/reports/development/d008-reviewer-release-v1.json",
+    "released_reviewers": ["Nemanja", "Goran"],
+    "forms_or_return_dates_expected": false,
+    "prepared_archives": "Historical artifacts only; no active reviewer assignments remain."
+  },
   "latest_eligibility_followup": {
     "receipt": "eval/reports/development/d008-nemanja-prior-exposure-intake-v1.json",
     "nemanja_independent_slots_eligible": 0,

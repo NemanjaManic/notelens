@@ -1,0 +1,40 @@
+{
+  "version": "d008-reviewer-release-v1",
+  "date": "2026-11-23",
+  "source": "Milica explicitly requests releasing both Nemanja and Goran from this task.",
+  "scope": "Proposed independent review of the seven D008-C-REPL replacement answers only.",
+  "released_reviewers": [
+    "Nemanja",
+    "Goran"
+  ],
+  "case_ids": [
+    "D008-C-REPL-01",
+    "D008-C-REPL-02",
+    "D008-C-REPL-03",
+    "D008-C-REPL-04",
+    "D008-C-REPL-05",
+    "D008-C-REPL-06",
+    "D008-C-REPL-07"
+  ],
+  "assignment_status": "withdrawn_by_coordinator",
+  "review_forms_or_return_dates_expected_from_released_reviewers": false,
+  "followup_availability_requests_required": false,
+  "nemanja_prior_exposure_disclosure_preserved": true,
+  "goran_prior_exposure": "Not inferred; release is a coordinator decision, not an exposure finding.",
+  "supplementary_feedback_requested": false,
+  "prepared_packets": "Retained as historical artifacts; not active assignments.",
+  "independent_rating_requirement": {
+    "required_per_case": 2,
+    "confirmed_replacement_reviewers": [],
+    "status": "unresolved_reviewer_capacity",
+    "scope_change_or_waiver_approved": false
+  },
+  "project_effects": {
+    "new_independent_review_credit": 0,
+    "agreement_pairs_added": 0,
+    "full_d008_closed": false,
+    "d013_freeze_affected": false,
+    "other_team_assignments_released": false
+  },
+  "external_release_messages_sent": false
+}
