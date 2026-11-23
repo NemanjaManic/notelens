@@ -33,8 +33,15 @@ actual task dependencies. Do not invoke the full original setup/implementation p
 - Ask unresolved functionality, privacy, cost, or ownership questions. Do not invent
   defaults, experimental results, reviewer acceptance, capacity, or budgets.
 - Work on independent approved parts while an answer is pending.
-- Do not commit, push, publish, deploy, activate paid calls, add paid services, or send
-  collaborator invitations without explicit authorization for that action.
+- Standing user authorization (2026-11-23): commit completed, appropriately verified
+  changes from authorized work without requesting commit permission again. When work
+  contains multiple logical changes, create separate coherent commits instead of one
+  catch-all commit. Do not manufacture empty commits or split one trivial edit solely
+  to increase the commit count. Review staged scope, preserve private sources/receipts
+  outside Git, and report commit IDs and the remaining working-tree state.
+- Push, publication, deployment, paid calls/services and collaborator invitations
+  still require explicit authorization for that action; local commit authorization
+  does not authorize them or unrelated implementation.
 - Do not delegate to subagents unless the user explicitly requests delegation.
 - Report actual commands/checks and their limitations. Distinguish agent review from
   human/team approval, mock checks from module checks, and offline checks from live checks.
