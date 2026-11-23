@@ -179,6 +179,25 @@ if ($LASTEXITCODE -ne 0 -or -not $platformPython) { throw 'Could not locate Pyth
 & $platformPython -B scripts/project/start_mock.py --fitted-classifier
 ```
 
+If uv cannot find an existing managed Python 3.13 installation, set
+`UV_PYTHON_INSTALL_DIR` in the platform window to the custom installation root
+that contains the `cpython-3.13.*` directory. Then repeat the lookup and launch
+commands above.
+
+```powershell
+$env:UV_PYTHON_INSTALL_DIR = 'C:\path\to\uv\python'
+```
+
+To select the interpreter directly, use its full path in the platform window
+after the fitted probe has passed. Run this from the platform checkout root.
+
+```powershell
+$platformPython = (Resolve-Path -LiteralPath 'C:\path\to\Python313\python.exe').Path
+& $platformPython -c "import sys; raise SystemExit(sys.version_info[:2] != (3, 13))"
+if ($LASTEXITCODE -ne 0) { throw 'Select a Python 3.13 executable.' }
+& $platformPython -B scripts/project/start_mock.py --fitted-classifier
+```
+
 Open the printed `localhost` URL. On the demo page, submit each of Milica’s two
 examples through the pasted-text form as synthetic input. Use the exact text from
 the converted file and check both reports.
