@@ -259,3 +259,17 @@ supplied copies for 022 and 029, which Sara confirmed complete at 62 and 112 cod
 points. D preserves all original submissions and retains the 49 primary and
 nineteen secondary questions. Canonical reference closure follows the source
 checks and human adjudication. See the [B-011 intake receipt](../../eval/reports/development/d013-b011-reviewed-intake-v1.json).
+
+Milica returned the completed twelve-decision 034 form. D verified the canonical
+and reviewed-secondary hashes, every decision ID, the exact accepted proposal
+text and fourteen source anchors. Seven explicit occurrence changes produce a
+32-mention working candidate with 32 valid evidence spans. Six older proposals
+are resolved by these scoped decisions. The paired boundary at 1162/1173–1190
+remains in the next review batch. Original submissions and the original human
+decision file are preserved. See the [decision intake](../../eval/reports/development/d013-034-human-decisions-intake-v1.json).
+
+The next private review batch contains that remaining boundary and the five
+retained questions for 001. Each item supplies exact source excerpts and a
+recommendation. Milica can accept, replace or defer each decision, then export
+the source-pinned JSON. Deferred items remain pending. D verifies the returned
+file before applying it and preparing the next batch. See the [batch preparation](../../eval/reports/development/d013-adjudication-batch-01-preparation-v1.json).
