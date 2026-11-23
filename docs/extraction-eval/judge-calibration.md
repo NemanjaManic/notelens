@@ -204,6 +204,14 @@ relies on the reviewer declarations and the retained AI disclosure. The remainin
 rubric decisions, wider review sample and final calibration remain open. See the
 [first-round comparison receipt](../../eval/reports/development/d008-first-round-comparison-v1.json).
 
+On 2026-11-23, Sara reaffirmed prior exposure and preparation involvement for all
+twelve original items and requested her replacement packet. D reverified its
+archive digest and all forty-three file checksums. The seven answer forms and
+five entity-evidence forms are blank and ready for the private handoff. The
+original disclosed reviews retain their earlier status. Completed replacements,
+their exposure declarations and a second reviewer of the same new answers are
+pending. See the [resource intake](../../eval/reports/development/team-resource-intake-2026-11-23.json).
+
 ## Proposed Member B first round, 2026-11-22
 
 Goran requested counts, rubric version and the review window before confirming
