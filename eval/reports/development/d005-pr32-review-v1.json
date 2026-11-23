@@ -26,9 +26,10 @@
     "file": "scripts/project/start_mock.py",
     "related_file": "scripts/project/d005_replay.py",
     "description": "Public CLI still constructs c7-pinned D005Replay; reviewed_replay_text_sha256 is only a programmatic parameter. No tracked d41 adapter/command or per-case receipt provided in this PR to reproduce the claimed 16-case run.",
-    "requested": "Provide the exact d41 runner/command, its source hash and a private sanitized receipt mapping 16 unchanged cases to app/service/profile/output pins and results. No new provider calls needed."
+    "requested": "Provide the exact d41 runner/command, its source hash and a private sanitized receipt mapping 16 unchanged cases to app/service/profile/output pins and results. No new provider calls needed.",
+    "resolution": "Resolved by supplied pinned repro archive and receipt v3; see d005-d41-repro-verification-v1.json."
   },
-  "reported_d41_local_results": "Goran-reported only; not independently reproduced or accepted as a final measurement",
+  "reported_d41_local_results": "Accepted owner-reported reproducible saved development replay after hash and context verification; not independently executed by D.",
   "d009_closed": false,
   "github_review_posted": false,
   "merged": false
