@@ -57,3 +57,18 @@ def test_missing_predictions_are_not_treated_as_empty_rankings():
     with pytest.raises(ValueError, match="same case IDs"):
         evaluate_retrieval({"cases": [SINGLE, MULTI]}, {"cases": [{"id": "single"}]})
     assert score_case(SINGLE, [])["topic_recall_at_5"] == 0
+
+
+def test_explicit_no_support_cases_stay_outside_recall_denominators():
+    missing = {"id": "missing", "source_scope": "single", "expected_status": "insufficient",
+               "required_topic_ids": [], "required_passage_groups": []}
+    report = evaluate_retrieval({"version": "review", "cases": [SINGLE, missing]}, {
+        "version": "rankings", "cases": [
+            {"id": "single", "ranked_passages": [passage("target-support", "target")]},
+            {"id": "missing", "ranked_passages": []},
+        ],
+    })
+    assert report["overall"]["cases"] == 2
+    assert report["overall"]["topic_metric_denominator"] == 1
+    assert report["overall"]["topic_recall_at_5"] == 1
+    assert report["cases"][1]["topic_recall_at_5"] is None

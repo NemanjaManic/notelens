@@ -24,14 +24,22 @@ def identifiers(values: list[str]) -> set[str]:
 
 
 def score_case(reference: dict, ranked: list[dict]) -> dict:
-    topics = identifiers(reference["required_topic_ids"])
+    expected_status = reference.get("expected_status", "supported")
+    if expected_status not in {"supported", "insufficient"}:
+        raise ValueError("Expected supported or insufficient retrieval references.")
+    if expected_status == "insufficient":
+        if reference["required_topic_ids"] != [] or reference["required_passage_groups"] != []:
+            raise ValueError("Insufficient references cannot declare required topics or passages.")
+        topics, groups = set(), []
+    else:
+        topics = identifiers(reference["required_topic_ids"])
+        raw_groups = reference["required_passage_groups"]
+        if not isinstance(raw_groups, list) or not raw_groups:
+            raise ValueError("At least one reviewed evidence group is required.")
+        groups = [identifiers(group) for group in raw_groups]
     scope = reference["source_scope"]
     if scope not in ("single", "multi"):
         raise ValueError("Expected single or multi source scope.")
-    raw_groups = reference["required_passage_groups"]
-    if not isinstance(raw_groups, list) or not raw_groups:
-        raise ValueError("At least one reviewed evidence group is required.")
-    groups = [identifiers(group) for group in raw_groups]
     if len({frozenset(group) for group in groups}) != len(groups):
         raise ValueError("Duplicate evidence group.")
     if not isinstance(ranked, list):
@@ -50,21 +58,24 @@ def score_case(reference: dict, ranked: list[dict]) -> dict:
     covered = sum(bool(group & retrieved_passages) for group in groups)
     return {
         "id": reference["id"], "source_scope": scope,
-        "topic_recall_at_5": len(positions) / len(topics),
-        "topic_reciprocal_rank_at_5": 1 / positions[0] if positions else 0.0,
-        "all_required_topics_at_5": len(positions) == len(topics),
+        "topic_recall_at_5": len(positions) / len(topics) if topics else None,
+        "topic_reciprocal_rank_at_5": (1 / positions[0] if positions else 0.0) if topics else None,
+        "all_required_topics_at_5": len(positions) == len(topics) if topics else None,
         "more_than_five_required_topics": len(topics) > 5,
-        "passage_evidence_coverage_at_5": covered / len(groups),
-        "all_required_evidence_at_5": covered == len(groups),
+        "passage_evidence_coverage_at_5": covered / len(groups) if groups else None,
+        "all_required_evidence_at_5": covered == len(groups) if groups else None,
     }
 
 
 def summarize(rows: list[dict]) -> dict:
     def average(key: str):
-        return mean(row[key] for row in rows) if rows else None
+        values = [row[key] for row in rows if row[key] is not None]
+        return mean(values) if values else None
 
     return {
         "cases": len(rows),
+        "topic_metric_denominator": sum(row["topic_recall_at_5"] is not None for row in rows),
+        "evidence_metric_denominator": sum(row["passage_evidence_coverage_at_5"] is not None for row in rows),
         "topic_recall_at_5": average("topic_recall_at_5"),
         "topic_mrr_at_5": average("topic_reciprocal_rank_at_5"),
         "all_required_topics_rate_at_5": average("all_required_topics_at_5"),
