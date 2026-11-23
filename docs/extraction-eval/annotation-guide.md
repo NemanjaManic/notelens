@@ -103,6 +103,33 @@ as an entity label. Evidence must include enough context to support all
 assigned attributes, which may require multiple exact spans if the context is separate.
 The meaning of uncertain and overlapping status cues remains subject to team review.
 
+### D's adjudication scope decisions (2026-11-23)
+
+Milica reviewed and accepted twelve source-linked decisions for assignment 034.
+The following scope conventions apply when reviewing comparable development
+occurrences. Preserve the source and record any occurrence-specific ambiguity.
+
+- Include explicitly documented objective signs within the symptom/finding
+  category alongside subjective symptoms. Preserve assertion, time and subject.
+- Include explicit medication administration as an intervention. Standalone
+  drug names and medication availability at home do not establish an action.
+  A medication name alone does not establish its associated symptom.
+- Device/method shorthand, operative positioning and watchful waiting remain
+  context unless the source states a separately named procedure or intervention.
+  Retaining an existing stent in place does not add a procedure occurrence.
+- Consent-risk wording does not establish that the listed disease or symptom
+  occurred. Preserve separately discussed procedures as hypothetical when that
+  is the scope established by the source.
+- Use the shortest contiguous named concept that preserves its identity, with
+  recurrence, uncertainty, target and other necessary context retained in evidence.
+- A procedure's object word alone does not establish an additional nested
+  diagnosis. Independently stated condition occurrences remain in scope.
+
+The [034 decision intake](../../eval/reports/development/d013-034-human-decisions-intake-v1.json)
+pins the original human decisions and their application. Treatment-start plans,
+other paired boundaries and comparable cases still receive source-specific
+adjudication before reference closure.
+
 ## 5. Exact mentions and evidence
 
 For each mention record its source text and interval and at least one separate evidence
