@@ -163,6 +163,16 @@ After a successful synthetic trial, source review and integration of the reviewe
 provider into the approved service setup remain necessary for full D-004/D-005
 completion. See the [offline preflight](../../eval/reports/development/d004-provider-offline-preflight-v1.json).
 
+Goran subsequently reported launcher integration at
+`14e4b9dfdfdd5832cae7f03d12e92cc5f9a00593` on the unmerged
+`member-b/b-005-launcher-integration` branch. His report covers a passing build,
+default mock smoke and 29 focused tests, a classifier loopback test double with
+indexed RAG active, and retained document claims and citations when literature
+is partial, insufficient or unavailable. Sara's classifier review and Nemanja's
+RAG startup/shutdown review were requested. D recorded this owner report. The
+provider-backed D-005 verification and B's remaining integration acceptance are
+pending. See the [resource intake](../../eval/reports/development/team-resource-intake-2026-11-23.json).
+
 ### Local evaluation commands
 
 Run evaluation and the retained training checker:
