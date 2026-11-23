@@ -1,0 +1,48 @@
+{
+  "version": "d005-d009-code-verification-v1",
+  "date": "2026-11-23",
+  "status": "code_implemented_offline_regressions_passed_runtime_acceptance_pending",
+  "service_implementation_commit": "4015847",
+  "final_evaluator_implementation_commit": "0d91913",
+  "verification": {
+    "service_command": "services/extraction/.venv/Scripts/python.exe -B -m pytest services/extraction/tests -q -p no:cacheprovider",
+    "service_tests_passed": 99,
+    "eval_command": "eval/.venv/Scripts/python.exe -B -m pytest eval/tests -q -p no:cacheprovider",
+    "eval_tests_passed": 134,
+    "service_warning": "Existing Starlette TestClient/httpx deprecation warning.",
+    "original_two_trial_payload_hashes_reverified_unchanged": true,
+    "configured_service_cli_help_verified": true,
+    "final_profile_cli_help_verified": true,
+    "operator_policy_and_final_freeze_templates": "Valid JSON with approved=false and pending values."
+  },
+  "d005_code": {
+    "configured_http_provider": true,
+    "app_uuid_and_canonical_digest_preserved_in_tests": true,
+    "summary_and_repeated_evidence_ranges_verified": [[7, 21], [47, 61]],
+    "tested_answer_states": ["sufficient", "partial", "insufficient", "out_of_scope"],
+    "provider_and_model_provenance_checked": true,
+    "attempt_and_balance_limits_shared_across_concurrent_requests": true,
+    "failed_attempts_consume_reservation": true,
+    "execution_receipt_prevents_restart_reuse": true,
+    "transport_used_for_tests": "Offline synthetic Responses envelopes and fake HTTPS connections.",
+    "actual_provider_output_review": "pending",
+    "b_configured_provider_app_acceptance": "pending"
+  },
+  "d009_code": {
+    "final_cli_executes_pinned_saved_output_scoring": true,
+    "components": ["extraction", "retrieval", "answer-risk", "classification_owner_evidence"],
+    "changed_hashes_and_system_versions_rejected": true,
+    "development_group_overlap_rejected": true,
+    "duplicate_execution_receipt_checked": true,
+    "json_and_english_report_published_atomically": true,
+    "missing_quality_thresholds_stay_pending": true,
+    "explicit_no_support_cases_outside_recall_denominators": true,
+    "verification_inputs": "Synthetic unit-test reference and output wrappers plus previously received aggregate classification evidence.",
+    "actual_system_final_freeze_and_run": "pending"
+  },
+  "real_provider_calls": 0,
+  "actual_final_dataset_accessed": false,
+  "old_d004_receipt_modified": false,
+  "full_d005_closed": false,
+  "full_d009_closed": false
+}
