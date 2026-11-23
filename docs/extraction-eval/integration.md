@@ -182,6 +182,13 @@ source identities and audit pins. Browser/HTTP results in this intake retain
 their owner-reported execution provenance. B-005/B-009 formal acceptance and
 provider-backed D-005 verification remain pending. See the [RAG/platform intake](../../eval/reports/development/d009-rag-platform-intake-2026-11-23.json).
 
+The D-009 command currently has an implementation gap. `notelens_eval.run` rejects
+every `--profile final` invocation before reading a freeze manifest. Completing
+the final profile and its frozen-input execution checks is required alongside
+the remaining reference, review and operational handoffs. The documented final
+command becomes executable after that implementation and the approved scope
+are available.
+
 ### Local evaluation commands
 
 Run evaluation and the retained training checker:
