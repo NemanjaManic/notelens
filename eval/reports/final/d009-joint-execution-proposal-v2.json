@@ -1,0 +1,55 @@
+{
+  "version": "d009-joint-execution-proposal-v2",
+  "date": "2026-11-23",
+  "approved": false,
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "configuration": {
+    "model": "gpt-6-luna",
+    "input_format": "messages",
+    "output_format": "quote_hints",
+    "prompt_profile": "coverage_v2",
+    "reasoning_effort": "low",
+    "output_version": "d-quote-hints-v2",
+    "prompt_version": "d-quote-hints-prompts-v2",
+    "prompt_versions_by_operation": {
+      "extract": "d-quote-hints-prompts-v2",
+      "answer": "d-quote-hints-prompts-v1",
+      "early_abstention": null
+    },
+    "prompt_pins": {
+      "services/extraction/src/notelens_extraction/prompts/extract-quotes-v2.txt": "e02ddaea5213c9814efbf2081a9b1e27bef2566cb657e4e7647f717f1f476cb5",
+      "services/extraction/src/notelens_extraction/prompts/answer-quotes-v1.txt": "e8fc562125c5a75cd2b477de4adcb9b55f14ab31c7c430e227f16d3509a70f25"
+    },
+    "immutable_dated_model_snapshot_established": false
+  },
+  "reference_identity_manifest": {
+    "path": "../references/qa/d007-final-reference-freeze-v1.manifest.json",
+    "sha256": "01751714755b1c6344065f8786bb99cf28156f58612e6c98be99fb5e12f25740"
+  },
+  "reference_status": "Existing D-007 manifest pins the original 26; a new immutable identity manifest and version-specific receipts are required if F-DOC-01/02/03 are replaced. Do not reuse the old manifest hash for replacements.",
+  "exposure_proposal": "Sara/Goran author and cross-review three replacement cases from eligible new families; original F-DOC-01/02/03 remain exposed supplementary cases. Not yet approved or supplied.",
+  "proposed_operator": "Goran on his approved Windows environment, subject to explicit authorization and setup confirmation",
+  "reference_custodian": "Sara; separate restricted gold/reference delivery after generation",
+  "scoring": "D verifies frozen saved outputs and separate references, then scores once; no model calls during scoring",
+  "D_provider_limits_proposal": {
+    "max_new_calls": 32,
+    "rationale": "Upper bound: at most 16 document/mixed answer calls and at most 16 unique-document extraction calls; reuse extraction per frozen source. Reduce the bound when the final runtime inventory is known.",
+    "max_input_bound_tokens_per_call": 65536,
+    "max_output_tokens_per_call": 12288,
+    "automatic_retries": 0,
+    "stop_on_first_error": true,
+    "new_budget_cap_usd": "0.50",
+    "prior_known_reservation_usd": "0.2020124",
+    "known_combined_reservation_ceiling_usd": "0.7020124",
+    "actual_billing_confirmed": false,
+    "input_rate_bound_usd_per_million": "0.125",
+    "output_rate_bound_usd_per_million": "0.50",
+    "32_call_worst_case_usd": "0.458752",
+    "preflight_required": "Verify current model access/rates and exact payload hashes with UTF-8-byte-plus-framing bounds before reserving. This proposal is not an active policy or execution authorization."
+  },
+  "A_provider_and_embedding_limits": "Nemanja supplies a separate bounded proposal for RAG/embedding calls and rates; D cap does not cover A. No joint execution until the complete cap is approved.",
+  "quality_decision_required": "Explicit team acceptance of final delivery with failed exact-F1 criterion and missing independent semantic-risk evidence. D-011 development closure alone does not grant this. Keep thresholds/results unchanged.",
+  "final_extraction_reference_requirement": "Supply distinct final extraction ground truth if final extraction F1 is claimed; D-013 remains development. Without it the metric is missing, not passed.",
+  "new_provider_calls_authorized": false,
+  "joint_final_generation_or_scoring_executed": false
+}
