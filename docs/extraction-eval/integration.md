@@ -254,6 +254,18 @@ synthetic requests, zero retries and the old receipt unchanged. Larger developme
 measurement needs a separately bounded request/cost scope. No live call was made
 as part of this documentation update.
 
+**Goran operator-support update:** Goran supports Milica as the proposed D-004
+operator, assisted by her agent. He directs her to the account/server administrator
+to confirm authorization, identify the approved ready environment and confirm
+trial-process access to `gpt-6-luna`. His support is not administrator authorization
+or proof that setup/model access is ready. Live execution remains paused. Reconcile
+prior execution/spending against the preserved receipt before any fresh attempt;
+keep two prepared synthetic requests, zero retries and the cumulative USD 0.10 cap.
+Share setup status only, with credentials server-side. Goran will prioritize the
+app recheck after D supplies the reviewed service SHA, locked Windows startup,
+model/prompt pins, receipt and findings. See the
+[operator-support intake](../../eval/reports/development/d004-goran-operator-support-intake-v1.json).
+
 Current D source includes operator-policy provider wiring at
 `401584798e05427b17de7e46ece4197d8eb841c6`, documented in the prior
 [offline code verification](../../eval/reports/development/d005-d009-code-verification-2026-11-23.json).

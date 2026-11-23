@@ -309,8 +309,8 @@
     "limitations": "Fresh passing checks are recorded separately from unexecuted reruns. The default mock checks and Chrome do not require RAG indexing. Only indexed setup was attempted and failed; default mock reruns have not failed independently. The launcher source uses the same rag .venv/Scripts/python.exe that Windows blocked, so an approved execution environment is still required. No new execution or policy clearance was established in this follow-up."
   },
   "provider_gate": {
-    "status": "project_budget_confirmed_operator_model_access_and_trial_accounting_pending",
-    "owner": "Milica with Goran: operator/server setup. Operator reconciles prior D-004 attempts and cumulative spend. Tutor has confirmed project funding sufficiency.",
+    "status": "proposed_operator_supported_administrator_authorization_setup_model_access_and_trial_accounting_pending",
+    "owner": "Milica with the account/server administrator: authorization, approved environment, model access and prior trial accounting. Goran supports the proposal and owns the later app recheck.",
     "authorized_operator": null,
     "server_side_model_access": "unconfirmed",
     "remaining_cumulative_ledger_usd": null,
@@ -335,7 +335,7 @@
     "reviewed_provider_service_sha": null,
     "provider_output_review": "pending; no successful live outputs reviewed in this intake",
     "new_provider_calls": 0,
-    "live_readiness": "Provider wiring exists at 401584798e05427b17de7e46ece4197d8eb841c6. Tutor funding assurance is received. No named operator, server-side model-access confirmation or reconciled D-004 attempt/spend ledger has been established in this conversation. No new live execution occurred.",
+    "live_readiness": "Goran supports Milica as proposed operator; administrator authorization, approved ready server environment and trial-process model access remain unconfirmed. Live execution stays paused and prior trial attempts/spend must be reconciled against the unchanged receipt and limits.",
     "coordinator_clarification": {
       "source": "User relayed Nemanja's message during this intake",
       "message": "Nemanja cannot confirm the balance. Ask the tutor directly. Preserve the cumulative USD 0.10 cap, at most two prepared synthetic requests, zero retries and existing receipt. Once budget is confirmed, coordinate operator and server setup with Goran.",
@@ -353,7 +353,14 @@
       "tutor_supports_planned_continuation": true,
       "exact_remaining_project_balance_usd": null,
       "same_confirmation_required_again": false
-    }
+    },
+    "proposed_operator": "Milica",
+    "goran_supports_proposed_operator": true,
+    "administrator_authorization_confirmed": false,
+    "account_or_server_administrator_identified": false,
+    "approved_server_environment": null,
+    "server_setup_ready": false,
+    "latest_operator_support_receipt": "eval/reports/development/d004-goran-operator-support-intake-v1.json"
   },
   "blockers": [
     {
@@ -370,9 +377,9 @@
     },
     {
       "gate": "Provider-backed D-004/D-005",
-      "owner": "Milica with Goran and the selected operator.",
-      "reason": "Project funding availability confirmed by tutor; operator, server-side model access, prior D-004 attempt/cost reconciliation and live output review remain pending.",
-      "next_action": "Coordinate operator/server setup with Goran; reconcile prior trial attempts and spending under the existing cumulative USD 0.10 cap; then perform only the authorized prepared requests with zero retries and a separate receipt."
+      "owner": "Milica and account/server administrator; Goran for later app recheck.",
+      "reason": "Tutor funding assurance is received and Goran supports Milica as proposed operator. Administrator authorization, approved ready environment, model access and trial accounting remain pending.",
+      "next_action": "Ask the account/server administrator to confirm authorization, approved environment/readiness and process model access; reconcile prior execution/spend, preserve the original receipt and retain the exact two-request, zero-retry, cumulative USD 0.10 scope. Share status only; credentials stay server-side."
     },
     {
       "gate": "B-005 integration acceptance",
