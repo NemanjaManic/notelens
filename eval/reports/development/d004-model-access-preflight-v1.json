@@ -1,0 +1,20 @@
+{
+  "version": "d004-model-access-preflight-v1",
+  "date": "2026-11-23",
+  "credential_source": "Windows user-encrypted local SecureString CLIXML; decrypted only into the child process environment.",
+  "credential_value_displayed_or_persisted_plaintext": false,
+  "credential_format_valid": true,
+  "method": "GET",
+  "endpoint": "https://api.openai.com/v1/models/gpt-6-luna",
+  "intended_model": "gpt-6-luna",
+  "automatic_retries": 0,
+  "model_metadata_http_status": 200,
+  "model_metadata_accessible": true,
+  "generation_access_verified": false,
+  "new_inference_requests": 0,
+  "new_execution_receipt_claimed": false,
+  "existing_receipt_sha256": "16e688456c8e2f20405d8417ff5ac7cec1d142573f5692636c31b5ff464df0e4",
+  "full_d004_closed": false,
+  "full_d005_closed": false,
+  "status": "model_metadata_accessible_generation_not_attempted"
+}
