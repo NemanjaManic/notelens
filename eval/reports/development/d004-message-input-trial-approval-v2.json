@@ -1,0 +1,15 @@
+{
+  "version": "d004-message-input-trial-approval-v2",
+  "date": "2026-11-23",
+  "approved": true,
+  "approved_by": "Milica",
+  "source": "Explicit user approval in the current conversation.",
+  "proposal_sha256": "a6e7b0569d7e31179d93ef50c511c6be8db4c3c26180eedc7a0025411ebff431",
+  "max_provider_calls": 2,
+  "max_output_tokens_each": 2048,
+  "automatic_retries": 0,
+  "stop_on_first_failure": true,
+  "cumulative_cap_usd": "0.10",
+  "higher_spend_offer": "Not used; retain the exact prepared scope and existing USD 0.10 cap.",
+  "new_receipt_required": true
+}
