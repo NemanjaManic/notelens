@@ -464,5 +464,19 @@
       ]
     },
     "platform_help_needed": "Goran/local administrator: an approved Windows environment able to execute the locked service virtual-environment interpreters, including services/rag/.venv/Scripts/python.exe. No indexing installation is needed for default mock checks."
+  },
+  "latest_provider_gate_2026_11_23": {
+    "supersedes_earlier_setup_pending_status": true,
+    "model_metadata_access": "passed",
+    "distinct_prepared_generation_requests_attempted": 2,
+    "retries": 0,
+    "remaining_approved_requests": 0,
+    "successful_provider_outputs": 0,
+    "failure": "Answer HTTP 400 invalid_request_error parameter input; extraction non-200 status not retained by original transport.",
+    "receipt": "eval/reports/development/d004-live-trial-execution-v1.json",
+    "owner": "D: offline request-compatibility diagnosis and corrected proposal; fresh bounded authorization required before more inference.",
+    "existing_receipt_preserved": true,
+    "actual_billing_confirmed": false,
+    "d005_reviewed_handoff": "pending_no_provider_outputs"
   }
 }
