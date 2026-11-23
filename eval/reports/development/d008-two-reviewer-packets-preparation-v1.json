@@ -2,7 +2,13 @@
   "version": "d008-two-reviewer-packets-preparation-v1",
   "date": "2026-11-23",
   "source": "Sara recommendation relayed by Milica; packets prepared locally without sending.",
-  "status": "two_private_packets_prepared_pending_reviewer_confirmation",
+  "status": "nemanja_exposure_reported_for_all_seven_replacement_reviewer_required",
+  "latest_eligibility_followup": {
+    "receipt": "eval/reports/development/d008-nemanja-prior-exposure-intake-v1.json",
+    "nemanja_independent_slots_eligible": 0,
+    "goran_eligibility": "pending",
+    "earlier_reviewer_fields": "Historical packet-preparation status. The original ZIPs and their hashes remain unchanged."
+  },
   "reviewers": [
     {
       "proposed_reviewer": "Goran",

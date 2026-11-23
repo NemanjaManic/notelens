@@ -294,6 +294,22 @@ authorship declarations; this does not ask Sara to repeat her disclosed review.
 Seven answer records have dated completion fields; the dated disclosure covers
 the five entity-evidence records. Do not change unknown authorship to false.
 
+**Latest reviewer-status update:** Milica relayed an AI-assisted draft disclosure
+attributed to Nemanja reporting prior exposure to all seven exact replacement
+answers and involvement in RAG corpus, literature-question and development-output
+preparation. Treat all seven proposed independent slots as affected and remove
+Nemanja from this independent-review assignment. The draft is not represented
+as a newly signed personal attestation. No ratings or independent return date
+were supplied. A newer packet/form does not restore independence. His optional
+supplementary review is neither approved nor counted. See the
+[exposure intake](../../eval/reports/development/d008-nemanja-prior-exposure-intake-v1.json).
+
+Goran's own eligibility remains unconfirmed. If he is eligible for all seven,
+one additional eligible reviewer is still needed; otherwise replace each affected
+slot so that every case has two eligible independent ratings. The original
+packets remain preserved, scores/reference labels withheld, and D-008 open.
+Do not invent eligibility or count the same review twice. D-013 remains closed.
+
 Paired independent agreement requires two eligible reviewers for the exact same
 seven replacement answers. Goran and Nemanja are proposed candidates, not
 confirmed eligible assignees. Each must confirm availability, lack of prior
