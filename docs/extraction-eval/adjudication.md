@@ -1,5 +1,34 @@
 # D-013 canonical reference adjudication
 
+## Revised coordinator workload (2026-11-23)
+
+Milica rejected the requirement to decide 217 items individually. This update
+supersedes the mandatory per-item and 40-document approval procedure below.
+The former worksheet remains an archived progress tool, not the required route.
+
+D verified her partial progress: 58 accepted proposals, six revised decisions,
+four document approvals and two additional document corrections. Seven accepted
+item decisions for 003 are preserved without inventing a document-level signoff.
+Nine explicit entity changes were applied to separate working references; five
+working references pass structural and source-span checks. See the
+[progress intake](../../eval/reports/development/d013-partial-progress-intake-v1.json).
+
+The remaining 153 tracked entries are coordinator processing inputs, not a new
+153-question user questionnaire. D will consolidate duplicate boundary and evidence
+entries, apply existing signed guide rules and source-specific decisions, and
+prepare remaining source-grounded candidate dispositions. Purely technical evidence
+unions and exact-span checks are D's work. Unchanged human-reviewed primaries do
+not require a new full-document read by Milica solely to repeat their approval.
+
+Only substantive ambiguities not resolved by existing decisions go into one
+consolidated exception list. D will provide the resulting reference summary and
+ask for one final coordinator signoff, preserving a distinction between earlier
+human decisions and new agent proposals. No unreviewed agent proposal acquires
+human-review or independent-review credit automatically.
+
+The exact canonical texts 020–029 remain the sole outstanding external resource.
+The source-integrity and final reference-freeze gates below remain binding.
+
 The coordinator is Milica (D). The current inventory contains all 40 primary
 submissions and 12 eligible declared independent reviews, exceeding the required
 ten reviews. Review declarations and disclosed AI assistance remain part of the
