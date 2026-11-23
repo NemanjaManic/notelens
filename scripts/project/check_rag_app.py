@@ -13,7 +13,19 @@ from start_mock import ROOT, MockStartupError, get, start_stack
 
 
 RAG_PIN = 'd2f85fbe97ec451ac3eda52a7b48ff101fc99dc4'
-PINNED_PATHS = ('docs/rag', 'services/rag', 'contracts')
+PINNED_PATHS = (
+    'docs/rag/evaluation/serve_indexed_demo.py',
+    'docs/rag/evaluation/prepare_answer_review.py',
+    'docs/rag/evaluation/run_local_flow.py',
+    'services/rag/pyproject.toml',
+    'services/rag/src/notelens_rag',
+    'services/rag/uv.lock',
+    'contracts/generated/python',
+    'contracts/generated/typescript',
+    'contracts/v1/schema.json',
+    'contracts/v1/fixtures/documents.json',
+    'contracts/v1/fixtures/payloads.json',
+)
 PARTIAL_QUESTION = 'What is the synthetic demo topic, and when did it begin?'
 MISSING_QUESTION = 'When did the synthetic demo topic begin?'
 DOCUMENT_QUESTION = 'What does the document say about chest pain?'
@@ -94,7 +106,7 @@ def verify_rag_pin():
         cwd=ROOT, capture_output=True, check=False,
     )
     require(tracked.returncode == extra.returncode == 0 and not extra.stdout,
-            f'indexed RAG and contract source trees match {RAG_PIN}')
+            f'indexed RAG runtime and contract inputs match {RAG_PIN}')
 
 
 def rendered_answer(stack, href, cookie, expected):

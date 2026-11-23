@@ -2,8 +2,10 @@
 
 The app uses the reviewed A-008 prompt admission fix. The check runs the
 [portable indexed RAG service](../rag/evaluation/serve_indexed_demo.py) from commit
-`d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4`. It checks that the local RAG and contract
-source trees match that revision. Classifier and extraction use the local mocks.
+`d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4`. The pin covers the indexed demo and its
+imported helpers, the RAG Python package and dependency lock, the generated
+contract packages, and the v1 schema and mock fixtures used by the check.
+Classifier and extraction use the local mocks.
 The indexed service uses only synthetic data and requires no provider credentials.
 
 Use Windows, Python 3.13, Node 24, npm 11 and uv. From the repository root,
