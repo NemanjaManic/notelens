@@ -266,6 +266,20 @@ app recheck after D supplies the reviewed service SHA, locked Windows startup,
 model/prompt pins, receipt and findings. See the
 [operator-support intake](../../eval/reports/development/d004-goran-operator-support-intake-v1.json).
 
+**Local continuation:** Milica directed proceeding with local preparation without
+obtaining unavailable administrator details. D reran the existing local extraction
+suite at source `58a9e8341c0d642ea11e837e713528220d459ad9`: all 99 tests passed,
+including offline provider doubles and local mock HTTP. Both prepared request
+hashes still match the exact original two-request approval, and the old receipt
+is unchanged. No live provider call or fresh execution receipt was created.
+The inactive private policy and exact prepared requests are retained for local
+setup. See the [local preparation record](../../eval/reports/development/d004-local-key-free-preparation-v1.json).
+Additional administrator correspondence is not required to perform these local
+checks. A real server-side credential/model access and cumulative trial accounting
+remain factual execution prerequisites; neither is invented by offline testing.
+Milica now reports possessing a key and is arranging private local handoff. The
+key itself must never be placed in chat, Git or reports.
+
 Current D source includes operator-policy provider wiring at
 `401584798e05427b17de7e46ece4197d8eb841c6`, documented in the prior
 [offline code verification](../../eval/reports/development/d005-d009-code-verification-2026-11-23.json).
