@@ -490,5 +490,15 @@
       "F-DOC-03"
     ],
     "reason": "Recorded pre-freeze technical-note exposure requires explicit D-009 eligibility disposition. Joint system/configuration/execution freeze remains pending."
+  },
+  "latest_d004_d005_preparation_2026_11_23": {
+    "service_sha": "30fa30b372489c2a03c1579cf27081f629992bc4",
+    "offline_service_tests_passed": 107,
+    "proposal": "eval/reports/development/d004-message-input-trial-proposal-v2.json",
+    "d005_handoff_candidate": "eval/reports/development/d005-service-handoff-candidate-v2.json",
+    "status": "prepared_new_trial_approval_required",
+    "new_provider_calls": 0,
+    "provider_output_review": "pending",
+    "app_acceptance": "pending"
   }
 }
