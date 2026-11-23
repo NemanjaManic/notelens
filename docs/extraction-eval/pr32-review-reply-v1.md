@@ -23,3 +23,12 @@ Thanks,
 Milica
 
 Draft prepared locally, not posted to GitHub or sent by the agent.
+
+## Follow-up: reproducibility request resolved
+
+The supplied D005-d41-app-recheck-repro-v1.zip now provides the exact separate
+runner/adapter command and pinned receipt v3 at app 7743fc87. SHA256SUMS, runner
+pins, app file hashes and all sixteen archived request/raw/output hashes verify.
+The original request above is historical and no longer outstanding. This accepts
+reproducible owner-reported development replay; D did not rerun the platform.
+Formal B-005 and final D-009 remain open.

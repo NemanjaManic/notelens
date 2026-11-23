@@ -219,5 +219,6 @@
   "team_final_delivery_quality_limitations_accepted": true,
   "joint_freeze_framework_approved": true,
   "team_decision_record": "eval/reports/final/d009-team-final-limitations-approval-v1.json",
-  "complete_executable_freeze_materialized": false
+  "complete_executable_freeze_materialized": false,
+  "latest_candidate_app_repro_verification": "eval/reports/development/d005-d41-repro-verification-v1.json"
 }
