@@ -45,9 +45,9 @@ def invalid_response() -> ServiceError:
     return ServiceError(502, "internal_error", "Generation returned an invalid Responses envelope.")
 
 
-def completion_text(response: dict) -> str:
+def completion_text(response: dict, *, model: str = MODEL) -> str:
     if (not isinstance(response, dict) or response.get("object") != "response"
-            or response.get("model") != MODEL or response.get("status") != "completed"
+            or response.get("model") != model or response.get("status") != "completed"
             or response.get("error") is not None or response.get("incomplete_details") is not None
             or not isinstance(response.get("output"), list)):
         raise invalid_response()
@@ -70,28 +70,32 @@ def completion_text(response: dict) -> str:
     return texts[0]
 
 
-class OpenAITrialProvider:
-    """Admit only the checked-in demo requests and make one transport call."""
+class OpenAIResponsesProvider:
+    """Prepare document-grounded requests for an explicitly supplied transport."""
 
     mode = "live"
+    configured = True
+    provider_name = "openai"
 
-    def __init__(self, send: Callable[[dict], dict], *, max_output_tokens: int):
+    def __init__(self, send: Callable[[dict], dict], *, model: str, max_output_tokens: int):
+        if not isinstance(model, str) or not model.strip():
+            raise ValueError("An explicitly selected model is required.")
         if type(max_output_tokens) is not int or max_output_tokens <= 0:
             raise ValueError("A positive output token limit is required.")
         self._send = send
+        self.model = model
         self._max_output_tokens = max_output_tokens
 
     def generate(self, operation: str, request: dict, instructions: str, *, repair: bool) -> str:
-        return completion_text(self._send(self.prepare(operation, request, instructions, repair=repair)))
+        return completion_text(self._send(self.prepare(operation, request, instructions, repair=repair)), model=self.model)
 
     def prepare(self, operation: str, request: dict, instructions: str, *, repair: bool = False) -> dict:
-        if (repair or operation not in DEFINITIONS
-                or request != demo_request(DEMO_QUESTION if operation == "answer" else None)):
-            raise ServiceError(422, "validation_failure", "Request is outside the synthetic provider trial.")
+        if repair or operation not in DEFINITIONS:
+            raise ServiceError(422, "validation_failure", "Unsupported provider operation or retry.")
         return {
-            "model": MODEL,
+            "model": self.model,
             "instructions": instructions + "\nSet mode to live and identify the provider as openai "
-            f"and the model as {MODEL} in component provenance.\n"
+            f"and the model as {self.model} in component provenance.\n"
             f"Frozen output contract: {output_contract(DEFINITIONS[operation])}",
             "input": json.dumps(request, ensure_ascii=False, separators=(",", ":")),
             "text": {"format": {"type": "json_object"}},
@@ -105,3 +109,16 @@ class OpenAITrialProvider:
             "tools": [],
             "tool_choice": "none",
         }
+
+
+class OpenAITrialProvider(OpenAIResponsesProvider):
+    """Preserve the original trial's exact two-request admission boundary."""
+
+    def __init__(self, send: Callable[[dict], dict], *, max_output_tokens: int):
+        super().__init__(send, model=MODEL, max_output_tokens=max_output_tokens)
+
+    def prepare(self, operation: str, request: dict, instructions: str, *, repair: bool = False) -> dict:
+        if (repair or operation not in DEFINITIONS
+                or request != demo_request(DEMO_QUESTION if operation == "answer" else None)):
+            raise ServiceError(422, "validation_failure", "Request is outside the synthetic provider trial.")
+        return super().prepare(operation, request, instructions)
