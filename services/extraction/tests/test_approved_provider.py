@@ -55,6 +55,27 @@ def fixture_transport(payload):
     }]}
 
 
+def test_bad_input_format_does_not_claim_execution_receipt(tmp_path, policy):
+    policy["input_format"] = "unsupported"
+    path = tmp_path / "policy.json"
+    path.write_text(json.dumps(policy))
+    with pytest.raises(ValueError, match="input format"):
+        configured_provider(path, api_key="offline-test", service_token="offline-token")
+    assert not (tmp_path / policy["receipt_path"]).exists()
+
+
+def test_policy_selects_message_input_before_transport(tmp_path, policy, monkeypatch):
+    policy["input_format"] = "messages"
+    path = tmp_path / "policy.json"
+    path.write_text(json.dumps(policy))
+    send = Mock()
+    monkeypatch.setattr("notelens_extraction.approved_provider.ResponsesTransport", Mock(return_value=send))
+    provider = configured_provider(path, api_key="offline-test", service_token="offline-token")
+    payload = provider.prepare("answer", request("A synthetic question"), "Synthetic instruction")
+    assert json.loads(payload["input"][0]["content"][0]["text"]) == request("A synthetic question")
+    send.assert_not_called()
+
+
 @pytest.mark.parametrize("question,state", [
     ("What does the document say about chest pain?", "sufficient"),
     ("What does the document say about chest pain and the patient's age?", "partial"),

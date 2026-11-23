@@ -77,14 +77,18 @@ class OpenAIResponsesProvider:
     configured = True
     provider_name = "openai"
 
-    def __init__(self, send: Callable[[dict], dict], *, model: str, max_output_tokens: int):
+    def __init__(self, send: Callable[[dict], dict], *, model: str, max_output_tokens: int,
+                 input_format: str = "text"):
         if not isinstance(model, str) or not model.strip():
             raise ValueError("An explicitly selected model is required.")
         if type(max_output_tokens) is not int or max_output_tokens <= 0:
             raise ValueError("A positive output token limit is required.")
+        if input_format not in ("text", "messages"):
+            raise ValueError("The input format must be text or messages.")
         self._send = send
         self.model = model
         self._max_output_tokens = max_output_tokens
+        self._input_format = input_format
 
     def generate(self, operation: str, request: dict, instructions: str, *, repair: bool) -> str:
         return completion_text(self._send(self.prepare(operation, request, instructions, repair=repair)), model=self.model)
@@ -92,12 +96,15 @@ class OpenAIResponsesProvider:
     def prepare(self, operation: str, request: dict, instructions: str, *, repair: bool = False) -> dict:
         if repair or operation not in DEFINITIONS:
             raise ServiceError(422, "validation_failure", "Unsupported provider operation or retry.")
+        text = json.dumps(request, ensure_ascii=False, separators=(",", ":"))
+        input_value = text if self._input_format == "text" else [
+            {"role": "user", "content": [{"type": "input_text", "text": text}]}]
         return {
             "model": self.model,
             "instructions": instructions + "\nSet mode to live and identify the provider as openai "
             f"and the model as {self.model} in component provenance.\n"
             f"Frozen output contract: {output_contract(DEFINITIONS[operation])}",
-            "input": json.dumps(request, ensure_ascii=False, separators=(",", ":")),
+            "input": input_value,
             "text": {"format": {"type": "json_object"}},
             "max_output_tokens": self._max_output_tokens,
             "reasoning": {"effort": "none"},

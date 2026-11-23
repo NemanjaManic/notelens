@@ -76,6 +76,9 @@ def configured_provider(policy_path: Path, *, api_key: str, service_token: str):
     timeout = positive_integer(policy, "timeout_seconds")
     if timeout > 60:
         raise ValueError("The timeout must be at most 60 seconds.")
+    input_format = policy.get("input_format", "text")
+    if input_format not in ("text", "messages"):
+        raise ValueError("The input format must be text or messages.")
     budget = ServiceBudget(policy)
     receipt = (policy_path.resolve().parent / policy["receipt_path"]).resolve()
     transport = ResponsesTransport(
@@ -84,4 +87,5 @@ def configured_provider(policy_path: Path, *, api_key: str, service_token: str):
     )
     return OpenAIResponsesProvider(
         transport, model=policy["model"], max_output_tokens=budget.output_limit,
+        input_format=input_format,
     )
