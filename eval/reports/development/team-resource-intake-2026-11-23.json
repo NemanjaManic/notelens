@@ -1,0 +1,69 @@
+{
+  "version": "d-team-resource-intake-v1",
+  "date": "2026-11-23",
+  "source": "Sara and Goran messages relayed by Milica, plus the two supplied B-011 archives.",
+  "d007": {
+    "source_list_version": "d007-final-source-intake-joint-draft-v2",
+    "source_list_sha256": "6198b4085b45e702d065535e9705c5b6bf7d841230d35a247bcee327fb26ebf0",
+    "joint_slots_checked": 26,
+    "known_development_matches_reported": 0,
+    "four_exposed_families_retired_and_replaced": true,
+    "sara_pinned_corpus_digest_and_access_confirmed": true,
+    "goran_pinned_corpus_access_confirmation": "pending",
+    "completed_final_case_and_cross_review_manifest_received": false,
+    "final_source_texts_and_answer_keys": "Remain in the agreed restricted authoring folder until the approved freeze and release."
+  },
+  "d008_member_c": {
+    "original_answer_and_entity_reviews": "Twelve original items disclosed as exposed and prepared with Sara's involvement. Excluded from independent counts in the previous intake.",
+    "replacement_requested_by_sara": true,
+    "replacement_packet": "D008-member-C-replacement-calibration-v1.zip",
+    "archive_sha256": "c2b09cd3ab755db22d3c08a2378cd96957d4566beec4f71f3d2332a0b3afe7d0",
+    "checksums_reverified": 43,
+    "blank_answer_forms": 7,
+    "blank_entity_evidence_forms": 5,
+    "private_delivery_confirmed": false,
+    "completed_replacement_forms_received": false
+  },
+  "d009_classifier_selection": {
+    "owner": "Sara (member C)",
+    "selected_configuration": "Frozen C-008 short-text classifier with the C-005 uncertainty policy.",
+    "owner_selection_confirmed": true,
+    "model_manifest": "c008-final-model-v1.json",
+    "model_manifest_sha256": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+    "matches_previously_verified_owner_evidence": true,
+    "locked_test_documents": 183,
+    "forced_choice_accuracy_percent": 96.17,
+    "macro_f1": 0.9582,
+    "final_system_freeze": "pending"
+  },
+  "b005_launcher_report": {
+    "source": "Goran report",
+    "branch": "member-b/b-005-launcher-integration",
+    "reported_commit": "14e4b9dfdfdd5832cae7f03d12e92cc5f9a00593",
+    "reported_state": "pushed_unmerged",
+    "reported_build_and_default_mock_smoke": "passed",
+    "reported_focused_tests_passed": 29,
+    "classifier_check": "Loopback test double, also with indexed RAG active.",
+    "literature_behavior": "Partial literature answer retained a citation and explicit start-date gap. Document claims and citations survived insufficient literature and stopped RAG with distinct notices.",
+    "owner_reviews_requested": ["Sara: fitted-classifier opt-in and default mock startup", "Nemanja: indexed RAG startup and independent shutdown"],
+    "repeated_or_independently_verified_by_d_in_this_intake": false,
+    "b005_remaining": "Integration acceptance, including provider-backed D-005 verification.",
+    "b009": "Separate acceptance work."
+  },
+  "d013": {
+    "receipt": "eval/reports/development/d013-b011-reviewed-intake-v1.json",
+    "primary_submissions_received": 40,
+    "eligible_independent_review_declarations_received": 12,
+    "independent_review_minimum": 10,
+    "new_primary_canonical_sources_pending": 10,
+    "new_open_questions_for_adjudication": 68,
+    "full_task_closed": false
+  },
+  "necessary_followups": [
+    "Sara: deliver the prepared D-008 replacement archive and request both privately completed forms with exposure declarations. Request the completed D-007 case/review metadata when ready.",
+    "Goran: request the exact authorized canonical files 020–029 with hashes, preserving the confirmed 62- and 112-code-point copies for 022 and 029. Confirm pinned literature-corpus access for final authoring."
+  ],
+  "external_messages_sent": false,
+  "provider_calls": 0,
+  "final_qa_source_texts_accessed": false
+}
