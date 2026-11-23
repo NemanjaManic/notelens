@@ -43,8 +43,10 @@ async () => {
       const response = await read();
       check(response.ok && response.headers.get('Cache-Control')?.includes('no-store'), 'owner-report-is-not-cacheable');
       check(canonicalText(await parsePage(response)) === canonicalText(document), 'owner-can-reopen-same-document');
-      check(document.querySelector(`a[href="${reportPath}&question=document#questions-heading"]`) !== null,
-        'question-navigation-preserves-prepared-document');
+      check(!document.querySelector('#open-builtin-example')?.closest('form') &&
+        document.querySelector('#open-builtin-example')?.type === 'button', 'picker-avoids-native-post');
+      check(Boolean(document.querySelector('form[action="/api/questions"] #document-question')),
+        'prepared-report-offers-document-question');
       break;
     }
   }

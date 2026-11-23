@@ -1,6 +1,7 @@
 import { headers } from 'next/headers';
 import { Suspense } from 'react';
 import type { PreparedDocument } from '@notelens/contracts/v1';
+import { BuiltinExampleButton } from '../../components/builtin-example-button.tsx';
 import { ReportWorkspace } from '../../components/report-workspace.tsx';
 import { SubmissionForm } from '../../components/submission-form.tsx';
 import { QuestionAnswer } from '../../components/question-answer.tsx';
@@ -36,9 +37,7 @@ async function DemoReport({ query, owner, document }: {
   const reportHref = view.document ? `/demo?document=${view.document.doc_id}` : '/demo';
   const evidenceHref = turn ? `${reportHref}&turn=${turn.id}` : reportHref;
   const picker = <>
-    <form action="/api/documents/builtin" method="post">
-      <button type="submit">Chest pain report</button>
-    </form>
+    <BuiltinExampleButton />
     {query.prepare === 'unavailable' && <p role="status">The example could not be prepared. Return to an open report or try opening a new session.</p>}
     <p>Use public or synthetic English documents. PDFs must have selectable text and be 2 MiB or smaller. Documents may contain up to 100,000 Unicode code points.</p>
     <div className="submission-grid"><SubmissionForm input="text" /><SubmissionForm input="pdf" /></div>
