@@ -1,0 +1,30 @@
+{
+  "version": "d013-partial-progress-intake-v1",
+  "date": "2026-11-23",
+  "progress_sha256": "e455217ec4da7c5d6a17c34f228838774d57bad3b02224c06bc944918f21818f",
+  "packet_sha256": "c54d9ac119ee5e8370c8f1b16794e6dad7b022cda8b7d19f99e1ccca10e4858b",
+  "explicit_item_decisions_received": 64,
+  "accepted_recommendations": 58,
+  "revised_decisions": 6,
+  "document_approvals_received": [
+    "assignment-000",
+    "assignment-001",
+    "assignment-002",
+    "assignment-004"
+  ],
+  "item_decisions_without_document_signoff": [
+    "assignment-003"
+  ],
+  "additional_document_corrections": 2,
+  "audited_entity_changes": 9,
+  "working_references_validated": 5,
+  "structural_or_span_errors": 0,
+  "remaining_tracked_items": 153,
+  "remaining_items_are_not_a_new_user_questionnaire": true,
+  "revised_plan": "D consolidates remaining candidates using existing human decisions and guide rules. Request only substantive unresolved exceptions and one final reference signoff. Remove mandatory per-item approvals and rereading of all 40 documents.",
+  "missing_external_resource": "Exact canonical texts 020-029 with frozen hashes",
+  "canonical_wording_preserved": "Medication-adjustment mention retains singular source wording despite plural wording in reviewer prose.",
+  "original_submissions_modified": false,
+  "canonical_references_frozen": false,
+  "d013_closed": false
+}
