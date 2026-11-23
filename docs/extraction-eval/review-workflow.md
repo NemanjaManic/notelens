@@ -272,4 +272,29 @@ The next private review batch contains that remaining boundary and the five
 retained questions for 001. Each item supplies exact source excerpts and a
 recommendation. Milica can accept, replace or defer each decision, then export
 the source-pinned JSON. Deferred items remain pending. D verifies the returned
-file before applying it and preparing the next batch. See the [batch preparation](../../eval/reports/development/d013-adjudication-batch-01-preparation-v1.json).
+file before applying it. See the [batch preparation](../../eval/reports/development/d013-adjudication-batch-01-preparation-v1.json).
+
+## Complete remaining adjudication packet (2026-11-23)
+
+Milica returned the six-item decision JSON. D verified its exact source-form hash,
+all decision IDs, canonical pins and eleven anchors. All six decisions are applied
+to separate working candidates: 001 has 28 mentions and 034 has 32, with no new
+structural or span errors. Seven earlier 034 proposals are now resolved. The
+remaining earlier proposal count is 152 and the remaining B question count is 63.
+Original submissions and both returned human decision files are unchanged. See
+the [six-decision intake](../../eval/reports/development/d013-batch-01-human-decisions-intake-v1.json).
+
+At Milica's request, all currently known remaining work is now delivered together.
+The private complete packet includes all 40 working references, the 152 earlier
+proposals, all 63 remaining B questions and two complete new comparison
+dispositions. Its source inventory verifies 30 canonical files; 020–029 remain
+blocked until the ten exact files are supplied. Missing sources can be loaded
+into the same worksheet without generating another batch. The worksheet supports
+per-document explicit approval, individual corrections and progress export.
+
+Follow the [complete adjudication procedure and closure gate](adjudication.md).
+The [preparation receipt](../../eval/reports/development/d013-complete-adjudication-preparation-v1.json)
+accounts for all 250 tracked IDs, including 33 already resolved. No automatic
+human decisions, independent-review credit, paid calls or reference freeze are
+claimed by preparing this packet. D-013 closes after the returned complete human
+decisions, missing source verification, audited application and reference checks.
