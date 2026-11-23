@@ -57,6 +57,14 @@
     "assignment-004",
     "assignment-007"
   ],
+  "latest_canonical_source_followup": {
+    "receipt": "eval/reports/development/d013-sources-020-029-intake-v1.json",
+    "all_ten_sources_received_and_verified": true,
+    "primary_mentions_verified": 373,
+    "primary_evidence_spans_verified": 389,
+    "pending_source_ids": [],
+    "prior_pending_fields": "Historical source status before the latest follow-up; no new primary labels or independent-review credit added."
+  },
   "full_d013_closed": false,
   "human_adjudication_complete": false,
   "original_member_submissions_modified": false,

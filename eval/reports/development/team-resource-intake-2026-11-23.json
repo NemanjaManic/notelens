@@ -22,7 +22,21 @@
     "blank_answer_forms": 7,
     "blank_entity_evidence_forms": 5,
     "private_delivery_confirmed": false,
-    "completed_replacement_forms_received": false
+    "completed_replacement_forms_received": false,
+    "latest_followup": {
+      "receipt": "eval/reports/development/d008-sara-non-independent-feedback-intake-v1.json",
+      "private_delivery_confirmed": true,
+      "personal_review_declared_complete": true,
+      "answer_reviews": 7,
+      "entity_evidence_reviews": 5,
+      "preparation_involvement": true,
+      "output_level_involvement": "unmapped",
+      "classification": "non-independent feedback",
+      "independent_credit": 0,
+      "paired_agreement_pairs_added": 0,
+      "two_eligible_reviewers_of_replacement_answers": "pending",
+      "earlier_fields": "Historical status before the latest follow-up."
+    }
   },
   "d009_classifier_selection": {
     "owner": "Sara (member C)",
@@ -55,9 +69,14 @@
     "primary_submissions_received": 40,
     "eligible_independent_review_declarations_received": 12,
     "independent_review_minimum": 10,
-    "new_primary_canonical_sources_pending": 10,
+    "new_primary_canonical_sources_pending": 0,
+    "canonical_source_followup": "eval/reports/development/d013-sources-020-029-intake-v1.json",
     "new_open_questions_for_adjudication": 68,
-    "full_task_closed": false
+    "latest_reference_freeze_receipt": "eval/reports/development/d013-reference-freeze-receipt-v1.json",
+    "canonical_development_references_frozen": true,
+    "outstanding_adjudication_items": 0,
+    "earlier_question_count": "Historical intake count; now disposed and accepted in the approved freeze.",
+    "full_task_closed": true
   },
   "necessary_followups": [
     "Sara: deliver the prepared D-008 replacement archive and request both privately completed forms with exposure declarations. Request the completed D-007 case/review metadata when ready.",

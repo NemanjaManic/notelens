@@ -1,5 +1,62 @@
 # D-013 canonical reference adjudication
 
+## Approved reference freeze: D-013 complete (2026-11-23)
+
+Milica explicitly approved freezing `D013-freeze-candidate-v1` according to its
+final summary. D reverified the approved candidate manifest SHA-256
+`1b5d7f717f35f31cddcc7ecc9d4389bdbd6d1849d20ee70108e3d7ac68accc25`
+and materialized the private `d013-development-reference-freeze-v1` bundle.
+All 40 reference documents, 40 distinct development groups, 1,189 entity mentions,
+1,320 evidence spans and 250 disposition IDs are accounted for. All 49 checksum
+entries in the actual frozen ZIP verify. No canonical text or entity content
+changed after candidate approval; only approval/version/workflow provenance was
+added. Original member submissions, earlier decisions and candidate files remain
+preserved.
+
+The [source-free reference manifest](../../eval/references/d013-development-freeze-v1.manifest.json)
+pins the individual frozen reference files and private bundle. The
+[freeze receipt](../../eval/reports/development/d013-reference-freeze-receipt-v1.json)
+records coordinator approval, exact artifact hashes and the successful final checks.
+Source texts and entity quotes remain exclusively in the restricted private route.
+
+D-013 is closed. These are coordinator-approved development annotation references,
+with human submissions, explicit human decisions and agent adjudication attributed
+separately. This approval adds no independent-review credit or claim that Milica
+personally reread every document. No clinical validation, provider call, deployment,
+unseen-final reference freeze or unseen-final measurement is claimed. Any later
+label change requires a new version and a recorded decision; do not overwrite the
+freeze. The readiness and workload sections below are historical stages.
+
+## Current freeze readiness (2026-11-23)
+
+The private `D013-freeze-candidate-v1` package is prepared and verified. All 40
+canonical documents are present, 1,189 mention spans and 1,320 evidence spans
+validate, and all 250 required decision-coverage IDs have dispositions. The 64
+explicit human progress decisions and 33 older resolved IDs are preserved; the
+remaining 153 processing entries have separately attributed agent source/rule
+dispositions. There is no new per-item questionnaire or mandatory 40-document reread.
+
+The application audit records restoring the earlier explicit 036 nerve-block
+decision over a later agent proposal, consistent operative-action/finding scope,
+unknown attribution for an ambiguous pronoun, two clipped-word boundary repairs,
+and redundant-evidence consolidation. Ninety-one matching prior human topic
+constraints are preserved. The applied 003 entity set is unchanged. No clinical
+validation, new independent-review credit or new personal-reading attestation is
+inferred from this processing.
+
+The original member submissions and prior source/decision packages are preserved.
+The private package includes all reference files, a full disposition ledger,
+application audit, 007 pair dispositions, checksums and a short `FINAL-REVIEW.txt`.
+See the [preparation receipt](../../eval/reports/development/d013-freeze-candidate-preparation-v1.json)
+and [integrity verification](../../eval/reports/development/d013-freeze-candidate-verification-v1.json).
+
+One final coordinator signoff on this concrete candidate remains. The pending
+manifest intentionally has `approved=false` and `frozen=false`. After that signoff,
+record the approver and exact approved artifact hash, then materialize the
+reference freeze. No additional source delivery or individual agent disposition
+remains. Historical missing-source and per-item workflows below do not reopen
+resolved work or override this revised workload.
+
 ## Revised coordinator workload (2026-11-23)
 
 Milica rejected the requirement to decide 217 items individually. This update
@@ -128,6 +185,49 @@ acceptance. Those have their own task gates. Preparing a worksheet or exporting
 decisions alone does not close D-013.
 
 ## Reproducible checks
+
+### Canonical sources 020-029 received and verified (2026-11-23)
+
+Sara supplied all ten exact UTF-8 source files. D independently matched the
+reported ZIP SHA-256 `f7c8ed176bc95133808f8e88e250ab2bf613d5f42e3d276f5bb12e04aa0642e0`,
+all eleven file checksums, the assignment manifest, frozen source identities and
+the existing B-011 primary record identities. All 373 mentions and 389 evidence
+spans are exact. Sources 022 and 029 remain 62 and 112 Unicode code points,
+respectively. No source bytes were normalized or edited. The original sources,
+submission archive and all older candidate/decision packages remain preserved.
+
+The current private source-loaded packet includes all 40 canonical documents,
+the applied 003 corrections, 1,189 exact mention spans and 1,467 exact evidence
+spans. The existing packet validator passes. All 49 formerly source-blocked B
+questions now have exact source anchors; they remain semantic adjudication work,
+not automatically approved labels. The earlier human progress is preserved as an
+immutable record and is not silently converted to a new packet-hash approval.
+See the [source intake receipt](../../eval/reports/development/d013-sources-020-029-intake-v1.json).
+
+The missing-source blocker is resolved. Remaining work is agent application of
+prior decisions and guide rules, consolidation of substantive exceptions, final
+coordinator signoff and reference-set freeze. No additional independent-review
+credit, human approval, unseen-final access or provider execution is claimed.
+
+### Assignment 003 coordinator review applied (2026-11-23)
+
+Milica personally reviewed the full operative document, accepted its original ten
+procedure annotations and requested five additions and evidence cleanup. D applied
+these corrections to a new private candidate, retaining every original mention and
+attribute. Two conditional exploration/dissection actions and the separately noted
+drain removal were included under the guide's explicit-intervention and separate-
+occurrence rules, with agent application distinguished from explicit human choices.
+The five direct additions, three guide-based additions and four evidence cleanups
+are individually audited. No diagnosis or symptom was inferred from the operation.
+
+The candidate has 18 procedure mentions and 18 exact evidence spans. The canonical
+text hash is unchanged and all ranges pass the shared evidence validator. Original
+member submissions and the previous working candidate remain unchanged. Document
+003's coordinator review is complete with corrections applied; no additional 003
+review is requested or post-application second human pass claimed. This does not
+freeze the full reference set or close other D-013 exceptions/missing sources.
+The [source-free receipt](../../eval/reports/development/d013-003-human-review-intake-v1.json)
+identifies the current private 003 candidate and its immutable before/audit copies.
 
 The public renderer accepts a permitted private `packet.json`; it does not obtain
 or reconstruct missing sources:

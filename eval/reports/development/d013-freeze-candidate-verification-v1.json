@@ -1,0 +1,19 @@
+{
+  "version": "d013-freeze-candidate-verification-v1",
+  "date": "2026-11-23",
+  "archive_and_all_file_hashes_verified": true,
+  "reference_count": 40,
+  "canonical_texts_unchanged": 40,
+  "mention_spans_verified": 1189,
+  "evidence_spans_verified": 1320,
+  "unique_development_groups": 40,
+  "coverage_ids_verified": 250,
+  "human_progress_decisions_preserved": 64,
+  "matching_explicit_human_topic_constraints_checked": 91,
+  "assignment_003_entities_unchanged": true,
+  "negative_controls_rejected": 3,
+  "errors": 0,
+  "coordinator_approval_recorded": false,
+  "reference_set_frozen": false,
+  "scope": "Source identity, integrity, workflow coverage and preservation checks; source/rule semantic adjudication is separately recorded, not clinical validation."
+}
