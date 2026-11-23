@@ -95,6 +95,17 @@ Configure `OPENAI_API_KEY` and the private `NOTELENS_SERVICE_TOKEN` in the serve
 process. Then start from the repository root after the locked service-local
 dependency setup.
 
+On this Windows workstation, a key may instead be handed to the authorized local
+operator as an encrypted SecureString CLIXML file under
+`services/extraction/.local-secrets/openai-key.xml`. The directory is ignored by
+Git. Enter the key with `Read-Host -AsSecureString` and pipe that value directly
+to `Export-Clixml`; do not put the literal key in a command, chat, documentation,
+source file or log. Windows protects the exported SecureString for the same user
+and computer. The server process must explicitly import/decrypt it into its
+private `OPENAI_API_KEY` environment before provider startup; the service does
+not automatically load CLIXML or a dotenv file. Key storage itself does not run
+the trial, prove model access, claim a new receipt or alter the existing cap.
+
 ```powershell
 $env:NOTELENS_MODE = 'live'
 $env:NOTELENS_EXTRACTION_PROVIDER_POLICY = 'C:\approved-execution\provider-policy.json'
