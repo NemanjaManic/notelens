@@ -125,3 +125,27 @@ Sara/Goran still own authoring, reciprocal review and delivery of versioned
 metadata/receipts. D-007 and final freeze remain pending. Original metadata and
 checksum are privately archived; see the source-free
 [intake receipt](../../eval/reports/development/d007-final-qa-metadata-status-intake-v1.json).
+
+## V2 metadata update (2026-11-23; current)
+
+Sara's `d007-final-qa-metadata-status-v2.json` checksum verifies as
+`50139e072f46c70a02e9c03d03e41cefc5abe172109a41b7f3e42f4003f14261`.
+All 26 unique case IDs, routes and staffing assignments match the local plan.
+Case fields other than authoring status are unchanged from v1; source-intake
+bytes still match the recorded pin. The staffing-plan SHA mismatch above persists.
+The original attachment/checksum are archived privately without changing v1.
+
+V2 now records Goran's reported snapshot access/checksum and eight local drafts
+F-LIT-01 through F-LIT-08. His five not-yet-drafted cases are F-MIX-05 through
+F-MIX-08 and F-OOS-02. Sara's thirteen authoring statuses await confirmation.
+These reported statuses do not establish delivered or reviewed case versions.
+The restricted-folder inventory remains zero confirmed case versions, zero
+reviewer receipts and no agreed handoff date. D did not access final case text.
+
+Goran should place the eight drafts in the restricted folder with case IDs,
+versions and SHA-256 checksums so Sara can begin version-specific cross-review
+while he drafts the remaining five. Sara should confirm her own thirteen-case
+status. Both owners still reconcile the plan pin, complete reciprocal reviews,
+agree a handoff date and send D metadata and version-specific receipts through
+the approved private route. D validates these before any final freeze. See the
+[v2 intake receipt](../../eval/reports/development/d007-final-qa-metadata-status-intake-v2.json).
