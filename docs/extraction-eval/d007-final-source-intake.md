@@ -1,5 +1,37 @@
 # D-007 final QA source planning
 
+## Recorded reference freeze (2026-11-23; current)
+
+D-007 reference assembly is closed. Milica requested verification and recording
+of Sara's reconciled v5 handoff. All four supplied artifact checksums verify;
+26 unique cases match their exact version, file hash, assigned reviewer and
+approved human-review receipt. Both sets contain thirteen approvals, with zero
+unresolved issues reported. Twenty-five cases are v1; F-DOC-06 is v2, with its
+author-release identity reconciled through Sara's v5 handoff. Routes are eight
+document-only, eight literature-only, eight mixed and two out-of-scope cases.
+
+The immutable [reference manifest](../../eval/references/qa/d007-final-reference-freeze-v1.manifest.json)
+has SHA-256 `01751714755b1c6344065f8786bb99cf28156f58612e6c98be99fb5e12f25740`.
+The [freeze receipt](../../eval/reports/development/d007-final-reference-freeze-receipt-v1.json)
+records checks and limitations. Original metadata, receipts, exact staffing plan
+and checksum file are privately preserved under
+`Predaja-NoteLens/D-007/D007-final-reference-freeze-v1`. D did not open or rehash
+hidden case/source/answer files: their byte identity and semantic/evidence checks
+are custodian/reviewer attestations, while D verified the supplied metadata and
+all case-to-receipt links independently. The frozen 54-case development manifest
+and these 26 final identities account for the approved 80-case split.
+
+This freezes reference identities only. Prior technical-note exposure for
+F-DOC-01/02/03 remains recorded; D-009 freeze approvers must resolve their
+eligibility before any fully unseen claim. The joint system/configuration freeze,
+provider verification, deployment acceptance and unseen final measurement remain
+pending. No provider call or final measurement was executed for this freeze.
+V5's zero legacy folder-audit counters and null owner-agreed handoff date are
+preserved rather than invented; its separate completed private-packet/review
+fields and the actual supplied receipts establish the reconciled handoff.
+
+The intake chronology below is historical and superseded by this freeze.
+
 Use the pinned v2 staffing plan for the 26 slots and the development exclusion
 list supplied with it. Goran accepted his assignments and the 54/26 split.
 Sara is the custodian and has confirmed restricted authoring and review access

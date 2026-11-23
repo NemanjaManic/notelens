@@ -478,5 +478,17 @@
     "existing_receipt_preserved": true,
     "actual_billing_confirmed": false,
     "d005_reviewed_handoff": "pending_no_provider_outputs"
+  },
+  "latest_d007_reference_gate_2026_11_23": {
+    "status": "reference_identities_frozen_d007_closed",
+    "manifest": "eval/references/qa/d007-final-reference-freeze-v1.manifest.json",
+    "receipt": "eval/reports/development/d007-final-reference-freeze-receipt-v1.json",
+    "approved_case_receipt_links": 26,
+    "unseen_eligibility_pending_cases": [
+      "F-DOC-01",
+      "F-DOC-02",
+      "F-DOC-03"
+    ],
+    "reason": "Recorded pre-freeze technical-note exposure requires explicit D-009 eligibility disposition. Joint system/configuration/execution freeze remains pending."
   }
 }
