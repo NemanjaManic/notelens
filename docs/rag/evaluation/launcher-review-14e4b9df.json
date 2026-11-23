@@ -1,0 +1,43 @@
+{
+  "format_version": "rag-launcher-owner-review-v1",
+  "recorded_on": "2026-11-23",
+  "review_type": "Agent-executed review for A; not an independent human or team release approval.",
+  "reviewed_commit": "14e4b9dfdfdd5832cae7f03d12e92cc5f9a00593",
+  "RAG_baseline_commit": "d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4",
+  "web_admission_review_commit": "8d4d013c65edae0ce2d98efdbcc651ba27e4b720",
+  "original_reviewed_web_commit": "4fb192eb157d5e2fb47fc6afdda890af8c229d7e",
+  "admission_file_blobs_equal_across_three_snapshots": true,
+  "RAG_corpus_contract_source_trees_unchanged_from_measured_baseline": true,
+  "environment": {
+    "OS": "Windows",
+    "python": "3.13.5",
+    "node": "24.12.0",
+    "npm": "11.6.2",
+    "uv": "0.12.5",
+    "working_copy": "Separate detached worktree at exact reviewed_commit",
+    "dependencies": "Locked Node workspace and separately locked Python environments; indexing extra installed.",
+    "installation_limit": "Offline Python setup initially lacked onnxruntime; locked registry installation with system certificates succeeded. TLS verification stayed enabled."
+  },
+  "checks": [
+    { "command": "npm.cmd ci --offline --no-audit --no-fund", "result": "passed" },
+    { "command": "npm.cmd run build", "result": "passed" },
+    { "command": "node --experimental-strip-types --test apps/web/tests/routing.test.ts apps/web/tests/classifier-client.test.ts", "result": "18 tests passed; routing.test.ts supplied the tests. The second path did not select classifier transport coverage." },
+    { "command": "node --experimental-strip-types --test apps/web/tests/integration/classifier-http.test.ts", "result": "11 tests passed" },
+    { "command": "services/rag/.venv/Scripts/python.exe -B docs/rag/evaluation/serve_indexed_demo.py --check", "result": "passed: two health and six business responses; unregistered question rejected with 422. No token configured for this standalone invocation." },
+    { "command": "services/rag/.venv/Scripts/python.exe -B scripts/project/check_rag_app.py", "result": "passed: authenticated indexed RAG, partial literature with citation and gap, mixed insufficient/outage fallbacks, exact repeated-quote highlights, independent RAG shutdown and all four listeners stopped" },
+    { "command": "services/rag/.venv/Scripts/python.exe -B scripts/project/smoke_mock.py", "result": "passed: default mock profile, owner-only reports, routing, citations, history, question limits and shutdown" },
+    { "command": "services/rag/.venv/Scripts/python.exe -B scripts/project/check_classifier_report.py", "result": "passed: supported, uncertain, unavailable and invalid classifier responses from a loopback test double" }
+  ],
+  "finding": "No blocking issue found in the requested indexed RAG startup and independent shutdown boundary.",
+  "default_launcher_profile": "mock",
+  "indexed_RAG_opt_in": "Caller supplies indexed_rag_job to start_stack; normal CLI startup remains mock.",
+  "new_provider_calls": 0,
+  "final_test_accessed": false,
+  "B_owned_tracked_files_modified": false,
+  "limitations": [
+    "HTTP-rendered checks do not constitute a fresh Chrome browser rehearsal.",
+    "Synthetic indexed RAG and mock extraction; no provider-backed D integration or fitted-classifier quality claim.",
+    "B-005, B-008, B-009, D-004/D-005 and shared final freeze are not closed by this A review.",
+    "No PR merge, external review comment, commit, push or deployment was performed."
+  ]
+}

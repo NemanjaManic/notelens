@@ -2,10 +2,13 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [contract references](contracts/README.md).
-**Owner**: A. **Status (local, 2026-11-21)**: Nine owner tasks are complete,
-including A-007's confirmed submission. The corpus has 401 topics and 617
-passages. A-008 shared evaluation/integration and A-011 final freeze remain
-open. Detailed historical checkpoints below preserve their original dates.
+**Owner**: A. **Status (local, 2026-11-23)**: All eleven A-owned task deliverables
+are complete. A-008 closes against the v2 package accepted by B/D; A-011 records
+the selected configuration freeze, actual outputs and remaining live limits.
+The corpus has 401 topics and 617 passages. Unseen final measurement, the shared
+system final freeze and provider-backed B/D integration remain separate pending
+work; they are not claimed complete. Detailed historical checkpoints below
+preserve their original dates and earlier status.
 **Tests**: Required where the source specifications explicitly require structural, semantic,
 leakage, security or independent module checks. This is not blanket TDD for documentation.
 **Organization**: Setup, foundational, story increments, polish. Every task has one owner
@@ -199,11 +202,12 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T010 [US3] A-008: Measure retrieval rejection and failure behavior, deliver integration evidence in `services/rag/tests/test_failures.py`, `docs/rag/evaluation/**`, `docs/rag/integration.md`
+- [x] T010 [US3] A-008: Measure retrieval rejection and failure behavior, deliver integration evidence in `services/rag/tests/test_failures.py`, `docs/rag/evaluation/**`, `docs/rag/integration.md`
   - **Owner / story**: A / US3.
   - **Dependencies**: 001-rag/T008 (A-005); 001-rag/T009 (A-007); 001-rag/T006 (A-009); 004-extraction-evaluation/T010 (D-007)
   - **Acceptance**: Report Recall@5/MRR/all-required-topics@5 over unique topics, single/multi portions, passage evidence, >5-topic flags and risk/coverage; supply provider-failure fixtures with no document-suppression instruction; B verifies full routing behavior.
   - **Verify**: `uv run --directory services/rag python -m pytest tests/test_failures.py tests/test_answers.py tests/test_contract.py`.
+  - **Closure (2026-11-23)**: Goran (B) accepted the frozen development retrieval results and app-routing evidence; Milica (D) accepted both archives and all 81 replayed case/method results. Both messages were supplied by Nemanja and request **v2** as the closure reference, SHA-256 `5f96cc4a626a1081d41964097f16948250ba8096f867bc85ffa4d81609d05ff6`, including reviewed web commit `4fb192eb157d5e2fb47fc6afdda890af8c229d7e`. The agent independently verified 17/17 v1 and 19/19 v2 checksum entries, unchanged measurement/replay artifacts, all 81 results and 15 reference entries. Across the 27 literature/mixed queries, vector retains 22/22 required-topic cases and 27/27 supported parts. All 128 focused RAG tests and 617-passage index readback passed. The identical rebased patch at `8d4d013c65edae0ce2d98efdbcc651ba27e4b720` and separate launcher `14e4b9dfdfdd5832cae7f03d12e92cc5f9a00593` were reviewed; the build, 18 routing tests, 11 classifier transport tests and key-free app/default-mock/report checks passed, including independent RAG shutdown. See [closure and limits](../../docs/rag/a008-closure.md) and [aggregate results](../../docs/rag/evaluation/frozen-development-summary.json). This package made zero provider calls and accessed no final questions. Historical open statuses below are preserved; B/D acceptance of A-008 does not close A-011, unseen final measurement or other owners' tasks.
   - **Local checkpoint (2026-11-18)**: Added HTTP coverage for embedding-provider failures and successful empty search. Nine new tests passed in the full 750-test suite. Saved development evaluation matched four exact questions. All three with proposed topic labels found their required topic and cited passage in the top five. The prior three support decisions matched the author-reviewed full/partial/missing categories. The multi-topic and final answer measurements remain pending. See the [integration evidence](../../docs/rag/integration.md). Shared QA and B's routing checks remain open.
   - **Local lexical follow-up (2026-11-18)**: Ran BM25 on all nine exact development proposals without provider calls. All proposed topics and cited passages were in the first five for all three two-topic cases. The [report](../../docs/rag/evaluation/lexical-proposal-evaluation.md) records rank details and candidate alternative references for D. Equivalent vector/hybrid runs on new questions, shared QA and answer review remain pending.
   - **Vector comparison preflight (2026-11-18)**: Both vector and hybrid ranked the same four cached proposals without provider calls. Prepared a separate [five-question trial](../../docs/rag/evaluation/vector-proposal-trial.md) for the 83-token remainder. The execution gate rejected the pending scope and left earlier history unchanged. All 756 service tests passed. New embeddings and the full comparison remain pending.
@@ -226,11 +230,12 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T011 A-011: Freeze the selected RAG configuration and hand actual outputs to B/D in `docs/rag/**`, `services/rag/config/**`, `data/knowledge/manifests/**`
+- [x] T011 A-011: Freeze the selected RAG configuration and hand actual outputs to B/D in `docs/rag/**`, `services/rag/config/**`, `data/knowledge/manifests/**`
   - **Owner / story**: A / US3.
   - **Dependencies**: 001-rag/T010 (A-008)
   - **Acceptance**: Record corpus/model/prompt/index/question versions, actual final-run reason and approved limits; no final-test prompt tuning. Document API startup and remaining live limitations.
   - **Verify**: `uv run --directory services/rag python -m pytest tests/test_contract.py tests/test_index_version.py`.
+  - **Configuration/handoff completion (2026-11-23)**: After A-008 acceptance and Nemanja's request to complete A-011, [the freeze manifest](../../services/rag/config/frozen-rag-v1.json) pins the unchanged vector/top-5 selection, corpus/index/embedding/model, three prompts, question/reference versions and 56 source/evidence files. The [B/D handoff](../../docs/rag/a011-freeze.md) supplies existing actual CQ-01/CQ-02 completions, separately labelled fixtures, accepted retrieval aggregates, startup/shutdown commands, historical approved limits and remaining live restrictions. Final measurement is explicitly **not run**: no approved unseen-final manifest, execution scope or operational provider budget is available to A. No final-test tuning or repeat final run occurred. Contract/index-version tests passed within the 128-test focused suite; all 617 stored passages verified. This completes A's selected-configuration and handoff deliverable, not the shared system final freeze, unseen final measurement, provider-backed D integration or team release acceptance. No new paid activation, shared/D-owned edit, commit, push or deployment occurred.
   - **Development handoff checkpoint (2026-11-18)**: Pinned the current corpus, index, baseline retriever, three prompts, contracts and development evidence in `services/rag/config/development-handoff.json`. Verified all 617 existing index entries separately. A fresh environment from the complete committed Git export passed all 750 offline tests and reproduced saved metrics without keys or local data. The [B/D handoff](../../docs/rag/development-handoff.md) records startup steps, historical trial limits and open gates. A-008, independent review, the final freeze and team integration confirmation remain open.
   - **Coverage**: FR-003, FR-004, FR-015, FR-016, FR-018, FR-019, SC-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.

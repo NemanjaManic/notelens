@@ -1,5 +1,13 @@
 # Development evaluation with D's relayed ratings
 
+**Current status, 2026-11-23**: This nine-case report remains a historical checkpoint.
+The wider frozen development measurement covers 27 literature/mixed queries and
+81 case/method results. B and D accepted **v2** for [A-008 closure](../a008-closure.md);
+the [public summary](frozen-development-summary.json) preserves the accepted
+aggregate results and limits. The [A-011 configuration handoff](../a011-freeze.md)
+is complete, with unseen final measurement explicitly unexecuted. Earlier pending
+statements below retain their original meaning and date.
+
 Owner: Nemanja (A). Prepared: 2026-11-21. Scope: nine public development cases.
 
 ## Received D source record, 2026-11-22

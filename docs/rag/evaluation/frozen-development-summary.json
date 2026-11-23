@@ -1,0 +1,297 @@
+{
+  "format_version": "rag-a008-closure-v1",
+  "recorded_on": "2026-11-23",
+  "owner": "Nemanja (A)",
+  "status": "closed",
+  "closure_reference": "v2",
+  "archives": {
+    "v1": {
+      "file": "Nemanja-A008-frozen-development-results-v1.zip",
+      "sha256": "0be640fccfa3c412bbdc1826fc9da7b4a85e8b464684c90e24e4f4e34611e670",
+      "bytes": 171513,
+      "checksum_entries_verified": 17
+    },
+    "v2": {
+      "file": "Nemanja-A008-frozen-development-results-v2.zip",
+      "sha256": "5f96cc4a626a1081d41964097f16948250ba8096f867bc85ffa4d81609d05ff6",
+      "bytes": 171214,
+      "checksum_entries_verified": 19
+    }
+  },
+  "measurement_sha256": "1943c07a5a76660687183d21d311593637f8572d84217a2ac5dba48e9bae6d85",
+  "v1_v2_unchanged_evidence": {
+    "development-measurement.json": "1943c07a5a76660687183d21d311593637f8572d84217a2ac5dba48e9bae6d85",
+    "case-metrics.csv": "bf6733e528c4d72c2dc7659d64892a98139a60f46392b20b758961a21230d564",
+    "evaluation-config.json": "9547f4689f5dc55a5695fb1598cd9ba2525a331dd6956ced8a72e5c1c8d9420d",
+    "frozen-development-manifest.json": "04d14df1a578e4dde2ebd17ef48fae3872e2924b8a0c9b211720bbf0f1aad1ee",
+    "metrics-replay-verification.json": "5d72a0278f236f74fcb9a912df19de3a0d4c59cf8470653ace79d3380c15bd5e",
+    "replay-frozen-measurement.py": "c5640933aa9b85fb9c4d28989db53eae018d3d9a7006531efcdcd5239431461f",
+    "audit/executed-measurement.py": "6918697aa8a44fe440c67cfdb4f253aa6c273ba6bdd8d861fd23d93b4a8adc20"
+  },
+  "RAG_baseline_commit": "d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4",
+  "reviewed_web_commit": "4fb192eb157d5e2fb47fc6afdda890af8c229d7e",
+  "rebased_identical_web_patch_commit": "8d4d013c65edae0ce2d98efdbcc651ba27e4b720",
+  "launcher_review_commit": "14e4b9dfdfdd5832cae7f03d12e92cc5f9a00593",
+  "reviewed_source_trees_unchanged": true,
+  "frozen_development_manifest": {
+    "version": "d007-a008-development-qa-manifest-v2",
+    "sha256": "04d14df1a578e4dde2ebd17ef48fae3872e2924b8a0c9b211720bbf0f1aad1ee"
+  },
+  "evaluation_configuration_version": "36e1062432b2de2ec8de6402d2e2bb4f0fa05b73ea49095be36fbc9ee1ddb648",
+  "inventory": {
+    "selected": 54,
+    "document_only_reference_controls": 27,
+    "literature_queries": 9,
+    "mixed_queries": 18,
+    "development_reserves_excluded": 20
+  },
+  "methods": {
+    "bm25": {
+      "overall": {
+        "case_count": 27,
+        "topic_metric_denominator": 22,
+        "mean_topic_recall_at_5": 1.0,
+        "topic_mrr_at_5": 0.8522727272727273,
+        "all_required_topics_at_5_cases": 22,
+        "supported_part_denominator": 27,
+        "supported_parts_with_evidence_at_5": 27,
+        "cases_with_all_supported_parts_at_5": 22
+      },
+      "by_scope": {
+        "literature": {
+          "case_count": 9,
+          "topic_metric_denominator": 8,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.8333333333333334,
+          "all_required_topics_at_5_cases": 8,
+          "supported_part_denominator": 11,
+          "supported_parts_with_evidence_at_5": 11,
+          "cases_with_all_supported_parts_at_5": 8
+        },
+        "mixed": {
+          "case_count": 18,
+          "topic_metric_denominator": 14,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.8630952380952381,
+          "all_required_topics_at_5_cases": 14,
+          "supported_part_denominator": 16,
+          "supported_parts_with_evidence_at_5": 16,
+          "cases_with_all_supported_parts_at_5": 14
+        }
+      },
+      "by_topic_count": {
+        "single_topic": {
+          "case_count": 17,
+          "topic_metric_denominator": 17,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.8872549019607843,
+          "all_required_topics_at_5_cases": 17,
+          "supported_part_denominator": 17,
+          "supported_parts_with_evidence_at_5": 17,
+          "cases_with_all_supported_parts_at_5": 17
+        },
+        "multi_topic": {
+          "case_count": 5,
+          "topic_metric_denominator": 5,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.7333333333333333,
+          "all_required_topics_at_5_cases": 5,
+          "supported_part_denominator": 10,
+          "supported_parts_with_evidence_at_5": 10,
+          "cases_with_all_supported_parts_at_5": 5
+        },
+        "no_supported_topic": {
+          "case_count": 5,
+          "topic_metric_denominator": 0,
+          "mean_topic_recall_at_5": null,
+          "topic_mrr_at_5": null,
+          "all_required_topics_at_5_cases": 0,
+          "supported_part_denominator": 0,
+          "supported_parts_with_evidence_at_5": 0,
+          "cases_with_all_supported_parts_at_5": 0
+        }
+      }
+    },
+    "vector": {
+      "overall": {
+        "case_count": 27,
+        "topic_metric_denominator": 22,
+        "mean_topic_recall_at_5": 1.0,
+        "topic_mrr_at_5": 0.9090909090909091,
+        "all_required_topics_at_5_cases": 22,
+        "supported_part_denominator": 27,
+        "supported_parts_with_evidence_at_5": 27,
+        "cases_with_all_supported_parts_at_5": 22
+      },
+      "by_scope": {
+        "literature": {
+          "case_count": 9,
+          "topic_metric_denominator": 8,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 1.0,
+          "all_required_topics_at_5_cases": 8,
+          "supported_part_denominator": 11,
+          "supported_parts_with_evidence_at_5": 11,
+          "cases_with_all_supported_parts_at_5": 8
+        },
+        "mixed": {
+          "case_count": 18,
+          "topic_metric_denominator": 14,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.8571428571428571,
+          "all_required_topics_at_5_cases": 14,
+          "supported_part_denominator": 16,
+          "supported_parts_with_evidence_at_5": 16,
+          "cases_with_all_supported_parts_at_5": 14
+        }
+      },
+      "by_topic_count": {
+        "single_topic": {
+          "case_count": 17,
+          "topic_metric_denominator": 17,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.8823529411764706,
+          "all_required_topics_at_5_cases": 17,
+          "supported_part_denominator": 17,
+          "supported_parts_with_evidence_at_5": 17,
+          "cases_with_all_supported_parts_at_5": 17
+        },
+        "multi_topic": {
+          "case_count": 5,
+          "topic_metric_denominator": 5,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 1.0,
+          "all_required_topics_at_5_cases": 5,
+          "supported_part_denominator": 10,
+          "supported_parts_with_evidence_at_5": 10,
+          "cases_with_all_supported_parts_at_5": 5
+        },
+        "no_supported_topic": {
+          "case_count": 5,
+          "topic_metric_denominator": 0,
+          "mean_topic_recall_at_5": null,
+          "topic_mrr_at_5": null,
+          "all_required_topics_at_5_cases": 0,
+          "supported_part_denominator": 0,
+          "supported_parts_with_evidence_at_5": 0,
+          "cases_with_all_supported_parts_at_5": 0
+        }
+      }
+    },
+    "hybrid": {
+      "overall": {
+        "case_count": 27,
+        "topic_metric_denominator": 22,
+        "mean_topic_recall_at_5": 0.9772727272727273,
+        "topic_mrr_at_5": 0.9318181818181818,
+        "all_required_topics_at_5_cases": 21,
+        "supported_part_denominator": 27,
+        "supported_parts_with_evidence_at_5": 26,
+        "cases_with_all_supported_parts_at_5": 21
+      },
+      "by_scope": {
+        "literature": {
+          "case_count": 9,
+          "topic_metric_denominator": 8,
+          "mean_topic_recall_at_5": 0.9375,
+          "topic_mrr_at_5": 1.0,
+          "all_required_topics_at_5_cases": 7,
+          "supported_part_denominator": 11,
+          "supported_parts_with_evidence_at_5": 10,
+          "cases_with_all_supported_parts_at_5": 7
+        },
+        "mixed": {
+          "case_count": 18,
+          "topic_metric_denominator": 14,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.8928571428571429,
+          "all_required_topics_at_5_cases": 14,
+          "supported_part_denominator": 16,
+          "supported_parts_with_evidence_at_5": 16,
+          "cases_with_all_supported_parts_at_5": 14
+        }
+      },
+      "by_topic_count": {
+        "single_topic": {
+          "case_count": 17,
+          "topic_metric_denominator": 17,
+          "mean_topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.9117647058823529,
+          "all_required_topics_at_5_cases": 17,
+          "supported_part_denominator": 17,
+          "supported_parts_with_evidence_at_5": 17,
+          "cases_with_all_supported_parts_at_5": 17
+        },
+        "multi_topic": {
+          "case_count": 5,
+          "topic_metric_denominator": 5,
+          "mean_topic_recall_at_5": 0.9,
+          "topic_mrr_at_5": 1.0,
+          "all_required_topics_at_5_cases": 4,
+          "supported_part_denominator": 10,
+          "supported_parts_with_evidence_at_5": 9,
+          "cases_with_all_supported_parts_at_5": 4
+        },
+        "no_supported_topic": {
+          "case_count": 5,
+          "topic_metric_denominator": 0,
+          "mean_topic_recall_at_5": null,
+          "topic_mrr_at_5": null,
+          "all_required_topics_at_5_cases": 0,
+          "supported_part_denominator": 0,
+          "supported_parts_with_evidence_at_5": 0,
+          "cases_with_all_supported_parts_at_5": 0
+        }
+      }
+    }
+  },
+  "more_than_five_required_topics_cases": 0,
+  "risk_and_coverage_saved_support_subset": {
+    "assessed": 3,
+    "would_allow_some_evidence": 2,
+    "overstated_coverage_among_accepted": 0,
+    "potential_coverage": 0.6666666666666666,
+    "observed_overstatement_rate": 0.0,
+    "basis": "Prior support judgments relative to author-reviewed development labels. No final answer was generated."
+  },
+  "historical_measurement": {
+    "embedding_calls": 1,
+    "input_tokens": 453,
+    "reference_usage_usd": "0.00000906",
+    "approved_cap_usd": "0.001",
+    "actual_provider_billing": "unverified",
+    "answer_generation_calls": 0
+  },
+  "recipient_acceptance": {
+    "source": "Goran and Milica messages supplied by Nemanja in this conversation; recorded on 2026-11-23.",
+    "B": {
+      "reviewer": "Goran",
+      "accepted": true,
+      "scope": "Frozen development retrieval results and app-routing evidence for A-008.",
+      "verified_original_archive_checksum_entries": 17,
+      "requested_closure_reference": "v2"
+    },
+    "D": {
+      "reviewer": "Milica",
+      "accepted": true,
+      "scope": "Frozen development retrieval results; both archives verified and all 81 recorded case/method results replayed.",
+      "requested_closure_reference": "v2"
+    },
+    "separate_work": "Both reviewers explicitly keep A-011 and the final freeze separate from their A-008 acceptance."
+  },
+  "agent_verification": {
+    "archive_checks": "17/17 v1; 19/19 v2",
+    "offline_replay_case_method_results": 81,
+    "canonical_reference_entries_verified": 15,
+    "targeted_RAG_tests_passed": 128,
+    "existing_index_passages_verified": 617,
+    "new_provider_calls": 0,
+    "final_test_accessed": false
+  },
+  "limitations": [
+    "Aggregate public record only; original private packages and raw measurements remain unchanged.",
+    "27 document-only reference controls are excluded from literature metrics; no D service benchmark is claimed.",
+    "Three historical support assessments do not establish semantic quality over all 27 retrieval questions.",
+    "A-008 acceptance does not establish unseen final results, provider-backed D integration or system release acceptance."
+  ]
+}

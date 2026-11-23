@@ -1,6 +1,25 @@
 # RAG development integration evidence
 
-Owner: Nemanja (A). Initial checkpoint: 2026-11-18. Latest local evaluation: 2026-11-22. A-008 remains open.
+Owner: Nemanja (A). Initial checkpoint: 2026-11-18. Latest verification: 2026-11-23.
+
+**Current status**: [A-008 is closed](a008-closure.md) against the original v2
+package accepted by Goran (B) and Milica (D). All 81 recorded retrieval results
+replayed, and both original archives passed checksum verification. The
+[selected RAG configuration and B/D handoff](a011-freeze.md) complete A-011's
+owner deliverable, with unseen final measurement explicitly not run.
+
+The [exact launcher review](evaluation/launcher-review-14e4b9df.json) at
+`14e4b9dfdfdd5832cae7f03d12e92cc5f9a00593` passed the production build,
+18 routing tests, 11 classifier transport tests and key-free app checks.
+Stopping only RAG preserved both document claims and their exact citations;
+all listeners closed after the checks. The identical admission patch at
+`8d4d013c65edae0ce2d98efdbcc651ba27e4b720` retains the measured RAG tree.
+These agent-run checks use synthetic indexed RAG, mock extraction and a
+classifier response double. Provider-backed integration, the shared system
+freeze and other owners' task acceptance remain separate.
+
+The earlier checkpoints below preserve their original evidence state; their
+pending A-008 statements are superseded by the dated closure above.
 
 The [received D source record](evaluation/reviewed-development-evaluation.md#received-d-source-record-2026-11-22)
 now supplies the exact ratings and additional slices for the nine cases. All
