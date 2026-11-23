@@ -108,7 +108,13 @@ def child_environment():
 
 
 @contextmanager
-def start_stack(*, rag_scenario='sufficient', fitted_classifier: FittedClassifier | None = None) -> Iterator[MockStack]:
+def start_stack(
+    *,
+    rag_scenario='sufficient',
+    fitted_classifier: FittedClassifier | None = None,
+    indexed_rag_job: ExitStack | None = None,
+) -> Iterator[MockStack]:
+    """Use the caller's job for indexed RAG when it must be stopped independently."""
     node = shutil.which('node')
     next_bin = ROOT / 'node_modules/next/dist/bin/next'
     if not node or not next_bin.is_file() or not (WEB / '.next/BUILD_ID').is_file():
@@ -136,12 +142,18 @@ def start_stack(*, rag_scenario='sufficient', fitted_classifier: FittedClassifie
             'PYTHONPATH': str(ROOT / 'scripts/project/scaffold_guard'),
         }
         for name, (module, token_key) in SERVICES.items():
-            command = [str(interpreters[name]), '-B', '-m', 'uvicorn', f'{module}.main:app',
-                       '--host', '127.0.0.1', '--port', str(ports[name]), '--no-proxy-headers',
-                       '--no-access-log', '--log-level', 'error']
+            if name == 'rag' and indexed_rag_job is not None:
+                command = [str(interpreters[name]), '-B', str(ROOT / 'docs/rag/evaluation/serve_indexed_demo.py'),
+                           '--port', str(ports[name])]
+                owner, cwd = indexed_rag_job, ROOT / 'services/rag'
+            else:
+                command = [str(interpreters[name]), '-B', '-m', 'uvicorn', f'{module}.main:app',
+                           '--host', '127.0.0.1', '--port', str(ports[name]), '--no-proxy-headers',
+                           '--no-access-log', '--log-level', 'error']
+                owner, cwd = owned, ROOT
             sockets[name].close()
-            processes[name] = owned.enter_context(owned_process(
-                command, cwd=ROOT, env={**service_env, token_key: token}, stdout=subprocess.DEVNULL))
+            processes[name] = owner.enter_context(owned_process(
+                command, cwd=cwd, env={**service_env, token_key: token}, stdout=subprocess.DEVNULL))
         for name in SERVICES:
             await_ready(name, ports[name], processes[name], token)
         stack = MockStack(ports['web'], processes, ports)
