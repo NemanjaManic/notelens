@@ -1,0 +1,15 @@
+{
+  "version": "d004-d005-continuation-verification-v2",
+  "date": "2026-11-23",
+  "service_sha": "30fa30b372489c2a03c1579cf27081f629992bc4",
+  "service_test_command": "./services/extraction/.venv/Scripts/python.exe -B -m pytest services/extraction/tests -q",
+  "service_tests_passed": 107,
+  "existing_warning": "Starlette/httpx test-client deprecation",
+  "original_request_hashes_reverified": true,
+  "prepared_requests_match_canonical_synthetic_inputs": true,
+  "model_prompt_contract_lockfile_pins_verified": true,
+  "new_provider_calls": 0,
+  "new_approval_recorded": false,
+  "old_receipt_unchanged": true,
+  "proposal_sha256": "a6e7b0569d7e31179d93ef50c511c6be8db4c3c26180eedc7a0025411ebff431"
+}

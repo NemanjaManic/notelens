@@ -124,3 +124,17 @@ component-provenance validation to every returned result. Send B the reviewed
 service commit, lockfile, startup policy identity and private verification
 receipt after source review. The existing B mock runner is pinned to its mock
 handoff. B's provider-backed app check needs the reviewed configured service.
+
+### Prepared compatibility trial and internal error diagnostics
+
+An operator policy may select `"input_format": "messages"` for a canonical request
+encoded as a user message with an `input_text` block. Omit it or use `"text"` for
+the existing string input. Unknown formats fail before claiming a receipt.
+The original trial retains its text input and hashes. A changed format needs new
+reviewed payload pins and execution authorization.
+
+Non-200 responses retain bounded allowlisted operator metadata through
+`ServiceError.provider_diagnostics`. Free-text messages and unknown values are
+discarded. Diagnostics are not in the public error envelope. No retry is added.
+See the [D-004/D-005 completion package](../../docs/extraction-eval/d004-d005-completion-v2.md)
+for the prepared but unapproved trial and pending provider-output review.
