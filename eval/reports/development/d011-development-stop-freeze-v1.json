@@ -1,0 +1,19 @@
+{
+  "version": "d011-development-stop-freeze-v1",
+  "date": "2026-11-23",
+  "approved_by": "Milica via explicit conversation instruction",
+  "decision": "Stop further extraction improvements and freeze the current measured implementation for handoff.",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "profile": "coverage_v2",
+  "reasoning_effort": "low",
+  "development_work_frozen": true,
+  "quality_acceptance": "failed",
+  "entity_exact_f1": 0.46786632390745503,
+  "required_entity_exact_f1": 0.9,
+  "semantic_risk": null,
+  "quality_waiver_inferred": false,
+  "joint_final_freeze_approved": false,
+  "d009_closed": false,
+  "d011_acceptance_closed": false,
+  "remaining": "Independent semantic evidence and explicit release disposition remain distinct from freezing implementation."
+}

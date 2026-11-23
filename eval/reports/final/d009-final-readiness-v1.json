@@ -6,10 +6,10 @@
   "system_candidate": {
     "rag": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
     "classifier": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
-    "extraction": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731"
+    "extraction": "d41fa880177a7855bb92e57d98673b0a7a77d36b"
   },
   "freeze_candidate": "eval/config/d009-final-freeze-candidate-v1.json",
-  "freeze_candidate_sha256": "0e26b0f575c2cf9dd68d854fc8f5c9ac9bae2884303b2854839c024db1fb13dc",
+  "freeze_candidate_sha256": "116386f4841cba0db272e2447760574e3132ce6c88a4390a67d03e2ea8064ad6",
   "final_case_identity_count": 26,
   "final_versions": {
     "v1": 25,
@@ -121,22 +121,23 @@
   "local_readiness": {
     "contracts": "pass",
     "transport": "pass",
-    "cross_service": "not_run"
+    "cross_service": "not_run",
+    "mode": "mock"
   },
-  "offline_eval_tests_passed": 141,
-  "offline_service_tests_last_passed": 130,
-  "provider_known_cumulative_reservation_usd": "0.0965479",
+  "offline_eval_tests_passed": 152,
+  "offline_service_tests_last_passed": 137,
+  "provider_known_cumulative_reservation_usd": "0.2020124",
   "actual_billing_confirmed": false,
   "blockers": [
     {
       "id": "quality",
       "owner": "D agent/service implementation; Milica for release decision",
-      "needed": "Improve exact mention recall/boundaries and context/status accuracy beyond fresh F1 0.6789, keep visible partial outcomes, validate a larger sample and obtain independent semantic answer-risk evidence."
+      "needed": "Exact F1 0.4679 remains below 0.90; four of six paired candidate extractions are partial and common-mention temporal labelling regresses 25/31 to 24/31. Independent semantic risk is missing; prepared protocol/blank packet are not reviews."
     },
     {
       "id": "app",
       "owner": "Goran",
-      "needed": "Configured D-005 app receipt with exact app/service SHAs, profile, identity/highlights/partial/insufficient/out-of-scope findings."
+      "needed": "Configured app receipt for d41fa880177a7855bb92e57d98673b0a7a77d36b / coverage_v2 / low with exact app SHA and identity/highlight/partial/insufficient/out-of-scope findings."
     },
     {
       "id": "final_artifacts",
@@ -163,8 +164,8 @@
   "published_or_pushed": false,
   "unapproved_candidate_rejected_before_final_artifact_access": true,
   "final_execution_receipt_created": false,
-  "measured_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
-  "remediation_service_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
+  "measured_service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "remediation_service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
   "remediation_replay": {
     "status": "superseded_by_quote_protocol",
     "latest_report": "eval/reports/development/d011-extraction-improvement-v2.json"
@@ -183,5 +184,38 @@
     "quality_acceptance": "failed",
     "independent_semantic_risk": null,
     "additional_app_calls_authorized": false
-  }
+  },
+  "provider_development_reservation_cap_usd": "0.25",
+  "historical_smoke_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "latest_economic_candidate": {
+    "source_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+    "report": "eval/reports/development/d011-economic-comparison-results-v4.json",
+    "paired_documents": 6,
+    "reference_mentions": 204,
+    "valid_extractions": 6,
+    "partial_extractions": 4,
+    "baseline_exact_f1": 0.2984126984126984,
+    "candidate_exact_f1": 0.46786632390745503,
+    "same_31_mentions_temporality": {
+      "baseline_correct": 25,
+      "candidate_correct": 24,
+      "regression_accepted": false
+    },
+    "qa_valid": 6,
+    "quality_acceptance": "failed",
+    "independent_semantic_risk": null,
+    "new_app_calls_authorized": false
+  },
+  "semantic_review_preparation": "eval/reports/development/d011-semantic-review-preparation-v1.json",
+  "eligibility_proposal": "eval/reports/final/d009-final-eligibility-proposal-v1.json",
+  "repository_commit_completion": {
+    "status": "pending_automatic_approval_review_credit_restore",
+    "last_successful_commit": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+    "last_commit_attempt_executed": false,
+    "reason": "Automatic approval review could not run because workspace credits were exhausted; not an unsafe-action determination.",
+    "bypass_attempted": false,
+    "owner": "Workspace owner"
+  },
+  "d011_development_status": "closed_with_team_accepted_limitations",
+  "d011_closure_receipt": "eval/reports/development/d011-team-accepted-closure-v1.json"
 }

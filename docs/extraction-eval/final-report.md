@@ -16,12 +16,13 @@ not present them as a joint unseen-final result.
 | D extraction and document QA | Earlier synthetic smoke: five supported extraction items, five summary claims and a supported cough answer; raw final results passed unchanged. | One synthetic document/question; 112 service tests and two saved-live-response HTTP replays passed. |
 | D-011 broader development pilot | Valid returned extractions 1/6; answers 5/6; 6/12 valid records. Forty reference mentions included. | **Acceptance failed.** Complete-case entity F1 and independent semantic risk unavailable. Conservative end-to-end exact F1 0.0000; five emitted literal answers had zero proxy errors. |
 | D service remediation replay | Same saved outputs: 2/6 valid extractions, 5/6 valid answers; 114 service tests pass. | Candidate f50df177; zero new generation, observed-sample regression check only. Acceptance still fails; original measurements preserved. |
-| Latest quote-hint candidate | Source-grounded outputs validate for 11/11 development documents (nine complete, two partial) and 3/3 QA; 130 service tests pass. | Candidate 8ef63edd. Same-six exact F1 0.6500; two further post-fix fresh documents 0.6789 exact / 0.8440 relaxed. Exact target 0.90 and semantic-risk gate remain uncleared. |
+| Earlier quote-hint candidate | Source-grounded outputs validate for 11/11 development documents (nine complete, two partial) and 3/3 QA; 130 service tests pass. | Candidate 8ef63edd. Same-six exact F1 0.6500; two further post-fix fresh documents 0.6789 exact / 0.8440 relaxed. Exact target 0.90 and semantic-risk gate remain uncleared. |
+| Latest coverage/low candidate | Same six new development documents: exact F1 0.2984 baseline to 0.4679 candidate; valid extractions 4/6 to 6/6, four candidate partials; 6/6 synthetic QA validate. 137 service / 152 eval tests pass. | Candidate d41fa880. Temporal labels on common mentions regress 25/31 to 24/31. Independent semantic risk missing; quality acceptance failed. |
 | A selected vector retrieval | Development Recall@5 1.0000; MRR@5 0.909091; 22/22 all-topic supported cases. | Previously accepted A-008 development evidence, 27 total queries and 22 recall-eligible cases; no new retrieval run. |
 | C-008 classifier | Forced-choice accuracy 176/183 (0.96175), macro-F1 0.9582; selective coverage 174/183 and accuracy 169/174. | C-owned locked final aggregate, independently checked against the pinned confusion matrix; not joint system performance. |
 | D-008 calibration | Fourteen original ratings over seven paired cases, five entity-evidence reviews, initial agreement 43/49 (87.76%), six approved adjudications. | Explicitly accepted reduced mock development pilot; no new independent provider-output review credit. |
 | Security/platform | Previously verified B evidence and six successful hosted runs; recorded locked build and 160 key-free cases. | Exact revisions/profiles retained in platform intake. New Windows default/indexed reruns and rendered provider app acceptance are not claimed. |
-| Fresh D local readiness | Contract inspection and authenticated loopback transport passed; 141 eval tests passed. | Cross-service, deployment and Chrome acceptance not executed in this update. |
+| Fresh D local readiness | Fresh mock contract inspection and authenticated loopback transport passed; 152 eval tests passed. | Cross-service, deployment and Chrome acceptance not executed in this update. |
 
 See [D-011 methods/results](d011-development-measurement-v1.md), the
 [D-004/D-005 reviewed smoke handoff](d005-reviewed-handoff-v3.md) and the
@@ -48,8 +49,8 @@ freeze, actual generation and independently reviewed output scoring.
 ## Candidate system and executable scoring preparation
 
 Measured D service: c7d0797a86061c643b0f23e6d56f8caa9e7a6813.
-Latest remediation candidate: 8ef63edd4ab1cb39de73b0f31b97bb12359f7731
-with explicit input_format messages / output_format quote_hints,
+Latest measured candidate: d41fa880177a7855bb92e57d98673b0a7a77d36b
+with explicit messages / quote_hints / coverage_v2 / low configuration,
 selected RAG manifest d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685,
 and C-008 classifier manifest fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70.
 The new D pin still needs further remediation, fresh development acceptance and
@@ -91,7 +92,7 @@ Deployment acceptance and B-005/B-007/B-009 remain with B and are not inferred.
 
 ## Costs, publication and limitations
 
-Known cumulative worst-case provider reservations are USD 0.0965479. They are
+Known cumulative worst-case provider reservations are USD 0.2020124 under the announced USD 0.25 expanded development bound. The original USD 0.10 trial receipt remains unchanged. They are
 not confirmed billed spending; token usage and exclusive receipts are retained
 privately. No additional final-provider spending is authorized by the unapproved
 candidate. No unseen final generation, scoring, deployment, push or external
@@ -102,3 +103,30 @@ non-independent agent support checks are explicitly bounded evidence. They
 cannot establish clinical safety, representative medical performance or a
 joint final release pass. The failed quality gate is preserved without hidden
 threshold reduction, selective sample omission or fabricated reviewer approval.
+
+## Latest measured candidate and prepared review decisions
+
+See [economical improvement v4](economic-improvement-v4.md) for the paired design,
+partial outcomes, temporal regression, cost estimates and unchanged failed gates.
+[The v5 app handoff](d005-coverage-candidate-handoff-v5.md) pins the committed service
+and prompts; [remaining actions](d009-d011-remaining-actions-v2.md) lists exact owners.
+A private six-output semantic review packet and separate historical calibration
+appendix are prepared; independent ratings and protocol adoption are still absent.
+The proposed 23 unseen-candidate plus 3 exposed-note interpretation is unapproved.
+Local evidence changes await logical commits because automatic approval review
+could not run after workspace credits were exhausted; no approval bypass occurred.
+
+## D-011 development closure accepted by the team
+
+Milica reports team agreement to close D-011 as completed development with explicitly accepted limitations. Exact F1 remains 0.4679 against 0.90, partial outputs and temporal regression remain disclosed, and independent semantic risk remains missing. This is administrative development closure, not quality acceptance or a D-009 final pass. See ../../eval/reports/development/d011-team-accepted-closure-v1.json.
+
+## Supplementary semantic feedback from Milica
+
+Milica identifies reviewer mm as herself and reports human review with some AI
+guidance. The six submitted source/response hashes and packet identity match.
+This is disclosed non-independent human feedback, not independent correctness
+evidence. The original case-005 clarity score 1 and adjudication request remain;
+case-specific metadata issues and missing completion time are not silently filled.
+No independent answer-risk result is produced. D-011 remains closed development
+with accepted limitations; D-009 acceptance is unchanged. See
+[the intake record](../../eval/reports/development/d011-mm-review-intake-v1.json).

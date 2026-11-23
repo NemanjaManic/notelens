@@ -1,0 +1,28 @@
+{
+  "version": "d011-team-accepted-closure-v1",
+  "date": "2026-11-23",
+  "task": "D-011",
+  "status": "closed_development_with_accepted_limitations",
+  "authority": "Milica reports that the team agrees to the immediately preceding explicit closure proposal.",
+  "approval_evidence": "User message: they agree",
+  "individual_team_replies_received_by_agent": false,
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "quality_acceptance": "not_met",
+  "entity_exact_f1": 0.46786632390745503,
+  "entity_exact_f1_threshold": 0.9,
+  "independent_semantic_risk": null,
+  "partial_extractions": 4,
+  "paired_documents": 6,
+  "temporal_regression": {
+    "same_mentions": 31,
+    "baseline_correct": 25,
+    "candidate_correct": 24
+  },
+  "thresholds_lowered": false,
+  "limitations_accepted_for_development_closure": true,
+  "clinical_validation_claimed": false,
+  "deployment_acceptance_granted": false,
+  "d009_closed": false,
+  "joint_final_freeze_approved": false,
+  "new_execution_authorized": false
+}

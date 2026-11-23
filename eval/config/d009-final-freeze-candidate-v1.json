@@ -10,7 +10,7 @@
   "system_versions": {
     "rag": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
     "classifier": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
-    "extraction": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731"
+    "extraction": "d41fa880177a7855bb92e57d98673b0a7a77d36b"
   },
   "development_groups": {
     "path": "development-group-exclusions-v1.json",
@@ -59,7 +59,7 @@
       }
     }
   },
-  "selected_system_status": "Quote-hint candidate: validated source grounding improves reliability; exact F1 remains below 0.90 and semantic-risk evidence is still missing. No final release approval.",
+  "selected_system_status": "Coverage/low candidate measured on paired development data; exact F1 0.4679 < 0.90, temporal regression unaccepted, semantic risk missing. No final release approval.",
   "reference_identity_manifest": {
     "path": "../references/qa/d007-final-reference-freeze-v1.manifest.json",
     "sha256": "01751714755b1c6344065f8786bb99cf28156f58612e6c98be99fb5e12f25740"
@@ -71,16 +71,30 @@
   ],
   "final_generation_authorized_by_this_candidate": false,
   "status": "blocked_not_approved_not_executed",
-  "measured_extraction_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "measured_extraction_service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
   "extraction_configuration": {
     "model": "gpt-6-luna",
     "input_format": "messages",
     "output_format": "quote_hints",
+    "prompt_profile": "coverage_v2",
+    "reasoning_effort": "low",
     "output_version": "d-quote-hints-v2",
-    "prompt_version": "d-quote-hints-prompts-v1",
+    "prompt_version": "d-quote-hints-prompts-v2",
+    "prompt_versions_by_operation": {
+      "extract": "d-quote-hints-prompts-v2",
+      "answer": "d-quote-hints-prompts-v1",
+      "early_abstention": null
+    },
     "prompt_pins": {
-      "services/extraction/src/notelens_extraction/prompts/extract-quotes-v1.txt": "19c9296bc669153cf19e90398fa9463dbbedc5c2d62435a35fa1bde4a3f712b2",
+      "services/extraction/src/notelens_extraction/prompts/extract-quotes-v2.txt": "e02ddaea5213c9814efbf2081a9b1e27bef2566cb657e4e7647f717f1f476cb5",
       "services/extraction/src/notelens_extraction/prompts/answer-quotes-v1.txt": "e8fc562125c5a75cd2b477de4adcb9b55f14ab31c7c430e227f16d3509a70f25"
-    }
+    },
+    "immutable_dated_model_snapshot_established": false
+  },
+  "historical_smoke_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "eligibility_proposal": {
+    "path": "../reports/final/d009-final-eligibility-proposal-v1.json",
+    "sha256": "e3691e67cc4493b6de4fbe9cbc9bede9e9b5df0b0e199f350525fd55d56a949d",
+    "approved": false
   }
 }

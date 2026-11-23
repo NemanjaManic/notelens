@@ -3,13 +3,14 @@
 ## Current completion checklist (2026-11-23; delivery 2026-11-24)
 
 This section supersedes the historical status below. Closed parent tasks:
-D-001, D-002, D-003, D-004, D-005, D-006, D-007, D-008, D-010, D-012 and D-013. Two parent tasks remain open: D-011 and D-009.
+D-001, D-002, D-003, D-004, D-005, D-006, D-007, D-008, D-010, D-012 and D-013. D-011 is now closed as development with team-accepted limitations. D-009 remains open.
 The tutor confirmed funding sufficiency for continuing the existing plan; less
 than 10% of project budget is reportedly consumed. Milica subsequently authorized additional synthetic diagnostic calls to resolve
 provider failures; six were executed with zero automatic retries and the retained
-cumulative USD 0.10 cap. Following development measurements and quote-protocol
-improvement, known cumulative reservations are USD 0.0965479, not
-actual billing. See the
+cumulative USD 0.10 cap. Following later explicit authorization for economical additional spending, the
+coverage/low comparison brings known cumulative reservations to USD 0.2020124
+under a locally announced USD 0.25 cap. These are bounds, not actual billing.
+The original USD 0.10 trial receipt remains unchanged. See the
 [funding record](../../eval/reports/development/d004-tutor-budget-confirmation-2026-11-23-v1.json).
 
 | Order / task | Concrete remaining work | Responsible party / completion evidence |
@@ -19,8 +20,8 @@ actual billing. See the
 | Complete. D-013 | CLOSED: Milica approved D013-freeze-candidate-v1; d013-development-reference-freeze-v1 is materialized. All 40 development references, 1,189 mentions, 1,320 evidence spans, 250 disposition IDs and 49 archive checksums verify. | Completed by Milica/D. Freeze receipt: eval/reports/development/d013-reference-freeze-receipt-v1.json. 153 tracked items are work for D, not a new 153-question user form. |
 | Complete. D-007 | CLOSED: d007-final-reference-freeze-v1 records all 26 exact case versions/hashes and both sets of thirteen approved human reviews; 25 v1 plus F-DOC-06 v2, zero unresolved issues reported. Four supplied checksums and all receipt identity links verify. Final content remains restricted; D relied on custodian/reviewer attestations for hidden file bytes and spans. | Freeze receipt: eval/reports/development/d007-final-reference-freeze-receipt-v1.json. D-009 still requires explicit eligibility disposition for prior technical-note exposure of F-DOC-01/02/03 and joint system/configuration/execution approval. No final measurement authorized or executed. |
 | Complete. D-008 | CLOSED in the approved limited mock development-pilot scope: 14 original ratings, seven paired cases, five entity-evidence items, unchanged initial agreement 43/49 (87.76%), six approved adjudication decisions and 30 verified final checksums. Original approximate-40/20 targets were not met; shortfalls of 26/15 are accepted and reported. | Milica approved all six decisions and reports team acceptance of limitations. Final report: eval/reports/development/d008-limited-pilot-final-v1.json. No new reviews are requested. |
-| Open. D-011 | Quote-hint candidate 8ef63edd returns valid grounded outputs for 11/11 development documents (nine complete, two explicit partial) and 3/3 QA. Same-six exact F1 improves from the contract baseline lower bound 0.0851 to 0.6500. Two further post-fix fresh documents score exact F1 0.6789 / relaxed 0.8440. All 130 service tests pass. Exact F1 remains below 0.90; independent semantic risk is missing. | D owns remaining mention coverage/boundary/attribute quality and risk evidence. Earlier failures and thresholds are preserved; no final release pass. See extraction-improvement-v2.md and d011-extraction-improvement-v2.json. |
-| Open. D-009 | Full scope retained by Milica. English evidence report, 196 known development exclusions, exact candidate system pins and fail-closed final-freeze candidate prepared. C final aggregate reverified; local contract/transport readiness passes; 141 eval tests pass. No joint final measurement executed. | Blocked by D-011 quality, Goran app receipt, eligibility disposition for F-DOC-01/02/03, approved joint freeze and restricted final references/outputs. Sara/Goran hold the 26 cases. See final-report.md and d009-private-handoff-request-v1.md. |
+| Complete with limitations. D-011 | Candidate d41fa880 / coverage_v2 / low: on six paired new development documents exact F1 improves 0.2984 to 0.4679; valid returns 4/6 to 6/6, with four partial candidate extractions. Common-mention temporal labels regress 25/31 to 24/31. Six synthetic QA outputs validate; semantic risk remains missing. 137 service and 152 eval tests pass. | Milica reports team agreement to development closure with accepted limitations. Quality acceptance remains not met; semantic risk remains unmeasured. Receipt: d011-team-accepted-closure-v1.json. |
+| Open. D-009 | Full scope retained. Latest candidate, failed development acceptance, 26 identity pins, unapproved eligibility proposal, v5 app handoff and final scorer are prepared. Fresh mock contracts/transport and 152 eval tests pass. | Still requires D-011 quality/risk, Goran app receipt, eligibility disposition, approved joint freeze and restricted final references/outputs. Final execution/scoring not performed. See d009-d011-remaining-actions-v2.md. |
 
 For B-005/B-009/B-007, Goran owns integration/demo/deployment acceptance. Milica
 supplies reviewed D service evidence. B-007 additionally needs approved host/account/
@@ -81,3 +82,11 @@ Actual commands: [integration](integration.md). Remaining requests:
 [B/C/A/configuration](milestone-requests.md). Parent tasks stay partial where frozen
 contracts, real data, actual human review or an approved live provider are required.
 Draft schema compatibility is not a shared foundation freeze.
+
+## Development freeze decision, November 23
+
+Milica stopped further extraction improvements. Implementation d41fa880 / coverage_v2 / low is frozen for handoff. D-011 quality remains failed, independently reviewed risk is absent, and D-009 joint final execution remains pending. See [the capstone evidence map](capstone-delivery-evidence-map-v1.md). No quality waiver or final pass is inferred.
+
+## Team-accepted D-011 closure
+
+Milica reports team agreement to close D-011 as completed development with the disclosed limitations. This supersedes earlier statements that the parent task must remain open. Quality acceptance remains not met; thresholds and historical measurements are unchanged. D-009, deployment and joint final execution are not approved by this decision.

@@ -1,0 +1,92 @@
+{
+  "version": "d011-frozen-error-audit-v1",
+  "date": "2026-11-23",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "scope": "Six paired candidate development extractions, saved outputs only",
+  "counts": {
+    "exact_matches": 91,
+    "boundary_only_additional_overlap_matches": 34,
+    "references_without_same_type_overlap": 79,
+    "predictions_without_same_type_overlap": 60,
+    "rejected_model_entities": 11,
+    "unique_later_evidence_recovery_candidates": 0
+  },
+  "cases": [
+    {
+      "case_id": "assignment-010",
+      "reference_mentions": 23,
+      "predicted_mentions": 18,
+      "exact_matches": 9,
+      "boundary_only_additional_overlap_matches": 7,
+      "rejected_entities": 3,
+      "later_evidence_recovery_candidates": 0,
+      "rejection_reasons": {
+        "Invalid evidence occurrence.": 3
+      }
+    },
+    {
+      "case_id": "assignment-004",
+      "reference_mentions": 25,
+      "predicted_mentions": 25,
+      "exact_matches": 20,
+      "boundary_only_additional_overlap_matches": 4,
+      "rejected_entities": 0,
+      "later_evidence_recovery_candidates": 0,
+      "rejection_reasons": {}
+    },
+    {
+      "case_id": "assignment-021",
+      "reference_mentions": 22,
+      "predicted_mentions": 16,
+      "exact_matches": 9,
+      "boundary_only_additional_overlap_matches": 2,
+      "rejected_entities": 1,
+      "later_evidence_recovery_candidates": 0,
+      "rejection_reasons": {
+        "Invalid evidence occurrence.": 1
+      }
+    },
+    {
+      "case_id": "assignment-037",
+      "reference_mentions": 16,
+      "predicted_mentions": 27,
+      "exact_matches": 10,
+      "boundary_only_additional_overlap_matches": 6,
+      "rejected_entities": 1,
+      "later_evidence_recovery_candidates": 0,
+      "rejection_reasons": {
+        "Invalid evidence occurrence.": 1
+      }
+    },
+    {
+      "case_id": "assignment-025",
+      "reference_mentions": 73,
+      "predicted_mentions": 45,
+      "exact_matches": 29,
+      "boundary_only_additional_overlap_matches": 8,
+      "rejected_entities": 0,
+      "later_evidence_recovery_candidates": 0,
+      "rejection_reasons": {}
+    },
+    {
+      "case_id": "assignment-039",
+      "reference_mentions": 45,
+      "predicted_mentions": 54,
+      "exact_matches": 14,
+      "boundary_only_additional_overlap_matches": 7,
+      "rejected_entities": 6,
+      "later_evidence_recovery_candidates": 0,
+      "rejection_reasons": {
+        "Invalid evidence occurrence.": 6
+      }
+    }
+  ],
+  "new_provider_calls": 0,
+  "runtime_changed": false,
+  "references_changed": false,
+  "final_data_opened": false,
+  "interpretation": "Overlap matches diagnose boundary differences only, not equivalent clinical concepts. Missing same-type overlap can include wrong type and localization, not only absent concepts.",
+  "decision": "Retain frozen runtime. No automatic boundary trimming or reference-informed semantic rewrite is justified by this audit.",
+  "quality_acceptance": "failed",
+  "independent_semantic_risk": null
+}
