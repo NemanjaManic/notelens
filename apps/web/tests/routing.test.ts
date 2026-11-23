@@ -218,6 +218,13 @@ test('input/admitting-the-indexed-demo-partial-literature-question', () => {
   assert.equal(mixed.plan.literature, literatureQuestion);
 });
 
+test('input/admitting-the-reviewed-d005-cough-question', () => {
+  const documentQuestion = 'Does the patient report cough?';
+  const result = questionPlan({ document: document.doc_id, scope: 'document', documentQuestion }, false);
+  assert.ok('plan' in result);
+  assert.equal(result.plan.document, documentQuestion);
+});
+
 test('input/combined-unicode-point-limit-and-english-validation', () => {
   const known = 'What is the synthetic demo topic?';
   const english = 'What does the original document say about the reason for this scheduled appointment?';

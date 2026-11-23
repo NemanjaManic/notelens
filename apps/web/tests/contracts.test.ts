@@ -224,6 +224,16 @@ for (const operation of operations) {
     same(digest(value), before);
   });
 }
+add('exchange/d005-replay-requires-live-mode-only-for-d005', async () => {
+  for (const operation of ['extract', 'document-answer'] as const) {
+    const result = await consumeExchange(operation, exchange(fixtures[operation]), true);
+    reject(result, 'invalid-result');
+    same(result.kind === 'rejected' && result.rules, ['D005_REPLAY_MODE_REQUIRED']);
+  }
+  for (const operation of ['classify', 'literature-answer'] as const) {
+    accept(await consumeExchange(operation, exchange(fixtures[operation]), true), payloads[fixtures[operation]]);
+  }
+});
 for (const status of OPERATIONS.classify.statuses.filter(s => s !== 200)) {
   add(`exchange/error-status-${status}`, async () => {
     const result = await consumeExchange('classify', errorExchange(status));

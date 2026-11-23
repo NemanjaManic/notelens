@@ -16,9 +16,12 @@ export function isBuiltinDemoDocument(document: PreparedDocument | null): boolea
 export async function demoWorkspace(query: Record<string, string | string[] | undefined>, document: PreparedDocument | null):
     Promise<Workspace> {
   const fitted = localFittedClassifier();
-  const profile = fitted ? { fittedClassifier: true as const } : {};
-  if (!document) return { ...await fixtureWorkspace(query.document === undefined ? 'no-document' : 'unavailable'), ...profile };
   const clients = mockServiceClients();
+  const profile = {
+    ...(fitted ? { fittedClassifier: true as const } : {}),
+    ...(clients?.d005Replay ? { d005Replay: true as const } : {}),
+  };
+  if (!document) return { ...await fixtureWorkspace(query.document === undefined ? 'no-document' : 'unavailable'), ...profile };
   if (!clients) return fixtureWorkspace('unavailable');
   const builtin = isBuiltinDemoDocument(document);
   const [classification, extraction] = await Promise.all([
@@ -27,7 +30,7 @@ export async function demoWorkspace(query: Record<string, string | string[] | un
     clients.extract(document),
   ]);
   const report = await buildReport(document, classification?.kind === 'accepted' ? classification.record : undefined,
-    extraction.kind === 'accepted' ? extraction.record : undefined, fitted ? 'live' : 'mock');
+    extraction.kind === 'accepted' ? extraction.record : undefined, fitted ? 'live' : 'mock', clients.d005Replay ? 'live' : 'mock');
   if (!classification) {
     report.classification = { state: 'empty', notice: 'Mock specialty classification is available for the built-in example.' };
   } else if (classification.kind === 'unavailable' || classification.kind === 'unauthorized') {
