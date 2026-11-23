@@ -81,3 +81,22 @@ and provide the versioned metadata inventory and reviewer receipts after those
 steps. No delivery date or completed authoring/review is inferred. Her access
 confirmation does not confirm Goran's access. See the
 [combined follow-up receipt](../../eval/reports/development/d008-sara-non-independent-feedback-intake-v1.json).
+
+## Goran draft authoring-status update (2026-11-23)
+
+The forwarded section is explicitly labelled a draft reply. It reports Goran's
+access to the pinned MedlinePlus snapshot, 617 passages across 401 topics, and
+SHA-256 `4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938`.
+The stated digest matches the existing pin; D did not rerun the corpus check.
+It also identifies the existing 26-slot v2 source-planning inventory at SHA-256
+`6198b4085b45e702d065535e9705c5b6bf7d841230d35a247bcee327fb26ebf0`.
+This is a source plan, not a delivered completed case/review inventory.
+
+Goran reports eight local drafts, F-LIT-01 through F-LIT-08. His five remaining
+drafts are F-MIX-05 through F-MIX-08 and F-OOS-02. Together these match his thirteen
+author slots in the staffing plan. Sara is the assigned reviewer of Goran's
+cases. Cross-review completion, reviewer receipts, the authored-case metadata
+inventory and an agreed handoff date are not supplied. Sara's own completion
+count is not established by Goran's draft. Preserve restricted custody and the
+retirement of exposed families; D-007 remains open. See the
+[authoring-progress intake](../../eval/reports/development/d007-goran-authoring-progress-intake-v1.json).

@@ -9,7 +9,10 @@
     "known_development_matches_reported": 0,
     "four_exposed_families_retired_and_replaced": true,
     "sara_pinned_corpus_digest_and_access_confirmed": true,
-    "goran_pinned_corpus_access_confirmation": "pending",
+    "goran_pinned_corpus_access_confirmation": "reported in the forwarded D007 draft; no new independent check by D",
+    "goran_authoring_progress_receipt": "eval/reports/development/d007-goran-authoring-progress-intake-v1.json",
+    "goran_local_draft_count_reported": 8,
+    "goran_remaining_drafts_reported": ["F-MIX-05", "F-MIX-06", "F-MIX-07", "F-MIX-08", "F-OOS-02"],
     "completed_final_case_and_cross_review_manifest_received": false,
     "final_source_texts_and_answer_keys": "Remain in the agreed restricted authoring folder until the approved freeze and release."
   },
