@@ -70,15 +70,47 @@ def test_bad_summary_does_not_discard_independently_valid_extraction():
     {**hints(), "doc_id": "model-selected-other-document"},
     {**hints(), "entities": [{**entity(), "mention_occurrence": True}]},
     {**hints(), "entities": [{**entity(), "assertion": "definite"}]},
-    {**hints(), "entities": [{**entity(), "evidence": []}]},
-    {**hints(), "entities": [{**entity(), "mention_quote": "not in the evidence"}]},
-    {**hints(), "entities": [{**entity(), "procedure_status": "performed"}]},
 ])
 def test_invalid_semantics_and_unresolvable_quotes_fail_without_retry(bad):
     p = provider(bad)
     with pytest.raises(ServiceError):
         run(request(), "extract", p)
     p._send.assert_called_once()
+
+
+def test_unique_quote_does_not_require_a_model_occurrence_number():
+    value = hints()
+    value["entities"][0]["mention_occurrence"] = 50
+    value["entities"][0]["evidence"][0]["occurrence"] = 50
+    value["entities"][0]["procedure_status"] = "performed"
+    result, _ = run(request(), "extract", provider(value))
+    assert result["items"][0]["mention"]["quote"] == "chest pain"
+    assert result["items"][0]["procedure_status"] is None
+
+
+def test_procedure_without_selected_status_stays_unknown_not_performed():
+    value = {"entities": [{**entity("appendectomy", "The patient had an appendectomy in 2018."),
+                            "type": "procedure", "assertion": "confirmed", "temporality": "historical"}],
+             "summary_quotes": []}
+    # Build checks conservative protocol mapping; independent source validation
+    # can still reject a status that contradicts known explicit source context.
+    result = build("extract", value, request()["document"], MODEL)
+    assert result["items"][0]["procedure_status"] == "unknown"
+
+
+def test_invalid_candidate_is_explicit_partial_not_silent_omission():
+    value = hints()
+    value["entities"].append({**entity(), "mention_quote": "not present"})
+    result, _ = run(request(), "extract", provider(value))
+    assert len(result["items"]) == 1 and result["extraction_status"] == "partial"
+    assert result["extraction_error"]["code"] == "validation_failure"
+    assert result["warnings"] and "incomplete" in result["warnings"][0]
+
+
+def test_all_invalid_candidates_and_summary_fail_closed():
+    value = {"entities": [{**entity(), "mention_quote": "not present"}], "summary_quotes": []}
+    with pytest.raises(ServiceError):
+        run(request(), "extract", provider(value))
 
 
 @pytest.mark.parametrize("out_of_scope", [False, True])

@@ -7,7 +7,8 @@ IDs, hashes or numeric code-point offsets are accepted into the public result.
 from .evidence import EvidenceError, resolve_quote
 from .providers import NO_ANSWER
 
-VERSION = "d-quote-hints-v1"
+VERSION = "d-quote-hints-v2"
+PROMPT_VERSION = "d-quote-hints-prompts-v1"
 
 
 def object_schema(properties):
@@ -59,7 +60,7 @@ def validate_private(value, schema):
 
 def provenance(operation, component, model):
     return {"component_id": component, "service": "extraction", "operation": operation,
-            "mode": "live", "output_version": VERSION, "prompt_version": VERSION,
+            "mode": "live", "output_version": VERSION, "prompt_version": PROMPT_VERSION,
             "provider": "openai", "model": model, "configuration_version": VERSION,
             "corpus_version": None, "index_version": None, "retriever_version": None}
 
@@ -67,8 +68,17 @@ def provenance(operation, component, model):
 def spans(document, hints):
     result = []
     for hint in hints:
-        result.append(resolve_quote(document["text"], hint["quote"], hint["occurrence"]))
+        result.append(resolve_hint(document["text"], hint["quote"], hint["occurrence"]))
     return result
+
+
+def resolve_hint(text, quote, occurrence):
+    # A unique literal quote identifies its occurrence without any model number.
+    # Only repeated quotes need the explicitly selected, validated occurrence.
+    try:
+        return resolve_quote(text, quote)
+    except EvidenceError:
+        return resolve_quote(text, quote, occurrence)
 
 
 def claims_and_sources(document, evidence, component):
@@ -83,23 +93,27 @@ def claims_and_sources(document, evidence, component):
     return claims, sources
 
 
+def build_item(entity, document, index):
+    evidence = spans(document, entity["evidence"])
+    if not evidence:
+        raise EvidenceError("An entity requires explicit source evidence.")
+    first = evidence[0]
+    local = resolve_hint(first["quote"], entity["mention_quote"], entity["mention_occurrence"])
+    mention = {**local, "start": first["start"] + local["start"], "end": first["start"] + local["end"]}
+    status = (entity["procedure_status"] or "unknown") if entity["type"] == "procedure" else None
+    return {"entity_id": f"entity-{index}", "type": entity["type"],
+            "name": mention["quote"], "mention": mention, "evidence": evidence,
+            **{k: entity[k] for k in ("assertion", "temporality", "subject")}, "procedure_status": status,
+            "component_id": "d-extract"}
+
+
 def build_extraction(hints, document, model):
-    items = []
+    items, rejected = [], 0
     for index, entity in enumerate(hints["entities"]):
-        evidence = spans(document, entity["evidence"])
-        if not evidence:
-            raise EvidenceError("An entity requires explicit source evidence.")
-        first = evidence[0]
-        # Mention occurrence is within the first selected evidence quote, not the
-        # entire document. This retains explicit repeated-occurrence selection.
-        local = resolve_quote(first["quote"], entity["mention_quote"], entity["mention_occurrence"])
-        mention = {**local, "start": first["start"] + local["start"], "end": first["start"] + local["end"]}
-        if (entity["type"] == "procedure") != (entity["procedure_status"] is not None):
-            raise EvidenceError("Procedure status must be explicit only for procedures.")
-        items.append({"entity_id": f"entity-{index}", "type": entity["type"],
-                      "name": mention["quote"], "mention": mention, "evidence": evidence,
-                      **{k: entity[k] for k in ("assertion", "temporality", "subject", "procedure_status")},
-                      "component_id": "d-extract"})
+        try:
+            items.append(build_item(entity, document, index))
+        except EvidenceError:
+            rejected += 1
     summary = {"status": "failed", "result": None, "error": {
         "code": "insufficient_evidence", "message": "The document does not support a quoted summary.", "retryable": False}}
     if hints["summary_quotes"]:
@@ -114,10 +128,17 @@ def build_extraction(hints, document, model):
             # A summary failure must not discard independently valid extraction.
             summary = {"status": "failed", "result": None, "error": {
                 "code": "validation_failure", "message": "Summary quotes did not resolve to the selected document.", "retryable": False}}
+    if rejected and not items and summary["status"] == "failed":
+        raise EvidenceError("Neither extraction nor summary contains validated evidence.")
+    extraction_status = ("partial" if items else "failed") if rejected else "completed"
+    error = {"code": "validation_failure", "message": "Some candidate mentions lacked resolvable source evidence.",
+             "retryable": False} if rejected else None
     return {"schema_version": "1.0.0", "mode": "live", "doc_id": document["doc_id"],
             "text_sha256": document["text_sha256"], "items": items, "summary": summary,
-            "extractor_version": VERSION, "prompt_version": VERSION, "extraction_status": "completed",
-            "extraction_error": None, "warnings": [], "extraction_provenance": provenance("extract", "d-extract", model)}
+            "extractor_version": VERSION, "prompt_version": PROMPT_VERSION, "extraction_status": extraction_status,
+            "extraction_error": error,
+            "warnings": [f"{rejected} candidate mention(s) could not be grounded; extraction is incomplete."] if rejected else [],
+            "extraction_provenance": provenance("extract", "d-extract", model)}
 
 
 def build_answer(hints, document, model):
@@ -135,7 +156,7 @@ def build_answer(hints, document, model):
             "text": "\n\n".join(c["text"] for c in claims) if claims else NO_ANSWER,
             "claims": claims, "sources": sources, "evidence_state": state, "warnings": warnings,
             "route": "document" if claims else "none", "answer_version": VERSION,
-            "prompt_version": VERSION if claims else None,
+            "prompt_version": PROMPT_VERSION if claims else None,
             "components": [provenance("document-answer", "d-answer", model)] if claims else [],
             "attempted_routes": ["document"], "clarification": None, "retrieval_provenance": None}
 
