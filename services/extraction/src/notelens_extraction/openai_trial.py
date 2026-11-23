@@ -1,16 +1,79 @@
 """OpenAI Responses adapter for an explicitly supplied, budgeted transport."""
 
 import json
+import copy
 from functools import lru_cache
 from importlib.resources import files
 from typing import Callable
 
 from .demo import request as demo_request
 from .errors import ServiceError
+from .evidence import EvidenceError, resolve_quote, validate_span
 
 MODEL = "gpt-6-luna"
 DEMO_QUESTION = "Does the patient report cough?"
 DEFINITIONS = {"extract": "ExtractionResult", "answer": "AnswerResult"}
+JSON_INPUT_PREFIX = "Return a JSON object for the following canonical request:\n"
+
+
+def align_unique_spans(value: dict, text: str) -> tuple[dict, int]:
+    """Resolve invalid numeric coordinates only for exact, uniquely occurring quotes.
+
+    Correct repeated-quote coordinates are retained; ambiguous or absent quotes
+    fail closed. Claims, source identities and quoted text are never rewritten.
+    """
+    result = copy.deepcopy(value)
+    count = 0
+    def visit(item):
+        nonlocal count
+        if isinstance(item, dict):
+            if {"start", "end", "quote"} <= item.keys():
+                try:
+                    validate_span(text, item)
+                except EvidenceError:
+                    resolved = resolve_quote(text, item["quote"])
+                    item.update(resolved)
+                    count += 1
+            for child in item.values():
+                visit(child)
+        elif isinstance(item, list):
+            for child in item:
+                visit(child)
+    visit(result)
+    return result, count
+
+
+def strict_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("Duplicate provider JSON key.")
+        result[key] = value
+    return result
+
+
+def reject_nonfinite(_value):
+    raise ValueError("Nonfinite provider JSON number.")
+
+
+def source_span_hints(request: dict) -> str:
+    """Derive line positions from canonical input, without annotation/reference labels."""
+    text = request.get("document", {}).get("text")
+    if not isinstance(text, str):
+        return ""
+    spans = []
+    start = 0
+    for line in text.splitlines(keepends=True):
+        quote = line.rstrip("\n")
+        if quote:
+            spans.append({"start": start, "end": start + len(quote), "quote": quote})
+        start += len(line)
+    return ("\nCanonical input-derived Unicode code-point line spans (not reference answers): "
+            + json.dumps(spans, ensure_ascii=False, separators=(",", ":"))
+            + "\nUse these exact ranges for sentence citations. Mention ranges must select the exact "
+            "substring within its sentence; do not count UTF-8 bytes or UTF-16 units. "
+            "For summaries, omit document headings and duplicate claims. The summary text must "
+            "equal the claim texts joined with exactly two LF characters. Do not prepend extra text.")
 
 
 @lru_cache
@@ -91,17 +154,23 @@ class OpenAIResponsesProvider:
         self._input_format = input_format
 
     def generate(self, operation: str, request: dict, instructions: str, *, repair: bool) -> str:
-        return completion_text(self._send(self.prepare(operation, request, instructions, repair=repair)), model=self.model)
+        raw = completion_text(self._send(self.prepare(operation, request, instructions, repair=repair)), model=self.model)
+        try:
+            value = json.loads(raw, object_pairs_hook=strict_object, parse_constant=reject_nonfinite)
+            value, _ = align_unique_spans(value, request["document"]["text"])
+            return json.dumps(value, ensure_ascii=False)
+        except (ValueError, EvidenceError, TypeError, KeyError):
+            raise invalid_response() from None
 
     def prepare(self, operation: str, request: dict, instructions: str, *, repair: bool = False) -> dict:
         if repair or operation not in DEFINITIONS:
             raise ServiceError(422, "validation_failure", "Unsupported provider operation or retry.")
-        text = json.dumps(request, ensure_ascii=False, separators=(",", ":"))
+        text = JSON_INPUT_PREFIX + json.dumps(request, ensure_ascii=False, separators=(",", ":"))
         input_value = text if self._input_format == "text" else [
             {"role": "user", "content": [{"type": "input_text", "text": text}]}]
         return {
             "model": self.model,
-            "instructions": instructions + "\nSet mode to live and identify the provider as openai "
+            "instructions": instructions + source_span_hints(request) + "\nSet mode to live and identify the provider as openai "
             f"and the model as {self.model} in component provenance.\n"
             f"Frozen output contract: {output_contract(DEFINITIONS[operation])}",
             "input": input_value,
@@ -128,4 +197,9 @@ class OpenAITrialProvider(OpenAIResponsesProvider):
         if (repair or operation not in DEFINITIONS
                 or request != demo_request(DEMO_QUESTION if operation == "answer" else None)):
             raise ServiceError(422, "validation_failure", "Request is outside the synthetic provider trial.")
-        return super().prepare(operation, request, instructions)
+        # Retain historical pins solely for the already-consumed original trial.
+        # Fresh execution uses OpenAIResponsesProvider and newly reviewed pins.
+        payload = super().prepare(operation, request, instructions)
+        payload["input"] = payload["input"].removeprefix(JSON_INPUT_PREFIX)
+        payload["instructions"] = payload["instructions"].replace(source_span_hints(request), "", 1)
+        return payload

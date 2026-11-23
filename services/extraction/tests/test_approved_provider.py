@@ -13,7 +13,7 @@ from notelens_extraction.config import Settings
 from notelens_extraction.demo import request
 from notelens_extraction.errors import ServiceError
 from notelens_extraction.main import create_app
-from notelens_extraction.openai_trial import MODEL, OpenAIResponsesProvider
+from notelens_extraction.openai_trial import MODEL, JSON_INPUT_PREFIX, OpenAIResponsesProvider
 from notelens_extraction.providers import FakeProvider, UnconfiguredLiveProvider
 
 
@@ -46,7 +46,7 @@ def live_fixture(value):
 
 
 def fixture_transport(payload):
-    source = json.loads(payload["input"])
+    source = json.loads(payload["input"].removeprefix(JSON_INPUT_PREFIX))
     operation = "answer" if "question" in source else "extract"
     result = live_fixture(json.loads(FakeProvider().generate(operation, source, "", repair=False)))
     return {"object": "response", "model": MODEL, "status": "completed", "output": [{
@@ -72,7 +72,7 @@ def test_policy_selects_message_input_before_transport(tmp_path, policy, monkeyp
     monkeypatch.setattr("notelens_extraction.approved_provider.ResponsesTransport", Mock(return_value=send))
     provider = configured_provider(path, api_key="offline-test", service_token="offline-token")
     payload = provider.prepare("answer", request("A synthetic question"), "Synthetic instruction")
-    assert json.loads(payload["input"][0]["content"][0]["text"]) == request("A synthetic question")
+    assert json.loads(payload["input"][0]["content"][0]["text"].removeprefix(JSON_INPUT_PREFIX)) == request("A synthetic question")
     send.assert_not_called()
 
 
