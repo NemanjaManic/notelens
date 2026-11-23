@@ -1,0 +1,39 @@
+{
+  "version": "d011-economic-comparison-plan-v4",
+  "date": "2026-11-23",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "model": "gpt-6-luna",
+  "authority": "Milica requests all economical improvements and subsequent D-011 work. Earlier explicit permission allows a little more spending if needed; local cumulative reservation cap is now USD 0.25, announced before execution.",
+  "max_new_provider_calls": 22,
+  "automatic_retries": 0,
+  "prior_known_reservation_usd": "0.0965479",
+  "new_max_reservation_usd": "0.1054645",
+  "known_combined_reservation_usd": "0.2020124",
+  "cumulative_cap_usd": "0.25",
+  "private_jobs_sha256": "57a9c3e20e2357107c31af32acce93bca4201bcdef2ae17f209390922ae116e5",
+  "acceptance_sha256_before_measurement": "cc537d27919d56602222994f39c9914ad44aa0ece155402daf8572eb58df1992",
+  "fresh_paired_case_ids": [
+    "assignment-010",
+    "assignment-004",
+    "assignment-021",
+    "assignment-037",
+    "assignment-025",
+    "assignment-039"
+  ],
+  "selection": "Six evenly spaced length ranks among all remaining frozen development documents not used in prior API measurements; fixed before outputs. Alternating arm order. Four observed diagnostics, then paired comparison, then six fixed QA cases.",
+  "arms": {
+    "baseline": {
+      "prompt_profile": "baseline_v1",
+      "reasoning_effort": "none"
+    },
+    "candidate": {
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low"
+    }
+  },
+  "comparison_limit": "Bundled prompt/reasoning comparison cannot isolate their individual causal effects. These development results inform selection and are not a final/unbiased held-out release result.",
+  "reference_labels_in_model_inputs": false,
+  "final_case_source_overlap": 0,
+  "final_cases_opened": false,
+  "private_archive": "Predaja-NoteLens/D-011/D011-economic-improvement-v4"
+}

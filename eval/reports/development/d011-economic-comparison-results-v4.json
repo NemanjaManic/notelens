@@ -1,0 +1,1813 @@
+{
+  "version": "d011-economic-comparison-results-v4",
+  "date": "2026-11-23",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "arms": {
+    "baseline": {
+      "documents": 6,
+      "reference_mentions": 204,
+      "predicted_mentions": 111,
+      "valid_results": 4,
+      "partial_results": 3,
+      "summary_completed": 3,
+      "end_to_end_exact": {
+        "tp": 47,
+        "fp": 64,
+        "fn": 157,
+        "precision": 0.42342342342342343,
+        "recall": 0.23039215686274508,
+        "f1": 0.2984126984126984,
+        "assertion": {
+          "correct": 47,
+          "matched_evaluated": 47,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 40,
+          "matched_evaluated": 47,
+          "excluded_unresolved": 0,
+          "accuracy": 0.851063829787234
+        },
+        "subject": {
+          "correct": 47,
+          "matched_evaluated": 47,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 25,
+          "matched_evaluated": 26,
+          "excluded_unresolved": 21,
+          "accuracy": 0.9615384615384616
+        }
+      },
+      "end_to_end_relaxed": {
+        "tp": 56,
+        "fp": 55,
+        "fn": 148,
+        "precision": 0.5045045045045045,
+        "recall": 0.27450980392156865,
+        "f1": 0.35555555555555557,
+        "assertion": {
+          "correct": 56,
+          "matched_evaluated": 56,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 49,
+          "matched_evaluated": 56,
+          "excluded_unresolved": 0,
+          "accuracy": 0.875
+        },
+        "subject": {
+          "correct": 56,
+          "matched_evaluated": 56,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 32,
+          "matched_evaluated": 33,
+          "excluded_unresolved": 23,
+          "accuracy": 0.9696969696969697
+        }
+      }
+    },
+    "candidate": {
+      "documents": 6,
+      "reference_mentions": 204,
+      "predicted_mentions": 185,
+      "valid_results": 6,
+      "partial_results": 4,
+      "summary_completed": 6,
+      "end_to_end_exact": {
+        "tp": 91,
+        "fp": 94,
+        "fn": 113,
+        "precision": 0.4918918918918919,
+        "recall": 0.44607843137254904,
+        "f1": 0.46786632390745503,
+        "assertion": {
+          "correct": 87,
+          "matched_evaluated": 91,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9560439560439561
+        },
+        "temporality": {
+          "correct": 72,
+          "matched_evaluated": 91,
+          "excluded_unresolved": 0,
+          "accuracy": 0.7912087912087912
+        },
+        "subject": {
+          "correct": 91,
+          "matched_evaluated": 91,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 28,
+          "matched_evaluated": 31,
+          "excluded_unresolved": 60,
+          "accuracy": 0.9032258064516129
+        }
+      },
+      "end_to_end_relaxed": {
+        "tp": 125,
+        "fp": 60,
+        "fn": 79,
+        "precision": 0.6756756756756757,
+        "recall": 0.6127450980392157,
+        "f1": 0.6426735218508998,
+        "assertion": {
+          "correct": 120,
+          "matched_evaluated": 125,
+          "excluded_unresolved": 0,
+          "accuracy": 0.96
+        },
+        "temporality": {
+          "correct": 103,
+          "matched_evaluated": 125,
+          "excluded_unresolved": 0,
+          "accuracy": 0.824
+        },
+        "subject": {
+          "correct": 125,
+          "matched_evaluated": 125,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 47,
+          "matched_evaluated": 50,
+          "excluded_unresolved": 75,
+          "accuracy": 0.94
+        }
+      }
+    }
+  },
+  "common_valid_subset_comparison": {
+    "baseline": {
+      "documents": 4,
+      "reference_mentions": 165,
+      "predicted_mentions": 111,
+      "valid_results": 4,
+      "partial_results": 3,
+      "summary_completed": 3,
+      "end_to_end_exact": {
+        "tp": 47,
+        "fp": 64,
+        "fn": 118,
+        "precision": 0.42342342342342343,
+        "recall": 0.28484848484848485,
+        "f1": 0.34057971014492755,
+        "assertion": {
+          "correct": 47,
+          "matched_evaluated": 47,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 40,
+          "matched_evaluated": 47,
+          "excluded_unresolved": 0,
+          "accuracy": 0.851063829787234
+        },
+        "subject": {
+          "correct": 47,
+          "matched_evaluated": 47,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 25,
+          "matched_evaluated": 26,
+          "excluded_unresolved": 21,
+          "accuracy": 0.9615384615384616
+        }
+      },
+      "end_to_end_relaxed": {
+        "tp": 56,
+        "fp": 55,
+        "fn": 109,
+        "precision": 0.5045045045045045,
+        "recall": 0.3393939393939394,
+        "f1": 0.4057971014492754,
+        "assertion": {
+          "correct": 56,
+          "matched_evaluated": 56,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 49,
+          "matched_evaluated": 56,
+          "excluded_unresolved": 0,
+          "accuracy": 0.875
+        },
+        "subject": {
+          "correct": 56,
+          "matched_evaluated": 56,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 32,
+          "matched_evaluated": 33,
+          "excluded_unresolved": 23,
+          "accuracy": 0.9696969696969697
+        }
+      }
+    },
+    "candidate": {
+      "documents": 4,
+      "reference_mentions": 165,
+      "predicted_mentions": 140,
+      "valid_results": 4,
+      "partial_results": 2,
+      "summary_completed": 4,
+      "end_to_end_exact": {
+        "tp": 72,
+        "fp": 68,
+        "fn": 93,
+        "precision": 0.5142857142857142,
+        "recall": 0.43636363636363634,
+        "f1": 0.4721311475409836,
+        "assertion": {
+          "correct": 68,
+          "matched_evaluated": 72,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9444444444444444
+        },
+        "temporality": {
+          "correct": 57,
+          "matched_evaluated": 72,
+          "excluded_unresolved": 0,
+          "accuracy": 0.7916666666666666
+        },
+        "subject": {
+          "correct": 72,
+          "matched_evaluated": 72,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 18,
+          "matched_evaluated": 21,
+          "excluded_unresolved": 51,
+          "accuracy": 0.8571428571428571
+        }
+      },
+      "end_to_end_relaxed": {
+        "tp": 93,
+        "fp": 47,
+        "fn": 72,
+        "precision": 0.6642857142857143,
+        "recall": 0.5636363636363636,
+        "f1": 0.6098360655737705,
+        "assertion": {
+          "correct": 88,
+          "matched_evaluated": 93,
+          "excluded_unresolved": 0,
+          "accuracy": 0.946236559139785
+        },
+        "temporality": {
+          "correct": 75,
+          "matched_evaluated": 93,
+          "excluded_unresolved": 0,
+          "accuracy": 0.8064516129032258
+        },
+        "subject": {
+          "correct": 93,
+          "matched_evaluated": 93,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 26,
+          "matched_evaluated": 29,
+          "excluded_unresolved": 64,
+          "accuracy": 0.896551724137931
+        }
+      }
+    }
+  },
+  "common_valid_case_ids": [
+    "assignment-004",
+    "assignment-021",
+    "assignment-025",
+    "assignment-039"
+  ],
+  "same_exact_matched_reference_attribute_comparison": {
+    "baseline": {
+      "assertion": {
+        "correct": 31,
+        "evaluated": 31,
+        "accuracy": 1.0
+      },
+      "temporality": {
+        "correct": 25,
+        "evaluated": 31,
+        "accuracy": 0.8064516129032258
+      },
+      "subject": {
+        "correct": 31,
+        "evaluated": 31,
+        "accuracy": 1.0
+      },
+      "procedure_status": {
+        "correct": 9,
+        "evaluated": 10,
+        "accuracy": 0.9
+      }
+    },
+    "candidate": {
+      "assertion": {
+        "correct": 31,
+        "evaluated": 31,
+        "accuracy": 1.0
+      },
+      "temporality": {
+        "correct": 24,
+        "evaluated": 31,
+        "accuracy": 0.7741935483870968
+      },
+      "subject": {
+        "correct": 31,
+        "evaluated": 31,
+        "accuracy": 1.0
+      },
+      "procedure_status": {
+        "correct": 9,
+        "evaluated": 10,
+        "accuracy": 0.9
+      }
+    }
+  },
+  "paired_cases": [
+    {
+      "id": "assignment-004",
+      "baseline": {
+        "id": "assignment-004",
+        "operation": "extract",
+        "arm": "baseline",
+        "split": "paired_new_development",
+        "prompt_profile": "baseline_v1",
+        "reasoning_effort": "none",
+        "number": 8,
+        "status": "returned_valid",
+        "reference_mentions": 25,
+        "predicted_mentions": 21,
+        "exact": {
+          "tp": 18,
+          "fp": 3,
+          "fn": 7,
+          "precision": 0.8571428571428571,
+          "recall": 0.72,
+          "f1": 0.782608695652174,
+          "assertion": {
+            "correct": 18,
+            "matched_evaluated": 18,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 16,
+            "matched_evaluated": 18,
+            "excluded_unresolved": 0,
+            "accuracy": 0.8888888888888888
+          },
+          "subject": {
+            "correct": 18,
+            "matched_evaluated": 18,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 5,
+            "matched_evaluated": 6,
+            "excluded_unresolved": 12,
+            "accuracy": 0.8333333333333334
+          }
+        },
+        "relaxed": {
+          "tp": 18,
+          "fp": 3,
+          "fn": 7,
+          "precision": 0.8571428571428571,
+          "recall": 0.72,
+          "f1": 0.782608695652174,
+          "assertion": {
+            "correct": 18,
+            "matched_evaluated": 18,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 16,
+            "matched_evaluated": 18,
+            "excluded_unresolved": 0,
+            "accuracy": 0.8888888888888888
+          },
+          "subject": {
+            "correct": 18,
+            "matched_evaluated": 18,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 5,
+            "matched_evaluated": 6,
+            "excluded_unresolved": 12,
+            "accuracy": 0.8333333333333334
+          }
+        },
+        "extraction_status": "partial",
+        "summary_status": "completed"
+      },
+      "candidate": {
+        "id": "assignment-004",
+        "operation": "extract",
+        "arm": "candidate",
+        "split": "paired_new_development",
+        "prompt_profile": "coverage_v2",
+        "reasoning_effort": "low",
+        "number": 7,
+        "status": "returned_valid",
+        "reference_mentions": 25,
+        "predicted_mentions": 25,
+        "exact": {
+          "tp": 20,
+          "fp": 5,
+          "fn": 5,
+          "precision": 0.8,
+          "recall": 0.8,
+          "f1": 0.8,
+          "assertion": {
+            "correct": 19,
+            "matched_evaluated": 20,
+            "excluded_unresolved": 0,
+            "accuracy": 0.95
+          },
+          "temporality": {
+            "correct": 18,
+            "matched_evaluated": 20,
+            "excluded_unresolved": 0,
+            "accuracy": 0.9
+          },
+          "subject": {
+            "correct": 20,
+            "matched_evaluated": 20,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 4,
+            "matched_evaluated": 5,
+            "excluded_unresolved": 15,
+            "accuracy": 0.8
+          }
+        },
+        "relaxed": {
+          "tp": 24,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.96,
+          "recall": 0.96,
+          "f1": 0.96,
+          "assertion": {
+            "correct": 22,
+            "matched_evaluated": 24,
+            "excluded_unresolved": 0,
+            "accuracy": 0.9166666666666666
+          },
+          "temporality": {
+            "correct": 22,
+            "matched_evaluated": 24,
+            "excluded_unresolved": 0,
+            "accuracy": 0.9166666666666666
+          },
+          "subject": {
+            "correct": 24,
+            "matched_evaluated": 24,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 7,
+            "matched_evaluated": 8,
+            "excluded_unresolved": 16,
+            "accuracy": 0.875
+          }
+        },
+        "extraction_status": "completed",
+        "summary_status": "completed"
+      }
+    },
+    {
+      "id": "assignment-010",
+      "baseline": {
+        "id": "assignment-010",
+        "operation": "extract",
+        "arm": "baseline",
+        "split": "paired_new_development",
+        "prompt_profile": "baseline_v1",
+        "reasoning_effort": "none",
+        "number": 5,
+        "status": "technical_error",
+        "reference_mentions": 23,
+        "predicted_mentions": 0,
+        "exact": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 23,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "assertion": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "temporality": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "subject": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "procedure_status": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          }
+        },
+        "relaxed": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 23,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "assertion": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "temporality": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "subject": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "procedure_status": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          }
+        },
+        "extraction_status": null,
+        "summary_status": null
+      },
+      "candidate": {
+        "id": "assignment-010",
+        "operation": "extract",
+        "arm": "candidate",
+        "split": "paired_new_development",
+        "prompt_profile": "coverage_v2",
+        "reasoning_effort": "low",
+        "number": 6,
+        "status": "returned_valid",
+        "reference_mentions": 23,
+        "predicted_mentions": 18,
+        "exact": {
+          "tp": 9,
+          "fp": 9,
+          "fn": 14,
+          "precision": 0.5,
+          "recall": 0.391304347826087,
+          "f1": 0.43902439024390244,
+          "assertion": {
+            "correct": 9,
+            "matched_evaluated": 9,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 7,
+            "matched_evaluated": 9,
+            "excluded_unresolved": 0,
+            "accuracy": 0.7777777777777778
+          },
+          "subject": {
+            "correct": 9,
+            "matched_evaluated": 9,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 5,
+            "matched_evaluated": 5,
+            "excluded_unresolved": 4,
+            "accuracy": 1.0
+          }
+        },
+        "relaxed": {
+          "tp": 16,
+          "fp": 2,
+          "fn": 7,
+          "precision": 0.8888888888888888,
+          "recall": 0.6956521739130435,
+          "f1": 0.7804878048780488,
+          "assertion": {
+            "correct": 16,
+            "matched_evaluated": 16,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 14,
+            "matched_evaluated": 16,
+            "excluded_unresolved": 0,
+            "accuracy": 0.875
+          },
+          "subject": {
+            "correct": 16,
+            "matched_evaluated": 16,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 11,
+            "matched_evaluated": 11,
+            "excluded_unresolved": 5,
+            "accuracy": 1.0
+          }
+        },
+        "extraction_status": "partial",
+        "summary_status": "completed"
+      }
+    },
+    {
+      "id": "assignment-021",
+      "baseline": {
+        "id": "assignment-021",
+        "operation": "extract",
+        "arm": "baseline",
+        "split": "paired_new_development",
+        "prompt_profile": "baseline_v1",
+        "reasoning_effort": "none",
+        "number": 9,
+        "status": "returned_valid",
+        "reference_mentions": 22,
+        "predicted_mentions": 15,
+        "exact": {
+          "tp": 8,
+          "fp": 7,
+          "fn": 14,
+          "precision": 0.5333333333333333,
+          "recall": 0.36363636363636365,
+          "f1": 0.43243243243243246,
+          "assertion": {
+            "correct": 8,
+            "matched_evaluated": 8,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 4,
+            "matched_evaluated": 8,
+            "excluded_unresolved": 0,
+            "accuracy": 0.5
+          },
+          "subject": {
+            "correct": 8,
+            "matched_evaluated": 8,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 1,
+            "matched_evaluated": 1,
+            "excluded_unresolved": 7,
+            "accuracy": 1.0
+          }
+        },
+        "relaxed": {
+          "tp": 8,
+          "fp": 7,
+          "fn": 14,
+          "precision": 0.5333333333333333,
+          "recall": 0.36363636363636365,
+          "f1": 0.43243243243243246,
+          "assertion": {
+            "correct": 8,
+            "matched_evaluated": 8,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 4,
+            "matched_evaluated": 8,
+            "excluded_unresolved": 0,
+            "accuracy": 0.5
+          },
+          "subject": {
+            "correct": 8,
+            "matched_evaluated": 8,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 1,
+            "matched_evaluated": 1,
+            "excluded_unresolved": 7,
+            "accuracy": 1.0
+          }
+        },
+        "extraction_status": "partial",
+        "summary_status": "completed"
+      },
+      "candidate": {
+        "id": "assignment-021",
+        "operation": "extract",
+        "arm": "candidate",
+        "split": "paired_new_development",
+        "prompt_profile": "coverage_v2",
+        "reasoning_effort": "low",
+        "number": 10,
+        "status": "returned_valid",
+        "reference_mentions": 22,
+        "predicted_mentions": 16,
+        "exact": {
+          "tp": 9,
+          "fp": 7,
+          "fn": 13,
+          "precision": 0.5625,
+          "recall": 0.4090909090909091,
+          "f1": 0.47368421052631576,
+          "assertion": {
+            "correct": 9,
+            "matched_evaluated": 9,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 5,
+            "matched_evaluated": 9,
+            "excluded_unresolved": 0,
+            "accuracy": 0.5555555555555556
+          },
+          "subject": {
+            "correct": 9,
+            "matched_evaluated": 9,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 1,
+            "matched_evaluated": 1,
+            "excluded_unresolved": 8,
+            "accuracy": 1.0
+          }
+        },
+        "relaxed": {
+          "tp": 11,
+          "fp": 5,
+          "fn": 11,
+          "precision": 0.6875,
+          "recall": 0.5,
+          "f1": 0.5789473684210527,
+          "assertion": {
+            "correct": 11,
+            "matched_evaluated": 11,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 7,
+            "matched_evaluated": 11,
+            "excluded_unresolved": 0,
+            "accuracy": 0.6363636363636364
+          },
+          "subject": {
+            "correct": 11,
+            "matched_evaluated": 11,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 2,
+            "matched_evaluated": 2,
+            "excluded_unresolved": 9,
+            "accuracy": 1.0
+          }
+        },
+        "extraction_status": "partial",
+        "summary_status": "completed"
+      }
+    },
+    {
+      "id": "assignment-025",
+      "baseline": {
+        "id": "assignment-025",
+        "operation": "extract",
+        "arm": "baseline",
+        "split": "paired_new_development",
+        "prompt_profile": "baseline_v1",
+        "reasoning_effort": "none",
+        "number": 13,
+        "status": "returned_valid",
+        "reference_mentions": 73,
+        "predicted_mentions": 0,
+        "exact": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 73,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "assertion": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "temporality": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "subject": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "procedure_status": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          }
+        },
+        "relaxed": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 73,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "assertion": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "temporality": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "subject": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "procedure_status": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          }
+        },
+        "extraction_status": "completed",
+        "summary_status": "failed"
+      },
+      "candidate": {
+        "id": "assignment-025",
+        "operation": "extract",
+        "arm": "candidate",
+        "split": "paired_new_development",
+        "prompt_profile": "coverage_v2",
+        "reasoning_effort": "low",
+        "number": 14,
+        "status": "returned_valid",
+        "reference_mentions": 73,
+        "predicted_mentions": 45,
+        "exact": {
+          "tp": 29,
+          "fp": 16,
+          "fn": 44,
+          "precision": 0.6444444444444445,
+          "recall": 0.3972602739726027,
+          "f1": 0.4915254237288136,
+          "assertion": {
+            "correct": 26,
+            "matched_evaluated": 29,
+            "excluded_unresolved": 0,
+            "accuracy": 0.896551724137931
+          },
+          "temporality": {
+            "correct": 22,
+            "matched_evaluated": 29,
+            "excluded_unresolved": 0,
+            "accuracy": 0.7586206896551724
+          },
+          "subject": {
+            "correct": 29,
+            "matched_evaluated": 29,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 5,
+            "matched_evaluated": 7,
+            "excluded_unresolved": 22,
+            "accuracy": 0.7142857142857143
+          }
+        },
+        "relaxed": {
+          "tp": 37,
+          "fp": 8,
+          "fn": 36,
+          "precision": 0.8222222222222222,
+          "recall": 0.5068493150684932,
+          "f1": 0.6271186440677966,
+          "assertion": {
+            "correct": 34,
+            "matched_evaluated": 37,
+            "excluded_unresolved": 0,
+            "accuracy": 0.918918918918919
+          },
+          "temporality": {
+            "correct": 30,
+            "matched_evaluated": 37,
+            "excluded_unresolved": 0,
+            "accuracy": 0.8108108108108109
+          },
+          "subject": {
+            "correct": 37,
+            "matched_evaluated": 37,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 5,
+            "matched_evaluated": 7,
+            "excluded_unresolved": 30,
+            "accuracy": 0.7142857142857143
+          }
+        },
+        "extraction_status": "completed",
+        "summary_status": "completed"
+      }
+    },
+    {
+      "id": "assignment-037",
+      "baseline": {
+        "id": "assignment-037",
+        "operation": "extract",
+        "arm": "baseline",
+        "split": "paired_new_development",
+        "prompt_profile": "baseline_v1",
+        "reasoning_effort": "none",
+        "number": 12,
+        "status": "technical_error",
+        "reference_mentions": 16,
+        "predicted_mentions": 0,
+        "exact": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 16,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "assertion": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "temporality": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "subject": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "procedure_status": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          }
+        },
+        "relaxed": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 16,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "assertion": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "temporality": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "subject": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          },
+          "procedure_status": {
+            "correct": 0,
+            "matched_evaluated": 0,
+            "excluded_unresolved": 0,
+            "accuracy": null
+          }
+        },
+        "extraction_status": null,
+        "summary_status": null
+      },
+      "candidate": {
+        "id": "assignment-037",
+        "operation": "extract",
+        "arm": "candidate",
+        "split": "paired_new_development",
+        "prompt_profile": "coverage_v2",
+        "reasoning_effort": "low",
+        "number": 11,
+        "status": "returned_valid",
+        "reference_mentions": 16,
+        "predicted_mentions": 27,
+        "exact": {
+          "tp": 10,
+          "fp": 17,
+          "fn": 6,
+          "precision": 0.37037037037037035,
+          "recall": 0.625,
+          "f1": 0.46511627906976744,
+          "assertion": {
+            "correct": 10,
+            "matched_evaluated": 10,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 8,
+            "matched_evaluated": 10,
+            "excluded_unresolved": 0,
+            "accuracy": 0.8
+          },
+          "subject": {
+            "correct": 10,
+            "matched_evaluated": 10,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 5,
+            "matched_evaluated": 5,
+            "excluded_unresolved": 5,
+            "accuracy": 1.0
+          }
+        },
+        "relaxed": {
+          "tp": 16,
+          "fp": 11,
+          "fn": 0,
+          "precision": 0.5925925925925926,
+          "recall": 1.0,
+          "f1": 0.7441860465116279,
+          "assertion": {
+            "correct": 16,
+            "matched_evaluated": 16,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 14,
+            "matched_evaluated": 16,
+            "excluded_unresolved": 0,
+            "accuracy": 0.875
+          },
+          "subject": {
+            "correct": 16,
+            "matched_evaluated": 16,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 10,
+            "matched_evaluated": 10,
+            "excluded_unresolved": 6,
+            "accuracy": 1.0
+          }
+        },
+        "extraction_status": "partial",
+        "summary_status": "completed"
+      }
+    },
+    {
+      "id": "assignment-039",
+      "baseline": {
+        "id": "assignment-039",
+        "operation": "extract",
+        "arm": "baseline",
+        "split": "paired_new_development",
+        "prompt_profile": "baseline_v1",
+        "reasoning_effort": "none",
+        "number": 16,
+        "status": "returned_valid",
+        "reference_mentions": 45,
+        "predicted_mentions": 75,
+        "exact": {
+          "tp": 21,
+          "fp": 54,
+          "fn": 24,
+          "precision": 0.28,
+          "recall": 0.4666666666666667,
+          "f1": 0.35,
+          "assertion": {
+            "correct": 21,
+            "matched_evaluated": 21,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 20,
+            "matched_evaluated": 21,
+            "excluded_unresolved": 0,
+            "accuracy": 0.9523809523809523
+          },
+          "subject": {
+            "correct": 21,
+            "matched_evaluated": 21,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 19,
+            "matched_evaluated": 19,
+            "excluded_unresolved": 2,
+            "accuracy": 1.0
+          }
+        },
+        "relaxed": {
+          "tp": 30,
+          "fp": 45,
+          "fn": 15,
+          "precision": 0.4,
+          "recall": 0.6666666666666666,
+          "f1": 0.5,
+          "assertion": {
+            "correct": 30,
+            "matched_evaluated": 30,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 29,
+            "matched_evaluated": 30,
+            "excluded_unresolved": 0,
+            "accuracy": 0.9666666666666667
+          },
+          "subject": {
+            "correct": 30,
+            "matched_evaluated": 30,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 26,
+            "matched_evaluated": 26,
+            "excluded_unresolved": 4,
+            "accuracy": 1.0
+          }
+        },
+        "extraction_status": "partial",
+        "summary_status": "completed"
+      },
+      "candidate": {
+        "id": "assignment-039",
+        "operation": "extract",
+        "arm": "candidate",
+        "split": "paired_new_development",
+        "prompt_profile": "coverage_v2",
+        "reasoning_effort": "low",
+        "number": 15,
+        "status": "returned_valid",
+        "reference_mentions": 45,
+        "predicted_mentions": 54,
+        "exact": {
+          "tp": 14,
+          "fp": 40,
+          "fn": 31,
+          "precision": 0.25925925925925924,
+          "recall": 0.3111111111111111,
+          "f1": 0.2828282828282828,
+          "assertion": {
+            "correct": 14,
+            "matched_evaluated": 14,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 12,
+            "matched_evaluated": 14,
+            "excluded_unresolved": 0,
+            "accuracy": 0.8571428571428571
+          },
+          "subject": {
+            "correct": 14,
+            "matched_evaluated": 14,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 8,
+            "matched_evaluated": 8,
+            "excluded_unresolved": 6,
+            "accuracy": 1.0
+          }
+        },
+        "relaxed": {
+          "tp": 21,
+          "fp": 33,
+          "fn": 24,
+          "precision": 0.3888888888888889,
+          "recall": 0.4666666666666667,
+          "f1": 0.42424242424242425,
+          "assertion": {
+            "correct": 21,
+            "matched_evaluated": 21,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "temporality": {
+            "correct": 16,
+            "matched_evaluated": 21,
+            "excluded_unresolved": 0,
+            "accuracy": 0.7619047619047619
+          },
+          "subject": {
+            "correct": 21,
+            "matched_evaluated": 21,
+            "excluded_unresolved": 0,
+            "accuracy": 1.0
+          },
+          "procedure_status": {
+            "correct": 12,
+            "matched_evaluated": 12,
+            "excluded_unresolved": 9,
+            "accuracy": 1.0
+          }
+        },
+        "extraction_status": "partial",
+        "summary_status": "completed"
+      }
+    }
+  ],
+  "observed_diagnostics": [
+    {
+      "id": "assignment-001",
+      "operation": "extract",
+      "arm": "candidate",
+      "split": "observed_diagnostic",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "number": 1,
+      "status": "returned_valid",
+      "reference_mentions": 28,
+      "predicted_mentions": 27,
+      "exact": {
+        "tp": 26,
+        "fp": 1,
+        "fn": 2,
+        "precision": 0.9629629629629629,
+        "recall": 0.9285714285714286,
+        "f1": 0.9454545454545454,
+        "assertion": {
+          "correct": 26,
+          "matched_evaluated": 26,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 22,
+          "matched_evaluated": 26,
+          "excluded_unresolved": 0,
+          "accuracy": 0.8461538461538461
+        },
+        "subject": {
+          "correct": 26,
+          "matched_evaluated": 26,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 8,
+          "matched_evaluated": 8,
+          "excluded_unresolved": 18,
+          "accuracy": 1.0
+        }
+      },
+      "relaxed": {
+        "tp": 27,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.9642857142857143,
+        "f1": 0.9818181818181818,
+        "assertion": {
+          "correct": 27,
+          "matched_evaluated": 27,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 22,
+          "matched_evaluated": 27,
+          "excluded_unresolved": 0,
+          "accuracy": 0.8148148148148148
+        },
+        "subject": {
+          "correct": 27,
+          "matched_evaluated": 27,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 9,
+          "matched_evaluated": 9,
+          "excluded_unresolved": 18,
+          "accuracy": 1.0
+        }
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed"
+    },
+    {
+      "id": "assignment-026",
+      "operation": "extract",
+      "arm": "candidate",
+      "split": "observed_diagnostic",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "number": 2,
+      "status": "returned_valid",
+      "reference_mentions": 31,
+      "predicted_mentions": 27,
+      "exact": {
+        "tp": 17,
+        "fp": 10,
+        "fn": 14,
+        "precision": 0.6296296296296297,
+        "recall": 0.5483870967741935,
+        "f1": 0.5862068965517241,
+        "assertion": {
+          "correct": 17,
+          "matched_evaluated": 17,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 15,
+          "matched_evaluated": 17,
+          "excluded_unresolved": 0,
+          "accuracy": 0.8823529411764706
+        },
+        "subject": {
+          "correct": 17,
+          "matched_evaluated": 17,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 8,
+          "matched_evaluated": 8,
+          "excluded_unresolved": 9,
+          "accuracy": 1.0
+        }
+      },
+      "relaxed": {
+        "tp": 24,
+        "fp": 3,
+        "fn": 7,
+        "precision": 0.8888888888888888,
+        "recall": 0.7741935483870968,
+        "f1": 0.8275862068965517,
+        "assertion": {
+          "correct": 24,
+          "matched_evaluated": 24,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 21,
+          "matched_evaluated": 24,
+          "excluded_unresolved": 0,
+          "accuracy": 0.875
+        },
+        "subject": {
+          "correct": 24,
+          "matched_evaluated": 24,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 11,
+          "matched_evaluated": 11,
+          "excluded_unresolved": 13,
+          "accuracy": 1.0
+        }
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed"
+    },
+    {
+      "id": "assignment-017",
+      "operation": "extract",
+      "arm": "candidate",
+      "split": "observed_diagnostic",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "number": 3,
+      "status": "returned_valid",
+      "reference_mentions": 19,
+      "predicted_mentions": 21,
+      "exact": {
+        "tp": 9,
+        "fp": 12,
+        "fn": 10,
+        "precision": 0.42857142857142855,
+        "recall": 0.47368421052631576,
+        "f1": 0.45,
+        "assertion": {
+          "correct": 8,
+          "matched_evaluated": 9,
+          "excluded_unresolved": 0,
+          "accuracy": 0.8888888888888888
+        },
+        "temporality": {
+          "correct": 9,
+          "matched_evaluated": 9,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "subject": {
+          "correct": 9,
+          "matched_evaluated": 9,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 9,
+          "accuracy": null
+        }
+      },
+      "relaxed": {
+        "tp": 16,
+        "fp": 5,
+        "fn": 3,
+        "precision": 0.7619047619047619,
+        "recall": 0.8421052631578947,
+        "f1": 0.8,
+        "assertion": {
+          "correct": 15,
+          "matched_evaluated": 16,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9375
+        },
+        "temporality": {
+          "correct": 16,
+          "matched_evaluated": 16,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "subject": {
+          "correct": 16,
+          "matched_evaluated": 16,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 2,
+          "matched_evaluated": 2,
+          "excluded_unresolved": 14,
+          "accuracy": 1.0
+        }
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed"
+    },
+    {
+      "id": "assignment-008",
+      "operation": "extract",
+      "arm": "candidate",
+      "split": "observed_diagnostic",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "number": 4,
+      "status": "returned_valid",
+      "reference_mentions": 12,
+      "predicted_mentions": 10,
+      "exact": {
+        "tp": 4,
+        "fp": 6,
+        "fn": 8,
+        "precision": 0.4,
+        "recall": 0.3333333333333333,
+        "f1": 0.36363636363636365,
+        "assertion": {
+          "correct": 4,
+          "matched_evaluated": 4,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 4,
+          "matched_evaluated": 4,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "subject": {
+          "correct": 4,
+          "matched_evaluated": 4,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 1,
+          "matched_evaluated": 1,
+          "excluded_unresolved": 3,
+          "accuracy": 1.0
+        }
+      },
+      "relaxed": {
+        "tp": 8,
+        "fp": 2,
+        "fn": 4,
+        "precision": 0.8,
+        "recall": 0.6666666666666666,
+        "f1": 0.7272727272727273,
+        "assertion": {
+          "correct": 8,
+          "matched_evaluated": 8,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 8,
+          "matched_evaluated": 8,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "subject": {
+          "correct": 8,
+          "matched_evaluated": 8,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 5,
+          "matched_evaluated": 5,
+          "excluded_unresolved": 3,
+          "accuracy": 1.0
+        }
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed"
+    }
+  ],
+  "qa": [
+    {
+      "id": "confirmed-01/supported",
+      "operation": "answer",
+      "arm": "candidate",
+      "split": "qa_semantic_review",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "number": 17,
+      "status": "returned_valid",
+      "returned_state": "sufficient",
+      "expected_state": "sufficient",
+      "literal_proxy_correct": true
+    },
+    {
+      "id": "negation-01/supported",
+      "operation": "answer",
+      "arm": "candidate",
+      "split": "qa_semantic_review",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "number": 18,
+      "status": "returned_valid",
+      "returned_state": "sufficient",
+      "expected_state": "sufficient",
+      "literal_proxy_correct": true
+    },
+    {
+      "id": "history-01/absent",
+      "operation": "answer",
+      "arm": "candidate",
+      "split": "qa_semantic_review",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "number": 19,
+      "status": "returned_valid",
+      "returned_state": "insufficient",
+      "expected_state": "insufficient",
+      "literal_proxy_correct": true
+    },
+    {
+      "id": "procedure-01/supported",
+      "operation": "answer",
+      "arm": "candidate",
+      "split": "qa_semantic_review",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "number": 20,
+      "status": "returned_valid",
+      "returned_state": "sufficient",
+      "expected_state": "sufficient",
+      "literal_proxy_correct": true
+    },
+    {
+      "id": "complex-01/supported",
+      "operation": "answer",
+      "arm": "candidate",
+      "split": "qa_semantic_review",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "number": 21,
+      "status": "returned_valid",
+      "returned_state": "sufficient",
+      "expected_state": "sufficient",
+      "literal_proxy_correct": true
+    },
+    {
+      "id": "limited-04/supported",
+      "operation": "answer",
+      "arm": "candidate",
+      "split": "qa_semantic_review",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "number": 22,
+      "status": "returned_valid",
+      "returned_state": "partial",
+      "expected_state": "partial",
+      "literal_proxy_correct": true
+    }
+  ],
+  "qa_literal_proxy_correct": 6,
+  "candidate_exact_minus_baseline": 0.16945362549475662,
+  "descriptive_paired_bootstrap": {
+    "replicates": 4096,
+    "seed": 20261123,
+    "difference_percentile_95_interval": [
+      0.00628983051785903,
+      0.4115761017624007
+    ],
+    "limit": "Six length-stratified development sources; descriptive uncertainty, not clinical generalization or independent final validation."
+  },
+  "usage_by_paired_arm": {
+    "baseline": {
+      "calls": 6,
+      "usage_missing_calls": 0,
+      "input_tokens": 11412,
+      "output_tokens": 19299,
+      "reasoning_tokens": 0,
+      "standard_rate_upper_estimate_usd": "0.011076",
+      "estimate_note": "All recorded input tokens conservatively priced at published cache-write rate; output includes reasoning. Not a provider invoice or replacement for prepaid bounds."
+    },
+    "candidate": {
+      "calls": 6,
+      "usage_missing_calls": 0,
+      "input_tokens": 13716,
+      "output_tokens": 17665,
+      "reasoning_tokens": 2324,
+      "standard_rate_upper_estimate_usd": "0.010547",
+      "estimate_note": "All recorded input tokens conservatively priced at published cache-write rate; output includes reasoning. Not a provider invoice or replacement for prepaid bounds."
+    }
+  },
+  "candidate_policy": {
+    "model": "gpt-6-luna",
+    "input_format": "messages",
+    "output_format": "quote_hints",
+    "prompt_profile": "coverage_v2",
+    "reasoning_effort": "low"
+  },
+  "measurement": {
+    "version": "d011-economic-candidate-measurement-v4",
+    "acceptance_version": "d-acceptance-adopted-v2",
+    "sample_count": 12,
+    "metrics": {
+      "schema_validity": 1.0,
+      "span_validity": 1.0,
+      "entity_exact_f1": 0.46786632390745503,
+      "topic_recall_at_5": 1.0,
+      "answer_risk": null
+    },
+    "metric_provenance": {
+      "schema_and_span_validity": "Twelve candidate returns: six paired development extractions plus six saved synthetic QA answers; partial extractions remain valid but incomplete.",
+      "entity_exact_f1": "All six paired development documents, 204 reference mentions; every case retained.",
+      "topic_recall_at_5": {
+        "source": "eval/reports/development/d011-development-measurement-v1.json",
+        "source_sha256": "f0030226379595eeec9ef398e6200e62bfbc656d39a2508444ebf4c0d30e24f5",
+        "supported_case_denominator": 22,
+        "queries_total": 27,
+        "new_retrieval_execution": false,
+        "limit": "Carried-forward A-008 development evidence; not measured on these twelve candidate returns."
+      },
+      "answer_risk": "Missing independent semantic correctness reviews; literal QA proxy is not risk evidence."
+    }
+  },
+  "acceptance": {
+    "acceptance_version": "d-acceptance-adopted-v2",
+    "measurement_version": "d011-economic-candidate-measurement-v4",
+    "sample_count": 12,
+    "criteria": [
+      {
+        "metric": "schema_validity",
+        "threshold": 1,
+        "value": 1.0,
+        "status": "passed"
+      },
+      {
+        "metric": "span_validity",
+        "threshold": 1,
+        "value": 1.0,
+        "status": "passed"
+      },
+      {
+        "metric": "entity_exact_f1",
+        "threshold": 0.9,
+        "value": 0.46786632390745503,
+        "status": "failed"
+      },
+      {
+        "metric": "topic_recall_at_5",
+        "threshold": 0.95,
+        "value": 1.0,
+        "status": "passed"
+      },
+      {
+        "metric": "answer_risk",
+        "threshold": 0.05,
+        "value": null,
+        "status": "measurement_missing"
+      }
+    ],
+    "status": "failed"
+  },
+  "quality_thresholds_unchanged": true,
+  "reference_labels_in_provider_requests": false,
+  "failed_cases_retained_in_denominator": true,
+  "new_provider_calls": 22,
+  "automatic_retries": 0,
+  "known_cumulative_max_reservation_usd": "0.2020124",
+  "cumulative_cap_usd": "0.25",
+  "actual_billing_confirmed": false,
+  "independent_semantic_risk": null,
+  "selection_limit": "Both arms are compared on new development sources, then used for configuration selection. The result is not labelled an untouched final estimate. Common-valid subset scores are diagnostic only; the all-case denominator remains primary.",
+  "d011_closed": false,
+  "d009_closed": false,
+  "final_cases_accessed": false
+}
