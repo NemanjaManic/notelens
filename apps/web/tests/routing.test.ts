@@ -204,6 +204,20 @@ test('input/both-fields-are-required-and-only-the-selected-questions-go-upstream
   }
 });
 
+test('input/admitting-the-indexed-demo-partial-literature-question', () => {
+  const literatureQuestion = 'What is the synthetic demo topic, and when did it begin?';
+  const selected = { document: document.doc_id, literatureQuestion };
+  const literature = questionPlan({ ...selected, scope: 'literature' }, true);
+  assert.ok('plan' in literature);
+  assert.equal(literature.plan.literature, literatureQuestion);
+
+  const documentQuestion = 'What does the document say about chest pain?';
+  const mixed = questionPlan({ ...selected, scope: 'both', documentQuestion }, true);
+  assert.ok('plan' in mixed);
+  assert.equal(mixed.plan.document, documentQuestion);
+  assert.equal(mixed.plan.literature, literatureQuestion);
+});
+
 test('input/combined-unicode-point-limit-and-english-validation', () => {
   const known = 'What is the synthetic demo topic?';
   const english = 'What does the original document say about the reason for this scheduled appointment?';
