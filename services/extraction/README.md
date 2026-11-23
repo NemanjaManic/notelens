@@ -1,9 +1,10 @@
 # NoteLens extraction service
 
-Member D's key-free mock scaffold uses the frozen 1.0.0 Python contract package.
-It accepts canonical English document requests and produces literal, document-grounded
-extraction, summary and document-answer examples. It is not a general medical extractor
-or an activated live provider. Non-mock mode fails with configuration_required.
+Member D's service uses the frozen 1.0.0 Python contract package. Default mock
+startup accepts canonical English document requests and produces literal,
+document-grounded extraction, summary and document-answer examples. Configured
+provider startup uses the explicit server-side execution policy described below.
+Missing live configuration returns `configuration_required`.
 
 From the repository root, after service-local locked setup:
 
@@ -72,3 +73,43 @@ The runner accepts no document or question arguments. It rechecks both approved
 payload hashes before sending, uses the two recorded input bounds and 512-token
 output limit, and creates the fixed receipt before the first provider call. A
 failed or interrupted run consumes the receipt and cannot be resumed or retried.
+
+## Configured provider over HTTP
+
+The HTTP service can use `OpenAIResponsesProvider` for canonical document requests,
+including app-issued document UUIDs. The existing synthetic trial retains its
+exact two-request boundary. Default startup uses the mock provider.
+
+An operator supplies a completed copy of
+`fixtures/provider-policy.template.json` through the server-side
+`NOTELENS_EXTRACTION_PROVIDER_POLICY` environment variable. The policy declares
+the approver, operator, execution scope, accessible model, reviewed input/output
+rates, remaining approved balance, token and call ceilings, timeout and zero
+retries. Review the fixed input bound against the exact payloads. Admission uses
+the reviewed UTF-8 request byte count plus 1,024 framing tokens. The policy
+reserves its full input/output ceiling before every network attempt, including
+failed and timed-out attempts. The approved balance must cover the intended
+requests at their worst-case cost.
+
+Configure `OPENAI_API_KEY` and the private `NOTELENS_SERVICE_TOKEN` in the server
+process. Then start from the repository root after the locked service-local
+dependency setup.
+
+```powershell
+$env:NOTELENS_MODE = 'live'
+$env:NOTELENS_EXTRACTION_PROVIDER_POLICY = 'C:\approved-execution\provider-policy.json'
+./services/extraction/.venv/Scripts/python.exe -m notelens_extraction.cli serve --port 8003
+```
+
+The receipt path is relative to the policy file. Startup claims it exclusively.
+Preserve it after shutdown, failure or restart, and reconcile that execution
+before authorizing another receipt. The original `.trial-receipt-2026-11-20`
+remains part of its earlier execution. The template has no activation approval
+or selected model/budget. Missing or invalid settings yield an unconfigured
+provider. Authenticated readiness reports the configured model after valid setup.
+
+The service applies the frozen schema, document identity, exact-span and
+component-provenance validation to every returned result. Send B the reviewed
+service commit, lockfile, startup policy identity and private verification
+receipt after source review. The existing B mock runner is pinned to its mock
+handoff. B's provider-backed app check needs the reviewed configured service.
