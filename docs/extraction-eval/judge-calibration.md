@@ -1,5 +1,45 @@
 # D-008 review and calibration
 
+## D-008 closed: approved limited development pilot (2026-11-23)
+
+Milica explicitly approved all six proposed calibration decisions and reported
+that the team accepts the reduced-scope limitations. This is coordinator-reported
+team acceptance; no individual team reply or signature is invented. D-008 is
+closed in that approved scope. The [final report](../../eval/reports/development/d008-limited-pilot-final-v1.json)
+and [adopted codebook](../../eval/rubrics/d008-pilot-calibration-v1.json) record the
+approval, conventions, sample limits and exact private artifact hashes.
+
+The pilot contains 14 accepted original answer-rating records across seven
+paired source/question/response cases and five singly reviewed entity-evidence
+items. Initial exact dimension agreement remains **43/49 (87.76%)**, computed
+before adjudication. All six calibration disagreements now have accepted
+dispositions. No initial rating was overwritten, no new independent rating was
+created, and no independent agreement is recomputed from accepted profiles.
+The five entity items do not establish paired entity-reviewer agreement.
+
+Accepted decisions: CAL-02 credits the complete age-gap warning and available
+facts; CAL-03 credits justified abstention with the specific gap; CAL-04 records
+no source-available diagnosis; CAL-05 treats false refusal as a major context
+failure; CAL-06 treats the undisclosed available-fact omission as material; and
+CAL-07 separates support for the emitted atom from the omitted contradiction.
+The adopted benchmark-critical convention flags CAL-05/06/07. It is a pilot
+reporting convention, not a clinical harm finding or population error estimate.
+
+The original approximate-40-answer and at-least-20-entity planning volumes were
+not achieved. Shortfalls of 26 answer ratings and 15 entity-evidence items are
+explicitly accepted in the scope decision. Data are synthetic mocks only. The
+initial Milica interface omitted warnings/citations inline while linking exact
+responses; this presentation difference limits interpretation of initial
+agreement. Earlier reviewer declarations and AI-assistance disclosures remain
+part of provenance, not authenticated human authorship.
+
+Original reviews, source/response files and the earlier proposal package remain
+preserved. The final private bundle has 30 verified checksum entries. Sara's
+feedback stays separate and non-independent. Goran/Nemanja remain released from
+new replacement reviews. No provider call, new threshold, unseen-final access,
+D-013 reference change or automatic closure of other D tasks occurred. The scope
+proposal and preparation history below are historical stages, not open requests.
+
 ## Reduced development-pilot scope (2026-11-23)
 
 Milica explicitly selected the reduced delivery scenario and reported that new

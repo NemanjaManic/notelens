@@ -1,0 +1,255 @@
+{
+  "version": "d008-limited-development-pilot-final-v1",
+  "date": "2026-11-23",
+  "status": "closed_in_approved_reduced_scope",
+  "approved_by": "Milica",
+  "team_limitations_accepted": true,
+  "team_acceptance_reported_by": "Milica",
+  "scope": "Limited synthetic mock development calibration pilot only.",
+  "accepted_original_answer_ratings": 14,
+  "distinct_paired_source_question_response_cases": 7,
+  "accepted_entity_evidence_reviews": 5,
+  "entity_inter_reviewer_agreement_measured": false,
+  "initial_exact_dimension_agreement": {
+    "matching": 43,
+    "comparable": 49,
+    "percent": 87.76
+  },
+  "initial_agreement_by_dimension": {
+    "clarity_and_english": {
+      "comparable": 7,
+      "exact": 7,
+      "major_disagreement": 0,
+      "unable": 0
+    },
+    "evidence_gaps": {
+      "comparable": 7,
+      "exact": 5,
+      "major_disagreement": 1,
+      "unable": 0
+    },
+    "extra_facts": {
+      "comparable": 7,
+      "exact": 7,
+      "major_disagreement": 0,
+      "unable": 0
+    },
+    "required_facts": {
+      "comparable": 7,
+      "exact": 6,
+      "major_disagreement": 0,
+      "unable": 0
+    },
+    "scope_and_safety": {
+      "comparable": 7,
+      "exact": 6,
+      "major_disagreement": 0,
+      "unable": 0
+    },
+    "source_support": {
+      "comparable": 7,
+      "exact": 6,
+      "major_disagreement": 0,
+      "unable": 0
+    },
+    "uncertainty_and_context": {
+      "comparable": 7,
+      "exact": 6,
+      "major_disagreement": 1,
+      "unable": 0
+    }
+  },
+  "original_first_round_dimension_scores": {
+    "clarity_and_english": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 14
+      },
+      "mean": 2.0
+    },
+    "evidence_gaps": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 7,
+        "1": 3,
+        "2": 4
+      },
+      "mean": 0.7857142857142857
+    },
+    "extra_facts": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 14
+      },
+      "mean": 2.0
+    },
+    "required_facts": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 6,
+        "1": 1,
+        "2": 7
+      },
+      "mean": 1.0714285714285714
+    },
+    "scope_and_safety": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 0,
+        "1": 1,
+        "2": 13
+      },
+      "mean": 1.9285714285714286
+    },
+    "source_support": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 2,
+        "1": 1,
+        "2": 11
+      },
+      "mean": 1.6428571428571428
+    },
+    "uncertainty_and_context": {
+      "rated": 14,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 3,
+        "1": 0,
+        "2": 11
+      },
+      "mean": 1.5714285714285714
+    }
+  },
+  "initial_score_files_unchanged": true,
+  "six_calibration_disagreements_adjudicated": 6,
+  "remaining_calibration_disagreements": 0,
+  "calibration_codebook_version": "d008-pilot-calibration-v1",
+  "adjudicated_case_profile_count": 7,
+  "adjudicated_profiles_are_independent_reviews": false,
+  "adjudicated_dimension_summary": {
+    "source_support": {
+      "case_profiles": 7,
+      "rated": 7,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 1,
+        "1": 0,
+        "2": 6
+      },
+      "mean": 1.7142857142857142
+    },
+    "required_facts": {
+      "case_profiles": 7,
+      "rated": 7,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 3,
+        "1": 0,
+        "2": 4
+      },
+      "mean": 1.1428571428571428
+    },
+    "extra_facts": {
+      "case_profiles": 7,
+      "rated": 7,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 7
+      },
+      "mean": 2.0
+    },
+    "uncertainty_and_context": {
+      "case_profiles": 7,
+      "rated": 7,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 2,
+        "1": 0,
+        "2": 5
+      },
+      "mean": 1.4285714285714286
+    },
+    "evidence_gaps": {
+      "case_profiles": 7,
+      "rated": 7,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 3,
+        "1": 1,
+        "2": 3
+      },
+      "mean": 1.0
+    },
+    "scope_and_safety": {
+      "case_profiles": 7,
+      "rated": 7,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 7
+      },
+      "mean": 2.0
+    },
+    "clarity_and_english": {
+      "case_profiles": 7,
+      "rated": 7,
+      "unable_to_judge": 0,
+      "score_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 7
+      },
+      "mean": 2.0
+    }
+  },
+  "benchmark_critical_cases_after_adjudication": [
+    "D008-CAL-05",
+    "D008-CAL-06",
+    "D008-CAL-07"
+  ],
+  "benchmark_critical_convention": "Material false refusal/undisclosed omission/contradiction in this small synthetic pilot; not a population risk estimate or clinical harm finding.",
+  "original_plan": {
+    "approximate_answer_review_target": 40,
+    "entity_evidence_review_target": 20
+  },
+  "shortfalls": {
+    "answer_rating_records_below_40_planning_target": 26,
+    "entity_evidence_reviews_below_20_planning_target": 15
+  },
+  "original_volume_targets_met": false,
+  "reduced_scope_and_shortfalls_accepted": true,
+  "reviewer_declarations_and_ai_assistance": "Prior eligibility and disclosed AI assistance were accepted by Milica. Human authorship/independence are not technically authenticated. No new blind round is claimed.",
+  "presentation_limitation": "The initial Milica page omitted warnings/citations inline while linking exact responses. The accepted calibration assesses the complete saved response; original agreement is not replaced by adjudicated consensus.",
+  "entity_result_limit": "Five single-review items have passing declared checks; this is not entity-level paired agreement or a broad extraction-quality measurement.",
+  "sara_feedback": "Preserved separately as non-independent; excluded from independent counts and agreement.",
+  "goran_nemanja_replacement_assignments": "Released; no new forms, deadlines or additional ratings required.",
+  "provider_backed_quality_claimed": false,
+  "unseen_final_quality_claimed": false,
+  "clinical_validation_claimed": false,
+  "other_d_task_gates_waived": false,
+  "d013_reference_freeze_modified": false,
+  "new_provider_calls": 0,
+  "new_independent_reviews_added": 0,
+  "quality_thresholds_changed": false,
+  "full_d008_closed": true,
+  "closure_basis": "Explicit coordinator approval of six concrete calibration decisions and coordinator-reported team acceptance of reduced-scope limitations.",
+  "private_bundle_route": "Predaja-NoteLens/D-008/D008-reduced-development-pilot-final-v1",
+  "private_bundle_archive_sha256": "d89a94246fb1050acf08ec14a191e8e5621a2a8ee082a07059cf29dd203fa67d",
+  "approval_sha256": "25faa5a70f80c4e759c2cced42c122acc370771e470d199c469e9ba1a6a07fd0",
+  "accepted_decisions_sha256": "886e0ccd8076a3023021ce124fe7af7b291fae4b330be6ebb227939f1a5f42c2",
+  "archive_checksum_entries_verified": 30
+}

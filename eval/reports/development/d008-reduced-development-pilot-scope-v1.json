@@ -23,14 +23,15 @@
   "replacement_reviews_cancelled": true,
   "goran_and_nemanja_new_reviews_required": false,
   "sara_feedback": "Retained separately as non-independent; adds no independent count or agreement pair.",
-  "team_adoption_confirmed": false,
-  "team_adoption_status": "Prepare the concrete scope/limitations note for team confirmation; no team reply is invented.",
-  "six_case_calibration_decisions_approved": false,
+  "team_adoption_confirmed": true,
+  "team_adoption_status": "Milica explicitly reports team acceptance of the limitations in her approval message.",
+  "six_case_calibration_decisions_approved": true,
   "proposed_decisions": 6,
   "provider_backed_quality_verified": false,
   "unseen_final_measurement": false,
   "d005_d007_d011_d009_gates_waived": false,
   "d013_reference_freeze_affected": false,
-  "full_d008_closed": false,
-  "private_pilot_route": "Predaja-NoteLens/D-008/D008-reduced-development-pilot-v1"
+  "full_d008_closed": true,
+  "private_pilot_route": "Predaja-NoteLens/D-008/D008-reduced-development-pilot-v1",
+  "closure_receipt": "eval/reports/development/d008-limited-pilot-final-v1.json"
 }

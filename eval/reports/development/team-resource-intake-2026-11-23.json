@@ -38,6 +38,22 @@
       "earlier_fields": "Historical status before the latest follow-up."
     }
   },
+  "d008_final_delivery": {
+    "status": "closed_in_approved_reduced_scope",
+    "final_report": "eval/reports/development/d008-limited-pilot-final-v1.json",
+    "calibration_codebook": "eval/rubrics/d008-pilot-calibration-v1.json",
+    "approved_by": "Milica",
+    "team_acceptance_reported_by": "Milica",
+    "accepted_original_answer_ratings": 14,
+    "paired_cases": 7,
+    "accepted_entity_evidence_reviews": 5,
+    "initial_exact_dimension_agreement": "43/49 (87.76%)",
+    "six_calibration_decisions_approved": true,
+    "original_volume_targets_met": false,
+    "accepted_shortfalls": {"answer_ratings": 26, "entity_evidence_reviews": 15},
+    "new_reviews_or_deadlines_requested": false,
+    "provider_backed_or_unseen_final_quality_claimed": false
+  },
   "d009_classifier_selection": {
     "owner": "Sara (member C)",
     "selected_configuration": "Frozen C-008 short-text classifier with the C-005 uncertainty policy.",
