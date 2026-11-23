@@ -149,3 +149,48 @@ status. Both owners still reconcile the plan pin, complete reciprocal reviews,
 agree a handoff date and send D metadata and version-specific receipts through
 the approved private route. D validates these before any final freeze. See the
 [v2 intake receipt](../../eval/reports/development/d007-final-qa-metadata-status-intake-v2.json).
+
+## V3 and Goran cross-review intake (2026-11-23; current)
+
+The exact attached staffing plan hashes to the metadata pin
+`39f05b80107ef8d04e0a070eec172ef9ea08dcd5d82619c25ff39a4979335d3e`.
+The earlier identity mismatch is resolved by retaining these exact bytes privately.
+The local confirmed plan is preserved: only its status and team-confirmation fields
+differ, while all slots and other fields match. All 26 v3 assignments verify.
+The v3 digest computed by D is
+`c4b2d62d5595595b9e747766037cee3dea6b74935cd88fa43b776e3462b0ee0c`;
+no sender-supplied v3 checksum was provided for independent comparison.
+
+V3 reports all thirteen Goran drafts at v1 as author-reviewed, superseding the
+earlier eight-draft/five-unwritten report. The private draft archive was not
+supplied to D or opened. V3 still contains no review receipt hashes and reports
+zero restricted-folder verified versions/receipts; this is an older snapshot
+than the separately delivered Goran review receipts. Do not use it to negate
+that later delivery or infer completion for the other review direction.
+
+Goran's receipt file digest verifies against his supplied checksum:
+`3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796`.
+It covers exactly his thirteen assigned Sara-authored cases: twelve v1 cases
+and F-DOC-06 v2, all personally approved with no unresolved issues reported.
+Receipt fields include case hashes, dates, human confirmation and exposure,
+preparation and AI-assistance disclosures. The F-DOC-06 receipt hash matches
+his personal revision confirmation. D checked metadata consistency, not the
+underlying source spans or case bytes. Full receipts stay private; the
+[source-free review intake](../../eval/reports/development/d007-goran-cross-review-intake-v1.json)
+contains only identities, dispositions and limitations.
+
+Final reconciliation remains blocked on Sara's thirteen version-specific reviews
+of Goran's cases and a final 26-case version/hash inventory tied to all receipts.
+The Goran receipts reference metadata v4 (hash
+`4858c31730d4232c4d432e484480712b5d87b39cb4815d0481d0df1f76b22def`)
+and a case inventory that were not supplied. Their author-release statement covers
+v1; obtain Sara's approval of the final F-DOC-06 v2 identity explicitly.
+No final freeze, final measurement or parent closure is recorded.
+
+Exposure accounting: the initial receipt preview rendered reviewer technical
+observations for F-DOC-01, F-DOC-02 and F-DOC-03 to D's assistant before freeze.
+No full case, canonical source or answer-key files were opened. Preserve this
+limited exposure for the freeze owners' assessment; do not assert universal
+absence of exposure. Subsequent receipt processing selects identity/status fields
+without rendering semantic reviewer notes. See the
+[v3 metadata intake](../../eval/reports/development/d007-final-qa-metadata-status-intake-v3.json).
