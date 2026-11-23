@@ -182,6 +182,28 @@ first-round packets within the proposed 40 answer and 20 entity-evidence
 review targets. The remaining assignments and team calibration await
 confirmation.
 
+## Member A technical intake (2026-11-22)
+
+D received Nemanja's private first-round submission and verified all seven
+submission checksums and all twenty-four original assignment checksums. The
+seven v2 answer forms and five entity-evidence forms match their assigned
+source and response pins. All five mention and evidence span pairs were
+verified against the exact sources. The package includes Nemanja's full-review
+attestation and his declarations of no prior exact-output exposure or
+self-authorship. It also discloses that an assistant proposed scores and had
+access to related D-007 and annotation-training material. See the
+[technical intake record](../../eval/reports/development/member-d-handoff-intake-2026-11-22.json).
+
+Milica explicitly accepted Nemanja's declared independent reviews with recorded
+AI assistance on 2026-11-23. The first-round comparison preserves both original
+submissions and verifies all fourteen response artifacts. Fourteen valid answer
+reviews yield seven matched pairs and exact agreement on 43 of 49 dimension
+ratings. CAL-02 through CAL-07 require adjudication of score or outcome differences.
+Five additional entity-evidence reviews are accepted from Member A. Independence
+relies on the reviewer declarations and the retained AI disclosure. The remaining
+rubric decisions, wider review sample and final calibration remain open. See the
+[first-round comparison receipt](../../eval/reports/development/d008-first-round-comparison-v1.json).
+
 ## Proposed Member B first round, 2026-11-22
 
 Goran requested counts, rubric version and the review window before confirming

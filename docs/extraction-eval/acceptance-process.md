@@ -43,3 +43,21 @@ The classification result covers validation only. The answer pilot used
 non-blinded agent judgments. The loopback result measures a deterministic mock
 and the cited fixture rules. Acceptance remains pending. The structural targets
 remain 1.0 and substantive quality thresholds remain unset.
+
+## Frozen A-008 development retrieval baseline
+
+D replayed all 81 saved case/method rows from the v2 A-008 package against the
+pinned corpus and frozen references. This covers 9 literature-only and 18 mixed
+queries. Five queries without reference support are outside the topic-recall
+denominator. Each method has 22 supported cases and 27 supported evidence parts.
+
+| Baseline | Topic Recall@5 | Topic MRR@5 | All required topics | Reference evidence parts |
+| --- | ---: | ---: | ---: | ---: |
+| Vector, selected | 1.000000 | 0.909091 | 22/22 | 27/27 |
+| Hybrid | 0.977273 | 0.931818 | 21/22 | 26/27 |
+| BM25 | 1.000000 | 0.852273 | 22/22 | 27/27 |
+
+The replay recomputes metrics from recorded rankings. Risk and coverage still
+have only three historical support assessments. This baseline records retrieval
+evidence for D-011. Quality thresholds still require named decisions and
+provider-backed extraction and answer measurements. See the [version pins and intake evidence](../../eval/reports/development/member-d-handoff-intake-2026-11-22.json).

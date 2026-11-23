@@ -1,0 +1,19 @@
+{
+  "version": "d004-provider-offline-preflight-v1",
+  "recorded_on": "2026-11-23",
+  "scope": "Offline preparation using the existing two-request trial.",
+  "approved_payload_hashes_verified": [
+    "extract",
+    "answer"
+  ],
+  "api_credential_configured_in_current_process": false,
+  "prior_receipt_exists": true,
+  "prior_receipt_sha256": "16e688456c8e2f20405d8417ff5ac7cec1d142573f5692636c31b5ff464df0e4",
+  "fresh_receipt_and_cumulative_ledger_verified": false,
+  "server_live_provider_type": "UnconfiguredLiveProvider",
+  "provider_calls": 0,
+  "d004_closed": false,
+  "d005_provider_verification_complete": false,
+  "next_execution_gate": "Confirm the authorized operator, setup route, model access and cumulative balance, then prepare a separately recorded fresh attempt. Preserve the old receipt.",
+  "full_service_gate": "The fixed two-operation synthetic adapter needs an approved service integration and source-reviewed behavior for supported inputs before full service closure."
+}

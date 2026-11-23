@@ -206,6 +206,19 @@ before independent eligibility can be assessed. D keeps specific primary-label
 and adjudication feedback private until that initial review is submitted.
 See the [draft intake receipt](../../eval/reports/development/d013-goran-034-draft-intake-v1.json).
 
+Goran subsequently returned `assignment-034-human-reviewed-submission.zip`.
+The ZIP attests that he personally reviewed the full document and accepted the
+AI-assisted draft without prior exposure to the primary labels. D verified
+both listed checksums, the frozen and supplemental assignment, all thirty
+mention spans and thirty evidence spans, and the draft hash. The entities and
+twelve retained questions are identical to the draft, so the earlier content
+comparison still applies. Structural lint returned `needs_clarification` with
+zero errors. The finalized secondary record supersedes the draft for intake
+and adds one independent review based on Goran's declaration. Preserve both
+originals privately. D-013 has nine of ten required independent reviews and
+thirty of forty primary submissions. Adjudication and the canonical merge
+remain pending. See the [intake record](../../eval/reports/development/member-d-handoff-intake-2026-11-22.json).
+
 On 2026-11-22, Sara returned her reviewed 036 submission v2. D verified its
 canonical spans and its link to the superseded v1 record. The v2 clarification
 retains separate planned counseling and consult mentions and a hypothetical

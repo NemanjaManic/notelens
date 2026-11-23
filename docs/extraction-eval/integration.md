@@ -117,6 +117,54 @@ The separate [D C-007 verification](c007-classifier-transport.md#replay-with-sar
 passed on Sara's pinned C-005 model. The current B mock client returned
 `MOCK_MODE_REQUIRED` for both fitted responses after HTTP 200.
 
+### Published B D-005 app check (2026-11-22)
+
+B reported a passing Windows app HTTP check, production build and default mock
+smoke against D's commit `e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374`.
+D verified that the published branch `member-b/b-005-d-005-app-checks` points
+to `06b3184117f5e73332f278e2e5aa95efbd48de71`, inspected the exact runner,
+and checked the pinned synthetic fixture digest and repeated evidence offsets.
+[Published runner](https://github.com/NemanjaManic/notelens/commit/06b3184117f5e73332f278e2e5aa95efbd48de71)
+
+The check verifies document UUID and canonical digest across extraction and
+citations. It checks exact rendered highlights at `[7, 21)` and `[47, 61)` for
+findings, summaries and supported answer claims. The partial answer keeps both
+citations and shows the missing-age gap. Insufficient and out-of-scope states
+stay distinct and have no answer citations. The runner also checks owner
+isolation and listener shutdown. D verified the published source and retained B's
+run result. See the [intake record](../../eval/reports/development/member-d-handoff-intake-2026-11-22.json).
+
+To reproduce B's check on Windows, open the pinned platform commit and the
+pinned D service commit in separate clean checkouts. From the platform root,
+use Python 3.13, Node 24, npm 11, and uv. Set `$handoff` to the absolute D
+checkout path.
+
+```powershell
+$env:NEXT_TELEMETRY_DISABLED = '1'
+uv sync --locked --directory services/rag --python 3.13 --no-dev
+uv sync --locked --directory services/classifier --python 3.13 --no-dev
+uv sync --locked --directory "$handoff\services\extraction" --python 3.13 --no-dev
+npm.cmd ci --no-audit --no-fund
+npm.cmd run build
+python -B scripts/project/check_d005_app.py $handoff
+```
+
+Provider-backed verification requires the authorized D-004 trial and D's review
+of source support, completeness, citations and English. D will hand B the
+reviewed service pin, locked startup steps and verification evidence after
+those checks. The trial remains paused pending confirmation of the authorized
+operator, server-side setup route, approved model access and remaining balance.
+
+The 2026-11-23 offline check reverified both approved payload hashes and found the
+original trial receipt already present. The HTTP settings still select
+`UnconfiguredLiveProvider` for live mode. Preparing a separately recorded fresh
+attempt must preserve the existing receipt and account for the cumulative cap.
+After a successful synthetic trial, source review and integration of the reviewed
+provider into the approved service setup remain necessary for full D-004/D-005
+completion. See the [offline preflight](../../eval/reports/development/d004-provider-offline-preflight-v1.json).
+
+### Local evaluation commands
+
 Run evaluation and the retained training checker:
 
 ```powershell

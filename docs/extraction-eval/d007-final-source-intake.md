@@ -47,8 +47,8 @@ not further unseen canonical texts or final questions/answers before release.
    identifiers. Keep each reviewed development case, reserve and exposed
    document family in development. Check both IDs and shared provenance.
 2. Sara sends D the source-list version and SHA-256, number of slots checked,
-   overlaps found and their dispositions. At handoff, 0 of 26 slots have been
-   checked. Candidate sources still need review against known exposures.
+   overlaps found and their dispositions. Sara and Goran completed this step
+   for all 26 planned slots. See the [joint provenance result](qa-development-inventory.md#joint-final-source-provenance-and-a-008-intake-2026-11-22).
 3. Recheck any source substitutions and the completed inventory before freeze.
    Keep the actual final questions, sources selected by slot and answer keys
    in the restricted workflow. A/D evaluation access follows the manifest

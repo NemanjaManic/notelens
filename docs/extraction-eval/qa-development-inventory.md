@@ -348,3 +348,30 @@ Share only the revised list version, SHA-256, checked count and dispositions
 with D. Further unseen source texts, questions and answers remain restricted
 until the agreed freeze. D's 26-slot metadata screen is not a formal joint
 overlap pass or a final freeze. See the [intake receipt](../../eval/reports/development/d007-goran-planned-source-intake-receipt-v1.json).
+
+## Joint final-source provenance and A-008 intake (2026-11-22)
+
+Sara and Goran completed the joint pre-authoring provenance check on
+`d007-final-source-intake-joint-draft-v2`. Sara confirmed zero known development
+matches across 26 of 26 slots and confirmed that the four exposed document
+families for F-MIX-05 through F-MIX-08 were retired. The authors verified each
+replacement digest and reported that the four replacements are fresh synthetic
+documents with distinct source families and no known early exposure. D matched
+the SHA-256 `6198b4085b45e702d065535e9705c5b6bf7d841230d35a247bcee327fb26ebf0`,
+all 26 staffing rows and all four replacement digest declarations. D's exact
+metadata screen also found zero known overlap. The archived list retains its
+pre-review status fields. Sara's later confirmation supplies the joint result
+for those exact bytes. D read zero final source texts in this intake.
+
+Complete and independently review the 26 cases in the restricted workflow,
+confirm the author-side handoff of the pinned literature passages, and recheck
+the completed inventory before the final manifest and configuration freeze.
+
+D verified both A-008 ZIPs, including 17 listed v1 checksums and 19 listed v2
+checksums. The measurement and replay artifacts are byte-identical. D verified
+the manifest, corpus, configuration and Git source pins, checked that the RAG
+tree is unchanged from `d2f85fb` to reviewed web commit `4fb192e`, and replayed
+all 81 case/method rows from the saved rankings against the pinned references.
+The v2 package is the A-008 closure reference. B's acceptance was relayed by
+Milica and D's technical intake passed. A owns the formal task record. A-011
+and the final system freeze remain pending. See the [intake and metric pins](../../eval/reports/development/member-d-handoff-intake-2026-11-22.json).
