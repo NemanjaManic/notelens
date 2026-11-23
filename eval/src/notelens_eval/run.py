@@ -41,7 +41,9 @@ def produce(cases: dict) -> dict:
     return {"kind": "synthetic_mock_predictions", "version": "d-mock-predictions-v1", "cases": predictions}
 
 
-def evaluate(references: dict, predictions: dict) -> dict:
+def evaluate(references: dict, predictions: dict, *, expected_mode: str = "mock") -> dict:
+    if expected_mode not in {"mock", "live"}:
+        raise ValueError("Expected an explicit mock or live evaluation mode.")
     expected_ids = [c["id"] for c in references["cases"]]
     actual_ids = [c["id"] for c in predictions["cases"]]
     if len(set(expected_ids)) != len(expected_ids) or len(set(actual_ids)) != len(actual_ids) or set(expected_ids) != set(actual_ids):
@@ -61,8 +63,8 @@ def evaluate(references: dict, predictions: dict) -> dict:
             validate_span(document["text"], reference["mention"])
         prediction = by_id[case["id"]]
         result = prediction["result"]
-        if isinstance(result, dict) and result.get("mode") != "mock":
-            raise ValueError("The synthetic smoke profile only scores explicit mock predictions.")
+        if isinstance(result, dict) and result.get("mode") != expected_mode:
+            raise ValueError("Extraction mode differs from the selected evaluation mode.")
         try:
             if result is None:
                 technical_errors += 1
@@ -96,8 +98,8 @@ def evaluate(references: dict, predictions: dict) -> dict:
         for qa in case["qa"]:
             response = answers[qa["id"]]
             answer = response["result"]
-            if isinstance(answer, dict) and answer.get("mode") != "mock":
-                raise ValueError("The synthetic smoke profile only scores explicit mock answers.")
+            if isinstance(answer, dict) and answer.get("mode") != expected_mode:
+                raise ValueError("Answer mode differs from the selected evaluation mode.")
             valid_answer = False
             if answer is None:
                 technical_errors += 1
@@ -170,10 +172,31 @@ def main() -> int:
     parser.add_argument("--predictions", type=Path)
     parser.add_argument("--predictions-sha256", type=Path)
     parser.add_argument("--require-freeze", action="store_true")
+    parser.add_argument("--freeze", type=Path)
+    parser.add_argument("--freeze-sha256")
     parser.add_argument("--output", type=Path, default=EVAL_ROOT / "reports/local")
     args = parser.parse_args()
-    if args.profile in {"live", "final"}:
+    if args.profile == "final":
+        from .final_run import execute
+
+        if not all((args.require_freeze, args.freeze, args.freeze_sha256)):
+            parser.error("Final scoring requires --require-freeze, --freeze and --freeze-sha256.")
+        if args.references or args.predictions or args.predictions_sha256:
+            parser.error("The final profile takes all inputs from its approved freeze.")
+        try:
+            report, target = execute(args.freeze, args.freeze_sha256, args.output)
+        except ValueError as exc:
+            parser.error(str(exc))
+        except OSError:
+            parser.error("Could not access final inputs, claim the execution receipt or publish the run output.")
+        except (KeyError, TypeError):
+            parser.error("The final bundle has missing fields or invalid data shapes.")
+        print(json.dumps({"run_id": report["run_id"], "status": report["status"], "output": str(target)}))
+        return 0 if report["status"] == "passed" else 1
+    if args.profile == "live":
         parser.error(f"The {args.profile} profile is disabled pending an approved freeze and execution scope.")
+    if args.freeze or args.freeze_sha256:
+        parser.error("Freeze arguments apply to the final profile.")
     if args.require_freeze:
         parser.error("--require-freeze is reserved for the final profile.")
     if args.predictions_sha256 and args.profile != "classification":
