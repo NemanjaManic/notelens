@@ -1,5 +1,12 @@
 # RAG development handoff for B and D
 
+**Current status, 2026-11-23**: [A-008 is closed against accepted v2](a008-closure.md).
+The [A-011 configuration freeze and current B/D handoff](a011-freeze.md) supersede
+the pending-task statements in this historical development checkpoint. The selected
+RAG configuration is frozen; unseen final measurement, the shared system freeze and
+provider-backed B/D app acceptance remain pending. The original development manifest
+is retained unchanged for reproducibility.
+
 Owner: Nemanja (A). Initial checkpoint: 2026-11-18. Latest owner-local verification: 2026-11-21. Branch: `rag`.
 
 The current portable indexed profile passed 116 targeted tests and an

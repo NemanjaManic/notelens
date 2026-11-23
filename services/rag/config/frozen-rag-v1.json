@@ -1,0 +1,250 @@
+{
+  "format_version": "rag-selected-configuration-freeze-v1",
+  "frozen_on": "2026-11-23",
+  "owner": "Nemanja (A)",
+  "task": "A-011",
+  "status": "owner_configuration_frozen",
+  "authorization": "Nemanja requested completion of A-008 and A-011 in this conversation. No new paid activation or final evaluation was requested.",
+  "scope": "A-owned selected configuration and B/D handoff; system-wide final freeze remains separate.",
+  "implementation_commit": "d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4",
+  "shared_contract_version": "1.0.0",
+  "runtime": {
+    "python": "3.13.5",
+    "uv": "0.12.5",
+    "default_http_mode": "mock",
+    "shared_contract_version": "1.0.0"
+  },
+  "corpus": {
+    "version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+    "snapshot_date": "2026-11-10",
+    "topics": 401,
+    "passages": 617
+  },
+  "corpus_artifact_sha256": "4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938",
+  "retrieval": {
+    "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+    "embedding_space_version": "195ba2152af050b63822f4ff83370df9f917378a461a1e4a440b244865ea5905",
+    "embedding_model": "text-embedding-3-small",
+    "embedding_dimensions": 1536,
+    "store": {
+      "name": "chroma",
+      "version": "1.5.9",
+      "distance": "cosine"
+    },
+    "development_retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+    "top_k": 5,
+    "basis": "Accepted frozen development results: vector 22/22 all-required-topic cases and 27/27 supported parts; BM25 has lower MRR, hybrid misses one required-topic case and one supported part. Existing vector choice retained.",
+    "selected_method": "vector",
+    "query_policy": "unchanged-self-contained-question-v1",
+    "signals": "question-only",
+    "score_threshold": null,
+    "score_threshold_reason": "No calibrated numeric rejection threshold has been accepted; evidence is assessed per requested part."
+  },
+  "responses": {
+    "development_model": "gpt-6-luna",
+    "prompts": {
+      "question_decomposition": {
+        "version": "literature-question-parts-v1",
+        "file": "services/rag/src/notelens_rag/prompts/question-parts-v1.txt",
+        "sha256": "087ce7f264c7d65a04c2962e794a8a02e3e95bd1737b6bafb2ac9278138cb47d",
+        "verification": "simulated_sdk_and_closed_five_public_HTTP_smoke"
+      },
+      "support_selection": {
+        "version": "literature-support-selection-v2",
+        "file": "services/rag/src/notelens_rag/prompts/support-selection-v2.txt",
+        "sha256": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+        "verification": "three_saved_public_probes_and_closed_five_public_HTTP_smoke"
+      },
+      "literature_composition": {
+        "version": "literature-answer-v1",
+        "file": "services/rag/src/notelens_rag/prompts/literature-answer-v1.txt",
+        "sha256": "fa385fcdfbad8ee3dd6b867122bf93ad18f7e18989da0b9fa148c26f064aba48",
+        "verification": "simulated_sdk_actual_CQ01_CQ02_trials_and_closed_five_public_HTTP_smoke"
+      }
+    },
+    "composition_version": "rag-cited-claims-v1",
+    "parameters_reference": "docs/rag/evaluation/run_live_http_smoke.py at implementation_commit",
+    "historical_verified_profile": {
+      "model": "gpt-6-luna",
+      "reasoning_effort": "none",
+      "max_output_tokens_per_completion": 512,
+      "input_token_ceilings": {
+        "question_parts": 4096,
+        "support": 20000,
+        "answer": 4096
+      },
+      "timeout_seconds": 30,
+      "automatic_retries": 0,
+      "service_tier": "default",
+      "activation": "closed historical five-public-case smoke only; no standing operational allowance"
+    }
+  },
+  "question_versions": {
+    "cached_registry_identity": "686f74530f9ab77a2e686fb6956bc4dccac81b2c1285ee7569c4407470e810f5",
+    "cached_registry_count": 10,
+    "qa_proposal_version": "member-a-literature-qa-proposals-v1",
+    "qa_proposal_count": 9,
+    "final_question_set_version": null,
+    "frozen_development_manifest": {
+      "version": "d007-a008-development-qa-manifest-v2",
+      "sha256": "04d14df1a578e4dde2ebd17ef48fae3872e2924b8a0c9b211720bbf0f1aad1ee"
+    },
+    "evaluation_configuration_version": "36e1062432b2de2ec8de6402d2e2bb4f0fa05b73ea49095be36fbc9ee1ddb648",
+    "final_questions_accessed": false
+  },
+  "A008_closure": {
+    "reference": "v2",
+    "archive_sha256": "5f96cc4a626a1081d41964097f16948250ba8096f867bc85ffa4d81609d05ff6",
+    "public_summary": "docs/rag/evaluation/frozen-development-summary.json"
+  },
+  "approved_limits": {
+    "historical_trials": {
+      "corpus_embeddings": {
+        "budget_usd": "0.10",
+        "batch_size_max": 32,
+        "timeout_seconds": 30,
+        "automatic_retries": 0
+      },
+      "development_query_embeddings": {
+        "budget_usd": "0.01",
+        "max_new_questions": 10,
+        "timeout_seconds": 30,
+        "automatic_retries": 0
+      },
+      "development_support_assessments": {
+        "cumulative_budget_usd": "0.02",
+        "reserved_reference_usd": "0.0087813",
+        "max_input_tokens": 20000,
+        "max_output_tokens": 2048,
+        "reasoning_effort": "none",
+        "timeout_seconds": 30,
+        "automatic_retries": 0
+      },
+      "operating_policy": "Historical public trial limits do not authorize new development runs or live service usage."
+    },
+    "frozen_development_mixed_embeddings": {
+      "cap_usd": "0.001",
+      "max_attempts": 1,
+      "tokens": 453,
+      "timeout_seconds": 30,
+      "automatic_retries": 0,
+      "status": "consumed_closed"
+    },
+    "five_public_HTTP_smoke": {
+      "cap_usd": "0.025",
+      "requests": 5,
+      "timeout_seconds": 30,
+      "automatic_retries": 0,
+      "status": "consumed_closed"
+    },
+    "new_provider_execution_approved": false,
+    "operational_budget": null,
+    "paid_CI_enabled": false
+  },
+  "final_measurement": {
+    "status": "not_run",
+    "repeat_run": false,
+    "final_test_accessed": false,
+    "reason": "No approved unseen-final manifest, final execution scope or operational provider budget is available to A in this checkout. Preserve final-test isolation; the accepted development run is not a final result.",
+    "future_gate": "D supplies the frozen unseen-final reference and team confirms scope/operator/budget before a separately triggered versioned run. No prompt/model/retrieval tuning on final questions."
+  },
+  "API_startup": {
+    "default": "notelens_rag.main:app; loopback mock",
+    "indexed_key_free": "docs/rag/evaluation/serve_indexed_demo.py; synthetic Chroma and fixture adapters; mode=mock",
+    "configured_backend": "create_app(settings, indexed_backend=backend); caller owns admission, adapters, usage controls and lifecycle",
+    "standing_live_backend": "not configured or authorized by this freeze"
+  },
+  "actual_output_handoff": [
+    {
+      "path": "docs/rag/evaluation/answer-trial-results.json",
+      "kind": "actual public development CQ-01 completion"
+    },
+    {
+      "path": "docs/rag/evaluation/partial-answer-trial-results.json",
+      "kind": "actual public development CQ-02 partial completion"
+    },
+    {
+      "path": "docs/rag/evaluation/development-answer-review-v2.json",
+      "kind": "two actual completions and four explicitly labelled fixtures"
+    },
+    {
+      "path": "docs/rag/evaluation/partial-evidence-flow.json",
+      "kind": "mock-mode HTTP composition from cached public evidence"
+    },
+    {
+      "path": "docs/rag/evaluation/frozen-development-summary.json",
+      "kind": "accepted retrieval aggregates; private full package already accepted by B/D"
+    }
+  ],
+  "remaining_live_limitations": [
+    "Provider-backed B/D app integration remains open; D-004/D-005 ownership and receipts are preserved.",
+    "The indexed app rehearsal uses synthetic data and fixtures; it does not measure provider quality.",
+    "No unseen final measurement, system-wide final freeze, deployment or general clinical-quality claim.",
+    "No automatic retry, new provider allowance, hosting account or persistent submitted-document storage is granted."
+  ],
+  "file_sha256": {
+    "contracts/generated/manifest.json": "a46f3cd3de95a6fcad80867560d5c1606e69822c0dfa962810e9cea5e0e9c169",
+    "contracts/v1/openapi.json": "e83ddda18a03040e4092e5f1113dbb82d296471c30acc105928f6bd8114143af",
+    "contracts/v1/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "data/knowledge/manifests/index-build.json": "14f3f498c693a41c14f4af457ad25d018a1ffd651b3089d93b7b3294dd32deb9",
+    "data/knowledge/manifests/passages.json": "6afe940765c8e4844278b65843f4d780440c99dfe3a09a5b8c2a1af239b803aa",
+    "docs/rag/answer-support-policy.md": "79f98e52540b2e240a1fe7983b4a2f319912f7cb5f383e9f3a623ca162cadb81",
+    "docs/rag/coverage-trial-results.json": "ec90cee36ed99b70387884c5b673747335eca280b7db2db46ca5204692205c39",
+    "docs/rag/evaluation/answer-trial-results.json": "77a28f2c372d88b2eb9c93bdf78a1d017e6eaa03a4e20c30cd4a0910aba35b9b",
+    "docs/rag/evaluation/development-answer-review-v2.json": "8687f294da6a9530a9f41717cfde8fb24834d4d88b89cfbbf915f3b86d264e7c",
+    "docs/rag/evaluation/frozen-development-summary.json": "a5e9cd2cd5c9e6607fe0070dd2afd4b06b4e1f48880d1b43356c137319408ccc",
+    "docs/rag/evaluation/live-http-smoke-review.md": "636e62fc72707d84d033c173c704acde09b8894efd59371d2a06c1a44e036220",
+    "docs/rag/evaluation/local-http-flow.json": "fb8d5f1fcdcb73cb53fd05a7d8986d1e8b3823b102a188debd5f48a5754578d7",
+    "docs/rag/evaluation/partial-answer-trial-results.json": "d64eecd00018a62fbac85fc31fa6653f8fd721adad0a75f3b48162673c87a3a8",
+    "docs/rag/evaluation/partial-evidence-flow.json": "108c186274f087128b3d0f5ec8843bf97e395a34efb607ec6421d682d2c96b96",
+    "docs/rag/evaluation/reviewed-development-references-v2.json": "d5d07335cb6908f829f9d2159282fd6f5722a8000aef4ace117c17bab653bde0",
+    "docs/rag/evaluation/run_live_http_smoke.py": "5794b6bf38793b7fa63b605bff76e82e2f71cc3242db0ca410f898cfccb1e638",
+    "docs/rag/evaluation/saved-development-evaluation.json": "69a61b4609f6d1aa7c6b75598b02bb99277e2e3c869f4500a61ff1c99d858ffa",
+    "docs/rag/evaluation/serve_indexed_demo.py": "b840d642d06f6b566cdcf76c0489a8aac9527b5150ecd031a66aef611ed21c9c",
+    "docs/rag/experiments/hybrid-comparison.json": "67d1847d80754708156149a55ba6982113fdf88ca15c5f2ca12dab6af72acab0",
+    "docs/rag/qa-proposals.json": "737a85f41733b6fddc7822ed83f84b2487e83f278a0ecf602c93ed450cd007db",
+    "docs/rag/retrieval-smoke-questions.json": "d22ccc30da77fbe20e3540aba71d3281c23f7377af35c1c4ec68c157786aadb6",
+    "docs/rag/retrieval-smoke-results.json": "0255dc55a6f648bc369453853a0327b6530cbe7077d43c9f937fd62a3f99a55e",
+    "docs/rag/selection-trial-results.json": "f06a0fd36e5cb71004bc815255c8591c7043945d6f2d47bf36e6b717c298c31d",
+    "services/rag/pyproject.toml": "07d617394bd9252d7ecd34bb67f91d8603391c3b70874de617d3728476952ca2",
+    "services/rag/src/notelens_rag/__init__.py": "dc420b98a8aa2037663ec8ea8ab481eac66d6109133148921dca39a9d918dd72",
+    "services/rag/src/notelens_rag/answer_trial.py": "4a2ff2b67e78ea241c0f67164b6f18808f8509236158d3bb7f8ea9e93569fefc",
+    "services/rag/src/notelens_rag/answers.py": "0ec93753d3eadeaba4ffa824a6b8d6fc169dafccf6ebf5605ca171364434e18f",
+    "services/rag/src/notelens_rag/assessment_retry.py": "c2c38ba1704e6ad78196bd5d7cbf09a542eb471c9da6dd76d54ae6b7d479f908",
+    "services/rag/src/notelens_rag/assessment_trial.py": "2f76068e2ac9998bb77e483bb8f3c48dc602c433ab1e2ea5754d1c639f973421",
+    "services/rag/src/notelens_rag/assessor.py": "bfce93fb0335d1eed256bf589f87e3b358b8edaf74c503c7b02ee2a0f90b6c61",
+    "services/rag/src/notelens_rag/contracts.py": "dec26f90a44e3a7207cef1742d943331b6038fa17e52900238f8466aa32a05b2",
+    "services/rag/src/notelens_rag/coverage_trial.py": "bb45a300f24e1d9521c39f83a63501e20eb9ed6fe4ccaf979f854d75910d97a3",
+    "services/rag/src/notelens_rag/diagnostics.py": "af0b51ce9459427a72ba74b29df8bcf8a494c871a2c393462ba7681aa706cb41",
+    "services/rag/src/notelens_rag/embeddings.py": "7dec73e3709a5f766ecae0409635af790d268c711589eb636721553ee36f7da6",
+    "services/rag/src/notelens_rag/evidence_selection.py": "523521a9ff2f60216885c87bb8d58653efcfb0a0f1a684b6125874592f5f461b",
+    "services/rag/src/notelens_rag/hybrid.py": "9c4e6eb31098497522e2f5398d7c5a1b90a4931ab53c8394dd595bb16f1e92f9",
+    "services/rag/src/notelens_rag/hybrid_smoke.py": "9af5b91fcd7a628b79d6bf1f0bd212202adec2bca32e055c9a6385affdc075c8",
+    "services/rag/src/notelens_rag/indexing.py": "c8a539f4f41cef4c600a17675760a9a06b717ec618495b9ec674ba1ea5d30c89",
+    "services/rag/src/notelens_rag/ingestion.py": "d29097a40076a5e73a22c0d20e9e1cd3041d34ebfc7b84ebd781442ec5951c4d",
+    "services/rag/src/notelens_rag/main.py": "6600dd3638c3de592081bf16082e5f843e074917544443d42e5407a2ca97826a",
+    "services/rag/src/notelens_rag/mock.py": "338dc8287a2f19abade2692a23932852908fa2490913ece3d39f71a3441b40b0",
+    "services/rag/src/notelens_rag/partial_answer_trial.py": "9a9e0114f8d85426ad80d0a4e308a8c108c585a5432d384e324325eeab1fce04",
+    "services/rag/src/notelens_rag/prompts/literature-answer-v1.txt": "fa385fcdfbad8ee3dd6b867122bf93ad18f7e18989da0b9fa148c26f064aba48",
+    "services/rag/src/notelens_rag/prompts/question-parts-v1.txt": "087ce7f264c7d65a04c2962e794a8a02e3e95bd1737b6bafb2ac9278138cb47d",
+    "services/rag/src/notelens_rag/prompts/support-assessment-v1.txt": "137114b199d46e2698db8941345482342dbc41414254f6c430947f94b3d1a10f",
+    "services/rag/src/notelens_rag/prompts/support-selection-v2.txt": "cb33ce546bab676502d43107939f78ab5d8745efb86dec783e4505ff4d4a7db9",
+    "services/rag/src/notelens_rag/qa_vector_trial.py": "d113c66c275a503a0bc99798ea4a2b064cf9840bae704f772dc1b5bb92692566",
+    "services/rag/src/notelens_rag/query.py": "be4be13ab72106ac81a9e8fee6a5a291e9645e359c6397877be9c9b5d6f0a5d4",
+    "services/rag/src/notelens_rag/query_smoke.py": "d07ef17d3e86ee68aaf29da845b97ef59b1e62c6c1d26ecee251fab421227a47",
+    "services/rag/src/notelens_rag/question_parts.py": "10211f66953b063fec07052ee4ab6fbc8ef050a86853971ecdd0958a06c9cb4f",
+    "services/rag/src/notelens_rag/reference_metrics.py": "0ba7952647c5709eea291110cef863aab4e0bb971e5b458bced730cc0e9caff6",
+    "services/rag/src/notelens_rag/retrieval.py": "7e019e4ba423a59822b7baef2d9dfa9762370e8982ad6d3ddddcbc39a118bb71",
+    "services/rag/src/notelens_rag/runtime.py": "6d3d156e2101f54c3cac5815e6a6eeb7c9d6df32f3a0359678c3ba10e439eec5",
+    "services/rag/src/notelens_rag/selection_trial.py": "111d34647bb5947aad171173672b21c181b7dc2734cae82b20dc71f04fe4f02e",
+    "services/rag/src/notelens_rag/support.py": "18b9756063aa9f200b7e96154575b75c5d30a3ad76d3ebc9cee69b6204ec01d8",
+    "services/rag/uv.lock": "dd37168fecf9c3ba912fcc6d1e1363974614d1d39e391ddff2cd655f44414729"
+  },
+  "verification": {
+    "targeted_RAG_tests_passed": 128,
+    "canonical_index_passages_verified": 617,
+    "offline_metric_results_replayed": 81,
+    "new_provider_calls": 0,
+    "final_test_accessed": false
+  }
+}
