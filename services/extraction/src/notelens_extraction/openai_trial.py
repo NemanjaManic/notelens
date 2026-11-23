@@ -24,16 +24,45 @@ def align_unique_spans(value: dict, text: str) -> tuple[dict, int]:
     """
     result = copy.deepcopy(value)
     count = 0
+    def align(span, context=None):
+        nonlocal count
+        try:
+            validate_span(text, span)
+            return
+        except EvidenceError:
+            pass
+        try:
+            resolved = resolve_quote(text, span["quote"])
+        except EvidenceError:
+            quote = span.get("quote")
+            if not isinstance(quote, str) or not quote or not context:
+                raise
+            positions = set()
+            for evidence in context:
+                validate_span(text, evidence)
+                offset = evidence["start"]
+                while (found := text.find(quote, offset, evidence["end"])) >= 0:
+                    positions.add(found)
+                    offset = found + 1
+            if len(positions) != 1:
+                raise EvidenceError("Mention quote is absent or ambiguous in its selected evidence.")
+            start = positions.pop()
+            resolved = {"start": start, "end": start + len(quote), "quote": quote}
+        span.update(resolved)
+        count += 1
     def visit(item):
         nonlocal count
         if isinstance(item, dict):
+            if isinstance(item.get("mention"), dict) and isinstance(item.get("evidence"), list):
+                for evidence in item["evidence"]:
+                    visit(evidence)
+                align(item["mention"], item["evidence"])
+                for key, child in item.items():
+                    if key not in {"mention", "evidence"}:
+                        visit(child)
+                return
             if {"start", "end", "quote"} <= item.keys():
-                try:
-                    validate_span(text, item)
-                except EvidenceError:
-                    resolved = resolve_quote(text, item["quote"])
-                    item.update(resolved)
-                    count += 1
+                align(item)
             for child in item.values():
                 visit(child)
         elif isinstance(item, list):
@@ -126,6 +155,10 @@ def completion_text(response: dict, *, model: str = MODEL) -> str:
             raise invalid_response()
         block = content[0]
         if block.get("type") != "output_text" or not isinstance(block.get("text"), str):
+            raise invalid_response()
+        if item.get("phase") == "commentary":
+            continue
+        if item.get("phase") not in (None, "final_answer"):
             raise invalid_response()
         texts.append(block["text"])
     if len(texts) != 1:

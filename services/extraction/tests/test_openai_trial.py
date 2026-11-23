@@ -111,3 +111,28 @@ def test_repeated_quote_alignment_keeps_valid_position_and_rejects_ambiguity():
         align_unique_spans({**raw, "start": 2}, "cough cough")
     with pytest.raises(EvidenceError):
         align_unique_spans(raw, "No matching evidence")
+
+
+def test_repeated_mention_uses_only_its_unambiguous_selected_evidence():
+    text = "No cough. Reports cough."
+    raw = {"mention": {"start": 1, "end": 6, "quote": "cough"},
+           "evidence": [{"start": 0, "end": 14, "quote": "Reports cough."}]}
+    aligned, count = align_unique_spans(raw, text)
+    assert aligned["mention"] == {"start": 18, "end": 23, "quote": "cough"}
+    assert count == 2  # Also resolves the evidence's incorrect coordinates.
+    raw["evidence"] = [{"start": 0, "end": len(text), "quote": text}]
+    with pytest.raises(EvidenceError):
+        align_unique_spans(raw, text)
+
+
+def test_completion_selects_final_phase_without_concatenating_commentary():
+    from notelens_extraction.openai_trial import completion_text
+    value = envelope('{"final":true}')
+    final = value["output"][-1]
+    final["phase"] = "final_answer"
+    commentary = {**final, "phase": "commentary", "content": [{"type": "output_text", "text": "Working."}]}
+    value["output"] = [commentary, final]
+    assert completion_text(value) == '{"final":true}'
+    value["output"] = [final, final]
+    with pytest.raises(ServiceError):
+        completion_text(value)
