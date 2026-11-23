@@ -17,7 +17,7 @@ export type Panel<T> = { state: 'ready'; record: T } | { state: 'loading' | 'emp
 export type Passage = { key: string; label: string; span: EvidenceSpan; sourceId?: string };
 export type Report = { document: PreparedDocument | null; classification: Panel<ClassificationResult>;
   extraction: Panel<ExtractionResult>; passages: Passage[] };
-export type Workspace = Report & { scenario: Scenario; selected: Passage | null; heading: string; fittedClassifier?: true };
+export type Workspace = Report & { scenario: Scenario; selected: Passage | null; heading: string; fittedClassifier?: true; d005Replay?: true };
 // The frozen catalog includes intentionally invalid Unicode test inputs. Read it
 // only on the server: a JSON bundler must not reinterpret or rewrite that catalog.
 // The local preview supports the documented repository-root and apps/web commands.
@@ -30,14 +30,14 @@ const blocked = { state: 'unavailable' as const, notice: 'The document is unavai
 /** Validates the full selected document and each independent result before presentation. */
 export async function buildReport(
   documentInput: unknown, classificationInput: unknown, extractionInput: unknown,
-  classificationMode: 'mock' | 'live' = 'mock',
+  classificationMode: 'mock' | 'live' = 'mock', extractionMode: 'mock' | 'live' = 'mock',
 ): Promise<Report> {
   let document: PreparedDocument;
   try { document = await validateRecord('PreparedDocument', structuredClone(documentInput)); }
   catch { return { document: null, classification: blocked, extraction: blocked, passages: [] }; }
   const [classification, extraction] = await Promise.all([
     consumeRecord('ClassificationResult', { kind: 'native', value: structuredClone(classificationInput) }, { document }, classificationMode),
-    consumeRecord('ExtractionResult', { kind: 'native', value: structuredClone(extractionInput) }, { document }),
+    consumeRecord('ExtractionResult', { kind: 'native', value: structuredClone(extractionInput) }, { document }, extractionMode),
   ]);
   const result: Report = { document,
     classification: classification.kind === 'accepted' ? { state: 'ready', record: classification.record }

@@ -26,6 +26,11 @@ function loopbackPort(value: string | undefined) {
 
 export function mockServiceClients(env: NodeJS.ProcessEnv = process.env, transport: typeof fetch = fetch) {
   const token = env.NOTELENS_DEMO_TOKEN;
+  const replayProfile = env.NOTELENS_LOCAL_D005_PROFILE;
+  const d005Replay = replayProfile === 'saved-replay';
+  if (replayProfile !== undefined && (!d005Replay ||
+      !loopbackPort(/^http:\/\/localhost:([0-9]+)$/.exec(env.NOTELENS_SESSION_ORIGIN ?? '')?.[1]) ||
+      !token || !/^\S+$/.test(token))) return null;
   const ports = {
     RAG: loopbackPort(env.NOTELENS_DEMO_RAG_PORT),
     CLASSIFIER: loopbackPort(env.NOTELENS_DEMO_CLASSIFIER_PORT),
@@ -49,7 +54,7 @@ export function mockServiceClients(env: NodeJS.ProcessEnv = process.env, transpo
         status: response.status, requestHeaders, responseHeaders: [...response.headers],
         json: await response.text(), disposition: response.ok ? 'accepted_result' : 'failed_call',
         document: 'document' in body ? body.document : undefined,
-      });
+      }, d005Replay);
       // consumeExchange validates the response with the definition for this operation.
       if (result.kind === 'accepted') return { kind: 'accepted', record: result.record as Result<K> };
       if (operation === 'literature-answer' && response.status === 422 &&
@@ -61,6 +66,7 @@ export function mockServiceClients(env: NodeJS.ProcessEnv = process.env, transpo
   }
 
   return {
+    d005Replay,
     classify: (document: ClassificationRequest['document']) => post('classify', { schema_version: '1.0.0', document }),
     extract: (document: ExtractionRequest['document']) => post('extract', { schema_version: '1.0.0', document }),
     documentAnswer: (document: DocumentQuestionRequest['document'], question: string) =>

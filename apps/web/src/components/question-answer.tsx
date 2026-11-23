@@ -6,12 +6,14 @@ const stateNames = { sufficient: 'Sufficient evidence', partial: 'Partial eviden
   insufficient: 'Insufficient evidence', unavailable: 'Answer unavailable', unsupported: 'Question outside demo scope' };
 
 export function QuestionAnswer({ answer, href }: { answer: RoutedAnswer; href?: string }) {
-  return <section aria-label="Mock answer" data-answer-route={answer.route} data-answer-state={answer.state}>
+  const savedReplay = answer.branches.some(({ result }) => result.kind === 'accepted' && result.record.mode === 'live');
+  return <section aria-label={savedReplay ? 'Saved document answer replay' : 'Mock answer'} data-answer-route={answer.route} data-answer-state={answer.state}>
     <h4>{stateNames[answer.state]}</h4>
     <p className="section-state">Sources: {routeNames[answer.route]}</p>
     {answer.state === 'unsupported' && <p>This local demo answers a limited set of questions. Try a preset.</p>}
     {answer.branches.map(({ origin, result }) => <section key={origin} aria-label={routeNames[origin]}>
       <h5>{routeNames[origin]}</h5>
+      {result.kind === 'accepted' && result.record.mode === 'live' && <p className="muted">Saved-response replay</p>}
       {result.kind !== 'accepted' ? <p className="state-message">{result.kind === 'invalid'
         ? `The ${origin} answer could not be verified.`
         : result.kind === 'unsupported' ? 'This question is outside the literature mock’s supported set. Try a preset.'
