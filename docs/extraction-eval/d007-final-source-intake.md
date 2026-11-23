@@ -53,3 +53,31 @@ not further unseen canonical texts or final questions/answers before release.
    Keep the actual final questions, sources selected by slot and answer keys
    in the restricted workflow. A/D evaluation access follows the manifest
    and configuration freeze.
+
+## Author confirmation clarification (2026-11-23)
+
+Goran's message relayed by Milica confirms four fresh synthetic replacement
+documents from new families for F-MIX-05 through F-MIX-08. The four previously
+exposed families remain retired from unseen final use. Sara's technical check
+reportedly covered all 26 slots, found zero matches against known development
+exclusions and matched all four replacement checksums. The reconciled source-list
+SHA-256 is `6198b4085b45e702d065535e9705c5b6bf7d841230d35a247bcee327fb26ebf0`,
+matching the previously recorded D intake.
+
+Sara's confirmation of pre-handoff provenance relies on Goran's account as the
+author. She is aware of no exposure outside the restricted workflow. Record this
+as author-attested history and a reported technical check; it does not establish
+independent observation of pre-handoff history or universal absence of exposure.
+D did not open final source texts or answer keys or rerun these checks in this
+update. The source-list bytes were not newly rehashed. See the
+[confirmation receipt](../../eval/reports/development/d007-goran-replacement-provenance-confirmation-v1.json).
+Completed case/review inventory and the approved final source/system freeze
+remain pending; this message does not close D-007 or authorize final measurement.
+
+Sara's subsequent message reconfirms her access to the pinned literature snapshot
+and the source check covering all 26 planned slots. She explicitly reports
+authoring and cross-review still open. She will agree a handoff date with Goran
+and provide the versioned metadata inventory and reviewer receipts after those
+steps. No delivery date or completed authoring/review is inferred. Her access
+confirmation does not confirm Goran's access. See the
+[combined follow-up receipt](../../eval/reports/development/d008-sara-non-independent-feedback-intake-v1.json).
