@@ -1,0 +1,372 @@
+{
+  "version": "d011-provider-execution-v1",
+  "date": "2026-11-23",
+  "service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "partition": "development",
+  "operations": [
+    {
+      "id": "assignment-022",
+      "operation": "extract",
+      "number": 1,
+      "request_sha256": "ec62ccaee1755cca515b498e14145c82059d601899443d35007cd81e2fbcce27",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "validation_cause_type": "ContractValidationError",
+      "usage": {
+        "input_tokens": 2494,
+        "input_tokens_details": {
+          "cache_write_tokens": 2491,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2491
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 589,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 3083
+      },
+      "response_status": "completed",
+      "response_sha256": "fc589d539c10298ab9120702926ad862dc951daeb2fa1053995414bc307f2ebb"
+    },
+    {
+      "id": "assignment-029",
+      "operation": "extract",
+      "number": 2,
+      "request_sha256": "733e5cbcbd8796e515257c9afba6e7fb7783eb4f277defcebb887c405a7157ad",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "validation_cause_type": "EvidenceError",
+      "usage": {
+        "input_tokens": 2522,
+        "input_tokens_details": {
+          "cache_write_tokens": 2519,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2519
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 889,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 3411
+      },
+      "response_status": "completed",
+      "response_sha256": "3d51cdd2f349527e7cd60ec64e3cd3ada47353bc1570b2cfc6681cd5978d1749"
+    },
+    {
+      "id": "assignment-012",
+      "operation": "extract",
+      "number": 3,
+      "request_sha256": "7b68a11517a5d97f9e88a69548aae6e07fcac25276b7785a29c07b6f676bdc56",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "usage": {
+        "input_tokens": 2581,
+        "input_tokens_details": {
+          "cache_write_tokens": 2578,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2578
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1732,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 4313
+      },
+      "response_status": "completed",
+      "response_sha256": "5c6c98cca6eb1679c3bc47fc0f718fd32740a9a8e1994195f89993387e279a51"
+    },
+    {
+      "id": "assignment-016",
+      "operation": "extract",
+      "number": 4,
+      "request_sha256": "43344f09833a6eb700818ed2e15f7d63f49e55b42c6c3ddcad6c5b0b918b1466",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "f82b292792b909e69afc2ad7880f8987a18e9b49f58d6a600a1627cbbea78d82",
+      "aligned_numeric_spans": 6,
+      "usage": {
+        "input_tokens": 2695,
+        "input_tokens_details": {
+          "cache_write_tokens": 2692,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2692
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1624,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 4319
+      },
+      "response_status": "completed",
+      "response_sha256": "51ffbec2db79e289c3502515e4a624b45547fe91f9d27f30826bc6830c6b09a2"
+    },
+    {
+      "id": "assignment-017",
+      "operation": "extract",
+      "number": 5,
+      "request_sha256": "27704b8a5d353fd3de034e9265f4378ce530d9c9201f3397fdaa85fb175d1e1c",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "usage": {
+        "input_tokens": 3040,
+        "input_tokens_details": {
+          "cache_write_tokens": 3037,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 3037
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 2081,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 5121
+      },
+      "response_status": "completed",
+      "response_sha256": "ad213aa7d9da479713860f14c983cb0ba5acb297eed8e576865e6490b5ed6766"
+    },
+    {
+      "id": "assignment-008",
+      "operation": "extract",
+      "number": 6,
+      "request_sha256": "70922d591cd693e1e9c55712662e2eb2cc0fa6e1eccd46c87e67abd5f28dad4a",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "usage": {
+        "input_tokens": 3150,
+        "input_tokens_details": {
+          "cache_write_tokens": 3147,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 3147
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 2741,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 5891
+      },
+      "response_status": "completed",
+      "response_sha256": "3b78e475dd931d5a49c56873b3017bde65ed60741a14e1a5244ec9cb6919bae8"
+    },
+    {
+      "id": "confirmed-01/supported",
+      "operation": "answer",
+      "number": 7,
+      "request_sha256": "7e2957f915520d4757ccd612d36279ccf8dbe828846674b3cace56b9785b2038",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "cc5e42a6d24e76dd41d4b2878dfedc192c3120c9094bbc1c1c877c2d7d264e7e",
+      "aligned_numeric_spans": 0,
+      "usage": {
+        "input_tokens": 2152,
+        "input_tokens_details": {
+          "cache_write_tokens": 2149,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2149
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 293,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2445
+      },
+      "response_status": "completed",
+      "response_sha256": "8176864599f265bd1c5e168a2ad374420f7f40d065f88f688e8fe20cb92fbd33"
+    },
+    {
+      "id": "negation-01/supported",
+      "operation": "answer",
+      "number": 8,
+      "request_sha256": "b830e2880f3d4b6c86cb1f03cd2d6aa91ddec98acbb9671624b7559a89433cd2",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "1263d30be00e2b44ca942c6f3e7c2b7bd3af30d99363553bbd73b24a7e9c14af",
+      "aligned_numeric_spans": 0,
+      "usage": {
+        "input_tokens": 2165,
+        "input_tokens_details": {
+          "cache_write_tokens": 2162,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2162
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 304,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2469
+      },
+      "response_status": "completed",
+      "response_sha256": "5b656a986c6e2e386204200bd7debd4e2380077944f99b261cca43231b860197"
+    },
+    {
+      "id": "history-01/absent",
+      "operation": "answer",
+      "number": 9,
+      "request_sha256": "2bd87a22f0ca7ae105ae360f9da655b5ad6460f6b15154d24de075b72080f495",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "validation_cause_type": "ContractValidationError",
+      "usage": {
+        "input_tokens": 2158,
+        "input_tokens_details": {
+          "cache_write_tokens": 2155,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2155
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 263,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2421
+      },
+      "response_status": "completed",
+      "response_sha256": "308ca53e55f8c25be3a7ed3733a7baa31b3e127dc492bbc06fe0e8ac96ba1bae"
+    },
+    {
+      "id": "procedure-01/supported",
+      "operation": "answer",
+      "number": 10,
+      "request_sha256": "83420cca2c6bd6545d59fe4818d750f7641feb207ea6f2dff5ac76f4410329fe",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "cb6a15510c59cb2824f349c5fed6a07327356f4bd623c33d92d864b4d19b16c0",
+      "aligned_numeric_spans": 0,
+      "usage": {
+        "input_tokens": 2167,
+        "input_tokens_details": {
+          "cache_write_tokens": 2164,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2164
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 452,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2619
+      },
+      "response_status": "completed",
+      "response_sha256": "c5f241bc2b2dabe51c222e617c780f6b8702d9b5353571526145615da1510d59"
+    },
+    {
+      "id": "complex-01/supported",
+      "operation": "answer",
+      "number": 11,
+      "request_sha256": "503558b78456ddc9758cd88d4c8fcb76886628f81a199ee217d05e89c53112e3",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "f296089c33c51d58ffe70571554b19e3b282c0eeab9af32744e491c4e7edf6b6",
+      "aligned_numeric_spans": 0,
+      "usage": {
+        "input_tokens": 2179,
+        "input_tokens_details": {
+          "cache_write_tokens": 2176,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2176
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 422,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2601
+      },
+      "response_status": "completed",
+      "response_sha256": "727fae77c07467cab9191f64e519dcfe44f775aa889eecf742d7be2b1ae741ef"
+    },
+    {
+      "id": "limited-04/supported",
+      "operation": "answer",
+      "number": 12,
+      "request_sha256": "fb5f7b59f3f3b8be411c10dedce5b84a6d6426978413bebc559083cf5df2aed9",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "62fb8f363e8e7da1ec7602210e5d70165ca7dfc7dedce2bf76a11c913346817b",
+      "aligned_numeric_spans": 0,
+      "usage": {
+        "input_tokens": 2169,
+        "input_tokens_details": {
+          "cache_write_tokens": 174,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 174
+          },
+          "cached_tokens": 1992
+        },
+        "output_tokens": 442,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2611
+      },
+      "response_status": "completed",
+      "response_sha256": "d4fc37298f673721532ba97868b4fcad38be838b0339e08ef7d16ade185a4824"
+    }
+  ],
+  "max_provider_calls": 12,
+  "reservation_count": 12,
+  "automatic_retries": 0,
+  "known_cumulative_max_reservation_usd": "0.0554055",
+  "actual_billing_confirmed": false,
+  "private_archive": "Predaja-NoteLens/D-011/D011-bounded-development-v1",
+  "final_measurement_executed": false
+}

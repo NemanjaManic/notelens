@@ -1,0 +1,16 @@
+{
+  "version": "d011-d009-verification-v1",
+  "date": "2026-11-23",
+  "service_tests_passed": 114,
+  "eval_tests_passed": 141,
+  "unapproved_final_candidate_rejected": true,
+  "final_execution_receipt_absent": true,
+  "provider_calls_for_offline_scoring_and_replay": 0,
+  "known_cumulative_reservation_usd": "0.0554055",
+  "final_run_executed": false,
+  "quality_gate": "failed",
+  "original_acceptance_snapshot_hash_matches_pre_measurement_plan": true,
+  "repository_acceptance_semantically_unchanged_since_before_measurement": true,
+  "public_json_normalized_to_lf_for_git": true,
+  "pre_measurement_hash_basis": "Exact private Windows-byte snapshots; repository LF serialization differs only in whitespace/newlines, with decisions and numbers unchanged."
+}
