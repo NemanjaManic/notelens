@@ -1,5 +1,27 @@
 # Development acceptance decisions
 
+## Adopted v2 decision and measured outcome (2026-11-23; current)
+
+Milica explicitly delegated the numerical choice after allowing stricter targets.
+`eval/config/acceptance.json` now records schema/spans 1.00, entity exact F1 0.90,
+topic Recall@5 0.95 and semantic answer risk at most 0.05, with a named decision
+record. These project gates are not prescribed clinical thresholds. The decision
+and acceptance hashes were fixed before the twelve-operation development pilot.
+
+The [measured pilot](d011-development-measurement-v1.md) returned valid results
+for 1/6 extraction requests and 5/6 QA requests; acceptance is **failed**.
+Official complete-case F1 is unavailable with failed extractions; independent
+semantic answer-risk labels are also missing. The separately labelled literal
+QA proxy has zero errors in five emitted answers, and a conservative end-to-end
+entity lower bound is 0.0000. Neither replaces a missing acceptance metric.
+The matched mock and prior retrieval baselines are retained with their own scope.
+
+The regression decision rejects full release acceptance of the measured service.
+D-011 measurement/decision artifacts are prepared; remediation, remeasurement
+and justified semantic risk evidence remain open. D-009 retains its original
+scope and cannot execute a final run while these gates fail. The older unset
+threshold discussion below is historical, not the current configuration.
+
 The D-011 proposal in `eval/config/acceptance.json` preserves the required
 complete schema/span validity rates. Quality thresholds remain unset pending
 development measurements and named team decisions. The initial quality entries

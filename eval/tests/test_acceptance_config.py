@@ -9,6 +9,12 @@ from notelens_eval.acceptance import evaluate
 
 def inputs():
     config = json.loads((Path(__file__).parents[1] / "config/acceptance.json").read_text())
+    # Exercise the undecided state independently of the adopted project decision.
+    for criterion in config["criteria"].values():
+        if criterion["kind"] == "quality":
+            criterion["threshold"] = None
+            criterion.pop("decision_by", None)
+            criterion.pop("decision_record", None)
     measurement = {"version": "synthetic-test", "acceptance_version": config["version"],
                    "sample_count": 10, "metrics": {"schema_validity": 1, "span_validity": 1}}
     return config, measurement

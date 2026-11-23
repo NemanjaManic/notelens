@@ -1,10 +1,36 @@
 {
-  "version": "d-acceptance-proposal-v1",
+  "version": "d-acceptance-adopted-v2",
   "criteria": {
-    "schema_validity": {"kind": "structural", "direction": "minimum", "threshold": 1},
-    "span_validity": {"kind": "structural", "direction": "minimum", "threshold": 1},
-    "entity_exact_f1": {"kind": "quality", "direction": "minimum", "threshold": null},
-    "topic_recall_at_5": {"kind": "quality", "direction": "minimum", "threshold": null},
-    "answer_risk": {"kind": "quality", "direction": "maximum", "threshold": null}
+    "schema_validity": {
+      "kind": "structural",
+      "direction": "minimum",
+      "threshold": 1
+    },
+    "span_validity": {
+      "kind": "structural",
+      "direction": "minimum",
+      "threshold": 1
+    },
+    "entity_exact_f1": {
+      "kind": "quality",
+      "direction": "minimum",
+      "threshold": 0.9,
+      "decision_by": "Milica (coordinator), numerical choice explicitly delegated to D assistant",
+      "decision_record": "eval/reports/development/d011-quality-decisions-v1.json"
+    },
+    "topic_recall_at_5": {
+      "kind": "quality",
+      "direction": "minimum",
+      "threshold": 0.95,
+      "decision_by": "Milica (coordinator), numerical choice explicitly delegated to D assistant",
+      "decision_record": "eval/reports/development/d011-quality-decisions-v1.json"
+    },
+    "answer_risk": {
+      "kind": "quality",
+      "direction": "maximum",
+      "threshold": 0.05,
+      "decision_by": "Milica (coordinator), numerical choice explicitly delegated to D assistant",
+      "decision_record": "eval/reports/development/d011-quality-decisions-v1.json"
+    }
   }
 }
