@@ -1,0 +1,18 @@
+{
+  "version": "d009-final-owner-reconciliation-v1",
+  "date": "2026-11-23",
+  "source": "Goran update forwarded by Milica",
+  "B009_owner": "Goran; rerun after PR32 merge and verify merged app revision",
+  "B005_formal_acceptance": "Separate B-owned decision, still pending",
+  "replacement_custodians": "Sara/Goran; new families, version-specific review receipts and new manifest pending coordinator/custodian approval",
+  "operator": "Goran proposed; authorization and Windows readiness not yet confirmed",
+  "RAG_embedding_limits_owner": "Nemanja",
+  "exact_runtime_inventory": "Joint selected-system owners; must be reconciled before budget approval",
+  "quality_limitations_decision": "Already accepted by team as reported by Milica; d009-team-final-limitations-approval-v1.json. Failed/missing metrics remain failed/missing.",
+  "final_extraction_labels_accountable_owner": "D / Milica coordinates source-specific annotation and reference assembly",
+  "final_extraction_primary_annotators_and_reviewers": "Not yet nominated or availability-confirmed; no collaborator commitment inferred",
+  "final_extraction_scoring": "D agent verifies source identity, schema, spans and frozen references after generation; does not silently invent gold labels",
+  "D013_reuse_as_final_ground_truth": false,
+  "final_extraction_F1": "Requires separate final annotations reviewed/frozen without seeing generated predictions. Until supplied, not measured; do not replace with development F1.",
+  "d009_closed": false
+}
