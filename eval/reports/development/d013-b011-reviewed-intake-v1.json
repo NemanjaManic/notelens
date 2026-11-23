@@ -1,0 +1,65 @@
+{
+  "version": "d013-b011-reviewed-intake-v1",
+  "date": "2026-11-23",
+  "status": "all_primary_submissions_received_independent_review_minimum_met_adjudication_pending",
+  "packages": [
+    {
+      "archive": "B-011-primary-020-029-human-reviewed-private.zip",
+      "sha256": "2b1a008e80e11b35fa8fb88f067a6e92abe935f049654c2037363f56a5d32a8d",
+      "file_checksums_verified": 4,
+      "role": "primary",
+      "records": 10,
+      "mentions_received": 373,
+      "evidence_spans_received": 389,
+      "open_questions_received": 49
+    },
+    {
+      "archive": "B-011-independent-001-004-007-human-reviewed-private.zip",
+      "sha256": "be067ad2d9845103f107d523e7f904f8d2d4a2a8fadf913b6ed3ec496d02f229",
+      "file_checksums_verified": 4,
+      "role": "secondary",
+      "records": 3,
+      "mentions_received": 100,
+      "evidence_spans_received": 108,
+      "open_questions_received": 19
+    }
+  ],
+  "canonical_texts_independently_verified": [
+    "assignment-001",
+    "assignment-004",
+    "assignment-007"
+  ],
+  "canonical_texts_pending_for_exact_span_verification": [
+    "assignment-020",
+    "assignment-021",
+    "assignment-022",
+    "assignment-023",
+    "assignment-024",
+    "assignment-025",
+    "assignment-026",
+    "assignment-027",
+    "assignment-028",
+    "assignment-029"
+  ],
+  "secondary_mentions_verified": 100,
+  "secondary_evidence_spans_verified": 108,
+  "new_primary_mentions_pending_source_verification": 373,
+  "new_primary_evidence_spans_pending_source_verification": 389,
+  "source_completeness_for_022_and_029": "Goran relayed Sara's confirmation of the exact supplied 62- and 112-code-point records.",
+  "primary_submissions_received": 40,
+  "expected_primaries": 40,
+  "eligible_independent_review_declarations_received": 12,
+  "independent_review_minimum": 10,
+  "new_independent_review_credit": 3,
+  "new_open_questions": 68,
+  "paired_comparisons_prepared": [
+    "assignment-001",
+    "assignment-004",
+    "assignment-007"
+  ],
+  "full_d013_closed": false,
+  "human_adjudication_complete": false,
+  "original_member_submissions_modified": false,
+  "provider_calls": 0,
+  "final_qa_sources_accessed": false
+}
