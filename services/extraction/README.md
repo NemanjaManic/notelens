@@ -130,11 +130,20 @@ handoff. B's provider-backed app check needs the reviewed configured service.
 An operator policy may select `"input_format": "messages"` for a canonical request
 encoded as a user message with an `input_text` block. Omit it or use `"text"` for
 the existing string input. Unknown formats fail before claiming a receipt.
-The original trial retains its text input and hashes. A changed format needs new
-reviewed payload pins and execution authorization.
+The consumed original trial stays archived at its recorded request hashes and
+must not be restarted. Changed formats/prompts need newly reviewed payload pins
+and execution authorization.
 
 Non-200 responses retain bounded allowlisted operator metadata through
 `ServiceError.provider_diagnostics`. Free-text messages and unknown values are
 discarded. Diagnostics are not in the public error envelope. No retry is added.
 See the [D-004/D-005 completion package](../../docs/extraction-eval/d004-d005-completion-v2.md)
 for the prepared but unapproved trial and pending provider-output review.
+
+The later [reviewed v3 handoff](../../docs/extraction-eval/d005-reviewed-handoff-v3.md)
+supersedes that pending status: JSON mode now has an explicit JSON instruction
+in the user input, source-derived code-point hints are provided and unique exact
+quote alignment fails closed on ambiguity. Duplicate keys/nonfinite numbers are
+rejected before alignment. The final synthetic extraction and answer passed
+unchanged, with zero coordinate adjustments. Further app calls require a reviewed
+bounded policy; the consumed original trial must not be rerun.

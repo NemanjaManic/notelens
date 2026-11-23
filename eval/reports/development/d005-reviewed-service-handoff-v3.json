@@ -1,0 +1,47 @@
+{
+  "version": "d005-reviewed-service-handoff-v3",
+  "date": "2026-11-23",
+  "status": "reviewed_d_service_handoff_ready_for_goran_app_recheck",
+  "service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "runtime": "Python 3.13.7 / locked service uv.lock",
+  "model": "gpt-6-luna",
+  "input_format": "messages",
+  "max_output_tokens": 2048,
+  "pins": {
+    "services/extraction/uv.lock": "626b44bcd33a7f2acb782a13b0339949a80adf255a79893bbff94e287cb0dec4",
+    "services/extraction/src/notelens_extraction/prompts/extract-v1.txt": "d724ae9868b6f1df49195649e96ecea57f0db9143ce1c69bc0596125ab74586f",
+    "services/extraction/src/notelens_extraction/prompts/answer-v1.txt": "ad99f61436f97a058ab6f3fb0c713fda31100abee8f6b0333e84487289dd0bfa",
+    "contracts/generated/python/src/notelens_contracts/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78"
+  },
+  "receipt": "eval/reports/development/d004-d005-provider-review-v3.json",
+  "receipt_sha256": "c96bcd3aba9c30041602012745f1bc48f25681d67e0ffec31fa2af59f715c1ff",
+  "private_package": "Predaja-NoteLens/D-005/D005-reviewed-synthetic-service-handoff-v3.zip",
+  "private_package_sha256": "e3ae6b924d80d122afa3b88fa23830bd220a9dc81bb66cfabcdacfe20182ecaf",
+  "startup": "docs/extraction-eval/d005-reviewed-handoff-v3.md",
+  "review_findings": {
+    "reviewer": "D assistant, not a new independent human rating",
+    "extraction_items": 5,
+    "source_supported_mentions_and_statuses": 5,
+    "summary_supported_claims": 5,
+    "answer_supported_claims": 1,
+    "english": true,
+    "document_identity_and_hash": true,
+    "exact_citations_valid": true,
+    "missing_demo_facts_detected": 0,
+    "unsupported_claims_detected": 0,
+    "required_gap_for_this_question": false,
+    "semantic_review_passed": true
+  },
+  "known_cumulative_reservation_usd": "0.0215100",
+  "goran_next_checks": [
+    "Document identity",
+    "Exact citation highlights",
+    "Partial answers and explicit gaps",
+    "Insufficient versus out-of-scope outcomes"
+  ],
+  "further_app_provider_scope": "No additional app calls are authorized by the consumed diagnostic continuation; prepare a bounded app policy before live generation.",
+  "reviewed_app_acceptance": false,
+  "deployment_accepted": false,
+  "unseen_final_measurement_executed": false,
+  "message_sent": false
+}

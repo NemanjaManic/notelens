@@ -1,5 +1,12 @@
 # D-004 and D-005 completion package — 2026-11-23
 
+Superseded by the successful [reviewed v3 handoff](d005-reviewed-handoff-v3.md).
+Milica subsequently authorized diagnostic continuation. The JSON-input cause was
+confirmed and corrected, final real extraction/answer outputs passed and were
+reviewed, and the D-owned service tasks are closed. The failed v2 history below
+is preserved. Goran's app acceptance, D-011 quality measurement, deployment and
+unseen-final execution remain pending.
+
 ## Actual v2 execution outcome (current)
 
 Milica explicitly approved the prepared proposal. The agent executed the first

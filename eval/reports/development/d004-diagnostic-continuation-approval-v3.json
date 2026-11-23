@@ -1,0 +1,11 @@
+{
+  "version": "d004-diagnostic-continuation-approval-v3",
+  "date": "2026-11-23",
+  "authority": "Milica explicitly requests additional calls to diagnose and resolve input rejection; supersedes prior stop rule for this new continuation only.",
+  "operator": "Milica with agent",
+  "local_diagnostic_call_limit": 6,
+  "automatic_retries": 0,
+  "cumulative_cap_usd": "0.10",
+  "data": "Existing public synthetic demo only; no final QA or real patient inputs.",
+  "higher_budget_offer_used": false
+}
