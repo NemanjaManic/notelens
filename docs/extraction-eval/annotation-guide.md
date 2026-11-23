@@ -126,9 +126,26 @@ occurrences. Preserve the source and record any occurrence-specific ambiguity.
   diagnosis. Independently stated condition occurrences remain in scope.
 
 The [034 decision intake](../../eval/reports/development/d013-034-human-decisions-intake-v1.json)
-pins the original human decisions and their application. Treatment-start plans,
-other paired boundaries and comparable cases still receive source-specific
-adjudication before reference closure.
+pins the original human decisions and their application. Milica subsequently
+accepted the remaining 034 removal boundary and all five 001 question decisions:
+
+- Explicit treatment-start and brace-fitting plans are in scope as planned
+  interventions. They do not establish performed medication administration.
+- The explicit medication-allergy statement is in scope as a diagnosis. A generic
+  judgment that surgery would not help does not name a separate procedure.
+- Nonspecific family gastric complaints may be retained as symptoms with family
+  subject and unknown timing, without inventing a disease.
+- Denied symptoms scoped by "No recent history" retain negated assertion and
+  historical timing as distinct occurrences.
+- Documented resolution preserves a historically confirmed symptom occurrence;
+  improvement without eradication does not end an explicitly continuing symptom.
+- Keep separate source occurrences of prior interventions. For the reviewed stent
+  removal and denervation, retain the shorter named action and preserve the target,
+  method and timing in evidence rather than duplicate the longer boundary.
+
+The [six-decision intake](../../eval/reports/development/d013-batch-01-human-decisions-intake-v1.json)
+records these source-specific applications. Other scope choices and occurrences
+remain subject to the [complete adjudication workflow](adjudication.md).
 
 ## 5. Exact mentions and evidence
 
