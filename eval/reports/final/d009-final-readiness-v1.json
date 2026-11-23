@@ -135,11 +135,6 @@
       "needed": "Exact F1 0.4679 remains below 0.90; four of six paired candidate extractions are partial and common-mention temporal labelling regresses 25/31 to 24/31. Independent semantic risk is missing; prepared protocol/blank packet are not reviews."
     },
     {
-      "id": "app",
-      "owner": "Goran",
-      "needed": "Configured app receipt for d41fa880177a7855bb92e57d98673b0a7a77d36b / coverage_v2 / low with exact app SHA and identity/highlight/partial/insufficient/out-of-scope findings."
-    },
-    {
       "id": "final_artifacts",
       "owner": "Sara/Goran restricted custodians; A/D selected-system operators",
       "needed": "After approved system/reference/eligibility freeze, execute the 26 exact cases without gold answers in runtime inputs. Supply separate pinned references, saved predictions, provenance and review evidence for final scorer."
@@ -218,5 +213,6 @@
   "d011_closure_receipt": "eval/reports/development/d011-team-accepted-closure-v1.json",
   "historical_D005_replay_acceptance": "eval/reports/development/d005-pr31-replay-review-v1.json",
   "historical_D005_app_replay_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
-  "latest_candidate_app_receipt_available": false
+  "latest_candidate_app_receipt_available": true,
+  "latest_candidate_app_recheck": "eval/reports/development/d005-d41-app-recheck-acceptance-v2.json"
 }
