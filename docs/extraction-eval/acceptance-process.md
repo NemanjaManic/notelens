@@ -1,5 +1,11 @@
 # Development acceptance decisions
 
+Latest candidate update: the [quote-protocol comparison](extraction-improvement-v2.md)
+improves source-grounded output reliability and exact entity F1. Same-six exact
+F1 is 0.6500; two further post-fix development documents score 0.6789 exact and
+0.8440 relaxed F1. Exact F1 remains below the unchanged 0.90 gate and independent
+semantic risk remains missing. Earlier failed measurements below are preserved.
+
 ## Adopted v2 decision and measured outcome (2026-11-23; current)
 
 Milica explicitly delegated the numerical choice after allowing stricter targets.

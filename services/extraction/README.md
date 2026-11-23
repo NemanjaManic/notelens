@@ -147,3 +147,19 @@ quote alignment fails closed on ambiguity. Duplicate keys/nonfinite numbers are
 rejected before alignment. The final synthetic extraction and answer passed
 unchanged, with zero coordinate adjustments. Further app calls require a reviewed
 bounded policy; the consumed original trial must not be rerun.
+
+### Strict quote-hint candidate
+
+The optional operator-policy field `"output_format": "quote_hints"` selects a
+small strict provider schema instead of asking the model to emit the full wire
+contract. The server builds identities, provenance, citation offsets and
+displayed text from source quotes; the public API contract is unchanged.
+Unresolvable candidates produce explicit incomplete/failed extraction outcomes,
+and a failed summary preserves independently valid extraction. Omit the field
+or use `"contract"` to retain the earlier behavior.
+
+The [improvement report](../../docs/extraction-eval/extraction-improvement-v2.md)
+pins the candidate, fresh/replayed sample scopes, counts and limitations. The
+new candidate improves exact mention matching but does not clear the 0.90 F1
+quality gate. Any new app/provider execution still needs a reviewed bounded
+policy; the known cumulative reservation is close to the current USD 0.10 cap.

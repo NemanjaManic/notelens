@@ -1,5 +1,9 @@
 # D-011 development measurement and release decision — 2026-11-23
 
+This baseline is preserved. The later
+[quote-protocol improvement](extraction-improvement-v2.md) reports a stronger
+candidate and new development measurements, with exact F1 still below target.
+
 ## Outcome
 
 The measurement, numerical decision record and regression decision are complete.

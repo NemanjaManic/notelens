@@ -1,0 +1,42 @@
+{
+  "version": "d011-quote-fresh-validation-plan-v3",
+  "date": "2026-11-23",
+  "service_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
+  "model": "gpt-6-luna",
+  "output_format": "quote_hints",
+  "authority": "Continuation of Milica's requested extraction improvement; two new development documents validate the now-fixed grounding code, within the existing cap.",
+  "max_new_provider_calls": 2,
+  "automatic_retries": 0,
+  "prior_known_reservation_usd": "0.0889452",
+  "new_max_reservation_usd": "0.0076027",
+  "known_combined_reservation_usd": "0.0965479",
+  "cumulative_cap_usd": "0.10",
+  "private_jobs_sha256": "870f41b8b3a81557d23ff5826acb5fa37ad809ab1dca48fbad4c2bcb88bded91",
+  "acceptance_sha256_before_measurement": "cc537d27919d56602222994f39c9914ad44aa0ece155402daf8572eb58df1992",
+  "selection": "Next two shortest frozen development documents not used in either earlier provider sample; selected before outputs. No more changes during validation.",
+  "jobs": [
+    {
+      "id": "assignment-001",
+      "operation": "extract",
+      "split": "fresh_postfix_validation",
+      "output_format": "quote_hints",
+      "max_output_tokens": 6144,
+      "input_token_bound": 7211,
+      "request_sha256": "dfae6c05ff369a965b1d5696f744859b5f7b42d12326d9c822a3d40636aacfff",
+      "reservation_usd": "0.0037931"
+    },
+    {
+      "id": "assignment-026",
+      "operation": "extract",
+      "split": "fresh_postfix_validation",
+      "output_format": "quote_hints",
+      "max_output_tokens": 6144,
+      "input_token_bound": 7376,
+      "request_sha256": "b0129b405db01fa55e43061e5421408f9bd6f10832bcf92adaaad49fea9feb2d",
+      "reservation_usd": "0.0038096"
+    }
+  ],
+  "reference_mentions": 59,
+  "final_cases_opened": false,
+  "private_archive": "Predaja-NoteLens/D-011/D011-quote-fresh-validation-v3"
+}

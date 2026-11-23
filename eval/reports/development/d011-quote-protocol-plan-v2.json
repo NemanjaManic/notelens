@@ -1,0 +1,153 @@
+{
+  "version": "d011-quote-protocol-plan-v2",
+  "date": "2026-11-23",
+  "authority": "Milica asks to improve poor extraction outputs and measure the improvement; prior authorization to continue necessary bounded provider work remains within the existing cap.",
+  "service_sha": "0873f152818e9620709a1c49470f432dd464f689",
+  "model": "gpt-6-luna",
+  "output_format": "quote_hints",
+  "max_new_provider_calls": 12,
+  "automatic_retries": 0,
+  "prior_known_reservation_usd": "0.0554055",
+  "new_max_reservation_usd": "0.0335397",
+  "known_combined_reservation_usd": "0.0889452",
+  "cumulative_cap_usd": "0.10",
+  "jobs": [
+    {
+      "id": "assignment-022",
+      "operation": "extract",
+      "split": "observed_development_regression",
+      "output_format": "quote_hints",
+      "request_sha256": "fe86c0b873d705fa39e244e7dd8f35fdc6c60f35db12c745de0ce369073e9a07",
+      "input_token_bound": 5546,
+      "max_output_tokens": 4096,
+      "reservation_usd": "0.0026026"
+    },
+    {
+      "id": "assignment-029",
+      "operation": "extract",
+      "split": "observed_development_regression",
+      "output_format": "quote_hints",
+      "request_sha256": "8f5e99201f0e81393ee33190f313ca1082d3f9950028b95aaa8e711c13ce9072",
+      "input_token_bound": 5595,
+      "max_output_tokens": 4096,
+      "reservation_usd": "0.0026075"
+    },
+    {
+      "id": "assignment-012",
+      "operation": "extract",
+      "split": "observed_development_regression",
+      "output_format": "quote_hints",
+      "request_sha256": "465107f72309fdec497dfde86f263f1d7ab3edd04182643df7a45d61812aea1f",
+      "input_token_bound": 5737,
+      "max_output_tokens": 4096,
+      "reservation_usd": "0.0026217"
+    },
+    {
+      "id": "assignment-016",
+      "operation": "extract",
+      "split": "observed_development_regression",
+      "output_format": "quote_hints",
+      "request_sha256": "90dc747c75e5606a6cdd7a4a8bc7480dcce422ae17dd45cc12299e485d112875",
+      "input_token_bound": 5987,
+      "max_output_tokens": 4096,
+      "reservation_usd": "0.0026467"
+    },
+    {
+      "id": "assignment-017",
+      "operation": "extract",
+      "split": "observed_development_regression",
+      "output_format": "quote_hints",
+      "request_sha256": "df1b7993ef9f267779461f86b17988e345fe7c7a0107967719cda2c80a61f016",
+      "input_token_bound": 6783,
+      "max_output_tokens": 6144,
+      "reservation_usd": "0.0037503"
+    },
+    {
+      "id": "assignment-008",
+      "operation": "extract",
+      "split": "observed_development_regression",
+      "output_format": "quote_hints",
+      "request_sha256": "459bd8a725738bc2d461fd3b4efb77b47ccf735117cbb439b3527c3ad2ed0e39",
+      "input_token_bound": 6902,
+      "max_output_tokens": 6144,
+      "reservation_usd": "0.0037622"
+    },
+    {
+      "id": "assignment-019",
+      "operation": "extract",
+      "split": "fresh_development_validation",
+      "output_format": "quote_hints",
+      "request_sha256": "decba93787039f2651ea7bea1afac7d8e9725818faa879745fa3557616d4cf45",
+      "input_token_bound": 6910,
+      "max_output_tokens": 6144,
+      "reservation_usd": "0.003763"
+    },
+    {
+      "id": "assignment-036",
+      "operation": "extract",
+      "split": "fresh_development_validation",
+      "output_format": "quote_hints",
+      "request_sha256": "d3cb48ad0e41f0a62ff5cd31c917b98c30bdf6a96dac1f14e2feef6c31865f01",
+      "input_token_bound": 7087,
+      "max_output_tokens": 6144,
+      "reservation_usd": "0.0037807"
+    },
+    {
+      "id": "assignment-038",
+      "operation": "extract",
+      "split": "fresh_development_validation",
+      "output_format": "quote_hints",
+      "request_sha256": "01f3408981f06f6653f156042362e075766b6b1357f0db4430ab013e376d21a7",
+      "input_token_bound": 7164,
+      "max_output_tokens": 6144,
+      "reservation_usd": "0.0037884"
+    },
+    {
+      "id": "confirmed-01/supported",
+      "operation": "answer",
+      "split": "observed_qa_regression",
+      "output_format": "quote_hints",
+      "request_sha256": "2eb00c097c4fbd5de1152952a78ef952c8cbfda44236c390d8a311b67f884a60",
+      "input_token_bound": 3814,
+      "max_output_tokens": 2048,
+      "reservation_usd": "0.0014054"
+    },
+    {
+      "id": "history-01/absent",
+      "operation": "answer",
+      "split": "observed_qa_regression",
+      "output_format": "quote_hints",
+      "request_sha256": "f8d9d1c0ec6f54e0dd5ee0e55e9fb031694dabb7cb4170625e73475f0e633602",
+      "input_token_bound": 3798,
+      "max_output_tokens": 2048,
+      "reservation_usd": "0.0014038"
+    },
+    {
+      "id": "limited-04/supported",
+      "operation": "answer",
+      "split": "observed_qa_regression",
+      "output_format": "quote_hints",
+      "request_sha256": "3f2c1d4d83ddac1e0a847a14925628af972c7836b1efdcb2dcbd8efac59c9217",
+      "input_token_bound": 3834,
+      "max_output_tokens": 2048,
+      "reservation_usd": "0.0014074"
+    }
+  ],
+  "private_jobs_sha256": "f0cc6d81c71117e1dd420f172756f514406c1692856da0f17cb2b5b53d88814b",
+  "acceptance_sha256_before_measurement": "cc537d27919d56602222994f39c9914ad44aa0ece155402daf8572eb58df1992",
+  "selection": "Six previously observed extraction cases + next three shortest unmeasured development documents (selected by length and ID before outputs) + three fixed sufficient/insufficient/partial QA regressions.",
+  "fresh_validation_case_ids": [
+    "assignment-019",
+    "assignment-036",
+    "assignment-038"
+  ],
+  "reference_mentions_by_split": {
+    "observed_development_regression": 40,
+    "fresh_development_validation": 62
+  },
+  "prompt_changes_frozen_before_new_validation": true,
+  "reference_labels_or_gold_answers_in_model_inputs": false,
+  "final_source_hash_overlap": 0,
+  "final_cases_opened": false,
+  "private_archive": "Predaja-NoteLens/D-011/D011-quote-protocol-v2"
+}
