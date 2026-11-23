@@ -59,6 +59,17 @@ def run(request: dict, operation: str, provider: Provider | None = None,
                 validate_generation(result, document, answer=True)
             if result["mode"] != provider.mode:
                 raise EvidenceError("Provider mode mismatch.")
+            if getattr(provider, "provider_name", None):
+                components = result.get("components", [])
+                if operation == "extract":
+                    components = [result["extraction_provenance"]]
+                    if result["summary"]["result"] is not None:
+                        components.append(result["summary"]["result"]["provenance"])
+                if any(component is not None and (
+                        component["mode"] != provider.mode
+                        or component["provider"] != provider.provider_name
+                        or component["model"] != provider.model) for component in components):
+                    raise EvidenceError("Generated component provenance differs from the configured provider.")
             if attempt:
                 diagnostics.repairs += 1
             return result, asdict(diagnostics)

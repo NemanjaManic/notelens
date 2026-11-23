@@ -64,14 +64,15 @@ class ResponsesTransport:
     """Send only reserved requests to a fixed endpoint, without retries or redirects."""
 
     def __init__(self, *, api_key: str, budget: TrialBudget, receipt: Path,
-                 timeout_seconds: int = 30, connect=http.client.HTTPSConnection):
+                 timeout_seconds: int = 30, connect=http.client.HTTPSConnection,
+                 receipt_label: str = "NoteLens synthetic extraction Responses trial"):
         if not api_key or not api_key.isascii() or not api_key.isprintable() or any(c.isspace() for c in api_key):
             raise ValueError("A valid server-side credential is required.")
         if type(timeout_seconds) is not int or not 1 <= timeout_seconds <= 60:
             raise ValueError("The socket timeout must be between 1 and 60 seconds.")
         # A receipt is never removed or reused, including after a crash.
         with receipt.open("x", encoding="ascii") as handle:
-            handle.write("NoteLens synthetic extraction Responses trial\n")
+            handle.write(receipt_label + "\n")
         self._api_key = api_key
         self._budget = budget
         self._timeout = timeout_seconds
