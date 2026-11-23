@@ -375,3 +375,10 @@ all 81 case/method rows from the saved rankings against the pinned references.
 The v2 package is the A-008 closure reference. B's acceptance was relayed by
 Milica and D's technical intake passed. A owns the formal task record. A-011
 and the final system freeze remain pending. See the [intake and metric pins](../../eval/reports/development/member-d-handoff-intake-2026-11-22.json).
+
+Sara subsequently reconfirmed the exact source-list digest and joint provenance
+result, verified the pinned MedlinePlus corpus checksum and confirmed that she
+can use the passages for her final authoring assignments. Goran's corpus access
+confirmation and the completed case/reference and cross-review manifests remain
+pending. Final questions, source texts and answer keys stay in the restricted
+folder until the approved freeze and release. See the [resource intake](../../eval/reports/development/team-resource-intake-2026-11-23.json).
