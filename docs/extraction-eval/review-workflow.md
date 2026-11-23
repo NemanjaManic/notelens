@@ -240,3 +240,22 @@ and final reference assembly remain pending.
 If the team needs a replacement to reach that minimum, arrange a reviewer
 without prior label exposure for 038 or another eligible assignment through
 the approved private workflow.
+
+## B-011 completed submissions received on 2026-11-23
+
+D received Goran's ten finalized primary records for 020–029 and three
+independent reviews for 001, 004 and 007. Both archive digests and all eight
+listed file checksums match. Goran attests full-document review, personally
+reviewed AI assistance and no prior primary-label exposure for the independent
+records. D verified those three sources against the exact canonical hashes and
+checked all 100 mentions and 108 evidence spans. Three new paired comparisons
+and a private queue of 68 retained questions are ready for adjudication.
+
+The submission inventory is now 40 of 40 primaries and twelve eligible
+independent review declarations. The independent-review minimum is satisfied.
+The ten primary canonical texts for 020–029 are still needed through the approved
+private route to verify 373 mentions and 389 evidence spans. Keep the exact
+supplied copies for 022 and 029, which Sara confirmed complete at 62 and 112 code
+points. D preserves all original submissions and retains the 49 primary and
+nineteen secondary questions. Canonical reference closure follows the source
+checks and human adjudication. See the [B-011 intake receipt](../../eval/reports/development/d013-b011-reviewed-intake-v1.json).
