@@ -1,0 +1,32 @@
+{
+  "version": "d004-tutor-budget-confirmation-2026-11-23-v1",
+  "recorded_on": "2026-11-23",
+  "source": "Tutor's message relayed directly by Milica in this conversation.",
+  "reported_by": "Milica",
+  "confirmation": {
+    "project_budget_consumed": "Less than 10%, per tutor.",
+    "continuation": "Tutor considers it safe to continue the work as planned.",
+    "future_spend": "Tutor states future spending cannot be predicted in advance.",
+    "exact_remaining_project_balance_usd": null
+  },
+  "disposition": {
+    "project_budget_availability_confirmation": "received; do not request the same tutor confirmation again",
+    "existing_d004_limits": {
+      "max_prepared_synthetic_requests": 2,
+      "automatic_retries": 0,
+      "cumulative_cap_usd": "0.10",
+      "old_receipt": "Preserve unchanged"
+    },
+    "scope": "Continue the existing plan. This confirmation supplies no larger numeric cap and does not name an operator, confirm server-side model access or reconcile prior D-004 charges.",
+    "next_execution_prerequisites": [
+      "Milica and Goran identify the authorized operator and server setup.",
+      "Operator confirms model access and reconciles existing D-004 attempts/charges against the unchanged cumulative cap before a fresh attempt.",
+      "Use the exact prepared requests, zero retries and a separate receipt; review outputs before the B app recheck."
+    ],
+    "broader_development_measurement": "Plan the request count and cost separately; do not treat the two-request D-004 smoke as approval for unlimited evaluation."
+  },
+  "new_provider_calls": 0,
+  "existing_receipt_modified": false,
+  "full_d004_closed": false,
+  "full_d005_closed": false
+}

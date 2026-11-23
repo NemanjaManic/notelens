@@ -182,6 +182,92 @@ source identities and audit pins. Browser/HTTP results in this intake retain
 their owner-reported execution provenance. B-005/B-009 formal acceptance and
 provider-backed D-005 verification remain pending. See the [RAG/platform intake](../../eval/reports/development/d009-rag-platform-intake-2026-11-23.json).
 
+### D-009 platform v2 intake (2026-11-23)
+
+The [v2 evidence record](../../eval/reports/development/d009-platform-evidence-intake-v2.json)
+pins the platform to `710706af0dfff60d00708e051a1c3b45fb39cc3d`. It records B-008
+security, B-005 fixture/fitted classifier and indexed RAG, D-005 mock app, B-009
+Chrome and B-007 readiness at their individual observed revisions and profiles.
+D independently verified all six linked hosted runs as completed/success at their
+exact head SHAs. Local/browser results retain B's execution provenance. Fitted
+results cite D's existing verification of Sara's C-005/C-008 replay receipt.
+The earlier intake's open-PR observations remain historical.
+
+Fresh D checks at the platform pin passed locked npm installation, production build,
+41 report checks, 51 preparation checks, 39 session checks, 18 routing tests,
+integration TypeScript checking and 11 classifier fixture tests. Versions used:
+Python 3.13.18, Node 24.20.0, npm 11.19.0 and uv 0.13.7. The platform and separate
+`e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374` D mock checkout remain source-clean.
+
+The five requested Python checks and Chrome flows were not rerun. After locked
+base setup, indexed-RAG extra setup failed when uv queried
+`services/rag/.venv/Scripts/python.exe`: Windows Application Control blocked it
+(error 4551). The setup wrapper exited 1; uv's individual exit code was not captured.
+The local administrator/Milica owns an approved execution environment; B supports
+platform setup. Do not bypass the policy or count this as an application failure.
+
+Goran's subsequent clarification separates the reruns: the default mock security
+audit, smoke, pinned D-005 mock check, readiness and Chrome rehearsal can run
+before installing the optional RAG indexing extra. They have no indexing dependency.
+Their current status is unexecuted pending an approved Windows environment, not
+independently failed checks. Source inspection shows that the default launcher
+uses the same service virtual-environment interpreter blocked during the setup
+attempt; no administrator clearance has been established. Run these default checks
+first on an approved machine. Track indexed setup, standalone smoke and
+`check_rag_app.py` separately. Help needed from Goran/local administrator is an
+approved environment able to execute the locked service interpreters. This follow-up
+records a corrected sequence, not a new runtime result.
+
+On an approved Windows machine, follow the
+[pinned locked setup](https://github.com/NemanjaManic/notelens/blob/710706af0dfff60d00708e051a1c3b45fb39cc3d/docs/platform/deployment.md).
+Use Python 3.13, Node 24, npm 11 and uv. Sync scripts/project and all three services
+with `uv sync --locked --directory PROJECT --python $platformPython --no-dev`,
+then run `npm.cmd ci --no-audit --no-fund` and `npm.cmd run build`. Add the locked
+RAG `--extra indexing` only for the separate indexed profile after the default
+mock checks. Sync extraction separately in the clean e61140d checkout. Run the
+security, mock smoke, pinned D-005 mock and readiness checkers from the platform
+root, passing the separate checkout to `check_d005_app.py`. Follow the pinned
+Chrome runbook for built-in, pasted-text and selectable-text PDF flows. Record
+indexed standalone smoke and `check_rag_app.py` separately. Interactive mock startup:
+
+```powershell
+uv run --locked --offline --directory scripts/project --python $platformPython --no-dev python -B start_mock.py
+```
+
+D-004's receipt was rehashed unchanged at
+`16e688456c8e2f20405d8417ff5ac7cec1d142573f5692636c31b5ff464df0e4`.
+Per Nemanja's clarification relayed by Milica, the tutor must confirm remaining
+API project balance; Nemanja cannot confirm it. Milica then coordinates the
+authorized operator and server setup with Goran. Preserve at most two prepared
+synthetic requests, zero retries and the cumulative USD 0.10 cap. No live calls
+were made. A tutor query was drafted for Milica; no message was sent.
+
+**Tutor budget update, 2026-11-23:** Milica relayed the tutor's confirmation that
+less than 10% of project funding has been consumed and that continuing as planned
+appears safe. Project budget availability is now confirmed; the earlier request
+to obtain tutor confirmation is resolved. Exact project balance was not supplied.
+See the [budget confirmation](../../eval/reports/development/d004-tutor-budget-confirmation-2026-11-23-v1.json).
+Next, Milica coordinates the operator and server setup with Goran. The operator
+confirms model access and reconciles prior trial attempts/costs under the unchanged
+cumulative USD 0.10 cap before any further execution. Keep at most two prepared
+synthetic requests, zero retries and the old receipt unchanged. Larger development
+measurement needs a separately bounded request/cost scope. No live call was made
+as part of this documentation update.
+
+Current D source includes operator-policy provider wiring at
+`401584798e05427b17de7e46ece4197d8eb841c6`, documented in the prior
+[offline code verification](../../eval/reports/development/d005-d009-code-verification-2026-11-23.json).
+This supersedes the earlier implementation gap; approved configuration and live
+output review remain pending. The planned trial model is `gpt-6-luna`. Prepared
+request and prompt-file hashes are in the v2 intake; mock pins are `d-mock-v1`,
+`d-mock-answer-v2` and `d-mock-prompt-v1`. After D reviews live outputs, provide B
+the reviewed service SHA, locked startup, model/prompt pins, successful receipt
+reference and findings. B then repeats document identity, exact highlights,
+partial gaps and insufficient/out-of-scope checks.
+
+Provider-backed verification, deployment acceptance and unseen-final measurement
+remain pending. B-005, B-007, B-009 and overall D-009 remain open.
+
 The D-009 final profile now scores frozen saved outputs. Use a completed copy of
 `eval/config/final-freeze.template.json` in the approved private bundle. Record
 the named approval, execution scope and reason, unique run ID, selected RAG,
