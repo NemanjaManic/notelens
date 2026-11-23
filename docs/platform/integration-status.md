@@ -1,12 +1,26 @@
-# B-005 classifier integration status
+# B-005 service integration status
 
-**Status.** B-005 remains open. The opt-in classifier report passed the joint Windows
-replay with the C-005 and C-008 fitted bundles. The default application and hosted CI
-run in mock mode. The RAG and D-005 service integrations remain open.
+**Status.** B-005 remains open for provider-backed D-005 app verification.
+The fitted classifier report replay, key-free indexed RAG app check, and pinned
+D-005 mock app check passed. The default launcher and hosted CI use mocks.
+
+The platform reference for the consolidated key-free handoff is main at
+`710706af0dfff60d00708e051a1c3b45fb39cc3d`. The checks below retain their
+individual execution pins and service profiles.
+
+| Integration | Evidence | Main merge |
+| --- | --- | --- |
+| Opt-in fitted classifier | C-005 and C-008 joint Windows replay at `9cdab928923056f31dd1f37ab4b569cc638999ab` | [PR #23](https://github.com/NemanjaManic/notelens/pull/23), `e4ffaae9d31726c7be25829ee7bbc74d970dea98` |
+| Indexed RAG | Synthetic indexed service at `d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4` | [PR #26](https://github.com/NemanjaManic/notelens/pull/26), `8352dbee32d40bab93393adbc264f56a5118bba3` |
+| D-005 mock | Production app check at `00907a9c7ddb00f61fe2ad28c71000fc5564e1ad` against D handoff `e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374` | [PR #28](https://github.com/NemanjaManic/notelens/pull/28), `aa25976956f46d1a6e419315be4ebc06dfb6dd30` |
+
+For locked Windows setup and the Python 3.13 interpreter selection, use the
+[Windows readiness runbook](deployment.md). The commands below use
+`$platformPython` from that setup.
 
 ## Published classifier evidence
 
-The branch starts from `origin/main` at `f8bba16`. Sara's published
+The original classifier branch started from `origin/main` at `f8bba16`. Sara's published
 `origin/member-c/classification` advanced to `9fc84e9`. Her branch marks C-006 complete and
 records 60 focused HTTP and contract tests and seven loopback probes against the installed
 classifier from `7181a1abdf7831bb247510821c886b0e031d5de0`. The probes covered readiness,
@@ -157,5 +171,62 @@ The receipt confirms port `8002` was released.
 
 The private passing receipt has SHA-256
 `a7a0412720b243c1aac4cb86e27ad5f64c861b985e60084f06d8502d5c2dda06`.
-The fitted classifier report replay is verified. B-005 remains open for the
-remaining RAG and D-005 service integrations.
+
+## Indexed RAG app verification
+
+The [A-008 admission fix](https://github.com/NemanjaManic/notelens/pull/24) merged at
+`5de01f17f04a2689ee728d218f50501cf1e7d6de`. The launcher integration and runtime
+pin guard passed at PR #26 head `b4e19a9b4a69d746f3f19a798dadb07c5b106e01`.
+Nemanja independently verified start and shutdown on Windows at
+`14e4b9dfdfdd5832cae7f03d12e92cc5f9a00593`. The app check also passed on the
+D-005 mock review snapshot `00907a9c7ddb00f61fe2ad28c71000fc5564e1ad`.
+
+After locked setup and the production build, install the RAG indexing extra and
+run the check from the platform checkout root.
+
+```powershell
+uv sync --locked --directory services/rag --python $platformPython --extra indexing --no-dev
+if ($LASTEXITCODE -ne 0) { throw 'Indexed RAG setup failed.' }
+& $platformPython -B scripts/project/check_rag_app.py
+if ($LASTEXITCODE -ne 0) { throw 'Indexed RAG app check failed.' }
+```
+
+The partial literature question returned HTTP 200 with a citation for the
+supported definition and an explicit missing start date. Both document claims
+and citation highlights at `[7, 21)` and `[47, 61)` survived insufficient
+literature and a stopped RAG listener. The UI displayed distinct notices, saved
+a fresh answer after the outage, and all listeners closed. This profile uses
+synthetic indexed RAG, mock extraction, and a mock classifier. The
+[indexed RAG runbook](b-005-rag-app-check.md) describes the exact cases.
+
+## Pinned D-005 mock app verification
+
+Use a second clean checkout at Milica's mock handoff
+`e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374`. Set `$d005Checkout` to its full
+path. From the platform checkout root after locked setup and the production
+build, sync the pinned mock's extraction environment and run the checker.
+
+```powershell
+uv sync --locked --directory (Join-Path $d005Checkout 'services/extraction') --python $platformPython --no-dev
+if ($LASTEXITCODE -ne 0) { throw 'Pinned extraction setup failed.' }
+& $platformPython -B scripts/project/check_d005_app.py $d005Checkout
+if ($LASTEXITCODE -ne 0) { throw 'Pinned D-005 mock app check failed.' }
+```
+
+The checker passed authenticated extraction and document-answer HTTP, request-ID
+correlation, canonical document ID and digest, report isolation, and exact spans
+for findings, summaries, and answers. The partial answer kept both citations
+and explained that age was missing. Insufficient and out-of-scope answers
+abstained and showed distinct states. All four listeners closed. The default
+mock smoke, classifier report with a response double, and indexed RAG app check
+also passed on the review snapshot. [PR #28 key-free CI](https://github.com/NemanjaManic/notelens/actions/runs/45161219377)
+
+## Provider-backed D-005 handoff
+
+After D's authorized D-004 trial and review of the generated outputs, request
+the reviewed D-005 service SHA, locked Windows startup steps, model and prompt
+identifiers, and the output review evidence. Use the approved synthetic
+requests and verify identity, exact citation highlights, partial gaps, and
+insufficient versus out-of-scope outcomes through the app. The pinned mock
+checker uses mock-specific expectations. Record the provider-backed results
+and any gaps separately before formal B-005 acceptance.
