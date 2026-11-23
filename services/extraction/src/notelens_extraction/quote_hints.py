@@ -58,9 +58,9 @@ def validate_private(value, schema):
             validate_private(child, schema["items"])
 
 
-def provenance(operation, component, model):
+def provenance(operation, component, model, prompt_version=PROMPT_VERSION):
     return {"component_id": component, "service": "extraction", "operation": operation,
-            "mode": "live", "output_version": VERSION, "prompt_version": PROMPT_VERSION,
+            "mode": "live", "output_version": VERSION, "prompt_version": prompt_version,
             "provider": "openai", "model": model, "configuration_version": VERSION,
             "corpus_version": None, "index_version": None, "retriever_version": None}
 
@@ -107,7 +107,7 @@ def build_item(entity, document, index):
             "component_id": "d-extract"}
 
 
-def build_extraction(hints, document, model):
+def build_extraction(hints, document, model, prompt_version=PROMPT_VERSION):
     items, rejected = [], 0
     for index, entity in enumerate(hints["entities"]):
         try:
@@ -123,7 +123,7 @@ def build_extraction(hints, document, model):
             summary = {"status": "completed", "error": None, "result": {
                 "language": "en", "text": "\n\n".join(c["text"] for c in claims),
                 "claims": claims, "sources": sources, "evidence_state": "sufficient", "warnings": [],
-                "provenance": provenance("summarize", "d-summary", model)}}
+                "provenance": provenance("summarize", "d-summary", model, prompt_version)}}
         except EvidenceError:
             # A summary failure must not discard independently valid extraction.
             summary = {"status": "failed", "result": None, "error": {
@@ -135,13 +135,13 @@ def build_extraction(hints, document, model):
              "retryable": False} if rejected else None
     return {"schema_version": "1.0.0", "mode": "live", "doc_id": document["doc_id"],
             "text_sha256": document["text_sha256"], "items": items, "summary": summary,
-            "extractor_version": VERSION, "prompt_version": PROMPT_VERSION, "extraction_status": extraction_status,
+            "extractor_version": VERSION, "prompt_version": prompt_version, "extraction_status": extraction_status,
             "extraction_error": error,
             "warnings": [f"{rejected} candidate mention(s) could not be grounded; extraction is incomplete."] if rejected else [],
-            "extraction_provenance": provenance("extract", "d-extract", model)}
+            "extraction_provenance": provenance("extract", "d-extract", model, prompt_version)}
 
 
-def build_answer(hints, document, model):
+def build_answer(hints, document, model, prompt_version=PROMPT_VERSION):
     selected = spans(document, hints["quotes"])
     state = hints["evidence_state"]
     if (state == "insufficient") != (not selected) or (hints["out_of_scope"] and selected):
@@ -156,11 +156,11 @@ def build_answer(hints, document, model):
             "text": "\n\n".join(c["text"] for c in claims) if claims else NO_ANSWER,
             "claims": claims, "sources": sources, "evidence_state": state, "warnings": warnings,
             "route": "document" if claims else "none", "answer_version": VERSION,
-            "prompt_version": PROMPT_VERSION if claims else None,
-            "components": [provenance("document-answer", "d-answer", model)] if claims else [],
+            "prompt_version": prompt_version if claims else None,
+            "components": [provenance("document-answer", "d-answer", model, prompt_version)] if claims else [],
             "attempted_routes": ["document"], "clarification": None, "retrieval_provenance": None}
 
 
-def build(operation, hints, document, model):
+def build(operation, hints, document, model, prompt_version=PROMPT_VERSION):
     validate_private(hints, SCHEMAS[operation])
-    return (build_extraction if operation == "extract" else build_answer)(hints, document, model)
+    return (build_extraction if operation == "extract" else build_answer)(hints, document, model, prompt_version)

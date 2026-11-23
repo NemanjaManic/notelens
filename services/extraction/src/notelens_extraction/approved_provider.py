@@ -82,6 +82,13 @@ def configured_provider(policy_path: Path, *, api_key: str, service_token: str):
     output_format = policy.get("output_format", "contract")
     if output_format not in ("contract", "quote_hints"):
         raise ValueError("The output format must be contract or quote_hints.")
+    prompt_profile = policy.get("prompt_profile", "baseline_v1")
+    reasoning_effort = policy.get("reasoning_effort", "none")
+    if prompt_profile not in ("baseline_v1", "coverage_v2") or (
+            prompt_profile == "coverage_v2" and output_format != "quote_hints"):
+        raise ValueError("The prompt profile is incompatible with the output format.")
+    if reasoning_effort not in ("none", "low"):
+        raise ValueError("The reasoning effort must be none or low.")
     budget = ServiceBudget(policy)
     receipt = (policy_path.resolve().parent / policy["receipt_path"]).resolve()
     transport = ResponsesTransport(
@@ -91,4 +98,5 @@ def configured_provider(policy_path: Path, *, api_key: str, service_token: str):
     return OpenAIResponsesProvider(
         transport, model=policy["model"], max_output_tokens=budget.output_limit,
         input_format=input_format, output_format=output_format,
+        prompt_profile=prompt_profile, reasoning_effort=reasoning_effort,
     )

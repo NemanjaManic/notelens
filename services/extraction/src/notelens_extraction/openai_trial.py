@@ -174,7 +174,8 @@ class OpenAIResponsesProvider:
     provider_name = "openai"
 
     def __init__(self, send: Callable[[dict], dict], *, model: str, max_output_tokens: int,
-                 input_format: str = "text", output_format: str = "contract"):
+                 input_format: str = "text", output_format: str = "contract",
+                 prompt_profile: str = "baseline_v1", reasoning_effort: str = "none"):
         if not isinstance(model, str) or not model.strip():
             raise ValueError("An explicitly selected model is required.")
         if type(max_output_tokens) is not int or max_output_tokens <= 0:
@@ -183,11 +184,18 @@ class OpenAIResponsesProvider:
             raise ValueError("The input format must be text or messages.")
         if output_format not in ("contract", "quote_hints"):
             raise ValueError("The output format must be contract or quote_hints.")
+        if prompt_profile not in ("baseline_v1", "coverage_v2") or (
+                prompt_profile == "coverage_v2" and output_format != "quote_hints"):
+            raise ValueError("The prompt profile is incompatible with the selected output format.")
+        if reasoning_effort not in ("none", "low"):
+            raise ValueError("The reviewed reasoning effort must be none or low.")
         self._send = send
         self.model = model
         self._max_output_tokens = max_output_tokens
         self._input_format = input_format
         self._output_format = output_format
+        self._prompt_profile = prompt_profile
+        self._reasoning_effort = reasoning_effort
 
     def generate(self, operation: str, request: dict, instructions: str, *, repair: bool) -> str:
         raw = completion_text(self._send(self.prepare(operation, request, instructions, repair=repair)), model=self.model)
@@ -195,7 +203,9 @@ class OpenAIResponsesProvider:
             value = json.loads(raw, object_pairs_hook=strict_object, parse_constant=reject_nonfinite)
             if self._output_format == "quote_hints":
                 from .quote_hints import build
-                value = build(operation, value, request["document"], self.model)
+                prompt_version = ("d-quote-hints-prompts-v2" if operation == "extract" and self._prompt_profile == "coverage_v2"
+                                  else "d-quote-hints-prompts-v1")
+                value = build(operation, value, request["document"], self.model, prompt_version)
             else:
                 value, _ = align_unique_spans(value, request["document"]["text"])
             return json.dumps(value, ensure_ascii=False)
@@ -216,7 +226,7 @@ class OpenAIResponsesProvider:
             "input": input_value,
             "text": {"format": {"type": "json_object"}},
             "max_output_tokens": self._max_output_tokens,
-            "reasoning": {"effort": "none"},
+            "reasoning": {"effort": self._reasoning_effort},
             "service_tier": "default",
             "store": False,
             "stream": False,
@@ -228,7 +238,8 @@ class OpenAIResponsesProvider:
         if self._output_format == "quote_hints":
             from .quote_hints import SCHEMAS
             payload["instructions"] = files("notelens_extraction").joinpath(
-                "prompts", f"{operation}-quotes-v1.txt").read_text(encoding="utf-8")
+                "prompts", f"{operation}-quotes-v{'2' if operation == 'extract' and self._prompt_profile == 'coverage_v2' else '1'}.txt"
+            ).read_text(encoding="utf-8")
             payload["text"] = {"format": {"type": "json_schema", "name": f"notelens_{operation}_quote_hints_v1",
                                           "strict": True, "schema": copy.deepcopy(SCHEMAS[operation])}}
         return payload

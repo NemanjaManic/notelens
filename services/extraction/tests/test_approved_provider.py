@@ -90,6 +90,16 @@ def test_quote_output_policy_is_explicit_and_unknown_values_do_not_claim_receipt
     assert p.prepare("extract", request(), "")['text']['format']['type'] == 'json_schema'
 
 
+@pytest.mark.parametrize("field,value", [("prompt_profile", "unreviewed"), ("reasoning_effort", "unreviewed"), ("prompt_profile", "coverage_v2")])
+def test_bad_economic_profile_policy_does_not_claim_receipt(tmp_path, policy, field, value):
+    path = tmp_path / "policy.json"
+    policy[field] = value
+    path.write_text(json.dumps(policy))
+    with pytest.raises(ValueError):
+        configured_provider(path, api_key="offline-test", service_token="offline-token")
+    assert not (tmp_path / policy["receipt_path"]).exists()
+
+
 @pytest.mark.parametrize("question,state", [
     ("What does the document say about chest pain?", "sufficient"),
     ("What does the document say about chest pain and the patient's age?", "partial"),

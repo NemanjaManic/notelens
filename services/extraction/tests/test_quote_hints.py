@@ -152,3 +152,31 @@ def test_http_route_exercises_quote_protocol_and_frozen_contract():
         "Authorization": "Bearer offline-quote-test", "X-Request-ID": "c0a30ebf-6664-4bac-8d81-809f504028be"})
     assert response.status_code == 200 and response.json()["mode"] == "live"
     assert response.headers["X-Generation-Attempts"] == "1"
+
+
+def test_coverage_profile_is_explicit_preserves_baseline_and_versions_each_request():
+    old = provider(hints())
+    new = OpenAIResponsesProvider(old._send, model=MODEL, max_output_tokens=4096,
+                                  input_format="messages", output_format="quote_hints",
+                                  prompt_profile="coverage_v2", reasoning_effort="low")
+    before = old.prepare("extract", request(), "")
+    parameters = new.prepare("extract", request(), "")
+    assert parameters["reasoning"]["effort"] == "low"
+    assert "COVERAGE" in parameters["instructions"]
+    assert before == old.prepare("extract", request(), "")
+    legacy, _ = run(request(), "extract", old)
+    updated, _ = run(request(), "extract", new)
+    assert legacy["prompt_version"] == "d-quote-hints-prompts-v1"
+    assert updated["prompt_version"] == "d-quote-hints-prompts-v2"
+    assert updated["summary"]["result"]["provenance"]["prompt_version"] == updated["prompt_version"]
+
+
+@pytest.mark.parametrize("options", [
+    {"reasoning_effort": "unreviewed"}, {"prompt_profile": "unreviewed"},
+    {"prompt_profile": "coverage_v2", "output_format": "contract"},
+])
+def test_unreviewed_profile_options_fail_before_transport(options):
+    send = Mock()
+    with pytest.raises(ValueError):
+        OpenAIResponsesProvider(send, model=MODEL, max_output_tokens=2048, **options)
+    send.assert_not_called()
