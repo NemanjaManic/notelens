@@ -100,3 +100,28 @@ inventory and an agreed handoff date are not supplied. Sara's own completion
 count is not established by Goran's draft. Preserve restricted custody and the
 retirement of exposed families; D-007 remains open. See the
 [authoring-progress intake](../../eval/reports/development/d007-goran-authoring-progress-intake-v1.json).
+
+## Interim metadata intake (2026-11-23)
+
+Sara supplied `d007-final-qa-metadata-status-v1.json`; its SHA-256 verifies as
+`8d5904245990624943cce2fd64604e88779d3f29dec904dfa6d5d956376b6fd3`.
+D checked 26 unique case IDs, routes and author/reviewer assignments against the
+local staffing plan. All assignments match. The source-intake bytes match the
+reported `6198b4085b45e702d065535e9705c5b6bf7d841230d35a247bcee327fb26ebf0` pin.
+Sixteen document-hash entries and seventeen passage-hash entries have valid
+formats; underlying final texts/passages were not opened or rehashed.
+
+The staffing-plan pin needs reconciliation: Sara's metadata reports
+`39f05b80107ef8d04e0a070eec172ef9ea08dcd5d82619c25ff39a4979335d3e`,
+whereas both local copies of `d007-final-author-review-plan-v2.json` hash to
+`87e635b802ed648c5c8d62352d46524acfc592213bf3011e3ed031ca6117fed3`.
+Sara/Goran should supply the exact pinned plan or correct the metadata reference.
+Matching assignments do not resolve a byte-identity mismatch.
+
+The inventory confirms zero case versions and zero reviewer receipts in the
+restricted folder. All 26 await completion confirmation and the handoff date is
+unset. This does not negate Goran's separately reported eight local drafts.
+Sara/Goran still own authoring, reciprocal review and delivery of versioned
+metadata/receipts. D-007 and final freeze remain pending. Original metadata and
+checksum are privately archived; see the source-free
+[intake receipt](../../eval/reports/development/d007-final-qa-metadata-status-intake-v1.json).
