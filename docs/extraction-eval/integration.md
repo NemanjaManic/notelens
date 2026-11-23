@@ -173,6 +173,15 @@ RAG startup/shutdown review were requested. D recorded this owner report. The
 provider-backed D-005 verification and B's remaining integration acceptance are
 pending. See the [resource intake](../../eval/reports/development/team-resource-intake-2026-11-23.json).
 
+On 2026-11-23, D received B's platform evidence summary and A's published PR #25
+handoff. D verified the three hosted CI runs cited for security, classifier
+transport and the rebased web-admission patch, plus PR #25's successful head
+check. A's recorded launcher review confirms the requested indexed-RAG startup
+and independent shutdown checks at `14e4b9d`. D independently compared the
+source identities and audit pins. Browser/HTTP results in this intake retain
+their owner-reported execution provenance. B-005/B-009 formal acceptance and
+provider-backed D-005 verification remain pending. See the [RAG/platform intake](../../eval/reports/development/d009-rag-platform-intake-2026-11-23.json).
+
 ### Local evaluation commands
 
 Run evaluation and the retained training checker:
