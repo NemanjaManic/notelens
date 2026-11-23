@@ -14,6 +14,32 @@ from .openai_trial import MODEL, OpenAITrialProvider
 MAX_COST = Fraction(1, 10)
 MAX_CALLS = 3
 MAX_RESPONSE_BYTES = 1024 * 1024
+MAX_ERROR_BYTES = 8192
+
+
+def provider_failure(response) -> ServiceError:
+    """Keep bounded, allowlisted operator diagnostics outside the public envelope."""
+    diagnostics = {"http_status": response.status}
+    # Do not retain upstream free text, document content, headers or credentials.
+    # Unknown values are omitted rather than copied into a private/public log.
+    try:
+        raw = response.read(MAX_ERROR_BYTES + 1)
+        body = json.loads(raw) if len(raw) <= MAX_ERROR_BYTES else None
+        error = body.get("error") if isinstance(body, dict) else None
+        if isinstance(error, dict):
+            allowed = {
+                "type": {"invalid_request_error", "authentication_error", "permission_error", "rate_limit_error", "server_error"},
+                "code": {"invalid_api_key", "model_not_found", "insufficient_quota", "rate_limit_exceeded", "unsupported_parameter", "invalid_value"},
+                "param": {"input", "model", "max_output_tokens", "reasoning", "reasoning.effort", "text.format", "tools", "tool_choice"},
+            }
+            for field, values in allowed.items():
+                value = error.get(field)
+                if isinstance(value, str) and value in values:
+                    diagnostics["provider_error_" + field] = value
+    except (ValueError, UnicodeError, RecursionError, TypeError, OSError, http.client.HTTPException):
+        pass
+    return ServiceError(503, "provider_unavailable", "The Responses request was unsuccessful.",
+                        provider_diagnostics=diagnostics)
 
 
 def request_bytes(payload: dict) -> bytes:
@@ -89,7 +115,7 @@ class ResponsesTransport:
             })
             response = connection.getresponse()
             if response.status != 200:
-                raise ServiceError(503, "provider_unavailable", "The Responses request was unsuccessful.")
+                raise provider_failure(response)
             raw = response.read(MAX_RESPONSE_BYTES + 1)
             if len(raw) > MAX_RESPONSE_BYTES:
                 raise ServiceError(502, "internal_error", "The Responses payload exceeded the size limit.")

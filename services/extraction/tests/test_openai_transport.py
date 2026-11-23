@@ -95,3 +95,36 @@ def test_timeout_is_sanitized_and_not_retried(tmp_path):
     with pytest.raises(ServiceError, match="attempt limit"):
         transport(payload)
     connect.assert_called_once()
+
+
+def test_non_success_preserves_safe_operator_diagnostics_without_public_leak(tmp_path):
+    payload = {"model": MODEL, "max_output_tokens": 100}
+    transport, connect, _ = transport_for(tmp_path, [payload], status=400)
+    response = connect.return_value.getresponse.return_value
+    response.read.return_value = json.dumps({"error": {
+        "type": "invalid_request_error", "param": "input",
+        "message": "private document text and credential", "code": "private-token",
+    }}).encode()
+    with pytest.raises(ServiceError) as failure:
+        transport(payload)
+    assert failure.value.provider_diagnostics == {
+        "http_status": 400, "provider_error_type": "invalid_request_error", "provider_error_param": "input"}
+    assert "private" not in repr(failure.value)
+    assert "http_status" not in json.dumps(failure.value.envelope("request"))
+    assert failure.value.retryable is False
+    with pytest.raises(ServiceError, match="attempt limit"):
+        transport(payload)
+    connect.assert_called_once()
+
+
+@pytest.mark.parametrize("raw", [b'not json', b'x' * 8193,
+    b'{"error":{"type":"secret","code":"secret","param":"secret","message":"secret"}}'])
+def test_invalid_error_bodies_keep_status_only(tmp_path, raw):
+    payload = {"model": MODEL, "max_output_tokens": 100}
+    transport, connect, _ = transport_for(tmp_path, [payload], status=401)
+    connect.return_value.getresponse.return_value.read.return_value = raw
+    with pytest.raises(ServiceError) as failure:
+        transport(payload)
+    assert failure.value.provider_diagnostics == {"http_status": 401}
+    assert "secret" not in repr(failure.value)
+    connect.return_value.close.assert_called_once()
