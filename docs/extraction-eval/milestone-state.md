@@ -99,3 +99,12 @@ CI success was directly verified; local replay success is Goran-reported, not
 a fresh D rerun. This does not validate frozen development service d41fa88 or
 execute the 26-case final set. D-004 and D-owned D-005 are closed in that bounded
 scope; full D-009 remains open. See d005-pr31-replay-review-v1.json.
+
+## Team final-delivery decision
+
+Milica reports team acceptance of disclosed quality limitations for final delivery
+and the joint freeze framework with D service d41fa88. Quality remains not met.
+The executable freeze is not materialized because final app/replacement reference
+identities and complete authorized execution limits remain incomplete. D-009
+remains open; no final provider calls or scoring performed. See
+[the decision record](../../eval/reports/final/d009-team-final-limitations-approval-v1.json).

@@ -132,7 +132,8 @@
     {
       "id": "quality",
       "owner": "D agent/service implementation; Milica for release decision",
-      "needed": "Exact F1 0.4679 remains below 0.90; four of six paired candidate extractions are partial and common-mention temporal labelling regresses 25/31 to 24/31. Independent semantic risk is missing; prepared protocol/blank packet are not reviews."
+      "needed": "Exact F1 0.4679 remains below 0.90; four of six paired candidate extractions are partial and common-mention temporal labelling regresses 25/31 to 24/31. Independent semantic risk is missing; prepared protocol/blank packet are not reviews.",
+      "disposition": "Team accepts the disclosed failed/missing criteria for final delivery; no quality pass inferred."
     },
     {
       "id": "final_artifacts",
@@ -147,7 +148,7 @@
     {
       "id": "freeze",
       "owner": "Milica with A/B/C/D selected-system owners",
-      "needed": "Approve the exact joint freeze only after preceding gates clear; fill missing artifact hashes and record bounded execution scope."
+      "needed": "Team approves the freeze framework and known D pin; supply missing exact app/reference identities and obtain explicit complete execution policy before materializing an executable freeze."
     }
   ],
   "final_extraction_references_note": "D-013 references are development, not unseen final. Final extraction ground truth must be provided separately if extraction is included in full final scoring.",
@@ -214,5 +215,9 @@
   "historical_D005_replay_acceptance": "eval/reports/development/d005-pr31-replay-review-v1.json",
   "historical_D005_app_replay_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
   "latest_candidate_app_receipt_available": true,
-  "latest_candidate_app_recheck": "eval/reports/development/d005-d41-app-recheck-acceptance-v2.json"
+  "latest_candidate_app_recheck": "eval/reports/development/d005-d41-app-recheck-acceptance-v2.json",
+  "team_final_delivery_quality_limitations_accepted": true,
+  "joint_freeze_framework_approved": true,
+  "team_decision_record": "eval/reports/final/d009-team-final-limitations-approval-v1.json",
+  "complete_executable_freeze_materialized": false
 }
