@@ -1,0 +1,13 @@
+{
+  "version": "d007-final-reference-freeze-verification-v1",
+  "date": "2026-11-23",
+  "metadata_checksums_verified": 4,
+  "case_version_hash_receipt_links_verified": 26,
+  "private_archive_hashes_verified": true,
+  "private_manifest_copy_verified": true,
+  "freeze_replay_without_changes": "passed",
+  "verification_script_sha256": "81c51a5cccc4e3b4dd2f0266c6d771b1b02728de2cb1e9af060a61745af26330",
+  "existing_test_command": "./eval/.venv/Scripts/python.exe -B -m pytest eval/tests/test_qa_integrity.py -q",
+  "existing_tests_passed": 4,
+  "test_scope": "Existing development QA integrity tests; final metadata links checked separately. No hidden final content, provider calls or final measurement."
+}

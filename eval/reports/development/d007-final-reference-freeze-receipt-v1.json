@@ -1,0 +1,40 @@
+{
+  "version": "d007-final-reference-freeze-receipt-v1",
+  "date": "2026-11-23",
+  "status": "reference_freeze_recorded_d007_closed",
+  "manifest": "eval/references/qa/d007-final-reference-freeze-v1.manifest.json",
+  "manifest_sha256": "01751714755b1c6344065f8786bb99cf28156f58612e6c98be99fb5e12f25740",
+  "artifact_sha256": {
+    "d007-final-qa-metadata-status-v5.json": "945ec966e33b7221c95bd83e4dbb37531eef365fdb8d04b933f2a498e87ea247",
+    "d007-sara-cross-review-receipts-v1.json": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a",
+    "d007-goran-cross-review-receipts-v1.json": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796",
+    "d007-final-author-review-plan-v2.json": "39f05b80107ef8d04e0a070eec172ef9ea08dcd5d82619c25ff39a4979335d3e"
+  },
+  "checks": {
+    "four_supplied_checksums": true,
+    "unique_cases": 26,
+    "matching_approved_review_receipts": 26,
+    "human_review_confirmations": 26,
+    "unresolved_issues_reported": 0,
+    "case_to_version_to_hash_to_receipt_matches": 26,
+    "staffing_matches": 26,
+    "v1_cases": 25,
+    "v2_cases": 1,
+    "source_plan_bytes_rehashed": true,
+    "source_binding_metadata_matches_previous_intake": true,
+    "hidden_case_bytes_rehashed_by_D": false
+  },
+  "private_metadata_archive": "Predaja-NoteLens/D-007/D007-final-reference-freeze-v1",
+  "recorded_exposure_cases": [
+    "F-DOC-01",
+    "F-DOC-02",
+    "F-DOC-03"
+  ],
+  "d009_unseen_eligibility_and_system_freeze_pending": true,
+  "provider_backed_verification": "pending",
+  "deployment_acceptance": "pending",
+  "unseen_final_measurement": "pending",
+  "d007_closed": true,
+  "external_messages_sent": false,
+  "provider_calls": 0
+}

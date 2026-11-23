@@ -1,0 +1,305 @@
+{
+  "version": "d007-final-reference-freeze-v1",
+  "date": "2026-11-23",
+  "status": "frozen_reference_identities_with_recorded_exposure_limitations",
+  "authority": "Milica requested verification and D-007 freeze of Sara's reconciled v5 handoff.",
+  "scope": "D-007 source-reviewed reference identity freeze; not joint system freeze or final measurement approval.",
+  "artifact_sha256": {
+    "d007-final-qa-metadata-status-v5.json": "945ec966e33b7221c95bd83e4dbb37531eef365fdb8d04b933f2a498e87ea247",
+    "d007-sara-cross-review-receipts-v1.json": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a",
+    "d007-goran-cross-review-receipts-v1.json": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796",
+    "d007-final-author-review-plan-v2.json": "39f05b80107ef8d04e0a070eec172ef9ea08dcd5d82619c25ff39a4979335d3e"
+  },
+  "planned_case_count": 26,
+  "version_counts": {
+    "v1": 25,
+    "v2": 1
+  },
+  "route_counts": {
+    "document_only": 8,
+    "literature_only": 8,
+    "mixed": 8,
+    "out_of_scope": 2
+  },
+  "source_intake_sha256": "6198b4085b45e702d065535e9705c5b6bf7d841230d35a247bcee327fb26ebf0",
+  "literature_snapshot_sha256": "4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938",
+  "source_bindings_unchanged_from_verified_v3_metadata": true,
+  "author_and_reviewer_approvals": "All 26 attested in v5 and matching human-review receipts. Sara author release, including F-DOC-06 v2, is relayed through Goran and accepted in Sara's v5 handoff.",
+  "cases": [
+    {
+      "case_id": "F-DOC-01",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "69f489bfbe634d58daaf50117a3ac98832ab825386564fe1d5e4eb76d0ffc68a",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-DOC-02",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "b941fb1cb5452922ed2754fd264e34684d262479ae6eaeebddabdc4f357c61aa",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-DOC-03",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "e2488c09eadb230987120cd464f0520d06abfaae6ee58c914064fb603719d7e4",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-DOC-04",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "95a729d80189a9ba273b266d724a77b6a4d4508c5fbbd01e7c5ce6248e919dbb",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-DOC-05",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "872233cdf1496579045f7cbc108f9171b6a17cfaab89249598fbe02a1e05b656",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-DOC-06",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v2",
+      "case_file_sha256": "f7f3a8d604298bc96024d7c4d59a63b0bdfb90764ddaa2a13c79d060b1ae66a4",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-DOC-07",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "0bb4b8ce1033ce8a84494d3f4d688f4c51c9a31de872a4eb27d4fbcd901ab52f",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-DOC-08",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "0db1906daa166b4716217e36eae44c1d8340f2c1c39a1564b1bd516233146a30",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-LIT-01",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "f3b03474673d8fce2596b7af231a77123e1503eb25fb2c7c161fa298c2d7ae3f",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-LIT-02",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "ceabb859c0b09871a061362920a77cfd1a82ecb2efe1ab46952119c3c18a927b",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-LIT-03",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "561a3ace23895f7b125da3cf30404ef719b4ac1c45646ef1a312c09951eb2bd3",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-LIT-04",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "eb4a2f030dbf254b3fcb5a3c2483b394d493fe120a3191057b65a52912cd1c6b",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-LIT-05",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "f6a088a4717d4f3e9466110a290ffd5be154ad7a98e59fc7484aa794d691a55f",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-LIT-06",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "4b0bc4534f0012bb7d53dee55719068cd6dc50e098e0aa002bc92d40342a29ff",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-LIT-07",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "792353a30a4ecd758d54379a9abf455f383d7f57be49079b7aa5a4254dd36e61",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-LIT-08",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "1b32620173c9ae67fe902d4e55ea3b075e496c3db3c2f4021d04c6c3b8a2581c",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-MIX-01",
+      "route": "mixed",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "8b1874b79a5de04805c4f08530f9f5bc66db5af4d8250081cc731d5cba9130f0",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-MIX-02",
+      "route": "mixed",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "cb2de7a25accd1b1b6b34db7ecc279c1a18db4be0c3276e13a37696c943e2a42",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-MIX-03",
+      "route": "mixed",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "c48be35406610d970d24a7907377796b8a487afbc631e36ce0947b448dc3d997",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-MIX-04",
+      "route": "mixed",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "c08f1593e779eed5b3f3c6a4e4e968358b6b0617394513038f594a9f0cf6c6cc",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-MIX-05",
+      "route": "mixed",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "135b7e4735995a9f0cee2f5ee9fd8cf70ea47e431295d6ea3d053725e660ae4f",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-MIX-06",
+      "route": "mixed",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "67efcb71f29ac2779ea2d1007671b8e02a4b4be10e1fdf6bacc57b3f6d832521",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-MIX-07",
+      "route": "mixed",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "1a54b8d6490511902559da1c5876ccaaf63a27d20d2914d55c1516e97da426bb",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-MIX-08",
+      "route": "mixed",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "a41f00814ee82628ed6bb20c7aec4e3c53755cca5b4063d61c8edb6dcf84106e",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    },
+    {
+      "case_id": "F-OOS-01",
+      "route": "out_of_scope",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "case_version": "v1",
+      "case_file_sha256": "59b8bda303bd1ce6f635c16eaba7aeb380f96148656e8b10449aa1ae1b641b7c",
+      "reviewer_receipt_file": "d007-goran-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796"
+    },
+    {
+      "case_id": "F-OOS-02",
+      "route": "out_of_scope",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "case_version": "v1",
+      "case_file_sha256": "5ecd1c292ce8809c2bf44aede3244ccc7b3e8d023d43b4818c2f10a201a823f0",
+      "reviewer_receipt_file": "d007-sara-cross-review-receipts-v1.json",
+      "reviewer_receipt_sha256": "d6ea366f86cd07a0b68741c968d910144b1938b77082b0d20b92b710a4282e5a"
+    }
+  ],
+  "custody": "Full final cases, source texts, questions and answer keys remain with Sara/Goran in the restricted workflow.",
+  "private_metadata_archive": "Predaja-NoteLens/D-007/D007-final-reference-freeze-v1",
+  "case_bytes_rehashed_by_D": false,
+  "underlying_case_bytes_and_span_checks": "Sara reports exact-file reconciliation; reviewers attest source/evidence checks. D independently verifies supplied metadata/receipt bytes and identity links, not hidden case/source bytes.",
+  "reviewer_disclosures": "Both record personal review and AI assistance. Goran reports no prior draft exposure/preparation; Sara declares no exact-draft exposure/preparation and involvement limited to planned-source verification.",
+  "recorded_limitations": [
+    "Technical reviewer notes for F-DOC-01, F-DOC-02 and F-DOC-03 were rendered to D assistant before freeze. No full case/source/answer-key files opened. These cases must not be described as fully unseen to that assistant without explicit D-009 eligibility disposition.",
+    "V5 retains zero legacy restricted-folder verification counters and a null agreed handoff date while separately reporting 26 private-author-packet identities and 26 completed reviews. This freeze records verified handoff metadata, not a new folder audit or fabricated owner agreement.",
+    "Superseded inventory lineage hashes are preserved as supplied; historical predecessor bytes are not required to prove the frozen v5 case-to-receipt identities."
+  ],
+  "unseen_final_eligibility_unconditionally_approved": false,
+  "d009_required_followup": "Freeze approvers must resolve recorded receipt-note exposure for F-DOC-01/02/03 and approve joint system/configuration/execution before unseen-final claims or measurement.",
+  "provider_execution_authorized": false,
+  "final_measurement_executed": false,
+  "d007_reference_assembly_closed": true
+}
