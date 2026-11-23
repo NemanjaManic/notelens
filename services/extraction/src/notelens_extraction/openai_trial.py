@@ -174,23 +174,30 @@ class OpenAIResponsesProvider:
     provider_name = "openai"
 
     def __init__(self, send: Callable[[dict], dict], *, model: str, max_output_tokens: int,
-                 input_format: str = "text"):
+                 input_format: str = "text", output_format: str = "contract"):
         if not isinstance(model, str) or not model.strip():
             raise ValueError("An explicitly selected model is required.")
         if type(max_output_tokens) is not int or max_output_tokens <= 0:
             raise ValueError("A positive output token limit is required.")
         if input_format not in ("text", "messages"):
             raise ValueError("The input format must be text or messages.")
+        if output_format not in ("contract", "quote_hints"):
+            raise ValueError("The output format must be contract or quote_hints.")
         self._send = send
         self.model = model
         self._max_output_tokens = max_output_tokens
         self._input_format = input_format
+        self._output_format = output_format
 
     def generate(self, operation: str, request: dict, instructions: str, *, repair: bool) -> str:
         raw = completion_text(self._send(self.prepare(operation, request, instructions, repair=repair)), model=self.model)
         try:
             value = json.loads(raw, object_pairs_hook=strict_object, parse_constant=reject_nonfinite)
-            value, _ = align_unique_spans(value, request["document"]["text"])
+            if self._output_format == "quote_hints":
+                from .quote_hints import build
+                value = build(operation, value, request["document"], self.model)
+            else:
+                value, _ = align_unique_spans(value, request["document"]["text"])
             return json.dumps(value, ensure_ascii=False)
         except (ValueError, EvidenceError, TypeError, KeyError):
             raise invalid_response() from None
@@ -201,7 +208,7 @@ class OpenAIResponsesProvider:
         text = JSON_INPUT_PREFIX + json.dumps(request, ensure_ascii=False, separators=(",", ":"))
         input_value = text if self._input_format == "text" else [
             {"role": "user", "content": [{"type": "input_text", "text": text}]}]
-        return {
+        payload = {
             "model": self.model,
             "instructions": instructions + source_span_hints(request) + "\nSet mode to live and identify the provider as openai "
             f"and the model as {self.model} in component provenance.\n"
@@ -218,6 +225,13 @@ class OpenAIResponsesProvider:
             "tools": [],
             "tool_choice": "none",
         }
+        if self._output_format == "quote_hints":
+            from .quote_hints import SCHEMAS
+            payload["instructions"] = files("notelens_extraction").joinpath(
+                "prompts", f"{operation}-quotes-v1.txt").read_text(encoding="utf-8")
+            payload["text"] = {"format": {"type": "json_schema", "name": f"notelens_{operation}_quote_hints_v1",
+                                          "strict": True, "schema": copy.deepcopy(SCHEMAS[operation])}}
+        return payload
 
 
 class OpenAITrialProvider(OpenAIResponsesProvider):

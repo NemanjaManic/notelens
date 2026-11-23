@@ -76,6 +76,20 @@ def test_policy_selects_message_input_before_transport(tmp_path, policy, monkeyp
     send.assert_not_called()
 
 
+def test_quote_output_policy_is_explicit_and_unknown_values_do_not_claim_receipt(tmp_path, policy, monkeypatch):
+    path = tmp_path / "policy.json"
+    policy["output_format"] = "unknown"
+    path.write_text(json.dumps(policy))
+    with pytest.raises(ValueError, match="output format"):
+        configured_provider(path, api_key="offline-test", service_token="offline-token")
+    assert not (tmp_path / policy["receipt_path"]).exists()
+    policy["output_format"] = "quote_hints"
+    path.write_text(json.dumps(policy))
+    monkeypatch.setattr("notelens_extraction.approved_provider.ResponsesTransport", Mock(return_value=Mock()))
+    p = configured_provider(path, api_key="offline-test", service_token="offline-token")
+    assert p.prepare("extract", request(), "")['text']['format']['type'] == 'json_schema'
+
+
 @pytest.mark.parametrize("question,state", [
     ("What does the document say about chest pain?", "sufficient"),
     ("What does the document say about chest pain and the patient's age?", "partial"),

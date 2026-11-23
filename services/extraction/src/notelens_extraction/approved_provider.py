@@ -79,6 +79,9 @@ def configured_provider(policy_path: Path, *, api_key: str, service_token: str):
     input_format = policy.get("input_format", "text")
     if input_format not in ("text", "messages"):
         raise ValueError("The input format must be text or messages.")
+    output_format = policy.get("output_format", "contract")
+    if output_format not in ("contract", "quote_hints"):
+        raise ValueError("The output format must be contract or quote_hints.")
     budget = ServiceBudget(policy)
     receipt = (policy_path.resolve().parent / policy["receipt_path"]).resolve()
     transport = ResponsesTransport(
@@ -87,5 +90,5 @@ def configured_provider(policy_path: Path, *, api_key: str, service_token: str):
     )
     return OpenAIResponsesProvider(
         transport, model=policy["model"], max_output_tokens=budget.output_limit,
-        input_format=input_format,
+        input_format=input_format, output_format=output_format,
     )
