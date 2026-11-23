@@ -161,7 +161,7 @@
   "joint_final_saved_output_scoring_executed": false,
   "d009_closed": false,
   "deployment_accepted": false,
-  "published_or_pushed": false,
+  "published_or_pushed": true,
   "unapproved_candidate_rejected_before_final_artifact_access": true,
   "final_execution_receipt_created": false,
   "measured_service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
@@ -209,13 +209,14 @@
   "semantic_review_preparation": "eval/reports/development/d011-semantic-review-preparation-v1.json",
   "eligibility_proposal": "eval/reports/final/d009-final-eligibility-proposal-v1.json",
   "repository_commit_completion": {
-    "status": "pending_automatic_approval_review_credit_restore",
-    "last_successful_commit": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
-    "last_commit_attempt_executed": false,
-    "reason": "Automatic approval review could not run because workspace credits were exhausted; not an unsafe-action determination.",
-    "bypass_attempted": false,
-    "owner": "Workspace owner"
+    "status": "prior_changes_committed_and_pushed",
+    "last_pushed_commit_before_this_review": "d9ffdf5",
+    "reason": "Previous credit-review failure resolved on the successful commit/push turn.",
+    "bypass_attempted": false
   },
   "d011_development_status": "closed_with_team_accepted_limitations",
-  "d011_closure_receipt": "eval/reports/development/d011-team-accepted-closure-v1.json"
+  "d011_closure_receipt": "eval/reports/development/d011-team-accepted-closure-v1.json",
+  "historical_D005_replay_acceptance": "eval/reports/development/d005-pr31-replay-review-v1.json",
+  "historical_D005_app_replay_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "latest_candidate_app_receipt_available": false
 }

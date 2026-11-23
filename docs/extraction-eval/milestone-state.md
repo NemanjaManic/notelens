@@ -90,3 +90,12 @@ Milica stopped further extraction improvements. Implementation d41fa880 / covera
 ## Team-accepted D-011 closure
 
 Milica reports team agreement to close D-011 as completed development with the disclosed limitations. This supersedes earlier statements that the parent task must remain open. Quality acceptance remains not met; thresholds and historical measurements are unchanged. D-009, deployment and joint final execution are not approved by this decision.
+
+## PR 31 replay intake
+
+Accepted bounded D-005 historical saved-response replay evidence at platform
+0536cb56fdd1f99f9cc73110e28a90a22892cb01 / D service c7d0797. Hosted key-free
+CI success was directly verified; local replay success is Goran-reported, not
+a fresh D rerun. This does not validate frozen development service d41fa88 or
+execute the 26-case final set. D-004 and D-owned D-005 are closed in that bounded
+scope; full D-009 remains open. See d005-pr31-replay-review-v1.json.
