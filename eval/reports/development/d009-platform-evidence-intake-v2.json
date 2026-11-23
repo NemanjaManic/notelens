@@ -536,5 +536,18 @@
     "deployment_acceptance": "pending",
     "unseen_final_measurement": "pending",
     "additional_app_calls_authorized": false
+  },
+  "latest_d011_quote_candidate": {
+    "service_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
+    "output_format": "quote_hints",
+    "service_tests_passed": 130,
+    "same_six_exact_f1": 0.65,
+    "fresh_two_exact_f1": 0.6788990825688074,
+    "known_cumulative_reservation_usd": "0.0965479",
+    "quality_acceptance": "failed",
+    "app_acceptance": "pending_exact_candidate",
+    "report": "eval/reports/development/d011-extraction-improvement-v2.json",
+    "provider_output_smoke_improved": true,
+    "joint_final_acceptance_or_execution": false
   }
 }

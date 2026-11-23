@@ -6,10 +6,10 @@
   "system_candidate": {
     "rag": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
     "classifier": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
-    "extraction": "f50df177fe5dae3926e0e98eb8d11fb4ee664412"
+    "extraction": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731"
   },
   "freeze_candidate": "eval/config/d009-final-freeze-candidate-v1.json",
-  "freeze_candidate_sha256": "8278a94f89b90f57b2f5b59d246e863216b28291626c7483d0c168751a8c26ad",
+  "freeze_candidate_sha256": "0e26b0f575c2cf9dd68d854fc8f5c9ac9bae2884303b2854839c024db1fb13dc",
   "final_case_identity_count": 26,
   "final_versions": {
     "v1": 25,
@@ -124,14 +124,14 @@
     "cross_service": "not_run"
   },
   "offline_eval_tests_passed": 141,
-  "offline_service_tests_last_passed": 114,
-  "provider_known_cumulative_reservation_usd": "0.0554055",
+  "offline_service_tests_last_passed": 130,
+  "provider_known_cumulative_reservation_usd": "0.0965479",
   "actual_billing_confirmed": false,
   "blockers": [
     {
       "id": "quality",
       "owner": "D agent/service implementation; Milica for release decision",
-      "needed": "Fix measured development contract/summary/evidence failures and remeasure against frozen references. Retain approved thresholds and obtain independently justified semantic answer-risk evidence."
+      "needed": "Improve exact mention recall/boundaries and context/status accuracy beyond fresh F1 0.6789, keep visible partial outcomes, validate a larger sample and obtain independent semantic answer-risk evidence."
     },
     {
       "id": "app",
@@ -164,11 +164,24 @@
   "unapproved_candidate_rejected_before_final_artifact_access": true,
   "final_execution_receipt_created": false,
   "measured_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
-  "remediation_service_sha": "f50df177fe5dae3926e0e98eb8d11fb4ee664412",
+  "remediation_service_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
   "remediation_replay": {
-    "valid_extractions": 2,
-    "valid_answers": 5,
-    "scope": "saved outputs only; acceptance remains failed"
+    "status": "superseded_by_quote_protocol",
+    "latest_report": "eval/reports/development/d011-extraction-improvement-v2.json"
   },
-  "archive_serialization": "Public prepared JSON uses canonical LF for Git portability; original pre-measurement CRLF snapshots remain private and byte-pinned."
+  "archive_serialization": "Public prepared JSON uses canonical LF for Git portability; original pre-measurement CRLF snapshots remain private and byte-pinned.",
+  "latest_quote_protocol": {
+    "source_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
+    "valid_extractions": 11,
+    "extraction_documents": 11,
+    "partial_extractions": 2,
+    "qa_valid": 3,
+    "qa_total": 3,
+    "same_six_exact_f1": 0.65,
+    "fresh_two_exact_f1": 0.6788990825688074,
+    "fresh_two_relaxed_f1": 0.8440366972477065,
+    "quality_acceptance": "failed",
+    "independent_semantic_risk": null,
+    "additional_app_calls_authorized": false
+  }
 }

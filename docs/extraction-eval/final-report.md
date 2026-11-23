@@ -16,6 +16,7 @@ not present them as a joint unseen-final result.
 | D extraction and document QA | Earlier synthetic smoke: five supported extraction items, five summary claims and a supported cough answer; raw final results passed unchanged. | One synthetic document/question; 112 service tests and two saved-live-response HTTP replays passed. |
 | D-011 broader development pilot | Valid returned extractions 1/6; answers 5/6; 6/12 valid records. Forty reference mentions included. | **Acceptance failed.** Complete-case entity F1 and independent semantic risk unavailable. Conservative end-to-end exact F1 0.0000; five emitted literal answers had zero proxy errors. |
 | D service remediation replay | Same saved outputs: 2/6 valid extractions, 5/6 valid answers; 114 service tests pass. | Candidate f50df177; zero new generation, observed-sample regression check only. Acceptance still fails; original measurements preserved. |
+| Latest quote-hint candidate | Source-grounded outputs validate for 11/11 development documents (nine complete, two partial) and 3/3 QA; 130 service tests pass. | Candidate 8ef63edd. Same-six exact F1 0.6500; two further post-fix fresh documents 0.6789 exact / 0.8440 relaxed. Exact target 0.90 and semantic-risk gate remain uncleared. |
 | A selected vector retrieval | Development Recall@5 1.0000; MRR@5 0.909091; 22/22 all-topic supported cases. | Previously accepted A-008 development evidence, 27 total queries and 22 recall-eligible cases; no new retrieval run. |
 | C-008 classifier | Forced-choice accuracy 176/183 (0.96175), macro-F1 0.9582; selective coverage 174/183 and accuracy 169/174. | C-owned locked final aggregate, independently checked against the pinned confusion matrix; not joint system performance. |
 | D-008 calibration | Fourteen original ratings over seven paired cases, five entity-evidence reviews, initial agreement 43/49 (87.76%), six approved adjudications. | Explicitly accepted reduced mock development pilot; no new independent provider-output review credit. |
@@ -47,7 +48,8 @@ freeze, actual generation and independently reviewed output scoring.
 ## Candidate system and executable scoring preparation
 
 Measured D service: c7d0797a86061c643b0f23e6d56f8caa9e7a6813.
-Latest remediation candidate: f50df177fe5dae3926e0e98eb8d11fb4ee664412,
+Latest remediation candidate: 8ef63edd4ab1cb39de73b0f31b97bb12359f7731
+with explicit input_format messages / output_format quote_hints,
 selected RAG manifest d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685,
 and C-008 classifier manifest fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70.
 The new D pin still needs further remediation, fresh development acceptance and
@@ -89,7 +91,7 @@ Deployment acceptance and B-005/B-007/B-009 remain with B and are not inferred.
 
 ## Costs, publication and limitations
 
-Known cumulative worst-case provider reservations are USD 0.0554055. They are
+Known cumulative worst-case provider reservations are USD 0.0965479. They are
 not confirmed billed spending; token usage and exclusive receipts are retained
 privately. No additional final-provider spending is authorized by the unapproved
 candidate. No unseen final generation, scoring, deployment, push or external
