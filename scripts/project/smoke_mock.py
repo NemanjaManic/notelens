@@ -30,8 +30,8 @@ class DemoPage(HTMLParser):
             self.ignored_tag = tag
         if tag == 'a':
             self.current_link = fields.get('href')
-        if tag == 'form' and fields.get('method') == 'post' and fields.get('action') == '/api/documents/builtin':
-            self.example_action = fields.get('action')
+        if tag == 'button' and fields.get('id') == 'open-builtin-example' and fields.get('type') == 'button':
+            self.example_action = fields.get('data-endpoint')
         if tag == 'mark':
             self.highlighted = True
         if 'data-answer-route' in fields:
@@ -72,7 +72,7 @@ def read_page(stack, href, cookie=None):
 
 
 def prepare_example(stack, action):
-    require(action == '/api/documents/builtin', 'local example form action')
+    require(action == '/api/documents/builtin', 'local example button endpoint')
     connection = http.client.HTTPConnection('localhost', stack.web_port, timeout=2)
     try:
         connection.request('POST', action, headers={'Origin': stack.web_origin})
