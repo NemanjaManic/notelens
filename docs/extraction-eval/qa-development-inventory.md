@@ -382,3 +382,10 @@ can use the passages for her final authoring assignments. Goran's corpus access
 confirmation and the completed case/reference and cross-review manifests remain
 pending. Final questions, source texts and answer keys stay in the restricted
 folder until the approved freeze and release. See the [resource intake](../../eval/reports/development/team-resource-intake-2026-11-23.json).
+
+Nemanja subsequently published A-008 closure and the A-011 selected-configuration
+handoff in PR #25 at `e4f05201dae090d9a801bc5e6ee5568c7f70d309`. D reviewed the
+nine-file change, verified all 56 file pins and checked the published aggregates
+against the accepted v2 archive. The exact head's hosted key-free check passed.
+A's selected-configuration and output/startup handoff is now received. Final
+QA/reference and shared system freezes remain pending. See the [RAG/platform intake](../../eval/reports/development/d009-rag-platform-intake-2026-11-23.json).
