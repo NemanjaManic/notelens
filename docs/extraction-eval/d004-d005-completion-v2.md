@@ -1,5 +1,31 @@
 # D-004 and D-005 completion package — 2026-11-23
 
+## Actual v2 execution outcome (current)
+
+Milica explicitly approved the prepared proposal. The agent executed the first
+extraction request exactly once. POST /v1/responses returned HTTP 400 with
+invalid_request_error and parameter input. The new message format did not resolve
+the rejection. No provider output, usage or semantic-review result was obtained.
+The approved stop-on-first-failure rule cancelled the second operation; answer
+was not sent and no retries were made. This v2 execution is terminal, with zero
+remaining executable requests under its approval. All old receipts are preserved.
+
+The new worst-case reservation is USD 0.0022666; known cumulative reservation is
+USD 0.0079120, not actual billed spending. No higher budget was used. Offline
+checks confirm valid UTF-8 JSON, the explicit user/input_text shape, canonical
+document digest and approved payload/source pins; these do not prove the cause
+of the upstream rejection. The raw upstream message was discarded by the safe
+diagnostic policy, so status/type/parameter alone are insufficient to identify
+a correction. D owns further request/provider-integration diagnosis and must
+prepare more discriminating diagnostics before claiming a fix or seeking another
+execution scope. No further inference is permitted under this stopped trial.
+
+See the [explicit approval](../../eval/reports/development/d004-message-input-trial-approval-v2.json)
+and [actual execution receipt](../../eval/reports/development/d004-live-trial-execution-v2.json).
+D-004 and D-005 remain open; the handoff candidate is now marked blocked with
+no successful receipt or findings. The preparation chronology below is retained
+as historical evidence and does not authorize another execution.
+
 ## Prepared service
 
 Service SHA: `30fa30b372489c2a03c1579cf27081f629992bc4`.

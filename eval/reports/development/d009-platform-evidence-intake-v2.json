@@ -500,5 +500,24 @@
     "new_provider_calls": 0,
     "provider_output_review": "pending",
     "app_acceptance": "pending"
+  },
+  "latest_provider_gate_after_v2_2026_11_23": {
+    "supersedes_prepared_unapproved_status": true,
+    "v2_explicitly_authorized": true,
+    "attempted_operations": [
+      "extract"
+    ],
+    "failure": "HTTP 400 invalid_request_error parameter input",
+    "answer_attempted": false,
+    "stop_on_first_failure_honored": true,
+    "automatic_retries": 0,
+    "remaining_executable_requests": 0,
+    "successful_provider_outputs": 0,
+    "known_cumulative_worst_case_reservation_usd": "0.0079120",
+    "actual_billing_balance_confirmed": false,
+    "receipt": "eval/reports/development/d004-live-trial-execution-v2.json",
+    "owner": "D agent/service integration: diagnose input rejection without assuming a fix; fresh authorization needed for any further inference.",
+    "d004_d005_closed": false,
+    "reviewed_app_handoff": "blocked_no_provider_outputs"
   }
 }

@@ -1,7 +1,7 @@
 {
   "version": "d005-reviewed-service-handoff-candidate-v2",
   "date": "2026-11-23",
-  "status": "offline_ready_provider_outputs_and_findings_pending",
+  "status": "blocked_provider_input_rejection_no_outputs_to_review",
   "service_sha": "30fa30b372489c2a03c1579cf27081f629992bc4",
   "runtime_verified": "3.13.7",
   "model_pin": "gpt-6-luna",
@@ -30,5 +30,7 @@
     "Configured app acceptance, deployment and unseen final measurement remain pending."
   ],
   "d005_closed": false,
-  "message_sent": false
+  "message_sent": false,
+  "failed_execution_receipt": "eval/reports/development/d004-live-trial-execution-v2.json",
+  "latest_attempt": "v2 extraction rejected HTTP 400 invalid_request_error parameter input; stopped before answer. No output or usage available."
 }
