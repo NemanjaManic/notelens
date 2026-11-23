@@ -519,5 +519,22 @@
     "owner": "D agent/service integration: diagnose input rejection without assuming a fix; fresh authorization needed for any further inference.",
     "d004_d005_closed": false,
     "reviewed_app_handoff": "blocked_no_provider_outputs"
+  },
+  "latest_provider_review_gate_v3_2026_11_23": {
+    "supersedes_v2_provider_blocker": true,
+    "service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+    "d004_d005_d_owned_verification": "complete",
+    "final_raw_outputs_validated_and_agent_reviewed": 2,
+    "service_tests_passed": 112,
+    "saved_live_http_replays_passed": 2,
+    "known_cumulative_reservation_usd": "0.0215100",
+    "actual_account_billing_confirmed": false,
+    "receipt": "eval/reports/development/d004-d005-provider-review-v3.json",
+    "handoff": "eval/reports/development/d005-reviewed-service-handoff-v3.json",
+    "goran_app_acceptance": "pending",
+    "broader_quality": "D-011 pending",
+    "deployment_acceptance": "pending",
+    "unseen_final_measurement": "pending",
+    "additional_app_calls_authorized": false
   }
 }
