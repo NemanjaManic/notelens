@@ -13,16 +13,18 @@ export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPa
   const extraction = view.extraction.state === 'ready' ? view.extraction.record : null;
   const summary = extraction?.summary.status === 'completed' ? extraction.summary.result : null;
   const selected = view.document && view.selected ? evidenceParts(view.document.text, view.selected.span) : null;
-  const evaluationLabel = view.evaluation === 'offline' ? 'Bounded evaluation dry run' : 'Bounded provider evaluation';
+  const evaluationLabel = view.evaluation === 'offline' ? 'Bounded evaluation dry run'
+    : view.evaluation === 'public-live' ? 'Live analysis' : 'Bounded provider evaluation';
+  const live = view.evaluation === 'public-live';
   const profile = view.evaluation ? evaluationLabel
     : view.d005Replay ? 'D-005 saved-response replay' : view.fittedClassifier ? 'Local classifier profile' : 'Mock mode';
   return <main>
     <a className="skip-link" href="#report-content">Skip to report</a>
     <header><a className="wordmark" href={demo ? '/demo' : '/'}>NoteLens</a><span className="badge">{profile}</span></header>
     <section className="welcome" aria-labelledby="workspace-title">
-      <p className="eyebrow">Educational demonstration</p><h1 id="workspace-title">Explore a report, with its evidence.</h1>
+      <p className="eyebrow">{live ? 'Educational tool' : 'Educational demonstration'}</p><h1 id="workspace-title">Explore a report, with its evidence.</h1>
       <p className="intro">{demo ? 'Open a built-in example or prepare a public or synthetic document.' : 'Inspect a synthetic example and follow each finding back to its exact passage.'}</p>
-      <aside className="notices" aria-label="Demo notices"><strong>This demonstration does not replace a doctor.</strong>
+      <aside className="notices" aria-label={live ? 'Safety notices' : 'Demo notices'}><strong>{live ? 'NoteLens does not replace a doctor.' : 'This demonstration does not replace a doctor.'}</strong>
         <p>Do not upload real personal medical reports.{demo ? '' : ' This workspace displays versioned synthetic examples only.'}</p></aside>
     </section>
     {demo ? <nav className="examples" aria-label="Synthetic examples"><h2>Choose an example</h2>
@@ -89,6 +91,7 @@ export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPa
       <section className="panel next-step" aria-labelledby="questions-heading"><h3 id="questions-heading">Questions and literature</h3>
         {demo?.questions ?? <p>Question routing and literature answers are not connected in this fixture preview. No medical answer is generated here.</p>}</section>
     </section>
-    <footer>Web workspace ready · NoteLens · Demo only · Synthetic fixtures</footer>
+    <footer>{live ? 'NoteLens · Live analysis with OpenAI models · Not medical advice'
+      : 'Web workspace ready · NoteLens · Demo only · Synthetic fixtures'}</footer>
   </main>;
 }

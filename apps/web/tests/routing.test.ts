@@ -519,3 +519,16 @@ test('demo/http-rejections-dispatch-no-downstream-calls-even-with-evaluation-hea
   assert.equal((await send('literature')).status, 429);
   assert.equal(dispatched, 0);
 });
+
+test('short plain English questions are accepted and non-English questions are rejected', () => {
+  for (const question of ['What follow-up does the report describe?', 'What is asthma and how is it treated?']) {
+    const documentPlan = questionPlan({ document: document.doc_id, scope: 'document', documentQuestion: question }, false);
+    assert.ok('plan' in documentPlan, question);
+    const literaturePlan = questionPlan({ document: document.doc_id, scope: 'literature', literatureQuestion: question }, false);
+    assert.ok('plan' in literaturePlan, question);
+  }
+  for (const question of ['Koji su simptomi astme i kako se leči?', 'Wie wird Asthma behandelt und welche Symptome gibt es?']) {
+    const rejected = questionPlan({ document: document.doc_id, scope: 'literature', literatureQuestion: question }, false);
+    assert.ok('status' in rejected && rejected.status === 422, question);
+  }
+});

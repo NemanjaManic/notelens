@@ -72,7 +72,7 @@ export function QuestionForm({ documentId, presets, hasHistory, children, evalua
 
   return <>
     <form ref={form} action="/api/questions" method="post" autoComplete="off" onSubmit={submit}>
-      <p id="question-help">Ask a self-contained English question, up to 1,000 Unicode code points in total. This local demo answers a limited set of questions.</p>
+      <p id="question-help">Ask a self-contained English question, up to 1,000 Unicode code points in total.{evaluation === 'public-live' ? '' : ' This local demo answers a limited set of questions.'}</p>
       <fieldset disabled={action !== null} aria-describedby="question-help">
         <label htmlFor="question-source">Source</label>{' '}
         <select id="question-source" value={scope} onChange={event => setScope(event.target.value as Scope)}>

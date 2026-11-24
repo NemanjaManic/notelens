@@ -33,7 +33,7 @@ export async function POST(request: Request): Promise<Response> {
       : undefined;
     const result = await prepareSubmitted(store, owner, request, input, scope, reviewedReplayHashes);
     if (result.kind === 'prepared') {
-      if (clients.evaluation && request.headers.get('X-NoteLens-Evaluation-Output') === '1') {
+      if (clients.evaluation && clients.evaluation !== 'public-live' && request.headers.get('X-NoteLens-Evaluation-Output') === '1') {
         const prepared = store.getDocument(owner, result.docId);
         if ('kind' in prepared) return reject(409, prepared.notice);
         return Response.json({ document: result.docId, canonical_sha256: prepared.text_sha256 }, { status: 201, headers });
