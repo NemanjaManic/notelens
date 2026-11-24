@@ -237,5 +237,9 @@
   "restricted_successor_scoring_handoff_status": "Sara holds until joint freeze; earlier v1 candidate already received",
   "bounded_preflight_intake": "eval/reports/final/d009-b-bounded-preflight-intake-v1.json",
   "counted_whole_web_offline_rehearsal_received": true,
-  "final_execution_authorized": false
+  "final_execution_authorized": false,
+  "coordinator_execution_scope_approval": "eval/reports/final/d009-coordinator-bounded-scope-approval-v1.json",
+  "A_preflight_intake": "eval/reports/final/d009-A-preflight-intake-v1.json",
+  "combined_new_cap_usd_approved": "0.58",
+  "final_extraction_F1_disposition": "explicitly approved unmeasured"
 }
