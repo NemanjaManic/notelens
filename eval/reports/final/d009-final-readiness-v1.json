@@ -230,5 +230,9 @@
   "B009_key_free_main_evidence_received": true,
   "B_platform_intake": "eval/reports/final/d009-b-platform-intake-229ecf9-v1.json",
   "whole_web_provider_profile_ready": false,
-  "D_32_call_web_bound_verified": false
+  "D_32_call_web_bound_verified": false,
+  "custodian_review_reconciliation": "eval/reports/final/d009-sara-review-status-intake-v1.json",
+  "custodian_declared_v3_manifest_sha256": "1424c2d3aa6b207346e6d3ceda219839243d1cde2134670d2a8ea75d8c1e3f4f",
+  "custodian_declared_v3_manifest_bytes_verified": false,
+  "restricted_successor_scoring_handoff_status": "Sara holds until joint freeze; earlier v1 candidate already received"
 }
