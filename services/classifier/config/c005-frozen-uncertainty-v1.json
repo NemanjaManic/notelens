@@ -1,0 +1,16 @@
+{
+  "experiment_id": "c005-frozen-uncertainty-v1",
+  "thresholds": [0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75],
+  "minimum_margins": [0.00, 0.05, 0.10, 0.15, 0.20, 0.25],
+  "minimum_document_evidence": [0.15, 0.20, 0.25, 0.30, 0.40, 0.50, 0.65, 0.80, 1.00, 1.25, 1.50, 1.75, 2.00],
+  "section_policy": {
+    "minimum_word_evidence": 0.20,
+    "segment_threshold": 0.38,
+    "segment_margin": 0.05,
+    "competing_score_ratio": 0.35,
+    "minimum_section_share": 0.10
+  },
+  "selection": "Maximize the mean utility of frozen validation and existing synthetic development cases. Break ties by fewer inappropriate synthetic acceptances, then higher synthetic specialty coverage, then prefer the first candidate in the ordered grid.",
+  "utility": "Correct specialty acceptance minus wrong specialty and unrelated, ambiguous or low-information acceptance, divided by cohort size.",
+  "follow_up_suite": "model-check-lexical-v4.json"
+}

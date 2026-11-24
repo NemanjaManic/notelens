@@ -1,0 +1,151 @@
+{
+  "audit_version": "mtsamples-audit-v1",
+  "source": {
+    "filename": "mtsamples.csv",
+    "sha256": "a92cb78569f460606661ee7da50c92305b60d0fac2be4b06c8d2de0f234612d4",
+    "bytes": 17007236,
+    "encoding": "utf-8-sig (strict)",
+    "upstream_release_version": null,
+    "release_identity": "Local bytes identified by SHA-256; remote release equivalence not verified.",
+    "provenance_review": "docs/ml/data-audit.md"
+  },
+  "schema": {
+    "columns": [
+      "",
+      "description",
+      "medical_specialty",
+      "sample_name",
+      "transcription",
+      "keywords"
+    ],
+    "source_id_column": "",
+    "predictor_column": "transcription"
+  },
+  "cleaning": {
+    "label_rule": "Strip surrounding label whitespace; exact five-target membership only.",
+    "empty_rule": "Exclude transcription when str.strip() is empty.",
+    "text_rule": "Preserve every character of retained transcription; no normalization or truncation.",
+    "metadata_rule": "Description, sample_name, keywords and row IDs are not predictors."
+  },
+  "counts": {
+    "source_rows": 4999,
+    "source_categories": 40,
+    "all_empty_transcriptions": 33,
+    "all_nonempty_transcriptions": 4966,
+    "target_rows_before_empty_removal": 1338,
+    "target_empty_transcriptions": 9,
+    "target_nonempty_rows": 1329,
+    "non_target_rows": 3661
+  },
+  "source_label_counts": {
+    " Allergy / Immunology": 7,
+    " Autopsy": 8,
+    " Bariatrics": 18,
+    " Cardiovascular / Pulmonary": 372,
+    " Chiropractic": 14,
+    " Consult - History and Phy.": 516,
+    " Cosmetic / Plastic Surgery": 27,
+    " Dentistry": 27,
+    " Dermatology": 29,
+    " Diets and Nutritions": 10,
+    " Discharge Summary": 108,
+    " ENT - Otolaryngology": 98,
+    " Emergency Room Reports": 75,
+    " Endocrinology": 19,
+    " Gastroenterology": 230,
+    " General Medicine": 259,
+    " Hematology - Oncology": 90,
+    " Hospice - Palliative Care": 6,
+    " IME-QME-Work Comp etc.": 16,
+    " Lab Medicine - Pathology": 8,
+    " Letters": 23,
+    " Nephrology": 81,
+    " Neurology": 223,
+    " Neurosurgery": 94,
+    " Obstetrics / Gynecology": 160,
+    " Office Notes": 51,
+    " Ophthalmology": 83,
+    " Orthopedic": 355,
+    " Pain Management": 62,
+    " Pediatrics - Neonatal": 70,
+    " Physical Medicine - Rehab": 21,
+    " Podiatry": 47,
+    " Psychiatry / Psychology": 53,
+    " Radiology": 273,
+    " Rheumatology": 10,
+    " SOAP / Chart / Progress Notes": 166,
+    " Sleep Medicine": 20,
+    " Speech - Language": 9,
+    " Surgery": 1103,
+    " Urology": 158
+  },
+  "empty_transcriptions_by_label": {
+    "Cardiovascular / Pulmonary": 1,
+    "ENT - Otolaryngology": 2,
+    "Gastroenterology": 6,
+    "Obstetrics / Gynecology": 5,
+    "Office Notes": 1,
+    "Pain Management": 1,
+    "Surgery": 15,
+    "Urology": 2
+  },
+  "label_mapping": [
+    {
+      "source_label": " Cardiovascular / Pulmonary",
+      "target_label": "Cardiovascular / Pulmonary"
+    },
+    {
+      "source_label": " Gastroenterology",
+      "target_label": "Gastroenterology"
+    },
+    {
+      "source_label": " Neurology",
+      "target_label": "Neurology"
+    },
+    {
+      "source_label": " Orthopedic",
+      "target_label": "Orthopedic"
+    },
+    {
+      "source_label": " Urology",
+      "target_label": "Urology"
+    }
+  ],
+  "target_counts": {
+    "Cardiovascular / Pulmonary": {
+      "before": 372,
+      "empty_removed": 1,
+      "after_empty_removal": 371
+    },
+    "Orthopedic": {
+      "before": 355,
+      "empty_removed": 0,
+      "after_empty_removal": 355
+    },
+    "Gastroenterology": {
+      "before": 230,
+      "empty_removed": 6,
+      "after_empty_removal": 224
+    },
+    "Neurology": {
+      "before": 223,
+      "empty_removed": 0,
+      "after_empty_removal": 223
+    },
+    "Urology": {
+      "before": 158,
+      "empty_removed": 2,
+      "after_empty_removal": 156
+    }
+  },
+  "preliminary_exact_text_inventory": {
+    "method": "SHA-256 of unchanged UTF-8 transcription, nonempty targets only.",
+    "duplicate_groups": 46,
+    "rows_in_duplicate_groups": 92,
+    "conflicting_target_label_groups": 46,
+    "rows_in_conflicting_groups": 92,
+    "status": "Inspection only; near duplicates and conflict exclusions belong to C-002. No benchmark is frozen."
+  },
+  "split_status": "Not created; C-002 prerequisites remain pending.",
+  "language_review": "Not performed; source labels and nonempty text do not establish English compliance."
+}

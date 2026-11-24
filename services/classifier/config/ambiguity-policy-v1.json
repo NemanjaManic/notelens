@@ -1,0 +1,11 @@
+{
+  "experiment_id": "c-ambiguity-policy-v1",
+  "reference_manifest_sha256": "fa5dcd941449dac01314596225577d8e2878e0c4dca645f7d82cdf162e873df8",
+  "minimum_word_evidence": [0.1, 0.2, 0.3, 0.4, 0.5, 0.65, 0.8, 1.0],
+  "segment_thresholds": [0.33, 0.38, 0.43, 0.48],
+  "segment_margins": [0.05, 0.1, 0.15],
+  "competing_score_ratios": [0.35, 0.5, 0.65],
+  "minimum_section_shares": [0.10, 0.15, 0.20, 0.25],
+  "selection": "Mean normalized utility across complete validation documents and previously seen synthetic examples",
+  "utility": "Correct specialty acceptance minus wrong specialty acceptance minus unrelated and ambiguous acceptance"
+}
