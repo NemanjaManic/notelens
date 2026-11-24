@@ -22,7 +22,9 @@ for p in sorted(run_dir.glob("case-*.json")):
 
 rows, totals = [], {"cases": 0, "executed": 0, "technical_errors": 0, "route_match": 0, "state_match": 0,
                     "branches": 0, "branches_schema_valid": 0, "branches_literal_valid": 0,
-                    "branches_context_missing": 0, "unsupported_branches": 0}
+                    "branches_context_missing": 0, "unsupported_branches": 0,
+                    "unavailable_branches": 0, "completed_cases": 0,
+                    "saved_unavailable_cases": 0}
 retrieval = {"cases": 0, "executed": 0, "topic_hit": 0, "topic_denominator": 0,
              "passage_group_coverage_sum": 0.0, "passage_denominator": 0}
 for case in refs["cases"]:
@@ -43,6 +45,14 @@ for case in refs["cases"]:
         record = saved[cid]
         assert record["case_version"] == case["case_version"]
         answer = record["answer"]
+        unavailable = answer.get("state") == "unavailable" or any(
+            b["result"]["kind"] not in ("accepted", "unsupported") for b in answer["branches"])
+        if unavailable:
+            totals["saved_unavailable_cases"] += 1
+            totals["technical_errors"] += 1
+            row["error"] = "technical_error_saved_unavailable"
+        else:
+            totals["completed_cases"] += 1
         row["route_match"] = answer["route"] == case.get("expected_answer_route")
         row["state_match"] = answer["state"] == case.get("expected_evidence_state")
         totals["route_match"] += row["route_match"]
@@ -53,7 +63,7 @@ for case in refs["cases"]:
             kind = branch["result"]["kind"]
             b = {"origin": branch["origin"], "kind": kind, "schema_valid": False, "literal_valid": False}
             if kind != "accepted":
-                totals["unsupported_branches"] += 1
+                totals["unsupported_branches" if kind == "unsupported" else "unavailable_branches"] += 1
                 branch_rows.append(b)
                 continue
             result = branch["result"]["record"]
