@@ -521,7 +521,8 @@ test('demo/http-rejections-dispatch-no-downstream-calls-even-with-evaluation-hea
 });
 
 test('short plain English questions are accepted and non-English questions are rejected', () => {
-  for (const question of ['What follow-up does the report describe?', 'What is asthma and how is it treated?']) {
+  for (const question of ['What follow-up does the report describe?', 'What is asthma and how is it treated?',
+    'What does a cholesterol test measure?', 'How is high blood pressure treated?']) {
     const documentPlan = questionPlan({ document: document.doc_id, scope: 'document', documentQuestion: question }, false);
     assert.ok('plan' in documentPlan, question);
     const literaturePlan = questionPlan({ document: document.doc_id, scope: 'literature', literatureQuestion: question }, false);
