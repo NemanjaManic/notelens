@@ -33,3 +33,29 @@ export function englishLanguage(text: string): 'accepted' | 'unsupported' | 'inc
   }
   return english && !inconclusive ? 'accepted' : 'inconclusive';
 }
+
+// Common English function and question words. Words shared with other Latin-script languages
+// (for example "a", "in", "to", "die") are deliberately excluded.
+const ENGLISH_QUESTION_WORDS = new Set([
+  'what', 'which', 'who', 'whom', 'whose', 'why', 'when', 'where', 'how', 'is', 'are', 'was', 'were', 'be',
+  'been', 'does', 'do', 'did', 'the', 'of', 'and', 'or', 'for', 'with', 'about', 'from', 'this', 'that',
+  'these', 'those', 'can', 'could', 'should', 'would', 'will', 'may', 'might', 'it', 'its', 'there', 'their',
+  'they', 'my', 'your', 'have', 'has', 'had', 'an', 'any', 'report', 'describe', 'patient', 'treatment',
+  'treated', 'symptoms', 'causes', 'cause', 'follow', 'up', 'document', 'plan', 'mentioned', 'list',
+]);
+
+/**
+ * Questions are often too short for statistical detection. A question written only in ASCII
+ * Latin letters with at least two known English words making up at least 35% of its words is
+ * accepted deterministically. Everything else (including any accented or non-Latin letters)
+ * falls back to the document detector, so non-English questions are still rejected.
+ */
+export function englishQuestion(text: string): 'accepted' | 'unsupported' | 'inconclusive' {
+  const letters = text.match(/\p{L}/gu) ?? [];
+  const words = text.toLowerCase().match(/[a-z]+(?:'[a-z]+)?/g) ?? [];
+  if (letters.length > 0 && letters.every(letter => /[A-Za-z]/.test(letter)) && words.length >= 3) {
+    const known = words.filter(word => ENGLISH_QUESTION_WORDS.has(word)).length;
+    if (known >= 2 && known / words.length >= 0.35) return 'accepted';
+  }
+  return englishLanguage(text);
+}

@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import type { ReviewedQuestionHashes } from '../clients/bounded-evaluation.ts';
 import { canonicalText } from '../documents/canonical.ts';
-import { englishLanguage } from '../documents/language.ts';
+import { englishQuestion } from '../documents/language.ts';
 import { isReviewedQuestion, selectedDemoQuestion } from './demo-questions.ts';
 import type { QuestionPlan } from './demo-questions.ts';
 
@@ -59,7 +59,7 @@ export function questionPlan(input: Record<string, unknown>, builtin: boolean, e
     }
   }
   for (const text of Object.values(questions)) {
-    const english = pinned || isReviewedQuestion(text) ? 'accepted' : englishLanguage(text);
+    const english = pinned || isReviewedQuestion(text) ? 'accepted' : englishQuestion(text);
     if (english === 'unsupported') return { notice: 'Only English questions are supported.', status: 422 };
     if (english === 'inconclusive') return { notice: 'English could not be verified. Enter a longer question in English.', status: 422 };
   }
