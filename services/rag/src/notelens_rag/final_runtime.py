@@ -141,17 +141,19 @@ def preflight(path, *, root=ROOT):
 class Ledger:
     """One durable attempt, with reservations retained after ambiguous failures."""
 
-    def __init__(self, policy, path, policy_hash, *, clock=time.monotonic):
+    def __init__(self, policy, path, policy_hash, *, clock=time.monotonic,
+                 max_requests=MAX_CASES, cap=CAP, wall_seconds=WALL_SECONDS, question_quotas=True):
+        self.max_cases, self.cap = max_requests, cap
         self.path, self.clock = Path(path), clock
-        self.deadline = clock() + WALL_SECONDS
+        self.deadline = clock() + wall_seconds
         self.lock = threading.RLock()
         self.receipt_lock = threading.RLock()
         self.watchdog_stop = threading.Event()
-        self.quotas = Counter(policy['question_sha256'])
+        self.quotas = Counter(policy['question_sha256']) if question_quotas else None
         self.current = None
         self.state = {'format_version': 'notelens-final-rag-receipt-v1', 'run_id': policy['run_id'],
                       'policy_sha256': policy_hash, 'app_sha': APP_SHA, 'status': 'running',
-                      'budget_usd': str(CAP), 'reserved_usd': '0', 'invoice_verified': False,
+                      'budget_usd': str(cap), 'reserved_usd': '0', 'invoice_verified': False,
                       'requests': [], 'provider_attempts': 0, 'generation_attempts': 0,
                       'embedding_attempts': 0, 'free_count_attempts': 0}
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -196,13 +198,14 @@ class Ledger:
     def admit(self, request, request_id):
         self.check()
         digest = _hash(request['question'].encode('utf-8'))
-        if (self.quotas[digest] <= 0 or len(self.state['requests']) >= MAX_CASES
+        if ((self.quotas is not None and self.quotas[digest] <= 0) or len(self.state['requests']) >= self.max_cases
                 or request_id is None or any(row['request_id'] == request_id for row in self.state['requests'])):
             self.halt('unapproved_or_repeated_request')
             raise AssessmentError('validation_failure')
         with self.receipt_lock:
             self.check()
-            self.quotas[digest] -= 1
+            if self.quotas is not None:
+                self.quotas[digest] -= 1
             self.current = {'request_id': request_id, 'question_sha256': digest, 'status': 'attempted', 'operations': []}
             self.state['requests'].append(self.current)
             self.save()
@@ -212,8 +215,8 @@ class Ledger:
         _require(self.current is not None and not any(row['stage'] == stage for row in self.current['operations']))
         counter = ('free_count_attempts' if stage.endswith('_count') else
                    'embedding_attempts' if stage == 'embedding' else 'generation_attempts')
-        limit = MAX_CASES if counter == 'embedding_attempts' else MAX_CASES * 3
-        if self.state[counter] >= limit or _amount(self.state['reserved_usd']) + reserve > CAP:
+        limit = self.max_cases if counter == 'embedding_attempts' else self.max_cases * 3
+        if self.state[counter] >= limit or _amount(self.state['reserved_usd']) + reserve > self.cap:
             self.halt('budget_exceeded')
             raise AssessmentError('budget_exceeded')
         with self.receipt_lock:

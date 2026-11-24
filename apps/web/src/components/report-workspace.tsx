@@ -13,7 +13,8 @@ export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPa
   const extraction = view.extraction.state === 'ready' ? view.extraction.record : null;
   const summary = extraction?.summary.status === 'completed' ? extraction.summary.result : null;
   const selected = view.document && view.selected ? evidenceParts(view.document.text, view.selected.span) : null;
-  const evaluationLabel = view.evaluation === 'offline' ? 'Bounded evaluation dry run' : 'Bounded provider evaluation';
+  const evaluationLabel = view.evaluation === 'offline' ? 'Bounded evaluation dry run'
+    : view.evaluation === 'public-live' ? 'Live provider demo' : 'Bounded provider evaluation';
   const profile = view.evaluation ? evaluationLabel
     : view.d005Replay ? 'D-005 saved-response replay' : view.fittedClassifier ? 'Local classifier profile' : 'Mock mode';
   return <main>

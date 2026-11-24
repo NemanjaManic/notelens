@@ -10,7 +10,8 @@ export async function POST(request: Request): Promise<Response> {
   const headers = new Headers({ 'Cache-Control': 'no-store' });
   const reject = (status: number, notice: string) => Response.json({ notice }, { status, headers });
   try {
-    if (!mockServiceClients()?.evaluation || request.headers.get('X-NoteLens-Evaluation-Output') !== '1') {
+    const profile = mockServiceClients()?.evaluation;
+    if (!profile || profile === 'public-live' || request.headers.get('X-NoteLens-Evaluation-Output') !== '1') {
       return reject(404, 'Evaluation output is unavailable.');
     }
     if (!isSessionRequestFromOrigin(request.headers)) return reject(403, 'Use the configured evaluation origin.');

@@ -1,0 +1,39 @@
+# NoteLens public live demo: Next.js web + live RAG, live extraction and the fitted
+# classifier in one container (Railway). Select with RAILWAY_DOCKERFILE_PATH=Dockerfile.live.
+# Runtime artifacts (prepared corpus, Chroma index, tokenizer cache, classifier model) are
+# uploaded from the operator's local deploy-artifacts/ folder by `railway up`; they are never
+# committed. The OpenAI key is supplied only as a Railway variable.
+FROM node:24-bookworm-slim
+
+COPY --from=ghcr.io/astral-sh/uv:0.11 /uv /uvx /bin/
+
+ENV NEXT_TELEMETRY_DISABLED=1 \
+    UV_PYTHON_INSTALL_DIR=/opt/python \
+    UV_LINK_MODE=copy \
+    UV_COMPILE_BYTECODE=0 \
+    PYTHONDONTWRITEBYTECODE=1
+
+WORKDIR /app
+COPY . .
+
+RUN test -f deploy-artifacts/classifier/model.joblib \
+ && test -f deploy-artifacts/rag/corpus/cleaned-topics.jsonl \
+ && test -d deploy-artifacts/rag/indexes \
+ && mkdir -p data/knowledge/.cache data/knowledge/indexes services/rag/.cache services/classifier/.cache/model \
+ && cp -r deploy-artifacts/rag/corpus data/knowledge/.cache/corpus \
+ && cp -r deploy-artifacts/rag/indexes/. data/knowledge/indexes/ \
+ && cp -r deploy-artifacts/rag/tiktoken services/rag/.cache/tiktoken \
+ && cp deploy-artifacts/classifier/* services/classifier/.cache/model/ \
+ && rm -rf deploy-artifacts
+
+RUN uv python install 3.13 \
+ && uv sync --locked --directory services/rag --python 3.13 --no-dev --extra indexing \
+ && uv sync --locked --directory services/classifier --python 3.13 --no-dev --group training \
+ && uv sync --locked --directory services/extraction --python 3.13 --no-dev
+
+RUN npm ci --no-audit --no-fund && npm run build
+
+ENV NODE_ENV=production
+RUN chmod +x infra/railway/start-live.sh
+EXPOSE 3000
+CMD ["infra/railway/start-live.sh"]
