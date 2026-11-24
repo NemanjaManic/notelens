@@ -8,6 +8,11 @@ FROM node:24-bookworm-slim
 
 COPY --from=ghcr.io/astral-sh/uv:0.11 /uv /uvx /bin/
 
+# The slim base has no system CA bundle; Python services need it for TLS to api.openai.com.
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
 ENV NEXT_TELEMETRY_DISABLED=1 \
     UV_PYTHON_INSTALL_DIR=/opt/python \
     UV_LINK_MODE=copy \
