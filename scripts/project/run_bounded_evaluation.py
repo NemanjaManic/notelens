@@ -65,6 +65,10 @@ class Workload:
             'literature-answer': sum(row['route'] in ('literature_only', 'mixed') for row in self.cases),
         }
 
+    def reviewed_literature_hashes(self):
+        return {scope: [digest(case['question'].encode('utf-8')) for case in self.cases if case['route'] == route]
+                for scope, route in (('literature', 'literature_only'), ('both', 'mixed'))}
+
 
 def load_workload(manifest_path, expected_manifest_hash, bundle_path):
     manifest_bytes = manifest_path.read_bytes()
@@ -310,7 +314,8 @@ def save_preflight_failure(output, reason):
 
 
 @contextmanager
-def start_managed_stack(endpoints, launches, limits, *, deadline, deadline_unix_ms, watchdog, profile, http_timeout_ms):
+def start_managed_stack(endpoints, launches, limits, *, deadline, deadline_unix_ms, watchdog, profile, http_timeout_ms,
+                        reviewed_literature_hashes=None):
     require(set(endpoints) == set(launches) == set(TOKEN_ENV), 'missing_managed_service_launch')
     watchdog['enabled'] = True
     job, stack = None, None
@@ -324,7 +329,8 @@ def start_managed_stack(endpoints, launches, limits, *, deadline, deadline_unix_
             children = {name: job.start(command, cwd=cwd, env=env, stdout=subprocess.DEVNULL)
                         for name, (command, cwd, env) in launches.items()}
             with start_bounded_web(endpoints, limits, profile=profile, http_timeout_ms=http_timeout_ms,
-                                   deadline_unix_ms=deadline_unix_ms, owner=job) as web:
+                                   deadline_unix_ms=deadline_unix_ms, owner=job,
+                                   reviewed_literature_hashes=reviewed_literature_hashes) as web:
                 stack = MockStack(web.web_port, {**children, **web.processes},
                                   {**{name: endpoint.port for name, endpoint in endpoints.items()}, **web.ports})
                 yield stack
@@ -357,13 +363,14 @@ def service_launches(config, endpoints):
 
 
 @contextmanager
-def approved_stack(config_path, config, config_bytes, deadline, deadline_unix_ms, watchdog):
+def approved_stack(config_path, config, config_bytes, workload, deadline, deadline_unix_ms, watchdog):
     endpoints = {name: Endpoint(**config['services'][name], token=os.environ[key]) for name, key in TOKEN_ENV.items()}
     launches = service_launches(config, endpoints)
     claim_approved_run(config_path, config['run_id'], config_bytes)
     with start_managed_stack(endpoints, launches, config['http_limits'], profile='provider-backed',
                              http_timeout_ms=config['http_timeout_ms'], deadline=deadline,
-                             deadline_unix_ms=deadline_unix_ms, watchdog=watchdog) as stack:
+                             deadline_unix_ms=deadline_unix_ms, watchdog=watchdog,
+                             reviewed_literature_hashes=workload.reviewed_literature_hashes()) as stack:
         yield stack
 
 
@@ -388,7 +395,8 @@ def main():
         require(workload.required_calls() == config['http_limits'], 'approved_http_limits_do_not_match_inventory')
         require(set(config['service_pins']) == set(TOKEN_ENV) and all(
             isinstance(pin, str) and pin.strip() for pin in config['service_pins'].values()), 'missing_service_pins')
-        receipt = execute_workload(workload, args.output, lambda *timing: approved_stack(args.approved_config, config, raw, *timing),
+        receipt = execute_workload(workload, args.output,
+                                   lambda *timing: approved_stack(args.approved_config, config, raw, workload, *timing),
                                    run_id=config['run_id'], app_sha=app_sha, deadline_seconds=config['deadline_seconds'],
                                    scope=config['document_scope'], profile='provider-backed', service_pins=config['service_pins'],
                                    approval_sha256=args.approval_sha256)
