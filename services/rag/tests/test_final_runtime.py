@@ -1,4 +1,4 @@
-"""Verify final-run admission, durable accounting and failure deadlines offline."""
+﻿"""Verify final-run admission, durable accounting and failure deadlines offline."""
 
 from decimal import Decimal
 import hashlib
@@ -48,6 +48,51 @@ def admit(ledger, number=0):
     request = {'schema_version': '1.0.0', 'question': f'Synthetic question {number}'}
     ledger.admit(request, str(uuid4()))
     return request
+
+
+def test_invalid_decomposition_falls_back_to_entire_original_question(ledger, monkeypatch):
+    request = admit(ledger)
+    providers = runtime.Providers(ledger, None, None, SimpleNamespace(encode=lambda text, **kwargs: [1]))
+    def invalid(*args, **kwargs):
+        raise AssessmentError('invalid_question_parts')
+    monkeypatch.setattr(providers, 'checked_stage', invalid)
+    result = providers.requirements(request)
+    assert result == [{'requirement_id': 'part-1', 'description': request['question']}]
+    assert ledger.state['status'] == 'running'
+    assert ledger.current['requirements_strategy'] == 'verbatim-whole-question-fallback-v1'
+    assert request['question'].encode() not in ledger.path.read_bytes()
+
+
+@pytest.mark.parametrize('code', ['out_of_scope', 'needs_clarification', 'timeout', 'rate_limit',
+                                 'configuration_required', 'budget_exceeded'])
+def test_whole_question_fallback_does_not_hide_abstention_or_operational_failure(ledger, monkeypatch, code):
+    request = admit(ledger)
+    providers = runtime.Providers(ledger, None, None, SimpleNamespace(encode=lambda text, **kwargs: [1]))
+    def fail(*args, **kwargs):
+        raise AssessmentError(code)
+    monkeypatch.setattr(providers, 'checked_stage', fail)
+    with pytest.raises(AssessmentError) as error:
+        providers.requirements(request)
+    assert error.value.code == code
+    assert 'requirements_strategy' not in ledger.current
+
+
+def test_request_failure_retains_safe_trace_without_exception_text(ledger):
+    def fail(request):
+        try:
+            raise ValueError('private document and API credential canary')
+        except ValueError:
+            raise RagServiceError('internal_error') from None
+    token = runtime.REQUEST_ID.set(str(uuid4()))
+    try:
+        with pytest.raises(RagServiceError):
+            runtime.BoundedBackend(SimpleNamespace(answer=fail), ledger).answer(
+                {'schema_version':'1.0.0','question':'Synthetic question 0'})
+    finally:
+        runtime.REQUEST_ID.reset(token)
+    row = ledger.state['requests'][0]
+    assert [entry['type'] for entry in row['error_trace']] == ['RagServiceError', 'ValueError']
+    assert b'private document and API credential canary' not in ledger.path.read_bytes()
 
 
 def fake_client(*, counted=10, output_tokens=2, native_input=10):
@@ -423,3 +468,4 @@ def test_authenticated_http_readiness_success_identity_and_overflow(ledger):
             json={'schema_version': '1.0.0', 'question': 'Synthetic question 16'})
         assert response.status_code == 422
         assert ledger.state['provider_attempts'] == 0
+
