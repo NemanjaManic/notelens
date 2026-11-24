@@ -166,10 +166,17 @@ def test_wall_clock_check_stops_before_provider_dispatch(ledger):
 
 def test_idle_watchdog_persists_halt_without_waiting_for_another_request(ledger):
     ledger.deadline = ledger.clock() + .02
-    limit = time.monotonic() + .5
-    while ledger.state['status'] == 'running' and time.monotonic() < limit:
+    limit = time.monotonic() + 2
+    receipt = {}
+    while time.monotonic() < limit:
+        # Observe the durable result after the watchdog finishes its atomic write.
+        with ledger.receipt_lock:
+            receipt = json.loads(ledger.path.read_bytes())
+        if receipt.get('stop_code') == 'wall_clock_limit':
+            break
         time.sleep(.01)
-    assert json.loads(ledger.path.read_bytes())['stop_code'] == 'wall_clock_limit'
+    assert receipt.get('stop_code') == 'wall_clock_limit'
+    assert receipt['status'] == 'halted'
     assert ledger.state['provider_attempts'] == 0
 
 
