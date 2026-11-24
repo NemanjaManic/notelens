@@ -81,7 +81,7 @@ export function mockServiceClients(env: NodeJS.ProcessEnv = process.env, transpo
   return {
     d005Replay,
     evaluation: evaluation?.profile,
-    reviewedLiteratureHashes: evaluation?.reviewedLiteratureHashes,
+    reviewedQuestionHashes: evaluation?.reviewedQuestionHashes,
     classify: (document: ClassificationRequest['document']) => post('classify', { schema_version: '1.0.0', document }),
     extract: (document: ExtractionRequest['document']) => post('extract', { schema_version: '1.0.0', document }),
     documentAnswer: (document: DocumentQuestionRequest['document'], question: string) =>

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import type { ReviewedLiteratureHashes } from '../clients/bounded-evaluation.ts';
+import type { ReviewedQuestionHashes } from '../clients/bounded-evaluation.ts';
 import { canonicalText } from '../documents/canonical.ts';
 import { englishLanguage } from '../documents/language.ts';
 import { isReviewedQuestion, selectedDemoQuestion } from './demo-questions.ts';
@@ -25,9 +25,10 @@ export function questionDocument(input: unknown): string | null {
 }
 
 export function questionPlan(input: Record<string, unknown>, builtin: boolean, evaluationCapture = false,
-  reviewedLiteratureHashes?: ReviewedLiteratureHashes):
+  reviewedQuestionHashes?: ReviewedQuestionHashes):
     { plan: QuestionPlan } | { notice: string; status: number } {
   if (Object.hasOwn(input, 'preset')) {
+    if (evaluationCapture && reviewedQuestionHashes) return { notice: unreviewed, status: 422 };
     const selected = typeof input.preset === 'string' && selectedDemoQuestion(input.preset, builtin);
     return selected && Object.keys(input).length === 2
       ? { plan: selected.plan } : { notice: 'Choose an available demo question.', status: 422 };
@@ -36,7 +37,7 @@ export function questionPlan(input: Record<string, unknown>, builtin: boolean, e
   if (scope !== 'document' && scope !== 'literature' && scope !== 'both' &&
       !(evaluationCapture && scope === 'out-of-scope')) return { notice: invalid, status: 422 };
   const sharedQuestion = evaluationCapture && scope === 'both' && Object.hasOwn(input, 'question');
-  const pinned = evaluationCapture && (scope === 'literature' || scope === 'both') ? reviewedLiteratureHashes?.[scope] : undefined;
+  const pinned = evaluationCapture ? reviewedQuestionHashes?.[scope] : undefined;
   if (pinned && scope === 'both' && !sharedQuestion) return { notice: unreviewed, status: 422 };
   const selected = sharedQuestion ? singleQuestion : fields[scope];
   if (Object.keys(input).length !== selected.length + 2) return { notice: invalid, status: 422 };

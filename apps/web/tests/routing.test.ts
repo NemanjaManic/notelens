@@ -243,16 +243,17 @@ test('input/admitting-the-reviewed-d005-cough-question', () => {
   assert.equal(result.plan.document, documentQuestion);
 });
 
-test('input/reviewed-literature-admission-requires-exact-bytes-and-scope', () => {
+test('input/reviewed-question-admission-requires-exact-bytes-and-scope', () => {
   const question = 'Age?';
   const hash = (value: string) => createHash('sha256').update(value, 'utf8').digest('hex');
-  const pins = { both: [hash(question)], literature: [] };
+  const empty = { document: [], both: [], literature: [], 'out-of-scope': [] };
+  const pins = { ...empty, both: [hash(question)] };
   const mixed = { document: document.doc_id, scope: 'both', question };
   assert.deepEqual(questionPlan(mixed, false, true, pins), {
     plan: { label: question, document: question, literature: question },
   });
   const literature = { document: document.doc_id, scope: 'literature', literatureQuestion: question };
-  const scoped = { both: [], literature: [hash(question)] };
+  const scoped = { ...empty, literature: [hash(question)] };
   assert.ok('plan' in questionPlan(literature, false, true, scoped));
   for (const rejected of [
     questionPlan(mixed, false, true),
@@ -261,12 +262,24 @@ test('input/reviewed-literature-admission-requires-exact-bytes-and-scope', () =>
     questionPlan({ ...mixed, question: 'A different English question about the reason for this scheduled appointment?' }, false, true, pins),
     questionPlan({ ...mixed, question: question + ' ' }, false, true, { ...pins, both: [hash(question + ' ')] }),
     questionPlan({ document: document.doc_id, scope: 'both', documentQuestion: question, literatureQuestion: question }, false, true, pins),
+    questionPlan({ document: document.doc_id, preset: 'out-of-scope' }, true, true, pins),
   ]) {
     assert.ok('status' in rejected && rejected.status === 422);
   }
   const oversized = 'a'.repeat(1001);
   const rejected = questionPlan({ ...mixed, question: oversized }, false, true, { ...pins, both: [hash(oversized)] });
   assert.ok('status' in rejected && rejected.status === 413);
+
+  const documentOnly = { document: document.doc_id, scope: 'document', documentQuestion: question };
+  const documentPins = { ...empty, document: [hash(question)] };
+  const outside = { document: document.doc_id, scope: 'out-of-scope', question };
+  const outsidePins = { ...empty, 'out-of-scope': [hash(question)] };
+  assert.deepEqual(questionPlan(documentOnly, false, true, documentPins),
+    { plan: { label: question, document: question, literature: undefined } });
+  assert.deepEqual(questionPlan(outside, false, true, outsidePins), { plan: { label: question } });
+  assert.ok('status' in questionPlan(documentOnly, false, false, documentPins));
+  assert.ok('status' in questionPlan(documentOnly, false, true, outsidePins));
+  assert.ok('status' in questionPlan(outside, false, true, documentPins));
 });
 
 test('input/combined-unicode-point-limit-and-english-validation', () => {
