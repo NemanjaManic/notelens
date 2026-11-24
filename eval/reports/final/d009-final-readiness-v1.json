@@ -151,7 +151,7 @@
       "needed": "Team approves the freeze framework and known D pin; supply missing exact app/reference identities and obtain explicit complete execution policy before materializing an executable freeze."
     }
   ],
-  "final_extraction_references_note": "D-013 references are development, not unseen final. Final extraction ground truth must be provided separately if extraction is included in full final scoring.",
+  "final_extraction_references_note": "New candidate explicitly reports final extraction F1 unavailable; no final gold annotation set supplied. D-013 remains development.",
   "full_case_texts_questions_answer_keys_opened": false,
   "final_provider_calls": 0,
   "joint_final_saved_output_scoring_executed": false,
@@ -220,5 +220,10 @@
   "joint_freeze_framework_approved": true,
   "team_decision_record": "eval/reports/final/d009-team-final-limitations-approval-v1.json",
   "complete_executable_freeze_materialized": false,
-  "latest_candidate_app_repro_verification": "eval/reports/development/d005-d41-repro-verification-v1.json"
+  "latest_candidate_app_repro_verification": "eval/reports/development/d005-d41-repro-verification-v1.json",
+  "final_candidate_intake": "eval/reports/final/d009-final-candidate-intake-v1.json",
+  "replacement_review_status": "three exact v2 approvals verified",
+  "runtime_candidate_received": true,
+  "separate_scoring_candidate_received": true,
+  "reconciled_candidate_reference_manifest": "eval/references/qa/d009-reconciled-candidate-identity-v1.manifest.json"
 }

@@ -108,3 +108,16 @@ The executable freeze is not materialized because final app/replacement referenc
 identities and complete authorized execution limits remain incomplete. D-009
 remains open; no final provider calls or scoring performed. See
 [the decision record](../../eval/reports/final/d009-team-final-limitations-approval-v1.json).
+
+## November 24 final candidate intake
+
+Runtime and separate scoring candidates are now received, not metadata-only.
+All 26 runtime entry hashes, 16 document hashes and 26 scoring case byte hashes
+verify. Sara author release and Goran personal review approve the three exact v2
+replacements; the candidate has 22 v1 and four v2 cases. A reconciled identity
+manifest preserves original files and overlays the newer review dispositions.
+No final questions/gold answers were displayed, no new model calls were made,
+and no final generation/scoring was executed. Case-specific notes in the supplied
+review receipt were visible to D; no blindness claim or further prompt tuning is
+made. Final app/operation authorization and reference approval remain. Final
+extraction F1 is explicitly unavailable in the supplied manifest.
