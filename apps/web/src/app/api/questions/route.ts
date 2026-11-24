@@ -42,7 +42,8 @@ async function handle(request: Request): Promise<Response> {
     const document = store.getDocument(owner, id);
     if ('kind' in document) return reject(404, document.notice);
     const evaluationCapture = Boolean(clients.evaluation && request.headers.get('X-NoteLens-Evaluation-Output') === '1');
-    const result = questionPlan(input as Record<string, unknown>, isBuiltinDemoDocument(document), evaluationCapture);
+    const result = questionPlan(input as Record<string, unknown>, isBuiltinDemoDocument(document), evaluationCapture,
+      clients.reviewedLiteratureHashes);
     if ('notice' in result) return reject(result.status, result.notice);
 
     const pending = store.beginQuestion(owner, id);

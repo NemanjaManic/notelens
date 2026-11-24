@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+import type { ReviewedLiteratureHashes } from '../clients/bounded-evaluation.ts';
 import { canonicalText } from '../documents/canonical.ts';
 import { englishLanguage } from '../documents/language.ts';
 import { isReviewedQuestion, selectedDemoQuestion } from './demo-questions.ts';
@@ -15,13 +17,15 @@ const fields = {
 const singleQuestion = ['question'] as const;
 const invalid = 'Enter an English question for each selected source.';
 const tooLong = 'Questions may contain up to 1,000 Unicode code points in total.';
+const unreviewed = 'The question does not match the reviewed evaluation workload.';
 
 export function questionDocument(input: unknown): string | null {
   if (!input || typeof input !== 'object' || !('document' in input)) return null;
   return typeof input.document === 'string' && DOCUMENT_ID.test(input.document) ? input.document : null;
 }
 
-export function questionPlan(input: Record<string, unknown>, builtin: boolean, evaluationCapture = false):
+export function questionPlan(input: Record<string, unknown>, builtin: boolean, evaluationCapture = false,
+  reviewedLiteratureHashes?: ReviewedLiteratureHashes):
     { plan: QuestionPlan } | { notice: string; status: number } {
   if (Object.hasOwn(input, 'preset')) {
     const selected = typeof input.preset === 'string' && selectedDemoQuestion(input.preset, builtin);
@@ -32,6 +36,8 @@ export function questionPlan(input: Record<string, unknown>, builtin: boolean, e
   if (scope !== 'document' && scope !== 'literature' && scope !== 'both' &&
       !(evaluationCapture && scope === 'out-of-scope')) return { notice: invalid, status: 422 };
   const sharedQuestion = evaluationCapture && scope === 'both' && Object.hasOwn(input, 'question');
+  const pinned = evaluationCapture && (scope === 'literature' || scope === 'both') ? reviewedLiteratureHashes?.[scope] : undefined;
+  if (pinned && scope === 'both' && !sharedQuestion) return { notice: unreviewed, status: 422 };
   const selected = sharedQuestion ? singleQuestion : fields[scope];
   if (Object.keys(input).length !== selected.length + 2) return { notice: invalid, status: 422 };
   const questions: Partial<Record<(typeof fields)[keyof typeof fields][number], string>> = {};
@@ -47,9 +53,12 @@ export function questionPlan(input: Record<string, unknown>, builtin: boolean, e
     canonicalLength += Array.from(canonical.text).length;
     if (canonicalLength > MAX_QUESTION_CODE_POINTS) return { notice: tooLong, status: 413 };
     questions[field] = canonical.text.trim();
+    if (pinned && (questions[field] !== raw || !pinned.includes(createHash('sha256').update(raw, 'utf8').digest('hex')))) {
+      return { notice: unreviewed, status: 422 };
+    }
   }
   for (const text of Object.values(questions)) {
-    const english = isReviewedQuestion(text) ? 'accepted' : englishLanguage(text);
+    const english = pinned || isReviewedQuestion(text) ? 'accepted' : englishLanguage(text);
     if (english === 'unsupported') return { notice: 'Only English questions are supported.', status: 422 };
     if (english === 'inconclusive') return { notice: 'English could not be verified. Enter a longer question in English.', status: 422 };
   }
