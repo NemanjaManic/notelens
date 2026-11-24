@@ -1,0 +1,120 @@
+{
+  "version": "notelens-final-evaluation-v1",
+  "approved": false,
+  "partition": "final",
+  "execution": "saved_outputs",
+  "approved_by": null,
+  "scope": "One approved 26-case final pass with final extraction F1 and independent semantic answer risk explicitly unmeasured; no threshold lowering or fabricated numeric pass.",
+  "reason": "Known development limitations accepted by Milica; exact final inputs and replacement approvals received. Final runtime readiness, saved outputs and exact executable configuration remain incomplete.",
+  "run_id": "notelens-joint-final-v1",
+  "system_versions": {
+    "rag": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
+    "classifier": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+    "extraction": "d41fa880177a7855bb92e57d98673b0a7a77d36b"
+  },
+  "development_groups": {
+    "path": "development-group-exclusions-v1.json",
+    "sha256": "f0c7adccef68b242cccd1b1453287bef15e1b9728215cf03781c88d82ef5d963"
+  },
+  "acceptance": {
+    "path": "acceptance.json",
+    "sha256": "cc537d27919d56602222994f39c9914ad44aa0ece155402daf8572eb58df1992"
+  },
+  "components": {
+    "extraction": {
+      "status": "unmeasured",
+      "reason": "Distinct final extraction entity annotations are absent; Milica explicitly approves this metric unmeasured.",
+      "approved_by": "Milica Mileusnic",
+      "decision_record": "d009-coordinator-bounded-scope-approval-v1"
+    },
+    "retrieval": {
+      "references": {
+        "path": "restricted/retrieval-references.json",
+        "sha256": null
+      },
+      "predictions": {
+        "path": "restricted/retrieval-predictions.json",
+        "sha256": null
+      }
+    },
+    "answer-risk": {
+      "status": "unmeasured",
+      "reason": "Independent semantic correctness ratings are absent; team/Milica accepts missing final semantic-risk evidence without numerical substitution.",
+      "approved_by": "Milica Mileusnic",
+      "decision_record": "d009-coordinator-bounded-scope-approval-v1"
+    },
+    "classification": {
+      "report": {
+        "path": "../reports/final/c008-owner-classification-evidence-v1.json",
+        "sha256": "11c335b57b5ff5c404adde6eac3c258035eb79cb8c38e2b76df44a7d09dc156d"
+      }
+    },
+    "qa": {
+      "references": {
+        "path": "restricted/qa-references.json",
+        "sha256": null
+      },
+      "predictions": {
+        "path": "restricted/qa-predictions.json",
+        "sha256": null
+      }
+    }
+  },
+  "selected_system_status": "Coverage/low candidate measured on paired development data; exact F1 0.4679 < 0.90, temporal regression unaccepted, semantic risk missing. No final release approval.",
+  "reference_identity_manifest": {
+    "path": "../references/qa/d009-reconciled-candidate-identity-v1.manifest.json",
+    "sha256": "3c1cf38c209f68e41262f961bc59b9b67e43260e65a6bdc58cc591c9990e17f3"
+  },
+  "unseen_eligibility_pending_cases": [],
+  "final_generation_authorized_by_this_candidate": false,
+  "status": "prepared_v2_incomplete_runtime_outputs_not_executed",
+  "measured_extraction_service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "extraction_configuration": {
+    "model": "gpt-6-luna",
+    "input_format": "messages",
+    "output_format": "quote_hints",
+    "prompt_profile": "coverage_v2",
+    "reasoning_effort": "low",
+    "output_version": "d-quote-hints-v2",
+    "prompt_version": "d-quote-hints-prompts-v2",
+    "prompt_versions_by_operation": {
+      "extract": "d-quote-hints-prompts-v2",
+      "answer": "d-quote-hints-prompts-v1",
+      "early_abstention": null
+    },
+    "prompt_pins": {
+      "services/extraction/src/notelens_extraction/prompts/extract-quotes-v2.txt": "e02ddaea5213c9814efbf2081a9b1e27bef2566cb657e4e7647f717f1f476cb5",
+      "services/extraction/src/notelens_extraction/prompts/answer-quotes-v1.txt": "e8fc562125c5a75cd2b477de4adcb9b55f14ab31c7c430e227f16d3509a70f25"
+    },
+    "immutable_dated_model_snapshot_established": false
+  },
+  "historical_smoke_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "eligibility_proposal": {
+    "status": "superseded_by_three_verified_v2_replacements",
+    "decision_record": "../reports/final/d009-final-candidate-intake-v1.json"
+  },
+  "candidate_revision": "d009-final-freeze-candidate-v2",
+  "replacement_reference_status": "F-DOC-01/02/03 v2 byte pins and author/reviewer approvals verified; original v1 retired supplementary only. Uses received exact v2 candidate archives plus review overlay, not an invented v3 file hash.",
+  "runtime_pins": {
+    "app_candidate": "9fc7c333ca74971768e1df13ed6238798c48e90e",
+    "equivalent_merged_main_app": "0162ac9ecd9db16d5f476c2761e1fdc18178c23c",
+    "app_code_equality_verified": "git diff 9fc7c33 0162ac9 -- apps/web scripts/project returned no differences.",
+    "classifier_startup_manifest_sha256": "affe7af9e2d0f8df46d25642fd2e0cbf0ff3e45f2a8576b9c87cc2cc257d7f32",
+    "classifier_owner_final_manifest_sha256": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+    "classifier_artifact_sha256": "5951f751949747cb3c251987b1503ffaf1d79df9933862c7a692f01a5d65622c",
+    "classifier_manifest_difference": "Existing D verification docs/extraction-eval/c007-classifier-transport.md records startup/published manifests differ only by stage, same model version and artifact. Owner aggregate remains bound to published fd manifest; no hash is relabelled."
+  },
+  "known_source_archive_pins": {
+    "START-HERE.md": "0b3896616ef22cc3939b621ebe07a780b26f767e95a300e5c3f00ca70038144c",
+    "d009-runtime-candidate-v1.zip": "a96ebf7829e96be6cc213e45220a215e37a04f9fd4cbb4364b5b8c3a4ff024f7",
+    "d009-sara-author-release-v1.json": "b92a947388b1ad3b70c2e6ea5ef15bf5dd618bffda3bdd4d9665975c84613c2c",
+    "d009-sara-qa-candidate-manifest-v2.json": "52312604f4ccc06b75113d4f56b680fcf394a61b678d53a5ee689fb3363167ab",
+    "d009-scoring-candidate-v1.zip": "5fdef0a182d35eb79e43736dd6d284c3cf07462831f548ffe5c6f511c04d1a3f",
+    "d009-three-replacements-review-v2.zip": "d985f0e90105b145b0a4308e030d428dbe03e8fba461c8ee4b18138facd573c8",
+    "d009-goran-three-replacements-review-receipt-v1.json": "93b6d5a302433c4dfef552afba2e3bb15fd4a3d896986d0bcdf31c1fe8123aa7"
+  },
+  "execution_scope_approval": {
+    "path": "../reports/final/d009-coordinator-bounded-scope-approval-v1.json",
+    "sha256": "c3c0ea16711718ae74f13fb3ac3f5e8dde2e7ee4fd9c6e6510b91f0561f58afe"
+  }
+}
