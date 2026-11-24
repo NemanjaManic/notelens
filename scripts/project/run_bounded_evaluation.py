@@ -271,7 +271,10 @@ def execute_workload(workload, output, stack_context, *, run_id, app_sha, deadli
                 expected = {'document_only': ['document'], 'literature_only': ['literature'],
                             'mixed': ['document', 'literature'], 'out_of_scope': []}[case['route']]
                 require([branch['origin'] for branch in answer['branches']] == expected, 'answer_branch_mismatch')
-                require(all(branch['result']['kind'] == 'accepted' for branch in answer['branches'])
+                # A literature abstention is a legitimate explicit gap, not a service failure.
+                require(all(branch['result']['kind'] == 'accepted'
+                            or (branch['origin'] == 'literature' and branch['result']['kind'] == 'unsupported')
+                            for branch in answer['branches'])
                         and (expected or answer['state'] == 'unsupported'), 'answer_service_unavailable')
             stage = 'shutdown'
         require(not watchdog['triggered'], 'deadline_exceeded')
