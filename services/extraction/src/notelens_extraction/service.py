@@ -32,7 +32,10 @@ def run(request: dict, operation: str, provider: Provider | None = None,
     if operation not in {"extract", "answer"} or not 1 <= max_attempts <= 3:
         raise ValueError("Invalid local operation or attempt bound.")
     provider = provider or FakeProvider()
-    attempt_limit = max_attempts if provider.mode == "mock" else 1
+    structural_retries = getattr(provider, "structural_retries", 0)
+    if type(structural_retries) is not int or structural_retries not in (0, 1, 2, 3):
+        raise ValueError("At most three explicitly configured structural retries are supported.")
+    attempt_limit = max_attempts if provider.mode == "mock" else 1 + structural_retries
     diagnostics = diagnostics if diagnostics is not None else Diagnostics()
     if isinstance(request, dict):
         doc = request.get("document")
@@ -49,7 +52,8 @@ def run(request: dict, operation: str, provider: Provider | None = None,
     for attempt in range(attempt_limit):
         diagnostics.attempts += 1
         try:
-            raw = provider.generate(operation, copy.deepcopy(request), instructions, repair=attempt > 0)
+            raw = provider.generate(operation, copy.deepcopy(request), instructions,
+                                    repair=attempt > 0 and provider.mode == "mock")
             result = validate_json(definition, raw, document=document)
             if request["document"] != document:
                 raise EvidenceError("Canonical request was modified.")
@@ -73,7 +77,14 @@ def run(request: dict, operation: str, provider: Provider | None = None,
             if attempt:
                 diagnostics.repairs += 1
             return result, asdict(diagnostics)
-        except ServiceError:
+        except ServiceError as exc:
+            # Only a complete but malformed generation can be re-attempted.
+            # Timeouts, HTTP failures, budget/authentication and configuration stop.
+            if (provider.mode == "live" and structural_retries and attempt + 1 < attempt_limit
+                    and exc.status == 502 and exc.code == "internal_error"
+                    and exc.message == "Generation returned an invalid Responses envelope."):
+                diagnostics.raw_validation_failures += 1
+                continue
             raise
         except TimeoutError as exc:
             raise ServiceError(504, "timeout", "The generation request timed out.", True) from exc
