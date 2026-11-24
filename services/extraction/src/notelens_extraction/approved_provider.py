@@ -40,6 +40,8 @@ class ServiceBudget:
             raise ValueError("The approved balance cannot cover one worst-case request.")
         self._attempts = 0
         self._reserved = Fraction(0)
+        self._input_rate, self._output_rate = input_rate, output_rate
+        self._dynamic_input = policy.get("input_reservation") == "serialized_utf8_upper_bound_v1"
         self._lock = Lock()
 
     def reserve(self, payload, digest):
@@ -49,12 +51,18 @@ class ServiceBudget:
                 or len(request_bytes(payload)) + 1024 > self.input_limit):
             raise blocked("The provider request exceeds its reviewed execution bounds.")
         with self._lock:
+            cost = (Fraction((len(request_bytes(payload)) + 1024) * self._input_rate
+                    + self.output_limit * self._output_rate) / 1_000_000
+                    if self._dynamic_input else self._cost_per_call)
             if self._attempts >= self.call_limit:
                 raise blocked("The approved provider attempt limit was reached.")
-            if self._reserved + self._cost_per_call > self.cost_limit:
+            if self._reserved + cost > self.cost_limit:
                 raise blocked("The approved provider balance would be exceeded.")
             self._attempts += 1
-            self._reserved += self._cost_per_call
+            self._reserved += cost
+            return {"attempt": self._attempts,
+                    "reserved_usd": str(Decimal(cost.numerator) / Decimal(cost.denominator)),
+                    "cumulative_reserved_usd": str(Decimal(self._reserved.numerator) / Decimal(self._reserved.denominator))}
 
 
 def configured_provider(policy_path: Path, *, api_key: str, service_token: str):
@@ -89,14 +97,24 @@ def configured_provider(policy_path: Path, *, api_key: str, service_token: str):
         raise ValueError("The prompt profile is incompatible with the output format.")
     if reasoning_effort not in ("none", "low"):
         raise ValueError("The reasoning effort must be none or low.")
+    retries = policy.get("structural_retries", 0)
+    if type(retries) is not int or retries not in (0, 1):
+        raise ValueError("structural_retries must be 0 or 1.")
+    if type(policy.get("durable_accounting", False)) is not bool or (retries and not policy.get("durable_accounting")):
+        raise ValueError("Structural retries require explicitly enabled durable accounting.")
+    if policy.get("input_reservation") not in (None, "serialized_utf8_upper_bound_v1"):
+        raise ValueError("Unknown input reservation policy.")
     budget = ServiceBudget(policy)
     receipt = (policy_path.resolve().parent / policy["receipt_path"]).resolve()
     transport = ResponsesTransport(
         api_key=api_key, budget=budget, receipt=receipt, timeout_seconds=timeout,
         receipt_label="NoteLens approved extraction Responses execution",
+        **({"durable_accounting": True} if policy.get("durable_accounting") else {}),
     )
-    return OpenAIResponsesProvider(
+    provider = OpenAIResponsesProvider(
         transport, model=policy["model"], max_output_tokens=budget.output_limit,
         input_format=input_format, output_format=output_format,
         prompt_profile=prompt_profile, reasoning_effort=reasoning_effort,
     )
+    provider.structural_retries = retries
+    return provider
