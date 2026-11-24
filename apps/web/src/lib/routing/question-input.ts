@@ -10,7 +10,9 @@ const fields = {
   document: ['documentQuestion'],
   literature: ['literatureQuestion'],
   both: ['documentQuestion', 'literatureQuestion'],
+  'out-of-scope': ['question'],
 } as const;
+const singleQuestion = ['question'] as const;
 const invalid = 'Enter an English question for each selected source.';
 const tooLong = 'Questions may contain up to 1,000 Unicode code points in total.';
 
@@ -19,7 +21,7 @@ export function questionDocument(input: unknown): string | null {
   return typeof input.document === 'string' && DOCUMENT_ID.test(input.document) ? input.document : null;
 }
 
-export function questionPlan(input: Record<string, unknown>, builtin: boolean):
+export function questionPlan(input: Record<string, unknown>, builtin: boolean, evaluationCapture = false):
     { plan: QuestionPlan } | { notice: string; status: number } {
   if (Object.hasOwn(input, 'preset')) {
     const selected = typeof input.preset === 'string' && selectedDemoQuestion(input.preset, builtin);
@@ -27,10 +29,12 @@ export function questionPlan(input: Record<string, unknown>, builtin: boolean):
       ? { plan: selected.plan } : { notice: 'Choose an available demo question.', status: 422 };
   }
   const scope = input.scope;
-  if (scope !== 'document' && scope !== 'literature' && scope !== 'both') return { notice: invalid, status: 422 };
-  const selected = fields[scope];
+  if (scope !== 'document' && scope !== 'literature' && scope !== 'both' &&
+      !(evaluationCapture && scope === 'out-of-scope')) return { notice: invalid, status: 422 };
+  const sharedQuestion = evaluationCapture && scope === 'both' && Object.hasOwn(input, 'question');
+  const selected = sharedQuestion ? singleQuestion : fields[scope];
   if (Object.keys(input).length !== selected.length + 2) return { notice: invalid, status: 422 };
-  const questions: Partial<Record<(typeof fields.both)[number], string>> = {};
+  const questions: Partial<Record<(typeof fields)[keyof typeof fields][number], string>> = {};
   let rawLength = 0;
   let canonicalLength = 0;
   for (const field of selected) {
@@ -48,6 +52,11 @@ export function questionPlan(input: Record<string, unknown>, builtin: boolean):
     const english = isReviewedQuestion(text) ? 'accepted' : englishLanguage(text);
     if (english === 'unsupported') return { notice: 'Only English questions are supported.', status: 422 };
     if (english === 'inconclusive') return { notice: 'English could not be verified. Enter a longer question in English.', status: 422 };
+  }
+  if (scope === 'out-of-scope') return { plan: { label: questions.question ?? '' } };
+  if (sharedQuestion) {
+    const question = questions.question ?? '';
+    return { plan: { label: question, document: question, literature: question } };
   }
   const document = questions.documentQuestion;
   const literature = questions.literatureQuestion;

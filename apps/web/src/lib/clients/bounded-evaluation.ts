@@ -10,19 +10,22 @@ class RunBudget {
   #sources = new Set<string>();
   #tail = Promise.resolve();
   #stopped = false;
-  #deadline = performance.now() + DOCUMENT_LIFETIME_MS;
+  #deadline: number;
   #limits: Limits;
 
-  constructor(limits: Limits) {
+  constructor(limits: Limits, deadlineUnixMs: number | null) {
     this.#limits = limits;
+    this.#deadline = performance.now() + Math.min(DOCUMENT_LIFETIME_MS,
+      deadlineUnixMs === null ? DOCUMENT_LIFETIME_MS : deadlineUnixMs - Date.now());
   }
 
   dispatch<T extends { kind: string }>(
-    operation: BoundedOperation, source: string | undefined, send: () => Promise<T>,
+    operation: BoundedOperation, source: string | undefined, send: (remainingMs: number) => Promise<T>,
   ): Promise<T | { kind: 'unavailable' }> {
     const unavailable = { kind: 'unavailable' as const };
     const work = this.#tail.then(async () => {
-      if (this.#stopped || performance.now() >= this.#deadline) return unavailable;
+      const remainingMs = Math.floor(this.#deadline - performance.now());
+      if (this.#stopped || remainingMs < 1) return unavailable;
       if (source !== undefined && this.#sources.has(source)) return unavailable;
       if (this.#attempts[operation] >= this.#limits[operation]) {
         this.#stopped = true;
@@ -31,7 +34,7 @@ class RunBudget {
       this.#attempts[operation]++;
       if (source !== undefined) this.#sources.add(source);
       try {
-        const result = await send();
+        const result = await send(remainingMs);
         if (result.kind !== 'accepted') this.#stopped = true;
         return result;
       } catch {
@@ -57,7 +60,11 @@ export function boundedEvaluation(env: NodeJS.ProcessEnv): {
   const ragToken = env.NOTELENS_BOUNDED_RAG_TOKEN;
   const extractionToken = env.NOTELENS_BOUNDED_EXTRACTION_TOKEN;
   const timeoutMs = Number(env.NOTELENS_BOUNDED_HTTP_TIMEOUT_MS);
+  const deadlineUnixMs = env.NOTELENS_BOUNDED_DEADLINE_UNIX_MS === undefined
+    ? null : Number(env.NOTELENS_BOUNDED_DEADLINE_UNIX_MS);
   if (!Number.isSafeInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > DOCUMENT_LIFETIME_MS) return null;
+  if (deadlineUnixMs !== null && (!Number.isSafeInteger(deadlineUnixMs) || deadlineUnixMs < 1 ||
+      deadlineUnixMs > Date.now() + DOCUMENT_LIFETIME_MS)) return null;
   if (!env.NOTELENS_DEMO_RUN || !ragToken || !extractionToken ||
       !/^\S+$/.test(ragToken) || !/^\S+$/.test(extractionToken) ||
       !/^http:\/\/localhost:[1-9][0-9]{0,4}$/.test(env.NOTELENS_SESSION_ORIGIN ?? '')) return null;
@@ -66,8 +73,8 @@ export function boundedEvaluation(env: NodeJS.ProcessEnv): {
     if (Object.keys(limits).length !== boundedOperations.length ||
         boundedOperations.some(op => !Number.isSafeInteger(limits[op]) || limits[op] < 0)) return null;
     const configuration = JSON.stringify([profile, env.NOTELENS_DEMO_RUN, env.NOTELENS_SESSION_ORIGIN,
-      env.NOTELENS_DEMO_RAG_PORT, env.NOTELENS_DEMO_EXTRACTION_PORT, ragToken, extractionToken, timeoutMs, limits]);
-    const state = processState.notelensBoundedEvaluation ??= { configuration, budget: new RunBudget(limits) };
+      env.NOTELENS_DEMO_RAG_PORT, env.NOTELENS_DEMO_EXTRACTION_PORT, ragToken, extractionToken, timeoutMs, deadlineUnixMs, limits]);
+    const state = processState.notelensBoundedEvaluation ??= { configuration, budget: new RunBudget(limits, deadlineUnixMs) };
     if (state.configuration !== configuration) return null;
     return { profile, ragToken, extractionToken, timeoutMs, budget: state.budget };
   } catch {

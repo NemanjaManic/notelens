@@ -46,8 +46,8 @@ def bind(value, document):
 
 
 @contextmanager
-def service_double(name, fixtures, calls, fail):
-    token = uuid4().hex
+def service_double(name, fixtures, calls, fail, *, port=0, token=None, stall=None):
+    token = token or uuid4().hex
     model = f'bounded-offline-{name}-v1'
 
     class Handler(BaseHTTPRequestHandler):
@@ -87,6 +87,8 @@ def service_double(name, fixtures, calls, fail):
                 return
             document = data.get('document')
             calls.append((self.path, document['text_sha256'] if document else None))
+            if stall is not None:
+                stall(self.path)
             if self.path == fail:
                 self.reply(503, {'schema_version': '1.0.0', 'request_id': identifier, 'error': {
                     'code': 'configuration_required', 'message': 'Synthetic service failure.', 'retryable': True,
@@ -98,7 +100,7 @@ def service_double(name, fixtures, calls, fail):
                 record['model_version'] = model
             self.reply(200, record, identifier)
 
-    with ThreadingHTTPServer(('127.0.0.1', 0), Handler) as server:
+    with ThreadingHTTPServer(('127.0.0.1', port), Handler) as server:
         port = server.server_port
         thread = Thread(target=server.serve_forever, kwargs={'poll_interval': 0.05})
         thread.start()
@@ -112,11 +114,12 @@ def service_double(name, fixtures, calls, fail):
 
 
 @contextmanager
-def exercise_profile(fixtures, limits, *, fail=''):
+def exercise_profile(fixtures, limits, *, fail='', deadline_unix_ms=None):
     calls = []
     with ExitStack() as services:
         endpoints = {name: services.enter_context(service_double(name, fixtures, calls, fail)) for name in OPERATIONS}
-        with start_bounded_web(endpoints, limits, profile='offline', http_timeout_ms=5_000) as stack:
+        with start_bounded_web(endpoints, limits, profile='offline', http_timeout_ms=5_000,
+                               deadline_unix_ms=deadline_unix_ms) as stack:
             require(read_page(stack, '/demo').contains('Bounded evaluation dry run'), 'offline provenance label')
             yield stack, calls
 
