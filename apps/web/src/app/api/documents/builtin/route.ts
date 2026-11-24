@@ -1,5 +1,5 @@
 import { prepareBuiltin } from '../../../../lib/documents/builtin.ts';
-import { isDemoConfigured } from '../../../../lib/scaffold/demo.ts';
+import { isDemoConfigured, reportBasePath } from '../../../../lib/scaffold/demo.ts';
 import { openBrowserSession } from '../../../../lib/sessions/browser.ts';
 import { getSessionStore, isSessionRequestFromOrigin, sessionErrorResponse } from '../../../../lib/sessions/route.ts';
 
@@ -24,7 +24,8 @@ export async function POST(request: Request): Promise<Response> {
         ? Response.json({ document: result.docId }, { status: 201, headers })
         : Response.json({ notice: result.notice }, { status: 409, headers });
     }
-    headers.set('Location', result.kind === 'prepared' ? `/demo?document=${result.docId}` : '/demo?prepare=unavailable');
+    const base = reportBasePath();
+    headers.set('Location', result.kind === 'prepared' ? `${base}?document=${result.docId}` : `${base}?prepare=unavailable`);
     return new Response(null, { status: 303, headers });
   } catch (error) {
     return sessionErrorResponse(error, headers);

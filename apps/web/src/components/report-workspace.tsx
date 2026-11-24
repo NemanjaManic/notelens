@@ -20,7 +20,7 @@ export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPa
     : view.d005Replay ? 'D-005 saved-response replay' : view.fittedClassifier ? 'Local classifier profile' : 'Mock mode';
   return <main>
     <a className="skip-link" href="#report-content">Skip to report</a>
-    <header><a className="wordmark" href={demo ? '/demo' : '/'}>NoteLens</a><span className="badge">{profile}</span></header>
+    <header><a className="wordmark" href={demo && !live ? '/demo' : '/'}>NoteLens</a><span className="badge">{profile}</span></header>
     <section className="welcome" aria-labelledby="workspace-title">
       <p className="eyebrow">{live ? 'Educational tool' : 'Educational demonstration'}</p><h1 id="workspace-title">Explore a report, with its evidence.</h1>
       <p className="intro">{demo ? 'Open a built-in example or prepare a public or synthetic document.' : 'Inspect a synthetic example and follow each finding back to its exact passage.'}</p>

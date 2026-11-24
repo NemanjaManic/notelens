@@ -6,6 +6,11 @@ import type { Workspace } from '../report/model.ts';
 import type { RoutedAnswer } from '../routing/answer.ts';
 import { getSessionStore } from '../sessions/route.ts';
 
+/** The public live app is served at the site root; the mock workspace stays under /demo. */
+export function reportBasePath(): '/' | '/demo' {
+  return process.env.NOTELENS_BOUNDED_EVALUATION === 'public-live' ? '/' : '/demo';
+}
+
 export function isDemoConfigured() {
   return mockServiceClients() !== null;
 }
