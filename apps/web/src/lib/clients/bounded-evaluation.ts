@@ -41,7 +41,8 @@ class RunBudget {
       if (source !== undefined) this.#sources.add(source);
       try {
         const result = await send(remainingMs);
-        if (result.kind !== 'accepted' && !this.#persistent) this.#stopped = true;
+        const supportedGap = operation === 'literature-answer' && result.kind === 'unsupported';
+        if (result.kind !== 'accepted' && !supportedGap && !this.#persistent) this.#stopped = true;
         return result;
       } catch {
         if (!this.#persistent) this.#stopped = true;
