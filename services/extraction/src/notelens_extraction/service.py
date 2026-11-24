@@ -33,8 +33,8 @@ def run(request: dict, operation: str, provider: Provider | None = None,
         raise ValueError("Invalid local operation or attempt bound.")
     provider = provider or FakeProvider()
     structural_retries = getattr(provider, "structural_retries", 0)
-    if type(structural_retries) is not int or structural_retries not in (0, 1):
-        raise ValueError("At most one explicitly configured structural retry is supported.")
+    if type(structural_retries) is not int or structural_retries not in (0, 1, 2, 3):
+        raise ValueError("At most three explicitly configured structural retries are supported.")
     attempt_limit = max_attempts if provider.mode == "mock" else 1 + structural_retries
     diagnostics = diagnostics if diagnostics is not None else Diagnostics()
     if isinstance(request, dict):

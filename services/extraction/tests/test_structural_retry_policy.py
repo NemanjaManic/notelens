@@ -40,6 +40,22 @@ def test_opt_in_retries_invalid_structure_without_mock_repair():
     assert diagnostics == {'attempts': 2, 'raw_validation_failures': 1, 'repairs': 1}
 
 
+def test_three_authorized_structural_retries_keep_original_request():
+    class ThreeMalformed(ScriptedLive):
+        structural_retries = 3
+        def generate(self, operation, payload, instructions, *, repair):
+            self.calls.append(repair)
+            if len(self.calls) <= 3:
+                return 'not JSON'
+            return json.dumps(live_fixture(json.loads(FakeProvider().generate(operation, payload, instructions, repair=False))))
+    provider = ThreeMalformed(None)
+    result, diagnostics = run(request(), 'extract', provider)
+    assert result['mode'] == 'live'
+    assert provider.calls == [False] * 4
+    assert diagnostics['attempts'] == 4
+    assert diagnostics['raw_validation_failures'] == 3
+
+
 @pytest.mark.parametrize('failure', [ServiceError(504,'timeout','timeout'),
     ServiceError(503,'provider_unavailable','provider failure'),
     ServiceError(429,'rate_limit','rate limit'), ServiceError(422,'configuration_required','configuration')])

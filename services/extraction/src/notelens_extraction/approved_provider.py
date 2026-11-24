@@ -98,8 +98,8 @@ def configured_provider(policy_path: Path, *, api_key: str, service_token: str):
     if reasoning_effort not in ("none", "low"):
         raise ValueError("The reasoning effort must be none or low.")
     retries = policy.get("structural_retries", 0)
-    if type(retries) is not int or retries not in (0, 1):
-        raise ValueError("structural_retries must be 0 or 1.")
+    if type(retries) is not int or retries not in (0, 1, 2, 3):
+        raise ValueError("structural_retries must be between 0 and 3.")
     if type(policy.get("durable_accounting", False)) is not bool or (retries and not policy.get("durable_accounting")):
         raise ValueError("Structural retries require explicitly enabled durable accounting.")
     if policy.get("input_reservation") not in (None, "serialized_utf8_upper_bound_v1"):
