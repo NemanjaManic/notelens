@@ -1,0 +1,441 @@
+{
+  "format": "notelens-d009-branch-structural-scoring-v1",
+  "run_receipt_sha256": "ad7b38aac7bcac4c92a5fcf5cee028e8aa6b9062b61c62d13546f6a78a11c301",
+  "references_sha256": "f705798ed1afc1ea9411752ccac8832353e80905dd021d44b85cacdd2a75a7d9",
+  "retrieval_references_sha256": "7522ab71087161dff281d3c21ee92b422476e3cbeec7837a2aee88aa99843e47",
+  "totals": {
+    "cases": 26,
+    "executed": 22,
+    "technical_errors": 4,
+    "route_match": 18,
+    "state_match": 16,
+    "branches": 28,
+    "branches_schema_valid": 27,
+    "branches_literal_valid": 27,
+    "branches_context_missing": 0,
+    "unsupported_branches": 1,
+    "unavailable_branches": 0,
+    "completed_cases": 22,
+    "saved_unavailable_cases": 0
+  },
+  "retrieval_cited_source_proxy": {
+    "cases": 16,
+    "executed": 14,
+    "topic_hit": 12,
+    "topic_denominator": 15,
+    "passage_denominator": 15,
+    "any_required_topic_cited_rate": 0.8,
+    "passage_group_coverage_mean": 0.8,
+    "note": "Proxy from cited literature sources; ranked top-5 retrieval was not saved. Not topic_recall@5."
+  },
+  "cases": [
+    {
+      "id": "F-DOC-01",
+      "case_version": "v2",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-02",
+      "case_version": "v2",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-03",
+      "case_version": "v2",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-04",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-05",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-06",
+      "case_version": "v2",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-07",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": false,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-08",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": false,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-LIT-01",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-LIT-02",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-LIT-03",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-LIT-04",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-LIT-05",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-LIT-06",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-LIT-07",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": false,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-LIT-08",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-MIX-01",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": false,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        },
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-MIX-02",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": false,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        },
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-MIX-03",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": false,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        },
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-MIX-04",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": false,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        },
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-MIX-05",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": false,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        },
+        {
+          "origin": "literature",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-MIX-06",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": false,
+      "state_match": false,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        },
+        {
+          "origin": "literature",
+          "kind": "unsupported",
+          "schema_valid": false,
+          "literal_valid": false
+        }
+      ]
+    },
+    {
+      "id": "F-MIX-07",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-MIX-08",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-OOS-01",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-OOS-02",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    }
+  ],
+  "attempt_number": 12,
+  "run_id": "d855eb6f-60db-46af-9610-9503890f14fe",
+  "app_sha": "d27ca89dc78ad844ea05185afe70ad0cd79e2747",
+  "failures": [
+    {
+      "stage": "source_output",
+      "reason": "source_analysis_unavailable",
+      "case_id": "F-MIX-07",
+      "canonical_sha256": "b7b0b8ef2e7ad92cf9eead39c672cfa8f08436779e553983a5f01d2378b0036a"
+    }
+  ],
+  "diagnosis": "B run budget stopped after a legitimate unsupported literature branch; next extraction was not dispatched.",
+  "D_accounting": {
+    "calls": 28,
+    "reserved_usd": "0.2126366000",
+    "measured_conservative_usage_usd": "0.0096375125",
+    "invoice_verified": false
+  }
+}
