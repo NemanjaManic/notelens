@@ -1,6 +1,6 @@
 import { DOCUMENT_LIFETIME_MS } from '../config/session-policy.ts';
 
-export type EvaluationProfile = 'offline' | 'provider-backed';
+export type EvaluationProfile = 'offline' | 'provider-backed' | 'public-live';
 const reviewedScopes = ['document', 'literature', 'both', 'out-of-scope'] as const;
 export type ReviewedQuestionHashes = Readonly<Record<typeof reviewedScopes[number], readonly string[]>>;
 export const boundedOperations = ['extract', 'document-answer', 'literature-answer'] as const;
@@ -14,10 +14,14 @@ class RunBudget {
   #stopped = false;
   #deadline: number;
   #limits: Limits;
+  #persistent: boolean;
 
-  constructor(limits: Limits, deadlineUnixMs: number | null) {
+  // A persistent (public live) budget keeps per-operation caps but has no global deadline,
+  // does not deduplicate shared sources and does not stop after one failed request.
+  constructor(limits: Limits, deadlineUnixMs: number | null, persistent = false) {
     this.#limits = limits;
-    this.#deadline = performance.now() + Math.min(DOCUMENT_LIFETIME_MS,
+    this.#persistent = persistent;
+    this.#deadline = persistent ? Number.POSITIVE_INFINITY : performance.now() + Math.min(DOCUMENT_LIFETIME_MS,
       deadlineUnixMs === null ? DOCUMENT_LIFETIME_MS : deadlineUnixMs - Date.now());
   }
 
@@ -26,9 +30,9 @@ class RunBudget {
   ): Promise<T | { kind: 'unavailable' }> {
     const unavailable = { kind: 'unavailable' as const };
     const work = this.#tail.then(async () => {
-      const remainingMs = Math.floor(this.#deadline - performance.now());
+      const remainingMs = this.#persistent ? DOCUMENT_LIFETIME_MS : Math.floor(this.#deadline - performance.now());
       if (this.#stopped || remainingMs < 1) return unavailable;
-      if (source !== undefined && this.#sources.has(source)) return unavailable;
+      if (!this.#persistent && source !== undefined && this.#sources.has(source)) return unavailable;
       if (this.#attempts[operation] >= this.#limits[operation]) {
         this.#stopped = true;
         return unavailable;
@@ -37,10 +41,10 @@ class RunBudget {
       if (source !== undefined) this.#sources.add(source);
       try {
         const result = await send(remainingMs);
-        if (result.kind !== 'accepted') this.#stopped = true;
+        if (result.kind !== 'accepted' && !this.#persistent) this.#stopped = true;
         return result;
       } catch {
-        this.#stopped = true;
+        if (!this.#persistent) this.#stopped = true;
         return unavailable;
       }
     });
@@ -59,7 +63,8 @@ export function boundedEvaluation(env: NodeJS.ProcessEnv): {
   reviewedQuestionHashes?: ReviewedQuestionHashes;
 } | null {
   const profile = env.NOTELENS_BOUNDED_EVALUATION;
-  if (profile !== 'offline' && profile !== 'provider-backed') return null;
+  if (profile !== 'offline' && profile !== 'provider-backed' && profile !== 'public-live') return null;
+  const publicLive = profile === 'public-live';
   const ragToken = env.NOTELENS_BOUNDED_RAG_TOKEN;
   const extractionToken = env.NOTELENS_BOUNDED_EXTRACTION_TOKEN;
   const timeoutMs = Number(env.NOTELENS_BOUNDED_HTTP_TIMEOUT_MS);
@@ -70,7 +75,8 @@ export function boundedEvaluation(env: NodeJS.ProcessEnv): {
       deadlineUnixMs > Date.now() + DOCUMENT_LIFETIME_MS)) return null;
   if (!env.NOTELENS_DEMO_RUN || !ragToken || !extractionToken ||
       !/^\S+$/.test(ragToken) || !/^\S+$/.test(extractionToken) ||
-      !/^http:\/\/localhost:[1-9][0-9]{0,4}$/.test(env.NOTELENS_SESSION_ORIGIN ?? '')) return null;
+      !(publicLive ? /^https:\/\/[a-z0-9.-]+$/ : /^http:\/\/localhost:[1-9][0-9]{0,4}$/).test(env.NOTELENS_SESSION_ORIGIN ?? '')) return null;
+  if (publicLive && (deadlineUnixMs !== null || env.NOTELENS_BOUNDED_REVIEWED_QUESTION_HASHES !== undefined)) return null;
   try {
     const limits = JSON.parse(env.NOTELENS_BOUNDED_LIMITS ?? '') as Limits;
     if (Object.keys(limits).length !== boundedOperations.length ||
@@ -89,7 +95,7 @@ export function boundedEvaluation(env: NodeJS.ProcessEnv): {
     const configuration = JSON.stringify([profile, env.NOTELENS_DEMO_RUN, env.NOTELENS_SESSION_ORIGIN,
       env.NOTELENS_DEMO_RAG_PORT, env.NOTELENS_DEMO_EXTRACTION_PORT, ragToken, extractionToken, timeoutMs, deadlineUnixMs,
       limits, reviewedQuestionHashes]);
-    const state = processState.notelensBoundedEvaluation ??= { configuration, budget: new RunBudget(limits, deadlineUnixMs) };
+    const state = processState.notelensBoundedEvaluation ??= { configuration, budget: new RunBudget(limits, deadlineUnixMs, publicLive) };
     if (state.configuration !== configuration) return null;
     return { profile, ragToken, extractionToken, timeoutMs, budget: state.budget, reviewedQuestionHashes };
   } catch {

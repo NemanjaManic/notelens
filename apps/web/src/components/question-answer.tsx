@@ -8,11 +8,13 @@ const stateNames = { sufficient: 'Sufficient evidence', partial: 'Partial eviden
 
 export function QuestionAnswer({ answer, href, evaluation }: { answer: RoutedAnswer; href?: string; evaluation?: EvaluationProfile }) {
   const savedReplay = !evaluation && answer.branches.some(({ result }) => result.kind === 'accepted' && result.record.mode === 'live');
-  const label = evaluation ? 'Bounded evaluation answer' : savedReplay ? 'Saved document answer replay' : 'Mock answer';
+  const label = evaluation === 'public-live' ? 'Live answer' : evaluation ? 'Bounded evaluation answer' : savedReplay ? 'Saved document answer replay' : 'Mock answer';
   return <section aria-label={label} data-answer-route={answer.route} data-answer-state={answer.state}>
     <h4>{stateNames[answer.state]}</h4>
     <p className="section-state">Sources: {routeNames[answer.route]}</p>
-    {answer.state === 'unsupported' && <p>This local demo answers a limited set of questions. Try a preset.</p>}
+    {answer.state === 'unsupported' && <p>{evaluation === 'public-live'
+      ? 'NoteLens cannot answer this question from the document or the literature corpus.'
+      : 'This local demo answers a limited set of questions. Try a preset.'}</p>}
     {answer.branches.map(({ origin, result }) => <section key={origin} aria-label={routeNames[origin]}>
       <h5>{routeNames[origin]}</h5>
       {savedReplay && result.kind === 'accepted' && result.record.mode === 'live' && <p className="muted">Saved-response replay</p>}

@@ -102,7 +102,8 @@ export function localFittedClassifier(env: NodeJS.ProcessEnv = process.env) {
   const port = env.NOTELENS_LOCAL_CLASSIFIER_PORT;
   const modelVersion = env.NOTELENS_LOCAL_CLASSIFIER_MODEL_VERSION;
   const token = env.NOTELENS_CLASSIFIER_SERVICE_TOKEN;
-  if (env.NOTELENS_MODE !== 'mock' || !/^http:\/\/localhost:[1-9][0-9]{0,4}$/.test(env.NOTELENS_SESSION_ORIGIN ?? '') ||
+  const origin = env.NOTELENS_BOUNDED_EVALUATION === 'public-live' ? /^https:\/\/[a-z0-9.-]+$/ : /^http:\/\/localhost:[1-9][0-9]{0,4}$/;
+  if (env.NOTELENS_MODE !== 'mock' || !origin.test(env.NOTELENS_SESSION_ORIGIN ?? '') ||
       !port || !/^[1-9][0-9]{0,4}$/.test(port) || Number(port) > 65535 ||
       !token || !/^\S+$/.test(token) || !modelVersion?.trim()) {
     return { client: null };
