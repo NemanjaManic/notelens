@@ -95,6 +95,21 @@ def test_request_failure_retains_safe_trace_without_exception_text(ledger):
     assert b'private document and API credential canary' not in ledger.path.read_bytes()
 
 
+def test_ranked_identifiers_are_recorded_without_question_or_passage_text(ledger):
+    request = admit(ledger)
+    result = {'top_k':5, 'index_version':'a'*64, 'retriever_version':'b'*64,
+              'passages':[{'passage_id':'passage-1','topic_id':'topic-1','score':0.7,
+                           'text':'private-passage-canary'}]}
+    backend = SimpleNamespace(rank=lambda value: result)
+    runtime.track_ranked_candidates(backend, ledger)
+    assert backend.rank(request) is result
+    assert ledger.current['retrieval']['ranked'] == [
+        {'passage_id':'passage-1','topic_id':'topic-1','score':0.7}]
+    raw=ledger.path.read_bytes()
+    assert b'private-passage-canary' not in raw
+    assert request['question'].encode() not in raw
+
+
 def fake_client(*, counted=10, output_tokens=2, native_input=10):
     counts, generations = [], []
 
