@@ -4,14 +4,14 @@
   "pricing_confirmed": false,
   "approval_id": "user-relayed-milica-d009-2026-11-24",
   "operator": "Goran",
-  "app_sha": "42adf725a464e1c74697dc619dd97d02c88c0332",
+  "app_sha": "506a5930aebe77b3a10baaf1479dfcf9f4c5d76b",
   "freeze_manifest_sha256": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
-  "launcher_sha256": "7e320fb8bf6597677b5ee4fc39bbacb45eefd4fc200b4c80c9d7e66d5103edcc",
+  "launcher_sha256": "dc29396c07fce8e6f110d3052a366d26a97b2cc55d4ec36c2ae8338153d79c1e",
   "run_id": "00000000-0000-4000-8000-000000000000",
   "receipt_path": "services/rag/.cache/final/00000000-0000-4000-8000-000000000000/receipt.json",
   "question_sha256": [],
   "provider_timeout_seconds": 30,
   "wall_clock_seconds": 3600,
   "a_budget_usd": "0.08",
-  "automatic_retries": 0
+  "automatic_retries": 1
 }
