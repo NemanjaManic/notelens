@@ -1,10 +1,12 @@
 # D-009 final run attempts and remaining work (2026-11-24)
 
-Status: **D-009 is not formally complete.** No run saved all 26 cases and the official
-freeze-based scorer was not run; attempt 9 was measured with a branch-level structural
-scorer (results below). This record lists what was executed so
-work can resume without repeating it. It contains identifiers, counts and hashes only;
-no final question, document or reference text.
+Status: **D-009 closed under a reduced delivery scope** explicitly approved by Milica
+(D owner) on 2026-11-24, so the team can prioritize deploying a working application.
+No run saved all 26 cases and the official freeze-based scorer was not run; attempt 9
+was measured with a branch-level structural scorer (results below), and the
+limitations below are accepted rather than resolved. The "Remaining work" section
+lists what a full closure would still require. This record contains identifiers,
+counts and hashes only; no final question, document or reference text.
 
 Operator for attempts 2-9: the repository user acting with Milica's delegated
 authority. All runs used the pinned runtime package (manifest SHA-256
