@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import type { AnswerResult, PreparedDocument } from '@notelens/contracts/v1';
 import documents from '../../../contracts/v1/fixtures/documents.json' with { type: 'json' };
 import payloads from '../../../contracts/v1/fixtures/payloads.json' with { type: 'json' };
@@ -241,6 +241,32 @@ test('input/admitting-the-reviewed-d005-cough-question', () => {
   const result = questionPlan({ document: document.doc_id, scope: 'document', documentQuestion }, false);
   assert.ok('plan' in result);
   assert.equal(result.plan.document, documentQuestion);
+});
+
+test('input/reviewed-literature-admission-requires-exact-bytes-and-scope', () => {
+  const question = 'Age?';
+  const hash = (value: string) => createHash('sha256').update(value, 'utf8').digest('hex');
+  const pins = { both: [hash(question)], literature: [] };
+  const mixed = { document: document.doc_id, scope: 'both', question };
+  assert.deepEqual(questionPlan(mixed, false, true, pins), {
+    plan: { label: question, document: question, literature: question },
+  });
+  const literature = { document: document.doc_id, scope: 'literature', literatureQuestion: question };
+  const scoped = { both: [], literature: [hash(question)] };
+  assert.ok('plan' in questionPlan(literature, false, true, scoped));
+  for (const rejected of [
+    questionPlan(mixed, false, true),
+    questionPlan(literature, false, false, scoped),
+    questionPlan(literature, false, true, pins),
+    questionPlan({ ...mixed, question: 'A different English question about the reason for this scheduled appointment?' }, false, true, pins),
+    questionPlan({ ...mixed, question: question + ' ' }, false, true, { ...pins, both: [hash(question + ' ')] }),
+    questionPlan({ document: document.doc_id, scope: 'both', documentQuestion: question, literatureQuestion: question }, false, true, pins),
+  ]) {
+    assert.ok('status' in rejected && rejected.status === 422);
+  }
+  const oversized = 'a'.repeat(1001);
+  const rejected = questionPlan({ ...mixed, question: oversized }, false, true, { ...pins, both: [hash(oversized)] });
+  assert.ok('status' in rejected && rejected.status === 413);
 });
 
 test('input/combined-unicode-point-limit-and-english-validation', () => {

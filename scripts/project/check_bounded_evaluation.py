@@ -4,6 +4,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import ExitStack, contextmanager, closing
 from copy import deepcopy
+from hashlib import sha256
 from http.client import HTTPConnection
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
@@ -46,7 +47,7 @@ def bind(value, document):
 
 
 @contextmanager
-def service_double(name, fixtures, calls, fail, *, port=0, token=None, stall=None):
+def service_double(name, fixtures, calls, fail, *, port=0, token=None, stall=None, observed_literature=None):
     token = token or uuid4().hex
     model = f'bounded-offline-{name}-v1'
 
@@ -87,6 +88,8 @@ def service_double(name, fixtures, calls, fail, *, port=0, token=None, stall=Non
                 return
             document = data.get('document')
             calls.append((self.path, document['text_sha256'] if document else None))
+            if self.path == '/v1/literature-answer' and observed_literature is not None:
+                observed_literature.append(sha256(data['question'].encode('utf-8')).hexdigest())
             if stall is not None:
                 stall(self.path)
             if self.path == fail:
@@ -114,12 +117,15 @@ def service_double(name, fixtures, calls, fail, *, port=0, token=None, stall=Non
 
 
 @contextmanager
-def exercise_profile(fixtures, limits, *, fail='', deadline_unix_ms=None):
+def exercise_profile(fixtures, limits, *, fail='', deadline_unix_ms=None, reviewed_literature_hashes=None,
+                     observed_literature=None):
     calls = []
     with ExitStack() as services:
-        endpoints = {name: services.enter_context(service_double(name, fixtures, calls, fail)) for name in OPERATIONS}
+        endpoints = {name: services.enter_context(service_double(name, fixtures, calls, fail,
+                     observed_literature=observed_literature)) for name in OPERATIONS}
         with start_bounded_web(endpoints, limits, profile='offline', http_timeout_ms=5_000,
-                               deadline_unix_ms=deadline_unix_ms) as stack:
+                               deadline_unix_ms=deadline_unix_ms,
+                               reviewed_literature_hashes=reviewed_literature_hashes) as stack:
             require(read_page(stack, '/demo').contains('Bounded evaluation dry run'), 'offline provenance label')
             yield stack, calls
 
