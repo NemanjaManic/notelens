@@ -12,6 +12,7 @@ import queue
 import ssl
 import threading
 import time
+import traceback
 from uuid import UUID
 
 import openai
@@ -31,7 +32,7 @@ from .runtime import IndexedBackend, RagServiceError
 
 ROOT = Path(__file__).resolve().parents[4]
 FORMAT = 'notelens-final-rag-policy-v1'
-APP_SHA = '506a5930aebe77b3a10baaf1479dfcf9f4c5d76b'
+APP_SHA = 'd27ca89dc78ad844ea05185afe70ad0cd79e2747'
 INPUT_LIMITS = {'question_parts': 4096, 'support': 20000, 'answer': 4096}
 OUTPUT_LIMIT = 512
 EMBEDDING_LIMIT = 128
@@ -327,8 +328,19 @@ class Providers:
     def requirements(self, request):
         _require(count_tokens(request['question'], self.encoder) <= EMBEDDING_LIMIT, 'input_limit_exceeded')
         prepared = prepare_question_parts(request)
-        return self.checked_stage('question_parts', question_parts_request(prepared, PARAMETERS),
-                                  lambda data: checked_question_parts_response(data, prepared, PARAMETERS))
+        try:
+            return self.checked_stage('question_parts', question_parts_request(prepared, PARAMETERS),
+                                      lambda data: checked_question_parts_response(data, prepared, PARAMETERS))
+        except AssessmentError as failure:
+            if failure.code != 'invalid_question_parts' or self.ledger.state['status'] != 'running':
+                raise
+            # Preserve every original requirement in one verbatim question. Support
+            # assessment still checks coverage of the complete question and citations.
+            # This is explicit preprocessing fallback, never a fabricated model result.
+            self.ledger.current.update(requirements_strategy='verbatim-whole-question-fallback-v1',
+                                       decomposition_error='invalid_question_parts')
+            self.ledger.save()
+            return [{'requirement_id': 'part-1', 'description': request['question']}]
 
     def assess(self, request, candidates, requirements):
         prepared = prepare_selection(request, candidates, requirements)
@@ -378,6 +390,21 @@ class BoundedBackend:
                 return result
             except Exception as exc:
                 code = getattr(exc, 'code', 'internal_error')
+                if self.ledger.current is not None:
+                    chain = []
+                    current = exc
+                    while current is not None and len(chain) < 4:
+                        chain.append({'type': type(current).__name__,
+                            'frames': [{'module': Path(frame.filename).name, 'line': frame.lineno,
+                                        'function': frame.name}
+                                       for frame in traceback.extract_tb(current.__traceback__)]})
+                        current = current.__context__
+                    self.ledger.current.update(error_code=code if code in {
+                        'timeout', 'rate_limit', 'provider_unavailable', 'budget_exceeded',
+                        'validation_failure', 'configuration_required', 'internal_error',
+                        'unsupported_language', 'needs_clarification', 'out_of_scope'} else 'internal_error',
+                        error_trace=chain)
+                    self.ledger.save()
                 if code in ABSTENTION_CODES and self.ledger.state['status'] == 'running' and self.ledger.current:
                     # A legitimate abstention is a completed request, not a service failure.
                     with self.ledger.receipt_lock:
@@ -391,6 +418,23 @@ class BoundedBackend:
                 raise RagServiceError(code if code in known else 'internal_error') from None
             finally:
                 self.ledger.current = None
+
+
+def track_ranked_candidates(backend, ledger):
+    """Keep source identifiers for real retrieval metrics, without source/question text."""
+    rank = backend.rank
+    def recorded_rank(request):
+        result = rank(request)
+        with ledger.receipt_lock:
+            if ledger.current is not None:
+                ledger.current['retrieval'] = {
+                    'top_k': result['top_k'], 'index_version': result['index_version'],
+                    'retriever_version': result['retriever_version'],
+                    'ranked': [{key: passage[key] for key in ('passage_id', 'topic_id', 'score')}
+                               for passage in result['passages']]}
+                ledger.save()
+        return result
+    backend.rank = recorded_rank
 
 
 def build_app(path, *, root=ROOT):
@@ -417,6 +461,7 @@ def build_app(path, *, root=ROOT):
             assessor=providers, generator=providers, partial_policy=PARTIAL_POLICY)
         corpus = load_corpus(repository_root=root, expected_corpus_version=freeze['corpus']['version'])
         backend = indexed.bind(corpus, repository_root=root, mode='live')
+        track_ranked_candidates(backend, ledger)
         app = create_app(Settings(mode='live', service_token=token, corpus_manifest=DEFAULT_MANIFEST,
             repository_root=str(root), expected_corpus_version=freeze['corpus']['version']),
             backend=BoundedBackend(backend, ledger))
