@@ -259,7 +259,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 - [x] T012 [US3] A-012: Prepare the final RAG launcher and bounded operator handoff in `services/rag/src/notelens_rag/final_runtime.py`, `services/rag/tests/test_final_runtime.py`, `services/rag/config/d009-final-policy.template.json`, `docs/rag/evaluation/d009-*`, `docs/rag/d009-final-runtime.md`
   - **Owner / story**: A / US3.
-  - **Dependencies**: 001-rag/T011 (A-011).
+  - **Dependencies**: 001-rag/T011 (A-011)
   - **Dependency scope**: The supplied D metadata and B candidate preflight inform preparation; they do not approve a live run.
   - **Acceptance**: Preserve the frozen corpus/index/prompts and expose a compatible authenticated loopback profile. Default to a key-free preflight. Serve only with explicit owner/team/operator authorization and approved request identities. Bound one pass to 16 literature operations, 16 query embeddings, 48 generations and 48 input-count requests; enforce the approved token, cost, request and absolute-time limits. No corpus re-embedding, repairs, retries, duplicate retrieval, reset-on-restart or body logging. Fail closed on the first unexpected error; retain incurred/uncertain reservations. Provide an independent A review of the exact B candidate and distinguish the B-supplied browser/rehearsal receipts from newly executed checks.
   - **Verify**: `uv run --locked --offline --directory services/rag python -B -m pytest tests/test_final_runtime.py tests/test_contract.py tests/test_answers.py tests/test_failures.py` and the documented default-preflight invocation against the disabled template.
