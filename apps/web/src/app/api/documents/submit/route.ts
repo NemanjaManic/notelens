@@ -1,6 +1,6 @@
+import { mockServiceClients } from '../../../../lib/clients/mock-services.ts';
 import { inputErrors, prepareSubmitted, submissionByteLimit } from '../../../../lib/documents/submitted.ts';
 import { exceedsDeclaredBodyLimit } from '../../../../lib/http/bounded-body.ts';
-import { isDemoConfigured } from '../../../../lib/scaffold/demo.ts';
 import { openBrowserSession } from '../../../../lib/sessions/browser.ts';
 import { getSessionStore, isSessionRequestFromOrigin, sessionErrorResponse } from '../../../../lib/sessions/route.ts';
 
@@ -10,7 +10,8 @@ export async function POST(request: Request): Promise<Response> {
   const headers = new Headers({ 'Cache-Control': 'no-store' });
   const reject = (status: number, notice: string) => Response.json({ notice }, { status, headers });
   try {
-    if (!isDemoConfigured()) return reject(503, 'The local mock demo is unavailable.');
+    const clients = mockServiceClients();
+    if (!clients) return reject(503, 'The local mock demo is unavailable.');
     if (!isSessionRequestFromOrigin(request.headers)) return reject(403, 'The submission must come from this site.');
     const mime = request.headers.get('Content-Type')?.split(';', 1)[0].trim().toLowerCase();
     const input = mime === 'text/plain' ? 'text' : mime === 'application/pdf' ? 'pdf' : null;
@@ -27,7 +28,10 @@ export async function POST(request: Request): Promise<Response> {
 
     const store = getSessionStore();
     const owner = openBrowserSession(store, request.headers, headers);
-    const result = await prepareSubmitted(store, owner, request, input, scope);
+    const reviewedReplayHashes = clients.d005Replay
+      ? process.env.NOTELENS_LOCAL_D005_REVIEWED_TEXT_SHA256?.split(',')
+      : undefined;
+    const result = await prepareSubmitted(store, owner, request, input, scope, reviewedReplayHashes);
     if (result.kind === 'prepared') return Response.json({ document: result.docId }, { status: 201, headers });
     if (result.kind === 'unavailable') return reject(409, result.notice);
     return reject(result.code.endsWith('too-large') ? 413 : 422, inputErrors[result.code]);
