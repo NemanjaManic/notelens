@@ -8,8 +8,10 @@ import { mockServiceClients } from '../src/lib/clients/mock-services.ts';
 import { routeQuestion } from '../src/lib/routing/answer.ts';
 import type { RoutedAnswer } from '../src/lib/routing/answer.ts';
 import { demoQuestions, selectedDemoQuestion } from '../src/lib/routing/demo-questions.ts';
-import type { DemoQuestion } from '../src/lib/routing/demo-questions.ts';
+import type { DemoQuestion, QuestionPlan } from '../src/lib/routing/demo-questions.ts';
 import { questionPlan } from '../src/lib/routing/question-input.ts';
+import { interactiveQuestionsEnabled } from '../src/lib/config/session-policy.ts';
+import { POST as submitQuestion } from '../src/app/api/questions/route.ts';
 import { boundedBody } from '../src/lib/http/bounded-body.ts';
 import { MemorySessions, UNAVAILABLE } from '../src/lib/sessions/memory.ts';
 
@@ -310,7 +312,7 @@ test('input/body-reader-enforces-cap-without-a-length-header', async () => {
 
 async function historyHarness() {
   let now = 0;
-  const store = new MemorySessions({ mode: 'mock', runtime: { now: () => now, schedule: () => () => {} } });
+  const store = new MemorySessions({ mode: 'mock', interactiveQuestions: false, runtime: { now: () => now, schedule: () => () => {} } });
   const owner = store.createSession();
   const other = store.createSession();
   const second = { ...document, doc_id: randomUUID() };
@@ -393,4 +395,127 @@ test('history/clear-delete-idle-expiry-and-session-close-discard-pending-results
     assert.deepEqual(finish(pending), UNAVAILABLE);
     assert.deepEqual(store.questionHistory(owner, document.doc_id), transition === 'clear' ? [] : null);
   }
+});
+
+
+test('demo/guard-is-default-and-evaluation-exception-is-server-configured', () => {
+  assert.equal(interactiveQuestionsEnabled({}), true);
+  assert.equal(interactiveQuestionsEnabled({ NOTELENS_BOUNDED_EVALUATION: 'provider-backed' }), true);
+  assert.equal(interactiveQuestionsEnabled({ NOTELENS_BOUNDED_EVALUATION: 'provider-backed',
+    NOTELENS_QUESTION_PROFILE: 'final-evaluation' }), false);
+  assert.throws(() => interactiveQuestionsEnabled({ NOTELENS_QUESTION_PROFILE: 'final-evaluation' }));
+  assert.throws(() => interactiveQuestionsEnabled({ NOTELENS_QUESTION_PROFILE: 'off' }));
+});
+
+async function guardedSession(source: PreparedDocument = document) {
+  const store = new MemorySessions({ mode: 'mock', runtime: { now: () => 0, schedule: () => () => {} } });
+  const owner = store.createSession();
+  const ticket = store.beginDocument(owner)!;
+  assert.equal((await store.storeDocument(owner, ticket, source)).kind, 'stored');
+  return { store, owner };
+}
+
+const demoPlan = (number: number): QuestionPlan => ({ label: `Question ${number}`, document: `Question ${number}` });
+
+test('demo/duplicates-normalize-case-and-whitespace-and-failures-still-count', async () => {
+  const { store, owner } = await guardedSession();
+  const first = store.beginQuestion(owner, document.doc_id, demoPlan(0));
+  assert.equal(first.kind, 'admitted');
+  assert.equal(store.beginQuestion(owner, document.doc_id, demoPlan(1)).kind, 'busy');
+  store.cancelQuestion(owner, first.id);
+  assert.equal(store.beginQuestion(owner, document.doc_id, { label: '', document: '  QUESTION   0  ' }).kind, 'duplicate');
+  for (let i = 1; i < 5; i++) {
+    const next = store.beginQuestion(owner, document.doc_id, demoPlan(i));
+    assert.equal(next.kind, 'admitted');
+    store.cancelQuestion(owner, next.id);
+  }
+  assert.equal(store.beginQuestion(owner, document.doc_id, demoPlan(5)).kind, 'quota');
+  store.dispose();
+});
+
+test('demo/history-clear-and-document-replacement-do-not-refund-session-quota', async () => {
+  const { store, owner } = await guardedSession();
+  for (let i = 0; i < 5; i++) {
+    const pending = store.beginQuestion(owner, document.doc_id, demoPlan(i));
+    assert.equal(pending.kind, 'admitted');
+    store.cancelQuestion(owner, pending.id);
+  }
+  assert.equal(store.clearQuestionHistory(owner, document.doc_id), true);
+  assert.equal(store.beginQuestion(owner, document.doc_id, demoPlan(0)).kind, 'duplicate');
+  store.deleteDocument(owner, document.doc_id);
+  const replacement = { ...document, doc_id: randomUUID() };
+  const ticket = store.beginDocument(owner)!;
+  assert.equal((await store.storeDocument(owner, ticket, replacement)).kind, 'stored');
+  assert.equal(store.beginQuestion(owner, replacement.doc_id, demoPlan(0)).kind, 'quota');
+  store.dispose();
+});
+
+test('demo/concurrent-admission-reserves-the-last-slot', async () => {
+  const { store, owner } = await guardedSession();
+  for (let i = 0; i < 4; i++) {
+    const pending = store.beginQuestion(owner, document.doc_id, demoPlan(i));
+    assert.equal(pending.kind, 'admitted');
+    store.cancelQuestion(owner, pending.id);
+  }
+  const results = await Promise.all([4, 5].map(i => Promise.resolve().then(() =>
+    store.beginQuestion(owner, document.doc_id, demoPlan(i)))));
+  assert.deepEqual(results.map(result => result.kind), ['admitted', 'busy']);
+  const admitted = results[0];
+  assert.equal(admitted.kind, 'admitted');
+  store.cancelQuestion(owner, admitted.id);
+  assert.equal(store.beginQuestion(owner, document.doc_id, demoPlan(5)).kind, 'quota');
+  store.dispose();
+});
+
+test('demo/documents-and-sessions-have-independent-duplicate-identities', async () => {
+  const { store, owner } = await guardedSession();
+  const first = store.beginQuestion(owner, document.doc_id, demoPlan(0));
+  assert.equal(first.kind, 'admitted');
+  store.cancelQuestion(owner, first.id);
+  const second = { ...document, doc_id: randomUUID() };
+  assert.equal((await store.storeDocument(owner, store.beginDocument(owner)!, second)).kind, 'stored');
+  const otherDocument = store.beginQuestion(owner, second.doc_id, demoPlan(0));
+  assert.equal(otherDocument.kind, 'admitted');
+  store.cancelQuestion(owner, otherDocument.id);
+  const other = store.createSession();
+  assert.equal((await store.storeDocument(other, store.beginDocument(other)!, document)).kind, 'stored');
+  assert.equal(store.beginQuestion(other, document.doc_id, demoPlan(0)).kind, 'admitted');
+  store.dispose();
+});
+
+test('demo/http-rejections-dispatch-no-downstream-calls-even-with-evaluation-header', async t => {
+  const document = { ...documents.offset, doc_id: randomUUID() } as PreparedDocument;
+  const { store, owner } = await guardedSession(document);
+  const globals = globalThis as typeof globalThis & { notelensSessions?: MemorySessions };
+  const previousStore = globals.notelensSessions;
+  globals.notelensSessions = store;
+  const settings = { ...env, NOTELENS_SESSION_ORIGIN: 'http://localhost:8700' };
+  const previous = Object.fromEntries(Object.keys(settings).map(key => [key, process.env[key]]));
+  Object.assign(process.env, settings);
+  t.after(() => {
+    for (const [key, value] of Object.entries(previous)) {
+      if (value === undefined) delete process.env[key]; else process.env[key] = value;
+    }
+    globals.notelensSessions = previousStore;
+    store.dispose();
+  });
+  let dispatched = 0;
+  t.mock.method(globalThis, 'fetch', async () => { dispatched++; throw new Error('Unexpected dispatch'); });
+  const plan = selectedDemoQuestion('document', true)!.plan;
+  const first = store.beginQuestion(owner, document.doc_id, plan);
+  assert.equal(first.kind, 'admitted');
+  store.cancelQuestion(owner, first.id);
+  const send = (preset: string) => submitQuestion(new Request('http://localhost:8700/api/questions', {
+    method: 'POST', headers: { Origin: settings.NOTELENS_SESSION_ORIGIN, 'Content-Type': 'application/json',
+      Cookie: `__Host-notelens-session=${owner}`, 'X-NoteLens-Evaluation-Output': '1' },
+    body: JSON.stringify({ document: document.doc_id, preset }),
+  }));
+  assert.equal((await send('document')).status, 409);
+  for (let i = 1; i < 5; i++) {
+    const pending = store.beginQuestion(owner, document.doc_id, demoPlan(i));
+    assert.equal(pending.kind, 'admitted');
+    store.cancelQuestion(owner, pending.id);
+  }
+  assert.equal((await send('literature')).status, 429);
+  assert.equal(dispatched, 0);
 });

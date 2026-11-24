@@ -1,4 +1,4 @@
-import { sessionConfiguration, sessionOrigin } from '../config/session-policy.ts';
+import { interactiveQuestionsEnabled, sessionConfiguration, sessionOrigin } from '../config/session-policy.ts';
 import { closeBrowserSession, openBrowserSession } from './browser.ts';
 import { MemorySessions, SessionAdmissionError } from './memory.ts';
 
@@ -6,7 +6,7 @@ import { MemorySessions, SessionAdmissionError } from './memory.ts';
 const processState = globalThis as typeof globalThis & { notelensSessions?: MemorySessions };
 
 export function getSessionStore(): MemorySessions {
-  return processState.notelensSessions ??= new MemorySessions();
+  return processState.notelensSessions ??= new MemorySessions({ interactiveQuestions: interactiveQuestionsEnabled() });
 }
 
 export function isSessionRequestFromOrigin(headers: Headers, configuredOrigin = process.env.NOTELENS_SESSION_ORIGIN): boolean {

@@ -99,6 +99,7 @@ def start_bounded_web(endpoints, limits, *, profile, http_timeout_ms, deadline_u
     classifier = endpoints['classifier']
     env.update(
         NOTELENS_BOUNDED_EVALUATION=profile, NOTELENS_BOUNDED_LIMITS=json.dumps(limits),
+        NOTELENS_QUESTION_PROFILE='final-evaluation',
         NOTELENS_BOUNDED_HTTP_TIMEOUT_MS=str(http_timeout_ms),
         NOTELENS_BOUNDED_RAG_TOKEN=endpoints['rag'].token, NOTELENS_BOUNDED_EXTRACTION_TOKEN=endpoints['extraction'].token,
         NOTELENS_DEMO_RUN=run, NOTELENS_DEMO_TOKEN=uuid4().hex, NOTELENS_SESSION_ORIGIN=f'http://localhost:{port}',

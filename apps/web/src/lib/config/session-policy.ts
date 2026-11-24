@@ -9,6 +9,14 @@ export const SESSION_RATE_WINDOW_MS = 60_000;
 export const MAX_ACTIVE_DOCUMENTS = 3;
 export const QUESTION_RATE_WINDOW_MS = 60_000;
 export const MAX_QUESTIONS_PER_WINDOW = 10;
+export const MAX_QUESTIONS_PER_SESSION = 5;
+
+export function interactiveQuestionsEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
+  if (env.NOTELENS_QUESTION_PROFILE === undefined) return true;
+  if (env.NOTELENS_QUESTION_PROFILE === 'final-evaluation' &&
+      (env.NOTELENS_BOUNDED_EVALUATION === 'offline' || env.NOTELENS_BOUNDED_EVALUATION === 'provider-backed')) return false;
+  throw new Error('The question profile configuration is unavailable.');
+}
 export const MAX_HISTORY_TURNS = 5;
 export const MAX_HISTORY_BYTES = 32 * 1024;
 
