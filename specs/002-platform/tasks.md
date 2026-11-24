@@ -152,11 +152,12 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Coverage**: FR-008, FR-009, FR-010, FR-014, FR-015, SC-004, SC-005.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
-- [ ] T010 [US4] B-007: Finalize an approved hosting/runbook arrangement and rehearse deployment in `infra/**`, `docs/platform/deployment.md`, `scripts/project/check_readiness.py`
+- [X] T010 [US4] B-007: Finalize an approved hosting/runbook arrangement and rehearse deployment in `infra/**`, `docs/platform/deployment.md`, `scripts/project/check_readiness.py`
   - **Owner / story**: B / US4.
   - **Dependencies**: 002-platform/T009 (B-005); 002-platform/T008 (B-006)
   - **Acceptance**: Obtain host/account/cost approval before deployment; verify TLS, service auth, readiness, public-corpus persistence and in-memory document behavior. Record real URLs only after deployment; no universal serverless persistence assumption.
   - **Verify**: `uv run --directory scripts/project python check_readiness.py`.
+  - **Closure decision**: Goran relayed the project administrator's approval to close B-007 on the deployed Railway app and the available [deployment evidence](../../docs/platform/deployment.md#railway-deployment-evidence). The administrator waived the remaining evidence requirements for this closure. The deployment record identifies the checks performed and the source revision that still lacks deployment confirmation.
   - **Coverage**: FR-016, FR-017, FR-020, FR-022, FR-023, SC-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
