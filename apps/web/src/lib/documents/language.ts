@@ -44,10 +44,14 @@ const ENGLISH_QUESTION_WORDS = new Set([
   'treated', 'symptoms', 'causes', 'cause', 'follow', 'up', 'document', 'plan', 'mentioned', 'list',
 ]);
 
+const ENGLISH_QUESTION_STARTS = new Set(['what', 'which', 'who', 'why', 'when', 'where', 'how', 'is', 'are',
+  'does', 'do', 'did', 'can', 'could', 'should', 'would', 'will', 'may']);
+
 /**
  * Questions are often too short for statistical detection. A question written only in ASCII
- * Latin letters with at least two known English words making up at least 35% of its words is
- * accepted deterministically. Everything else (including any accented or non-Latin letters)
+ * Latin letters with at least two known English words, which either make up at least 35% of its
+ * words or follow an English question opener (for example "What does ..."), is accepted
+ * deterministically. Everything else (including any accented or non-Latin letters)
  * falls back to the document detector, so non-English questions are still rejected.
  */
 export function englishQuestion(text: string): 'accepted' | 'unsupported' | 'inconclusive' {
@@ -55,7 +59,7 @@ export function englishQuestion(text: string): 'accepted' | 'unsupported' | 'inc
   const words = text.toLowerCase().match(/[a-z]+(?:'[a-z]+)?/g) ?? [];
   if (letters.length > 0 && letters.every(letter => /[A-Za-z]/.test(letter)) && words.length >= 3) {
     const known = words.filter(word => ENGLISH_QUESTION_WORDS.has(word)).length;
-    if (known >= 2 && known / words.length >= 0.35) return 'accepted';
+    if (known >= 2 && (known / words.length >= 0.35 || ENGLISH_QUESTION_STARTS.has(words[0] ?? ''))) return 'accepted';
   }
   return englishLanguage(text);
 }
