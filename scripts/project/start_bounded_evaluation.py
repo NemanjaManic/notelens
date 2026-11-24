@@ -1,7 +1,7 @@
 """Start the bounded web profile against explicitly selected loopback services."""
 
 import argparse
-from contextlib import contextmanager, closing
+from contextlib import contextmanager, closing, nullcontext
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from hashlib import sha256
@@ -53,7 +53,7 @@ def claim_approved_run(config_path, run_id, config_bytes):
 
 
 @contextmanager
-def start_bounded_web(endpoints, limits, *, profile, http_timeout_ms):
+def start_bounded_web(endpoints, limits, *, profile, http_timeout_ms, deadline_unix_ms=None, owner=None):
     if profile not in {'provider-backed', 'offline'}:
         raise ValueError('Select an explicit bounded evaluation profile.')
     if (set(limits) != OPERATIONS or any(type(limit) is not int or not 0 <= limit < 2**53
@@ -64,12 +64,27 @@ def start_bounded_web(endpoints, limits, *, profile, http_timeout_ms):
     if set(endpoints) != set(TOKEN_ENV) or len({ep.port for ep in endpoints.values()}) != len(TOKEN_ENV):
         raise ValueError('Use separate loopback listeners for the three services.')
 
+    def check_deadline():
+        if deadline_unix_ms is not None and time.time_ns() // 1_000_000 >= deadline_unix_ms:
+            raise TimeoutError('The bounded run deadline expired during startup.')
+
     for name, endpoint in endpoints.items():
-        status, body = get(endpoint.port, '/health/ready', {'Authorization': f'Bearer {endpoint.token}'})
-        record = json.loads(body)
-        if status != 200 or not isinstance(record, dict) or (record.get('service'), record.get('mode'), record.get('status'),
-                             record.get('model_version')) != (name, 'live', 'ok', endpoint.model_version):
-            raise MockStartupError(f'{name} did not match the bounded profile readiness pin.')
+        startup_deadline = time.monotonic() + 35
+        while True:
+            check_deadline()
+            try:
+                status, body = get(endpoint.port, '/health/ready', {'Authorization': f'Bearer {endpoint.token}'})
+                record = json.loads(body)
+                if status == 200 and isinstance(record, dict) and (record.get('service'), record.get('mode'),
+                        record.get('status'), record.get('model_version')) == (name, 'live', 'ok', endpoint.model_version):
+                    break
+                if status in (200, 401, 403):
+                    raise MockStartupError(f'{name} did not match the bounded profile readiness pin.')
+            except (OSError, ValueError, HTTPException):
+                pass
+            if owner is None or time.monotonic() >= startup_deadline:
+                raise MockStartupError(f'{name} did not match the bounded profile readiness pin.')
+            time.sleep(0.1)
 
     node = shutil.which('node')
     next_bin = ROOT / 'node_modules/next/dist/bin/next'
@@ -90,13 +105,19 @@ def start_bounded_web(endpoints, limits, *, profile, http_timeout_ms):
         NOTELENS_LOCAL_CLASSIFIER_MODEL_VERSION=classifier.model_version, NOTELENS_CLASSIFIER_SERVICE_TOKEN=classifier.token,
     )
     env.update({f'NOTELENS_DEMO_{name.upper()}_PORT': str(endpoint.port) for name, endpoint in endpoints.items()})
+    if deadline_unix_ms is not None:
+        env['NOTELENS_BOUNDED_DEADLINE_UNIX_MS'] = str(deadline_unix_ms)
     stack = None
     try:
-        with owned_process([node, str(next_bin), 'start', '--hostname', '127.0.0.1', '--port', str(port)],
-                           cwd=WEB, env=env, stdout=subprocess.DEVNULL) as web:
+        check_deadline()
+        command = [node, str(next_bin), 'start', '--hostname', '127.0.0.1', '--port', str(port)]
+        options = {'cwd': WEB, 'env': env, 'stdout': subprocess.DEVNULL}
+        context = owned_process(command, **options) if owner is None else nullcontext(owner.start(command, **options))
+        with context as web:
             stack = MockStack(port, {'web': web}, {'web': port})
             deadline = time.monotonic() + 35
             while time.monotonic() < deadline and web.poll() is None:
+                check_deadline()
                 try:
                     status, body = get(port, '/demo/health')
                     if status == 200 and json.loads(body) == {'mode': profile, 'run': run}:
@@ -108,7 +129,7 @@ def start_bounded_web(endpoints, limits, *, profile, http_timeout_ms):
                 raise MockStartupError('The bounded web listener did not become ready.')
             yield stack
     finally:
-        if stack:
+        if stack and owner is None:
             verify_shutdown(stack)
 
 
