@@ -21,7 +21,10 @@ D has prepared an annotation guide for review. The guide contains draft entity,
 context, evidence, independent review, adjudication and matching instructions. Its
 [practice examples](annotation-training-examples.json) contain 16 synthetic documents
 and proposed labels for training and discussion. These are not real annotations or a
-final benchmark. D's interface proposals for B are in [D's response](member-d-response-to-b.md).
+final benchmark. D's historical interface proposals for B are retained in the
+[original P1 review record](../team/contract-reviews/p1/member-d-response-to-b.md).
+That record predates the frozen contracts; use the current owner handoff for
+the accepted interface and remaining integration gates.
 The interface review was published on D's branch in commit `c496595`; the guide and
 practice examples followed in `e468d2f`. Neither commit means the documents are in
 `main`, approved by the team or a completed D-001 handoff.
