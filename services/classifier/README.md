@@ -1,14 +1,16 @@
-# Classifier F-004 Mock Scaffold
+# NoteLens classifier
 
-**Owner:** C / Sara. **Verified locally:** 2026-11-14.
+**Owner:** C / Sara. **Verified locally:** 2026-11-19.
 
 **Educational demo only. This is not a doctor or medical advice. Do not submit real
 personal medical reports. Use known English public/synthetic fixtures only.**
 
 This package implements C's local F-004 contribution: `POST /v1/classify`, four
 deterministic synthetic scenarios, explicit input/output validation, request correlation
-and safe error envelopes. It has no trained classifier, language detector, scope/OOD
-detector, dataset processing, provider call or document store.
+and safe error envelopes. The mock HTTP service does not load a classifier model,
+language detector, scope/OOD detector, provider or document store. A separate
+optional local launcher can run a trusted [development model](../../docs/ml/integration.md)
+on authenticated loopback for C's integration checks.
 
 Shared prerequisite package: `aabbfc7844a8092194b4ab1cae561563e83ae13d`, with the
 publication documentation at `fd1197bd380de9ba9037ea0b73b42031dc1d4bb2` on
@@ -24,11 +26,13 @@ model competes with the canonical contract. `mock_results.json` contains four co
 synthetic canonical examples; tests compare them to the frozen source fixtures after
 binding the actual incoming document ID and digest.
 
-Python 3.11.9 is verified here. The package allows >=3.11,<3.14, but this run makes no
-claim about other interpreters. Exact installed versions include FastAPI 0.162.7,
+Python 3.11.9 was used for the original scaffold and Python 3.13.7 for the
+current development run. The package allows >=3.11,<3.14. The original service lock
+installed FastAPI 0.162.7,
 Uvicorn 0.54.0, Starlette 1.10.0, pytest 9.2.0, HTTPX 0.28.1, jsonschema 4.26.0 and
-referencing 0.37.0. The independent `uv.lock` records transitive dependencies. No ML
-training dependencies are installed yet.
+referencing 0.37.0. The independent `uv.lock` records transitive dependencies.
+The `training` and `comparison` groups are optional. The default mock can run
+without either group.
 
 ## Windows setup and checks
 
@@ -78,9 +82,10 @@ Use this local-only launcher; no public listener or deployment is approved.
 
 `classification_execution: performed` in a mock simulates execution only; every result
 keeps `mode: mock` and the frozen fixture's honest confidence note. Document text cannot
-choose the scenario or activate another mode. Unset/invalid mode, invalid scenario, or
-`live` mode without a real pipeline fails with 503/configuration_required. There is no
-automatic fallback and no real-mode inference implementation.
+choose the scenario or activate another mode. Unset/invalid mode, an invalid scenario,
+or `live` mode without an explicitly loaded artifact fails with 503/configuration_required.
+Use the [development launcher](../../docs/ml/integration.md#start-and-verify-the-development-model)
+for the authenticated loopback model.
 
 All business calls require one canonical UUID `X-Request-ID`. Valid IDs are echoed;
 missing/malformed/duplicate IDs receive a safe 400 envelope with a new diagnostic UUID.
@@ -95,30 +100,62 @@ values into chat or commit them. With no token, only loopback peers in explicit 
 are admitted. Remote peers receive a configuration error; forwarded headers cannot make
 them local. This is not authorization to expose this scaffold publicly.
 
+## F-011 classifier health
+
+`GET /health/live` returns the frozen `LivenessResult`; `GET /health/ready` returns
+the frozen `HealthResult` with mock readiness and no model version. In mock mode,
+set `NOTELENS_CLASSIFIER_MOCK_READINESS=not_ready` to exercise a synthetic 503
+`not_ready` result; liveness remains 200. The switch affects readiness reporting,
+not the business response. An unrecognized readiness value or classification scenario
+also makes readiness not ready without echoing the invalid setting. In configured live
+mode readiness is 503 until the trusted development model is explicitly loaded.
+
+Health ignores all incoming `X-Request-ID` values, including malformed and duplicates.
+With a configured service token, health rejects missing, invalid or duplicate
+Authorization headers with 401, one Bearer challenge and a fresh diagnostic UUID
+matching the `ErrorEnvelope` and response header. Without a token, only a direct
+loopback mock request is admitted. Health success and 503 do not emit request IDs.
+Business request-ID admission remains separate and runs before business authentication.
+No health check invokes classification or a model.
+
+## F-011 mock classification failures
+
+In mock mode, set `NOTELENS_CLASSIFIER_MOCK_FAILURE` before starting the service.
+Leave the variable unset for the ordinary classification result.
+
+| Value | HTTP status | `ErrorEnvelope.error.code` |
+| --- | --- | --- |
+| `timeout` | 504 | `timeout` |
+| `rate_limit` | 429 | `rate_limit` |
+| `provider_unavailable` | 503 | `provider_unavailable` |
+
+`POST /v1/classify` returns the simulated error after successful request-ID admission,
+authentication and frozen request validation. Each error uses `retryable=true`, echoes
+the admitted request ID in the response header and envelope, and uses a static English
+message. The mock returns immediately without scheduling retries or calling a provider.
+Valid failure profiles allow healthy readiness. An empty or unknown value makes readiness
+return 503 and makes valid classification requests return `configuration_required`.
+
 ## Evidence and remaining gates
 
-The isolated health candidate was verified with 77 passing tests on Python 3.13.7;
-the original HTTPX TestClient deprecation warning remains until the separate fix is adopted.
-
-- **51 tests passed:** frozen mock shapes and identities, Unicode/text limits, strict JSON,
+- **122 tests passed** on Python 3.13.7 with the optional locked comparison group installed:
+  frozen mock shapes and identities, Unicode/text limits, strict JSON,
   invalid headers, authentication/configuration failures, native non-finite output,
   request isolation, safe failures, no file writes during mock requests, and a real
-  loopback Uvicorn HTTP smoke with process cleanup.
+  loopback Uvicorn HTTP smoke with process cleanup, F-011 health and all three mock
+  failure profiles, trained development inference and the synthetic held-out measurement rehearsal.
 - Installed Python bindings passed **153/153 payload outcomes and 22/22 simulated
   exchanges**, all 29 type exports, native-number and strict JSON negatives.
-- One test-library warning remains: Starlette deprecates its HTTPX TestClient backend
-  in favor of HTTPX2. Current pinned tests pass; no warning was suppressed.
+- Test dependencies include HTTPX2 for Starlette's TestClient. HTTPX remains pinned
+  for the separate asynchronous privacy test. With the updated lock, all 51 tests
+  passed on Python 3.11.9 and 3.13.7 with Starlette deprecation warnings treated as errors.
 - The socket smoke checks process startup, real POST responses and test-process
   termination. It does not establish B's coordinated graceful startup/shutdown.
 
-B recorded F-004 technical completion. This isolated C health candidate adds
-`GET /health/live` and `/health/ready` with frozen payload validation. In mock mode,
-`NOTELENS_CLASSIFIER_MOCK_READINESS=not_ready` produces a synthetic readiness 503
-while liveness stays available. Health ignores incoming request IDs; authentication
-failures use a fresh correlated diagnostic ID and Bearer challenge. With no token,
-only direct loopback mock health is admitted. Health does not run classification.
-This candidate does not complete shared F-011 or F-014. Business failure scenarios
-remain a proposal requiring agreement with B; no model or live inference is activated.
+The shared foundation records [F-011 and F-014 completion](../../specs/000-foundation/tasks.md).
+The C-002 [split report](../../docs/ml/splits.md) documents the frozen partitions.
+The C-008 [model test report](../../docs/ml/model-test-report.md) records the
+locked final classification measurement.
 
 The service processes request content transiently, with no body logging, application
 cache, file writes, background jobs or session store. A disconnected body never reaches
