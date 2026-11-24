@@ -6,7 +6,7 @@ import { ReportWorkspace } from '../../components/report-workspace.tsx';
 import { SubmissionForm } from '../../components/submission-form.tsx';
 import { QuestionAnswer } from '../../components/question-answer.tsx';
 import { QuestionForm } from '../../components/question-form.tsx';
-import { demoWorkspace, isBuiltinDemoDocument, isDemoConfigured, selectDemoEvidence } from '../../lib/scaffold/demo.ts';
+import { demoWorkspace, isBuiltinDemoDocument, isDemoConfigured, reportBasePath, selectDemoEvidence } from '../../lib/scaffold/demo.ts';
 import { demoQuestions } from '../../lib/routing/demo-questions.ts';
 import { DOCUMENT_ID } from '../../lib/routing/question-input.ts';
 import { readBrowserSession } from '../../lib/sessions/browser.ts';
@@ -34,7 +34,8 @@ async function DemoReport({ query, owner, document }: {
   const view = selectDemoEvidence(workspace.document && !history ? await demoWorkspace(query, null) : workspace,
     query.evidence, turn?.answer);
   const builtin = isBuiltinDemoDocument(view.document);
-  const reportHref = view.document ? `/demo?document=${view.document.doc_id}` : '/demo';
+  const base = reportBasePath();
+  const reportHref = view.document ? `${base}?document=${view.document.doc_id}` : base;
   const evidenceHref = turn ? `${reportHref}&turn=${turn.id}` : reportHref;
   const picker = <>
     <BuiltinExampleButton />
