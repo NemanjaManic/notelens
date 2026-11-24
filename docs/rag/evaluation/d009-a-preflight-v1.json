@@ -1,0 +1,748 @@
+{
+  "format_version": "d009-A-offline-handoff-v1",
+  "prepared_on": "2026-11-24",
+  "owner": "Nemanja (A)",
+  "status": "proposal_only_joint_execution_blocked",
+  "metadata_archive_sha256": "b1fdf1593839ee0c60ce45afe6723dffd7b9fd8c3599af801c969caec5a1b9bd",
+  "metadata": {
+    "version": "d009-A-metadata-handoff-v1",
+    "date": "2026-11-24",
+    "content": "Package identities and counts only; locked final questions/gold answers excluded.",
+    "packages": [
+      {
+        "file": "d009-runtime-candidate-v1.zip",
+        "sha256": "a96ebf7829e96be6cc213e45220a215e37a04f9fd4cbb4364b5b8c3a4ff024f7",
+        "version": "v1",
+        "status": "received_checksum_verified_candidate_not_execution_authorized",
+        "custody": "Milica has local copy; request approved runtime transfer from Sara/Goran. Scoring remains evaluator-only."
+      },
+      {
+        "file": "d009-scoring-candidate-v1.zip",
+        "sha256": "5fdef0a182d35eb79e43736dd6d284c3cf07462831f548ffe5c6f511c04d1a3f",
+        "version": "v1",
+        "status": "received_checksum_verified_candidate_not_execution_authorized",
+        "custody": "Milica has local copy; request approved runtime transfer from Sara/Goran. Scoring remains evaluator-only."
+      }
+    ],
+    "current_received_metadata_manifest": {
+      "file": "d009-sara-qa-candidate-manifest-v2.json",
+      "sha256": "52312604f4ccc06b75113d4f56b680fcf394a61b678d53a5ee689fb3363167ab"
+    },
+    "latest_custodian_declared_manifest": {
+      "file": "d009-sara-qa-candidate-manifest-v3.json",
+      "sha256": "1424c2d3aa6b207346e6d3ceda219839243d1cde2134670d2a8ea75d8c1e3f4f"
+    },
+    "latest_v3_manifest_bytes_received": false,
+    "replacement_review_receipt": {
+      "file": "d009-goran-three-replacements-review-receipt-v1.json",
+      "sha256": "93b6d5a302433c4dfef552afba2e3bb15fd4a3d896986d0bcdf31c1fe8123aa7"
+    },
+    "case_count": 26,
+    "route_counts": {
+      "document_only": 8,
+      "literature_only": 8,
+      "mixed": 8,
+      "out_of_scope": 2
+    },
+    "module_work_inventory": {
+      "D_document_question_branches": 16,
+      "A_literature_question_branches": 16,
+      "distinct_runtime_documents": 16,
+      "out_of_scope_cases": 2
+    },
+    "counts_are_not_actual_provider_requests": true,
+    "A_embedding_and_answer_call_count": "Pending A exact dry-run inventory; routing/retrieval must not be equated to provider calls.",
+    "runtime_contents_shared_now": false,
+    "scoring_contents_shared_with_A": false,
+    "credentials_or_private_access_links_included": false,
+    "execution_instructions_status": "Preflight only until approved provider profile and complete execution policy; existing key-free launcher is not a final live launcher.",
+    "final_extraction_F1": "Explicitly unavailable: separate final reference annotations are missing. A supports this disposition; coordinator/team final scope must record it.",
+    "new_provider_calls_authorized": false
+  },
+  "source_sha256": {
+    "SHA256SUMS.txt": "d1745b7c1425ec6e060f4f6b62c4ff3287d42227bcdcafff7bdb5a67532ecf4b",
+    "rag-five-answer-feedback-from-d.md": "a588cbe0abd49c175d49bfa599ff8f13e625378cc89062a84d8fdd91942dfe9a",
+    "README.md": "57afc9f58de1b0b101931ab47865cdb619dda49c2737726892a80054176cc21f",
+    "d009-A-metadata-handoff-v1.json": "b8d8d355021183b3ec7545f6983b0523edd391aac154c862bb3617cd364190a6",
+    "original-CQ-ratings.transcribed.csv": "303fc6ea7a02669c79740d28bba1d961f9ceebc534817fe002bae3a95630aadf"
+  },
+  "frozen_manifest_sha256": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
+  "original_live_receipt_sha256": "9c5a16ef6020ba4963ae4f3be20aab2ac85a8a65d6a3a7da35de6ec536d7509a",
+  "original_review_verbatim_utf8": "# Feedback for A on the five NoteLens RAG answers\n\nDraft for member D · 2026-11-19 · Development review using `d-answer-review-rubric-v1`.\n\nAll five answers cover the questions asked. I would update the evidence for the affected nerve in CQ-03 and remove the misleading description of bilirubin in CQ-05. CQ-09 has a small readability issue. CQ-01 and CQ-07 are ready as written for this development review.\n\n## Ratings\n\nEach row scores the answer against the excerpts cited in the original packet. The CQ-03 follow-up is discussed below. The scope is semantic review of the supplied answers and excerpts. The run receipt and canonical passage offsets require separate verification.\n\n| Case | Coverage | Source support | Required facts | Extra facts | Uncertainty and context | Evidence gaps | Scope and safety | Clarity and English |\n| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |\n| CQ-01 | Full | 2 | 2 | 2 | 2 | 2 | 2 | 2 |\n| CQ-03 | Full | 1 | 2 | 2 | 2 | 1 | 2 | 2 |\n| CQ-05 | Full | 2 | 2 | 1 | 2 | 2 | 2 | 2 |\n| CQ-07 | Full | 2 | 2 | 2 | 2 | 2 | 2 | 2 |\n| CQ-09 | Full | 2 | 2 | 2 | 2 | 2 | 2 | 1 |\n\n`2` meets the criterion, `1` indicates a minor issue, `0` indicates a major issue, and `U` means unable to judge. I found no critical errors in these cases. The scope and safety ratings reflect the educational answers and the notice included in the packet. CQ-05 is the only case I would bring to adjudication to confirm the severity of the extra-facts deduction.\n\n## CQ-01 · Cardiovascular / Pulmonary\n\n`rag-claim-1` is fully supported. `e1` defines both pressures and `e2` and `e3` each reinforce the respective definition. The distinction between the heartbeat and the rest between beats answers the question directly.\n\n## CQ-03 · Orthopedic\n\n`rag-claim-1` is supported by `e1`, which describes the symptoms and a squeezed wrist nerve. For `rag-claim-2`, `e2` names the median nerve and establishes its route. Identifying it as the nerve compressed in carpal tunnel syndrome still requires an inference from `e1` and `e2`. The original citation for the second claim omits that link, which accounts for the `1` in source support and evidence gaps. The answer itself includes both requested facts.\n\nThe follow-up excerpt at `[754, 973)` supplies the compression mechanism in the carpal tunnel. The smallest correction is to keep `e2` and attach that excerpt as a second citation to `rag-claim-2`. Together they support the identification and route with the necessary context.\n\n## CQ-05 · Gastroenterology\n\n`e1` and `e2` support the visible yellowing and the role of excess bilirubin. The description of bilirubin as “a yellow chemical in hemoglobin” in `rag-claim-2` repeats the supplied wording, so source support stays at `2`. I scored extra facts `1` because that aside is unnecessary and gives a misleading account of bilirubin, which is produced as old red blood cells break down. [MedlinePlus, Bilirubin Blood Test](https://medlineplus.gov/lab-tests/bilirubin-blood-test/)\n\nThe smallest correction is to drop the aside and use “The yellow color occurs when too much bilirubin builds up.” I would flag the source wording when reviewing the corpus.\n\n## CQ-07 · Neurology\n\n`e1` supports the benign tumor definition, location and usual slow growth. For `rag-claim-2`, `e2` establishes that early symptoms may be absent or mild, and `e3`–`e5` cover one-sided hearing loss, ringing, dizziness and balance problems. The answer preserves the qualifiers and covers both parts of the question.\n\n## CQ-09 · Urology\n\n`e1` provides the possibility framing, and `e2`–`e7` support every symptom in `rag-claim-1`. The phrase “bad-smelling or cloudy or reddish urine” is slightly awkward, which accounts for the `1` in clarity and English. The smallest correction, supported by `e6`, is “urine that smells bad or looks cloudy or reddish.”\n",
+  "original_ratings_csv_verbatim_utf8": "case_id,source_support,required_facts,extra_facts,uncertainty_and_context,evidence_gaps,scope_and_safety,clarity_and_english\r\nCQ-01,2,2,2,2,2,2,2\r\nCQ-03,1,2,2,2,1,2,2\r\nCQ-05,2,2,1,2,2,2,2\r\nCQ-07,2,2,2,2,2,2,2\r\nCQ-09,2,2,2,2,2,2,1\r\n",
+  "original_ratings_all_five": {
+    "CQ-01": {
+      "source_support": 2,
+      "required_facts": 2,
+      "extra_facts": 2,
+      "uncertainty_and_context": 2,
+      "evidence_gaps": 2,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "CQ-03": {
+      "source_support": 1,
+      "required_facts": 2,
+      "extra_facts": 2,
+      "uncertainty_and_context": 2,
+      "evidence_gaps": 1,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "CQ-05": {
+      "source_support": 2,
+      "required_facts": 2,
+      "extra_facts": 1,
+      "uncertainty_and_context": 2,
+      "evidence_gaps": 2,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "CQ-07": {
+      "source_support": 2,
+      "required_facts": 2,
+      "extra_facts": 2,
+      "uncertainty_and_context": 2,
+      "evidence_gaps": 2,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "CQ-09": {
+      "source_support": 2,
+      "required_facts": 2,
+      "extra_facts": 2,
+      "uncertainty_and_context": 2,
+      "evidence_gaps": 2,
+      "scope_and_safety": 2,
+      "clarity_and_english": 1
+    }
+  },
+  "original_review_status": "Draft, 2026-11-19",
+  "CQ_cases": [
+    {
+      "case_id": "CQ-03",
+      "question": "What is carpal tunnel syndrome, and which nerve is affected?",
+      "coverage_original": "Full",
+      "original": {
+        "origin": "actual_public_development_completion",
+        "claims": [
+          {
+            "claim_id": "rag-claim-1",
+            "text": "Carpal tunnel syndrome is a common condition involving numbness, tingling, weakness, or pain in the wrist or hand when a wrist nerve becomes squeezed.",
+            "scope": "general_information",
+            "source_ids": [
+              "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5"
+            ]
+          },
+          {
+            "claim_id": "rag-claim-2",
+            "text": "The affected nerve is the median nerve, which passes through the carpal tunnel into the hand.",
+            "scope": "general_information",
+            "source_ids": [
+              "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5"
+            ]
+          }
+        ],
+        "citation_trace": [
+          {
+            "claim_id": "rag-claim-1",
+            "end": 253,
+            "evidence_id": "e1",
+            "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+            "quote": "Carpal tunnel syndrome is the name for a group of problems that includes numbness, tingling, weakness, or pain in your wrist or hand. It's a very common condition that happens when a nerve in your wrist becomes squeezed.",
+            "requirement_id": "part-1",
+            "start": 33,
+            "topic_id": "179",
+            "title": "Carpal Tunnel Syndrome",
+            "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+            "quote_sha256": "f9b705e9a4d327c34d876e2e137fffd4cfea01592483e47b3b75b0bb6c03479a",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-2",
+            "end": 574,
+            "evidence_id": "e2",
+            "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+            "quote": "The carpal tunnel is a narrow opening between the bones in your wrist and the ligament that holds them together. A nerve, called the median nerve, runs from your lower arm through the carpal tunnel and into your hand. This nerve provides feeling to your thumb and first three fingers. It also helps you move your thumb.",
+            "requirement_id": "part-2",
+            "start": 255,
+            "topic_id": "179",
+            "title": "Carpal Tunnel Syndrome",
+            "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+            "quote_sha256": "dd5e5e2efb295853eb6cbbd3d7c735239462897c6020fc35b3604c9860345590",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          }
+        ]
+      },
+      "corrected": {
+        "origin": "authored_development_revision_not_new_provider_output",
+        "claims": [
+          {
+            "claim_id": "rag-claim-1",
+            "text": "Carpal tunnel syndrome is a common condition involving numbness, tingling, weakness, or pain in the wrist or hand when a wrist nerve becomes squeezed.",
+            "scope": "general_information",
+            "source_ids": [
+              "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5"
+            ]
+          },
+          {
+            "claim_id": "rag-claim-2",
+            "text": "The affected nerve is the median nerve, which passes through the carpal tunnel into the hand.",
+            "scope": "general_information",
+            "source_ids": [
+              "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5"
+            ]
+          }
+        ],
+        "citation_trace": [
+          {
+            "claim_id": "rag-claim-1",
+            "end": 253,
+            "evidence_id": "e1",
+            "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+            "quote": "Carpal tunnel syndrome is the name for a group of problems that includes numbness, tingling, weakness, or pain in your wrist or hand. It's a very common condition that happens when a nerve in your wrist becomes squeezed.",
+            "requirement_id": "part-1",
+            "start": 33,
+            "topic_id": "179",
+            "title": "Carpal Tunnel Syndrome",
+            "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+            "quote_sha256": "f9b705e9a4d327c34d876e2e137fffd4cfea01592483e47b3b75b0bb6c03479a",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-2",
+            "end": 574,
+            "evidence_id": "e2",
+            "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+            "quote": "The carpal tunnel is a narrow opening between the bones in your wrist and the ligament that holds them together. A nerve, called the median nerve, runs from your lower arm through the carpal tunnel and into your hand. This nerve provides feeling to your thumb and first three fingers. It also helps you move your thumb.",
+            "requirement_id": "part-2",
+            "start": 255,
+            "topic_id": "179",
+            "title": "Carpal Tunnel Syndrome",
+            "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+            "quote_sha256": "dd5e5e2efb295853eb6cbbd3d7c735239462897c6020fc35b3604c9860345590",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-2",
+            "end": 973,
+            "evidence_id": "e3",
+            "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+            "quote": "If the tendons become swollen or irritated inside the carpal tunnel, they may press on the nerve. The squeezed nerve may not work well, which can lead to numbness, weakness, and other symptoms of carpal tunnel syndrome.",
+            "requirement_id": "part-2",
+            "start": 754,
+            "topic_id": "179",
+            "title": "Carpal Tunnel Syndrome",
+            "url": "https://medlineplus.gov/carpaltunnelsyndrome.html",
+            "quote_sha256": "8b55bb59ba6789bedf4b70a9e7b97a8eff1408f0bda5fe29e464f8351b2d226f",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          }
+        ]
+      },
+      "original_ratings": {
+        "source_support": 1,
+        "required_facts": 2,
+        "extra_facts": 2,
+        "uncertainty_and_context": 2,
+        "evidence_gaps": 1,
+        "scope_and_safety": 2,
+        "clarity_and_english": 2
+      },
+      "corrected_ratings": {
+        "source_support": null,
+        "required_facts": null,
+        "extra_facts": null,
+        "uncertainty_and_context": null,
+        "evidence_gaps": null,
+        "scope_and_safety": null,
+        "clarity_and_english": null
+      },
+      "corrected_review_status": "pending_D_review",
+      "original_severity_adjudication": "no_new_decision_recorded"
+    },
+    {
+      "case_id": "CQ-05",
+      "question": "What is jaundice, and what causes its yellow color?",
+      "coverage_original": "Full",
+      "original": {
+        "origin": "actual_public_development_completion",
+        "claims": [
+          {
+            "claim_id": "rag-claim-1",
+            "text": "Jaundice causes the skin and the whites of the eyes to turn yellow.",
+            "scope": "general_information",
+            "source_ids": [
+              "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c"
+            ]
+          },
+          {
+            "claim_id": "rag-claim-2",
+            "text": "Too much bilirubin, a yellow chemical in hemoglobin, causes the yellow color associated with jaundice.",
+            "scope": "general_information",
+            "source_ids": [
+              "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c"
+            ]
+          }
+        ],
+        "citation_trace": [
+          {
+            "claim_id": "rag-claim-1",
+            "end": 452,
+            "evidence_id": "e1",
+            "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+            "quote": "Jaundice causes your skin and the whites of your eyes to turn yellow. Too much bilirubin causes jaundice. Bilirubin is a yellow chemical in hemoglobin, the substance that carries oxygen in your red blood cells. As red blood cells break down, your body builds new cells to replace them. The old ones are processed by the liver. If the liver cannot handle the blood cells as they break down, bilirubin builds up in the body and your skin may look yellow.",
+            "requirement_id": "part-1",
+            "start": 0,
+            "topic_id": "4452",
+            "title": "Jaundice",
+            "url": "https://medlineplus.gov/jaundice.html",
+            "quote_sha256": "edfd614f357bc8e13f4285aa79dc9c641b931d0a336577ae8b260df434eb431d",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-2",
+            "end": 452,
+            "evidence_id": "e2",
+            "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+            "quote": "Jaundice causes your skin and the whites of your eyes to turn yellow. Too much bilirubin causes jaundice. Bilirubin is a yellow chemical in hemoglobin, the substance that carries oxygen in your red blood cells. As red blood cells break down, your body builds new cells to replace them. The old ones are processed by the liver. If the liver cannot handle the blood cells as they break down, bilirubin builds up in the body and your skin may look yellow.",
+            "requirement_id": "part-2",
+            "start": 0,
+            "topic_id": "4452",
+            "title": "Jaundice",
+            "url": "https://medlineplus.gov/jaundice.html",
+            "quote_sha256": "edfd614f357bc8e13f4285aa79dc9c641b931d0a336577ae8b260df434eb431d",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          }
+        ]
+      },
+      "corrected": {
+        "origin": "authored_development_revision_not_new_provider_output",
+        "claims": [
+          {
+            "claim_id": "rag-claim-1",
+            "text": "Jaundice causes the skin and the whites of the eyes to turn yellow.",
+            "scope": "general_information",
+            "source_ids": [
+              "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c"
+            ]
+          },
+          {
+            "claim_id": "rag-claim-2",
+            "text": "The yellow color occurs when too much bilirubin builds up.",
+            "scope": "general_information",
+            "source_ids": [
+              "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c"
+            ]
+          }
+        ],
+        "citation_trace": [
+          {
+            "claim_id": "rag-claim-1",
+            "end": 452,
+            "evidence_id": "e1",
+            "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+            "quote": "Jaundice causes your skin and the whites of your eyes to turn yellow. Too much bilirubin causes jaundice. Bilirubin is a yellow chemical in hemoglobin, the substance that carries oxygen in your red blood cells. As red blood cells break down, your body builds new cells to replace them. The old ones are processed by the liver. If the liver cannot handle the blood cells as they break down, bilirubin builds up in the body and your skin may look yellow.",
+            "requirement_id": "part-1",
+            "start": 0,
+            "topic_id": "4452",
+            "title": "Jaundice",
+            "url": "https://medlineplus.gov/jaundice.html",
+            "quote_sha256": "edfd614f357bc8e13f4285aa79dc9c641b931d0a336577ae8b260df434eb431d",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-2",
+            "end": 452,
+            "evidence_id": "e2",
+            "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+            "quote": "Jaundice causes your skin and the whites of your eyes to turn yellow. Too much bilirubin causes jaundice. Bilirubin is a yellow chemical in hemoglobin, the substance that carries oxygen in your red blood cells. As red blood cells break down, your body builds new cells to replace them. The old ones are processed by the liver. If the liver cannot handle the blood cells as they break down, bilirubin builds up in the body and your skin may look yellow.",
+            "requirement_id": "part-2",
+            "start": 0,
+            "topic_id": "4452",
+            "title": "Jaundice",
+            "url": "https://medlineplus.gov/jaundice.html",
+            "quote_sha256": "edfd614f357bc8e13f4285aa79dc9c641b931d0a336577ae8b260df434eb431d",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          }
+        ]
+      },
+      "original_ratings": {
+        "source_support": 2,
+        "required_facts": 2,
+        "extra_facts": 1,
+        "uncertainty_and_context": 2,
+        "evidence_gaps": 2,
+        "scope_and_safety": 2,
+        "clarity_and_english": 2
+      },
+      "corrected_ratings": {
+        "source_support": null,
+        "required_facts": null,
+        "extra_facts": null,
+        "uncertainty_and_context": null,
+        "evidence_gaps": null,
+        "scope_and_safety": null,
+        "clarity_and_english": null
+      },
+      "corrected_review_status": "pending_D_review",
+      "original_severity_adjudication": "pending_separate_CQ05_decision"
+    },
+    {
+      "case_id": "CQ-09",
+      "question": "What symptoms can occur with a urinary tract infection?",
+      "coverage_original": "Full",
+      "original": {
+        "origin": "actual_public_development_completion",
+        "claims": [
+          {
+            "claim_id": "rag-claim-1",
+            "text": "Symptoms that may occur with a urinary tract infection include pain or burning during urination, fever, tiredness or shakiness, frequent urges to urinate, lower-belly pressure, bad-smelling or cloudy or reddish urine, and back or side pain below the ribs.",
+            "scope": "general_information",
+            "source_ids": [
+              "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4"
+            ]
+          }
+        ],
+        "citation_trace": [
+          {
+            "claim_id": "rag-claim-1",
+            "end": 274,
+            "evidence_id": "e1",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "You may have a UTI if you notice:",
+            "requirement_id": "part-1",
+            "start": 241,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "bbf12dd9c44a57fb8710678746960e953ac307d895e2beec9c1ef3403898acde",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 310,
+            "evidence_id": "e2",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- Pain or burning when you urinate",
+            "requirement_id": "part-1",
+            "start": 276,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "538fdae24ef397830c3a25fee01ac2c880c7af59869ff6a24b50c0317050a9f5",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 343,
+            "evidence_id": "e3",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- Fever, tiredness, or shakiness",
+            "requirement_id": "part-1",
+            "start": 311,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "e445027a7d5b3652053a0c4c1f5a9d10c1e7cf26afda5546c153a8f1cb0d1473",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 370,
+            "evidence_id": "e4",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- An urge to urinate often",
+            "requirement_id": "part-1",
+            "start": 344,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "fcdbcbb2389df93ac97d8c930dd2124fc34a06cd076e465b827b4082706edce3",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 401,
+            "evidence_id": "e5",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- Pressure in your lower belly",
+            "requirement_id": "part-1",
+            "start": 371,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "02c8604a43b39c5e091163e149ca51640db714158a59452f8c7f2e7c2805cbe4",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 452,
+            "evidence_id": "e6",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- Urine that smells bad or looks cloudy or reddish",
+            "requirement_id": "part-1",
+            "start": 402,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "d2dde5ba92aecac34f734d20b009ba3887ddec76444a07c58039b10f1d4c841a",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 495,
+            "evidence_id": "e7",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- Pain in your back or side below the ribs",
+            "requirement_id": "part-1",
+            "start": 453,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "58c901b81b5555824be1a060187a9b311f1da9c01f7cc42d5bfe5de9e7712570",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          }
+        ]
+      },
+      "corrected": {
+        "origin": "authored_development_revision_not_new_provider_output",
+        "claims": [
+          {
+            "claim_id": "rag-claim-1",
+            "text": "Symptoms that may occur with a urinary tract infection include pain or burning during urination, fever, tiredness or shakiness, frequent urges to urinate, lower-belly pressure, urine that smells bad or looks cloudy or reddish, and back or side pain below the ribs.",
+            "scope": "general_information",
+            "source_ids": [
+              "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4"
+            ]
+          }
+        ],
+        "citation_trace": [
+          {
+            "claim_id": "rag-claim-1",
+            "end": 274,
+            "evidence_id": "e1",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "You may have a UTI if you notice:",
+            "requirement_id": "part-1",
+            "start": 241,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "bbf12dd9c44a57fb8710678746960e953ac307d895e2beec9c1ef3403898acde",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 310,
+            "evidence_id": "e2",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- Pain or burning when you urinate",
+            "requirement_id": "part-1",
+            "start": 276,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "538fdae24ef397830c3a25fee01ac2c880c7af59869ff6a24b50c0317050a9f5",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 343,
+            "evidence_id": "e3",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- Fever, tiredness, or shakiness",
+            "requirement_id": "part-1",
+            "start": 311,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "e445027a7d5b3652053a0c4c1f5a9d10c1e7cf26afda5546c153a8f1cb0d1473",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 370,
+            "evidence_id": "e4",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- An urge to urinate often",
+            "requirement_id": "part-1",
+            "start": 344,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "fcdbcbb2389df93ac97d8c930dd2124fc34a06cd076e465b827b4082706edce3",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 401,
+            "evidence_id": "e5",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- Pressure in your lower belly",
+            "requirement_id": "part-1",
+            "start": 371,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "02c8604a43b39c5e091163e149ca51640db714158a59452f8c7f2e7c2805cbe4",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 452,
+            "evidence_id": "e6",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- Urine that smells bad or looks cloudy or reddish",
+            "requirement_id": "part-1",
+            "start": 402,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "d2dde5ba92aecac34f734d20b009ba3887ddec76444a07c58039b10f1d4c841a",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          },
+          {
+            "claim_id": "rag-claim-1",
+            "end": 495,
+            "evidence_id": "e7",
+            "passage_id": "mplus-448-627d210443969169881a4c80a793e1b536391eb1c73d827bc53a60eb539059b4",
+            "quote": "- Pain in your back or side below the ribs",
+            "requirement_id": "part-1",
+            "start": 453,
+            "topic_id": "448",
+            "title": "Urinary Tract Infections",
+            "url": "https://medlineplus.gov/urinarytractinfections.html",
+            "quote_sha256": "58c901b81b5555824be1a060187a9b311f1da9c01f7cc42d5bfe5de9e7712570",
+            "offset_unit": "unicode_code_points",
+            "interval": "[start,end)"
+          }
+        ]
+      },
+      "original_ratings": {
+        "source_support": 2,
+        "required_facts": 2,
+        "extra_facts": 2,
+        "uncertainty_and_context": 2,
+        "evidence_gaps": 2,
+        "scope_and_safety": 2,
+        "clarity_and_english": 1
+      },
+      "corrected_ratings": {
+        "source_support": null,
+        "required_facts": null,
+        "extra_facts": null,
+        "uncertainty_and_context": null,
+        "evidence_gaps": null,
+        "scope_and_safety": null,
+        "clarity_and_english": null
+      },
+      "corrected_review_status": "pending_D_review",
+      "original_severity_adjudication": "no_new_decision_recorded"
+    }
+  ],
+  "A_accounting_proposal": {
+    "basis": "Conditional ceiling for one A call per literature/mixed case; not actual usage.",
+    "model": "gpt-6-luna",
+    "reasoning_effort": "none",
+    "service_tier": "default",
+    "embedding_model": "text-embedding-3-small",
+    "embedding_dimensions": 1536,
+    "stages": {
+      "question_parts": {
+        "max_requests": 16,
+        "max_input_tokens_per_request": 4096,
+        "max_input_tokens_total": 65536,
+        "max_output_tokens_per_request": 512,
+        "max_output_tokens_total": 8192
+      },
+      "support": {
+        "max_requests": 16,
+        "max_input_tokens_per_request": 20000,
+        "max_input_tokens_total": 320000,
+        "max_output_tokens_per_request": 512,
+        "max_output_tokens_total": 8192
+      },
+      "answer": {
+        "max_requests": 16,
+        "max_input_tokens_per_request": 4096,
+        "max_input_tokens_total": 65536,
+        "max_output_tokens_per_request": 512,
+        "max_output_tokens_total": 8192
+      }
+    },
+    "max_A_answer_endpoint_requests": 16,
+    "max_embedding_requests": 16,
+    "max_embedding_tokens_per_request": 128,
+    "max_embedding_input_tokens": 2048,
+    "max_generation_requests": 48,
+    "max_response_input_tokens": 451072,
+    "max_response_output_tokens": 24576,
+    "max_free_input_count_requests": 48,
+    "max_provider_HTTP_requests_including_counting": 112,
+    "max_chargeable_embedding_plus_generation_requests": 64,
+    "corpus_reembedding_requests": 0,
+    "automatic_retries": 0,
+    "structural_repair_requests": 0,
+    "provider_request_timeout_seconds_proposed": 30,
+    "absolute_provider_deadline_required": true,
+    "sequential_provider_timeout_sum_seconds": 3360,
+    "A_absolute_wall_deadline_seconds_proposed": 3600,
+    "A_wall_deadline_status": "new proposed stop limit, not a completion estimate or implemented timer",
+    "prices_usd_per_million": {
+      "response_input": "0.10",
+      "response_cache_write_upper": "0.125",
+      "response_output": "0.50",
+      "embedding_input": "0.02"
+    },
+    "regional_allowance_multiplier": "1.10",
+    "price_checked_on": "2026-11-24",
+    "price_sources": [
+      "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "https://developers.openai.com/api/docs/models/text-embedding-3-small",
+      "https://help.openai.com/en/articles/4936856-understanding-and-counting-tokens"
+    ],
+    "conservative_A_usage_upper_usd": "0.0755842560",
+    "A_new_cap_usd_proposed": "0.08",
+    "new_provider_execution_authorized": false,
+    "joint_cost_cap_usd": null,
+    "joint_duration_limit_seconds": null,
+    "joint_limits_reason": "D provider profile/limits and B counted final app profile are not supplied."
+  },
+  "final_extraction_F1": {
+    "value": null,
+    "status": "unmeasured",
+    "reason": "Separate final reference annotations missing."
+  },
+  "verification": {
+    "supplied_checksum_entries": 4,
+    "original_scores_verified": 35,
+    "freeze_file_hashes_verified": 56,
+    "canonical_citation_links_verified": 23,
+    "public_corpus_passages_validated": 617,
+    "provider_calls": 0,
+    "final_test_accessed": false,
+    "counted_B_runtime_dry_run_performed": false
+  }
+}

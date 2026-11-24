@@ -2,6 +2,21 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [contract references](contracts/README.md).
+**Current handoff (2026-11-24)**: A-012 preparation is complete and the current
+app/watchdog pin is `d846dcfee5a066dc180a59dbf0c1ed8888809f38`; see its v3
+completion record below. D-009 execution/scoring remains unclaimed. The
+date-labelled preparation and approval notes retain their historical meaning.
+**Current preparation (2026-11-24)**: The user requested the bounded final RAG
+launcher and explicitly authorized parallel agents. A-012 below covers its
+implementation, key-free verification and operator handoff. The latest user
+completion target is **2026-11-24 15:00 Europe/Belgrade**. Paid execution, final
+case access, operator authorization and joint freeze acceptance remain separate.
+**Subsequent scope approval (2026-11-24)**: The user relayed Milica's approval of
+one 26-case pass, USD 0.58 combined (D 0.50 / A 0.08), 30-second provider operations,
+zero retries/repairs and the binding 60-minute global stop. Goran is designated
+operator. Scope approval is complete; technical policy materialization, pricing,
+model access, authenticated readiness and the selected watchdog remain launch
+conditions, not requests to repeat scope approval.
 **Owner**: A. **Status (local, 2026-11-23)**: All eleven A-owned task deliverables
 are complete. A-008 closes against the v2 package accepted by B/D; A-011 records
 the selected configuration freeze, actual outputs and remaining live limits.
@@ -240,6 +255,19 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Coverage**: FR-003, FR-004, FR-015, FR-016, FR-018, FR-019, SC-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
+## Phase 7: Bounded final-runtime preparation
+
+- [x] T012 [US3] A-012: Prepare the final RAG launcher and bounded operator handoff in `services/rag/src/notelens_rag/final_runtime.py`, `services/rag/tests/test_final_runtime.py`, `services/rag/config/d009-final-policy.template.json`, `docs/rag/evaluation/d009-*`, `docs/rag/d009-final-runtime.md`
+  - **Owner / story**: A / US3.
+  - **Dependencies**: 001-rag/T011 (A-011). The supplied D metadata and B candidate preflight inform preparation; they do not approve a live run.
+  - **Acceptance**: Preserve the frozen corpus/index/prompts and expose a compatible authenticated loopback profile. Default to a key-free preflight. Serve only with explicit owner/team/operator authorization and approved request identities. Bound one pass to 16 literature operations, 16 query embeddings, 48 generations and 48 input-count requests; enforce the approved token, cost, request and absolute-time limits. No corpus re-embedding, repairs, retries, duplicate retrieval, reset-on-restart or body logging. Fail closed on the first unexpected error; retain incurred/uncertain reservations. Provide an independent A review of the exact B candidate and distinguish the B-supplied browser/rehearsal receipts from newly executed checks.
+  - **Verify**: `uv run --locked --offline --directory services/rag python -B -m pytest tests/test_final_runtime.py tests/test_contract.py tests/test_answers.py tests/test_failures.py` and the documented default-preflight invocation against the disabled template.
+  - **Done**: Mock/module = meaningful key-free request, accounting, failure and deadline checks pass and the exact CLI/policy/pins are packaged for B/D. Live = explicitly unexecuted until the joint app/runtime manifest, D payload bounds, account pricing, custody release, operator readiness and new spending scope are approved. This preparation task does not complete frozen final measurement or D-009.
+  - **Coverage**: FR-006, FR-007, FR-009, FR-010, FR-016, FR-018, FR-019, FR-020; SC-001, SC-004, SC-006.
+  - **Preparation completion (2026-11-24)**: The new launcher and disabled policy template are implemented. The final focused suite passed 100 checks, including 19 new runtime checks. Default preflight verified the 56 historical file pins and 617-passage corpus with zero provider calls, then correctly reported `preflight_blocked` because approvals and final request hashes are absent. Separate readback verified all 617 existing Chroma passages and the selected index version. The launcher SHA-256 is `b3375c6dcab6abfa49bedaa67e32e9c53ae71bf89d8eabb16db854bffba3ec01`. The exact fetched B candidate resolves the previous mock-only barrier, and its bounded dispatch code serializes and caps calls; the Python startup loop still lacks a process-level hard watchdog, so A interface compatibility does not establish final execution acceptance. See the [operator handoff](../../docs/rag/d009-final-runtime.md), [joint proposal](../../docs/rag/evaluation/d009-joint-limits-proposal-v1.md) and [A source review](../../docs/rag/evaluation/d009-app-review-9fc7c33.md). The user authorized parallel agents; the primary agent independently ran the final focused suite and preflight. No final questions, paid calls, new human/team approval, commit, push or deployment occurred. D-009 and actual final scoring remain unexecuted.
+  - **Approved-bound alignment (2026-11-24)**: The user explicitly confirmed the 30-second A timeout and 240-second web client bound. The existing launcher constant and policy were aligned without changing model, prompts, retrieval, dependencies or any historical ledger. All 100 focused checks passed again. Scope approval is recorded as true; default preflight remains blocked only on technical operator inputs (pricing confirmation and the exact 16 branch hashes). The updated launcher SHA-256 is `20d5413834172eb4ed15f7439eba27212ee16af4c13f1f3acc6c2b6ea8084341`; policy template SHA-256 is `0af119c48df50f0dffcbb9cef3995f12d87d722ebe886a9e32969f3ae7de15ff`. The [v2 handoff](../../docs/rag/d009-live-approved-handoff-v2.md) supersedes the v1 time proposal and requests no new scope approval. The user is awaiting Goran's net technical configuration. No paid dispatch, final question access or authenticated operator-readiness claim occurred.
+  - **Requested watchdog-pin reconciliation (2026-11-24)**: Goran's relayed request selects `d846dcfee5a066dc180a59dbf0c1ed8888809f38`. The exact Git-object comparison leaves `contracts/**` and baseline `services/rag/**` unchanged; the new managed B runner uses a Windows Job Object watchdog and configured whole-stack deadline. Only the supplemental launcher's app pin and its template pin were aligned. The new launcher SHA-256 is `3a60beed0aceca76ebe9b425167dd412557c8ea4ec1c79f08f8cff4723a0a785`, and template SHA-256 is `ea2154c0d87e74245a6e14b8b14ae649496a4ad1e6772f9f918f5a7ea7d305de`. All 100 focused tests and key-free preflight passed their stated checks; the latter correctly remains blocked on private operator inputs. The exact 2,631,848-byte `cleaned-topics.jsonl` matches requested SHA-256 `2d12d44f9be4f09db3ebaeb969a0335beb621ded7cdb793ccbafdbbfc0658639` and is prepared only for private transfer, outside Git. See [v3 handoff](../../docs/rag/d009-watchdog-reconciliation-v3.md). No paid call, re-embedding, final-case access, historical-ledger change or external upload is claimed.
+
 ## Dependencies & Execution Order
 
 Follow explicit dependency edges, not checkbox proximity. A story phase can start when
@@ -263,6 +291,7 @@ instruction to execute T002 before T003. It does block the later service path.
 - A-007 (T009) <- A-002, C-002, D-003.
 - A-008 (T010) <- A-005, A-007, A-009, D-007.
 - A-011 (T011) <- A-008.
+- A-012 (T012) <- A-011; final execution additionally requires the separately approved joint freeze and operator profile.
 
 ## Parallel Example and Story Order
 

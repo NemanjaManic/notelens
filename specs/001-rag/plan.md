@@ -1,5 +1,30 @@
 # Implementation Plan: Python RAG
 
+**Current runtime handoff, 2026-11-24**: A-012 preparation is complete against
+Goran's tested watchdog commit `d846dcfee5a066dc180a59dbf0c1ed8888809f38`.
+Use the [v3 pin/corpus reconciliation](../../docs/rag/d009-watchdog-reconciliation-v3.md)
+for the active launcher and policy checksums. The one-pass USD 0.58 scope,
+30-second provider limits, 240-second web timeout and 60-minute global stop are
+approved. Actual final execution/scoring and D-009 completion are not claimed.
+The earlier candidate/preparation notes below preserve their original scope.
+
+**Approved preparation, 2026-11-24**: Build A-012's bounded final RAG launcher and
+operator handoff against the unchanged A-011 selection. The user explicitly
+requested parallel agents and set a completion target of 15:00 Europe/Belgrade
+today. Use the supplied B candidate `9fc7c333ca74971768e1df13ed6238798c48e90e`
+and D metadata as evidence to verify, not as live-execution authorization.
+The proposed A profile reserves at most 16 query embeddings and 48 generations,
+plus 48 free input-count requests, with the approved new A-only USD 0.08 ceiling,
+zero retries/repairs and the user-confirmed 30-second absolute provider-operation
+deadline. The combined USD 0.58/60-minute scope is approved; readiness remains a
+technical gate and does not require repeating the scope approval.
+Default preflight is key-free. The final serve path requires approved request
+identities, pins, account/model readiness, a named authorized operator and durable
+attempt accounting. B coordinates the proposed USD 0.58/60-minute joint envelope;
+D must confirm its 64,000-input/12,288-output bounds and request multiplicity.
+Do not modify the historical freeze manifest, tune on final cases or activate paid
+execution during preparation. The D-009 final measurement remains a separate gate.
+
 **Branch**: rag | **Created**: 2026-11-10 | **Updated**: 2026-11-18 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification at `specs/001-rag/spec.md`.
