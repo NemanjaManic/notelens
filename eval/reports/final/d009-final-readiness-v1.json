@@ -226,13 +226,16 @@
   "runtime_candidate_received": true,
   "separate_scoring_candidate_received": true,
   "reconciled_candidate_reference_manifest": "eval/references/qa/d009-reconciled-candidate-identity-v1.manifest.json",
-  "final_app_candidate_sha": "229ecf9ba7b0a297bd8198564eef8c4d710f74b6",
+  "final_app_candidate_sha": "9fc7c333ca74971768e1df13ed6238798c48e90e",
   "B009_key_free_main_evidence_received": true,
   "B_platform_intake": "eval/reports/final/d009-b-platform-intake-229ecf9-v1.json",
-  "whole_web_provider_profile_ready": false,
-  "D_32_call_web_bound_verified": false,
+  "whole_web_provider_profile_ready": "candidate code and synthetic evidence received; A runtime and live readiness pending",
+  "D_32_call_web_bound_verified": "reported offline app dispatch bound, not final provider payload/readiness authorization",
   "custodian_review_reconciliation": "eval/reports/final/d009-sara-review-status-intake-v1.json",
   "custodian_declared_v3_manifest_sha256": "1424c2d3aa6b207346e6d3ceda219839243d1cde2134670d2a8ea75d8c1e3f4f",
   "custodian_declared_v3_manifest_bytes_verified": false,
-  "restricted_successor_scoring_handoff_status": "Sara holds until joint freeze; earlier v1 candidate already received"
+  "restricted_successor_scoring_handoff_status": "Sara holds until joint freeze; earlier v1 candidate already received",
+  "bounded_preflight_intake": "eval/reports/final/d009-b-bounded-preflight-intake-v1.json",
+  "counted_whole_web_offline_rehearsal_received": true,
+  "final_execution_authorized": false
 }
