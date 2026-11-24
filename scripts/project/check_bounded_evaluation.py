@@ -47,7 +47,8 @@ def bind(value, document):
 
 
 @contextmanager
-def service_double(name, fixtures, calls, fail, *, port=0, token=None, stall=None, observed_questions=None):
+def service_double(name, fixtures, calls, fail, *, port=0, token=None, stall=None, observed_questions=None,
+                   unsupported_literature=False):
     token = token or uuid4().hex
     model = f'bounded-offline-{name}-v1'
 
@@ -92,6 +93,11 @@ def service_double(name, fixtures, calls, fail, *, port=0, token=None, stall=Non
                 observed_questions[self.path].append(sha256(data['question'].encode('utf-8')).hexdigest())
             if stall is not None:
                 stall(self.path)
+            if unsupported_literature and self.path == '/v1/literature-answer':
+                self.reply(422, {'schema_version': '1.0.0', 'request_id': identifier, 'error': {
+                    'code': 'validation_failure', 'message': 'Synthetic unsupported literature request.', 'retryable': False,
+                }}, identifier)
+                return
             if self.path == fail:
                 self.reply(503, {'schema_version': '1.0.0', 'request_id': identifier, 'error': {
                     'code': 'configuration_required', 'message': 'Synthetic service failure.', 'retryable': True,
@@ -118,11 +124,12 @@ def service_double(name, fixtures, calls, fail, *, port=0, token=None, stall=Non
 
 @contextmanager
 def exercise_profile(fixtures, limits, *, fail='', deadline_unix_ms=None, reviewed_question_hashes=None,
-                     observed_questions=None):
+                     observed_questions=None, unsupported_literature=False):
     calls = []
     with ExitStack() as services:
         endpoints = {name: services.enter_context(service_double(name, fixtures, calls, fail,
-                     observed_questions=observed_questions)) for name in OPERATIONS}
+                     observed_questions=observed_questions,
+                     unsupported_literature=unsupported_literature)) for name in OPERATIONS}
         with start_bounded_web(endpoints, limits, profile='offline', http_timeout_ms=5_000,
                                deadline_unix_ms=deadline_unix_ms,
                                reviewed_question_hashes=reviewed_question_hashes) as stack:
@@ -244,6 +251,20 @@ def verify_receipt_claim():
             require(False, 'a second claim of the run must fail')
 
 
+def verify_unsupported_gap_continues(fixtures, extra_text):
+    limits = {'extract': 2, 'document-answer': 1, 'literature-answer': 1}
+    with exercise_profile(fixtures, limits, unsupported_literature=True) as (stack, calls):
+        path, cookie = open_example(stack)
+        require(read_report(stack, path, cookie).contains('Extraction: completed'), 'first source extraction')
+        turn = ask(stack, path, cookie, 'literature')
+        require(read_report(stack, turn, cookie).answer == ('none', 'unsupported'), 'unsupported state preserved')
+        new_path = submit(stack, extra_text, cookie)
+        require(read_report(stack, new_path, cookie).contains('Extraction: completed'),
+                'unsupported literature must not poison the next source extraction')
+        require(billable_paths(calls) == ['/v1/extract', '/v1/literature-answer', '/v1/extract'],
+                'gap is counted once and the next unique extraction is dispatched')
+
+
 def main():
     fixtures = json.loads((ROOT / 'contracts/v1/fixtures/payloads.json').read_bytes())
     source = json.loads((ROOT / 'contracts/v1/fixtures/documents.json').read_bytes())['offset']['text']
@@ -256,6 +277,8 @@ def main():
         print('PASS: zero retries and no second mixed branch after a retryable HTTP 503. All listeners stopped.')
         verify_receipt_claim()
         print('PASS: a second startup claim is rejected and the first receipt is preserved.')
+        verify_unsupported_gap_continues(fixtures, source + '\nThe care team scheduled an English follow-up appointment.')
+        print('PASS: an unsupported literature gap remains explicit and the next unique source is extracted.')
     except (AssertionError, KeyError, ValueError, OSError, RuntimeError, MockStartupError) as exc:
         print(f'FAIL: bounded offline evaluation: {exc}', file=sys.stderr)
         return 1
