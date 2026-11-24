@@ -32,7 +32,7 @@ from .runtime import IndexedBackend, RagServiceError
 
 ROOT = Path(__file__).resolve().parents[4]
 FORMAT = 'notelens-final-rag-policy-v1'
-APP_SHA = 'ebe37dbd217483a152d1c33e70e0ff9fe034a1fc'
+APP_SHA = 'd27ca89dc78ad844ea05185afe70ad0cd79e2747'
 INPUT_LIMITS = {'question_parts': 4096, 'support': 20000, 'answer': 4096}
 OUTPUT_LIMIT = 512
 EMBEDDING_LIMIT = 128
@@ -420,6 +420,23 @@ class BoundedBackend:
                 self.ledger.current = None
 
 
+def track_ranked_candidates(backend, ledger):
+    """Keep source identifiers for real retrieval metrics, without source/question text."""
+    rank = backend.rank
+    def recorded_rank(request):
+        result = rank(request)
+        with ledger.receipt_lock:
+            if ledger.current is not None:
+                ledger.current['retrieval'] = {
+                    'top_k': result['top_k'], 'index_version': result['index_version'],
+                    'retriever_version': result['retriever_version'],
+                    'ranked': [{key: passage[key] for key in ('passage_id', 'topic_id', 'score')}
+                               for passage in result['passages']]}
+                ledger.save()
+        return result
+    backend.rank = recorded_rank
+
+
 def build_app(path, *, root=ROOT):
     check = preflight(path, root=root)
     _require(check['status'] == 'preflight_ready_for_operator_checks')
@@ -444,6 +461,7 @@ def build_app(path, *, root=ROOT):
             assessor=providers, generator=providers, partial_policy=PARTIAL_POLICY)
         corpus = load_corpus(repository_root=root, expected_corpus_version=freeze['corpus']['version'])
         backend = indexed.bind(corpus, repository_root=root, mode='live')
+        track_ranked_candidates(backend, ledger)
         app = create_app(Settings(mode='live', service_token=token, corpus_manifest=DEFAULT_MANIFEST,
             repository_root=str(root), expected_corpus_version=freeze['corpus']['version']),
             backend=BoundedBackend(backend, ledger))
