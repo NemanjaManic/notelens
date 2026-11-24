@@ -113,7 +113,10 @@ test('security/react-escapes-source-text', async () => {
   const extraction = { ...payloads['extraction-empty'], text_sha256: document.text_sha256 };
   const report = await buildReport(document, classification, extraction);
   const html = render({ ...report, scenario: 'ready', selected: null, heading: 'Report overview' });
-  contains(html, '&lt;script&gt;'); contains(html, '&lt;img'); equal(html.includes('<script>'), false); equal(html.includes('<img '), false);
+  contains(html, '&lt;script&gt;'); contains(html, '&lt;img'); equal(html.includes('<script>'), false);
+  equal((html.match(/<img\b/g) ?? []).length, 1);
+  contains(html, 'src="/brand/notelens-logo.png"');
+  equal(/<img\b[^>]*\bonerror=/i.test(html), false);
 });
 test('security/upstream-error-message-hidden', async () => {
   const extraction = structuredClone(payloads['analysis-summary-failed-findings-kept']); extraction.summary.error!.message = 'PRIVATE_MARKER';

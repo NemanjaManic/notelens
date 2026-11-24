@@ -141,7 +141,7 @@ export function ReaderShell({ view, picker, questions, children, profile, privac
     <a className="skip-link" href="#report-content">Skip to report</a>
     <header className="reader-header">
       <nav className="breadcrumbs" aria-label="Breadcrumb">
-        <a className="wordmark" href="/">NoteLens</a><span aria-hidden="true">/</span>
+        <a className="wordmark" href="/" aria-label="NoteLens home"><img className="brand-logo" src="/brand/notelens-logo.png" alt="NoteLens" width={174} height={58} /></a><span aria-hidden="true">/</span>
         <button type="button" onClick={() => dialog.current?.showModal()}>Examples</button><span aria-hidden="true">/</span>
         <span className="breadcrumb-title" aria-current="page">{title}</span>
       </nav>
