@@ -26,7 +26,8 @@ from start_bounded_evaluation import Endpoint, TOKEN_ENV, claim_approved_run, st
 from start_mock import MockStack, MockStartupError, ROOT, child_environment
 
 
-ROUTES = {'document_only', 'literature_only', 'mixed', 'out_of_scope'}
+ROUTES = {'document_only': ('document', 'documentQuestion'), 'literature_only': ('literature', 'literatureQuestion'),
+          'mixed': ('both', 'question'), 'out_of_scope': ('out-of-scope', 'question')}
 RUNTIME_FIELDS = {'case_id', 'case_version', 'question', 'document_file'}
 NAME = re.compile(r'[A-Za-z0-9][A-Za-z0-9_-]{0,63}')
 DOC_PATH = re.compile(r'documents/[A-Za-z0-9][A-Za-z0-9_.-]*\.txt')
@@ -65,9 +66,9 @@ class Workload:
             'literature-answer': sum(row['route'] in ('literature_only', 'mixed') for row in self.cases),
         }
 
-    def reviewed_literature_hashes(self):
+    def reviewed_question_hashes(self):
         return {scope: [digest(case['question'].encode('utf-8')) for case in self.cases if case['route'] == route]
-                for scope, route in (('literature', 'literature_only'), ('both', 'mixed'))}
+                for route, (scope, _) in ROUTES.items()}
 
 
 def load_workload(manifest_path, expected_manifest_hash, bundle_path):
@@ -197,10 +198,7 @@ def canonical_uuid(value):
 
 def question_payload(case, doc_id):
     question, route = case['question'], case['route']
-    scope, field = {
-        'document_only': ('document', 'documentQuestion'), 'literature_only': ('literature', 'literatureQuestion'),
-        'mixed': ('both', 'question'), 'out_of_scope': ('out-of-scope', 'question'),
-    }[route]
+    scope, field = ROUTES[route]
     return {'document': doc_id, 'scope': scope, field: question}
 
 
@@ -315,7 +313,7 @@ def save_preflight_failure(output, reason):
 
 @contextmanager
 def start_managed_stack(endpoints, launches, limits, *, deadline, deadline_unix_ms, watchdog, profile, http_timeout_ms,
-                        reviewed_literature_hashes=None):
+                        reviewed_question_hashes=None):
     require(set(endpoints) == set(launches) == set(TOKEN_ENV), 'missing_managed_service_launch')
     watchdog['enabled'] = True
     job, stack = None, None
@@ -330,7 +328,7 @@ def start_managed_stack(endpoints, launches, limits, *, deadline, deadline_unix_
                         for name, (command, cwd, env) in launches.items()}
             with start_bounded_web(endpoints, limits, profile=profile, http_timeout_ms=http_timeout_ms,
                                    deadline_unix_ms=deadline_unix_ms, owner=job,
-                                   reviewed_literature_hashes=reviewed_literature_hashes) as web:
+                                   reviewed_question_hashes=reviewed_question_hashes) as web:
                 stack = MockStack(web.web_port, {**children, **web.processes},
                                   {**{name: endpoint.port for name, endpoint in endpoints.items()}, **web.ports})
                 yield stack
@@ -370,7 +368,7 @@ def approved_stack(config_path, config, config_bytes, workload, deadline, deadli
     with start_managed_stack(endpoints, launches, config['http_limits'], profile='provider-backed',
                              http_timeout_ms=config['http_timeout_ms'], deadline=deadline,
                              deadline_unix_ms=deadline_unix_ms, watchdog=watchdog,
-                             reviewed_literature_hashes=workload.reviewed_literature_hashes()) as stack:
+                             reviewed_question_hashes=workload.reviewed_question_hashes()) as stack:
         yield stack
 
 
