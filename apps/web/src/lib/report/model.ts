@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { validateRecord } from '@notelens/contracts/v1';
 import type { PreparedDocument, ClassificationResult, ExtractionResult, EvidenceSpan } from '@notelens/contracts/v1';
 import { consumeRecord } from '../contracts/consumer.ts';
+import type { EvaluationProfile } from '../clients/bounded-evaluation.ts';
 
 export const SCENARIOS = [
   ['ready', 'Report overview'], ['uncertain', 'Uncertain specialty'], ['unsupported', 'Unsupported specialty'],
@@ -17,7 +18,8 @@ export type Panel<T> = { state: 'ready'; record: T } | { state: 'loading' | 'emp
 export type Passage = { key: string; label: string; span: EvidenceSpan; sourceId?: string };
 export type Report = { document: PreparedDocument | null; classification: Panel<ClassificationResult>;
   extraction: Panel<ExtractionResult>; passages: Passage[] };
-export type Workspace = Report & { scenario: Scenario; selected: Passage | null; heading: string };
+export type Workspace = Report & { scenario: Scenario; selected: Passage | null; heading: string;
+  fittedClassifier?: true; d005Replay?: true; evaluation?: EvaluationProfile };
 // The frozen catalog includes intentionally invalid Unicode test inputs. Read it
 // only on the server: a JSON bundler must not reinterpret or rewrite that catalog.
 // The local preview supports the documented repository-root and apps/web commands.
@@ -28,13 +30,16 @@ const values: Record<string, unknown> = JSON.parse(readFileSync(catalog, 'utf8')
 const blocked = { state: 'unavailable' as const, notice: 'The document is unavailable. Choose a synthetic example.' };
 
 /** Validates the full selected document and each independent result before presentation. */
-export async function buildReport(documentInput: unknown, classificationInput: unknown, extractionInput: unknown): Promise<Report> {
+export async function buildReport(
+  documentInput: unknown, classificationInput: unknown, extractionInput: unknown,
+  classificationMode: 'mock' | 'live' = 'mock', extractionMode: 'mock' | 'live' = 'mock',
+): Promise<Report> {
   let document: PreparedDocument;
   try { document = await validateRecord('PreparedDocument', structuredClone(documentInput)); }
   catch { return { document: null, classification: blocked, extraction: blocked, passages: [] }; }
   const [classification, extraction] = await Promise.all([
-    consumeRecord('ClassificationResult', { kind: 'native', value: structuredClone(classificationInput) }, { document }),
-    consumeRecord('ExtractionResult', { kind: 'native', value: structuredClone(extractionInput) }, { document }),
+    consumeRecord('ClassificationResult', { kind: 'native', value: structuredClone(classificationInput) }, { document }, classificationMode),
+    consumeRecord('ExtractionResult', { kind: 'native', value: structuredClone(extractionInput) }, { document }, extractionMode),
   ]);
   const result: Report = { document,
     classification: classification.kind === 'accepted' ? { state: 'ready', record: classification.record }

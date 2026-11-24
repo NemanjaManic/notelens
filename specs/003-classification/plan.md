@@ -7,13 +7,19 @@
 Constitution text remains a draft; confirmed source/user requirements are binding.
 This stage does not authorize business implementation, paid calls, publication or deployment.
 
+**2026-11-14 execution update:** The user authorized C's F-004 scaffold contribution
+after the published F-003/F-009 package. The [local handoff](../../docs/ml/classifier-scaffold-handoff.md)
+records its implementation and checks. The training/evaluation plan below remains gated.
+The scaffold uses Python 3.11.9 already installed on C's Windows machine, compatible
+with the shared package's declared >=3.11 requirement; other interpreters are unverified.
+
 ## Summary
 
 Audit release/provenance, verify exact target labels, remove empty texts and group duplicates before splitting. Fit preprocessing on training only; compare majority, TF-IDF/Logistic Regression and XGBoost on validation, then freeze and measure the locked final test once.
 
 ## Technical Context
 
-**Language/Version**: Python 3.13 proposed; independent services/classifier project and uv.lock.
+**Language/Version**: Python 3.11.9 verified for the scaffold; package allows >=3.11,<3.14. Independent services/classifier project and uv.lock; the original 3.13 proposal is not a claim of C-side execution.
 **Primary Dependencies**: FastAPI/Uvicorn, scikit-learn TF-IDF/LogisticRegression, XGBoost, dataset/manifests tooling and pytest; optional embeddings/ONNX are nonblocking.
 **Storage**: Authorized local CSV and ignored trained artifacts; commit scripts/manifests/split IDs and permissible reports, not large raw files. Public benchmark data is distinct from transient user submissions.
 **Testing**: Contract/schema/semantic tests, deterministic fixtures and owner-local tests;

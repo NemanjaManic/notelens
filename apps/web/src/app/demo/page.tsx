@@ -1,6 +1,7 @@
 import { headers } from 'next/headers';
 import { Suspense } from 'react';
 import type { PreparedDocument } from '@notelens/contracts/v1';
+import { BuiltinExampleButton } from '../../components/builtin-example-button.tsx';
 import { ReportWorkspace } from '../../components/report-workspace.tsx';
 import { SubmissionForm } from '../../components/submission-form.tsx';
 import { QuestionAnswer } from '../../components/question-answer.tsx';
@@ -26,7 +27,7 @@ async function DemoReport({ query, owner, document }: {
   owner: string | null;
   document: PreparedDocument | null;
 }) {
-  const workspace = await demoWorkspace(query, document);
+  const workspace = await demoWorkspace(query, document, owner);
   // Recheck document ownership and history after the report services respond.
   const history = owner && workspace.document ? getSessionStore().questionHistory(owner, workspace.document.doc_id) : null;
   const turn = history?.find(item => item.id === query.turn);
@@ -36,21 +37,20 @@ async function DemoReport({ query, owner, document }: {
   const reportHref = view.document ? `/demo?document=${view.document.doc_id}` : '/demo';
   const evidenceHref = turn ? `${reportHref}&turn=${turn.id}` : reportHref;
   const picker = <>
-    <form action="/api/documents/builtin" method="post">
-      <button type="submit">Chest pain report</button>
-    </form>
+    <BuiltinExampleButton />
     {query.prepare === 'unavailable' && <p role="status">The example could not be prepared. Return to an open report or try opening a new session.</p>}
     <p>Use public or synthetic English documents. PDFs must have selectable text and be 2 MiB or smaller. Documents may contain up to 100,000 Unicode code points.</p>
     <div className="submission-grid"><SubmissionForm input="text" /><SubmissionForm input="pdf" /></div>
   </>;
   const questions = view.document ? <>
-    <QuestionForm documentId={view.document.doc_id} presets={demoQuestions(builtin)} hasHistory={Boolean(history?.length)}>
+    <QuestionForm documentId={view.document.doc_id} presets={demoQuestions(builtin)} hasHistory={Boolean(history?.length)}
+      evaluation={view.evaluation}>
       {query.turn !== undefined && !turn && <p role="status">This answer is no longer in the conversation history.</p>}
       {turn && <>
         {turn.plan.document && turn.plan.literature ? <ul>
           <li>Document: {turn.plan.document}</li><li>Literature: {turn.plan.literature}</li>
         </ul> : <p>{turn.plan.label}</p>}
-        <QuestionAnswer answer={turn.answer} href={evidenceHref} />
+        <QuestionAnswer answer={turn.answer} href={evidenceHref} evaluation={view.evaluation} />
       </>}
     </QuestionForm>
     {history && history.length > 0 && <section aria-label="Conversation history">

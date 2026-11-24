@@ -41,7 +41,8 @@ async function handle(request: Request): Promise<Response> {
     if (!id) return reject(400, 'Select a document before asking a question.');
     const document = store.getDocument(owner, id);
     if ('kind' in document) return reject(404, document.notice);
-    const result = questionPlan(input as Record<string, unknown>, isBuiltinDemoDocument(document));
+    const evaluationCapture = Boolean(clients.evaluation && request.headers.get('X-NoteLens-Evaluation-Output') === '1');
+    const result = questionPlan(input as Record<string, unknown>, isBuiltinDemoDocument(document), evaluationCapture);
     if ('notice' in result) return reject(result.status, result.notice);
 
     const pending = store.beginQuestion(owner, id);
@@ -55,7 +56,8 @@ async function handle(request: Request): Promise<Response> {
       const answer = await routeQuestion(clients, result.plan, document);
       const completed = store.finishQuestion(owner, pending.id, result.plan, answer);
       if (completed.kind === 'unavailable') return reject(409, 'The answer is no longer available. Reopen the report before asking again.');
-      return Response.json(completed, { status: 200, headers });
+      return Response.json(evaluationCapture && completed.kind === 'saved' ? { ...completed, answer } : completed,
+        { status: 200, headers });
     } finally {
       store.cancelQuestion(owner, pending.id);
     }

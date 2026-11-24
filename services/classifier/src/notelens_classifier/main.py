@@ -11,11 +11,14 @@ from uuid import uuid4
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from starlette.concurrency import run_in_threadpool
 from starlette.requests import ClientDisconnect
 from notelens_contracts.v1 import (
     ClassificationRequest, ClassificationResult, PreparedDocument,
     ErrorEnvelope, HealthResult, LivenessResult, ContractValidationError, validate_json, validate_record,
 )
+
+from notelens_classifier.inference import DevelopmentModel
 
 MAX_DOCUMENT_CODE_POINTS = 100_000
 SERVICE_VERSION = "0.1.0"
@@ -87,7 +90,9 @@ def loopback_peer(request: Request) -> bool:
         return False
 
 
-def authorization_error(request: Request, settings: Settings, request_id: str):
+def authorization_error(request: Request, settings: Settings, request_id: str, *, local_only=False):
+    if local_only and not loopback_peer(request):
+        return error_response(401, "unauthorized", "Service authentication is required.", request_id)
     if settings.token:
         values = request.headers.getlist("authorization")
         parts = values[0].split() if len(values) == 1 else []
@@ -99,14 +104,14 @@ def authorization_error(request: Request, settings: Settings, request_id: str):
     return None
 
 
-def health_authorization_error(request: Request, settings: Settings):
+def health_authorization_error(request: Request, settings: Settings, *, local_only=False):
     """Health ignores all incoming request IDs, including invalid or duplicate IDs."""
     values = request.headers.getlist("authorization")
     parts = values[0].split() if len(values) == 1 else []
     permitted = (len(parts) == 2 and parts[0].lower() == "bearer" and
                  compare_digest(parts[1].encode("utf-8"), settings.token.encode("utf-8"))) if settings.token else (
                      settings.mode == "mock" and loopback_peer(request))
-    if not permitted:
+    if not permitted or (local_only and not loopback_peer(request)):
         return error_response(401, "unauthorized", "Service authentication is required.", str(uuid4()))
     return None
 
@@ -130,14 +135,16 @@ def input_failure(error: ContractValidationError, raw: bytes, request_id: str):
     return error_response(422, "validation_failure", "The request does not satisfy the frozen document contract.", request_id)
 
 
-def create_app(settings: Settings | None = None) -> FastAPI:
+def create_app(settings: Settings | None = None, *, model: DevelopmentModel | None = None) -> FastAPI:
     settings = settings if settings is not None else Settings.from_environment()
+    if model is not None and (settings.mode != "live" or not settings.token):
+        raise ValueError("Local development inference requires live mode and a service token.")
     app = FastAPI(title="NoteLens classifier mock scaffold", version="0.1.0",
                   docs_url=None, redoc_url=None, openapi_url=None)
 
     @app.get("/health/live", response_model=None)
     async def liveness(request: Request):
-        denied = health_authorization_error(request, settings)
+        denied = health_authorization_error(request, settings, local_only=model is not None)
         if denied is not None:
             return denied
         if settings.mode not in ("mock", "live"):
@@ -149,15 +156,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @app.get("/health/ready", response_model=None)
     async def readiness(request: Request):
-        denied = health_authorization_error(request, settings)
+        denied = health_authorization_error(request, settings, local_only=model is not None)
         if denied is not None:
             return denied
         if settings.mode not in ("mock", "live"):
             return error_response(500, "internal_error", "Service configuration is unavailable.", str(uuid4()))
-        ready = settings.has_mock_configuration() and settings.mock_readiness == "ready"
+        ready = model is not None or (settings.has_mock_configuration() and settings.mock_readiness == "ready")
         payload: HealthResult = {"schema_version": "1.0.0", "service": "classifier",
                                  "status": "ok" if ready else "not_ready", "mode": settings.mode,
-                                 "version": SERVICE_VERSION, "model_version": None,
+                                 "version": SERVICE_VERSION, "model_version": model.model_version if model else None,
                                  "reason": None if ready else "Classifier configuration is not ready."}
         validate_record("HealthResult", payload)
         return JSONResponse(payload, status_code=200 if ready else 503, headers={"Cache-Control": "no-store"})
@@ -171,7 +178,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         incoming = None
         result = None
         try:
-            denied = authorization_error(request, settings, request_id)
+            denied = authorization_error(request, settings, request_id, local_only=model is not None)
             if denied is not None:
                 return denied
             raw = await request.body()
@@ -179,14 +186,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 incoming: ClassificationRequest = validate_json("ClassificationRequest", raw)
             except ContractValidationError as error:
                 return input_failure(error, raw, request_id)
-            if not settings.has_mock_configuration():
+            if model is not None:
+                result = await run_in_threadpool(model.classify, incoming["document"])
+            elif not settings.has_mock_configuration():
                 return error_response(503, "configuration_required", "A usable classifier configuration is not available.", request_id)
-            if settings.mock_failure is not None:
+            elif settings.mock_failure is not None:
                 status, message = MOCK_FAILURES[settings.mock_failure]
                 return error_response(status, settings.mock_failure, message, request_id, retryable=True)
-            # A future inference adapter must check cancellation before real work.
-            # This contribution only creates small deterministic synthetic responses.
-            result = mock_result(incoming["document"], settings.scenario)
+            else:
+                result = mock_result(incoming["document"], settings.scenario)
             validate_record("ClassificationResult", result, document=incoming["document"])
             return JSONResponse(result, headers={"X-Request-ID": request_id, "Cache-Control": "no-store"})
         except ClientDisconnect:

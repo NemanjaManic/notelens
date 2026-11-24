@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+from threading import Lock, Timer
 import time
 
 
@@ -56,54 +57,108 @@ def _checked(result):
     return result
 
 
-@contextmanager
-def owned_process(command, *, cwd, env, stdout):
-    """Assign a blocked launcher before releasing it; stop only that job on every exit.
+class ProcessJob:
+    def __init__(self, kernel, handle, deadline):
+        self.kernel, self.handle, self.deadline = kernel, handle, deadline
+        self.lock = Lock()
+        self.expired = False
+        self.stopped = False
+        self.drained = False
+        self.stop_error = None
+        self.launchers = []
 
-    The non-inherited job handle also closes if this coordinator is terminated.
-    Descendants cannot start before assignment, so failure never falls back to an
-    uncontained command. No service lookup, global process scan or port kill is used.
-    """
-    kernel = _job_api()
-    job = _checked(kernel.CreateJobObjectW(None, None))
-    launcher = None
-    try:
-        limits = _ExtendedLimits()
-        limits.basic.flags = 0x2000  # JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE; no breakaway.
-        _checked(kernel.SetInformationJobObject(job, 9, ctypes.byref(limits), ctypes.sizeof(limits)))
+    def start(self, command, *, cwd, env, stdout):
+        # The launcher can only read its gate until assigned to the job.
         launcher = subprocess.Popen([sys.executable, '-B', str(Path(__file__).resolve()), '--child', *command],
                                     cwd=cwd, env=env, stdin=subprocess.PIPE, stdout=stdout,
                                     stderr=subprocess.STDOUT, creationflags=subprocess.CREATE_NO_WINDOW,
                                     close_fds=True)
-        process = _checked(kernel.OpenProcess(0x0101, False, launcher.pid))  # SET_QUOTA | TERMINATE
         try:
-            _checked(kernel.AssignProcessToJobObject(job, process))
+            with self.lock:
+                if self.stopped or (self.deadline is not None and time.monotonic() >= self.deadline):
+                    raise TimeoutError('The process job deadline expired.')
+                process = _checked(self.kernel.OpenProcess(0x0101, False, launcher.pid))
+                try:
+                    _checked(self.kernel.AssignProcessToJobObject(self.handle, process))
+                finally:
+                    self.kernel.CloseHandle(process)
+                self.launchers.append(launcher)
+                launcher.stdin.write(b'G')
+                launcher.stdin.flush()
+            return launcher
+        except BaseException:
+            if launcher.poll() is None:
+                launcher.kill()
+            launcher.wait(timeout=5)
+            raise
         finally:
-            kernel.CloseHandle(process)
-        launcher.stdin.write(b'G')
-        launcher.stdin.close()
-        yield launcher
+            launcher.stdin.close()
+
+    def stop(self, *, expired=False):
+        with self.lock:
+            if self.stopped:
+                return
+            self.expired |= expired or (self.deadline is not None and time.monotonic() >= self.deadline)
+            _checked(self.kernel.TerminateJobObject(self.handle, 1))
+            self.stopped = True
+
+    def expire(self):
+        try:
+            self.stop(expired=True)
+        except OSError as error:
+            self.stop_error = error
+
+    def wait(self):
+        deadline = time.monotonic() + 5
+        while True:
+            accounting = _Accounting()
+            _checked(self.kernel.QueryInformationJobObject(self.handle, 1, ctypes.byref(accounting),
+                                                           ctypes.sizeof(accounting), None))
+            if accounting.active == 0:
+                for launcher in self.launchers:
+                    launcher.wait(timeout=1)
+                self.drained = True
+                return
+            if time.monotonic() >= deadline:
+                raise RuntimeError('Owned verification job did not become empty')
+            time.sleep(0.02)
+
+
+@contextmanager
+def owned_job(deadline=None):
+    """Own all spawned descendants until cleanup or a monotonic deadline."""
+    kernel = _job_api()
+    handle = _checked(kernel.CreateJobObjectW(None, None))
+    job = ProcessJob(kernel, handle, deadline)
+    timer = None
+    try:
+        limits = _ExtendedLimits()
+        limits.basic.flags = 0x2000  # JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE; no breakaway.
+        _checked(kernel.SetInformationJobObject(handle, 9, ctypes.byref(limits), ctypes.sizeof(limits)))
+        if deadline is not None:
+            timer = Timer(max(0, deadline - time.monotonic()), job.expire)
+            timer.daemon = True
+            timer.start()
+        try:
+            yield job
+        finally:
+            job.stop()
+            job.wait()
     finally:
         try:
-            # Also remove descendants left after an apparently successful command.
-            _checked(kernel.TerminateJobObject(job, 1))
-            if launcher is not None:
-                if launcher.poll() is None:
-                    launcher.kill()  # Assignment may have failed; this launcher is ours.
-                launcher.wait(timeout=5)
-                if launcher.stdin and not launcher.stdin.closed:
-                    launcher.stdin.close()
-            deadline = time.monotonic() + 5
-            while True:
-                accounting = _Accounting()
-                _checked(kernel.QueryInformationJobObject(job, 1, ctypes.byref(accounting), ctypes.sizeof(accounting), None))
-                if accounting.active == 0:
-                    break
-                if time.monotonic() >= deadline:
-                    raise RuntimeError('Owned verification job did not become empty')
-                time.sleep(0.02)
+            if timer is not None:
+                timer.cancel()
+                timer.join()
         finally:
-            kernel.CloseHandle(job)
+            kernel.CloseHandle(handle)
+        if job.stop_error is not None:
+            raise job.stop_error
+
+
+@contextmanager
+def owned_process(command, *, cwd, env, stdout):
+    with owned_job() as job:
+        yield job.start(command, cwd=cwd, env=env, stdout=stdout)
 
 
 def run_owned(command, *, cwd, env, stdout, timeout):

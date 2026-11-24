@@ -11,7 +11,7 @@ const sources = ['apps/web/src/lib/documents/canonical.ts', 'apps/web/src/lib/do
   'apps/web/tests/tsconfig.contracts.json', 'apps/web/src/lib/documents/prepared.ts',
   'apps/web/src/lib/documents/submitted.ts', 'apps/web/src/lib/documents/language.ts',
   'apps/web/src/lib/documents/pdf.ts', 'apps/web/src/lib/documents/pdf-worker.mjs', 'apps/web/package.json', 'package-lock.json'];
-const expectedCases = 51;
+const expectedCases = 52;
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const hashes = paths => Object.fromEntries([...paths].sort().map(p => [p, hash(readFileSync(resolve(root, p)))]));
 const cache = resolve(root, '.cache/review/b001-preparation');
@@ -43,6 +43,7 @@ try {
     report.cases.length !== expectedCases || new Set(report.cases).size !== expectedCases ||
     ['canonical/non-bmp-limit-is-not-utf16', 'canonical/reject-nfc-expansion-excess', 'handoff/deadline-starts-before-validation',
       'handoff/expiry-after-store-before-receipt', 'submission/canonical-pasted-text-and-provenance',
+      'submission/reviewed-replay-requires-exact-synthetic-text',
       'submission/streamed-pdf-byte-limit', 'submission/accepts-exact-codepoint-limit'].some(id => !report.cases.includes(id))) {
     throw new Error('PREPARATION_CASES_FAILED');
   }

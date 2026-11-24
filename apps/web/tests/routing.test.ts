@@ -63,6 +63,24 @@ test('client/mock-configuration-fails-closed', () => {
   assert.equal(mockServiceClients({ ...env, NOTELENS_DEMO_TOKEN: '' }), null);
 });
 
+test('client/bounded-deadline-stops-dispatch', async () => {
+  let calls = 0;
+  const clients = mockServiceClients({
+    ...env, NOTELENS_BOUNDED_EVALUATION: 'offline', NOTELENS_SESSION_ORIGIN: 'http://localhost:8700',
+    NOTELENS_BOUNDED_LIMITS: '{"extract":1,"document-answer":1,"literature-answer":1}',
+    NOTELENS_BOUNDED_RAG_TOKEN: 'test-rag-token', NOTELENS_BOUNDED_EXTRACTION_TOKEN: 'test-d-token',
+    NOTELENS_BOUNDED_HTTP_TIMEOUT_MS: '5000', NOTELENS_BOUNDED_DEADLINE_UNIX_MS: String(Date.now() - 1000),
+  }, async () => {
+    calls++;
+    return new Response(null, { status: 503 });
+  })!;
+
+  assert.equal((await clients.extract(document)).kind, 'unavailable');
+  const mixed = await routeQuestion(clients, selectedDemoQuestion('mixed', true)!.plan, document);
+  assert.equal(mixed.state, 'unavailable');
+  assert.equal(calls, 0);
+});
+
 test('client/classification-and-extraction-correlate-with-document', async () => {
   const h = harness();
   assert.equal((await h.clients.classify(document)).kind, 'accepted');
@@ -202,6 +220,27 @@ test('input/both-fields-are-required-and-only-the-selected-questions-go-upstream
     const rejected = questionPlan(values, true);
     assert.ok('status' in rejected && rejected.status === 422);
   }
+});
+
+test('input/admitting-the-indexed-demo-partial-literature-question', () => {
+  const literatureQuestion = 'What is the synthetic demo topic, and when did it begin?';
+  const selected = { document: document.doc_id, literatureQuestion };
+  const literature = questionPlan({ ...selected, scope: 'literature' }, true);
+  assert.ok('plan' in literature);
+  assert.equal(literature.plan.literature, literatureQuestion);
+
+  const documentQuestion = 'What does the document say about chest pain?';
+  const mixed = questionPlan({ ...selected, scope: 'both', documentQuestion }, true);
+  assert.ok('plan' in mixed);
+  assert.equal(mixed.plan.document, documentQuestion);
+  assert.equal(mixed.plan.literature, literatureQuestion);
+});
+
+test('input/admitting-the-reviewed-d005-cough-question', () => {
+  const documentQuestion = 'Does the patient report cough?';
+  const result = questionPlan({ document: document.doc_id, scope: 'document', documentQuestion }, false);
+  assert.ok('plan' in result);
+  assert.equal(result.plan.document, documentQuestion);
 });
 
 test('input/combined-unicode-point-limit-and-english-validation', () => {

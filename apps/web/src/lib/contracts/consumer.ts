@@ -49,6 +49,7 @@ function invalid(error: unknown, code: Rejected['code'] = 'invalid-result'): Rej
 /** Consume a generated result without coercion, text repair, composition or I/O. */
 export async function consumeRecord<K extends ResultDefinition>(
   definition: K, input: RecordInput, context: Context = {},
+  expectedMode: 'mock' | 'live' = 'mock',
 ): Promise<Accepted<K> | Rejected> {
   try {
     if (!['ClassificationResult', 'ExtractionResult', 'RetrievalResult', 'AnswerResult'].includes(definition)) {
@@ -69,7 +70,10 @@ export async function consumeRecord<K extends ResultDefinition>(
         return rejected('document-context', ['DOCUMENT_CONTEXT']);
       }
     }
-    if (record.mode !== 'mock') return rejected('mock-mode', ['MOCK_MODE_REQUIRED']);
+    if (record.mode !== expectedMode) {
+      if (expectedMode === 'mock') return rejected('mock-mode', ['MOCK_MODE_REQUIRED']);
+      return rejected('invalid-result', [definition === 'ClassificationResult' ? 'FITTED_CLASSIFIER_MODE_REQUIRED' : 'D005_REPLAY_MODE_REQUIRED']);
+    }
     return { kind: 'accepted', record };
   } catch (error) {
     return invalid(error);
@@ -77,7 +81,9 @@ export async function consumeRecord<K extends ResultDefinition>(
 }
 
 /** Check a synthetic business exchange, preserving raw duplicate header admission. */
-export async function consumeExchange(operation: BusinessOperation, exchange: BusinessExchange): Promise<ConsumerOutcome> {
+export async function consumeExchange(
+  operation: BusinessOperation, exchange: BusinessExchange, d005Replay = false, providerMode = false,
+): Promise<ConsumerOutcome> {
   try {
     if (!Object.hasOwn(OPERATIONS, operation)) return rejected('invalid-exchange', ['BUSINESS_OPERATION']);
     const metadata = OPERATIONS[operation];
@@ -108,7 +114,8 @@ export async function consumeExchange(operation: BusinessOperation, exchange: Bu
     }
     if (metadata.document && !exchange.document) return rejected('document-context', ['DOCUMENT_CONTEXT']);
     const result = await consumeRecord(metadata.definition, { kind: 'json', value: exchange.json },
-      exchange.document ? { document: exchange.document } : {});
+      exchange.document ? { document: exchange.document } : {},
+      providerMode || (d005Replay && (operation === 'extract' || operation === 'document-answer')) ? 'live' : 'mock');
     if (result.kind !== 'accepted') return result;
     const rules = await transport(result.record);
     if (rules.length) return rejected('invalid-exchange', rules);

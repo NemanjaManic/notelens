@@ -1,6 +1,7 @@
 import { randomBytes, randomUUID } from 'node:crypto';
 import { validateRecord } from '@notelens/contracts/v1';
-import type { PreparedDocument } from '@notelens/contracts/v1';
+import type { ExtractionResult, PreparedDocument } from '@notelens/contracts/v1';
+import type { MockResult } from '../clients/mock-services.ts';
 import type { RoutedAnswer } from '../routing/answer.ts';
 import type { QuestionPlan } from '../routing/demo-questions.ts';
 import {
@@ -12,7 +13,8 @@ import {
 export type QuestionTurn = { id: string; plan: QuestionPlan; answer: RoutedAnswer };
 type StoredTurn = { turn: QuestionTurn; bytes: number };
 type PendingQuestion = { id: string; docId: string; keep: boolean };
-type Entry = { expiresAt: number; document: PreparedDocument | null; validating: boolean; history?: StoredTurn[] };
+type Entry = { expiresAt: number; document: PreparedDocument | null; validating: boolean; history?: StoredTurn[];
+  extraction?: Promise<MockResult<ExtractionResult>> };
 type Session = {
   deadline: number;
   lastActivity: number;
@@ -194,6 +196,14 @@ export class MemorySessions {
       return UNAVAILABLE;
     }
     return UNAVAILABLE;
+  }
+
+  extractionOnce(capability: string, docId: string, dispatch: () => Promise<MockResult<ExtractionResult>>) {
+    const now = this.#now();
+    const session = this.#activeSession(capability, now);
+    const entry = session && activeDocument(session, docId, now);
+    if (!entry) return Promise.resolve({ kind: 'unavailable' } as const);
+    return entry.extraction ??= dispatch();
   }
 
   beginQuestion(capability: string, docId: string) {

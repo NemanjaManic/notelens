@@ -30,8 +30,8 @@ class DemoPage(HTMLParser):
             self.ignored_tag = tag
         if tag == 'a':
             self.current_link = fields.get('href')
-        if tag == 'form' and fields.get('method') == 'post' and fields.get('action') == '/api/documents/builtin':
-            self.example_action = fields.get('action')
+        if tag == 'button' and fields.get('id') == 'open-builtin-example' and fields.get('type') == 'button':
+            self.example_action = fields.get('data-endpoint')
         if tag == 'mark':
             self.highlighted = True
         if 'data-answer-route' in fields:
@@ -72,7 +72,7 @@ def read_page(stack, href, cookie=None):
 
 
 def prepare_example(stack, action):
-    require(action == '/api/documents/builtin', 'local example form action')
+    require(action == '/api/documents/builtin', 'local example button endpoint')
     connection = http.client.HTTPConnection('localhost', stack.web_port, timeout=2)
     try:
         connection.request('POST', action, headers={'Origin': stack.web_origin})
@@ -216,6 +216,19 @@ def exercise(stack, scenario):
     require(status == 429 and int(retry) > 0, 'rolling session submission limit')
 
 
+def verify_shutdown(stack):
+    require(all(process.poll() is not None for process in stack.processes.values()), 'process shutdown')
+    for name, port in stack.ports.items():
+        deadline = time.monotonic() + 3
+        while True:
+            with socket.socket() as probe:
+                probe.settimeout(0.25)
+                if probe.connect_ex(('127.0.0.1', port)) != 0:
+                    break
+            require(time.monotonic() < deadline, f'{name} loopback port closed')
+            time.sleep(0.05)
+
+
 def smoke(scenario):
     stack = None
     try:
@@ -223,16 +236,7 @@ def smoke(scenario):
             exercise(stack, scenario)
     finally:
         if stack:
-            require(all(process.poll() is not None for process in stack.processes.values()), 'process shutdown')
-            for name, port in stack.ports.items():
-                deadline = time.monotonic() + 3
-                while True:
-                    with socket.socket() as probe:
-                        probe.settimeout(0.25)
-                        if probe.connect_ex(('127.0.0.1', port)) != 0:
-                            break
-                    require(time.monotonic() < deadline, f'{name} loopback port closed')
-                    time.sleep(0.05)
+            verify_shutdown(stack)
 
 
 def main():
