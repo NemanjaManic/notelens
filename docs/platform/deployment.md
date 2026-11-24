@@ -69,12 +69,33 @@ returned HTTP 200. All six service endpoints returned HTTP 200 with the
 temporary token and HTTP 401 without it. All four processes stopped and
 their loopback ports closed.
 
-## Remaining deployment acceptance
+## Railway deployment evidence
 
-B-007 stays open. The local profile uses loopback HTTP and tests only the mock
-stack. B-005 acceptance and team approval of the host, account, and costs are
-required for a deployment rehearsal. On that approved target, verify TLS,
-service authentication and readiness, public-corpus persistence across restart,
-and memory-only document handling across expiry and restart. Record deployment
-URLs after an actual deployment. The existing local session behavior is
-documented in [B-004 configuration](configuration.md).
+The [Railway web app](https://notelens-live-production.up.railway.app/demo)
+returned HTTP 200 over HTTPS. Its [health endpoint](https://notelens-live-production.up.railway.app/demo/health)
+returned HTTP 200 with mode `public-live` and startup ID
+`4295a1ba-4247-48d4-a6c3-c04af4673233`. The web health endpoint reports the
+configured profile. It does not probe the three Python services.
+
+The `live-deploy` candidate is
+[`559184067e14c698cd85548fea958fd79438fa89`](https://github.com/NemanjaManic/notelens/commit/559184067e14c698cd85548fea958fd79438fa89).
+Its page title matches the deployed page and differs from the preceding
+revision. The exact deployed SHA was unverified at closure.
+[PR #50](https://github.com/NemanjaManic/notelens/pull/50)
+records the Railway implementation merged to `main` and the PR author's live
+extraction and document, literature, and mixed answer checks.
+
+| Check | Evidence |
+| --- | --- |
+| HTTPS and web readiness | `/demo` and `/demo/health` returned 200 with certificate validation enabled. |
+| Origin, document ownership, and session deletion | The session route rejected a foreign origin with 403. A synthetic text submission returned 201 with a `Secure`, `HttpOnly`, `SameSite=Strict` cookie. Clearing the fresh document's empty question history returned 404 without the cookie and 204 with the owning cookie. Ending the session returned 204, and the old cookie then received 404. These requests used preparation and session routes and made no provider calls. |
+| Private service readiness and authentication | The candidate Railway launcher binds RAG, extraction, and the fitted classifier to loopback. It requires authenticated HTTP 200 with `mode: live` from each service before it starts the web process. Deployment log evidence and unauthenticated rejection checks for the running image are pending. |
+| Public corpus and in-memory documents after restart | The candidate Docker image includes the prepared RAG corpus and index. The candidate web code stores submitted documents in the Node process with a 60-minute upper limit, as documented in [B-004 configuration](configuration.md). Hosted corpus availability after restart and loss of a pre-restart synthetic document have not been exercised. Hosted expiry has not been exercised. |
+
+## B-007 closure
+
+Goran relayed the project administrator's approval to close B-007 on the
+available Railway evidence. This decision waived further evidence collection
+for closure, including the exact deployment SHA, separate confirmation of
+hosting account and cost, direct private service checks, and hosted restart and
+expiry checks. Those checks remain outside the verified results above.
