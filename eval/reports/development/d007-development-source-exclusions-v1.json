@@ -1,0 +1,483 @@
+{
+  "version": "d007-development-source-exclusions-v1",
+  "date": "2026-11-22",
+  "status": "development_baseline_verified_final_source_plan_pending",
+  "scope": "Known exposed sources in the reviewed D-007 development QA inventory, including all reserves, accepted alternative references and additional context.",
+  "inputs": {
+    "development_qa_manifest": {
+      "version": "d007-a008-development-qa-manifest-v1",
+      "path": "eval/references/qa/d007-a008-development-qa-manifest-v1.json",
+      "sha256": "f1503766dba3819da38e6fd178fa5ec0e364fdbfe74ad026af98399e1504a178"
+    },
+    "development_candidate_inventory": {
+      "path": "eval/datasets/qa/cross-module-development-v2.json",
+      "sha256": "f01dd8c4c4aa3deb7b7d6842643fec17f8680b0991e875e38905499019203896"
+    },
+    "proposed_final_slots": {
+      "path": "eval/reports/development/d007-final-author-review-plan-v2.json",
+      "sha256": "39f05b80107ef8d04e0a070eec172ef9ea08dcd5d82619c25ff39a4979335d3e"
+    }
+  },
+  "development": {
+    "unique_candidate_count": 74,
+    "selected_case_ids": [
+      "A-QA-01",
+      "A-QA-02",
+      "A-QA-03",
+      "A-QA-04",
+      "A-QA-05",
+      "A-QA-06",
+      "A-QA-07",
+      "A-QA-08",
+      "A-QA-09",
+      "D-DOC/complex-01/supported",
+      "D-DOC/complex-02/supported",
+      "D-DOC/complex-03/supported",
+      "D-DOC/complex-04/supported",
+      "D-DOC/confirmed-01/absent",
+      "D-DOC/confirmed-01/supported",
+      "D-DOC/confirmed-02/supported",
+      "D-DOC/confirmed-03/supported",
+      "D-DOC/confirmed-04/supported",
+      "D-DOC/history-01/supported",
+      "D-DOC/history-02/supported",
+      "D-DOC/history-03/absent",
+      "D-DOC/history-03/supported",
+      "D-DOC/history-04/supported",
+      "D-DOC/limited-01/absent-clinical",
+      "D-DOC/limited-02/supported",
+      "D-DOC/limited-03/supported",
+      "D-DOC/limited-04/supported",
+      "D-DOC/negation-01/supported",
+      "D-DOC/negation-02/supported",
+      "D-DOC/negation-03/supported",
+      "D-DOC/negation-04/supported",
+      "D-DOC/procedure-01/supported",
+      "D-DOC/procedure-02/absent",
+      "D-DOC/procedure-02/supported",
+      "D-DOC/procedure-03/supported",
+      "D-DOC/procedure-04/supported",
+      "D-MIX-01",
+      "D-MIX-02",
+      "D-MIX-03",
+      "D-MIX-04",
+      "D-MIX-05",
+      "D-MIX-06",
+      "D-MIX-07",
+      "D-MIX-08",
+      "D-MIX-09",
+      "D-MIX-10",
+      "D-MIX-11",
+      "D-MIX-12",
+      "D-MIX-13",
+      "D-MIX-14",
+      "D-MIX-15",
+      "D-MIX-16",
+      "D-MIX-17",
+      "D-MIX-18"
+    ],
+    "reserve_case_ids": [
+      "D-DOC/complex-01/absent",
+      "D-DOC/complex-02/absent",
+      "D-DOC/complex-03/absent",
+      "D-DOC/complex-04/absent",
+      "D-DOC/confirmed-02/absent",
+      "D-DOC/confirmed-03/absent",
+      "D-DOC/confirmed-04/absent",
+      "D-DOC/history-01/absent",
+      "D-DOC/history-02/absent",
+      "D-DOC/history-04/absent",
+      "D-DOC/limited-01/absent",
+      "D-DOC/limited-02/absent",
+      "D-DOC/limited-03/absent",
+      "D-DOC/negation-01/absent",
+      "D-DOC/negation-02/absent",
+      "D-DOC/negation-03/absent",
+      "D-DOC/negation-04/absent",
+      "D-DOC/procedure-01/absent",
+      "D-DOC/procedure-03/absent",
+      "D-DOC/procedure-04/absent"
+    ],
+    "reviewed_case_ids": [
+      "A-QA-01",
+      "A-QA-02",
+      "A-QA-03",
+      "A-QA-04",
+      "A-QA-05",
+      "A-QA-06",
+      "A-QA-07",
+      "A-QA-08",
+      "A-QA-09"
+    ],
+    "exact_duplicate": {
+      "retained_id": "D-DOC/negation-01/absent",
+      "excluded_id": "D-DOC/limited-04/absent"
+    },
+    "connected_source_groups": {
+      "A-QA-01": [
+        "A-QA-01",
+        "D-DOC/confirmed-03/absent",
+        "D-DOC/confirmed-03/supported",
+        "D-DOC/limited-04/supported",
+        "D-DOC/negation-01/absent",
+        "D-DOC/negation-01/supported",
+        "D-MIX-01",
+        "D-MIX-04",
+        "D-MIX-05"
+      ],
+      "A-QA-02": [
+        "A-QA-02",
+        "A-QA-03",
+        "A-QA-09",
+        "D-DOC/complex-02/absent",
+        "D-DOC/complex-02/supported",
+        "D-DOC/complex-03/absent",
+        "D-DOC/complex-03/supported",
+        "D-DOC/history-02/absent",
+        "D-DOC/history-02/supported",
+        "D-DOC/limited-01/absent",
+        "D-DOC/limited-01/absent-clinical",
+        "D-DOC/negation-02/absent",
+        "D-DOC/negation-02/supported",
+        "D-DOC/procedure-01/absent",
+        "D-DOC/procedure-01/supported",
+        "D-MIX-02",
+        "D-MIX-03",
+        "D-MIX-06",
+        "D-MIX-13",
+        "D-MIX-14",
+        "D-MIX-15",
+        "D-MIX-16",
+        "D-MIX-18"
+      ],
+      "A-QA-04": [
+        "A-QA-04",
+        "D-DOC/negation-04/absent",
+        "D-DOC/negation-04/supported",
+        "D-DOC/procedure-03/absent",
+        "D-DOC/procedure-03/supported",
+        "D-MIX-10",
+        "D-MIX-11"
+      ],
+      "A-QA-05": [
+        "A-QA-05",
+        "A-QA-07",
+        "D-DOC/confirmed-04/absent",
+        "D-DOC/confirmed-04/supported",
+        "D-DOC/history-01/absent",
+        "D-DOC/history-01/supported",
+        "D-DOC/history-03/absent",
+        "D-DOC/history-03/supported",
+        "D-MIX-07",
+        "D-MIX-12",
+        "D-MIX-17"
+      ],
+      "A-QA-06": [
+        "A-QA-06",
+        "D-DOC/history-04/absent",
+        "D-DOC/history-04/supported",
+        "D-MIX-09"
+      ],
+      "A-QA-08": [
+        "A-QA-08",
+        "D-DOC/procedure-02/absent",
+        "D-DOC/procedure-02/supported",
+        "D-MIX-08"
+      ],
+      "D-DOC/complex-01/absent": [
+        "D-DOC/complex-01/absent",
+        "D-DOC/complex-01/supported"
+      ],
+      "D-DOC/complex-04/absent": [
+        "D-DOC/complex-04/absent",
+        "D-DOC/complex-04/supported"
+      ],
+      "D-DOC/confirmed-01/absent": [
+        "D-DOC/confirmed-01/absent",
+        "D-DOC/confirmed-01/supported"
+      ],
+      "D-DOC/confirmed-02/absent": [
+        "D-DOC/confirmed-02/absent",
+        "D-DOC/confirmed-02/supported"
+      ],
+      "D-DOC/limited-02/absent": [
+        "D-DOC/limited-02/absent",
+        "D-DOC/limited-02/supported"
+      ],
+      "D-DOC/limited-03/absent": [
+        "D-DOC/limited-03/absent",
+        "D-DOC/limited-03/supported"
+      ],
+      "D-DOC/negation-03/absent": [
+        "D-DOC/negation-03/absent",
+        "D-DOC/negation-03/supported"
+      ],
+      "D-DOC/procedure-04/absent": [
+        "D-DOC/procedure-04/absent",
+        "D-DOC/procedure-04/supported"
+      ]
+    },
+    "canonical_documents": [
+      {
+        "sha256": "08417d4e372d62a1f861ad70ea65de0b3c413943ea405ca04af9515c61ade854",
+        "development_aliases": [
+          {
+            "fixture_family_id": "confirmed-02",
+            "doc_id": "d-suite-confirmed-02"
+          }
+        ]
+      },
+      {
+        "sha256": "0b2eabc5bf2ab8cb78984644218441b84220f6859ce2a98a3d2d90a7f53cb6c8",
+        "development_aliases": [
+          {
+            "fixture_family_id": "limited-04",
+            "doc_id": "d-suite-limited-04"
+          },
+          {
+            "fixture_family_id": "negation-01",
+            "doc_id": "d-suite-negation-01"
+          }
+        ]
+      },
+      {
+        "sha256": "325de552008f121dc004d2785a769aacf9098f61a6d85bf784b5de5d78ba62cf",
+        "development_aliases": [
+          {
+            "fixture_family_id": "confirmed-03",
+            "doc_id": "d-suite-confirmed-03"
+          }
+        ]
+      },
+      {
+        "sha256": "328df53985e61b8d694ae2680b7ca55080b2d0fc48246afa27ad2ead2c500121",
+        "development_aliases": [
+          {
+            "fixture_family_id": "limited-01",
+            "doc_id": "d-suite-limited-01"
+          }
+        ]
+      },
+      {
+        "sha256": "34199cd4ea9834471a4fed94b2c4549dd7160d04d88c2f4d804999796809e22a",
+        "development_aliases": [
+          {
+            "fixture_family_id": "complex-03",
+            "doc_id": "d-suite-complex-03"
+          }
+        ]
+      },
+      {
+        "sha256": "389cb812e7e878f6e6e6c90486973da20829e2afb0d932bab17e76beab1a0d8a",
+        "development_aliases": [
+          {
+            "fixture_family_id": "procedure-03",
+            "doc_id": "d-suite-procedure-03"
+          }
+        ]
+      },
+      {
+        "sha256": "42bf8223431e8b5c9352f85750d130750c6b564aff0b2ee07473c82c0929def7",
+        "development_aliases": [
+          {
+            "fixture_family_id": "procedure-01",
+            "doc_id": "d-suite-procedure-01"
+          }
+        ]
+      },
+      {
+        "sha256": "6044269561cf39f78d72ea2fb2e6f5774b30573fac1def734033056ba79a0924",
+        "development_aliases": [
+          {
+            "fixture_family_id": "negation-03",
+            "doc_id": "d-suite-negation-03"
+          }
+        ]
+      },
+      {
+        "sha256": "670218ef28964c0a3867ba38ea42dec0df9c3961b43a117dbe096b912daaa25a",
+        "development_aliases": [
+          {
+            "fixture_family_id": "procedure-04",
+            "doc_id": "d-suite-procedure-04"
+          }
+        ]
+      },
+      {
+        "sha256": "71fb851a4b35796183f3182e06480b0003ad79f3fdc403a2ce8da81714f69971",
+        "development_aliases": [
+          {
+            "fixture_family_id": "complex-02",
+            "doc_id": "d-suite-complex-02"
+          }
+        ]
+      },
+      {
+        "sha256": "754832726cbe150b21e0baf942a2619d062abe684cdfe07944676f6633677022",
+        "development_aliases": [
+          {
+            "fixture_family_id": "history-02",
+            "doc_id": "d-suite-history-02"
+          }
+        ]
+      },
+      {
+        "sha256": "795901bf2c490e90e8cb9b1542fd73211ca3a0474a9c1895046ac64ec4904e91",
+        "development_aliases": [
+          {
+            "fixture_family_id": "limited-02",
+            "doc_id": "d-suite-limited-02"
+          }
+        ]
+      },
+      {
+        "sha256": "7df452a89aefd394084359510375dbc80ae5426d066657f859ee309dd068f3dd",
+        "development_aliases": [
+          {
+            "fixture_family_id": "confirmed-01",
+            "doc_id": "d-suite-confirmed-01"
+          }
+        ]
+      },
+      {
+        "sha256": "8c210b507bbe6399ed1c9e405e93ca2af6313ac4619d9401d23a7179424b0f3e",
+        "development_aliases": [
+          {
+            "fixture_family_id": "complex-01",
+            "doc_id": "d-suite-complex-01"
+          }
+        ]
+      },
+      {
+        "sha256": "920aff72eee11e376c5baffa67ff54b2fc9623ff6cf7a3f0294c18c967955e37",
+        "development_aliases": [
+          {
+            "fixture_family_id": "negation-04",
+            "doc_id": "d-suite-negation-04"
+          }
+        ]
+      },
+      {
+        "sha256": "9f61a5603e9b71e042d328a2279cb26c0881f8dc6c6ef67a780913168ddfabeb",
+        "development_aliases": [
+          {
+            "fixture_family_id": "history-04",
+            "doc_id": "d-suite-history-04"
+          }
+        ]
+      },
+      {
+        "sha256": "a4b58bf800429311643ff18dc24f4343070e2a8474725a34ace047e71175760a",
+        "development_aliases": [
+          {
+            "fixture_family_id": "confirmed-04",
+            "doc_id": "d-suite-confirmed-04"
+          }
+        ]
+      },
+      {
+        "sha256": "b74935e82f6d8ab8bbfd5754478fca31e0d0519b501010369a5146b78b1a6188",
+        "development_aliases": [
+          {
+            "fixture_family_id": "limited-03",
+            "doc_id": "d-suite-limited-03"
+          }
+        ]
+      },
+      {
+        "sha256": "b76169a749bfae3a429ef6c54cae3e297f2b9b92e1c74fb0f23c8e8a8e504157",
+        "development_aliases": [
+          {
+            "fixture_family_id": "procedure-02",
+            "doc_id": "d-suite-procedure-02"
+          }
+        ]
+      },
+      {
+        "sha256": "b95b00ebdd527c685b8ad8691053bc3049e7432b1e07d02c9d6a74b0d4d6338d",
+        "development_aliases": [
+          {
+            "fixture_family_id": "complex-04",
+            "doc_id": "d-suite-complex-04"
+          }
+        ]
+      },
+      {
+        "sha256": "c01d8a830c4aa40bd343fd266f0646790d2b7ec8c904babe6b936255b1470df6",
+        "development_aliases": [
+          {
+            "fixture_family_id": "history-01",
+            "doc_id": "d-suite-history-01"
+          }
+        ]
+      },
+      {
+        "sha256": "e6225d5d78c5372b3642e3cf9449e439b21e1e576a93cf9fc1f34f1053a94b32",
+        "development_aliases": [
+          {
+            "fixture_family_id": "negation-02",
+            "doc_id": "d-suite-negation-02"
+          }
+        ]
+      },
+      {
+        "sha256": "fea5d6f1516768a76a9299c9fd91693fbebcc4df074f852fcee05381695d6e62",
+        "development_aliases": [
+          {
+            "fixture_family_id": "history-03",
+            "doc_id": "d-suite-history-03"
+          }
+        ]
+      }
+    ],
+    "literature": {
+      "development_qa_origin_ids": [
+        "A-QA-01",
+        "A-QA-02",
+        "A-QA-03",
+        "A-QA-04",
+        "A-QA-05",
+        "A-QA-06",
+        "A-QA-07",
+        "A-QA-08",
+        "A-QA-09"
+      ],
+      "passage_ids": [
+        "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+        "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+        "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+        "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+        "mplus-363-1a7a5a684e895c46db4f56e4a051e8c7482c7011d2faba18d2e913151f3cb41f",
+        "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+        "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+        "mplus-4643-ce65ac50c6728aaea035f8e00c7ced25d2a3c42d272e3a6fcecf9a345af503bf",
+        "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+        "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+        "mplus-6208-cb42a0f4fa0f7d9bf3d923e2742b55ed106926d461fd2d79798e43a61d8a151b",
+        "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0"
+      ],
+      "topic_ids": [
+        "1624",
+        "179",
+        "3181",
+        "34",
+        "363",
+        "3920",
+        "4452",
+        "4643",
+        "5275",
+        "5755",
+        "6208",
+        "6450"
+      ]
+    }
+  },
+  "pre_authoring_check": {
+    "expected_final_slots": 26,
+    "request_from_custodian": "A versioned planned source list inside the restricted folder, with the slot ID, documented source family or origin, canonical document ID and SHA-256 where applicable, and literature topic and passage IDs where applicable. Mark slots with no source explicitly.",
+    "comparison": "Exclude overlapping development source groups and any other known exposed families. Check shared provenance and duplicate families in addition to exact identifier or digest matches. Recheck the final source list before freeze whenever a proposed source changes.",
+    "result_to_share_with_d": "Source-list version and SHA-256, slots checked, overlap count and disposition. Keep final case text and answer keys in the restricted folder.",
+    "verified_final_slots": 0,
+    "overlap_count": null
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "version": "d009-final-candidate-intake-v1",
+  "date": "2026-11-24",
+  "status": "candidate_packages_and_three_review_approvals_verified_not_joint_execution",
+  "received_checksums": {
+    "START-HERE.md": "0b3896616ef22cc3939b621ebe07a780b26f767e95a300e5c3f00ca70038144c",
+    "d009-runtime-candidate-v1.zip": "a96ebf7829e96be6cc213e45220a215e37a04f9fd4cbb4364b5b8c3a4ff024f7",
+    "d009-sara-author-release-v1.json": "b92a947388b1ad3b70c2e6ea5ef15bf5dd618bffda3bdd4d9665975c84613c2c",
+    "d009-sara-qa-candidate-manifest-v2.json": "52312604f4ccc06b75113d4f56b680fcf394a61b678d53a5ee689fb3363167ab",
+    "d009-scoring-candidate-v1.zip": "5fdef0a182d35eb79e43736dd6d284c3cf07462831f548ffe5c6f511c04d1a3f",
+    "d009-three-replacements-review-v2.zip": "d985f0e90105b145b0a4308e030d428dbe03e8fba461c8ee4b18138facd573c8",
+    "d009-goran-three-replacements-review-receipt-v1.json": "93b6d5a302433c4dfef552afba2e3bb15fd4a3d896986d0bcdf31c1fe8123aa7"
+  },
+  "case_count": 26,
+  "runtime_documents": 16,
+  "case_versions": {
+    "v2": 4,
+    "v1": 22
+  },
+  "routes": {
+    "document_only": 8,
+    "literature_only": 8,
+    "mixed": 8,
+    "out_of_scope": 2
+  },
+  "runtime_entry_hashes_verified": 26,
+  "runtime_document_hashes_verified": 16,
+  "scoring_case_file_byte_hashes_verified": 26,
+  "scoring_case_contents_parsed_or_displayed": false,
+  "scoring_entry_hashes_not_recomputed": true,
+  "three_replacement_case_document_author_and_review_pins_match": true,
+  "Goran_personal_human_review_declared": true,
+  "Goran_AI_assistance_disclosed": true,
+  "Sara_personal_read_through": "unrecorded in author release; explicit author approval recorded",
+  "original_manifest_status": "stale author-released/pending-review; retained byte-for-byte",
+  "effective_review_overlay": "Goran receipt supersedes pending review for the three exact v2 cases; previous 23 reviews remain supplied manifest attestations",
+  "new_reference_identity_manifest": "eval/references/qa/d009-reconciled-candidate-identity-v1.manifest.json",
+  "runtime_questions_or_gold_answers_displayed": false,
+  "review_receipt_assistant_notes_visible_to_D_agent": true,
+  "exposure_limit": "The human/assistant receipt includes case-specific review notes. Do not claim D agent is blind to those notes or change prompts using them; frozen service remains unchanged. Runtime generation must exclude scoring archive and review notes.",
+  "runtime_and_scoring_separation_preserved": true,
+  "final_extraction_F1": {
+    "status": "unavailable",
+    "reason": "No assigned final extraction gold set or final human annotation confirmations were supplied. D-013 development annotations are separate."
+  },
+  "new_provider_calls": 0,
+  "joint_freeze_executable": false,
+  "joint_final_execution_scoring_performed": false,
+  "d009_closed": false,
+  "remaining": [
+    "Accepted final merged app pin and B-009 evidence",
+    "Operator authorization/readiness and complete A/D call-token-cost scope",
+    "Explicit final reference/custody approval of reconciled candidate; final extraction F1 remains unavailable unless separate labels supplied"
+  ]
+}

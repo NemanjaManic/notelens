@@ -1,0 +1,36 @@
+{
+  "version": "d009-team-final-limitations-approval-v1",
+  "date": "2026-11-23",
+  "authority": "Milica reports team approval in response to accepting final-delivery quality limitations and the joint freeze.",
+  "source_user_statement": "tim odobrava ovo",
+  "team_replies_independently_observed": false,
+  "final_delivery_quality_limitations_accepted": true,
+  "entity_exact_f1": 0.46786632390745503,
+  "required_entity_exact_f1": 0.9,
+  "quality_acceptance": "not_met",
+  "independent_semantic_risk": null,
+  "partial_outputs_and_temporal_regression_disclosed": true,
+  "thresholds_changed": false,
+  "joint_freeze_framework_approved": true,
+  "known_D_service_pin_approved": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "D_configuration_approved": {
+    "model": "gpt-6-luna",
+    "input_format": "messages",
+    "output_format": "quote_hints",
+    "prompt_profile": "coverage_v2",
+    "reasoning_effort": "low"
+  },
+  "complete_executable_freeze_materialized": false,
+  "D_call_token_budget_limits_explicitly_approved_by_this_statement": false,
+  "A_call_or_embedding_limits_approved": false,
+  "missing_fields_inferred": false,
+  "final_execution_authorized_now": false,
+  "remaining_materialization": [
+    "Accepted final app pin and B-009 evidence",
+    "Replacement F-DOC-01/02/03 files with new exact references/checksums and approvals",
+    "Separate final extraction references if final extraction F1 is to be reported",
+    "Explicit complete call/token/cost policy including A and D and authorized operator/setup"
+  ],
+  "clinical_or_deployment_acceptance_claimed": false,
+  "d009_closed": false
+}

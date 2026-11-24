@@ -1,0 +1,79 @@
+{
+  "version": "d011-quote-fresh-execution-v3",
+  "date": "2026-11-23",
+  "service_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
+  "partition": "development",
+  "operations": [
+    {
+      "id": "assignment-001",
+      "operation": "extract",
+      "number": 1,
+      "request_sha256": "dfae6c05ff369a965b1d5696f744859b5f7b42d12326d9c822a3d40636aacfff",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "adffba79f092f73978804e2ff75aec55dae2db396dca08af576f55006043db80",
+      "server_grounded_quote_protocol": true,
+      "usage": {
+        "input_tokens": 1183,
+        "input_tokens_details": {
+          "cache_write_tokens": 1180,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 1180
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1916,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 3099
+      },
+      "response_status": "completed",
+      "response_sha256": "b1b43e7a54d3a7fcff3abc87d920a13d045926e600a7f852fc714f7a91d79b1d"
+    },
+    {
+      "id": "assignment-026",
+      "operation": "extract",
+      "number": 2,
+      "request_sha256": "b0129b405db01fa55e43061e5421408f9bd6f10832bcf92adaaad49fea9feb2d",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "a9e1ab70277321aa9df0cea7e5ce28798f67b44d07bd4f3ab49bc0ea2a73a4ab",
+      "server_grounded_quote_protocol": true,
+      "usage": {
+        "input_tokens": 1224,
+        "input_tokens_details": {
+          "cache_write_tokens": 1221,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 1221
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 2118,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 3342
+      },
+      "response_status": "completed",
+      "response_sha256": "be70b6d1ae3197415d6cbbb3ae017bddbfc5d9dc513a2eda2c02c245698a52d1"
+    }
+  ],
+  "max_provider_calls": 2,
+  "reservation_count": 2,
+  "automatic_retries": 0,
+  "known_cumulative_max_reservation_usd": "0.0965479",
+  "actual_billing_confirmed": false,
+  "private_archive": "Predaja-NoteLens/D-011/D011-quote-fresh-validation-v3",
+  "final_measurement_executed": false
+}

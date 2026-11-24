@@ -1,0 +1,136 @@
+{
+  "version": "d-cross-module-development-v1",
+  "partition": "development_candidate",
+  "inputs": {
+    "document_fixture": {
+      "path": "eval/fixtures/extraction-qa-synthetic-v1.json",
+      "sha256": "b0d1e77dbac3fd68a65d9244d098e0f30d16e3695e2f59075382b205421f0e9d"
+    },
+    "literature_proposal": {
+      "path": "docs/rag/qa-proposals.json",
+      "sha256": "737a85f41733b6fddc7822ed83f84b2487e83f278a0ecf602c93ed450cd007db"
+    },
+    "literature_source_review": {
+      "path": "eval/references/qa/a-public-qa-pinned-source-review-v1.json",
+      "sha256": "e129e7e8cb8b2f8af269ca2a690e35b99444b7aa9970ed080e0b145fe07f40dd"
+    },
+    "corpus_manifest": {
+      "path": "data/knowledge/manifests/passages.json",
+      "sha256": "6afe940765c8e4844278b65843f4d780440c99dfe3a09a5b8c2a1af239b803aa"
+    }
+  },
+  "mixed_cases": [
+    {
+      "id": "D-MIX-01",
+      "document_case_id": "confirmed-03",
+      "document_qa_id": "supported",
+      "literature_case_id": "A-QA-01",
+      "literature_parts": [
+        1
+      ],
+      "expected_state": "sufficient",
+      "question": "What diagnosis does this note report, and how do systolic and diastolic blood pressure differ in general?"
+    },
+    {
+      "id": "D-MIX-02",
+      "document_case_id": "negation-02",
+      "document_qa_id": "supported",
+      "literature_case_id": "A-QA-02",
+      "literature_parts": [
+        1
+      ],
+      "expected_state": "sufficient",
+      "question": "What does this note say about pneumonia, and separately, what virus causes COVID-19?"
+    },
+    {
+      "id": "D-MIX-03",
+      "document_case_id": "history-02",
+      "document_qa_id": "supported",
+      "literature_case_id": "A-QA-02",
+      "literature_parts": [
+        1,
+        2
+      ],
+      "expected_state": "partial",
+      "question": "When did the pneumonia in this note occur? Separately, what causes COVID-19 and how long can an infected person transmit it?"
+    },
+    {
+      "id": "D-MIX-04",
+      "document_case_id": "limited-04",
+      "document_qa_id": "supported",
+      "literature_case_id": "A-QA-01",
+      "literature_parts": [
+        1
+      ],
+      "expected_state": "partial",
+      "question": "What does this note say about chest pain and the patient's age? In general, how do systolic and diastolic blood pressure differ?"
+    },
+    {
+      "id": "D-MIX-05",
+      "document_case_id": "negation-01",
+      "document_qa_id": "absent",
+      "literature_case_id": "A-QA-01",
+      "literature_parts": [
+        1
+      ],
+      "expected_state": "partial",
+      "question": "What age does the note give, and what is the general difference between systolic and diastolic blood pressure?"
+    },
+    {
+      "id": "D-MIX-06",
+      "document_case_id": "limited-01",
+      "document_qa_id": "absent-clinical",
+      "literature_case_id": "A-QA-03",
+      "literature_parts": [
+        1
+      ],
+      "expected_state": "insufficient",
+      "question": "Which diagnosis is documented here, and what was the incidence of trigeminal neuralgia in Serbia in 2025 in new cases per 100,000 people?"
+    },
+    {
+      "id": "D-MIX-07",
+      "document_case_id": "confirmed-04",
+      "document_qa_id": "supported",
+      "literature_case_id": "A-QA-05",
+      "literature_parts": [
+        1
+      ],
+      "expected_state": "sufficient",
+      "question": "Which symptoms does the note report? Separately, what is an acoustic neuroma and where does it develop?"
+    },
+    {
+      "id": "D-MIX-08",
+      "document_case_id": "procedure-02",
+      "document_qa_id": "supported",
+      "literature_case_id": "A-QA-08",
+      "literature_parts": [
+        1,
+        2
+      ],
+      "expected_state": "sufficient",
+      "question": "Has the colonoscopy in this note occurred? Separately, what are adhesions and what is one other cause of intestinal obstruction?"
+    },
+    {
+      "id": "D-MIX-09",
+      "document_case_id": "history-04",
+      "document_qa_id": "supported",
+      "literature_case_id": "A-QA-06",
+      "literature_parts": [
+        1
+      ],
+      "expected_state": "sufficient",
+      "question": "Whose historical condition does this note mention? In general, which airways become inflamed in acute bronchitis?"
+    },
+    {
+      "id": "D-MIX-10",
+      "document_case_id": "procedure-03",
+      "document_qa_id": "supported",
+      "literature_case_id": "A-QA-04",
+      "literature_parts": [
+        1
+      ],
+      "expected_state": "sufficient",
+      "question": "Was the biopsy performed according to the note, and does a high PSA result on its own prove prostate cancer in general?"
+    }
+  ]
+}

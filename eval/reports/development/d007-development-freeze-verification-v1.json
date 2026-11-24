@@ -1,0 +1,37 @@
+{
+  "version": "d007-development-freeze-verification-v1",
+  "date": "2026-11-22",
+  "manifest": {
+    "path": "eval/references/qa/d007-a008-development-qa-manifest-v2.json",
+    "version": "d007-a008-development-qa-manifest-v2",
+    "sha256": "04d14df1a578e4dde2ebd17ef48fae3872e2924b8a0c9b211720bbf0f1aad1ee"
+  },
+  "raw_cases": 75,
+  "unique_candidates": 74,
+  "selected": 54,
+  "reserves": 20,
+  "selected_route_counts": {
+    "literature": 9,
+    "document": 27,
+    "mixed": 18
+  },
+  "verified_original_citation_slices": 12,
+  "verified_current_reference_entries_including_alternatives_and_context": 15,
+  "qa09_topic4452_span": [
+    0,
+    105
+  ],
+  "provider_calls": 0,
+  "development_quality_measurement_completed": false,
+  "reviewed_web_admission_fix_commit": "4fb192eb157d5e2fb47fc6afdda890af8c229d7e",
+  "final_sources_checked": 0,
+  "final_cases_attached": 0,
+  "b_receipt_confirmation": {
+    "source": "Goran message relayed by Milica",
+    "v3_handoff_verified": true,
+    "frozen_v2_manifest_checksum_verified": true,
+    "development_measurement_assigned_to": "Nemanja",
+    "reviewed_web_admission_fix_commit": "4fb192eb157d5e2fb47fc6afdda890af8c229d7e"
+  },
+  "web_admission_review_record": "eval/reports/development/a008-web-admission-fix-review-v1.json"
+}

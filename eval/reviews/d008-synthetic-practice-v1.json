@@ -1,0 +1,398 @@
+[
+  {
+    "kind": "synthetic_agent_practice",
+    "rubric_version": "d-answer-review-rubric-v1",
+    "review_id": "d008-v1-complete",
+    "reviewer_alias": "codex-d-practice",
+    "independent_review": false,
+    "human_reviewed": false,
+    "case_id": "confirmed-01/supported",
+    "doc_id": "d-suite-confirmed-01",
+    "text_sha256": "7df452a89aefd394084359510375dbc80ae5426d066657f859ee309dd068f3dd",
+    "response_id": "d008-complete",
+    "mode": "mock",
+    "extractor_or_answer_version": "d-mock-answer-v2",
+    "prompt_version": "d-mock-prompt-v1",
+    "answerable_from_document": "yes",
+    "response_action": "answer",
+    "dimensions": {
+      "source_support": 2,
+      "required_facts": 2,
+      "extra_facts": 2,
+      "uncertainty_and_context": 2,
+      "evidence_gaps": 2,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "critical_error": false,
+    "issue_codes": [],
+    "claim_source_notes": [],
+    "needs_adjudication": false,
+    "rationale": "The answer cites the only relevant statement and preserves its current status.",
+    "completed_at": null,
+    "response_sha256": "2779107aadefdd699c53911809e2a9982d701a8b19dd1b8551176d0eb1fc4755"
+  },
+  {
+    "kind": "synthetic_agent_practice",
+    "rubric_version": "d-answer-review-rubric-v1",
+    "review_id": "d008-v1-correct-partial",
+    "reviewer_alias": "codex-d-practice",
+    "independent_review": false,
+    "human_reviewed": false,
+    "case_id": "limited-04/supported",
+    "doc_id": "d-suite-limited-04",
+    "text_sha256": "0b2eabc5bf2ab8cb78984644218441b84220f6859ce2a98a3d2d90a7f53cb6c8",
+    "response_id": "d008-correct-partial",
+    "mode": "mock",
+    "extractor_or_answer_version": "d-mock-answer-v2",
+    "prompt_version": "d-mock-prompt-v1",
+    "answerable_from_document": "partly",
+    "response_action": "partial_answer",
+    "dimensions": {
+      "source_support": 2,
+      "required_facts": 2,
+      "extra_facts": 2,
+      "uncertainty_and_context": 2,
+      "evidence_gaps": 2,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "critical_error": false,
+    "issue_codes": [],
+    "claim_source_notes": [],
+    "needs_adjudication": false,
+    "rationale": "The denial is cited. The unavailable age is named in the warning and the evidence state is partial.",
+    "completed_at": null,
+    "response_sha256": "089393f478a2f6bbef23d2f8ed85ccc9d7a22543f0cd0a2a8a6b33b51638ee58"
+  },
+  {
+    "kind": "synthetic_agent_practice",
+    "rubric_version": "d-answer-review-rubric-v1",
+    "review_id": "d008-v1-correct-abstention",
+    "reviewer_alias": "codex-d-practice",
+    "independent_review": false,
+    "human_reviewed": false,
+    "case_id": "confirmed-01/absent",
+    "doc_id": "d-suite-confirmed-01",
+    "text_sha256": "7df452a89aefd394084359510375dbc80ae5426d066657f859ee309dd068f3dd",
+    "response_id": "d008-correct-abstention",
+    "mode": "mock",
+    "extractor_or_answer_version": "d-mock-answer-v2",
+    "prompt_version": null,
+    "answerable_from_document": "no",
+    "response_action": "abstain",
+    "dimensions": {
+      "source_support": "U",
+      "required_facts": "U",
+      "extra_facts": 2,
+      "uncertainty_and_context": "U",
+      "evidence_gaps": 2,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "critical_error": false,
+    "issue_codes": [
+      "no_claims_to_assess"
+    ],
+    "claim_source_notes": [
+      {
+        "dimension": "source_support",
+        "reason": "No factual claim to assess.",
+        "minimum_correction": "Leave support unrated for this response.",
+        "claim_id": null,
+        "source_id": null
+      },
+      {
+        "dimension": "required_facts",
+        "reason": "No requested fact is available.",
+        "minimum_correction": "Leave required facts unrated and assess the gap.",
+        "claim_id": null,
+        "source_id": null
+      },
+      {
+        "dimension": "uncertainty_and_context",
+        "reason": "No factual assertion carries document context.",
+        "minimum_correction": "Leave context unrated for this response.",
+        "claim_id": null,
+        "source_id": null
+      }
+    ],
+    "needs_adjudication": false,
+    "rationale": "The answer abstains and states that the document does not provide the requested age.",
+    "completed_at": null,
+    "response_sha256": "bb320e0c872f290dc79772366355c3c59de885c1f18d8d1286d5e4e99fff8502"
+  },
+  {
+    "kind": "synthetic_agent_practice",
+    "rubric_version": "d-answer-review-rubric-v1",
+    "review_id": "d008-v1-generic-abstention",
+    "reviewer_alias": "codex-d-practice",
+    "independent_review": false,
+    "human_reviewed": false,
+    "case_id": "limited-01/absent-clinical",
+    "doc_id": "d-suite-limited-01",
+    "text_sha256": "328df53985e61b8d694ae2680b7ca55080b2d0fc48246afa27ad2ead2c500121",
+    "response_id": "d008-generic-abstention",
+    "mode": "mock",
+    "extractor_or_answer_version": "d-mock-answer-v2",
+    "prompt_version": null,
+    "answerable_from_document": "no",
+    "response_action": "abstain",
+    "dimensions": {
+      "source_support": "U",
+      "required_facts": "U",
+      "extra_facts": 2,
+      "uncertainty_and_context": "U",
+      "evidence_gaps": 1,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "critical_error": false,
+    "issue_codes": [
+      "vague_gap"
+    ],
+    "claim_source_notes": [
+      {
+        "dimension": "source_support",
+        "reason": "No factual claim to assess.",
+        "minimum_correction": "Leave support unrated for this response.",
+        "claim_id": null,
+        "source_id": null
+      },
+      {
+        "dimension": "required_facts",
+        "reason": "The note has no requested diagnosis.",
+        "minimum_correction": "Leave required facts unrated and assess the gap.",
+        "claim_id": null,
+        "source_id": null
+      },
+      {
+        "dimension": "uncertainty_and_context",
+        "reason": "No factual assertion carries document context.",
+        "minimum_correction": "Leave context unrated for this response.",
+        "claim_id": null,
+        "source_id": null
+      },
+      {
+        "dimension": "evidence_gaps",
+        "reason": "The generic refusal leaves the requested diagnosis gap unnamed.",
+        "minimum_correction": "State that the document does not provide the requested diagnosis.",
+        "claim_id": null,
+        "source_id": null
+      }
+    ],
+    "needs_adjudication": false,
+    "rationale": "This is an appropriate abstention with a vague reason and a literal gap-disclosure miss.",
+    "completed_at": null,
+    "response_sha256": "30c164a4439294eb109c8a305cf18cdcad80d076b0095ae267605f0ade110748"
+  },
+  {
+    "kind": "synthetic_agent_practice",
+    "rubric_version": "d-answer-review-rubric-v1",
+    "review_id": "d008-v1-false-abstention",
+    "reviewer_alias": "codex-d-practice",
+    "independent_review": false,
+    "human_reviewed": false,
+    "case_id": "confirmed-02/supported",
+    "doc_id": "d-suite-confirmed-02",
+    "text_sha256": "08417d4e372d62a1f861ad70ea65de0b3c413943ea405ca04af9515c61ade854",
+    "response_id": "d008-false-abstention",
+    "mode": "mock",
+    "extractor_or_answer_version": "d-mock-answer-v2",
+    "prompt_version": null,
+    "answerable_from_document": "yes",
+    "response_action": "abstain",
+    "dimensions": {
+      "source_support": "U",
+      "required_facts": 0,
+      "extra_facts": 2,
+      "uncertainty_and_context": "U",
+      "evidence_gaps": 0,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "critical_error": false,
+    "issue_codes": [
+      "false_abstention",
+      "required_fact_omitted"
+    ],
+    "claim_source_notes": [
+      {
+        "dimension": "source_support",
+        "reason": "No factual claim to assess.",
+        "minimum_correction": "Assess support once the reported symptom is cited.",
+        "claim_id": null,
+        "source_id": null
+      },
+      {
+        "dimension": "required_facts",
+        "reason": "The response omits the reported cough.",
+        "minimum_correction": "Answer with the cough finding and link its citation.",
+        "claim_id": null,
+        "source_id": null
+      },
+      {
+        "dimension": "uncertainty_and_context",
+        "reason": "There is no claim to assess for assertion or timing.",
+        "minimum_correction": "Preserve that the document reports the symptom when adding the claim.",
+        "claim_id": null,
+        "source_id": null
+      },
+      {
+        "dimension": "evidence_gaps",
+        "reason": "The refusal suggests unavailable evidence when the requested symptom is present.",
+        "minimum_correction": "Remove the refusal and cite the finding.",
+        "claim_id": null,
+        "source_id": null
+      }
+    ],
+    "needs_adjudication": false,
+    "rationale": "The source makes the question answerable. Abstention is the response action and earns no rejection credit.",
+    "completed_at": null,
+    "response_sha256": "30c164a4439294eb109c8a305cf18cdcad80d076b0095ae267605f0ade110748"
+  },
+  {
+    "kind": "synthetic_agent_practice",
+    "rubric_version": "d-answer-review-rubric-v1",
+    "review_id": "d008-v1-incomplete-sufficient",
+    "reviewer_alias": "codex-d-practice",
+    "independent_review": false,
+    "human_reviewed": false,
+    "case_id": "complex-03/supported",
+    "doc_id": "d-suite-complex-03",
+    "text_sha256": "34199cd4ea9834471a4fed94b2c4549dd7160d04d88c2f4d804999796809e22a",
+    "response_id": "d008-incomplete-sufficient",
+    "mode": "mock",
+    "extractor_or_answer_version": "d-mock-answer-v2",
+    "prompt_version": "d-mock-prompt-v1",
+    "answerable_from_document": "yes",
+    "response_action": "answer",
+    "dimensions": {
+      "source_support": 2,
+      "required_facts": 0,
+      "extra_facts": 2,
+      "uncertainty_and_context": 2,
+      "evidence_gaps": 0,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "critical_error": false,
+    "issue_codes": [
+      "required_fact_omitted",
+      "overstated_coverage"
+    ],
+    "claim_source_notes": [
+      {
+        "dimension": "required_facts",
+        "reason": "The answer omits the reported cough.",
+        "minimum_correction": "Cite the cough alongside the existing denial.",
+        "claim_id": "claim-0",
+        "source_id": "document-source-0"
+      },
+      {
+        "dimension": "evidence_gaps",
+        "reason": "The sufficient state hides an omitted source fact.",
+        "minimum_correction": "Include both requested findings before marking the response sufficient.",
+        "claim_id": null,
+        "source_id": null
+      }
+    ],
+    "needs_adjudication": false,
+    "rationale": "The emitted denial is directly supported. Completeness fails because a second finding is present and was omitted.",
+    "completed_at": null,
+    "response_sha256": "51cda2faf576944f78e17af3419e34316cd6ee961dd533d9f6b3f7ed47ed4182"
+  },
+  {
+    "kind": "synthetic_agent_practice",
+    "rubric_version": "d-answer-review-rubric-v1",
+    "review_id": "d008-v1-one-sided-conflict",
+    "reviewer_alias": "codex-d-practice",
+    "independent_review": false,
+    "human_reviewed": false,
+    "case_id": "limited-02/supported",
+    "doc_id": "d-suite-limited-02",
+    "text_sha256": "795901bf2c490e90e8cb9b1542fd73211ca3a0474a9c1895046ac64ec4904e91",
+    "response_id": "d008-one-sided-conflict",
+    "mode": "mock",
+    "extractor_or_answer_version": "d-mock-answer-v2",
+    "prompt_version": "d-mock-prompt-v1",
+    "answerable_from_document": "yes",
+    "response_action": "answer",
+    "dimensions": {
+      "source_support": 2,
+      "required_facts": 0,
+      "extra_facts": 2,
+      "uncertainty_and_context": 0,
+      "evidence_gaps": 0,
+      "scope_and_safety": 2,
+      "clarity_and_english": 2
+    },
+    "critical_error": false,
+    "issue_codes": [
+      "contradiction_omitted",
+      "overstated_coverage"
+    ],
+    "claim_source_notes": [
+      {
+        "dimension": "required_facts",
+        "reason": "The answer omits the source statement reporting chest pain.",
+        "minimum_correction": "Include both the denial and the report.",
+        "claim_id": "claim-0",
+        "source_id": "document-source-0"
+      },
+      {
+        "dimension": "uncertainty_and_context",
+        "reason": "The two source statements conflict and the answer presents only the denial.",
+        "minimum_correction": "Identify the contradiction and leave it unresolved.",
+        "claim_id": "claim-0",
+        "source_id": "document-source-0"
+      },
+      {
+        "dimension": "evidence_gaps",
+        "reason": "The sufficient state suggests the document was fully represented.",
+        "minimum_correction": "State the conflict and cite both statements.",
+        "claim_id": null,
+        "source_id": null
+      }
+    ],
+    "needs_adjudication": true,
+    "rationale": "The retained sentence is supported. The critical-error flag is false for this practice record and the severity rule for a one-sided sufficient answer is flagged for adjudication.",
+    "completed_at": null,
+    "response_sha256": "85d7be6dcdb8e760230c9341b1c42016efe4b675ef8f498b792ab5e6ed083769"
+  },
+  {
+    "kind": "synthetic_agent_practice",
+    "rubric_version": "d-answer-review-rubric-v1",
+    "review_id": "d008-v1-operational-error",
+    "reviewer_alias": "codex-d-practice",
+    "independent_review": false,
+    "human_reviewed": false,
+    "case_id": "confirmed-01/absent",
+    "doc_id": "d-suite-confirmed-01",
+    "text_sha256": "7df452a89aefd394084359510375dbc80ae5426d066657f859ee309dd068f3dd",
+    "response_id": "37c41204-2fd0-4fe0-89dd-e2ce87d86efd",
+    "mode": "mock",
+    "extractor_or_answer_version": null,
+    "prompt_version": null,
+    "answerable_from_document": "no",
+    "response_action": "operational_error",
+    "dimensions": {
+      "source_support": null,
+      "required_facts": null,
+      "extra_facts": null,
+      "uncertainty_and_context": null,
+      "evidence_gaps": null,
+      "scope_and_safety": null,
+      "clarity_and_english": null
+    },
+    "critical_error": null,
+    "issue_codes": [
+      "provider_unavailable"
+    ],
+    "claim_source_notes": [],
+    "needs_adjudication": null,
+    "rationale": "An injected mock failure returned HTTP 503 and a validated, correlated error envelope. The source question was unanswerable but the error earned no abstention credit.",
+    "completed_at": null,
+    "response_sha256": "944c7cdbe1eb428cb17f5eef6f3bc4645dd5be7a9abb408a79564bf20ba69f8f"
+  }
+]

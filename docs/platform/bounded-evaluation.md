@@ -126,11 +126,11 @@ The runner submits each distinct source once and holds the app document IDs and
 session cookies in memory. It records the app's classification, extraction and
 structured answers. It follows the manifest route for each question, submits the
 same frozen question to both branches for a mixed case, and exercises the app's
-unsupported response for a case declared out of scope. For the operator's
-bounded literature and shared mixed requests, the launcher supplies exact
-UTF-8 SHA-256 values by route from the verified runtime packet. The app checks
-canonical bytes and the usual size limits before accepting an exact reviewed
-question. The public English admission rules and default demo remain the same.
+unsupported response for a case declared out of scope. The launcher supplies
+exact UTF-8 SHA-256 values by route from the verified runtime packet. The app
+checks canonical bytes and the usual size limits before accepting an exact
+reviewed question. The public English admission rules and default demo remain
+the same.
 The same monotonic deadline starts before service startup
 and runs for at most 60 minutes. A Windows Job Object owns the web, RAG,
 extraction and classifier process trees. At the deadline the watchdog
@@ -147,17 +147,20 @@ returned partial result are retained when a service exchange fails. Case answer
 records can contain cited excerpts. Keep them in the approved output directory
 and preserve upstream raw provider receipts separately.
 
-## Reviewed literature dispatch check
+## Reviewed runtime dispatch check
 
 With authorization to use the restricted runtime-only packet offline, run this
-check after the production build. The app submits questions in runtime order
-against local doubles, with built-in synthetic documents anchoring the mixed
-route. The receipt lists hashes and case identities. Keep the packet and
-receipt in restricted storage.
+check after the production build. In full-runtime mode the app submits each
+pinned source once and replays all 26 questions in runtime order against local
+doubles. It verifies exact A and D question hashes, one extraction per source,
+and zero dispatches for the out-of-scope route. The checker retains a metadata
+receipt and removes the temporary output directory. Keep the packet and
+receipt in restricted storage. Omit `--full-runtime` to check the literature
+dispatches with synthetic document anchors only.
 
 ```powershell
 & ./scripts/project/.venv/Scripts/python.exe -B scripts/project/check_reviewed_literature.py `
-  --manifest $runtimeManifest --runtime-zip $runtimeZip `
+  --full-runtime --manifest $runtimeManifest --manifest-sha256 $runtimeManifestSha256 --runtime-zip $runtimeZip `
   --hash-inventory $reviewedHashes --inventory-sha256 $reviewedHashesSha256 `
   --receipt $restrictedReplayReceipt
 ```

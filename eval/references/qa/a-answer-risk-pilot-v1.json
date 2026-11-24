@@ -1,0 +1,10 @@
+{
+  "version": "d-a-answer-risk-pilot-agent-labels-v1",
+  "scope": "Answerable means that the supplied passages support at least one requested fact. Correct partial answers must also state the unsupported part.",
+  "review_type": "non-blinded agent review of exact output and checked citation excerpts",
+  "prediction_packet_sha256": "8687f294da6a9530a9f41717cfde8fb24834d4d88b89cfbbf915f3b86d264e7c",
+  "cases": [
+    {"id": "A-QA-01", "answerable": true, "answer_correct": true},
+    {"id": "A-QA-02", "answerable": true, "answer_correct": true}
+  ]
+}

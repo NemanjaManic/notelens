@@ -1,0 +1,82 @@
+{
+  "version": "d009-A-preflight-intake-v1",
+  "date": "2026-11-24",
+  "archive_sha256": "54089b9d4b9b25d84a3bf8fa9289fd82ce47048334760e8ddb967259888cc074",
+  "preflight_sha256": "e06a1166eb57f3342591edce7818d4960f31db7556fd43b97b8d3558f54b626e",
+  "all_archive_checksum_entries_verified": true,
+  "original_CQ_review_and_live_receipt_hashes_match": true,
+  "A_accounting": {
+    "basis": "Conditional ceiling for one A call per literature/mixed case; not actual usage.",
+    "model": "gpt-6-luna",
+    "reasoning_effort": "none",
+    "service_tier": "default",
+    "embedding_model": "text-embedding-3-small",
+    "embedding_dimensions": 1536,
+    "stages": {
+      "question_parts": {
+        "max_requests": 16,
+        "max_input_tokens_per_request": 4096,
+        "max_input_tokens_total": 65536,
+        "max_output_tokens_per_request": 512,
+        "max_output_tokens_total": 8192
+      },
+      "support": {
+        "max_requests": 16,
+        "max_input_tokens_per_request": 20000,
+        "max_input_tokens_total": 320000,
+        "max_output_tokens_per_request": 512,
+        "max_output_tokens_total": 8192
+      },
+      "answer": {
+        "max_requests": 16,
+        "max_input_tokens_per_request": 4096,
+        "max_input_tokens_total": 65536,
+        "max_output_tokens_per_request": 512,
+        "max_output_tokens_total": 8192
+      }
+    },
+    "max_A_answer_endpoint_requests": 16,
+    "max_embedding_requests": 16,
+    "max_embedding_tokens_per_request": 128,
+    "max_embedding_input_tokens": 2048,
+    "max_generation_requests": 48,
+    "max_response_input_tokens": 451072,
+    "max_response_output_tokens": 24576,
+    "max_free_input_count_requests": 48,
+    "max_provider_HTTP_requests_including_counting": 112,
+    "max_chargeable_embedding_plus_generation_requests": 64,
+    "corpus_reembedding_requests": 0,
+    "automatic_retries": 0,
+    "structural_repair_requests": 0,
+    "provider_request_timeout_seconds_proposed": 30,
+    "absolute_provider_deadline_required": true,
+    "sequential_provider_timeout_sum_seconds": 3360,
+    "A_absolute_wall_deadline_seconds_proposed": 3600,
+    "A_wall_deadline_status": "new proposed stop limit, not a completion estimate or implemented timer",
+    "prices_usd_per_million": {
+      "response_input": "0.10",
+      "response_cache_write_upper": "0.125",
+      "response_output": "0.50",
+      "embedding_input": "0.02"
+    },
+    "regional_allowance_multiplier": "1.10",
+    "price_checked_on": "2026-11-24",
+    "price_sources": [
+      "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "https://developers.openai.com/api/docs/models/text-embedding-3-small",
+      "https://help.openai.com/en/articles/4936856-understanding-and-counting-tokens"
+    ],
+    "conservative_A_usage_upper_usd": "0.0755842560",
+    "A_new_cap_usd_proposed": "0.08",
+    "new_provider_execution_authorized": false,
+    "joint_cost_cap_usd": null,
+    "joint_duration_limit_seconds": null,
+    "joint_limits_reason": "D provider profile/limits and B counted final app profile are not supplied."
+  },
+  "A_modeled_cost_recomputed_usd": "0.0755842560",
+  "token_limits_interpretation": "451072 input and 24576 output are totals across A stages; per request inputs 4096/20000/4096 and outputs 512. Embeddings total 2048, per request 128.",
+  "A_live_launcher_in_archive": false,
+  "corrected_CQ_reviews": "Originals and authored revisions supplied; no independent or personal human re-rating inferred from coordinator approval.",
+  "metadata_conflict_resolution": "A preflight statement that B counted profile is absent is outdated; B candidate 9fc7c33 and counted synthetic evidence now received. v3 reference manifest bytes still pending.",
+  "new_provider_calls": 0
+}

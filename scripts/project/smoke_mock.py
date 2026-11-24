@@ -174,14 +174,21 @@ def exercise(stack, scenario):
     partial = read_page(stack, ask(stack, cookie, path, preset='partial-document'), cookie)
     require(partial.answer == ('document', 'partial') and 'View document evidence' in partial.links
             and partial.contains('The document does not provide the requested age.'), 'partial document citation and gap')
+    sixth = {'document': path.split('=', 1)[1], 'preset': 'out-of-scope'}
+    status, _, retry = question_request(stack, cookie, payload=sixth)
+    require(status == 429 and retry is None, 'five-question session quota')
+    duplicate = {'document': path.split('=', 1)[1], 'preset': 'document'}
+    require(question_request(stack, cookie, payload=duplicate)[0] == 409, 'duplicate rejected at quota')
+    oldest = read_page(stack, saved[0], cookie)
+    require(oldest.answer == ('document', 'sufficient'), 'five admitted turns remain readable')
+    unchanged = read_page(stack, path + '&question=mixed', cookie)
+    require(unchanged.answer is None, 'legacy GET cannot ask a question')
+
+    # Continue independent routing coverage in another session after verifying the quota.
+    path, cookie = prepare_example(stack, landing.example_action)
     unsupported = read_page(stack, ask(stack, cookie, path, preset='out-of-scope'), cookie)
     require(unsupported.answer == ('none', 'unsupported') and 'View document evidence' not in unsupported.links
             and 'Literature source URL' not in unsupported.links, 'out-of-scope question')
-
-    evicted = read_page(stack, saved[0], cookie)
-    require(evicted.answer is None and evicted.contains('no longer in the conversation history'), 'oldest turn evicted')
-    unchanged = read_page(stack, path + '&question=mixed', cookie)
-    require(unchanged.answer is None, 'legacy GET cannot ask a question')
     unsupported_text = ask(stack, cookie, path, scope='literature',
                            literatureQuestion='What does the published evidence say about this synthetic medical example?')
     answer = read_page(stack, unsupported_text, cookie)
@@ -210,10 +217,14 @@ def exercise(stack, scenario):
     require(question_request(stack, cookie, method='DELETE', path=clear_path)[0] == 204, 'owner can clear history')
     require(read_page(stack, unsupported_text, cookie).answer is None and read_page(stack, findings_path, cookie).answer,
             'clear drops saved answer from the selected document only')
+    repeated = {'document': document, 'scope': 'literature',
+                'literatureQuestion': 'What does the published evidence say about this synthetic medical example?'}
+    require(question_request(stack, cookie, payload=repeated)[0] == 409, 'clearing history does not permit duplicates')
     ask(stack, cookie, path, preset='document')
-    ask(stack, cookie, path, preset='document')
-    status, _, retry = question_request(stack, cookie, payload=valid)
-    require(status == 429 and int(retry) > 0, 'rolling session submission limit')
+    require(question_request(stack, cookie, payload=valid)[0] == 409, 'repeat dispatch rejected')
+    ask(stack, cookie, path, preset='partial-document')
+    status, _, retry = question_request(stack, cookie, payload={'document': document, 'preset': 'literature'})
+    require(status == 429 and retry is None, 'session quota is shared across documents and survives history clearing')
 
 
 def verify_shutdown(stack):

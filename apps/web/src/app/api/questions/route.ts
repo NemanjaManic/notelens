@@ -43,11 +43,13 @@ async function handle(request: Request): Promise<Response> {
     if ('kind' in document) return reject(404, document.notice);
     const evaluationCapture = Boolean(clients.evaluation && request.headers.get('X-NoteLens-Evaluation-Output') === '1');
     const result = questionPlan(input as Record<string, unknown>, isBuiltinDemoDocument(document), evaluationCapture,
-      clients.reviewedLiteratureHashes);
+      clients.reviewedQuestionHashes);
     if ('notice' in result) return reject(result.status, result.notice);
 
-    const pending = store.beginQuestion(owner, id);
+    const pending = store.beginQuestion(owner, id, result.plan);
     if (pending.kind === 'unavailable') return reject(404, pending.notice);
+    if (pending.kind === 'duplicate') return reject(409, 'This question has already been submitted for this document in this session.');
+    if (pending.kind === 'quota') return reject(429, 'This demo session has reached its limit of 5 questions.');
     if (pending.kind === 'busy') return reject(409, 'Another question is still running in this session.');
     if (pending.kind === 'rate') {
       headers.set('Retry-After', String(pending.retryAfter));

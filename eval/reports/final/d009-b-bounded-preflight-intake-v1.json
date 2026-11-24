@@ -1,0 +1,78 @@
+{
+  "version": "d009-b-bounded-preflight-intake-v1",
+  "date": "2026-11-24",
+  "source_sha256": "57e33b2b78df1b98ea4c5c334a66d18f00f7dbb014f68e4c323439a9361a5a01",
+  "app_candidate_sha": "9fc7c333ca74971768e1df13ed6238798c48e90e",
+  "app_is_merged_main": false,
+  "source_review": "Inspected bounded web launcher, operation dispatch ledger, live-mode admission changes and session extraction memoization. No new local browser or live run performed.",
+  "reported_B009_mock_checks": 73,
+  "reported_counted_synthetic_rehearsal": {
+    "app_sha": "9fc7c333ca74971768e1df13ed6238798c48e90e",
+    "synthetic_only": true,
+    "case_count": 26,
+    "scenarios": {
+      "document_only": 8,
+      "mixed": 8,
+      "literature_only": 8,
+      "out_of_scope": 2
+    },
+    "unique_extractions": 16,
+    "app_to_service_counts": {
+      "/v1/extract": 16,
+      "/v1/document-answer": 16,
+      "/v1/literature-answer": 16
+    },
+    "provider_calls": 0,
+    "final_cases_used": 0,
+    "overflow_blocked": true,
+    "listeners_stopped": true,
+    "elapsed_seconds": 106.37
+  },
+  "previous_unbounded_rendering_and_mock_only_admission": "Remediated in proposed candidate source; owner-reported synthetic whole-web run verifies counts. Final live profile not yet approved.",
+  "provider_request_counts_are_distinct_from_app_counts": true,
+  "D_max_provider_generation_candidate": 32,
+  "A_max_provider_generation_candidate": 48,
+  "embedding_query_candidate": 16,
+  "optional_token_count_requests_candidate": 48,
+  "cost_math": {
+    "D_65536_with_regional_allowance": "0.50462720",
+    "D_64000_with_regional_allowance": "0.49786880",
+    "A_generation_and_query_embedding_reference": "0.0755842560",
+    "combined_modeled_upper": "0.5734530560",
+    "proposed_new_cap": "0.58",
+    "source_rates": [
+      "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "https://developers.openai.com/api/docs/models/text-embedding-3-small"
+    ],
+    "account_rate_or_processing_tier_confirmed": false,
+    "conditions": "Published Standard cache-write input upper price, output price, embedding price and 1.10 regional factor; actual payload fit and account pricing still require confirmation. Optional token-count request availability/cost not independently established."
+  },
+  "D_payloads_confirmed_to_fit_64000": false,
+  "proposal_timeouts": {
+    "D_seconds": 30,
+    "A_seconds": 15,
+    "web_ms": 120000,
+    "whole_run_minutes": 60,
+    "provider_wait_budget_minutes": 44
+  },
+  "sixty_minute_hard_watchdog_verified": false,
+  "A_final_launcher_received": false,
+  "operator": {
+    "proposed": "Goran",
+    "authorized": false,
+    "configured_live_health_verified": false,
+    "model_access_verified_for_final_process": false,
+    "windows_key_free_profile_verified": true
+  },
+  "final_execution_authorized": false,
+  "new_provider_calls": 0,
+  "final_cases_executed": 0,
+  "d009_closed": false,
+  "remaining": [
+    "A exact live launcher/model/prompt pins and counted provider-stage limits",
+    "D/A actual request bounds and account pricing, compatible HTTP/provider timeouts and hard watchdog",
+    "Explicit operator authorization, authenticated live readiness/model access",
+    "Review/accept exact app and final reference pins, then one complete team execution approval",
+    "Actual frozen run and saved-output scoring"
+  ]
+}

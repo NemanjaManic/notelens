@@ -1,0 +1,36 @@
+{
+  "version": "d005-pr32-review-v1",
+  "date": "2026-11-23",
+  "pr": "https://github.com/NemanjaManic/notelens/pull/32",
+  "head_sha": "7743fc87aafa94f42b6fd81e34a48612352da1f1",
+  "reviewed_delta_base": "0536cb56fdd1f99f9cc73110e28a90a22892cb01",
+  "ci": {
+    "conclusion": "success",
+    "status": "completed",
+    "job": "NoteLens key-free checks",
+    "run": 45277894601,
+    "verified_via_github_api": true
+  },
+  "code_findings": [],
+  "review_scope": "Read incremental seven-file delta, related replay launcher and canonical preparation; no fresh local build or platform runtime run.",
+  "positive_checks": [
+    "Exact hash admission only for text/synthetic input and explicit replay profile",
+    "Unchanged canonical size/preparation checks run first",
+    "Default language admission unchanged",
+    "New regression tests changed text and public scope rejection",
+    "Mock-only guidance limited to mock answers",
+    "Launcher clears inherited NOTELENS/provider configuration"
+  ],
+  "evidence_gap": {
+    "priority": "P2",
+    "file": "scripts/project/start_mock.py",
+    "related_file": "scripts/project/d005_replay.py",
+    "description": "Public CLI still constructs c7-pinned D005Replay; reviewed_replay_text_sha256 is only a programmatic parameter. No tracked d41 adapter/command or per-case receipt provided in this PR to reproduce the claimed 16-case run.",
+    "requested": "Provide the exact d41 runner/command, its source hash and a private sanitized receipt mapping 16 unchanged cases to app/service/profile/output pins and results. No new provider calls needed.",
+    "resolution": "Resolved by supplied pinned repro archive and receipt v3; see d005-d41-repro-verification-v1.json."
+  },
+  "reported_d41_local_results": "Accepted owner-reported reproducible saved development replay after hash and context verification; not independently executed by D.",
+  "d009_closed": false,
+  "github_review_posted": false,
+  "merged": false
+}

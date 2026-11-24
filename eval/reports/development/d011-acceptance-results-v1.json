@@ -1,0 +1,38 @@
+{
+  "acceptance_version": "d-acceptance-adopted-v2",
+  "measurement_version": "d011-bounded-development-measurement-v1",
+  "sample_count": 12,
+  "criteria": [
+    {
+      "metric": "schema_validity",
+      "threshold": 1,
+      "value": 0.5,
+      "status": "failed"
+    },
+    {
+      "metric": "span_validity",
+      "threshold": 1,
+      "value": 0.5,
+      "status": "failed"
+    },
+    {
+      "metric": "entity_exact_f1",
+      "threshold": 0.9,
+      "value": null,
+      "status": "measurement_missing"
+    },
+    {
+      "metric": "topic_recall_at_5",
+      "threshold": 0.95,
+      "value": 1.0,
+      "status": "passed"
+    },
+    {
+      "metric": "answer_risk",
+      "threshold": 0.05,
+      "value": null,
+      "status": "measurement_missing"
+    }
+  ],
+  "status": "failed"
+}

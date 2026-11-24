@@ -1,0 +1,25 @@
+{
+  "version": "d011-regression-decision-v1",
+  "date": "2026-11-23",
+  "decision_by": "D assistant under Milica's delegated measurement/threshold decision authority",
+  "decision": "reject_full_quality_acceptance_do_not_release_or_claim_final_completion",
+  "acceptance_status": "failed",
+  "service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "findings": [
+    "Returned-result schema/span success is below the fixed 100% gate.",
+    "Entity F1 cannot be reported as an official complete-case aggregate with failed extractions.",
+    "Independent semantic answer-risk labels are missing; literal proxy is separately reported.",
+    "The earlier successful two-output D-004/D-005 smoke is retained, but does not establish general development quality."
+  ],
+  "thresholds_lowered_after_measurement": false,
+  "invalid_cases_excluded": false,
+  "new_service_tuning_during_measurement": false,
+  "owner_actions": {
+    "D": "Fix extraction summary/contract/ambiguous-evidence failures, then run a newly pinned development measurement. Obtain eligible semantic review or an explicitly scoped calibrated correctness protocol.",
+    "Goran": "Finish D-005 configured app check; provide exact SHAs/profile/results.",
+    "Sara/Goran and Milica": "Preserve restricted final cases and resolve eligibility for three previously exposed receipt-note cases before final release."
+  },
+  "d011_measurement_and_decision_work_recorded": true,
+  "d011_full_quality_acceptance": false,
+  "d009_final_run_permitted": false
+}

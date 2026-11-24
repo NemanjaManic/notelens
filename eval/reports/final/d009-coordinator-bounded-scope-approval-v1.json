@@ -1,0 +1,84 @@
+{
+  "version": "d009-coordinator-bounded-scope-approval-v1",
+  "date": "2026-11-24",
+  "approved_by": "Milica Mileusnic",
+  "approval_basis": "Explicit user instruction: PRIHVATAJ SVE DA ZATVROIMO POSAO VISE AJDE POZURI, in context of A/B scope proposals.",
+  "approved": true,
+  "approval_scope": "One bounded final pass and new A/D cost/call/token ceilings, subject to actual executable configuration/readiness matching these ceilings. Not a fabricated complete freeze or result.",
+  "operator_designation": "Goran, as proposed; personal readiness and authenticated model access still require confirmation.",
+  "app_candidate_sha": "9fc7c333ca74971768e1df13ed6238798c48e90e",
+  "D_service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "cases": 26,
+  "app_request_limits": {
+    "extract": 16,
+    "document-answer": 16,
+    "literature-answer": 16
+  },
+  "D": {
+    "max_calls": 32,
+    "max_input_tokens_per_call": 64000,
+    "max_output_tokens_per_call": 12288,
+    "timeout_seconds": 30,
+    "new_cap_usd": "0.50",
+    "input_upper_rate_usd_per_million_including_regional_allowance": "0.1375",
+    "output_rate_usd_per_million_including_regional_allowance": "0.55"
+  },
+  "A": {
+    "generation_calls": 48,
+    "stages": {
+      "question_parts": {
+        "max_requests": 16,
+        "max_input_tokens_per_request": 4096,
+        "max_input_tokens_total": 65536,
+        "max_output_tokens_per_request": 512,
+        "max_output_tokens_total": 8192
+      },
+      "support": {
+        "max_requests": 16,
+        "max_input_tokens_per_request": 20000,
+        "max_input_tokens_total": 320000,
+        "max_output_tokens_per_request": 512,
+        "max_output_tokens_total": 8192
+      },
+      "answer": {
+        "max_requests": 16,
+        "max_input_tokens_per_request": 4096,
+        "max_input_tokens_total": 65536,
+        "max_output_tokens_per_request": 512,
+        "max_output_tokens_total": 8192
+      }
+    },
+    "embedding_calls": 16,
+    "embedding_tokens_per_call": 128,
+    "embedding_tokens_total": 2048,
+    "token_count_requests_if_used": 48,
+    "timeout_seconds_per_provider_HTTP_request": 30,
+    "new_cap_usd": "0.08",
+    "reasoning_effort": "none",
+    "service_tier": "default"
+  },
+  "combined_new_cap_usd": "0.58",
+  "modeled_combined_upper_usd": "0.573453056",
+  "max_total_provider_HTTP_requests_including_optional_counts": 144,
+  "max_chargeable_requests": 96,
+  "corpus_reembedding_calls": 0,
+  "automatic_retries": 0,
+  "repair_generation_calls": 0,
+  "stop_on_first_unexpected_error": true,
+  "hard_stop_seconds": 3600,
+  "serial_worst_case_provider_timeout_sum_seconds": 4320,
+  "completion_before_hard_stop_guaranteed": false,
+  "preserve_outputs_errors_usage_and_reservations_on_stop": true,
+  "historical_ledgers_unchanged": true,
+  "final_extraction_F1": "Approved explicitly unmeasured because separate final reference annotations are missing.",
+  "known_quality_limitations": "Accepted for delivery; criteria remain not met/unmeasured, not passed.",
+  "remaining_technical_conditions": [
+    "Exact final live A launcher/pins and enforced A limits",
+    "Actual D/A payloads fit approved bounds and account rates fit modeled bounds",
+    "Operator authenticated readiness/model access and 3600-second global watchdog",
+    "Exact reference/custody v3 manifest materialization and final configuration hash"
+  ],
+  "executable_freeze_complete": false,
+  "paid_calls_started": false,
+  "d009_closed": false
+}

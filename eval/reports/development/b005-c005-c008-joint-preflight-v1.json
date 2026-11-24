@@ -1,0 +1,199 @@
+{
+  "version": "b005-c005-c008-joint-preflight-v1",
+  "date": "2026-11-22",
+  "status": "owner_joint_classifier_receipt_verified_other_service_integrations_pending",
+  "examples": {
+    "path": "eval/reports/development/c007-b005-admitted-synthetic-examples-v1.json",
+    "sha256": "fcef39b7a13d056b8fcf85e837756ab30ef70db3491c592ffa2dea74c6752239"
+  },
+  "d_evaluator_commit": "585ef0f",
+  "c005": {
+    "admission_baseline_commit": "f8bba16397c49f9e58233a3854ca1c0492244048",
+    "classifier_commit": "7181a1abdf7831bb247510821c886b0e031d5de0",
+    "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+    "manifest_sha256": "e79fff1c8c8c3b1b14afa32d02bc44f94680bf09902cb82cfa5e4dd71b967f5f",
+    "artifact_sha256": "3bbf1c648c6ebd69036ee933c58b7e96cf1a0f5bf60975d1cafe7f59ec09fd6a",
+    "unauthenticated_readiness_status": 401,
+    "temporary_port_closed": true,
+    "observations": [
+      {
+        "example_id": "b005-supported-synthetic-v1",
+        "http_status": 200,
+        "identical_responses": 2,
+        "validated": [
+          "document_id",
+          "canonical_sha256",
+          "request_id",
+          "no_store",
+          "ordered_five_probabilities"
+        ],
+        "input": "synthetic",
+        "case": "supported",
+        "mode": "live",
+        "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+        "doc_id": "d45cf9e4-c642-4c9a-9fe7-5a40b17f32e4",
+        "text_sha256": "1e38492039e7589e4d52423d038fb46a850a966848633221af56d4cb18b1c6d6",
+        "status": "supported",
+        "category": "Orthopedic",
+        "outcome": "classified",
+        "score_kind": "probability",
+        "score_labels": [
+          "Cardiovascular / Pulmonary",
+          "Orthopedic",
+          "Gastroenterology",
+          "Neurology",
+          "Urology"
+        ],
+        "scores": [
+          0.09749691095070978,
+          0.6747041376018149,
+          0.08928088981475131,
+          0.06878418710842385,
+          0.06973387452430026
+        ],
+        "maximum_score_delta_from_prior_d_receipt": 0.0
+      },
+      {
+        "example_id": "b005-uncertain-synthetic-v1",
+        "http_status": 200,
+        "identical_responses": 2,
+        "validated": [
+          "document_id",
+          "canonical_sha256",
+          "request_id",
+          "no_store",
+          "ordered_five_probabilities"
+        ],
+        "input": "synthetic",
+        "case": "uncertain",
+        "mode": "live",
+        "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+        "doc_id": "166ac671-787e-4a51-98f9-4624a08413f5",
+        "text_sha256": "5ca32e86251ef3344d007c47ee0a955c85f73ba138f71a231fa2fb03405cbbe2",
+        "status": "uncertain",
+        "category": null,
+        "outcome": "abstained",
+        "score_kind": "probability",
+        "score_labels": [
+          "Cardiovascular / Pulmonary",
+          "Orthopedic",
+          "Gastroenterology",
+          "Neurology",
+          "Urology"
+        ],
+        "scores": [
+          0.2850562905051594,
+          0.1560560739484263,
+          0.19202202042055594,
+          0.16495184308718927,
+          0.20191377203866914
+        ],
+        "maximum_score_delta_from_prior_d_receipt": 0.0
+      }
+    ]
+  },
+  "c008": {
+    "startup_manifest_sha256": "affe7af9e2d0f8df46d25642fd2e0cbf0ff3e45f2a8576b9c87cc2cc257d7f32",
+    "startup_stage": "development",
+    "bundle_directory_on_owner_host": ".cache/c008-short-text-v1/matched-policy",
+    "published_manifest_sha256": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+    "published_stage": "frozen",
+    "manifest_semantic_difference": [
+      "stage"
+    ],
+    "model_version": "c008-short-text-matched-v1-ec4f77b94c735790aca7cf8a3eb8a83cdc4e263ce2ad56e599e477f219fe6e8d",
+    "artifact_sha256": "5951f751949747cb3c251987b1503ffaf1d79df9933862c7a692f01a5d65622c",
+    "owner_handoff": "Sara reported both pinned bundles verified over HTTP with the exact D pair.",
+    "d_fitted_replay": "pending_matching_local_artifact"
+  },
+  "goran_2026_11_22_update": {
+    "source": "Goran message relayed by Milica on 2026-11-22",
+    "b005_commit": "9cdab928923056f31dd1f37ab4b569cc638999ab",
+    "c005": {
+      "status": "blocked_before_probe_and_report_replay",
+      "blocker": "authenticated classifier readiness",
+      "startup_diagnostic_requested_from_sara": true
+    },
+    "c008": {
+      "model_version": "c008-short-text-matched-v1-ec4f77b94c735790aca7cf8a3eb8a83cdc4e263ce2ad56e599e477f219fe6e8d",
+      "reported_fitted_http_checks_passed": 6,
+      "supported": {
+        "status": "supported",
+        "category": "Orthopedic",
+        "document_id_and_canonical_sha256_match": true,
+        "app_submission_http_status": 201,
+        "rendered_report_captured": false
+      },
+      "uncertain": {
+        "status": "uncertain",
+        "category": null,
+        "document_id_and_canonical_sha256_match": true,
+        "app_submission_http_status": null,
+        "rendered_report_captured": false
+      },
+      "browser_runner": "stopped_before_report_capture"
+    },
+    "remaining_report_evidence": "Sara to provide C-005 readiness diagnostic and rendered-report evidence for applicable model replays"
+  },
+  "joint_report": {
+    "host": "Sara's Windows machine",
+    "order": [
+      "C-005",
+      "C-008"
+    ],
+    "pending_from_team": [],
+    "checks_per_model": [
+      "Confirm the classifier commit, startup manifest, artifact digest and readiness model version.",
+      "Submit both exact examples through normal app admission. Record HTTP status, prepared document IDs and digests.",
+      "Check fitted HTTP 200, response identity, model version, score order and request correlation.",
+      "Verify both rendered report states and record any mismatch alongside the pinned app and model versions."
+    ],
+    "rendered_report_verified": true,
+    "app_commit": "9cdab928923056f31dd1f37ab4b569cc638999ab",
+    "rendered_report_reported_passed": true,
+    "verification_basis": "Owner rendered-report receipt checked against exact examples and model pins.",
+    "verification_record": "eval/reports/development/b005-joint-recheck-receipt-verification-v1.json"
+  },
+  "provider_calls": 0,
+  "goran_2026_11_22_passing_recheck": {
+    "source": "Goran messages relayed by Milica, 2026-11-22 at 22:23 Europe/Belgrade",
+    "app_commit": "9cdab928923056f31dd1f37ab4b569cc638999ab",
+    "model_order": [
+      "C-005",
+      "C-008"
+    ],
+    "c008_fresh_session": true,
+    "c005_authenticated_readiness_http_status": 200,
+    "fitted_http_checks_passed_per_model": 6,
+    "request_id_correlation_passed": true,
+    "app_submissions": 4,
+    "app_submissions_http_status": 201,
+    "reports_per_model": {
+      "supported": {
+        "label": "Orthopedic"
+      },
+      "uncertain": {
+        "label": "Specialty uncertain",
+        "assigned_specialty": null
+      }
+    },
+    "receipt_fields_reported": [
+      "document_id",
+      "canonical_sha256",
+      "rendered_label",
+      "model_version"
+    ],
+    "goran_checked_receipt_against_both_model_pins": true,
+    "goran_reported_mismatches": 0,
+    "receipt_to_use": "b005-joint-replay-recheck-receipt.json",
+    "earlier_attached_receipt": "Earlier failed receipt was attached by mistake; do not use it as the latest result.",
+    "passing_receipt_received_by_d": true,
+    "d_independent_verification_of_passing_receipt": true,
+    "supersedes_earlier_joint_blockers": [
+      "C-005 authenticated readiness",
+      "C-008 browser runner stopped before report capture"
+    ],
+    "receipt_sha256": "a7a0412720b243c1aac4cb86e27ad5f64c861b985e60084f06d8502d5c2dda06",
+    "d_verification_scope": "Receipt consistency and pin validation only; no new D runtime replay."
+  }
+}

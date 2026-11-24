@@ -1,0 +1,58 @@
+{
+  "version": "d004-message-input-trial-proposal-v2",
+  "date": "2026-11-23",
+  "status": "prepared_not_approved_not_executed",
+  "approved": false,
+  "service_sha": "30fa30b372489c2a03c1579cf27081f629992bc4",
+  "operator_proposed": "Milica with agent execution/verification",
+  "model": "gpt-6-luna",
+  "input_format": "messages",
+  "max_output_tokens_each": 2048,
+  "scope": "Two new prepared synthetic requests only: extraction with summary, and document answer. Zero retries/repairs. Stop on first failure. No final QA access or hosting/deployment.",
+  "max_provider_calls": 2,
+  "automatic_retries": 0,
+  "cumulative_cap_usd": "0.10",
+  "known_prior_worst_case_reservation_usd": "0.0056454",
+  "new_worst_case_reservation_usd": "0.0043707",
+  "known_cumulative_worst_case_reservation_usd": "0.0100161",
+  "account_billing_balance_confirmed": false,
+  "budget_limitation": "Conservative reservation over known authorized requests; not actual billing or proof of absence of undisclosed execution. Tutor funding availability is already recorded.",
+  "rates": {
+    "input_usd_per_million": "0.10",
+    "output_usd_per_million": "0.50",
+    "tier": "standard/default",
+    "reviewed_on": "2026-11-23",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+  },
+  "changes_from_failed_attempt": "Explicit user input_text message instead of input string; output ceiling 2048 instead of 512. Same synthetic document, question, model and prompt/contract contents. Different exact payload hashes require new authorization.",
+  "diagnosis": "Root cause unproven. Official Responses reference permits both string and message inputs; message form is a compatibility hypothesis, not a verified provider fix.",
+  "api_reference": "https://developers.openai.com/api/reference/resources/responses/methods/create",
+  "requests": {
+    "extract": {
+      "request_sha256": "89e30ace4659eb41462d023743ed7f1fdd5e5f82ebd1d4ae44075845453f2efb",
+      "prepared_utf8_bytes": 11402,
+      "input_token_bound": 12426,
+      "max_output_tokens": 2048,
+      "worst_case_reservation_usd": "0.0022666"
+    },
+    "answer": {
+      "request_sha256": "878695e0cdfd3ffd1d41725c106d5bb28a2b85f9b1c2b5aaa07058d5de54cf06",
+      "prepared_utf8_bytes": 9777,
+      "input_token_bound": 10801,
+      "max_output_tokens": 2048,
+      "worst_case_reservation_usd": "0.0021041"
+    }
+  },
+  "pins": {
+    "services/extraction/uv.lock": "626b44bcd33a7f2acb782a13b0339949a80adf255a79893bbff94e287cb0dec4",
+    "services/extraction/src/notelens_extraction/prompts/extract-v1.txt": "f50d4c263f42a59aac022175d0bcb765dbc744f656ee879c0407ba4cfd413882",
+    "services/extraction/src/notelens_extraction/prompts/answer-v1.txt": "e9f40eff22c9c1ec0e2db7703bb47c0f886a0b331157821d4187f55de04b4ed1",
+    "contracts/generated/python/src/notelens_contracts/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78"
+  },
+  "private_prepared_payloads": "Predaja-NoteLens/D-004/D004-message-input-proposal-v2",
+  "new_receipt_required": true,
+  "old_receipt_preserved": true,
+  "approval_needed": "Explicit approval for this exact new two-request scope before loading credentials or sending inference.",
+  "d004_closed": false,
+  "d005_closed": false
+}

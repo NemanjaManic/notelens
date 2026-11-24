@@ -1,0 +1,36 @@
+{
+  "version": "d008-first-round-comparison-v1",
+  "recorded_on": "2026-11-23",
+  "eligibility_acceptance": {
+    "decision_by": "Milica (member D)",
+    "basis": "Explicit reply accepting the declared independent reviews with recorded AI assistance.",
+    "answer_reviews_accepted": 7,
+    "entity_evidence_reviews_accepted": 5,
+    "human_full_review_and_no_prior_exposure_declared": true,
+    "ai_assistance_and_related_material_access_retained": true,
+    "limitation": "Independence relies on reviewer declarations and the disclosed AI assistance."
+  },
+  "completed_answer_reviews": 14,
+  "matched_output_pairs": 7,
+  "exact_dimension_agreement": {
+    "matching": 43,
+    "comparable": 49
+  },
+  "completed_member_a_entity_evidence_reviews": 5,
+  "cases_pending_adjudication": [
+    "D008-CAL-02",
+    "D008-CAL-03",
+    "D008-CAL-04",
+    "D008-CAL-05",
+    "D008-CAL-06",
+    "D008-CAL-07"
+  ],
+  "input_sha256": {
+    "milica_answer_forms": "04b02519a38c851efdfc544bc19783a4022441748d38711bd75bbf8d4fd75ad4",
+    "nemanja_answer_forms": "aef11edf10408a5f03a23ed0d55719b5229fddfe0a8c6479b5e6473247d046e9"
+  },
+  "private_comparison_sha256": "94547d45fe931e386dec2a579100b4d5708e9814759b2c49c2951eb69518a72c",
+  "original_first_round_scores_modified": false,
+  "rubric_calibration_complete": false,
+  "full_d008_closed": false
+}

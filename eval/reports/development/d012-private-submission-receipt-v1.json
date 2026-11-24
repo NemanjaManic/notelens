@@ -1,0 +1,41 @@
+{
+  "version": "d012-private-submission-receipt-v1",
+  "date": "2026-11-22",
+  "task": "D-012",
+  "status": "complete",
+  "transfer": "approved_private_submission_reported_by_team",
+  "submission": {
+    "filename": "Milica-D012-private-submission-v1.zip",
+    "archive_sha256": "907808fe7bf3a6c41681842a07f11d38e6ef3a2f4e302215a33a98ffbe28a03f",
+    "submission_manifest_sha256": "69b827b8ee681e317a85c4a978a830c04d6f6ba9510e46ff33bebd0259bffcbe",
+    "verified_file_hashes": 9,
+    "frozen_allocation_sha256": "7b7cc6d3c9cb8afd4455d48075b24e8579f7a78e49295decfc09a9f04aed32a6",
+    "frozen_source_manifest_sha256": "e8596143168c2631eebb60ba080f996d0f9a13efa6d236ceae1de35eaa2769c6",
+    "primary_annotations": 10,
+    "independent_reviews": 3
+  },
+  "receipts": [
+    {
+      "member": "member-a",
+      "name": "Nemanja",
+      "source": "message_relayed_by_milica",
+      "received": true,
+      "readable": true,
+      "counts_manifests_and_checksums_confirmed": true
+    },
+    {
+      "member": "member-b",
+      "name": "Goran",
+      "source": "team_handoff_and_screenshot_relayed_by_milica",
+      "readable": true,
+      "counts_manifests_and_checksums_confirmed": true,
+      "handoff_sha256": "101aa6cdf0a5377447d97aa7585df24443e694b4bc67b1f7c498f8a820680d90",
+      "screenshot_sha256": "dc0fcd3be4af78a3844e57382cdb5d0031649b02fbab18beca1fbdd82c4ab76c"
+    }
+  ],
+  "carried_to_d013": {
+    "open_question_count": 1,
+    "assignment_id": "assignment-005",
+    "scope": "Source gap and human adjudication."
+  }
+}

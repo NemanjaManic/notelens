@@ -1,7 +1,32 @@
 # Quickstart Validation: Python Extraction and Shared Evaluation
 
-**Status**: design-stage guide. Commands labeled future are not available yet.
-Run from the repository root. No command here authorizes paid calls or business implementation.
+**Status**: D-owned key-free mock slice consumes frozen shared contracts/bindings v1.0.0.
+The shared mock scaffold is [technically complete under F-004](../../docs/team/f-004-technical-completion.md).
+The reviewed [F-014 foundation is published](../../docs/team/foundation-checkpoint.md).
+Run from the repository root. Live generation requires separate approval. Full setup and
+verification evidence are in [integration](../../docs/extraction-eval/integration.md).
+
+## Available now: local mock service and evaluation
+
+After the service/eval-local locked environments have been synced:
+
+```powershell
+./services/extraction/.venv/Scripts/python.exe -m notelens_extraction.cli serve
+```
+
+In another terminal:
+
+```powershell
+./services/extraction/.venv/Scripts/python.exe -m notelens_extraction.cli demo
+./services/extraction/.venv/Scripts/python.exe -m notelens_extraction.cli demo --question "What does the document say about chest pain?"
+./eval/.venv/Scripts/python.exe -m notelens_eval.run --profile smoke
+./eval/.venv/Scripts/python.exe eval/smoke_http.py
+./services/extraction/.venv/Scripts/python.exe -m pytest services/extraction/tests -q
+./eval/.venv/Scripts/python.exe -m pytest eval/tests -q
+```
+
+These commands exercise synthetic/mock behavior. General real-model extraction,
+reference-based metrics and human annotations have separate acceptance criteria.
 
 ## Available now: correct feature selection
 
@@ -15,20 +40,23 @@ Expected: FEATURE_DIR selects this feature regardless of Git branch. This checks
 not whether an application, plan/task tests or services execute successfully.
 The installed script exists and has been verified; no feature-state file is overwritten.
 
-## Future: after foundation prerequisites
+## Shared scaffold verification and foundation work
 
-The later F-003/F-004/F-005 tasks must create frozen contracts/fixtures, dependency locks,
-stubs and runnable commands. A command that names a missing file is not an executed pass.
-After those prerequisites and the relevant implementation tasks create the listed checks:
+F-003/F-009 are complete and their generated package is consumed by this service.
+F-004 technical completion covers the shared mock scaffold and its HTTP checks.
+D-010 passed its offline and mock checks on the combined B-004 and current D candidate.
+The [integration record](../../docs/extraction-eval/integration.md#d-010-verification-2026-11-20)
+identifies the tested source and B's remaining checker inventory work. Run these
+commands for owner-local checks:
 
-```text
-uv run --directory services/extraction python -m pytest tests/test_evidence.py tests/test_answers.py tests/test_contract.py
-uv run --directory eval python -m notelens_eval.run --profile smoke
+```powershell
+./services/extraction/.venv/Scripts/python.exe -m pytest services/extraction/tests -q
+./eval/.venv/Scripts/python.exe -m pytest eval/tests -q
+./eval/.venv/Scripts/python.exe -m notelens_eval.run --profile smoke
+./eval/.venv/Scripts/python.exe eval/smoke_http.py
 ```
 
-These are planned acceptance commands using real tool CLIs, not claims that package scripts
-or test files exist today. The backlog names the task that creates each target.
-No npm run script is assumed; B must document and verify actual package scripts later.
+These owner-local tests and smoke commands exist and are documented in [integration](../../docs/extraction-eval/integration.md). No root npm script is assumed; B owns shared startup and workspace commands.
 
 ## Independent scenarios
 
@@ -42,6 +70,7 @@ No npm run script is assumed; B must document and verify actual package scripts 
 
 ## Exit and review
 
-[Tasks](tasks.md) provide owner/path/dependency/acceptance details. All business work remains
-unchecked. Do not declare the shared foundation ready until the runnable mock flow,
-handoffs, separate-working-copy commands and checkpoint evidence have passed.
+[Tasks](tasks.md) provide owner/path/dependency/acceptance details. Parent D tasks remain
+open where real-model, real-data, cross-service, or human-review gates are unmet. Do not
+declare the shared foundation ready until coordinated mock flow, handoffs,
+separate-working-copy commands and checkpoint evidence have passed.

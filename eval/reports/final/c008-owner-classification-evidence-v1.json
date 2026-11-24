@@ -1,0 +1,94 @@
+{
+  "version": "d009-c008-owner-final-classification-evidence-v1",
+  "date": "2026-11-22",
+  "owner": "member-c",
+  "status": "owner_final_metrics_verified_against_pinned_model_card",
+  "scope": "Aggregate evidence for the C-008 classifier final run and the D-009 report.",
+  "source": {
+    "commit": "c67066743a505aa62920fada5689d7fbf2362c0c",
+    "model_card": "https://github.com/NemanjaManic/notelens/blob/c67066743a505aa62920fada5689d7fbf2362c0c/docs/ml/model-card.md#locked-final-results",
+    "model_card_sha256": "7805ed7e898179b42ba19f759355bdcc9883c0d6f1a2f30a8ed1c35842aff137",
+    "published_frozen_model_manifest_sha256": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+    "published_artifact_sha256": "5951f751949747cb3c251987b1503ffaf1d79df9933862c7a692f01a5d65622c",
+    "published_final_run_freeze_sha256": "6fd3e5939fdb9289c1d7c6e83a379022ec94e81a07001ada3781b356a7689ab2",
+    "published_aggregate_metrics_sha256": "9334ec8d3e89bc773ee501fa59f53a415df680f2a83a5b1000b0968ba4368806"
+  },
+  "run": {
+    "id": "c008-final-short-text-v1",
+    "date": "2026-11-22",
+    "split_manifest_version": "c002-split-v1",
+    "documents": 183,
+    "distinct_groups": 183,
+    "canonicalization_version": "nfc-lf-v1",
+    "python": "3.13.7"
+  },
+  "forced_choice": {
+    "correct": 176,
+    "total": 183,
+    "accuracy": 0.9617486338797814,
+    "macro_f1": 0.9582,
+    "weighted_f1": 0.9616,
+    "labels": [
+      "Cardiovascular / Pulmonary",
+      "Orthopedic",
+      "Gastroenterology",
+      "Neurology",
+      "Urology"
+    ],
+    "confusion_matrix": [
+      [
+        54,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        46,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        31,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        25,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        20
+      ]
+    ]
+  },
+  "selective": {
+    "correct": 169,
+    "incorrect": 5,
+    "abstained": 9,
+    "classified": 174,
+    "coverage": 0.9508196721311475,
+    "classified_accuracy": 0.9712643678160919
+  },
+  "c007_b005_rehearsal_artifact_sha256": "3bbf1c648c6ebd69036ee933c58b7e96cf1a0f5bf60975d1cafe7f59ec09fd6a",
+  "reporting_notes": [
+    "The C-008 final short-text artifact differs from the C-005 artifact used in the C-007 and B-005 rehearsals.",
+    "Bind the actual classifier version and artifact in the D-009 system freeze. Use these aggregate results only for final reporting.",
+    "D verified the published aggregate results and did not open held-out texts or per-document predictions."
+  ],
+  "d_final_execution": {
+    "status": "pending_approved_freeze_and_execution_scope",
+    "guard_exit_code": 2
+  }
+}

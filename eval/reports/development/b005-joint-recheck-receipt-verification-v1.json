@@ -1,0 +1,31 @@
+{
+  "version": "d-b005-joint-recheck-receipt-verification-v1",
+  "date": "2026-11-22",
+  "status": "owner_joint_classifier_replay_receipt_verified",
+  "receipt_sha256": "a7a0412720b243c1aac4cb86e27ad5f64c861b985e60084f06d8502d5c2dda06",
+  "platform_commit": "9cdab928923056f31dd1f37ab4b569cc638999ab",
+  "classifier_commit": "7181a1abdf7831bb247510821c886b0e031d5de0",
+  "manifest_pins_verified": 2,
+  "model_versions_verified": 2,
+  "reported_fitted_checks_passed": 12,
+  "report_records_verified": 4,
+  "report_http_status": 201,
+  "document_ids_valid_and_distinct": 4,
+  "canonical_hashes_match_exact_d_examples": true,
+  "supported_reports": 2,
+  "uncertain_reports_with_null_specialty": 2,
+  "reported_request_id_correlation": "passed_for_all_four_probe_classifications",
+  "readiness_http_status_per_model": 200,
+  "classifier_port_reported_released": true,
+  "findings_summaries_and_answers_remain_mocked": true,
+  "mismatches": [],
+  "verification_scope": "D checked owner receipt fields against pinned manifests, model versions and exact synthetic input hashes.",
+  "runtime_replayed_by_d_for_this_receipt": false,
+  "limitations": [
+    "Receipt provides correlation outcomes, not raw request-ID pairs.",
+    "Per-specialty score vectors and underlying browser traces are not attached to this receipt."
+  ],
+  "full_b005_task_closed": false,
+  "published_documentation_commit": "22ca6a38c9b83fb1616aab2bd5ede73f3a60f9fd",
+  "documentation_pins_verified": true
+}

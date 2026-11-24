@@ -1,0 +1,318 @@
+{
+  "version": "d009-reconciled-candidate-identity-v1",
+  "date": "2026-11-24",
+  "status": "verified_candidate_identity_not_executable_freeze",
+  "source_manifest_sha256": "52312604f4ccc06b75113d4f56b680fcf394a61b678d53a5ee689fb3363167ab",
+  "replacement_author_release_sha256": "b92a947388b1ad3b70c2e6ea5ef15bf5dd618bffda3bdd4d9665975c84613c2c",
+  "replacement_reviewer_receipt_sha256": "93b6d5a302433c4dfef552afba2e3bb15fd4a3d896986d0bcdf31c1fe8123aa7",
+  "case_count": 26,
+  "archive_pins": {
+    "runtime": {
+      "file": "d009-runtime-candidate-v1.zip",
+      "sha256": "a96ebf7829e96be6cc213e45220a215e37a04f9fd4cbb4364b5b8c3a4ff024f7"
+    },
+    "scoring": {
+      "file": "d009-scoring-candidate-v1.zip",
+      "sha256": "5fdef0a182d35eb79e43736dd6d284c3cf07462831f548ffe5c6f511c04d1a3f"
+    },
+    "replacement_review": {
+      "file": "d009-three-replacements-review-v2.zip",
+      "sha256": "d985f0e90105b145b0a4308e030d428dbe03e8fba461c8ee4b18138facd573c8"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "F-DOC-01",
+      "case_version": "v2",
+      "requested_route": "document_only",
+      "case_file_sha256": "c9531cbeb53d906b674201915d6cecb7651695a5e5f4f4091374475529c725a7",
+      "runtime_entry_sha256": "6bf02a6db53c09ba55d151821eadf10bc8b8082f120e7164bf1befcf2907c10e",
+      "scoring_entry_sha256": "00778b11f72a4ade94e3a5f37990ddb628a5caebcae03c02bf579c7a2dc4c411",
+      "canonical_text_sha256": "379e2d1d6a623ea31d5151190494d6b6c0b6610909534be843bf9f06790fce65",
+      "source_family_id": "d007-sara-original-overnight-eeg-event-marker-v1",
+      "source_document_id": "d007-sara-synthetic-f-doc-01-v2"
+    },
+    {
+      "case_id": "F-DOC-02",
+      "case_version": "v2",
+      "requested_route": "document_only",
+      "case_file_sha256": "03af89982ad561f7d10b2a9073c73ffa9be8e868f156815f06427f39b688d794",
+      "runtime_entry_sha256": "7477da974f449944ea746188c656700cfea4b4b67ea3c8ae1a3deb085c41a704",
+      "scoring_entry_sha256": "bfe9b6077ff9d44cf67fcaa9103bb3bac27c928f9da7caf6c241d937a0d140a9",
+      "canonical_text_sha256": "71ea93472e4786f06bf6cef72791d5ec461c21a6cd4b10439734ffc5a914538a",
+      "source_family_id": "d007-sara-original-stent-return-label-addendum-v1",
+      "source_document_id": "d007-sara-synthetic-f-doc-02-v2"
+    },
+    {
+      "case_id": "F-DOC-03",
+      "case_version": "v2",
+      "requested_route": "document_only",
+      "case_file_sha256": "afbc6ceee147e78e787293d07b6b83777a04541505a71aadb1be1f2f524ec2e6",
+      "runtime_entry_sha256": "b59ee77355c69828025ef5cf3d81880cb68de148ca37a7192c5a43143f6af4ad",
+      "scoring_entry_sha256": "ab8d9e240744c5884a370e86e9cf748b0b2b69725cb19b21766a9fc29f309eb6",
+      "canonical_text_sha256": "eb48f458757f448155611881103707bfdf3541d2fe30476282b9038289f60f54",
+      "source_family_id": "d007-sara-original-orthotic-fitting-trial-and-issued-insert-v1",
+      "source_document_id": "d007-sara-synthetic-f-doc-03-v2"
+    },
+    {
+      "case_id": "F-DOC-04",
+      "case_version": "v1",
+      "requested_route": "document_only",
+      "case_file_sha256": "95a729d80189a9ba273b266d724a77b6a4d4508c5fbbd01e7c5ce6248e919dbb",
+      "runtime_entry_sha256": "ee3a709154aaddfcc66b634434bff1ce7d09c281abe9c4a79cada37e6b4fef2a",
+      "scoring_entry_sha256": "44c658ba16815c891a79e358da6bb564819afbc579aa97e2ed2a65af96f02736",
+      "canonical_text_sha256": "dd23472d983c80d6befece7aa3b938cfa99f4181cac013b636bfd9948a90ba2d",
+      "source_family_id": "d007-sara-original-symptom-subject-and-timing-v1",
+      "source_document_id": "d007-sara-synthetic-f-doc-04-v1"
+    },
+    {
+      "case_id": "F-DOC-05",
+      "case_version": "v1",
+      "requested_route": "document_only",
+      "case_file_sha256": "872233cdf1496579045f7cbc108f9171b6a17cfaab89249598fbe02a1e05b656",
+      "runtime_entry_sha256": "079d1e25ad5bd5c7d885cdf0a418b5436caa9ab00c2b980c86cb09cf36e53081",
+      "scoring_entry_sha256": "fcbce32e0f76a6a606e2596881ec68241eaa4bce3a1e35754752c28a28435349",
+      "canonical_text_sha256": "35402a8f04c1537985e9a9e9249fd1a20cce6bf248b2a2cb237cf9837aa6f4ec",
+      "source_family_id": "d007-sara-original-urine-diary-amendment-v1",
+      "source_document_id": "d007-sara-synthetic-f-doc-05-v1"
+    },
+    {
+      "case_id": "F-DOC-06",
+      "case_version": "v2",
+      "requested_route": "document_only",
+      "case_file_sha256": "f7f3a8d604298bc96024d7c4d59a63b0bdfb90764ddaa2a13c79d060b1ae66a4",
+      "runtime_entry_sha256": "91d87dd424671d7f035e4ba05185e12babef0d6d2c9ac59d31f111f3fcf98035",
+      "scoring_entry_sha256": "66e25546345ed1abe27d1b5550405efa51141d7de5096be268dc0d68e69159f0",
+      "canonical_text_sha256": "807c7acebb7a53bee3f8b4dc66b70e9ba846d1445c48be0c2847e0a0aec09c4e",
+      "source_family_id": "d007-sara-original-rehabilitation-visit-contrast-v1",
+      "source_document_id": "d007-sara-synthetic-f-doc-06-v1"
+    },
+    {
+      "case_id": "F-DOC-07",
+      "case_version": "v1",
+      "requested_route": "document_only",
+      "case_file_sha256": "0bb4b8ce1033ce8a84494d3f4d688f4c51c9a31de872a4eb27d4fbcd901ab52f",
+      "runtime_entry_sha256": "27b3f1bb24ff916ae9c630edc1d1bbfb975f795dde169c9be148aae9ca478c16",
+      "scoring_entry_sha256": "a8672fe38204563cf4cb29025895e0fd5ad2b5246d9bf8e00d7ba882b8888c5a",
+      "canonical_text_sha256": "e3e5df3652ec02fcaaa98749aa8e61a9add48f9f8aee07c43e160488509ff000",
+      "source_family_id": "d007-sara-original-unavailable-laboratory-result-v1",
+      "source_document_id": "d007-sara-synthetic-f-doc-07-v1"
+    },
+    {
+      "case_id": "F-DOC-08",
+      "case_version": "v1",
+      "requested_route": "document_only",
+      "case_file_sha256": "0db1906daa166b4716217e36eae44c1d8340f2c1c39a1564b1bd516233146a30",
+      "runtime_entry_sha256": "03ae782819ea27f4212f40536c7f0465ad053a4c043688c0efaa85d4cd3efeab",
+      "scoring_entry_sha256": "11b3def1accc1df41b8c40651d2282efb47844b22bb070ae2370be666b7225ab",
+      "canonical_text_sha256": "2e0bf2be06ebaac0fe5f91ea0a776c00979cc291dd7d590f259dbdc2f8d0df57",
+      "source_family_id": "d007-sara-original-unavailable-imaging-interpretation-v1",
+      "source_document_id": "d007-sara-synthetic-f-doc-08-v1"
+    },
+    {
+      "case_id": "F-LIT-01",
+      "case_version": "v1",
+      "requested_route": "literature_only",
+      "case_file_sha256": "f3b03474673d8fce2596b7af231a77123e1503eb25fb2c7c161fa298c2d7ae3f",
+      "runtime_entry_sha256": "8fd3874b90bf302ee01d5e19de4114953d6066a761547459435aa5162bf672ed",
+      "scoring_entry_sha256": "832fac5059ded220a7c093961fb12cc34839a5e48147f6c475f4a72e6e8d8672",
+      "canonical_text_sha256": null,
+      "source_family_id": null,
+      "source_document_id": null
+    },
+    {
+      "case_id": "F-LIT-02",
+      "case_version": "v1",
+      "requested_route": "literature_only",
+      "case_file_sha256": "ceabb859c0b09871a061362920a77cfd1a82ecb2efe1ab46952119c3c18a927b",
+      "runtime_entry_sha256": "2c642f0d149fabcbd7a2141605068a994b9110207ddee5718408d086ffcf41b2",
+      "scoring_entry_sha256": "91abe5a0f0f3345738a0efdeab0e0c0da7d089904dc34fdcbd7bf6e6e64b5bda",
+      "canonical_text_sha256": null,
+      "source_family_id": null,
+      "source_document_id": null
+    },
+    {
+      "case_id": "F-LIT-03",
+      "case_version": "v1",
+      "requested_route": "literature_only",
+      "case_file_sha256": "561a3ace23895f7b125da3cf30404ef719b4ac1c45646ef1a312c09951eb2bd3",
+      "runtime_entry_sha256": "53033b5ca6c2e14fccee294ab1bee7beb8b1164347d1d39fb5a90f52143aae36",
+      "scoring_entry_sha256": "9b6b3046f3d0603ea8c0b03a40a888231ff6e608fa378bbcdfdcf0d1eccf127f",
+      "canonical_text_sha256": null,
+      "source_family_id": null,
+      "source_document_id": null
+    },
+    {
+      "case_id": "F-LIT-04",
+      "case_version": "v1",
+      "requested_route": "literature_only",
+      "case_file_sha256": "eb4a2f030dbf254b3fcb5a3c2483b394d493fe120a3191057b65a52912cd1c6b",
+      "runtime_entry_sha256": "91acc5b50ee44437322a44094b5c21387b062c615c566c0309ac4fd9640f2b77",
+      "scoring_entry_sha256": "8cfa892702928c54f8cd4f8361c54f7d8199137488c207105f7e6c54734c1cd1",
+      "canonical_text_sha256": null,
+      "source_family_id": null,
+      "source_document_id": null
+    },
+    {
+      "case_id": "F-LIT-05",
+      "case_version": "v1",
+      "requested_route": "literature_only",
+      "case_file_sha256": "f6a088a4717d4f3e9466110a290ffd5be154ad7a98e59fc7484aa794d691a55f",
+      "runtime_entry_sha256": "f62026cacac99f25c0cefe2c4161c32ba6ff98a37cdb4509e86fcd74d58e603e",
+      "scoring_entry_sha256": "c0f1de6f3640e16b2e0686afd7e2d7329652f5e60e723acd62105d517fa951e4",
+      "canonical_text_sha256": null,
+      "source_family_id": null,
+      "source_document_id": null
+    },
+    {
+      "case_id": "F-LIT-06",
+      "case_version": "v1",
+      "requested_route": "literature_only",
+      "case_file_sha256": "4b0bc4534f0012bb7d53dee55719068cd6dc50e098e0aa002bc92d40342a29ff",
+      "runtime_entry_sha256": "ec82562986d0926810e7f46f11556b42718aaf09bf81ffb69bfe570b75adee54",
+      "scoring_entry_sha256": "5d86c1fa8d90b80394abe956a048add28f75a090c9f08771cfbfcedf83f1a142",
+      "canonical_text_sha256": null,
+      "source_family_id": null,
+      "source_document_id": null
+    },
+    {
+      "case_id": "F-LIT-07",
+      "case_version": "v1",
+      "requested_route": "literature_only",
+      "case_file_sha256": "792353a30a4ecd758d54379a9abf455f383d7f57be49079b7aa5a4254dd36e61",
+      "runtime_entry_sha256": "1549f0bac5fa975c5714a4d017f7368c16f2d66e4116bb0fea4efd73677a95c9",
+      "scoring_entry_sha256": "5798203bee9bb0667b4415c0888a021d334ac96eae5f399d4418e07d395814d6",
+      "canonical_text_sha256": null,
+      "source_family_id": null,
+      "source_document_id": null
+    },
+    {
+      "case_id": "F-LIT-08",
+      "case_version": "v1",
+      "requested_route": "literature_only",
+      "case_file_sha256": "1b32620173c9ae67fe902d4e55ea3b075e496c3db3c2f4021d04c6c3b8a2581c",
+      "runtime_entry_sha256": "b3bb2eb58672123c8788849a96070f06b1a9166887b19b7327f9fc2328449bac",
+      "scoring_entry_sha256": "ca7a03dd5bcd0a46a60e7344ba587b4a2a6facd8267e3e6a0f8366db0ab13b62",
+      "canonical_text_sha256": null,
+      "source_family_id": null,
+      "source_document_id": null
+    },
+    {
+      "case_id": "F-MIX-01",
+      "case_version": "v1",
+      "requested_route": "mixed",
+      "case_file_sha256": "8b1874b79a5de04805c4f08530f9f5bc66db5af4d8250081cc731d5cba9130f0",
+      "runtime_entry_sha256": "c03e7d16d26dc12d7d702a4e31334fe4958c853eb7dcb4907b555a5f2e83deeb",
+      "scoring_entry_sha256": "4d2b52b72b810f44f594ee480f2cb8722450d989b4b033e6d16ddc5bc1999571",
+      "canonical_text_sha256": "6931870d133057c17814045d97a619e89d32d4b8553afe20705251492b481936",
+      "source_family_id": "d007-sara-original-sleep-log-referral-v1",
+      "source_document_id": "d007-sara-synthetic-f-mix-01-v1"
+    },
+    {
+      "case_id": "F-MIX-02",
+      "case_version": "v1",
+      "requested_route": "mixed",
+      "case_file_sha256": "cb2de7a25accd1b1b6b34db7ecc279c1a18db4be0c3276e13a37696c943e2a42",
+      "runtime_entry_sha256": "1e8f506099a0c466b7aa45270cd81b91a0c938f8dd64e598e4189ce20573f5aa",
+      "scoring_entry_sha256": "e3ffd104dcc62f1f3bcd82dab05c7eeaf5700dba33402b9d0069be8eb6e80604",
+      "canonical_text_sha256": "77660446540417883bf231f4a2c4775b6385659d20f518c58cb0379b64148e91",
+      "source_family_id": "d007-sara-original-stone-follow-up-imaging-v1",
+      "source_document_id": "d007-sara-synthetic-f-mix-02-v1"
+    },
+    {
+      "case_id": "F-MIX-03",
+      "case_version": "v1",
+      "requested_route": "mixed",
+      "case_file_sha256": "c48be35406610d970d24a7907377796b8a487afbc631e36ce0947b448dc3d997",
+      "runtime_entry_sha256": "ba9a7fdf69e96ed7992120b79f11c820e7cdec70fc9a3f6143e855b9b4f51ead",
+      "scoring_entry_sha256": "6e9ae9249ec4c9eccbb2ba7165cfd1a313e7334985a2f1ba895abe1b7738c4b6",
+      "canonical_text_sha256": "ce0a2019787427f232bff9df06dd9f809ce18f8131904dc7c06f35677d579e1e",
+      "source_family_id": "d007-sara-original-bone-density-discussion-v1",
+      "source_document_id": "d007-sara-synthetic-f-mix-03-v1"
+    },
+    {
+      "case_id": "F-MIX-04",
+      "case_version": "v1",
+      "requested_route": "mixed",
+      "case_file_sha256": "c08f1593e779eed5b3f3c6a4e4e968358b6b0617394513038f594a9f0cf6c6cc",
+      "runtime_entry_sha256": "e222aa5bc2328e11e1294066ce6c805d9802ca4c2c1367105ddfa51d049d11dc",
+      "scoring_entry_sha256": "3c6e1dcc82da02326d412af522639c3db63b798858daf128f8a07054998daf43",
+      "canonical_text_sha256": "6f4da0461273cf6d7b2702d6450705f3b23baa7b6d49fec7a648234d17ec9373",
+      "source_family_id": "d007-sara-original-digestive-referral-workup-v1",
+      "source_document_id": "d007-sara-synthetic-f-mix-04-v1"
+    },
+    {
+      "case_id": "F-MIX-05",
+      "case_version": "v1",
+      "requested_route": "mixed",
+      "case_file_sha256": "135b7e4735995a9f0cee2f5ee9fd8cf70ea47e431295d6ea3d053725e660ae4f",
+      "runtime_entry_sha256": "4782b7056f510bf442aafb9f97f9381c621a29b1e7a25921aa6b5704763bdac9",
+      "scoring_entry_sha256": "e6453b7ec0a9453d42d9bcab3fe827600048e87bd58ea6a45f2cb72de06e3f88",
+      "canonical_text_sha256": "d0cc9d2ed5596b5b6ffdbfe339d2ff4035d6e5514fdf48dbd6ee20bbc35027e8",
+      "source_family_id": "d007-goran-synthetic-completed-imaging-comparison-record-v1",
+      "source_document_id": "d007-goran-f-mix-05-source-v2"
+    },
+    {
+      "case_id": "F-MIX-06",
+      "case_version": "v1",
+      "requested_route": "mixed",
+      "case_file_sha256": "67efcb71f29ac2779ea2d1007671b8e02a4b4be10e1fdf6bacc57b3f6d832521",
+      "runtime_entry_sha256": "feb7146cf4808880bab679fbfca30aa683d9110902a5d88003bf3a1d17d40194",
+      "scoring_entry_sha256": "c1cee0562c40cfe02dfdb6b4f894b28ab0a1f4b87696db0aa874211425cb13f1",
+      "canonical_text_sha256": "7326ff784f384e46b5be7c565b4bda9b3c4fdce087b731b72b9d6899f5b644db",
+      "source_family_id": "d007-goran-synthetic-communication-preference-intake-v1",
+      "source_document_id": "d007-goran-f-mix-06-source-v2"
+    },
+    {
+      "case_id": "F-MIX-07",
+      "case_version": "v1",
+      "requested_route": "mixed",
+      "case_file_sha256": "1a54b8d6490511902559da1c5876ccaaf63a27d20d2914d55c1516e97da426bb",
+      "runtime_entry_sha256": "7092da1536b966d288d09281b2ab7524fa0bc93f8157e628614d828a66ea6153",
+      "scoring_entry_sha256": "863e7bccba659ca8689c7cbaa72f6900eb81a717cda589807546f7e856da11ef",
+      "canonical_text_sha256": "b7b0b8ef2e7ad92cf9eead39c672cfa8f08436779e553983a5f01d2378b0036a",
+      "source_family_id": "d007-goran-synthetic-remote-device-transmission-receipt-v1",
+      "source_document_id": "d007-goran-f-mix-07-source-v2"
+    },
+    {
+      "case_id": "F-MIX-08",
+      "case_version": "v1",
+      "requested_route": "mixed",
+      "case_file_sha256": "a41f00814ee82628ed6bb20c7aec4e3c53755cca5b4063d61c8edb6dcf84106e",
+      "runtime_entry_sha256": "21385603b46bed1ea31e4db3865fd25bddf7365ee02f3bd1054ce8d40acf596e",
+      "scoring_entry_sha256": "54490a636e1181e1a795aedfdf66c02862fbcc8d44b570acb4f4e21470eabcbd",
+      "canonical_text_sha256": "140ef6285b45211497ee6ae2ca34e3bb3d76e36cc053ac6ebe8c99804de6063e",
+      "source_family_id": "d007-goran-synthetic-ostomy-supply-inventory-v1",
+      "source_document_id": "d007-goran-f-mix-08-source-v2"
+    },
+    {
+      "case_id": "F-OOS-01",
+      "case_version": "v1",
+      "requested_route": "out_of_scope",
+      "case_file_sha256": "59b8bda303bd1ce6f635c16eaba7aeb380f96148656e8b10449aa1ae1b641b7c",
+      "runtime_entry_sha256": "2a91489020ca8a61187449aadfad77892aa7beba26b6a6f41307af7016317d97",
+      "scoring_entry_sha256": "9794402c62eba01f7d378135f9bfbc2f685e729cef036421c3b8618dfbcdfae1",
+      "canonical_text_sha256": null,
+      "source_family_id": null,
+      "source_document_id": null
+    },
+    {
+      "case_id": "F-OOS-02",
+      "case_version": "v1",
+      "requested_route": "out_of_scope",
+      "case_file_sha256": "5ecd1c292ce8809c2bf44aede3244ccc7b3e8d023d43b4818c2f10a201a823f0",
+      "runtime_entry_sha256": "05e0476ab02dd5e62fbc0f4b43004fb9816bbbdf5a8474adbcfd5b5f71623224",
+      "scoring_entry_sha256": "8e9c1c9c43e94c4cb12c8cedab22382527630a7d0aa47086d5069414589fc528",
+      "canonical_text_sha256": null,
+      "source_family_id": null,
+      "source_document_id": null
+    }
+  ],
+  "replacement_approvals_verified": [
+    "F-DOC-01",
+    "F-DOC-02",
+    "F-DOC-03"
+  ],
+  "previous_exposed_v1_cases": "Retired from candidate; supplementary only",
+  "final_execution_authorized": false
+}

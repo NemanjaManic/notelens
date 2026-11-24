@@ -1,4 +1,4 @@
-import { randomBytes, randomUUID } from 'node:crypto';
+import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import { validateRecord } from '@notelens/contracts/v1';
 import type { ExtractionResult, PreparedDocument } from '@notelens/contracts/v1';
 import type { MockResult } from '../clients/mock-services.ts';
@@ -6,7 +6,7 @@ import type { RoutedAnswer } from '../routing/answer.ts';
 import type { QuestionPlan } from '../routing/demo-questions.ts';
 import {
   DOCUMENT_LIFETIME_MS, MAX_ACTIVE_DOCUMENTS, MAX_ACTIVE_SESSIONS, MAX_DOCUMENT_CODE_POINTS,
-  MAX_HISTORY_BYTES, MAX_HISTORY_TURNS, MAX_NEW_SESSIONS, MAX_QUESTIONS_PER_WINDOW,
+  MAX_HISTORY_BYTES, MAX_HISTORY_TURNS, MAX_NEW_SESSIONS, MAX_QUESTIONS_PER_WINDOW, MAX_QUESTIONS_PER_SESSION,
   QUESTION_RATE_WINDOW_MS, SESSION_IDLE_MS, SESSION_LIFETIME_MS, SESSION_RATE_WINDOW_MS, sessionConfiguration,
 } from '../config/session-policy.ts';
 
@@ -21,6 +21,7 @@ type Session = {
   entries: Map<string, Entry>;
   cancel: () => void;
   questionAdmissions: number[];
+  submittedQuestions: Set<string>;
   pendingQuestion?: PendingQuestion;
 };
 export type SessionRuntime = {
@@ -64,10 +65,12 @@ export class MemorySessions {
   #closed = false;
   #lastTime = -Infinity;
   #runtime: SessionRuntime;
+  #interactiveQuestions: boolean;
 
-  constructor(options: { mode?: string; runtime?: SessionRuntime } = {}) {
+  constructor(options: { mode?: string; runtime?: SessionRuntime; interactiveQuestions?: boolean } = {}) {
     sessionConfiguration(options.mode);
     this.#runtime = options.runtime ?? runtime;
+    this.#interactiveQuestions = options.interactiveQuestions ?? true;
   }
 
   #now(): number {
@@ -117,7 +120,7 @@ export class MemorySessions {
 
     const capability = randomBytes(32).toString('base64url');
     const session: Session = {
-      deadline: now + SESSION_LIFETIME_MS, lastActivity: now, entries: new Map(), cancel: () => {}, questionAdmissions: [],
+      deadline: now + SESSION_LIFETIME_MS, lastActivity: now, entries: new Map(), cancel: () => {}, questionAdmissions: [], submittedQuestions: new Set(),
     };
     this.#scheduleExpiry(capability, session, SESSION_IDLE_MS);
     this.#sessions.set(capability, session);
@@ -206,11 +209,21 @@ export class MemorySessions {
     return entry.extraction ??= dispatch();
   }
 
-  beginQuestion(capability: string, docId: string) {
+  beginQuestion(capability: string, docId: string, plan?: QuestionPlan) {
     const now = this.#now();
     const session = this.#activeSession(capability, now);
     if (!session || !activeDocument(session, docId, now)) return UNAVAILABLE;
     if (session.pendingQuestion) return { kind: 'busy' } as const;
+    let questionKey: string | undefined;
+    if (this.#interactiveQuestions) {
+      if (!plan) throw new Error('A question plan is required.');
+      const normalize = (text = '') => text.trim().replace(/\s+/gu, ' ').toLowerCase();
+      questionKey = createHash('sha256').update(JSON.stringify([docId,
+        normalize(plan.document), normalize(plan.literature),
+        plan.document || plan.literature ? '' : normalize(plan.label)])).digest('hex');
+      if (session.submittedQuestions.has(questionKey)) return { kind: 'duplicate' } as const;
+      if (session.submittedQuestions.size >= MAX_QUESTIONS_PER_SESSION) return { kind: 'quota' } as const;
+    }
     session.questionAdmissions = session.questionAdmissions.filter(time => now - time < QUESTION_RATE_WINDOW_MS);
     if (session.questionAdmissions.length >= MAX_QUESTIONS_PER_WINDOW) {
       const retryAfter = Math.ceil((session.questionAdmissions[0] + QUESTION_RATE_WINDOW_MS - now) / 1000);
@@ -218,6 +231,8 @@ export class MemorySessions {
     }
     const id = randomUUID();
     session.pendingQuestion = { id, docId, keep: true };
+    // Reserve before dispatch; failures, history clearing and document removal do not refund a slot.
+    if (questionKey !== undefined) session.submittedQuestions.add(questionKey);
     session.questionAdmissions.push(now);
     session.lastActivity = now;
     return { kind: 'admitted', id } as const;

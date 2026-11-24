@@ -1,0 +1,36 @@
+{
+  "version": "d005-reviewed-service-handoff-candidate-v2",
+  "date": "2026-11-23",
+  "status": "blocked_provider_input_rejection_no_outputs_to_review",
+  "service_sha": "30fa30b372489c2a03c1579cf27081f629992bc4",
+  "runtime_verified": "3.13.7",
+  "model_pin": "gpt-6-luna",
+  "input_format": "messages",
+  "artifact_pins": {
+    "services/extraction/uv.lock": "626b44bcd33a7f2acb782a13b0339949a80adf255a79893bbff94e287cb0dec4",
+    "services/extraction/src/notelens_extraction/prompts/extract-v1.txt": "f50d4c263f42a59aac022175d0bcb765dbc744f656ee879c0407ba4cfd413882",
+    "services/extraction/src/notelens_extraction/prompts/answer-v1.txt": "e9f40eff22c9c1ec0e2db7703bb47c0f886a0b331157821d4187f55de04b4ed1",
+    "contracts/generated/python/src/notelens_contracts/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78"
+  },
+  "offline_service_tests": 107,
+  "live_calls_this_preparation": 0,
+  "startup_steps": "docs/extraction-eval/d004-d005-completion-v2.md",
+  "successful_receipt_reference": null,
+  "provider_output_review_findings": null,
+  "review_checklist": [
+    "Extraction mention accuracy, assertion, temporality, subject and procedure status.",
+    "Summary/document answer support, completeness, English and exact citations to the selected document.",
+    "Identity/hash, Unicode code-point spans, component model/mode/provider and explicit gaps.",
+    "Record actual usage or its absence; preserve failure diagnostics and every receipt."
+  ],
+  "app_acceptance_owner": "Goran; after D output review. Any further provider calls need their own bounded approval; startup does not grant an extra budget.",
+  "current_limitations": [
+    "No successful provider outputs exist to review.",
+    "Two synthetic smoke outputs cannot establish all sufficient/partial/insufficient/out-of-scope behaviors or broader quality.",
+    "Configured app acceptance, deployment and unseen final measurement remain pending."
+  ],
+  "d005_closed": false,
+  "message_sent": false,
+  "failed_execution_receipt": "eval/reports/development/d004-live-trial-execution-v2.json",
+  "latest_attempt": "v2 extraction rejected HTTP 400 invalid_request_error parameter input; stopped before answer. No output or usage available."
+}

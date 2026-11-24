@@ -1,0 +1,87 @@
+{
+  "version": "d009-d011-delivery-evidence-package-v2",
+  "date": "2026-11-23",
+  "status": "development_improvement_measured_final_acceptance_blocked",
+  "private_package": "Predaja-NoteLens/D-009/D009-D011-evidence-and-open-gates-v2.zip",
+  "package_sha256": "fdcee0a350f869a8674dd018b38d72e1a73a34d14c1a70cae744818040a343c5",
+  "files": [
+    {
+      "path": "docs/extraction-eval/d005-coverage-candidate-handoff-v5.md",
+      "sha256": "c59801a59b8fad7c176c5fec1fad70d32c5189acc33331dc01593cf47cd421d2"
+    },
+    {
+      "path": "docs/extraction-eval/d009-d011-remaining-actions-v2.md",
+      "sha256": "c02c7ce9907c05f5756b227286c6f8615cb35ecf6d26a812b24e1de781eec717"
+    },
+    {
+      "path": "docs/extraction-eval/economic-improvement-v4.md",
+      "sha256": "a47e5c21d79e6e8df035a923492f200fffa81f652616832067a6c211dcca72fc"
+    },
+    {
+      "path": "docs/extraction-eval/final-report.md",
+      "sha256": "1af9b2fe63deb975f63d154bd54603ef803e739625efa6fe337e1512e41894cd"
+    },
+    {
+      "path": "docs/extraction-eval/milestone-state.md",
+      "sha256": "76085653bf4c696b11f01e463ef05822ce457e6c2816e15245a73939753e0754"
+    },
+    {
+      "path": "docs/extraction-eval/semantic-review-protocol-v1.md",
+      "sha256": "95e6831bbe32a550bc9ac169d5b02654d57c4228cb49bf020680a310651ab293"
+    },
+    {
+      "path": "eval/config/d009-final-freeze-candidate-v1.json",
+      "sha256": "116386f4841cba0db272e2447760574e3132ce6c88a4390a67d03e2ea8064ad6"
+    },
+    {
+      "path": "eval/reports/development/d005-coverage-candidate-handoff-v5.json",
+      "sha256": "90e8f89f276ce9151a71275acd4da99fc6c7b968f35005d7286dbdd0cd1973d9"
+    },
+    {
+      "path": "eval/reports/development/d005-coverage-candidate-package-v5.json",
+      "sha256": "d6e26a7298f31c55196a8beca3a81a45d8ed47cf0b5565b643739b53b47ade31"
+    },
+    {
+      "path": "eval/reports/development/d011-economic-acceptance-v4.json",
+      "sha256": "a46bcb438dccdd670daffb58708813efcca4333fd15cc236ed8ceb7f3562f10d"
+    },
+    {
+      "path": "eval/reports/development/d011-economic-comparison-plan-v4.json",
+      "sha256": "ccbc3333628b09e33610586a1cf5e3afb553e2dc4b89a7a3598e5990f22b502d"
+    },
+    {
+      "path": "eval/reports/development/d011-economic-comparison-results-v4.json",
+      "sha256": "ff9568aa58c1a8be4c9d1216d21b2c64fd9ea49c86341f73961e4c76ddf055a6"
+    },
+    {
+      "path": "eval/reports/development/d011-economic-execution-v4.json",
+      "sha256": "8113f06f6a2df7a99cd7aed0df47a6fcd3e22ecd3bd701c302240f4514ed4a3e"
+    },
+    {
+      "path": "eval/reports/development/d011-economic-verification-v4.json",
+      "sha256": "256a7ac0cd1afc2b3912865d9779ea5991665541f5729e0eb95893afad29a12f"
+    },
+    {
+      "path": "eval/reports/development/d011-semantic-protocol-adoption-v1.json",
+      "sha256": "4c865a4187f3be2856ad0627f88f477668216567bacd81c8f835e07b373259cf"
+    },
+    {
+      "path": "eval/reports/development/d011-semantic-review-preparation-v1.json",
+      "sha256": "37bd6408bd4bf3aa5f073712ee08eb2e3a3475a1a332aeb976501869c1f08f96"
+    },
+    {
+      "path": "eval/reports/final/d009-final-eligibility-proposal-v1.json",
+      "sha256": "e3691e67cc4493b6de4fbe9cbc9bede9e9b5df0b0e199f350525fd55d56a949d"
+    },
+    {
+      "path": "eval/reports/final/d009-final-readiness-v1.json",
+      "sha256": "85d34beeba3170e63d96c79086faa3dba5ec54824e86b7c58cd10f0547c55ea1"
+    }
+  ],
+  "source_texts_questions_gold_answers_or_credentials_included": false,
+  "new_provider_calls_in_packaging": 0,
+  "external_messages_sent": false,
+  "d011_closed": false,
+  "d009_closed": false,
+  "logical_commits": "Pending workspace-credit restoration for automatic approval review; no bypass."
+}

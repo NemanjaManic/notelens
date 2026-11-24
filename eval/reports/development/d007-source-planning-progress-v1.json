@@ -1,0 +1,31 @@
+{
+  "version": "d007-source-planning-progress-v1",
+  "date": "2026-11-22",
+  "source": "Sara and Goran messages plus the local joint draft received by Milica",
+  "final_slots_total": 26,
+  "sara_preliminary_slots_reported_checked": 13,
+  "sara_preliminary_overlap_matches_reported": 0,
+  "goran_planned_sources_pending": 0,
+  "joint_overlap_check_completed": false,
+  "planned_source_list_version": "d007-final-source-intake-joint-draft-v1",
+  "planned_source_list_sha256": "62ea81cd89207ab029ffca163a688ee59f0c15fe7f533e0960c60867a03026da",
+  "d_source_slots_verified": 0,
+  "named_editor_account_confirmation": "Goran explicitly requested keeping current named permissions. Any additional Editor account awaits his separate confirmation.",
+  "final_qa_content_received_by_d": false,
+  "final_freeze_completed": false,
+  "goran_source_entry_commitment": "Goran will add sources for his thirteen slots before the joint 26-slot check; no completed entries were supplied.",
+  "source_list_version": "d007-final-source-intake-joint-draft-v1",
+  "source_list_sha256": "62ea81cd89207ab029ffca163a688ee59f0c15fe7f533e0960c60867a03026da",
+  "d_metadata_slots_screened": 26,
+  "d_metadata_slots_with_known_development_match": 0,
+  "planned_source_list_received_locally": true,
+  "restricted_folder_upload_confirmed": false,
+  "early_d_source_text_exposure_slots": [
+    "F-MIX-05",
+    "F-MIX-06",
+    "F-MIX-07",
+    "F-MIX-08"
+  ],
+  "new_unexposed_document_families_required": 4,
+  "latest_receipt": "eval/reports/development/d007-goran-planned-source-intake-receipt-v1.json"
+}

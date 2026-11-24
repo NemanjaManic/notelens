@@ -1,0 +1,102 @@
+{
+  "version": "d009-rag-platform-intake-v1",
+  "date": "2026-11-23",
+  "rag_pr_review": {
+    "pr": "https://github.com/NemanjaManic/notelens/pull/25",
+    "published_commit": "e4f05201dae090d9a801bc5e6ee5568c7f70d309",
+    "verified_head_matches_supplied_commit": true,
+    "state_at_review": "open",
+    "merged_at_review": false,
+    "base_commit": "d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4",
+    "commits": 1,
+    "changed_files_reviewed": 9,
+    "scope": "A-owned closure documentation, selected-configuration audit manifest, handoff and task records.",
+    "finding": "No blocking issue found in the nine-file handoff change.",
+    "review_type": "Agent source and artifact review for D technical intake.",
+    "formal_github_approval_posted": false,
+    "merged_by_d": false,
+    "ci_check": {
+      "name": "NoteLens key-free checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/NemanjaManic/notelens/actions/runs/45124207278/job/137524708433",
+      "source": "GitHub check-runs API for the exact PR head."
+    }
+  },
+  "a008_closure": {
+    "owner_status": "closed_in_published_pr",
+    "reference": "Nemanja-A008-frozen-development-results-v2.zip",
+    "archive_sha256": "5f96cc4a626a1081d41964097f16948250ba8096f867bc85ffa4d81609d05ff6",
+    "published_summary_sha256": "a5e9cd2cd5c9e6607fe0070dd2afd4b06b4e1f48880d1b43356c137319408ccc",
+    "published_aggregates_match_accepted_private_measurement": true,
+    "original_measurement_and_replay_file_hashes_reverified": 7,
+    "previously_replayed_case_method_results": 81,
+    "v1_checksum_entries": 17,
+    "v2_checksum_entries": 19
+  },
+  "a011_handoff": {
+    "owner_status": "selected_configuration_and_handoff_complete_in_published_pr",
+    "manifest_path": "services/rag/config/frozen-rag-v1.json",
+    "manifest_sha256": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
+    "pinned_files_verified_against_git_blobs": 56,
+    "pin_mismatches": 0,
+    "selected_retrieval": "vector_top_5",
+    "corpus_artifact_sha256": "4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938",
+    "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+    "output_reference_json_files_resolved": 5,
+    "locked_startup_and_shutdown_instructions_reviewed": true,
+    "manifest_role": "Audit artifact. Runtime startup uses the documented explicit backend configuration.",
+    "default_and_indexed_demo_mode": "mock",
+    "unseen_final_measurement": "not_run",
+    "new_operational_provider_allowance": false,
+    "d_technical_handoff_intake": "passed"
+  },
+  "source_identity_checks": {
+    "rebased_web_commit": "8d4d013c65edae0ce2d98efdbcc651ba27e4b720",
+    "original_reviewed_web_commit": "4fb192eb157d5e2fb47fc6afdda890af8c229d7e",
+    "launcher_commit": "14e4b9dfdfdd5832cae7f03d12e92cc5f9a00593",
+    "two_admission_files_byte_identical_across_web_snapshots": true,
+    "rag_corpus_contract_trees_at_web_and_launcher_match_measured_baseline": true
+  },
+  "platform_evidence": {
+    "received_file": "D-009-platform-evidence-summary.txt",
+    "file_sha256": "725e1433c96a14b25d6ed5cd3fb76257ff7c799f5e6e5c61a136e287f28c18dd",
+    "b008": {
+      "implementation_commit": "7d4bc528b5df43cb7216606c9bea02001de6aa2b",
+      "main_merge": "38a106038ce77df190c79781e4220ce2900ede5a",
+      "hosted_workflow_commit": "c14e3cd7dedd5c04c261528f4eadb2a5da3b620c",
+      "ci_run": "https://github.com/NemanjaManic/notelens/actions/runs/44786567870",
+      "ci_status_verified": "completed_success"
+    },
+    "b009": {
+      "reported_passing_chrome_rehearsal_commit": "91ce630082dd5f71f9702f81dc19d2916e40ec8b",
+      "formal_acceptance": "pending"
+    },
+    "classifier": {
+      "review_and_runbook_commit": "61298605e510aca457f52f3269f133733ff2a682",
+      "ci_run": "https://github.com/NemanjaManic/notelens/actions/runs/45087514525",
+      "ci_status_verified": "completed_success",
+      "prior_fitted_receipt_intake": "Preserved in the existing D receipt; this intake reviewed B's summary."
+    },
+    "rag_web_fix": {
+      "commit": "8d4d013c65edae0ce2d98efdbcc651ba27e4b720",
+      "ci_run": "https://github.com/NemanjaManic/notelens/actions/runs/45081498419",
+      "ci_status_verified": "completed_success"
+    },
+    "pr23_and_pr24_state_verified": "open_unmerged",
+    "b005_formal_integration_acceptance": "pending",
+    "d005_provider_backed_app_check": "pending_reviewed_d_service_startup_and_evidence",
+    "platform_browser_and_http_checks_repeated_by_d_in_this_intake": false
+  },
+  "remaining_for_d009": [
+    "Approved final QA/reference and system-configuration freeze.",
+    "Provider-backed D-004/D-005 service and application verification.",
+    "Remaining D-008 calibration, D-011 measurements and named threshold decisions, and D-013 adjudication.",
+    "B-005/B-009 formal integration and demo acceptance.",
+    "Approved final execution scope/operator/budget and the versioned final run/report."
+  ],
+  "full_d009_closed": false,
+  "new_provider_calls": 0,
+  "final_qa_sources_or_answer_keys_accessed": false,
+  "external_messages_or_reviews_posted": false
+}

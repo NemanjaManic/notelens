@@ -1,0 +1,35 @@
+{
+  "version": "notelens-final-evaluation-v1",
+  "approved": false,
+  "partition": "final",
+  "execution": "saved_outputs",
+  "approved_by": null,
+  "scope": null,
+  "reason": null,
+  "run_id": null,
+  "system_versions": {
+    "rag": null,
+    "classifier": null,
+    "extraction": null
+  },
+  "development_groups": {"path": "development-groups.json", "sha256": null},
+  "acceptance": {"path": "acceptance.json", "sha256": null},
+  "components": {
+    "extraction": {
+      "mode": "live",
+      "references": {"path": "extraction-references.json", "sha256": null},
+      "predictions": {"path": "extraction-predictions.json", "sha256": null}
+    },
+    "retrieval": {
+      "references": {"path": "retrieval-references.json", "sha256": null},
+      "predictions": {"path": "retrieval-predictions.json", "sha256": null}
+    },
+    "answer-risk": {
+      "references": {"path": "answer-risk-references.json", "sha256": null},
+      "predictions": {"path": "answer-risk-predictions.json", "sha256": null}
+    },
+    "classification": {
+      "report": {"path": "c008-owner-classification-evidence.json", "sha256": null}
+    }
+  }
+}

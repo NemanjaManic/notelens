@@ -1,0 +1,80 @@
+{
+  "version": "d004-live-trial-execution-v1",
+  "date": "2026-11-23",
+  "status": "both_distinct_prepared_operations_attempted_failures_recorded",
+  "operator_context": "Milica with agent assistance; explicit local continuation and supplied server-side credential.",
+  "app_source_sha": "c174d9647b6689b7a9069bee87e1313e0f4feaca",
+  "model": "gpt-6-luna",
+  "output_token_limit_each": 512,
+  "prepared_request_hashes": {
+    "extract": "e4b7678ef21ea8d4647e9950736a2808743ed2e5892d94b588a687c3a4df6f75",
+    "answer": "9d15e922752db3374643334de3e8f0b80b687b93fda37a316f6e7de1e0151136"
+  },
+  "new_inference_attempts": 2,
+  "retries": 0,
+  "operations": [
+    {
+      "operation": "extract",
+      "status": "failed_no_retry",
+      "code": "provider_unavailable"
+    },
+    {
+      "operation": "answer",
+      "status": "failed_no_retry",
+      "code": "provider_unavailable"
+    }
+  ],
+  "failure": {
+    "operation": "extract",
+    "code": "provider_unavailable",
+    "safe_message": "The Responses request was unsuccessful."
+  },
+  "provider_observations": [],
+  "fresh_worst_case_reservation_usd": "0.0028227",
+  "known_cumulative_worst_case_reservation_usd": "0.0056454",
+  "provider_billing_balance_confirmed": false,
+  "old_receipt_preserved": true,
+  "old_receipt_sha256": "16e688456c8e2f20405d8417ff5ac7cec1d142573f5692636c31b5ff464df0e4",
+  "private_execution_route": "Predaja-NoteLens/D-004/D004-live-trial-2026-11-23-v1",
+  "execution_runner_sha256": "272943e7bdcd5b884f9bd92a22385f58e996103bfcaf3c9d649ec2c849faa33a",
+  "ledger_sha256": "faa3ad71a3b2d3a9f593f761aa3d3ae824ed1723893e288ae19fbf8eb67cb860",
+  "provider_receipt_sha256": "16e688456c8e2f20405d8417ff5ac7cec1d142573f5692636c31b5ff464df0e4",
+  "model_metadata_get_count": 1,
+  "new_human_review_claimed": false,
+  "provider_outputs_semantically_reviewed": false,
+  "full_d004_closed": false,
+  "full_d005_closed": false,
+  "unseen_final_accessed": false,
+  "failures": [
+    {
+      "operation": "extract",
+      "code": "provider_unavailable",
+      "safe_message": "The Responses request was unsuccessful."
+    },
+    {
+      "operation": "answer",
+      "code": "provider_unavailable",
+      "safe_message": "The Responses request was unsuccessful."
+    }
+  ],
+  "http_metadata": [
+    {
+      "operation": "extract",
+      "http_status": null,
+      "limitation": "Original transport did not retain status on its non-200 response; extraction was not retried."
+    },
+    {
+      "operation": "answer",
+      "automatic_retries": 0,
+      "request_sha256": "9d15e922752db3374643334de3e8f0b80b687b93fda37a316f6e7de1e0151136",
+      "http_status": 400,
+      "request_id": "req_797995b4617a411da8d8ef9921f23485",
+      "provider_error_code": null,
+      "provider_error_type": "invalid_request_error",
+      "provider_error_param": "input"
+    }
+  ],
+  "remaining_distinct_answer_request_used": true,
+  "continuation_reason": "Execute the still-unused second approved prepared request once; do not repeat extraction or reset the cumulative reservation.",
+  "remaining_approved_inference_requests": 0
+}

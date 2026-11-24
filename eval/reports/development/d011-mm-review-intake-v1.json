@@ -1,0 +1,91 @@
+{
+  "version": "d011-mm-review-intake-v1",
+  "date": "2026-11-23",
+  "source": "Six reviews pasted by Milica in conversation; audit record, not a byte-identical archive of the pasted submission.",
+  "reviewer_alias": "mm",
+  "packet_sha256": "e2231100b47bc4ae9b39401cfcca0414a381bd462f54ad045bc59f920e01ad02",
+  "packet_hash_matches": true,
+  "all_six_source_hashes_match": true,
+  "all_six_response_hashes_match": true,
+  "independent_review_declared": false,
+  "status": "recorded_non_independent_human_feedback_with_ai_guidance",
+  "independent_semantic_risk": null,
+  "issues": [
+    {
+      "cases": "all six",
+      "field": "independent_review",
+      "observed": false,
+      "action": "Preserve declaration. Clarify reviewer identity and eligibility; never flip solely to make review pass."
+    },
+    {
+      "cases": "all six",
+      "field": "completed_at",
+      "observed": "2026-11-23",
+      "action": "Reviewer supplies actual completion time and timezone; no invented timestamp."
+    },
+    {
+      "cases": [
+        "D011-SR-003"
+      ],
+      "field": "human_reviewed",
+      "observed": false,
+      "action": "Reviewer confirms whether this case was personally reviewed."
+    },
+    {
+      "cases": [
+        "D011-SR-004"
+      ],
+      "field": "human_reviewed",
+      "observed": "Missing; submitted human review: true instead.",
+      "action": "Correct field name in an explicitly tracked normalized successor, preserving original declaration."
+    },
+    {
+      "cases": [
+        "D011-SR-005",
+        "D011-SR-006"
+      ],
+      "field": "ai_assistance_disclosure",
+      "observed": false,
+      "action": "Requires a clear textual account of actual AI assistance. Other four use string false; clarify meaning for all six."
+    },
+    {
+      "cases": [
+        "D011-SR-005"
+      ],
+      "field": "needs_adjudication",
+      "observed": true,
+      "action": "Preserve clarity score 1 and original rationale. Resolve duplication judgment explicitly before strict protocol scoring."
+    }
+  ],
+  "verified_abstention": {
+    "case_id": "D011-SR-003",
+    "provider_status": "completed",
+    "validated_status": "returned_valid",
+    "evidence_state": "insufficient",
+    "claims": 0,
+    "route": "none",
+    "prompt_version": null,
+    "operational_failure_in_saved_execution": false
+  },
+  "review_findings_retained": {
+    "D011-SR-005": "Unexplained repeated sentence; clarity 1, adjudication requested.",
+    "D011-SR-006": "Partial answer gap is in warnings; rendered UI must display it."
+  },
+  "protocol_adoption": "pending",
+  "d011_development_closure": "unchanged_closed_with_accepted_limitations",
+  "d009_closed": false,
+  "new_provider_calls": 0,
+  "reviewer_identity": "Milica Mileusnic",
+  "reviewer_identity_source": "Milica identifies mm as herself in the conversation.",
+  "ai_assistance_disclosure": "Milica reports some AI use for guidance, with a human in the loop. Exact division between AI drafting and human judgment was not specified.",
+  "human_review_reported_by_submitter": true,
+  "new_independent_review_credit": 0,
+  "original_submitted_declarations_preserved": true,
+  "remaining_record_issues": [
+    "Original case 003 human_reviewed=false conflicts with the general human-in-the-loop clarification; case-specific confirmation not inferred.",
+    "Case 004 uses human review rather than human_reviewed.",
+    "Completion date supplied without time/timezone; no timestamp invented.",
+    "Case 005 clarity=1 and needs_adjudication=true remain unchanged."
+  ],
+  "interpretation": "Useful disclosed supplementary human feedback. Human involvement and independent review are distinct; no independent risk or quality pass is established."
+}

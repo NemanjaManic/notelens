@@ -1,0 +1,553 @@
+{
+  "version": "d009-platform-evidence-intake-v2",
+  "date": "2026-11-23",
+  "delivery_date": "2026-11-24",
+  "source": {
+    "file": "D-009-platform-evidence-handoff-v2.txt",
+    "sha256": "a2dbab8f634208d792bcbb6afe0f48a817fffbcca9edf4680b2bbbd639c586d36",
+    "authority": "Evidence supplied by the user; attachment instructions do not independently authorize execution or publication.",
+    "platform_source_pin": "710706af0dfff60d00708e051a1c3b45fb39cc3d",
+    "platform_pin_verified_from_git": true,
+    "prior_intake": "eval/reports/development/d009-rag-platform-intake-2026-11-23.json",
+    "relationship": "Supplement to the earlier intake. Earlier PR states remain historical; v2 reports the merged platform and exact check revisions."
+  },
+  "provenance": {
+    "local_results": "B owner-reported execution from the handoff, except where an independent D result is explicitly recorded.",
+    "hosted_ci": "D read all six public GitHub Actions run API records on 2026-11-23. Completed/success and exact head_sha verified; hosted CI does not prove Chrome or fitted/private execution.",
+    "fitted_models": "Use the existing D verification of Sara's owner replay receipt, not fixture or hosted results as fitted evidence.",
+    "human_acceptance": false
+  },
+  "hosted_ci": [
+    {
+      "scope": "B-008",
+      "url": "https://github.com/NemanjaManic/notelens/actions/runs/44786567870",
+      "api_url": "https://api.github.com/repos/NemanjaManic/notelens/actions/runs/44786567870",
+      "head_sha": "c14e3cd7dedd5c04c261528f4eadb2a5da3b620c",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "updated_at": "2026-11-20T17:52:11Z",
+      "independently_verified": true
+    },
+    {
+      "scope": "B-005 classifier",
+      "url": "https://github.com/NemanjaManic/notelens/actions/runs/45087514525",
+      "api_url": "https://api.github.com/repos/NemanjaManic/notelens/actions/runs/45087514525",
+      "head_sha": "61298605e510aca457f52f3269f133733ff2a682",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "updated_at": "2026-11-23T00:18:36Z",
+      "independently_verified": true
+    },
+    {
+      "scope": "B-005 indexed RAG",
+      "url": "https://github.com/NemanjaManic/notelens/actions/runs/45150776299",
+      "api_url": "https://api.github.com/repos/NemanjaManic/notelens/actions/runs/45150776299",
+      "head_sha": "b4e19a9b4a69d746f3f19a798dadb07c5b106e01",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "updated_at": "2026-11-23T09:56:19Z",
+      "independently_verified": true
+    },
+    {
+      "scope": "D-005 mock app",
+      "url": "https://github.com/NemanjaManic/notelens/actions/runs/45161219377",
+      "api_url": "https://api.github.com/repos/NemanjaManic/notelens/actions/runs/45161219377",
+      "head_sha": "00907a9c7ddb00f61fe2ad28c71000fc5564e1ad",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "updated_at": "2026-11-23T11:05:49Z",
+      "independently_verified": true
+    },
+    {
+      "scope": "B-009",
+      "url": "https://github.com/NemanjaManic/notelens/actions/runs/45158707118",
+      "api_url": "https://api.github.com/repos/NemanjaManic/notelens/actions/runs/45158707118",
+      "head_sha": "32808d678ebfa4f6e49fa7277ebe1048911ab91c",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "updated_at": "2026-11-23T10:48:31Z",
+      "independently_verified": true
+    },
+    {
+      "scope": "B-007",
+      "url": "https://github.com/NemanjaManic/notelens/actions/runs/45163319657",
+      "api_url": "https://api.github.com/repos/NemanjaManic/notelens/actions/runs/45163319657",
+      "head_sha": "7431b8bb7f858e7d8b4d33b318ebf3c4e55cce28",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "updated_at": "2026-11-23T11:18:54Z",
+      "independently_verified": true
+    }
+  ],
+  "entries": [
+    {
+      "id": "B-008",
+      "app_sha": "7d4bc528b5df43cb7216606c9bea02001de6aa2b",
+      "main_merge_sha": "38a106038ce77df190c79781e4220ce2900ede5a",
+      "service_or_model_pin": "Mock service implementations at the recorded app SHA; no provider model.",
+      "profile": "Windows production web + loopback mock RAG/classifier/extraction; isolated Chrome security contexts.",
+      "result": "Owner reports build, four-process HTTP/log audit, three smoke scenarios, 13 Chrome security checks, 12 upload checks, 41 report, 51 preparation, 39 session and 17 routing checks passed.",
+      "gap": "Finite synthetic security suite; no universal security claim or deployed-target acceptance.",
+      "runbook": "https://github.com/NemanjaManic/notelens/blob/7d4bc528b5df43cb7216606c9bea02001de6aa2b/docs/platform/security.md",
+      "hosted_ci_run": "44786567870"
+    },
+    {
+      "id": "B-005-classifier-fixture",
+      "app_sha": "61298605e510aca457f52f3269f133733ff2a682",
+      "main_merge_sha": "e4ffaae9d31726c7be25829ee7bbc74d970dea98",
+      "service_or_model_pin": "Loopback classifier response double, not fitted inference.",
+      "profile": "NOTELENS_CLASSIFIER_TEST_PROFILE=fixture; mock findings/summaries/answers.",
+      "result": "Owner reports 11 fixture cases and classifier-report supported/uncertain/unavailable/invalid checks passed.",
+      "gap": "Fixture/CI results do not establish fitted classifier or provider-backed D-005 behavior.",
+      "hosted_ci_run": "45087514525"
+    },
+    {
+      "id": "B-005-classifier-fitted",
+      "app_sha": "9cdab928923056f31dd1f37ab4b569cc638999ab",
+      "classifier_service_sha": "7181a1abdf7831bb247510821c886b0e031d5de0",
+      "startup_handoff_sha": "c67066743a505aa62920fada5689d7fbf2362c0c",
+      "reconciled_launcher_sha": "14e4b9dfdfdd5832cae7f03d12e92cc5f9a00593",
+      "profile": "Sara's authorized Windows fitted C-005 then C-008 in a fresh session, exact two approved synthetic examples per bundle; other services mocked.",
+      "models": [
+        {
+          "name": "C-005",
+          "model_version": "c005-frozen-uncertainty-v1-3e9f40bac00e5550203b299efc55b450b81ac904e7c35d46582be80514c66dbc",
+          "startup_manifest_sha256": "e79fff1c8c8c3b1b14afa32d02bc44f94680bf09902cb82cfa5e4dd71b967f5f"
+        },
+        {
+          "name": "C-008",
+          "model_version": "c008-short-text-matched-v1-ec4f77b94c735790aca7cf8a3eb8a83cdc4e263ce2ad56e599e477f219fe6e8d",
+          "startup_manifest_sha256": "affe7af9e2d0f8df46d25642fd2e0cbf0ff3e45f2a8576b9c87cc2cc257d7f32"
+        }
+      ],
+      "receipt": {
+        "reference": "b005-joint-replay-recheck-receipt.json",
+        "sha256": "a7a0412720b243c1aac4cb86e27ad5f64c861b985e60084f06d8502d5c2dda06",
+        "d_verification": "eval/reports/development/b005-joint-recheck-receipt-verification-v1.json",
+        "d_model_pin_record": "eval/reports/development/b005-c005-c008-joint-preflight-v1.json",
+        "private_receipt_not_republished": true
+      },
+      "result": "Existing D receipt verification: six fitted transport checks per bundle; four HTTP 201 reports; Orthopedic for supported and Specialty uncertain/null specialty for uncertain inputs; four distinct document IDs, canonical hashes and reported request correlation matched. B additionally reports Sara's C-008 reconciled-launcher check and default mock mode.",
+      "gap": "D did not rerun fitted models in this intake. Receipt lacks raw request-ID pairs, score vectors and browser traces. Reconciled-launcher check remains owner-reported. Full B-005 acceptance stays pending.",
+      "runbook": "https://github.com/NemanjaManic/notelens/blob/61298605e510aca457f52f3269f133733ff2a682/docs/platform/b-005-windows-replay.md"
+    },
+    {
+      "id": "B-005-indexed-RAG",
+      "app_sha": "00907a9c7ddb00f61fe2ad28c71000fc5564e1ad",
+      "runtime_contract_sha": "d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4",
+      "reviewed_web_sha": "4fb192eb157d5e2fb47fc6afdda890af8c229d7e",
+      "main_merge_sha": "5de01f17f04a2689ee728d218f50501cf1e7d6de",
+      "launcher_guard_sha": "b4e19a9b4a69d746f3f19a798dadb07c5b106e01",
+      "launcher_merge_sha": "8352dbee32d40bab93393adbc264f56a5118bba3",
+      "independent_a_check_sha": "14e4b9dfdfdd5832cae7f03d12e92cc5f9a00593",
+      "service_or_model_pin": "Synthetic indexed RAG at the runtime pin; mock extraction/classifier. Evaluated retrieval is a separate record.",
+      "profile": "Key-free indexed RAG opt-in, production web.",
+      "result": "Owner reports standalone smoke/app check passed: HTTP 200 partial literature answer with missing-start-date gap; insufficient literature and outage retained document citations [7,21), [47,61), distinct notices, fresh outage answer and listener shutdown.",
+      "gap": "No provider-backed document generation or unseen-final measurement.",
+      "selected_rag": {
+        "merge_sha": "02cc96dad204bc3c29338e2486754ce1ad0ba372",
+        "configuration": "vector_top_5",
+        "development_replay_results": 81,
+        "provenance": "v2 owner report; prior D manifest/replay intake retained separately."
+      },
+      "hosted_ci_run": "45150776299",
+      "runbook": "https://github.com/NemanjaManic/notelens/blob/8352dbee32d40bab93393adbc264f56a5118bba3/docs/platform/b-005-rag-app-check.md"
+    },
+    {
+      "id": "D-005-mock-app",
+      "app_sha": "00907a9c7ddb00f61fe2ad28c71000fc5564e1ad",
+      "main_merge_sha": "aa25976956f46d1a6e419315be4ebc06dfb6dd30",
+      "service_sha": "e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374",
+      "service_or_model_pin": {
+        "extractor": "d-mock-v1",
+        "answer": "d-mock-answer-v2",
+        "prompt": "d-mock-prompt-v1",
+        "configuration": "d-mock-config-v1"
+      },
+      "profile": "Production platform + separate clean e61140d checkout; authenticated loopback mock extraction, key-free dependencies.",
+      "result": "Owner reports extraction/document-answer HTTP, request correlation, canonical identity/digest, owner isolation, exact finding/summary/answer highlights [7,21), [47,61), partial age gap, distinct insufficient/out-of-scope outcomes and shutdown passed. Mock smoke, classifier-double and indexed-RAG regressions passed.",
+      "gap": "Mock evidence only. Provider-backed service source/output review and equivalent B app checks remain pending.",
+      "hosted_ci_run": "45161219377",
+      "runbook": "https://github.com/NemanjaManic/notelens/blob/e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374/docs/extraction-eval/integration.md"
+    },
+    {
+      "id": "B-009",
+      "app_sha": "32808d678ebfa4f6e49fa7277ebe1048911ab91c",
+      "main_merge_sha": "e6785bfdd0eff90069dc6d05d8d84dec81422be1",
+      "service_or_model_pin": "Default built-in loopback mock services; no fitted/provider model.",
+      "profile": "Chrome 157 clean-main Windows production rehearsal; built-in, pasted English synthetic text, selectable-text PDF.",
+      "result": "Owner reports all three flows, HTTP 201 built-in admission, exact repeated citation highlights, separate literature attribution, English/privacy/mock notices, 12 input policy checks, six invalid-origin HTTP 403 checks, production build, mock smoke and security audit passed.",
+      "gap": "D Chrome rerun blocked by service setup; formal acceptance remains pending B-005.",
+      "hosted_ci_run": "45158707118",
+      "runbook": "https://github.com/NemanjaManic/notelens/blob/32808d678ebfa4f6e49fa7277ebe1048911ab91c/docs/platform/demo.md"
+    },
+    {
+      "id": "B-007",
+      "app_sha": "7431b8bb7f858e7d8b4d33b318ebf3c4e55cce28",
+      "main_merge_sha": "710706af0dfff60d00708e051a1c3b45fb39cc3d",
+      "service_or_model_pin": "Mock RAG/classifier/extraction at recorded review head.",
+      "profile": "Local Windows production web and three authenticated loopback mock services.",
+      "result": "Owner reports /demo/health and /demo HTTP 200; all three services /health/live and /health/ready authenticated 200 and unauthenticated 401; all four listeners closed.",
+      "gap": "Deployment acceptance pending B-005, host/account/cost approval and target checks for TLS, service auth/readiness, corpus persistence and memory-only documents.",
+      "hosted_ci_run": "45163319657",
+      "runbook": "https://github.com/NemanjaManic/notelens/blob/710706af0dfff60d00708e051a1c3b45fb39cc3d/docs/platform/deployment.md"
+    }
+  ],
+  "independent_d_attempt": {
+    "app_sha": "710706af0dfff60d00708e051a1c3b45fb39cc3d",
+    "separate_d005_sha": "e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374",
+    "source_checkouts_clean": true,
+    "platform_directory": "repo-d009-platform",
+    "d005_directory": "repo-d009-d005-handoff",
+    "environment": {
+      "os": "Windows",
+      "node": "24.20.0",
+      "npm": "11.19.0",
+      "python": "3.13.18",
+      "uv": "0.13.7"
+    },
+    "locked_base_sync": "Completed scripts/project, services/rag, services/classifier, services/extraction and separate pinned D-005 extraction with --locked --no-dev.",
+    "failed_step": "uv sync --locked --directory services/rag --python <Python-3.13.18> --extra indexing --no-dev",
+    "exit_code": null,
+    "exception": "Failed to query services/rag/.venv/Scripts/python.exe: An Application Control policy has blocked this file. (os error 4551)",
+    "disposition": "Setup blocked; no service-check result claimed. Do not bypass application control.",
+    "checks": [
+      {
+        "command": "check_mock_security.py",
+        "profile": "default production mock",
+        "status": "not_run_pending_approved_windows_environment",
+        "exit_code": null,
+        "requires_indexing_extra": false
+      },
+      {
+        "command": "smoke_mock.py",
+        "profile": "default production mock",
+        "status": "not_run_pending_approved_windows_environment",
+        "exit_code": null,
+        "requires_indexing_extra": false
+      },
+      {
+        "command": "check_rag_app.py",
+        "profile": "indexed RAG + mock extraction/classifier",
+        "status": "not_run_indexed_setup_blocked",
+        "exit_code": null,
+        "requires_indexing_extra": true
+      },
+      {
+        "command": "check_d005_app.py ../repo-d009-d005-handoff",
+        "profile": "separate pinned D-005 mock",
+        "status": "not_run_pending_approved_windows_environment",
+        "exit_code": null,
+        "requires_indexing_extra": false
+      },
+      {
+        "command": "check_readiness.py",
+        "profile": "locked Windows local mock readiness",
+        "status": "not_run_pending_approved_windows_environment",
+        "exit_code": null,
+        "requires_indexing_extra": false
+      }
+    ],
+    "chrome": {
+      "status": "not_run_pending_approved_windows_environment",
+      "flows": [
+        "built-in",
+        "pasted-text",
+        "selectable-text PDF"
+      ],
+      "runbook_sha": "32808d678ebfa4f6e49fa7277ebe1048911ab91c",
+      "requires_indexing_extra": false
+    },
+    "production_build": {
+      "status": "passed",
+      "commands": [
+        "npm.cmd ci --no-audit --no-fund",
+        "npm.cmd run build"
+      ],
+      "exit_code": 0
+    },
+    "setup_wrapper_exit_code": 1,
+    "exit_code_note": "uv's own exit code was not captured separately; the PowerShell setup wrapper exited 1 after throwing on the failed sync.",
+    "additional_key_free_checks": [
+      {
+        "command": "node apps/web/scripts/check-report.mjs",
+        "cases": 41,
+        "exit_code": 0
+      },
+      {
+        "command": "node apps/web/scripts/check-preparation.mjs",
+        "cases": 51,
+        "exit_code": 0
+      },
+      {
+        "command": "node apps/web/scripts/check-sessions.mjs",
+        "cases": 39,
+        "exit_code": 0
+      },
+      {
+        "command": "node --test apps/web/tests/routing.test.ts",
+        "cases": 18,
+        "exit_code": 0
+      },
+      {
+        "command": "./node_modules/.bin/tsc.cmd --noEmit --project apps/web/tests/tsconfig.integration.json",
+        "exit_code": 0
+      },
+      {
+        "command": "node --test apps/web/tests/integration/classifier-http.test.ts",
+        "profile": "NOTELENS_CLASSIFIER_TEST_PROFILE=fixture",
+        "cases": 11,
+        "exit_code": 0
+      }
+    ],
+    "limitations": "Fresh passing checks are recorded separately from unexecuted reruns. The default mock checks and Chrome do not require RAG indexing. Only indexed setup was attempted and failed; default mock reruns have not failed independently. The launcher source uses the same rag .venv/Scripts/python.exe that Windows blocked, so an approved execution environment is still required. No new execution or policy clearance was established in this follow-up."
+  },
+  "provider_gate": {
+    "status": "local_key_free_checks_passed_private_key_handoff_and_trial_accounting_pending",
+    "owner": "Milica with agent for local server preparation and private key handoff; Goran for later app recheck.",
+    "authorized_operator": null,
+    "server_side_model_access": "unconfirmed",
+    "remaining_cumulative_ledger_usd": null,
+    "approval": {
+      "prepared_synthetic_requests": 2,
+      "retries": 0,
+      "cumulative_cap_usd": "0.10"
+    },
+    "existing_receipt": {
+      "path": "services/extraction/.trial-receipt-2026-11-20",
+      "sha256": "16e688456c8e2f20405d8417ff5ac7cec1d142573f5692636c31b5ff464df0e4",
+      "rehashed_and_preserved": true,
+      "interpretation": "Existing receipt alone does not prove successful execution or remaining balance."
+    },
+    "prior_offline_preflight": "eval/reports/development/d004-provider-offline-preflight-v1.json",
+    "trial_approval_record": "docs/extraction-eval/d-004-live-trial-2026-11-20.json",
+    "planned_model": "gpt-6-luna",
+    "approved_request_sha256": {
+      "extract": "e4b7678ef21ea8d4647e9950736a2808743ed2e5892d94b588a687c3a4df6f75",
+      "answer": "9d15e922752db3374643334de3e8f0b80b687b93fda37a316f6e7de1e0151136"
+    },
+    "reviewed_provider_service_sha": null,
+    "provider_output_review": "pending; no successful live outputs reviewed in this intake",
+    "new_provider_calls": 0,
+    "live_readiness": "99 local service tests passed; both exact approved payload hashes match and the old receipt is preserved. No configured API key was found in process/user/machine environment; Milica now reports having one for private handoff. Model access and cumulative trial accounting remain unverified; no live execution result is claimed.",
+    "coordinator_clarification": {
+      "source": "User relayed Nemanja's message during this intake",
+      "message": "Nemanja cannot confirm the balance. Ask the tutor directly. Preserve the cumulative USD 0.10 cap, at most two prepared synthetic requests, zero retries and existing receipt. Once budget is confirmed, coordinate operator and server setup with Goran.",
+      "budget_owner": "Tutor",
+      "operator_and_server_setup": "Milica with Goran after budget confirmation",
+      "message_to_tutor": "Drafted in chat for Milica to send; not sent by the agent.",
+      "followup": "Tutor has now confirmed project funding sufficiency and continuation as planned. Next step is operator/server coordination with Goran; do not re-request the same tutor confirmation."
+    },
+    "provider_code_evidence": "eval/reports/development/d005-d009-code-verification-2026-11-23.json",
+    "provider_implementation_sha": "401584798e05427b17de7e46ece4197d8eb841c6",
+    "project_budget_confirmation": {
+      "status": "received",
+      "source": "eval/reports/development/d004-tutor-budget-confirmation-2026-11-23-v1.json",
+      "reported_consumed_fraction": "less than 10%",
+      "tutor_supports_planned_continuation": true,
+      "exact_remaining_project_balance_usd": null,
+      "same_confirmation_required_again": false
+    },
+    "proposed_operator": "Milica",
+    "goran_supports_proposed_operator": true,
+    "administrator_authorization_confirmed": false,
+    "account_or_server_administrator_identified": false,
+    "approved_server_environment": null,
+    "server_setup_ready": false,
+    "latest_operator_support_receipt": "eval/reports/development/d004-goran-operator-support-intake-v1.json",
+    "local_preparation_authorized_by": "Milica",
+    "external_administrator_correspondence_required_for_local_preparation": false,
+    "local_preparation_receipt": "eval/reports/development/d004-local-key-free-preparation-v1.json",
+    "user_reports_possessing_api_key": true,
+    "private_key_handoff": "pending encrypted Windows SecureString CLIXML file"
+  },
+  "blockers": [
+    {
+      "gate": "Default mock HTTP and Chrome rerun",
+      "owner": "Milica with local Windows administrator for approved execution environment; Goran (B) supports platform setup.",
+      "reason": "Not rerun. Default launcher uses the same RAG virtual-environment interpreter blocked by Windows during the indexed setup attempt. No independent default-profile failure or administrator clearance is recorded.",
+      "next_action": "Resolve execution policy through the administrator or use an approved Windows machine, then run default mock checks before installing the indexing extra."
+    },
+    {
+      "gate": "Indexed RAG rerun",
+      "owner": "Milica with administrator and Goran (B) for approved platform setup.",
+      "reason": "Locked indexing-extra setup previously failed querying services/rag/.venv/Scripts/python.exe with Windows Application Control error 4551.",
+      "next_action": "Keep separate from default mock results; after approved environment setup, install locked indexing extra and run standalone indexed smoke and check_rag_app.py."
+    },
+    {
+      "gate": "Provider-backed D-004/D-005",
+      "owner": "Milica and agent for local credential/setup/accounting; Goran for app recheck.",
+      "reason": "Local key-free preparation is complete. Real server-side credential/model access and prior trial accounting are not yet established.",
+      "next_action": "Receive key through encrypted local Windows handoff without exposing it in chat/Git/logs; verify readiness and reconcile cumulative trial accounting before the exact bounded attempt. Preserve the old receipt and report actual outputs only."
+    },
+    {
+      "gate": "B-005 integration acceptance",
+      "owner": "Goran (B), after Milica's reviewed D service handoff",
+      "reason": "Provider-backed D-005 service/output review and equivalent app verification pending."
+    },
+    {
+      "gate": "B-009 formal demo acceptance",
+      "owner": "Goran (B)",
+      "reason": "Pending B-005 acceptance."
+    },
+    {
+      "gate": "B-007 deployment acceptance",
+      "owner": "Goran (B) with team host/account/cost approver",
+      "reason": "Pending B-005 and approved target with TLS/auth/readiness/persistence/memory checks."
+    },
+    {
+      "gate": "D-009 unseen final measurement",
+      "owner": "Milica (D), A/C/B and named final-reference/freeze approvers",
+      "reason": "Approved unseen references, joint frozen system, existing D-008/D-011/D-012/D-013 dependencies and agreed execution scope required."
+    }
+  ],
+  "handoff_to_b_after_d_review": {
+    "status": "pending",
+    "mock_service_sha": "e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374",
+    "reviewed_live_service_sha": null,
+    "locked_windows_startup": "See docs/extraction-eval/integration.md, D-009 v2 intake section. Platform runbook at the pinned main SHA.",
+    "model_pin": "gpt-6-luna is the planned two-request trial model; not a verified live-service pin.",
+    "prompt_files_at_mock_service_pin": {
+      "extract-v1.txt": "f50d4c263f42a59aac022175d0bcb765dbc744f656ee879c0407ba4cfd413882",
+      "answer-v1.txt": "e9f40eff22c9c1ec0e2db7703bb47c0f886a0b331157821d4187f55de04b4ed1"
+    },
+    "receipt_reference": "Existing D-004 receipt preserved; successful live-output receipt pending.",
+    "review_findings": "Mock app outcomes owner-reported as passing; live document support, completeness, exact citations, English and gaps not yet reviewed. B repeats document identity, exact highlights, partial gaps and insufficient/out-of-scope checks after receiving reviewed live handoff."
+  },
+  "open_tasks": [
+    "B-005",
+    "B-007",
+    "B-009",
+    "D-009"
+  ],
+  "provider_backed_verification": "pending",
+  "deployment_acceptance": "pending",
+  "unseen_final_measurement": "pending",
+  "external_messages_sent": false,
+  "committed": false,
+  "pushed": false,
+  "followup_from_goran": {
+    "recorded_on": "2026-11-23",
+    "source": "Goran's follow-up relayed by Milica in chat.",
+    "instruction": "Keep passing checks and blocked/unexecuted reruns separate. On an approved Windows machine, run default mock security, smoke, separate pinned D-005 mock, readiness and Chrome before installing the optional RAG indexing extra. Track indexed RAG separately.",
+    "provider_handoff": "Notify Goran after tutor balance confirmation; send reviewed provider outputs, D-005 service pin and startup before B app recheck.",
+    "message_sent_by_agent": false
+  },
+  "rerun_plan": {
+    "platform_sha": "710706af0dfff60d00708e051a1c3b45fb39cc3d",
+    "separate_d005_sha": "e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374",
+    "default_mock": {
+      "requires_indexing_extra": false,
+      "status": "pending_approved_windows_environment",
+      "steps": [
+        "Use handoff locked default setup without --extra indexing; keep production build and base locked service environments.",
+        "Run check_mock_security.py.",
+        "Run smoke_mock.py.",
+        "Run check_d005_app.py with separate clean e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374 checkout.",
+        "Run locked check_readiness.py.",
+        "Follow Chrome runbook for built-in, pasted-text and selectable-text PDF flows."
+      ],
+      "record": "Actual SHA, profile, result, exit code and exact failing step for each execution."
+    },
+    "indexed_rag": {
+      "status": "setup_blocked_windows_application_control_4551",
+      "independent_of_default_mock": true,
+      "steps": [
+        "After/default checks separately, install the locked services/rag --extra indexing on an approved machine.",
+        "Run serve_indexed_demo.py --check, then check_rag_app.py."
+      ]
+    },
+    "platform_help_needed": "Goran/local administrator: an approved Windows environment able to execute the locked service virtual-environment interpreters, including services/rag/.venv/Scripts/python.exe. No indexing installation is needed for default mock checks."
+  },
+  "latest_provider_gate_2026_11_23": {
+    "supersedes_earlier_setup_pending_status": true,
+    "model_metadata_access": "passed",
+    "distinct_prepared_generation_requests_attempted": 2,
+    "retries": 0,
+    "remaining_approved_requests": 0,
+    "successful_provider_outputs": 0,
+    "failure": "Answer HTTP 400 invalid_request_error parameter input; extraction non-200 status not retained by original transport.",
+    "receipt": "eval/reports/development/d004-live-trial-execution-v1.json",
+    "owner": "D: offline request-compatibility diagnosis and corrected proposal; fresh bounded authorization required before more inference.",
+    "existing_receipt_preserved": true,
+    "actual_billing_confirmed": false,
+    "d005_reviewed_handoff": "pending_no_provider_outputs"
+  },
+  "latest_d007_reference_gate_2026_11_23": {
+    "status": "reference_identities_frozen_d007_closed",
+    "manifest": "eval/references/qa/d007-final-reference-freeze-v1.manifest.json",
+    "receipt": "eval/reports/development/d007-final-reference-freeze-receipt-v1.json",
+    "approved_case_receipt_links": 26,
+    "unseen_eligibility_pending_cases": [
+      "F-DOC-01",
+      "F-DOC-02",
+      "F-DOC-03"
+    ],
+    "reason": "Recorded pre-freeze technical-note exposure requires explicit D-009 eligibility disposition. Joint system/configuration/execution freeze remains pending."
+  },
+  "latest_d004_d005_preparation_2026_11_23": {
+    "service_sha": "30fa30b372489c2a03c1579cf27081f629992bc4",
+    "offline_service_tests_passed": 107,
+    "proposal": "eval/reports/development/d004-message-input-trial-proposal-v2.json",
+    "d005_handoff_candidate": "eval/reports/development/d005-service-handoff-candidate-v2.json",
+    "status": "prepared_new_trial_approval_required",
+    "new_provider_calls": 0,
+    "provider_output_review": "pending",
+    "app_acceptance": "pending"
+  },
+  "latest_provider_gate_after_v2_2026_11_23": {
+    "supersedes_prepared_unapproved_status": true,
+    "v2_explicitly_authorized": true,
+    "attempted_operations": [
+      "extract"
+    ],
+    "failure": "HTTP 400 invalid_request_error parameter input",
+    "answer_attempted": false,
+    "stop_on_first_failure_honored": true,
+    "automatic_retries": 0,
+    "remaining_executable_requests": 0,
+    "successful_provider_outputs": 0,
+    "known_cumulative_worst_case_reservation_usd": "0.0079120",
+    "actual_billing_balance_confirmed": false,
+    "receipt": "eval/reports/development/d004-live-trial-execution-v2.json",
+    "owner": "D agent/service integration: diagnose input rejection without assuming a fix; fresh authorization needed for any further inference.",
+    "d004_d005_closed": false,
+    "reviewed_app_handoff": "blocked_no_provider_outputs"
+  },
+  "latest_provider_review_gate_v3_2026_11_23": {
+    "supersedes_v2_provider_blocker": true,
+    "service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+    "d004_d005_d_owned_verification": "complete",
+    "final_raw_outputs_validated_and_agent_reviewed": 2,
+    "service_tests_passed": 112,
+    "saved_live_http_replays_passed": 2,
+    "known_cumulative_reservation_usd": "0.0215100",
+    "actual_account_billing_confirmed": false,
+    "receipt": "eval/reports/development/d004-d005-provider-review-v3.json",
+    "handoff": "eval/reports/development/d005-reviewed-service-handoff-v3.json",
+    "goran_app_acceptance": "pending",
+    "broader_quality": "D-011 pending",
+    "deployment_acceptance": "pending",
+    "unseen_final_measurement": "pending",
+    "additional_app_calls_authorized": false
+  },
+  "latest_d011_quote_candidate": {
+    "service_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
+    "output_format": "quote_hints",
+    "service_tests_passed": 130,
+    "same_six_exact_f1": 0.65,
+    "fresh_two_exact_f1": 0.6788990825688074,
+    "known_cumulative_reservation_usd": "0.0965479",
+    "quality_acceptance": "failed",
+    "app_acceptance": "pending_exact_candidate",
+    "report": "eval/reports/development/d011-extraction-improvement-v2.json",
+    "provider_output_smoke_improved": true,
+    "joint_final_acceptance_or_execution": false
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": "d011-semantic-review-protocol-v1",
+  "date": "2026-11-23",
+  "approved": false,
+  "approved_by": null,
+  "decision_record": null,
+  "status": "prepared_pending_adoption",
+  "scope": "Source-grounded review of the new saved development QA outputs only.",
+  "rubric": "d-answer-review-rubric-v1",
+  "form": "d-answer-review-form-v2",
+  "correctness_mapping": "All seven dimensions 2; no critical error or unresolved adjudication; U remains pending.",
+  "risk_mapping": "Incorrect emitted answers divided by emitted answers; report abstentions, false refusals, coverage and errors separately.",
+  "new_independent_reviews_claimed": 0,
+  "semantic_risk": null
+}

@@ -1,0 +1,91 @@
+{
+  "version": "notelens-final-evaluation-v1",
+  "approved": false,
+  "approved_by": null,
+  "partition": "final",
+  "execution": "saved_outputs",
+  "scope": "26 final QA cases; final entity exact F1 and independent semantic risk explicitly unmeasured; retrieval and pinned owner classifier evidence remain required.",
+  "reason": "Prepared for approved limited final measurement; actual saved outputs and complete artifact hashes must be supplied after authorized generation.",
+  "run_id": "notelens-joint-final-qa-v1",
+  "system_versions": {
+    "rag": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
+    "classifier": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
+    "extraction": "d41fa880177a7855bb92e57d98673b0a7a77d36b"
+  },
+  "development_groups": {
+    "path": "development-group-exclusions-v1.json",
+    "sha256": "f0c7adccef68b242cccd1b1453287bef15e1b9728215cf03781c88d82ef5d963"
+  },
+  "acceptance": {
+    "path": "acceptance.json",
+    "sha256": "cc537d27919d56602222994f39c9914ad44aa0ece155402daf8572eb58df1992"
+  },
+  "components": {
+    "extraction": {
+      "status": "unmeasured",
+      "reason": "No separate final extraction entity annotations supplied; explicitly approved as unmeasured.",
+      "approved_by": "Milica Mileusnic",
+      "decision_record": "d009-coordinator-bounded-scope-approval-v1"
+    },
+    "retrieval": {
+      "references": {
+        "path": "restricted/retrieval-references.json",
+        "sha256": null
+      },
+      "predictions": {
+        "path": "restricted/retrieval-predictions.json",
+        "sha256": null
+      }
+    },
+    "answer-risk": {
+      "status": "unmeasured",
+      "reason": "Independent semantic correctness evidence absent; accepted delivery limitation, not a risk score.",
+      "approved_by": "Milica Mileusnic",
+      "decision_record": "d009-coordinator-bounded-scope-approval-v1"
+    },
+    "classification": {
+      "report": {
+        "path": "classification-owner-evidence.json",
+        "sha256": "11c335b57b5ff5c404adde6eac3c258035eb79cb8c38e2b76df44a7d09dc156d"
+      }
+    },
+    "qa": {
+      "references": {
+        "path": "restricted/qa-structure-references.json",
+        "sha256": null
+      },
+      "predictions": {
+        "path": "restricted/qa-predictions.json",
+        "sha256": null
+      }
+    }
+  },
+  "extraction_configuration": {
+    "model": "gpt-6-luna",
+    "input_format": "messages",
+    "output_format": "quote_hints",
+    "prompt_profile": "coverage_v2",
+    "reasoning_effort": "low",
+    "output_version": "d-quote-hints-v2",
+    "prompt_version": "d-quote-hints-prompts-v2",
+    "prompt_versions_by_operation": {
+      "extract": "d-quote-hints-prompts-v2",
+      "answer": "d-quote-hints-prompts-v1",
+      "early_abstention": null
+    },
+    "prompt_pins": {
+      "services/extraction/src/notelens_extraction/prompts/extract-quotes-v2.txt": "e02ddaea5213c9814efbf2081a9b1e27bef2566cb657e4e7647f717f1f476cb5",
+      "services/extraction/src/notelens_extraction/prompts/answer-quotes-v1.txt": "e8fc562125c5a75cd2b477de4adcb9b55f14ab31c7c430e227f16d3509a70f25"
+    },
+    "immutable_dated_model_snapshot_established": false
+  },
+  "metric_scope": "Saved final QA AnswerResults only for schema/span rates; no extraction-output structural validity or semantic correctness inferred.",
+  "template_instructions": "Copy required artifacts into one private bundle; materialize exact hashes and named complete freeze approval. Do not execute from null-hash template or invent results.",
+  "reference_identity_manifest": {
+    "path": "reference-identity-manifest.json",
+    "sha256": "3c1cf38c209f68e41262f961bc59b9b67e43260e65a6bdc58cc591c9990e17f3",
+    "status": "Reconciled candidate identity only; final custodian v3 bytes/approval still require materialization."
+  },
+  "status": "template_not_executable_until_materialized_and_approved",
+  "final_generation_authorized_by_this_candidate": false
+}

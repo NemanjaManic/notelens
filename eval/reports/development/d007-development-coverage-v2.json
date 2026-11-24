@@ -1,0 +1,129 @@
+{
+  "version": "d007-development-coverage-v2",
+  "date": "2026-11-21",
+  "partition": "development_candidate",
+  "status": "draft_development_inventory_pending_joint_reference_review_and_partition_agreement",
+  "baseline": {
+    "path": "eval/datasets/qa/cross-module-development-v1.json",
+    "sha256": "9bf8008729a81980d7208b42ec629642c64091fbd8d4f9508e9b163a853c07e2",
+    "cases": 66,
+    "by_scope_and_state": {
+      "document": {
+        "sufficient": 22,
+        "insufficient": 24,
+        "partial": 1
+      },
+      "literature": {
+        "sufficient": 7,
+        "partial": 1,
+        "insufficient": 1
+      },
+      "mixed": {
+        "sufficient": 6,
+        "partial": 3,
+        "insufficient": 1
+      }
+    },
+    "multi_source_requests": 13,
+    "cases_with_at_least_one_unavailable_part": 31,
+    "source_group_count": 22,
+    "largest_source_group_size": 9
+  },
+  "candidate": {
+    "path": "eval/datasets/qa/cross-module-development-v2.json",
+    "sha256": "f01dd8c4c4aa3deb7b7d6842643fec17f8680b0991e875e38905499019203896",
+    "cases": 74,
+    "by_scope_and_state": {
+      "document": {
+        "sufficient": 22,
+        "insufficient": 24,
+        "partial": 1
+      },
+      "literature": {
+        "sufficient": 7,
+        "partial": 1,
+        "insufficient": 1
+      },
+      "mixed": {
+        "sufficient": 10,
+        "partial": 6,
+        "insufficient": 2
+      }
+    },
+    "multi_source_requests": 21,
+    "cases_with_at_least_one_unavailable_part": 35,
+    "source_group_count": 14,
+    "largest_source_group_size": 23
+  },
+  "new_case_ids": [
+    "D-MIX-11",
+    "D-MIX-12",
+    "D-MIX-13",
+    "D-MIX-14",
+    "D-MIX-15",
+    "D-MIX-16",
+    "D-MIX-17",
+    "D-MIX-18"
+  ],
+  "coverage_findings": [
+    "The eight additional cases cover assertion, subject, procedures, unsupported document facts and literature gaps across mixed requests.",
+    "All cases in this inventory share known development inputs. Reused sources or derived variations remain in development.",
+    "The 23 document-only age-question gaps are fixture variants. The final selected benchmark should diversify unavailable information rather than count repeated age prompts as distinct coverage.",
+    "The source groups are indivisible at partition time. A held-out inventory requires separately approved, unexposed inputs."
+  ],
+  "verification": {
+    "original_citations": 12,
+    "additional_slices": 4,
+    "provider_calls": 0
+  },
+  "joint_reference_review": {
+    "status": "pending_a_d_confirmation",
+    "proposals": [
+      {
+        "case_id": "A-QA-01",
+        "part": 1,
+        "topic_id": "6450",
+        "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+        "passage_start": 784,
+        "passage_end": 1024,
+        "quote_sha256": "2dab331e7294af0155b9cb62d3ac4a159238f93d61e18c0b7cd784baa3a932cb",
+        "use": "alternate_for_part"
+      },
+      {
+        "case_id": "A-QA-02",
+        "part": 1,
+        "topic_id": "363",
+        "passage_id": "mplus-363-1a7a5a684e895c46db4f56e4a051e8c7482c7011d2faba18d2e913151f3cb41f",
+        "passage_start": 1196,
+        "passage_end": 1238,
+        "quote_sha256": "db4941dc98f07891b5a7dca6bb7b1c7c144fd91040b8bf072568085845e71211",
+        "use": "alternate_for_cause_only"
+      },
+      {
+        "case_id": "A-QA-07",
+        "part": 1,
+        "topic_id": "179",
+        "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+        "passage_start": 754,
+        "passage_end": 973,
+        "quote_sha256": "8b55bb59ba6789bedf4b70a9e7b97a8eff1408f0bda5fe29e464f8351b2d226f",
+        "use": "additional_context_in_existing_topic"
+      },
+      {
+        "case_id": "A-QA-09",
+        "part": 2,
+        "topic_id": "4452",
+        "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+        "passage_start": 0,
+        "passage_end": 105,
+        "quote_sha256": "3e2f4352eca346258fa756221e485fe4c41a5c826d2bce3dfd8b9b8b294a0255",
+        "use": "narrower_slice_in_existing_topic"
+      }
+    ]
+  },
+  "unresolved_benchmark_decisions": [
+    "Confirm the number of development and held-out cases and route balance against the approximately 80-case target.",
+    "Select or author additional multi-source and distinct unsupported examples for the agreed split.",
+    "Identify input ownership and approval for the unseen held-out cases and verify group disjointness before freeze."
+  ]
+}

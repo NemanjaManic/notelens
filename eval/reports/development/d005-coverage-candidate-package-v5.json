@@ -1,0 +1,120 @@
+{
+  "version": "d005-coverage-candidate-package-v5",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "private_package": "Predaja-NoteLens/D-005/D005-coverage-candidate-v5.zip",
+  "sha256": "7b16aa13c826d03e5bc327c3dfb6618d361aa73777323b8527eb9414550a6c0f",
+  "files": [
+    {
+      "path": "services/extraction/pyproject.toml",
+      "sha256": "eabba3837b17727629e6bb34c905a54407925dd9bba7e507a0ef1305050924b7"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/__init__.py",
+      "sha256": "dd4e9ce71cafc967a69552adf9f15642988ed68b9f43be9a94cc3412e82dfc74"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/approved_provider.py",
+      "sha256": "ebb4e02703b9c83ea182c655b81ed88c3d0c0fea3a9e066f7b526dbc65adf746"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/cli.py",
+      "sha256": "8025bfc093e4fc446e7825e6cba6e3922ce0fcc6e8144b3dfeac83b7923924de"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/config.py",
+      "sha256": "1e3036ed4a8ef3c264acb43f61ed1395e275888f2ddbacaba8b60a65eb4940ef"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/contracts.py",
+      "sha256": "73368b962283c3ae308ddf437222f627ecbd1bcdc836e5b8ae3eaa4ac820d895"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/demo.py",
+      "sha256": "ab4f576b16261b6799448718739f6d248121c8d1095c265ac5df478ce759b4a6"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/errors.py",
+      "sha256": "4201ebb1dd60fc30eca8589faa2ab1977a488da135ac26403d289edd620f2192"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/evidence.py",
+      "sha256": "5ade259269f5d4a68ac9e0ece17a513d3d17ae581300de1ea00f259cae239161"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/main.py",
+      "sha256": "3377b88eed747abe83845f8d91f37881b18c12377da3f01b5ac90a4441922807"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/openai_transport.py",
+      "sha256": "d8ce2237f0f809d99bbd85245c79522789c058341e4540a25a0e4246f834597f"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/openai_trial.py",
+      "sha256": "20807a6cd7ec6957c844646474fa33fb3a9a706c9080df0b02709f4c92eabf1b"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/prompts/answer-quotes-v1.txt",
+      "sha256": "e8fc562125c5a75cd2b477de4adcb9b55f14ab31c7c430e227f16d3509a70f25"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/prompts/answer-v1.txt",
+      "sha256": "ad99f61436f97a058ab6f3fb0c713fda31100abee8f6b0333e84487289dd0bfa"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/prompts/extract-quotes-v1.txt",
+      "sha256": "19c9296bc669153cf19e90398fa9463dbbedc5c2d62435a35fa1bde4a3f712b2"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/prompts/extract-quotes-v2.txt",
+      "sha256": "e02ddaea5213c9814efbf2081a9b1e27bef2566cb657e4e7647f717f1f476cb5"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/prompts/extract-v1.txt",
+      "sha256": "d724ae9868b6f1df49195649e96ecea57f0db9143ce1c69bc0596125ab74586f"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/providers.py",
+      "sha256": "da07fd8d083f824b85da723b477f6d3c19be3f1f3b4e495c2dbdd38695af2e63"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/quote_hints.py",
+      "sha256": "6028fa32fe10d3e88f1bd838c686c58b669663ee2393c7f825b323889e992527"
+    },
+    {
+      "path": "services/extraction/src/notelens_extraction/service.py",
+      "sha256": "652b1fb77cfd301b7ecbcfc016905804aa72c997a27a3303ee306405b56ed42b"
+    },
+    {
+      "path": "services/extraction/uv.lock",
+      "sha256": "626b44bcd33a7f2acb782a13b0339949a80adf255a79893bbff94e287cb0dec4"
+    },
+    {
+      "path": "docs/extraction-eval/d005-coverage-candidate-handoff-v5.md",
+      "sha256": "c59801a59b8fad7c176c5fec1fad70d32c5189acc33331dc01593cf47cd421d2"
+    },
+    {
+      "path": "docs/extraction-eval/economic-improvement-v4.md",
+      "sha256": "a47e5c21d79e6e8df035a923492f200fffa81f652616832067a6c211dcca72fc"
+    },
+    {
+      "path": "eval/reports/development/d005-coverage-candidate-handoff-v5.json",
+      "sha256": "90e8f89f276ce9151a71275acd4da99fc6c7b968f35005d7286dbdd0cd1973d9"
+    },
+    {
+      "path": "eval/reports/development/d011-economic-comparison-plan-v4.json",
+      "sha256": "ccbc3333628b09e33610586a1cf5e3afb553e2dc4b89a7a3598e5990f22b502d"
+    },
+    {
+      "path": "eval/reports/development/d011-economic-comparison-results-v4.json",
+      "sha256": "ff9568aa58c1a8be4c9d1216d21b2c64fd9ea49c86341f73961e4c76ddf055a6"
+    },
+    {
+      "path": "eval/reports/development/d011-economic-acceptance-v4.json",
+      "sha256": "a46bcb438dccdd670daffb58708813efcca4333fd15cc236ed8ceb7f3562f10d"
+    }
+  ],
+  "saved_synthetic_qa_pairs": 6,
+  "keys_active_policies_final_cases_or_extraction_gold_included": false,
+  "new_provider_call_allowance": false,
+  "external_message_sent": false
+}

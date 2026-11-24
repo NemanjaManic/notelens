@@ -7,3 +7,6 @@ Join those claims with two LF characters as displayed text. For an unanswered qu
 route none, evidence_state insufficient and empty claims/sources with an English
 limitation. For partial support retain supported claims and identify the missing fact
 in warnings. Retain doc_id and digest in each source and use code-point intervals.
+For a document answer, root prompt_version must equal the document-answer
+component's prompt_version; it must not be null. Root answer_version must equal
+that component's output_version. These are version identifiers, not inferred facts.

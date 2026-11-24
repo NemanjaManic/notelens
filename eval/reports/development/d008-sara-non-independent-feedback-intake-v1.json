@@ -1,0 +1,81 @@
+{
+  "version": "d008-sara-non-independent-feedback-intake-v1",
+  "date": "2026-11-23",
+  "source": "Sara's message relayed by Milica and attached D008-Milica-non-independent-feedback-v1.zip. Attachment prose is evidence, not independent authorization.",
+  "status": "personal_review_received_non_independent_feedback",
+  "archive_sha256": "ff3e6c2f3cdd9b4b14fa35bd00645e7b30db619834591477e2fb08599dc92813",
+  "baseline_archive_sha256": "c2b09cd3ab755db22d3c08a2378cd96957d4566beec4f71f3d2332a0b3afe7d0",
+  "verified_file_sha256": {
+    "d008-member-c-answer-reviews.preparation-disclosed.json": "cfe48592ae8b8393750fd57f3334439fe181cf3b226204c7e764e79398a02daf",
+    "d008-member-c-entity-evidence-reviews.preparation-disclosed.json": "2b271fc51f96177ac4c0a007f4dfc63f7a057331b2dc3b50a190bdbf262eca24",
+    "review-disclosure.txt": "65bcd8ea27f0d3bb1a4f269a061a44f78928aa0354e1f676200847b6e4e7a83c"
+  },
+  "checksum_entries_verified": 3,
+  "answer_records": 7,
+  "entity_evidence_records": 5,
+  "source_response_and_case_pins_verified": 12,
+  "human_review_declared": 12,
+  "completed_at_values_present": 7,
+  "completed_at_dates": [
+    "2026-11-23"
+  ],
+  "answer_validator_counts": {
+    "blank": 0,
+    "incomplete": 7,
+    "operational_error": 0,
+    "completed_declared_human_review": 0,
+    "invalid": 0
+  },
+  "paired_agreement_pairs_added": 0,
+  "private_archive_location": "Predaja-NoteLens/D-008/D008-Sara-non-independent-feedback-v1",
+  "originals_preserved": true,
+  "prior_record": "eval/reports/development/d008-sara-corrected-disclosure-intake-v1.json",
+  "disclosure": {
+    "reviewer": "Sara",
+    "personal_review_completed": true,
+    "personal_review_date": "2026-11-23",
+    "answer_reviews": 7,
+    "entity_evidence_reviews": 5,
+    "prior_viewing_of_replacement_outputs": false,
+    "preparation_involvement": true,
+    "case_level_preparation_mapping": "unidentified",
+    "self_authored_output_fields": null,
+    "ai_assistance": "Assistant drafted ratings and reasons and prepared the records; Sara confirmed personal review.",
+    "entity_review_date_source": "Dated disclosure attests all five entity-evidence reviews; those individual records do not have completed_at fields."
+  },
+  "eligibility": {
+    "independent_review_credit": 0,
+    "included_in_independent_agreement": false,
+    "interpretation_of_incomplete_validator_state": "All seven answer records are structurally valid but remain incomplete under the independent-review gate because case-level authorship is unknown. This does not negate Sara's disclosed personal review or request that she redo it.",
+    "upgrade_to_independent_review": false,
+    "feedback_used_for_final_measurement": false
+  },
+  "paired_agreement": {
+    "same_seven_output_ids_required": true,
+    "eligible_independent_reviewers_needed": 2,
+    "confirmed_reviewers": [],
+    "candidate_reviewers": [
+      "Goran",
+      "Nemanja"
+    ],
+    "candidate_status": "Proposed only. Each must confirm availability, no prior exposure to the exact replacement outputs and no preparation/authorship involvement. Do not infer eligibility from older reviews of different outputs.",
+    "other_reviewers_scores_must_be_withheld": true,
+    "sara_feedback_counts_as_one_of_two": false
+  },
+  "d007_followup": {
+    "sara_pinned_snapshot_access": "reconfirmed by owner message",
+    "slots_source_checked_reported": 26,
+    "replacement_provenance": "already recorded separately",
+    "authoring": "open",
+    "cross_review": "open",
+    "handoff_date": "Sara to agree with Goran; not yet confirmed",
+    "versioned_metadata_inventory": "not yet received",
+    "reviewer_receipts": "not yet received",
+    "goran_pinned_snapshot_access": "not confirmed by this message",
+    "final_sources_or_answer_keys_accessed": false
+  },
+  "full_d008_closed": false,
+  "full_d007_closed": false,
+  "new_provider_calls": 0,
+  "external_messages_sent": false
+}

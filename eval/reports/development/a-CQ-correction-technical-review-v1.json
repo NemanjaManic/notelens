@@ -1,0 +1,90 @@
+{
+  "version": "a-CQ-correction-technical-review-v1",
+  "date": "2026-11-24",
+  "reviewer": "Codex AI assistant assisting Milica",
+  "review_type": "non_independent_source_grounded_agent_review",
+  "original_rubric": "d-answer-review-rubric-v1",
+  "source_packet_sha256": "e06a1166eb57f3342591edce7818d4960f31db7556fd43b97b8d3558f54b626e",
+  "original_review_sha256": "a588cbe0abd49c175d49bfa599ff8f13e625378cc89062a84d8fdd91942dfe9a",
+  "original_and_corrected_citation_links_verified": 23,
+  "original_ratings_preserved": true,
+  "corrected_ratings_not_filled_as_human": true,
+  "new_provider_outputs": false,
+  "new_provider_calls": 0,
+  "cases": [
+    {
+      "case_id": "CQ-03",
+      "original_ratings": {
+        "source_support": 1,
+        "required_facts": 2,
+        "extra_facts": 2,
+        "uncertainty_and_context": 2,
+        "evidence_gaps": 1,
+        "scope_and_safety": 2,
+        "clarity_and_english": 2
+      },
+      "corrected_human_ratings": {
+        "source_support": null,
+        "required_facts": null,
+        "extra_facts": null,
+        "uncertainty_and_context": null,
+        "evidence_gaps": null,
+        "scope_and_safety": null,
+        "clarity_and_english": null
+      },
+      "agent_finding": "Added [754,973) compression excerpt closes the original citation-link gap; keep original source_support=1 and evidence_gaps=1 unchanged in the before record.",
+      "agent_recommendation": "accept_authored_development_correction_with_original_baseline_preserved",
+      "human_reviewer_confirmation_newly_recorded": false
+    },
+    {
+      "case_id": "CQ-05",
+      "original_ratings": {
+        "source_support": 2,
+        "required_facts": 2,
+        "extra_facts": 1,
+        "uncertainty_and_context": 2,
+        "evidence_gaps": 2,
+        "scope_and_safety": 2,
+        "clarity_and_english": 2
+      },
+      "corrected_human_ratings": {
+        "source_support": null,
+        "required_facts": null,
+        "extra_facts": null,
+        "uncertainty_and_context": null,
+        "evidence_gaps": null,
+        "scope_and_safety": null,
+        "clarity_and_english": null
+      },
+      "agent_finding": "Narrowed claim removes the disputed hemoglobin aside and confines the answer to bilirubin buildup and yellow color. Original extra_facts=1 remains unchanged; no retroactive severity rewrite or new human adjudication is claimed.",
+      "agent_recommendation": "accept_authored_development_correction_with_original_baseline_preserved",
+      "human_reviewer_confirmation_newly_recorded": false
+    },
+    {
+      "case_id": "CQ-09",
+      "original_ratings": {
+        "source_support": 2,
+        "required_facts": 2,
+        "extra_facts": 2,
+        "uncertainty_and_context": 2,
+        "evidence_gaps": 2,
+        "scope_and_safety": 2,
+        "clarity_and_english": 1
+      },
+      "corrected_human_ratings": {
+        "source_support": null,
+        "required_facts": null,
+        "extra_facts": null,
+        "uncertainty_and_context": null,
+        "evidence_gaps": null,
+        "scope_and_safety": null,
+        "clarity_and_english": null
+      },
+      "agent_finding": "Revised urine description is clearer and retains the original symptom scope/evidence. Original clarity_and_english=1 remains unchanged.",
+      "agent_recommendation": "accept_authored_development_correction_with_original_baseline_preserved",
+      "human_reviewer_confirmation_newly_recorded": false
+    }
+  ],
+  "CQ05_original_severity": "Original extra_facts=1 retained; separate human/coordinator severity confirmation not invented.",
+  "interpretation": "These are authored development corrections validated against the pinned source, not fresh generation or independent final risk evidence."
+}

@@ -1,4 +1,4 @@
-"""D-owned mock HTTP boundary for the frozen contract."""
+"""D-owned HTTP boundary for frozen contracts and explicitly configured providers."""
 
 import json
 import math
@@ -30,7 +30,7 @@ def create_app(provider=None, *, token: str | None = None) -> FastAPI:
     settings = Settings.from_env()
     provider = provider or settings.provider()
     token = token if token is not None else settings.service_token
-    app = FastAPI(title="NoteLens extraction mock service", docs_url=None, redoc_url=None)
+    app = FastAPI(title="NoteLens extraction service", docs_url=None, redoc_url=None)
 
     @app.middleware("http")
     async def safe_boundary(request: Request, call_next):
@@ -70,16 +70,16 @@ def create_app(provider=None, *, token: str | None = None) -> FastAPI:
 
     @app.get("/health/ready")
     def readiness():
-        if provider.mode != "mock":
+        if provider.mode != "mock" and not getattr(provider, "configured", False):
             reason = "configuration_required"
-        elif settings.mock_not_ready:
+        elif provider.mode == "mock" and settings.mock_not_ready:
             reason = "mock_not_ready"
         else:
             reason = None
         ready = reason is None
         body = {"schema_version": "1.0.0", "service": "extraction",
                 "status": "ok" if ready else "not_ready", "mode": provider.mode,
-                "version": VERSION, "model_version": None, "reason": reason}
+                "version": VERSION, "model_version": getattr(provider, "model", None), "reason": reason}
         return JSONResponse(body, status_code=200 if ready else 503)
 
     async def process(request: Request, operation: str):

@@ -1,0 +1,17 @@
+{
+  "version": "d008-reviewer-invitations-reported-sent-v1",
+  "date": "2026-11-23",
+  "source": "Milica explicitly reports sending the prepared availability/eligibility request to both proposed reviewers.",
+  "recipients": ["Goran", "Nemanja"],
+  "availability_and_eligibility_requests_sent_by_user": true,
+  "output_packets_sent": "not confirmed",
+  "availability_confirmed": false,
+  "return_dates_confirmed": false,
+  "per_case_eligibility_confirmed": false,
+  "completed_review_forms_received": false,
+  "next_step": "Wait for each reply; release only the eligible reviewer's private packet. Reassign any affected case so every exact answer has two eligible independent ratings. Verify both returns and record initial agreement before score discussion.",
+  "packet_preparation_receipt": "eval/reports/development/d008-two-reviewer-packets-preparation-v1.json",
+  "external_messages_sent_by_agent": false,
+  "new_independent_review_credit": 0,
+  "full_d008_closed": false
+}

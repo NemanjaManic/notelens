@@ -1,0 +1,355 @@
+{
+  "version": "d-development-measurements-v1",
+  "date": "2026-11-21",
+  "inputs": {
+    "classification": {
+      "path": "eval/reports/development/classification-results.json",
+      "sha256": "5587d5a13098a2b0c7d2a83003a2b64a52a2a2cacc2aee667bc6bb7c4b15dffe",
+      "digest_basis": "repository_lf"
+    },
+    "qa_proposal": {
+      "path": "docs/rag/qa-proposals.json",
+      "sha256": "737a85f41733b6fddc7822ed83f84b2487e83f278a0ecf602c93ed450cd007db",
+      "digest_basis": "repository_lf"
+    },
+    "qa_development_manifest": {
+      "path": "eval/datasets/qa/development-candidates-v1.json",
+      "sha256": "c7473b65b3270e80fded62e801ed47ecdce8376d2c9a040efd6db6bdaf9dcfdf",
+      "digest_basis": "repository_lf"
+    },
+    "vector_and_hybrid_rankings": {
+      "path": "docs/rag/evaluation/vector-proposal-comparison.json",
+      "sha256": "6c2ee5c2bfbd29202b1c8b3b9cbdd6dd4ad9d0b677f4d67f4e771182e63305ee",
+      "digest_basis": "repository_lf"
+    },
+    "bm25_rankings": {
+      "path": "docs/rag/evaluation/lexical-proposal-evaluation.json",
+      "sha256": "758688d9f6111f173268ae6dd5ed9a5269fff1730cc5bfdd00f50d439e3afe09",
+      "digest_basis": "repository_lf"
+    },
+    "vector_and_hybrid_scope": {
+      "path": "docs/rag/evaluation/vector-proposal-scope.json",
+      "sha256": "e5c635416e5ea008cd5fa271354cb6eab1ecc48d1da446e0d8bb7e1b18733e84",
+      "digest_basis": "repository_lf"
+    },
+    "answer_risk_pilot": {
+      "path": "eval/reports/development/answer-risk-results.json",
+      "sha256": "26f1aac6274fd9f49a33fa970a79901bce7b5d22e2fb5b967d3d4d36e0d7a1c2",
+      "digest_basis": "repository_lf"
+    },
+    "synthetic_http_report": {
+      "path": "eval/reports/local/http-suite/results.json",
+      "sha256": "9b566a0921e9f97ba3ad715bd56113b87086560430e37579917b554b7bb5784b",
+      "digest_basis": "exact_local_artifact_bytes"
+    },
+    "synthetic_reference_fixture": {
+      "path": "eval/fixtures/extraction-qa-synthetic-v1.json",
+      "sha256": "b0d1e77dbac3fd68a65d9244d098e0f30d16e3695e2f59075382b205421f0e9d",
+      "digest_basis": "repository_lf"
+    },
+    "acceptance_config": {
+      "path": "eval/config/acceptance.json",
+      "sha256": "e1833109fa4e81f284d1d6bc5c3d648f0725dbd1b3c1af1700c82e6b4853c866",
+      "digest_basis": "repository_lf"
+    }
+  },
+  "acceptance": {
+    "status": "pending",
+    "configuration_version": "d-acceptance-proposal-v1",
+    "structural_thresholds": {
+      "schema_validity": 1,
+      "span_validity": 1
+    },
+    "quality_thresholds": {
+      "entity_exact_f1": null,
+      "topic_recall_at_5": null,
+      "answer_risk": null
+    }
+  },
+  "new_provider_calls": 0,
+  "classification": {
+    "scope": "C-003 model validation export, scored against C-002 validation labels",
+    "provenance": {
+      "model_version": "c003-tfidf-logistic-5a25811a79123350",
+      "preparation_version": "nfc-lf-v1",
+      "split_version": "c002-split-v1",
+      "handoff_version": "c002-d002-development-v1",
+      "export_version": "c003-d006-validation-v1",
+      "split_checksum": "21cbaceb2166185613628e347ccac4f3b335cae3bc745d10e77d0854c017185d",
+      "export_sha256": "95aceb8b6806a4c7e82a0bd600595b086c9590158919de3c42d3807f7420fcf0",
+      "handoff_checksum": "e8596143168c2631eebb60ba080f996d0f9a13efa6d236ceae1de35eaa2769c6",
+      "decision_policy": "forced_choice",
+      "score_type": "logistic_regression_probability"
+    },
+    "overall": {
+      "documents": 185,
+      "correct": 174,
+      "accuracy": 0.9405405405405406,
+      "macro_f1": 0.928530245825797,
+      "coverage": 1.0
+    },
+    "descriptive_validation_majority": {
+      "specialty": "Cardiovascular / Pulmonary",
+      "correct": 55,
+      "accuracy": 0.2972972972972973,
+      "macro_f1": 0.09166666666666666
+    },
+    "limitation": "Full split membership and training-fitted baseline inputs were unavailable."
+  },
+  "retrieval": {
+    "scope": "Saved public development rankings scored against A proposal labels",
+    "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+    "vector_and_hybrid_index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+    "reference_version": "member-a-literature-qa-proposals-v1",
+    "excluded_no_proposed_topic": [
+      "A-QA-03"
+    ],
+    "passage_rule": "Each distinct cited passage is a provisional required passage group.",
+    "retrievers": {
+      "vector": {
+        "retriever_version": "65c6c61888e64d658e18f741ccb037f76264306583bf2cc275cfad7ee5d3bc47",
+        "overall": {
+          "cases": 8,
+          "topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 1.0,
+          "all_required_topics_rate_at_5": 1,
+          "passage_evidence_coverage_at_5": 1.0,
+          "all_required_evidence_rate_at_5": 1,
+          "more_than_five_required_topics": 0
+        },
+        "by_source_scope": {
+          "single": {
+            "cases": 5,
+            "topic_recall_at_5": 1.0,
+            "topic_mrr_at_5": 1.0,
+            "all_required_topics_rate_at_5": 1,
+            "passage_evidence_coverage_at_5": 1.0,
+            "all_required_evidence_rate_at_5": 1,
+            "more_than_five_required_topics": 0
+          },
+          "multi": {
+            "cases": 3,
+            "topic_recall_at_5": 1.0,
+            "topic_mrr_at_5": 1.0,
+            "all_required_topics_rate_at_5": 1,
+            "passage_evidence_coverage_at_5": 1.0,
+            "all_required_evidence_rate_at_5": 1,
+            "more_than_five_required_topics": 0
+          }
+        },
+        "cases_without_all_topics_at_5": [],
+        "cases_without_all_evidence_at_5": []
+      },
+      "hybrid": {
+        "retriever_version": "55a529e4f9060d0a731e695fb7b844aff3a38b5c10499198178f76543471670d",
+        "overall": {
+          "cases": 8,
+          "topic_recall_at_5": 0.9375,
+          "topic_mrr_at_5": 1.0,
+          "all_required_topics_rate_at_5": 0.875,
+          "passage_evidence_coverage_at_5": 0.9375,
+          "all_required_evidence_rate_at_5": 0.875,
+          "more_than_five_required_topics": 0
+        },
+        "by_source_scope": {
+          "single": {
+            "cases": 5,
+            "topic_recall_at_5": 1.0,
+            "topic_mrr_at_5": 1.0,
+            "all_required_topics_rate_at_5": 1,
+            "passage_evidence_coverage_at_5": 1.0,
+            "all_required_evidence_rate_at_5": 1,
+            "more_than_five_required_topics": 0
+          },
+          "multi": {
+            "cases": 3,
+            "topic_recall_at_5": 0.8333333333333334,
+            "topic_mrr_at_5": 1.0,
+            "all_required_topics_rate_at_5": 0.6666666666666666,
+            "passage_evidence_coverage_at_5": 0.8333333333333334,
+            "all_required_evidence_rate_at_5": 0.6666666666666666,
+            "more_than_five_required_topics": 0
+          }
+        },
+        "cases_without_all_topics_at_5": [
+          "A-QA-09"
+        ],
+        "cases_without_all_evidence_at_5": [
+          "A-QA-09"
+        ]
+      },
+      "bm25": {
+        "retriever_version": "7f8f726967b1c41b03c8b07f509294f2038c183e36678fa08941ef91991035bc",
+        "overall": {
+          "cases": 8,
+          "topic_recall_at_5": 1.0,
+          "topic_mrr_at_5": 0.8333333333333334,
+          "all_required_topics_rate_at_5": 1,
+          "passage_evidence_coverage_at_5": 1.0,
+          "all_required_evidence_rate_at_5": 1,
+          "more_than_five_required_topics": 0
+        },
+        "by_source_scope": {
+          "single": {
+            "cases": 5,
+            "topic_recall_at_5": 1.0,
+            "topic_mrr_at_5": 0.8666666666666667,
+            "all_required_topics_rate_at_5": 1,
+            "passage_evidence_coverage_at_5": 1.0,
+            "all_required_evidence_rate_at_5": 1,
+            "more_than_five_required_topics": 0
+          },
+          "multi": {
+            "cases": 3,
+            "topic_recall_at_5": 1.0,
+            "topic_mrr_at_5": 0.7777777777777778,
+            "all_required_topics_rate_at_5": 1,
+            "passage_evidence_coverage_at_5": 1.0,
+            "all_required_evidence_rate_at_5": 1,
+            "more_than_five_required_topics": 0
+          }
+        },
+        "cases_without_all_topics_at_5": [],
+        "cases_without_all_evidence_at_5": []
+      }
+    },
+    "limitation": "Replay metrics use proposal labels and measure rank coverage. D excerpt review covers a subset of citations."
+  },
+  "a_answer_risk_pilot": {
+    "scope": "Two retained development completions with scoped non-blinded agent judgments",
+    "reference_version": "d-a-answer-risk-pilot-agent-labels-v1",
+    "prediction_version": "a-development-answer-review-packet-v2-actual-completions",
+    "overall": {
+      "cases": 2,
+      "answered": 2,
+      "incorrect_answers": 0,
+      "abstentions": 0,
+      "technical_errors": 0,
+      "coverage": 1.0,
+      "risk": 0.0,
+      "answerable": 2,
+      "answered_on_answerable": 2,
+      "answer_rate_on_answerable": 1.0,
+      "unanswerable": 0,
+      "correct_rejections": 0,
+      "correct_rejection_rate": null
+    },
+    "limitation": "Two answers, zero observed unanswerable cases and no confidence threshold curve."
+  },
+  "synthetic_http": {
+    "scope": "D authored fixture suite and deterministic key-free service over loopback",
+    "counts": {
+      "documents": 24,
+      "qa": 48
+    },
+    "unique_texts": 23,
+    "reference_version": "d-extraction-qa-synthetic-v2",
+    "reference_sha256": "7f568febed116050dbd300678cfdcd5198349b6b4da7d3f83dd57d00cb5bb2e1",
+    "prediction_version": "d-http-mock-predictions-v1",
+    "schema_sha256": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "record_validation": {
+      "schema_valid": 72,
+      "schema_invalid": 0,
+      "evidence_or_relationship_invalid": 0,
+      "technical_errors": 0
+    },
+    "entities_exact": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 15,
+      "precision": 1.0,
+      "recall": 0.4827586206896552,
+      "f1": 0.6511627906976745,
+      "assertion": {
+        "correct": 14,
+        "matched_evaluated": 14,
+        "excluded_unresolved": 0,
+        "accuracy": 1.0
+      },
+      "temporality": {
+        "correct": 14,
+        "matched_evaluated": 14,
+        "excluded_unresolved": 0,
+        "accuracy": 1.0
+      },
+      "subject": {
+        "correct": 14,
+        "matched_evaluated": 14,
+        "excluded_unresolved": 0,
+        "accuracy": 1.0
+      },
+      "procedure_status": {
+        "correct": 0,
+        "matched_evaluated": 0,
+        "excluded_unresolved": 14,
+        "accuracy": null
+      }
+    },
+    "entities_relaxed": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 15,
+      "precision": 1.0,
+      "recall": 0.4827586206896552,
+      "f1": 0.6511627906976745,
+      "assertion": {
+        "correct": 14,
+        "matched_evaluated": 14,
+        "excluded_unresolved": 0,
+        "accuracy": 1.0
+      },
+      "temporality": {
+        "correct": 14,
+        "matched_evaluated": 14,
+        "excluded_unresolved": 0,
+        "accuracy": 1.0
+      },
+      "subject": {
+        "correct": 14,
+        "matched_evaluated": 14,
+        "excluded_unresolved": 0,
+        "accuracy": 1.0
+      },
+      "procedure_status": {
+        "correct": 0,
+        "matched_evaluated": 0,
+        "excluded_unresolved": 14,
+        "accuracy": null
+      }
+    },
+    "answerability": {
+      "answerable": 23,
+      "answered": 12,
+      "answer_rate": 0.5217391304347826,
+      "unanswerable": 25,
+      "correct_rejections": 25,
+      "rejection_rate": 1.0,
+      "expected_state_correct": 37,
+      "evaluated": 48
+    },
+    "answer_completeness": {
+      "all_required_facts_gaps_and_no_extra_supported_quotes": 34,
+      "required_facts_complete": 35,
+      "no_unexpected_source_quotes": 48,
+      "expected_gap_mentions_disclosed": 25,
+      "expected_gap_mentions": 26,
+      "expected_gap_mentions_evaluated": 26,
+      "questions_with_all_gaps_disclosed": 47,
+      "evaluated": 48,
+      "limitation": "Fixture-authored literal checks; a matching source quote can still be irrelevant or semantically misunderstood."
+    },
+    "transport": {
+      "mode": "mock",
+      "requests": 72,
+      "http_200": 72,
+      "technical_failures": 0,
+      "failure_reasons": {},
+      "request_ids_matched": 72,
+      "request_text_in_report": false,
+      "references_sent_to_provider": false
+    },
+    "extractor_version": "d-mock-v1",
+    "prompt_version": "d-mock-prompt-v1",
+    "limitation": "Structural and literal fixture checks; semantic support and general model quality require separate evidence."
+  }
+}

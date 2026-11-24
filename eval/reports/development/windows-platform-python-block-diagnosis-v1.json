@@ -1,0 +1,22 @@
+{
+  "version": "windows-platform-python-block-diagnosis-v1",
+  "date": "2026-11-23",
+  "platform_sha": "710706af0dfff60d00708e051a1c3b45fb39cc3d",
+  "blocked_file": "repo-d009-platform/services/extraction/.venv/Scripts/python.exe",
+  "sha256": "9c5369e46d1cf545aac3ceee792327c299b91e6c9b3f9496051709a60cd39dae",
+  "authenticode_status": "NotSigned",
+  "code_integrity_event_ids": [
+    3077,
+    3033,
+    3089,
+    3118
+  ],
+  "policy_id": "0283ac0f-fff1-49ae-ada1-8a933130cad6",
+  "observed_cause": "Code Integrity rejected this executable under signing policy. Smart App Control block event also recorded.",
+  "not_established": "Whether an official replacement distribution will be allowed; administrator must verify approved route.",
+  "changes_to_security_policy": false,
+  "alternate_interpreter_used_to_run_blocked_platform_checks": false,
+  "web_checks_executed": false,
+  "remediation_owner": "Authorized Windows administrator",
+  "remediation": "Administrator verifies an approved Python 3.13 installation and restores service environments from existing locks, or explicitly approves this reviewed binary under organizational policy. Preserve receipt of the change before rerunning checks."
+}
