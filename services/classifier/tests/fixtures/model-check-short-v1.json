@@ -1,0 +1,57 @@
+{
+  "specialties": {
+    "Cardiovascular / Pulmonary": [
+      "Echocardiogram showed reduced left ventricular systolic function and biatrial enlargement.",
+      "Recurrent wheezing and exertional breathlessness prompted spirometry with flow-volume loops.",
+      "Ambulatory monitoring captured an irregular ventricular response during the palpitations.",
+      "Pulmonary imaging described a small pleural effusion and lower-lobe atelectasis.",
+      "Resting and post-exercise ankle pressures were compared during evaluation of claudication."
+    ],
+    "Orthopedic": [
+      "Radiographs described a displaced distal radius fracture and loss of normal alignment.",
+      "Magnetic resonance imaging showed a full-thickness rotator cuff tear with tendon retraction.",
+      "The knee had joint-line tenderness and a palpable click after a twisting injury.",
+      "Postoperative films showed an intact hip prosthesis with no periprosthetic fracture.",
+      "Standing spinal radiographs identified a thoracic curve and measured the Cobb angle."
+    ],
+    "Gastroenterology": [
+      "Colonoscopy reached the terminal ileum. Biopsies were collected from inflamed colonic mucosa.",
+      "Upper endoscopy documented distal esophagitis in a report describing persistent reflux.",
+      "The consultation reviewed loose stools, weight loss and possible small-bowel malabsorption.",
+      "Liver biopsy described bridging fibrosis and moderate portal inflammation.",
+      "Abdominal imaging found pancreatic calcifications in a report discussing chronic pancreatitis."
+    ],
+    "Neurology": [
+      "The waking electroencephalogram captured epileptiform discharges during a spell of unresponsiveness.",
+      "The examination described asymmetric bradykinesia, a resting tremor and a shuffling gait.",
+      "Nerve conduction testing showed slowed conduction across the fibular head.",
+      "Recurrent visual aura preceded a unilateral headache with light sensitivity.",
+      "Imaging showed restricted diffusion in the left middle cerebral artery territory after sudden aphasia."
+    ],
+    "Urology": [
+      "Computed tomography showed a distal ureteral calculus with mild upstream hydronephrosis.",
+      "Uroflowmetry documented low peak flow and an elevated post-void residual.",
+      "Cystoscopy found a papillary lesion on the posterior wall of the urinary bladder.",
+      "Scrotal ultrasonography described dilation of the left pampiniform plexus.",
+      "The voiding diary recorded urgency, nocturia and leakage before reaching the bathroom."
+    ]
+  },
+  "unrelated": [
+    "The office printer uses duplex mode and sorts each copy into a separate output tray.",
+    "A carpenter adjusted the hinge and made the left cabinet door close flush.",
+    "The deployment uses an isolated network and rotates the service account after a release.",
+    "The treasurer entered accrued revenue and reconciled the ledger with the bank statement.",
+    "Court markings were repainted before the basketball tournament opened.",
+    "The bicycle mechanic measured tire pressure and inspected the valve stem.",
+    "The library put the new paperback orders into the catalog by publication year.",
+    "For the recipe, fold the oats into the batter and place the mixture into the baking dish.",
+    "The parcel crossed the sorting facility before the delivery driver scanned its barcode.",
+    "zxvqtxzk qzxwvvzk"
+  ],
+  "ambiguous": [
+    "The referral says the follow-up is next month.",
+    "Postoperative note. Pain and fatigue are documented.",
+    "Two separate reports appear on the page, one about recurrent seizures and one about a ureteral stone.",
+    "The observation visit was completed. The document contains no other information."
+  ]
+}

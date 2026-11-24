@@ -1,16 +1,17 @@
 # Data Model: Python Classification
 
-**Owner**: C. **Status**: proposal pending cross-owner review.
+**Owner**: C. **Status**: Shared records frozen through F-003/F-009; owned training/data entities remain design proposals.
 
 ## Shared records
 
-Use [contracts/v1](../../contracts/v1/README.md) as the only proposed canonical boundary.
+Use [contracts/v1](../../contracts/v1/README.md) as the frozen canonical boundary.
 - `PreparedDocument` is defined once in `contracts/v1/schema.json#/$defs/PreparedDocument`.
 - `ClassificationRequest` is defined once in `contracts/v1/schema.json#/$defs/ClassificationRequest`.
 - `ClassificationResult` is defined once in `contracts/v1/schema.json#/$defs/ClassificationResult`.
 - `ErrorEnvelope` is defined once in `contracts/v1/schema.json#/$defs/ErrorEnvelope`.
-Do not introduce a second hand-maintained language schema. Generated bindings are a
-future B-owned contract-freeze deliverable.
+Do not introduce a second hand-maintained language schema. B's generated bindings are
+available in `contracts/generated/python`; C's local scaffold consumes their TypedDicts
+and runtime validators. Schema/behavior changes still require B's shared review process.
 
 ## Owned entities and states
 

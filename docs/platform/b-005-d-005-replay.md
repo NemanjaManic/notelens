@@ -31,5 +31,6 @@ checkout and ask **Does the patient report cough?** in the document route.
 
 Run `check_d005_app.py` separately against the pinned `e61140d` mock
 handoff for the partial-answer gap, insufficient evidence and out-of-scope
-states. The saved provider answer covers one sufficient question. Broader
-provider-backed verification and B-005 acceptance remain open.
+states. The saved provider answer covers one sufficient question. See the
+[B-005 acceptance record](integration-status.md#accepted-d-005-saved-response-evidence)
+for the replay scope and separate provider-backed verification.

@@ -1,0 +1,13 @@
+{
+  "experiment_id": "c-lexical-evidence-v1",
+  "reference_manifest_sha256": "e0674f10f2adb1c81ffdac1d157d10947662d0fff913fd37352d973fdf7c61a2",
+  "methods": ["single_word", "two_words", "word_or_phrase"],
+  "minimum_support": [0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.65, 0.8, 1.0, 1.25, 1.5, 1.75, 2.0],
+  "development_low_information_cases": {
+    "model-check-short-v1.json": [1, 2, 4],
+    "model-check-short-v2.json": [1, 2, 4],
+    "model-check-ambiguity-v3.json": [10, 11, 12, 13, 14]
+  },
+  "selection": "Mean normalized utility across provisional complete documents and previously seen synthetic examples; break ties by fewer inappropriate short-text acceptances and higher specialty coverage",
+  "utility": "Correct acceptance minus wrong specialty or inappropriate acceptance; all rows remain in the denominator"
+}
