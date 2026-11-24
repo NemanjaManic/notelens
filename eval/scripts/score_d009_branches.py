@@ -129,7 +129,7 @@ summary = {
         "any_required_topic_cited_rate": retrieval["topic_hit"] / retrieval["topic_denominator"] if retrieval["topic_denominator"] else None,
         "passage_group_coverage_mean": (retrieval["passage_group_coverage_sum"] / retrieval["passage_denominator"]
                                         if retrieval["passage_denominator"] else None),
-        "note": "Proxy from cited literature sources; ranked top-5 retrieval was not saved. Not topic_recall@5.",
+        "note": "Proxy from cited literature sources, not topic_recall@5. Actual ranked retrieval, when retained, is scored separately.",
     },
     "cases": rows,
 }
