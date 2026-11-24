@@ -27,7 +27,7 @@ async function DemoReport({ query, owner, document }: {
   owner: string | null;
   document: PreparedDocument | null;
 }) {
-  const workspace = await demoWorkspace(query, document);
+  const workspace = await demoWorkspace(query, document, owner);
   // Recheck document ownership and history after the report services respond.
   const history = owner && workspace.document ? getSessionStore().questionHistory(owner, workspace.document.doc_id) : null;
   const turn = history?.find(item => item.id === query.turn);
@@ -43,13 +43,14 @@ async function DemoReport({ query, owner, document }: {
     <div className="submission-grid"><SubmissionForm input="text" /><SubmissionForm input="pdf" /></div>
   </>;
   const questions = view.document ? <>
-    <QuestionForm documentId={view.document.doc_id} presets={demoQuestions(builtin)} hasHistory={Boolean(history?.length)}>
+    <QuestionForm documentId={view.document.doc_id} presets={demoQuestions(builtin)} hasHistory={Boolean(history?.length)}
+      evaluation={view.evaluation}>
       {query.turn !== undefined && !turn && <p role="status">This answer is no longer in the conversation history.</p>}
       {turn && <>
         {turn.plan.document && turn.plan.literature ? <ul>
           <li>Document: {turn.plan.document}</li><li>Literature: {turn.plan.literature}</li>
         </ul> : <p>{turn.plan.label}</p>}
-        <QuestionAnswer answer={turn.answer} href={evidenceHref} />
+        <QuestionAnswer answer={turn.answer} href={evidenceHref} evaluation={view.evaluation} />
       </>}
     </QuestionForm>
     {history && history.length > 0 && <section aria-label="Conversation history">
