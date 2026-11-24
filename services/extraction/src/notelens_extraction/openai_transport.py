@@ -38,6 +38,8 @@ def provider_failure(response) -> ServiceError:
                     diagnostics["provider_error_" + field] = value
     except (ValueError, UnicodeError, RecursionError, TypeError, OSError, http.client.HTTPException):
         pass
+    import sys
+    print(json.dumps({"extraction_provider_failure": diagnostics}), file=sys.stderr, flush=True)
     return ServiceError(503, "provider_unavailable", "The Responses request was unsuccessful.",
                         provider_diagnostics=diagnostics)
 

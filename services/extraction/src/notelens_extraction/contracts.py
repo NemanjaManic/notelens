@@ -59,6 +59,10 @@ def validate_extraction(result: dict, document: dict) -> None:
         validate_span(document["text"], item["mention"])
         for span in item["evidence"]:
             validate_span(document["text"], span)
+            # The catalog is the mock provider's fixed labelling, not reference truth; a live
+            # model may label the same sentence differently and must not be rejected for it.
+            if result.get("mode") != "mock":
+                continue
             from .providers import CATALOG
             for sentence, kind, name, assertion, time, subject, status in CATALOG:
                 if span["quote"] == sentence and item["name"].casefold() == name.casefold():
