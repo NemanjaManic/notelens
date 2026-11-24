@@ -53,7 +53,8 @@ def claim_approved_run(config_path, run_id, config_bytes):
 
 
 @contextmanager
-def start_bounded_web(endpoints, limits, *, profile, http_timeout_ms, deadline_unix_ms=None, owner=None):
+def start_bounded_web(endpoints, limits, *, profile, http_timeout_ms, deadline_unix_ms=None, owner=None,
+                      reviewed_literature_hashes=None):
     if profile not in {'provider-backed', 'offline'}:
         raise ValueError('Select an explicit bounded evaluation profile.')
     if (set(limits) != OPERATIONS or any(type(limit) is not int or not 0 <= limit < 2**53
@@ -107,6 +108,8 @@ def start_bounded_web(endpoints, limits, *, profile, http_timeout_ms, deadline_u
     env.update({f'NOTELENS_DEMO_{name.upper()}_PORT': str(endpoint.port) for name, endpoint in endpoints.items()})
     if deadline_unix_ms is not None:
         env['NOTELENS_BOUNDED_DEADLINE_UNIX_MS'] = str(deadline_unix_ms)
+    if reviewed_literature_hashes is not None:
+        env['NOTELENS_BOUNDED_REVIEWED_LITERATURE_HASHES'] = json.dumps(reviewed_literature_hashes)
     stack = None
     try:
         check_deadline()

@@ -1,6 +1,7 @@
 import { DOCUMENT_LIFETIME_MS } from '../config/session-policy.ts';
 
 export type EvaluationProfile = 'offline' | 'provider-backed';
+export type ReviewedLiteratureHashes = Readonly<Record<'literature' | 'both', readonly string[]>>;
 export const boundedOperations = ['extract', 'document-answer', 'literature-answer'] as const;
 export type BoundedOperation = typeof boundedOperations[number];
 type Limits = Record<BoundedOperation, number>;
@@ -54,6 +55,7 @@ const processState = globalThis as typeof globalThis & {
 
 export function boundedEvaluation(env: NodeJS.ProcessEnv): {
   profile: EvaluationProfile; ragToken: string; extractionToken: string; timeoutMs: number; budget: RunBudget;
+  reviewedLiteratureHashes?: ReviewedLiteratureHashes;
 } | null {
   const profile = env.NOTELENS_BOUNDED_EVALUATION;
   if (profile !== 'offline' && profile !== 'provider-backed') return null;
@@ -72,11 +74,21 @@ export function boundedEvaluation(env: NodeJS.ProcessEnv): {
     const limits = JSON.parse(env.NOTELENS_BOUNDED_LIMITS ?? '') as Limits;
     if (Object.keys(limits).length !== boundedOperations.length ||
         boundedOperations.some(op => !Number.isSafeInteger(limits[op]) || limits[op] < 0)) return null;
+    const rawHashes = env.NOTELENS_BOUNDED_REVIEWED_LITERATURE_HASHES;
+    let reviewedLiteratureHashes: ReviewedLiteratureHashes | undefined;
+    if (rawHashes !== undefined) {
+      const hashes = JSON.parse(rawHashes) as ReviewedLiteratureHashes;
+      if (!hashes || Object.keys(hashes).length !== 2 || !Array.isArray(hashes.literature) || !Array.isArray(hashes.both) ||
+          hashes.literature.length + hashes.both.length !== limits['literature-answer'] ||
+          ![...hashes.literature, ...hashes.both].every(value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value))) return null;
+      reviewedLiteratureHashes = hashes;
+    }
     const configuration = JSON.stringify([profile, env.NOTELENS_DEMO_RUN, env.NOTELENS_SESSION_ORIGIN,
-      env.NOTELENS_DEMO_RAG_PORT, env.NOTELENS_DEMO_EXTRACTION_PORT, ragToken, extractionToken, timeoutMs, deadlineUnixMs, limits]);
+      env.NOTELENS_DEMO_RAG_PORT, env.NOTELENS_DEMO_EXTRACTION_PORT, ragToken, extractionToken, timeoutMs, deadlineUnixMs,
+      limits, reviewedLiteratureHashes]);
     const state = processState.notelensBoundedEvaluation ??= { configuration, budget: new RunBudget(limits, deadlineUnixMs) };
     if (state.configuration !== configuration) return null;
-    return { profile, ragToken, extractionToken, timeoutMs, budget: state.budget };
+    return { profile, ragToken, extractionToken, timeoutMs, budget: state.budget, reviewedLiteratureHashes };
   } catch {
     return null;
   }
