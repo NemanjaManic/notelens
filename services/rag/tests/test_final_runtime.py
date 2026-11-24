@@ -33,7 +33,7 @@ def policy():
             'pricing_confirmed': False, 'approval_id': None, 'operator': None,
             'question_sha256': [hashlib.sha256(f'Synthetic question {i}'.encode()).hexdigest() for i in range(16)],
             'provider_timeout_seconds': 30, 'wall_clock_seconds': 3600, 'a_budget_usd': '0.08',
-            'automatic_retries': 0, 'run_id': str(uuid4()),
+            'automatic_retries': 1, 'run_id': str(uuid4()),
             'receipt_path': 'services/rag/.cache/final/synthetic/receipt.json'}
 
 
@@ -135,6 +135,69 @@ def test_provider_error_keeps_reserved_cost_and_prevents_further_calls(ledger):
     assert ledger.current['operations'][0]['status'] == 'failed_reserved'
 
 
+def test_recoverable_validation_failure_is_recorded_without_halting(ledger):
+    admit(ledger)
+
+    def invalid():
+        raise AssessmentError('invalid_upstream')
+
+    with pytest.raises(AssessmentError):
+        ledger.operation('answer', invalid, reserve=Decimal('0.001'), recoverable=True)
+    assert ledger.state['status'] == 'running'
+    assert ledger.current['operations'][0] == {'stage': 'answer', 'status': 'failed_reserved',
+                                               'reserved_usd': '0.001', 'error_code': 'invalid_upstream'}
+    result, record = ledger.operation('answer_retry', lambda: 'ok', reserve=Decimal('0.001'))
+    assert result == 'ok' and record['status'] == 'received_reserved'
+    assert ledger.state['reserved_usd'] == '0.002' and ledger.state['generation_attempts'] == 2
+
+
+def test_recoverable_flag_never_suppresses_hard_stop_codes(ledger):
+    admit(ledger)
+
+    def limited():
+        raise AssessmentError('rate_limit')
+
+    with pytest.raises(AssessmentError):
+        ledger.operation('answer', limited, reserve=Decimal('0.001'), recoverable=True)
+    assert ledger.state['status'] == 'halted' and ledger.state['stop_code'] == 'rate_limit'
+
+
+def test_content_validation_failure_gets_one_reserved_reattempt(ledger):
+    admit(ledger)
+    client, counts, generations = fake_client()
+    providers = runtime.Providers(ledger, client, None, None)
+    checks = []
+
+    def check(data):
+        checks.append(data)
+        if len(checks) == 1:
+            raise AssessmentError('validation_failure')
+        return 'checked'
+
+    assert providers.checked_stage('question_parts', {'model': runtime.MODEL, 'input': 'synthetic'}, check) == 'checked'
+    assert len(counts) == len(generations) == 2 and ledger.state['status'] == 'running'
+    stages = [(row['stage'], row.get('error_code')) for row in ledger.current['operations']]
+    assert stages == [('question_parts_count', None), ('question_parts', 'validation_failure'),
+                      ('question_parts_retry_count', None), ('question_parts_retry', None)]
+    assert Decimal(ledger.state['reserved_usd']) == 2 * runtime._cost(10, 512)
+
+
+def test_second_content_validation_failure_halts(ledger):
+    admit(ledger)
+    client, counts, generations = fake_client()
+    providers = runtime.Providers(ledger, client, None, None)
+
+    def check(data):
+        raise AssessmentError('validation_failure')
+
+    with pytest.raises(AssessmentError):
+        providers.checked_stage('support', {'model': runtime.MODEL, 'input': 'synthetic'}, check)
+    # The second failure propagates; BoundedBackend.answer then halts the ledger (request_failed).
+    assert len(counts) == len(generations) == 2
+    stages = [row['stage'] for row in ledger.current['operations']]
+    assert stages == ['support_count', 'support', 'support_retry_count', 'support_retry']
+
+
 def test_hard_deadline_does_not_accept_late_result_or_dispatch_next_operation(ledger, monkeypatch):
     admit(ledger)
     monkeypatch.setattr(runtime, 'TIMEOUT', .02)
@@ -198,15 +261,64 @@ def test_count_payload_is_free_but_counted_and_generation_reserved(ledger):
 
 
 @pytest.mark.parametrize('counted,native_input,output_tokens', [(4097, 10, 2), (10, True, 2), (10, 10, 513)])
-def test_bad_count_or_usage_stops_without_additional_dispatch(ledger, counted, native_input, output_tokens):
+def test_bad_count_or_usage_stops_after_at_most_one_validation_retry(ledger, counted, native_input, output_tokens):
     admit(ledger)
     client, counts, generations = fake_client(counted=counted, native_input=native_input, output_tokens=output_tokens)
     providers = runtime.Providers(ledger, client, None, None)
     with pytest.raises(AssessmentError):
-        providers.complete('question_parts', {'model': runtime.MODEL, 'input': 'synthetic'})
-    assert len(counts) == 1
-    assert len(generations) == (0 if counted > 4096 else 1)
+        providers.checked_stage('question_parts', {'model': runtime.MODEL, 'input': 'synthetic'}, lambda data: data)
+    # An oversized count never dispatches; invalid usage gets exactly one reserved re-attempt.
+    attempts = 1 if counted > 4096 else 1 + runtime.VALIDATION_RETRIES
+    assert len(counts) == attempts
+    assert len(generations) == (0 if counted > 4096 else attempts)
     assert ledger.state['status'] == 'halted'
+    if counted <= 4096:
+        assert [row['error_code'] for row in ledger.current['operations'] if 'error_code' in row] == ['invalid_upstream'] * 2
+
+
+def test_out_of_scope_abstention_completes_request_without_halting(ledger):
+    def abstain(request):
+        raise RagServiceError('out_of_scope')
+
+    guarded = runtime.BoundedBackend(SimpleNamespace(answer=abstain), ledger)
+    context = runtime.REQUEST_ID.set(str(uuid4()))
+    try:
+        with pytest.raises(RagServiceError) as failure:
+            guarded.answer({'schema_version': '1.0.0', 'question': 'Synthetic question 0'})
+    finally:
+        runtime.REQUEST_ID.reset(context)
+    assert failure.value.code == 'out_of_scope'
+    assert ledger.state['status'] == 'running'
+    assert ledger.state['requests'][0]['status'] == 'completed_abstained'
+    assert ledger.state['requests'][0]['outcome'] == 'out_of_scope'
+
+
+def test_transient_provider_error_gets_one_reattempt_then_halts(ledger, monkeypatch):
+    monkeypatch.setattr(runtime, 'RETRY_PAUSE_SECONDS', 0)
+    admit(ledger)
+    client, counts, generations = fake_client()
+    providers = runtime.Providers(ledger, client, None, None)
+    monkeypatch.setattr(runtime, '_call', lambda operation, **kwargs: (
+        generations.append(kwargs), (_ for _ in ()).throw(AssessmentError('provider_unavailable')))[1])
+    with pytest.raises(AssessmentError):
+        providers.checked_stage('answer', {'model': runtime.MODEL, 'input': 'synthetic'}, lambda data: data)
+    assert len(generations) == 2 and len(counts) == 2
+    assert ledger.state['status'] == 'halted' and ledger.state['stop_code'] == 'provider_unavailable'
+    assert [row.get('error_code') for row in ledger.current['operations'] if 'error_code' in row] == [
+        'provider_unavailable', 'provider_unavailable']
+
+
+def test_abstention_is_never_reattempted(ledger):
+    admit(ledger)
+    client, counts, generations = fake_client()
+    providers = runtime.Providers(ledger, client, None, None)
+
+    def check(data):
+        raise AssessmentError('out_of_scope')
+
+    with pytest.raises(AssessmentError):
+        providers.checked_stage('question_parts', {'model': runtime.MODEL, 'input': 'synthetic'}, check)
+    assert len(counts) == len(generations) == 1
 
 
 def test_valid_insufficient_result_is_not_a_failure_and_receipt_has_no_body(ledger):
