@@ -1,18 +1,18 @@
 # Data Model: Python Extraction and Shared Evaluation
 
-**Owner**: D. **Status**: proposal pending cross-owner review.
+**Owner**: D. **Status**: D-owned evaluation model proposal; shared wire records are frozen by B in contracts/v1 1.0.0. Evaluation and annotation workflow decisions remain subject to review.
 
 ## Shared records
 
-Use [contracts/v1](../../contracts/v1/README.md) as the only proposed canonical boundary.
+Use [contracts/v1](../../contracts/v1/README.md) as the only canonical wire boundary (version 1.0.0; frozen and bound by B).
 - `PreparedDocument` is defined once in `contracts/v1/schema.json#/$defs/PreparedDocument`.
 - `ExtractionRequest` is defined once in `contracts/v1/schema.json#/$defs/ExtractionRequest`.
 - `ExtractionResult` is defined once in `contracts/v1/schema.json#/$defs/ExtractionResult`.
 - `DocumentQuestionRequest` is defined once in `contracts/v1/schema.json#/$defs/DocumentQuestionRequest`.
 - `AnswerResult` is defined once in `contracts/v1/schema.json#/$defs/AnswerResult`.
 - `ErrorEnvelope` is defined once in `contracts/v1/schema.json#/$defs/ErrorEnvelope`.
-Do not introduce a second hand-maintained language schema. Generated bindings are a
-future B-owned contract-freeze deliverable.
+Do not introduce a second hand-maintained language schema. The generated bindings are
+B-owned; D consumes the published Python package and runtime validators.
 
 ## Owned entities and states
 

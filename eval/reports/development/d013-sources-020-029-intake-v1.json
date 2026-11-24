@@ -1,0 +1,120 @@
+{
+  "version": "d013-sources-020-029-intake-v1",
+  "date": "2026-11-23",
+  "source": "Sara message and supplied source-text ZIP relayed by Milica.",
+  "status": "all_ten_missing_canonical_sources_received_and_verified",
+  "archive_sha256": "f7c8ed176bc95133808f8e88e250ab2bf613d5f42e3d276f5bb12e04aa0642e0",
+  "matches_supplied_archive_sha256": true,
+  "file_checksum_entries_verified": 11,
+  "filename_assignment_mapping_verified": 10,
+  "source_hashes_matched_to_frozen_assignments_and_b011": 10,
+  "original_b011_primary_archive_sha256": "2b1a008e80e11b35fa8fb88f067a6e92abe935f049654c2037363f56a5d32a8d",
+  "original_b011_labels_match_prior_candidates": true,
+  "verified_sources": [
+    {
+      "assignment_id": "assignment-020",
+      "doc_id": "mtsamples-a92cb78569f46060-4955",
+      "sha256": "936cfa82d3da41338e24c031461a249016784b7b736a26cf5ba41f671069be04",
+      "code_points": 7760,
+      "mentions": 83,
+      "evidence_spans": 83
+    },
+    {
+      "assignment_id": "assignment-021",
+      "doc_id": "mtsamples-a92cb78569f46060-2772",
+      "sha256": "f480481645d629333a5a8c0953cf9a1ac0b8217a53ae3fad5d1bf55568d54b50",
+      "code_points": 2649,
+      "mentions": 22,
+      "evidence_spans": 23
+    },
+    {
+      "assignment_id": "assignment-022",
+      "doc_id": "mtsamples-a92cb78569f46060-2047",
+      "sha256": "d598e335199eab257bc294188cea126ff3e0e3148eefc12a463d1a6cb2df4380",
+      "code_points": 62,
+      "mentions": 1,
+      "evidence_spans": 2
+    },
+    {
+      "assignment_id": "assignment-023",
+      "doc_id": "mtsamples-a92cb78569f46060-3580",
+      "sha256": "da23c6f52d382ef82c0c825df7638f7a0fb554d696084b57d23b75d824834ea6",
+      "code_points": 2404,
+      "mentions": 26,
+      "evidence_spans": 27
+    },
+    {
+      "assignment_id": "assignment-024",
+      "doc_id": "mtsamples-a92cb78569f46060-64",
+      "sha256": "730384e7a62a0e0b2812e0259e5698afd4dc0a507085df39ee2db322d70a2d49",
+      "code_points": 2877,
+      "mentions": 42,
+      "evidence_spans": 42
+    },
+    {
+      "assignment_id": "assignment-025",
+      "doc_id": "mtsamples-a92cb78569f46060-2971",
+      "sha256": "ca7611a81c18fae24c30745ce9b528f080febbc3864ac48886b4ac39d55e4b06",
+      "code_points": 5633,
+      "mentions": 74,
+      "evidence_spans": 76
+    },
+    {
+      "assignment_id": "assignment-026",
+      "doc_id": "mtsamples-a92cb78569f46060-4939",
+      "sha256": "899690ed54504643dd0256a63c156c464faaaf22500d7a669f5eb6dbaa698a9e",
+      "code_points": 1892,
+      "mentions": 31,
+      "evidence_spans": 31
+    },
+    {
+      "assignment_id": "assignment-027",
+      "doc_id": "mtsamples-a92cb78569f46060-2218",
+      "sha256": "2fdb90aa2f8c4c8f0fb0cddc80c2cec9f72490dde90b1b00872d64283a7ab91a",
+      "code_points": 2121,
+      "mentions": 23,
+      "evidence_spans": 23
+    },
+    {
+      "assignment_id": "assignment-028",
+      "doc_id": "mtsamples-a92cb78569f46060-3656",
+      "sha256": "40e1cc2dff5474a826c43202e107b7bee9e8998732ef4a2ad286c05ee0f12ff8",
+      "code_points": 5885,
+      "mentions": 69,
+      "evidence_spans": 79
+    },
+    {
+      "assignment_id": "assignment-029",
+      "doc_id": "mtsamples-a92cb78569f46060-142",
+      "sha256": "89393156b2bc3b30d1f5aab007e0c95bdfed972e8fc619b81919e8ecafd31d9b",
+      "code_points": 112,
+      "mentions": 2,
+      "evidence_spans": 3
+    }
+  ],
+  "primary_mentions_verified": 373,
+  "primary_evidence_spans_verified": 389,
+  "source_or_span_errors": 0,
+  "confirmed_code_points": {
+    "assignment-022": 62,
+    "assignment-029": 112
+  },
+  "all_current_sources_verified": 40,
+  "all_current_candidate_mentions_verified": 1189,
+  "all_current_candidate_evidence_spans_verified": 1467,
+  "b_questions_now_source_anchored": 49,
+  "missing_canonical_source_ids": [],
+  "private_intake_directory": "Predaja-NoteLens/D-013/D013-sources-020-029-verified-v1",
+  "current_source_loaded_packet_sha256": "69cbbba5f49d906f89af98760ac0beda27ee87a7126142d8a9deae0e54850ce7",
+  "prior_human_decision_records_preserved": true,
+  "document_003_applied_changes_preserved": true,
+  "original_member_submissions_modified": false,
+  "source_bytes_normalized_or_edited": false,
+  "new_independent_review_credit": 0,
+  "new_human_approvals_inferred": 0,
+  "remaining": "Apply recorded human decisions/guide rules and resolve substantive adjudication exceptions, then validate and obtain the final reference freeze approval. Source receipt alone does not approve all remaining labels.",
+  "canonical_reference_set_frozen": false,
+  "full_d013_closed": false,
+  "provider_calls": 0,
+  "unseen_final_sources_or_answer_keys_accessed": false
+}

@@ -1,0 +1,50 @@
+{
+  "version": "d005-d41-app-recheck-acceptance-v2",
+  "date": "2026-11-23",
+  "status": "accepted_owner_reported_key_free_development_app_recheck",
+  "app_patch_sha": "41b7b3433a55461eff28794745d28061df84209c",
+  "app_base_sha": "0536cb56fdd1f99f9cc73110e28a90a22892cb01",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "configuration": {
+    "model": "gpt-6-luna",
+    "input_format": "messages",
+    "output_format": "quote_hints",
+    "prompt_profile": "coverage_v2",
+    "reasoning_effort": "low"
+  },
+  "receipt_sha256": "997aa59b40ac481a5d21d8026865b38c05fb5f59d047f9c65b823cc6f4b6f8f8",
+  "app_patch_file_hashes_verified": true,
+  "prompt_hashes_verified": true,
+  "bundle_hash_matches": true,
+  "all_16_case_ids_and_saved_states_match": true,
+  "reported_rendered_highlights": 324,
+  "highlight_sum_verified": true,
+  "browser_observations_independently_rerun_by_D": false,
+  "provider_calls": 0,
+  "final_cases_used": 0,
+  "partial_extractions": 4,
+  "answer_states": {
+    "sufficient": 4,
+    "partial": 1,
+    "insufficient": 1
+  },
+  "case22_age_gap_and_exact_span_reported": true,
+  "out_of_scope_control_reported": {
+    "http": 200,
+    "state": [
+      "none",
+      "unsupported"
+    ],
+    "answer_citations": 0
+  },
+  "owned_listeners_closed_reported": true,
+  "earlier_admission_failures_reported": [
+    "case-18",
+    "case-21",
+    "case-22"
+  ],
+  "unmet_quality_and_missing_independent_risk_unchanged": true,
+  "d009_closed": false,
+  "tested_patch_is_accepted_final_app_pin": false,
+  "runtime_reproducer_gap": "Receipt and exact patch verified; separate d41 runner not supplied in this receipt."
+}

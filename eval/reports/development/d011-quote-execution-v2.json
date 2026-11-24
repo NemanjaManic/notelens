@@ -1,0 +1,374 @@
+{
+  "version": "d011-quote-execution-v2",
+  "date": "2026-11-23",
+  "service_sha": "0873f152818e9620709a1c49470f432dd464f689",
+  "partition": "development",
+  "operations": [
+    {
+      "id": "assignment-022",
+      "operation": "extract",
+      "number": 1,
+      "request_sha256": "fe86c0b873d705fa39e244e7dd8f35fdc6c60f35db12c745de0ce369073e9a07",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "ec385d864648830c0e31a92638a971a5ac01130995d9fc6db8fb76c3e4e3b0a5",
+      "server_grounded_quote_protocol": true,
+      "usage": {
+        "input_tokens": 813,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 127,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 940
+      },
+      "response_status": "completed",
+      "response_sha256": "bc7c20166c235a3c8c9ae4929b2a04b6245a724f40a92e0b9f857bd2b4bfbe76"
+    },
+    {
+      "id": "assignment-029",
+      "operation": "extract",
+      "number": 2,
+      "request_sha256": "8f5e99201f0e81393ee33190f313ca1082d3f9950028b95aaa8e711c13ce9072",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "58c674f010a7d7e7e1f186d04d7b10eed7c3047a9b9935b618391346fd8346e9",
+      "server_grounded_quote_protocol": true,
+      "usage": {
+        "input_tokens": 829,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 190,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1019
+      },
+      "response_status": "completed",
+      "response_sha256": "68924435a01aa618bf8bf992dba22985010fe368bea2fb93a28a7285f0a5ee01"
+    },
+    {
+      "id": "assignment-012",
+      "operation": "extract",
+      "number": 3,
+      "request_sha256": "465107f72309fdec497dfde86f263f1d7ab3edd04182643df7a45d61812aea1f",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "usage": {
+        "input_tokens": 858,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 370,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1228
+      },
+      "response_status": "completed",
+      "response_sha256": "9c647b005792c59fc324d78c75f956e5ce1d8cb01e44bead2790b184a62f8d9f"
+    },
+    {
+      "id": "assignment-016",
+      "operation": "extract",
+      "number": 4,
+      "request_sha256": "90dc747c75e5606a6cdd7a4a8bc7480dcce422ae17dd45cc12299e485d112875",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "0994397d74af5b2e7abaed6040478cf210cf1bd80ee71955a5d34c90d08cfc09",
+      "server_grounded_quote_protocol": true,
+      "usage": {
+        "input_tokens": 915,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 118,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1033
+      },
+      "response_status": "completed",
+      "response_sha256": "3bb7e55c82c09a106aed469c6412684bdace66e6f4e914cfd2897bafcd922940"
+    },
+    {
+      "id": "assignment-017",
+      "operation": "extract",
+      "number": 5,
+      "request_sha256": "df1b7993ef9f267779461f86b17988e345fe7c7a0107967719cda2c80a61f016",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "usage": {
+        "input_tokens": 1087,
+        "input_tokens_details": {
+          "cache_write_tokens": 1084,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 1084
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1299,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2386
+      },
+      "response_status": "completed",
+      "response_sha256": "00d29a03d7e0fa407b4e7a9f1f82f58516fb894b3b52aa7b70837a03333d4e0f"
+    },
+    {
+      "id": "assignment-008",
+      "operation": "extract",
+      "number": 6,
+      "request_sha256": "459bd8a725738bc2d461fd3b4efb77b47ccf735117cbb439b3527c3ad2ed0e39",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "usage": {
+        "input_tokens": 1141,
+        "input_tokens_details": {
+          "cache_write_tokens": 1138,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 1138
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1276,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2417
+      },
+      "response_status": "completed",
+      "response_sha256": "d74a4e94157b674d0855adfa11bbf8c1e79959486ab878acbcdcae988b5b7991"
+    },
+    {
+      "id": "assignment-019",
+      "operation": "extract",
+      "number": 7,
+      "request_sha256": "decba93787039f2651ea7bea1afac7d8e9725818faa879745fa3557616d4cf45",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "usage": {
+        "input_tokens": 1132,
+        "input_tokens_details": {
+          "cache_write_tokens": 1129,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 1129
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 812,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1944
+      },
+      "response_status": "completed",
+      "response_sha256": "2cda244f52540e0a174f736c59a803e8ad4ddc1a2dedf0630f2621effea52aa7"
+    },
+    {
+      "id": "assignment-036",
+      "operation": "extract",
+      "number": 8,
+      "request_sha256": "d3cb48ad0e41f0a62ff5cd31c917b98c30bdf6a96dac1f14e2feef6c31865f01",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "db421fc68e567b3d86ce43eb22ce50c9de691478b38bfcde22da1606a8748b5f",
+      "server_grounded_quote_protocol": true,
+      "usage": {
+        "input_tokens": 1190,
+        "input_tokens_details": {
+          "cache_write_tokens": 1187,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 1187
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1849,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 3039
+      },
+      "response_status": "completed",
+      "response_sha256": "117c9ea0373482e7bfd4b72acb94bf80d7219036d62f26de1ae1b1fe6e3e2a1d"
+    },
+    {
+      "id": "assignment-038",
+      "operation": "extract",
+      "number": 9,
+      "request_sha256": "01f3408981f06f6653f156042362e075766b6b1357f0db4430ab013e376d21a7",
+      "status": "technical_error",
+      "code": "internal_error",
+      "provider_diagnostics": null,
+      "usage": {
+        "input_tokens": 1185,
+        "input_tokens_details": {
+          "cache_write_tokens": 1182,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 1182
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1319,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2504
+      },
+      "response_status": "completed",
+      "response_sha256": "89a6a927c18145124dd207782d3053232a655bad07acf93c64296250ba471eb1"
+    },
+    {
+      "id": "confirmed-01/supported",
+      "operation": "answer",
+      "number": 10,
+      "request_sha256": "2eb00c097c4fbd5de1152952a78ef952c8cbfda44236c390d8a311b67f884a60",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "f041e0c519401fa4ea59f063c8abb887a979988a44ad79cd26a6a30b94739053",
+      "server_grounded_quote_protocol": true,
+      "usage": {
+        "input_tokens": 491,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 51,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 542
+      },
+      "response_status": "completed",
+      "response_sha256": "a7d66fc9eb4b1f0a4b8c999b3f904632ab8cee56085e4b5670b24cf619cfd39c"
+    },
+    {
+      "id": "history-01/absent",
+      "operation": "answer",
+      "number": 11,
+      "request_sha256": "f8d9d1c0ec6f54e0dd5ee0e55e9fb031694dabb7cb4170625e73475f0e633602",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "94357e29423ffe185be2bc9db418f6e9cbeb7f7f3fb538f8585aa1ec6473662c",
+      "server_grounded_quote_protocol": true,
+      "usage": {
+        "input_tokens": 497,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 46,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 543
+      },
+      "response_status": "completed",
+      "response_sha256": "7fa1825deed1ed08c4517978112ab7fe4cb1c6b368657259aab2d733670f1d39"
+    },
+    {
+      "id": "limited-04/supported",
+      "operation": "answer",
+      "number": 12,
+      "request_sha256": "3f2c1d4d83ddac1e0a847a14925628af972c7836b1efdcb2dcbd8efac59c9217",
+      "status": "returned_valid",
+      "diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "validated_output_sha256": "f980c95cc14947cbc6481caf3080ef273dcce0c5419f14842f57e46a1c10b2c5",
+      "server_grounded_quote_protocol": true,
+      "usage": {
+        "input_tokens": 508,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 59,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 567
+      },
+      "response_status": "completed",
+      "response_sha256": "bcc9c38ffa995a44970396da6222a8ae956bd1791b69cc992ec6c11760eb3c11"
+    }
+  ],
+  "max_provider_calls": 12,
+  "reservation_count": 12,
+  "automatic_retries": 0,
+  "known_cumulative_max_reservation_usd": "0.0889452",
+  "actual_billing_confirmed": false,
+  "private_archive": "Predaja-NoteLens/D-011/D011-quote-protocol-v2",
+  "final_measurement_executed": false
+}

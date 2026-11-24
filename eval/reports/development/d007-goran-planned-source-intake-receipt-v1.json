@@ -1,0 +1,35 @@
+{
+  "version": "d007-goran-planned-source-intake-receipt-v1",
+  "date": "2026-11-22",
+  "status": "local_draft_metadata_checked_joint_review_and_four_source_replacements_pending",
+  "archive_sha256": "605ee2a50d68cee5f088f61abb92f8ebe6c521f99b891f642c356b05f0d176cd",
+  "source_list_version": "d007-final-source-intake-joint-draft-v1",
+  "source_list_sha256": "62ea81cd89207ab029ffca163a688ee59f0c15fe7f533e0960c60867a03026da",
+  "supplied_source_list_sha256_matches": true,
+  "package_checksums_verified": 6,
+  "staffing_assignments_match_all_26_slots": true,
+  "reference_corpus_pins_match": true,
+  "metadata_slots_screened": 26,
+  "metadata_slots_with_flags": 0,
+  "metadata_flag_counts": {},
+  "within_final_source_reuse_groups": 0,
+  "provided_document_files_hash_checked": 4,
+  "referenced_document_files_not_in_zip": 12,
+  "author_preliminary_checks_reported": {
+    "Sara": 13,
+    "Goran": 13
+  },
+  "joint_formal_overlap_review_complete": false,
+  "full_provenance_review_complete": false,
+  "early_d_source_text_exposure_slots": [
+    "F-MIX-05",
+    "F-MIX-06",
+    "F-MIX-07",
+    "F-MIX-08"
+  ],
+  "unseen_document_source_families_requiring_replacement": 4,
+  "upload_reported_by_user": false,
+  "d_uploaded_anything": false,
+  "final_manifest_frozen": false,
+  "final_question_or_answer_keys_in_package": false
+}

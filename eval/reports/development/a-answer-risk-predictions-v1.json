@@ -1,0 +1,9 @@
+{
+  "version": "a-development-answer-review-packet-v2-actual-completions",
+  "source_packet": "docs/rag/evaluation/development-answer-review-v2.json",
+  "source_packet_sha256": "8687f294da6a9530a9f41717cfde8fb24834d4d88b89cfbbf915f3b86d264e7c",
+  "cases": [
+    {"id": "A-QA-01", "outcome": "answered"},
+    {"id": "A-QA-02", "outcome": "answered"}
+  ]
+}

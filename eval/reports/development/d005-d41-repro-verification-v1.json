@@ -1,0 +1,21 @@
+{
+  "version": "d005-d41-repro-verification-v1",
+  "date": "2026-11-23",
+  "archive_sha256": "1bcedb82763f0096eeb385bc9e4a0dbd766889cd7afb47f66f70a3e622ee9cf3",
+  "receipt_sha256": "da22be247d27db590bf876933033b37b540d24272c434345f0345ee8ac1d5d72",
+  "app_sha": "7743fc87aafa94f42b6fd81e34a48612352da1f1",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "checksums_and_runner_pins_verified": true,
+  "app_patch_file_hashes_verified": true,
+  "all_16_archived_request_raw_and_validated_hashes_verified": true,
+  "reported_highlights": 324,
+  "highlight_sum_verified": true,
+  "all_three_stack_shutdowns_reported": true,
+  "local_D_rerun_performed": false,
+  "status": "accepted_reproducible_owner_reported_saved_development_replay",
+  "pr32_reproducibility_evidence_gap": "resolved_by_supplied_separate_runner_command_and_pinned_receipt",
+  "provider_calls": 0,
+  "final_cases_used": 0,
+  "B005_formal_acceptance": "pending",
+  "D009_final_execution_scoring": "pending"
+}

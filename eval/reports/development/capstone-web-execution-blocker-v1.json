@@ -1,0 +1,14 @@
+{
+  "version": "capstone-web-execution-blocker-v1",
+  "date": "2026-11-23",
+  "platform_sha": "710706af0dfff60d00708e051a1c3b45fb39cc3d",
+  "attempted_command": "services/extraction/.venv/Scripts/python.exe -B scripts/project/smoke_mock.py",
+  "checkout": "repo-d009-platform",
+  "observed_exit_code": 1,
+  "failing_step": "Windows refused to start the locked platform Python interpreter",
+  "observed_error": "An Application Control policy has blocked this file",
+  "web_started": false,
+  "ev_cases_executed": 0,
+  "owner": "Windows administrator or Goran on another approved Windows machine",
+  "action": "Resolve application control through approved administration, then run locked app checks. No alternate-interpreter or policy bypass attempted."
+}

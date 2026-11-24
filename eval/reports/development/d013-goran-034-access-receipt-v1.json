@@ -1,0 +1,25 @@
+{
+  "version": "d013-goran-034-access-receipt-v1",
+  "date": "2026-11-22",
+  "source": "Goran message relayed by Milica",
+  "assignment_id": "assignment-034",
+  "packet_received": true,
+  "canonical_readability_confirmed_by_reviewer": true,
+  "canonical_sha256_reported": "a96c3c6d40f221286b2063367350a1d65afd29494376804e908ada042ce1f44f",
+  "reported_digest_matches_supplemental_allocation": true,
+  "prior_primary_label_exposure": "awaiting_reviewer_confirmation",
+  "return_date": null,
+  "review_submitted": false,
+  "independent_review_credit_added": 0,
+  "team_one_to_one_submission_route_acknowledged": true,
+  "b011_secondary_ids_pending": [
+    "assignment-001",
+    "assignment-004",
+    "assignment-007"
+  ],
+  "b011_primary_labels_held_until_reviews_submitted": true,
+  "ai_assisted_draft_received": true,
+  "ai_assisted_draft_sha256": "cbe197b72f6723b661183cb683c01f166e946e7ceaedd056cde794f8f21e99ad",
+  "milica_accepted_draft_content": true,
+  "review_submission_status": "AI draft received; completed independent human review not yet attested"
+}

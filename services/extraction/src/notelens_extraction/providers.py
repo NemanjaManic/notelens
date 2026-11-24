@@ -7,6 +7,7 @@ from .errors import ServiceError
 
 PROMPT_VERSION = "d-mock-prompt-v1"
 MOCK_VERSION = "d-mock-v1"
+ANSWER_VERSION = "d-mock-answer-v2"
 NO_SUMMARY = "The available document evidence does not support a summary."
 NO_ANSWER = "The available sources do not support an answer."
 
@@ -31,13 +32,14 @@ class Provider(Protocol):
 
 def provenance(operation: str, component_id: str) -> dict:
     return {"component_id": component_id, "service": "extraction", "operation": operation,
-            "mode": "mock", "output_version": MOCK_VERSION, "prompt_version": PROMPT_VERSION,
+            "mode": "mock", "output_version": ANSWER_VERSION if operation == "document-answer" else MOCK_VERSION,
+            "prompt_version": PROMPT_VERSION,
             "provider": "literal-fixture", "model": "deterministic-catalog",
             "configuration_version": "d-mock-config-v1", "corpus_version": None,
             "index_version": None, "retriever_version": None}
 
 
-def passages(document: dict, selected: list[dict], *, operation: str, partial: bool = False) -> dict:
+def passages(document: dict, selected: list[dict], *, operation: str, gaps: tuple[str, ...] = ()) -> dict:
     component = "d-answer" if operation == "document-answer" else "d-summary"
     unique = {(span["start"], span["end"]): span for span in selected}
     sources, claims = [], []
@@ -50,17 +52,49 @@ def passages(document: dict, selected: list[dict], *, operation: str, partial: b
     result = {"language": "en", "text": "\n\n".join(c["text"] for c in claims) if claims else
               (NO_ANSWER if operation == "document-answer" else NO_SUMMARY),
               "claims": claims, "sources": sources,
-              "evidence_state": ("partial" if partial else "sufficient") if claims else "insufficient",
-              "warnings": ["Deterministic mock catalog; output is limited and not exhaustive."] +
-                          (["The document does not provide the requested age."] if partial else [])}
+              "evidence_state": ("partial" if gaps else "sufficient") if claims else "insufficient",
+              "warnings": ["Deterministic mock catalog; output is limited and not exhaustive.", *gaps]}
     if operation == "document-answer":
         result.update(schema_version="1.0.0", mode="mock", route="document" if claims else "none",
-                      answer_version=MOCK_VERSION, prompt_version=PROMPT_VERSION if claims else None,
+                      answer_version=ANSWER_VERSION, prompt_version=PROMPT_VERSION if claims else None,
                       components=[provenance(operation, component)] if claims else [],
                       attempted_routes=["document"], clarification=None, retrieval_provenance=None)
     else:
         result["provenance"] = provenance(operation, component) if claims else None
     return result
+
+
+def answer_passages(question: str, items: list[dict]) -> tuple[list[dict], tuple[str, ...]]:
+    """Cover explicit catalog topics independently without interpreting free-form clauses."""
+    question = " ".join(question.casefold().split())
+    prefix = "what does the document say about "
+    if question == "which procedure is mentioned?":
+        return [span for item in items if item["type"] == "procedure" for span in item["evidence"]], ()
+    if question == "what diagnoses or symptoms are mentioned?":
+        return [span for item in items if item["type"] in {"diagnosis", "symptom"}
+                for span in item["evidence"]], ()
+    if question == "what is the patient's age?":
+        return [], ("The document does not provide the requested age.",)
+    if not question.startswith(prefix) or not question.endswith("?"):
+        return [], ()
+
+    names = {entry[2].casefold() for entry in CATALOG}
+    selected, gaps = [], []
+    for topic in dict.fromkeys(question[len(prefix):-1].split(" and ")):
+        if topic == "the patient's family":
+            matched = [item for item in items if item["subject"] == "family"]
+            gap = "The available document evidence does not support the requested family information."
+        elif topic in names:
+            matched = [item for item in items if item["name"].casefold() == topic]
+            gap = f"The available document evidence does not support the requested information about {topic}."
+        else:
+            matched = []
+            gap = ("The document does not provide the requested age." if topic in {"age", "the patient's age"}
+                   else "Part of the question is outside the supported document mock topics.")
+        selected.extend(span for item in matched for span in item["evidence"])
+        if not matched:
+            gaps.append(gap)
+    return selected, tuple(dict.fromkeys(gaps))
 
 
 class FakeProvider:
@@ -109,22 +143,8 @@ class FakeProvider:
                                "extraction_error": error if self.extraction_state == "failed" else None,
                                "warnings": ["Some findings could not be validated."] if self.extraction_state == "partial" else [],
                                "extraction_provenance": None if self.extraction_state == "failed" else provenance("extract", "d-extract")})
-        question = request["question"]
-        questions = {
-            "What does the document say about chest pain?": "chest pain",
-            "What does the document say about pneumonia?": "pneumonia",
-            "What does the document say about the patient's family?": "diabetes",
-            "Which procedure is mentioned?": "__procedures__",
-            "What does the document say about chest pain and the patient's age?": "chest pain",
-            "What diagnoses or symptoms are mentioned?": "*",
-        }
-        topic = questions.get(question)
-        selected = [span for item in items
-                    if topic == "*" or (topic == "__procedures__" and item["type"] == "procedure")
-                    or topic == item["name"].casefold()
-                    for span in item["evidence"]]
-        result = passages(document, selected, operation="document-answer",
-                          partial=bool(selected) and "age" in question)
+        selected, gaps = answer_passages(request["question"], items)
+        result = passages(document, selected, operation="document-answer", gaps=gaps)
         return json.dumps(result)
 
 

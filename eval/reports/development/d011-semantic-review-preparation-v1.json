@@ -1,0 +1,89 @@
+{
+  "version": "d011-semantic-review-preparation-v1",
+  "date": "2026-11-23",
+  "status": "prepared_reviews_and_protocol_adoption_pending",
+  "cases": 6,
+  "private_packet": "Predaja-NoteLens/D-011/D011-semantic-review-packet-v1.zip",
+  "archive_sha256": "58ab37ce16b2795e91ab839601834b200e4928141e2f134741dd6aa5fb8c597b",
+  "packet_file_sha256": "9422a59bf5d488948db9b99b0f9e8c1ac9c5fe3cb74b84370695f3fdf40f074f",
+  "packet_canonical_sha256": "e2231100b47bc4ae9b39401cfcca0414a381bd462f54ad045bc59f920e01ad02",
+  "review_form_file_sha256": "1d73e12974e0bce512e866968e32df1146f47afb8825172757e9447a6b58075e",
+  "blank_review_pending_case_ids": [
+    "D011-SR-001",
+    "D011-SR-002",
+    "D011-SR-003",
+    "D011-SR-004",
+    "D011-SR-005",
+    "D011-SR-006"
+  ],
+  "semantic_risk": null,
+  "new_independent_reviewers_or_ratings_claimed": 0,
+  "supplementary_agent_review": true,
+  "supplementary_agent_review_excluded_from_reviewer_packet": true,
+  "historical_calibration_cases": 7,
+  "historical_calibration_file_hashes": [
+    {
+      "path": "cases.original.json",
+      "sha256": "6b19312f7dbc39d5bffe39819cb5b3389abd813d596ec1f280af022aa5338a93"
+    },
+    {
+      "path": "adjudicated-profiles.accepted.json",
+      "sha256": "f1629f588d092e6d460bc5513f9576e8cec5a8760ebb582a2503a1222e709446"
+    },
+    {
+      "path": "adjudication.accepted.json",
+      "sha256": "886e0ccd8076a3023021ce124fe7af7b291fae4b330be6ebb227939f1a5f42c2"
+    },
+    {
+      "path": "approval.json",
+      "sha256": "25faa5a70f80c4e759c2cced42c122acc370771e470d199c469e9ba1a6a07fd0"
+    },
+    {
+      "path": "calibration-codebook.json",
+      "sha256": "7b0a977e572d215f544c1ffe2b95c4a812c9004b4ec112fe7610bab1605d0823"
+    },
+    {
+      "path": "milica-first-round.original.json",
+      "sha256": "04b02519a38c851efdfc544bc19783a4022441748d38711bd75bbf8d4fd75ad4"
+    },
+    {
+      "path": "nemanja-answer-reviews.completed-v1.json",
+      "sha256": "aef11edf10408a5f03a23ed0d55719b5229fddfe0a8c6479b5e6473247d046e9"
+    },
+    {
+      "path": "initial-analysis.json",
+      "sha256": "c89aa73626fb0ebfaaa3000f5aed0a494bb753b11ae0725d526cc393c2134ff8"
+    },
+    {
+      "path": "responses/d008-cal-01.json",
+      "sha256": "2779107aadefdd699c53911809e2a9982d701a8b19dd1b8551176d0eb1fc4755"
+    },
+    {
+      "path": "responses/d008-cal-02.json",
+      "sha256": "089393f478a2f6bbef23d2f8ed85ccc9d7a22543f0cd0a2a8a6b33b51638ee58"
+    },
+    {
+      "path": "responses/d008-cal-03.json",
+      "sha256": "bb320e0c872f290dc79772366355c3c59de885c1f18d8d1286d5e4e99fff8502"
+    },
+    {
+      "path": "responses/d008-cal-04.json",
+      "sha256": "30c164a4439294eb109c8a305cf18cdcad80d076b0095ae267605f0ade110748"
+    },
+    {
+      "path": "responses/d008-cal-05.json",
+      "sha256": "30c164a4439294eb109c8a305cf18cdcad80d076b0095ae267605f0ade110748"
+    },
+    {
+      "path": "responses/d008-cal-06.json",
+      "sha256": "51cda2faf576944f78e17af3419e34316cd6ee961dd533d9f6b3f7ed47ed4182"
+    },
+    {
+      "path": "responses/d008-cal-07.json",
+      "sha256": "85d7be6dcdb8e760230c9341b1c42016efe4b675ef8f498b792ab5e6ed083769"
+    }
+  ],
+  "gold_labels_proxy_scores_or_other_ratings_in_reviewer_packet": false,
+  "final_sources_questions_or_answers_included": false,
+  "external_message_sent": false
+}

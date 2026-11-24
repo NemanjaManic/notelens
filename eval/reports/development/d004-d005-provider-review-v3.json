@@ -1,0 +1,113 @@
+{
+  "version": "d004-d005-provider-review-v3",
+  "date": "2026-11-23",
+  "service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "status": "bounded_synthetic_live_verification_and_agent_semantic_review_passed",
+  "root_cause": "JSON object mode rejected input messages without the word JSON; putting JSON only in instructions was insufficient in the observed provider route.",
+  "diagnostic_error_request_id": "req_e65e8fbcdbee4af5b984647ac1e56027",
+  "changes": [
+    "Explicit JSON instruction in the user input for text and message formats.",
+    "Canonical input-derived Unicode line positions, without annotation or answer labels.",
+    "Conservative unknown time/subject when the text is not explicit; correct root/component version linkage.",
+    "Unique exact-quote coordinate alignment rejects ambiguity; final two live results required zero adjustments.",
+    "Duplicate-key and nonfinite JSON rejection retained before alignment."
+  ],
+  "diagnostic_calls": 6,
+  "automatic_retries": 0,
+  "successful_http_responses": 5,
+  "accepted_final_outputs": 2,
+  "earlier_failed_outputs_retained": {
+    "call_1": "HTTP 400; diagnostic message identifies JSON input requirement.",
+    "call_2": "HTTP 200; invalid quote coordinates and summary formatting.",
+    "call_3": "HTTP 200; invalid quote coordinates and root prompt version.",
+    "call_4": "HTTP 200; invalid mention coordinates and unsupported current/patient context values."
+  },
+  "final_outputs": [
+    {
+      "operation": "extract",
+      "call_number": 5,
+      "request_sha256": "b7ac17272e55c19990b5a16b71c0e21a057622af02cae2518b1ba3e387d6e7f9",
+      "response_sha256": "14d4b00c9df8a13631182386fa9058fa66fe4176b96fb641110afc339c8017da",
+      "validated_output_sha256": "74b18a613820abe6dc1de12200daa8f1551f267f54947ef8574cf65dd5ef4d8e",
+      "raw_output_valid": true,
+      "numeric_span_adjustments": 0,
+      "saved_live_response_http_replay_status": 200,
+      "actual_usage": {
+        "input_tokens": 2576,
+        "input_tokens_details": {
+          "cache_write_tokens": 2573,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2573
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1388,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 3964
+      }
+    },
+    {
+      "operation": "answer",
+      "call_number": 6,
+      "request_sha256": "1cc0e13cbb19895f814c77580b7985058ead728ec192bd5ec59552ad7e4535c8",
+      "response_sha256": "249351759990ee14ba4e8868e4b00a8863bc297baaae96aa494693ac37c51714",
+      "validated_output_sha256": "7f9d213ebaccd86cd348d047a27ac3f8d3703b7f657d73714e9cbac3d33a537b",
+      "raw_output_valid": true,
+      "numeric_span_adjustments": 0,
+      "saved_live_response_http_replay_status": 200,
+      "actual_usage": {
+        "input_tokens": 2280,
+        "input_tokens_details": {
+          "cache_write_tokens": 2277,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 2277
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 423,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2703
+      }
+    }
+  ],
+  "agent_review": {
+    "reviewer": "D assistant, not a new independent human rating",
+    "extraction_items": 5,
+    "source_supported_mentions_and_statuses": 5,
+    "summary_supported_claims": 5,
+    "answer_supported_claims": 1,
+    "english": true,
+    "document_identity_and_hash": true,
+    "exact_citations_valid": true,
+    "missing_demo_facts_detected": 0,
+    "unsupported_claims_detected": 0,
+    "required_gap_for_this_question": false,
+    "semantic_review_passed": true
+  },
+  "offline_service_tests_passed": 112,
+  "saved_live_response_http_replay": "Both actual routes returned 200 using saved real provider responses; zero new generation during replay.",
+  "known_prior_reservation_usd": "0.0079120",
+  "known_cumulative_worst_case_reservation_usd": "0.0215100",
+  "actual_account_billing_confirmed": false,
+  "billing_note": "Usage supplied for HTTP 200 responses; reservation is not billed spending. Cache-write token details retained in private envelopes and final usage.",
+  "original_receipt_preserved": true,
+  "private_archive": "Predaja-NoteLens/D-004/D004-diagnostic-continuation-v3",
+  "artifact_pins": {
+    "services/extraction/uv.lock": "626b44bcd33a7f2acb782a13b0339949a80adf255a79893bbff94e287cb0dec4",
+    "services/extraction/src/notelens_extraction/prompts/extract-v1.txt": "d724ae9868b6f1df49195649e96ecea57f0db9143ce1c69bc0596125ab74586f",
+    "services/extraction/src/notelens_extraction/prompts/answer-v1.txt": "ad99f61436f97a058ab6f3fb0c713fda31100abee8f6b0333e84487289dd0bfa",
+    "contracts/generated/python/src/notelens_contracts/schema.json": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78"
+  },
+  "d004_closed": true,
+  "d005_d_owned_service_review_closed": true,
+  "goran_app_acceptance": "pending",
+  "deployment_acceptance": "pending",
+  "unseen_final_measurement": "pending",
+  "quality_limitation": "One synthetic document, one question; broader quality and all app evidence states remain unmeasured/provider-unverified outside this scope. D-011/D-009 remain open."
+}

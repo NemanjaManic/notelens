@@ -1,0 +1,406 @@
+{
+  "version": "d007-a008-development-qa-manifest-v1",
+  "date": "2026-11-22",
+  "status": "nine_technical_reference_decisions_confirmed_development_and_final_allocation_awaits_b",
+  "reference_approval": {
+    "decision": "joint_a_d_technical_source_verification",
+    "a_member": "Nemanja",
+    "basis": "Nemanja confirmed all D-proposed reference decisions in the message relayed by Milica.",
+    "decisions": {
+      "A-QA-01": "alternate_support_for_part_1",
+      "A-QA-02": "alternate_support_for_cause_only",
+      "A-QA-07": "additional_context_in_topic_179",
+      "A-QA-09": "replace_topic_4452_part_2_span_with_exact_narrower_slice"
+    },
+    "clinical_validation": false
+  },
+  "inputs": {
+    "cross_module_candidate_version": "d-cross-module-development-v2",
+    "candidate_inventory_sha256": "f01dd8c4c4aa3deb7b7d6842643fec17f8680b0991e875e38905499019203896",
+    "pinned_passages_sha256": "4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938",
+    "pinned_source_review_sha256": "e129e7e8cb8b2f8af269ca2a690e35b99444b7aa9970ed080e0b145fe07f40dd",
+    "selection_proposal_sha256": "979b4a130265ed5573872096e53be4af23c116f4931847ab21e97ded11fd1723"
+  },
+  "inventory": {
+    "raw_cases": 75,
+    "unique_candidates": 74,
+    "proposed_development_selection": 54,
+    "development_reserves": 20,
+    "excluded_duplicate_records": [
+      {
+        "excluded_case_id": "D-DOC/limited-04/absent",
+        "representative_case_id": "D-DOC/negation-01/absent",
+        "reason": "Same canonical document digest, normalized question and reference outcome including support and gaps.",
+        "representative_partition": "development_reserve",
+        "excluded_document_family": "development_only",
+        "related_supported_case_in_selection": "D-DOC/limited-04/supported",
+        "canonical_text_sha256": "0b2eabc5bf2ab8cb78984644218441b84220f6859ce2a98a3d2d90a7f53cb6c8"
+      }
+    ]
+  },
+  "proposed_development": {
+    "total": 54,
+    "document_only": 27,
+    "literature_only": 9,
+    "mixed": 18,
+    "multi_source": 21,
+    "insufficient_evidence": 7,
+    "selected_case_ids": [
+      "A-QA-01",
+      "A-QA-02",
+      "A-QA-03",
+      "A-QA-04",
+      "A-QA-05",
+      "A-QA-06",
+      "A-QA-07",
+      "A-QA-08",
+      "A-QA-09",
+      "D-DOC/complex-01/supported",
+      "D-DOC/complex-02/supported",
+      "D-DOC/complex-03/supported",
+      "D-DOC/complex-04/supported",
+      "D-DOC/confirmed-01/absent",
+      "D-DOC/confirmed-01/supported",
+      "D-DOC/confirmed-02/supported",
+      "D-DOC/confirmed-03/supported",
+      "D-DOC/confirmed-04/supported",
+      "D-DOC/history-01/supported",
+      "D-DOC/history-02/supported",
+      "D-DOC/history-03/absent",
+      "D-DOC/history-03/supported",
+      "D-DOC/history-04/supported",
+      "D-DOC/limited-01/absent-clinical",
+      "D-DOC/limited-02/supported",
+      "D-DOC/limited-03/supported",
+      "D-DOC/limited-04/supported",
+      "D-DOC/negation-01/supported",
+      "D-DOC/negation-02/supported",
+      "D-DOC/negation-03/supported",
+      "D-DOC/negation-04/supported",
+      "D-DOC/procedure-01/supported",
+      "D-DOC/procedure-02/absent",
+      "D-DOC/procedure-02/supported",
+      "D-DOC/procedure-03/supported",
+      "D-DOC/procedure-04/supported",
+      "D-MIX-01",
+      "D-MIX-02",
+      "D-MIX-03",
+      "D-MIX-04",
+      "D-MIX-05",
+      "D-MIX-06",
+      "D-MIX-07",
+      "D-MIX-08",
+      "D-MIX-09",
+      "D-MIX-10",
+      "D-MIX-11",
+      "D-MIX-12",
+      "D-MIX-13",
+      "D-MIX-14",
+      "D-MIX-15",
+      "D-MIX-16",
+      "D-MIX-17",
+      "D-MIX-18"
+    ],
+    "reserve_case_ids": [
+      "D-DOC/complex-01/absent",
+      "D-DOC/complex-02/absent",
+      "D-DOC/complex-03/absent",
+      "D-DOC/complex-04/absent",
+      "D-DOC/confirmed-02/absent",
+      "D-DOC/confirmed-03/absent",
+      "D-DOC/confirmed-04/absent",
+      "D-DOC/history-01/absent",
+      "D-DOC/history-02/absent",
+      "D-DOC/history-04/absent",
+      "D-DOC/limited-01/absent",
+      "D-DOC/limited-02/absent",
+      "D-DOC/limited-03/absent",
+      "D-DOC/negation-01/absent",
+      "D-DOC/negation-02/absent",
+      "D-DOC/negation-03/absent",
+      "D-DOC/negation-04/absent",
+      "D-DOC/procedure-01/absent",
+      "D-DOC/procedure-03/absent",
+      "D-DOC/procedure-04/absent"
+    ]
+  },
+  "proposed_final": {
+    "total": 26,
+    "document_only": 8,
+    "literature_only": 8,
+    "mixed": 8,
+    "out_of_scope": 2,
+    "minimum_multi_source_in_supported_routes": 9,
+    "minimum_insufficient_evidence_in_supported_routes": 3,
+    "constraint": "With eight mixed cases, include at least one multi-topic literature-only case to reach nine multi-source cases under the current definition.",
+    "authoring_review_and_access": "awaiting_b_and_team_confirmation",
+    "held_out_cases_attached": 0
+  },
+  "pending_before_freeze": [
+    "B approval of 54/26 and the final coverage mix",
+    "authors and independent reviewers for unseen cases",
+    "approved private handoff and final-set custodianship",
+    "group disjointness and configuration freeze before final access"
+  ],
+  "confirmed_development_references": [
+    {
+      "case_id": "A-QA-01",
+      "partition": "development",
+      "split_group": "A-QA-01",
+      "rating": "full",
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "34",
+              "passage_id": "mplus-34-ea17fca975e51ea9d9f4f1111d8a8e1222a1065bf10c4711ff4348c3d61a7267",
+              "passage_start": 173,
+              "passage_end": 384,
+              "quote_sha256": "77cfb09f866f8e5477259eb28b059549d95f4a9a61298411f817dd1c5adbc5f3"
+            }
+          ],
+          "alternative_citations": [
+            {
+              "topic_id": "6450",
+              "passage_id": "mplus-6450-502181a85f3f313084092c9f6b16c4bf0409d96db8722322c5967a55c06048c0",
+              "passage_start": 784,
+              "passage_end": 1024,
+              "quote_sha256": "2dab331e7294af0155b9cb62d3ac4a159238f93d61e18c0b7cd784baa3a932cb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-02",
+      "partition": "development",
+      "split_group": "A-QA-02",
+      "rating": "partial",
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "3181",
+              "passage_id": "mplus-3181-cd0652ac0016d048b8cce9a7f3bfdec5c73e3781424f93e75f92a53a8bcf5f7d",
+              "passage_start": 0,
+              "passage_end": 115,
+              "quote_sha256": "e8fc5e6c00c5e87546faeeae19715fa789329e7fbdd2a7468eb5830e9cda47dc"
+            }
+          ],
+          "alternative_citations": [
+            {
+              "topic_id": "363",
+              "passage_id": "mplus-363-1a7a5a684e895c46db4f56e4a051e8c7482c7011d2faba18d2e913151f3cb41f",
+              "passage_start": 1196,
+              "passage_end": 1238,
+              "quote_sha256": "db4941dc98f07891b5a7dca6bb7b1c7c144fd91040b8bf072568085845e71211"
+            }
+          ]
+        },
+        {
+          "part": 2,
+          "outcome": "gap_in_pinned_snapshot",
+          "citations": []
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-03",
+      "partition": "development",
+      "split_group": "A-QA-03",
+      "rating": "none",
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "gap_in_pinned_snapshot",
+          "citations": []
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-04",
+      "partition": "development",
+      "split_group": "A-QA-04",
+      "rating": "full",
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "6208",
+              "passage_id": "mplus-6208-cb42a0f4fa0f7d9bf3d923e2742b55ed106926d461fd2d79798e43a61d8a151b",
+              "passage_start": 1461,
+              "passage_end": 1630,
+              "quote_sha256": "f28fede289f4453ac636034e31d3d8cbd17977c4c30b4f73dac4058151941162"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-05",
+      "partition": "development",
+      "split_group": "A-QA-05",
+      "rating": "full",
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "1624",
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "passage_start": 0,
+              "passage_end": 100,
+              "quote_sha256": "11b0989e5fe8e8a0c34e486f0a1108a6760980ebf36ddeea7f31ee349bbf4e7e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-06",
+      "partition": "development",
+      "split_group": "A-QA-06",
+      "rating": "full",
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "5755",
+              "passage_id": "mplus-5755-af04aacce97bf8a0cbb81b33de2749c5385f407825f40487885f48c363ae5ac6",
+              "passage_start": 0,
+              "passage_end": 95,
+              "quote_sha256": "e7e6e4b4452e819b0bf80ab6a95f587262d5fe6ed19d644bd1208d582107edd9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-07",
+      "partition": "development",
+      "split_group": "A-QA-05",
+      "rating": "full",
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "179",
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "passage_start": 33,
+              "passage_end": 253,
+              "quote_sha256": "f9b705e9a4d327c34d876e2e137fffd4cfea01592483e47b3b75b0bb6c03479a"
+            },
+            {
+              "topic_id": "179",
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "passage_start": 368,
+              "passage_end": 472,
+              "quote_sha256": "a9fd677f7a1297863119d346c3a87efafb1461dbd64c9e66f1316b4f1999fded"
+            }
+          ],
+          "additional_context": [
+            {
+              "topic_id": "179",
+              "passage_id": "mplus-179-8fb8eee731c70e4ffb842cabdc701dc740992214baa9dc75fee3cda7f21cb7a5",
+              "passage_start": 754,
+              "passage_end": 973,
+              "quote_sha256": "8b55bb59ba6789bedf4b70a9e7b97a8eff1408f0bda5fe29e464f8351b2d226f"
+            }
+          ]
+        },
+        {
+          "part": 2,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "1624",
+              "passage_id": "mplus-1624-cec9ee65c751bcca4fd612ef5acd8cc0c5753ae8f1d92c88030a30cab245be33",
+              "passage_start": 0,
+              "passage_end": 100,
+              "quote_sha256": "11b0989e5fe8e8a0c34e486f0a1108a6760980ebf36ddeea7f31ee349bbf4e7e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-08",
+      "partition": "development",
+      "split_group": "A-QA-08",
+      "rating": "full",
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "3920",
+              "passage_id": "mplus-3920-df7b052725950890e20164c89122e3b3e839fec3a8a8d737e654604f999ab17c",
+              "passage_start": 0,
+              "passage_end": 40,
+              "quote_sha256": "2ed7b29791c8514137fd4c3f039ca70b046f3bf049641ad704aaf78de86e794d"
+            }
+          ]
+        },
+        {
+          "part": 2,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "5275",
+              "passage_id": "mplus-5275-ee693bba2afdfbbe741695d6da0a02bf50d47952fc6527ceba1d1511c66b81d0",
+              "passage_start": 132,
+              "passage_end": 226,
+              "quote_sha256": "833bdd5250666406d6813f16ce7ab042f49e04fb1a6669d6d1818711b78c3184"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "A-QA-09",
+      "partition": "development",
+      "split_group": "A-QA-09",
+      "rating": "full",
+      "parts": [
+        {
+          "part": 1,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "4643",
+              "passage_id": "mplus-4643-ce65ac50c6728aaea035f8e00c7ced25d2a3c42d272e3a6fcecf9a345af503bf",
+              "passage_start": 0,
+              "passage_end": 115,
+              "quote_sha256": "c7e6be99c563e3db897c60b81674a203c50745ad3ff221880166c914d420ee9d"
+            }
+          ]
+        },
+        {
+          "part": 2,
+          "outcome": "supported_by_pinned_source",
+          "citations": [
+            {
+              "topic_id": "4452",
+              "passage_id": "mplus-4452-b97b175cba872607d6c4fc8776617ef02e6414a6aada185598f9682e894efb3c",
+              "passage_start": 0,
+              "passage_end": 105,
+              "quote_sha256": "3e2f4352eca346258fa756221e485fe4c41a5c826d2bce3dfd8b9b8b294a0255"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "version": "d-b005-extraction-mock-handoff-v1",
+  "date": "2026-11-21",
+  "service_commit": "e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374",
+  "input_scope": "versioned synthetic documents",
+  "contract_version": "1.0.0",
+  "python": "3.13.7",
+  "extraction_tests_passed": 83,
+  "demo_smoke": {
+    "fixture": "services/extraction/fixtures/demo-request.json",
+    "document_id": "synthetic-demo-v1",
+    "text_sha256": "daae237d2f93825409f8c23fed141ea6b863f269576bed84b60970ddd8f56b4e",
+    "mode": "mock",
+    "authenticated_readiness": 200,
+    "observations": {
+      "extraction": {
+        "http_status": 200,
+        "extraction_status": "completed",
+        "entities": 4,
+        "summary_status": "completed",
+        "summary_evidence_state": "sufficient",
+        "summary_claims": 4
+      },
+      "supported_answer": {
+        "http_status": 200,
+        "question": "What does the document say about chest pain?",
+        "evidence_state": "sufficient",
+        "route": "document",
+        "claims": 1,
+        "explicit_age_gap": false
+      },
+      "partial_answer": {
+        "http_status": 200,
+        "question": "What does the document say about chest pain and the patient's age?",
+        "evidence_state": "partial",
+        "route": "document",
+        "claims": 1,
+        "explicit_age_gap": true
+      },
+      "insufficient_answer": {
+        "http_status": 200,
+        "question": "What is the patient's age?",
+        "evidence_state": "insufficient",
+        "route": "none",
+        "claims": 0,
+        "explicit_age_gap": true
+      },
+      "missing_token": {
+        "http_status": 401,
+        "error": "unauthorized"
+      },
+      "wrong_document_hash": {
+        "http_status": 422,
+        "error": "validation_failure"
+      }
+    },
+    "closed_ports": 1,
+    "model_provider_calls": 0
+  },
+  "broader_suite": {
+    "reference_version": "d-extraction-qa-synthetic-v2",
+    "results_sha256": "9b566a0921e9f97ba3ad715bd56113b87086560430e37579917b554b7bb5784b",
+    "valid_returned_records": {
+      "extraction": 24,
+      "answers": 48
+    },
+    "record_validation": {
+      "schema_valid": 72,
+      "schema_invalid": 0,
+      "evidence_or_relationship_invalid": 0,
+      "technical_errors": 0
+    },
+    "transport": {
+      "mode": "mock",
+      "requests": 72,
+      "http_200": 72,
+      "technical_failures": 0,
+      "failure_reasons": {},
+      "request_ids_matched": 72,
+      "request_text_in_report": false,
+      "references_sent_to_provider": false
+    },
+    "complete_literal_answers": 34
+  },
+  "handoff_status": "mock_transport_ready",
+  "d005_provider_verification_status": "pending"
+}

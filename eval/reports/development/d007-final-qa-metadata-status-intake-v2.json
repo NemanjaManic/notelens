@@ -1,0 +1,55 @@
+{
+  "version": "d007-final-qa-metadata-status-intake-v2",
+  "date": "2026-11-23",
+  "supersedes_current_status": "d007-final-qa-metadata-status-intake-v1",
+  "status": "interim_metadata_verified_staffing_plan_pin_still_mismatched",
+  "source_filename": "d007-final-qa-metadata-status-v2.json",
+  "source_sha256": "50139e072f46c70a02e9c03d03e41cefc5abe172109a41b7f3e42f4003f14261",
+  "checksum_verified": true,
+  "private_archive": "Predaja-NoteLens/D-007/D007-metadata-status-intake-v2",
+  "planned_cases": 26,
+  "unique_case_ids_and_staffing_match": true,
+  "case_fields_except_authoring_status_unchanged_from_v1": true,
+  "source_intake_bytes_rehashed": true,
+  "source_intake_sha256": "6198b4085b45e702d065535e9705c5b6bf7d841230d35a247bcee327fb26ebf0",
+  "staffing_plan_bytes_rehashed": true,
+  "staffing_plan_reported_sha256": "39f05b80107ef8d04e0a070eec172ef9ea08dcd5d82619c25ff39a4979335d3e",
+  "staffing_plan_local_sha256": "87e635b802ed648c5c8d62352d46524acfc592213bf3011e3ed031ca6117fed3",
+  "staffing_plan_sha256_matches": false,
+  "snapshot_access": {
+    "Goran": "Owner-reported access and checksum now reflected in Sara v2 metadata; not independently rerun by D.",
+    "Sara": "Previously confirmed."
+  },
+  "goran_local_drafts": [
+    "F-LIT-01",
+    "F-LIT-02",
+    "F-LIT-03",
+    "F-LIT-04",
+    "F-LIT-05",
+    "F-LIT-06",
+    "F-LIT-07",
+    "F-LIT-08"
+  ],
+  "goran_not_yet_drafted": [
+    "F-MIX-05",
+    "F-MIX-06",
+    "F-MIX-07",
+    "F-MIX-08",
+    "F-OOS-02"
+  ],
+  "sara_authoring_status_pending_count": 13,
+  "case_versions_verified_in_restricted_folder": 0,
+  "reviewer_receipts_verified_in_restricted_folder": 0,
+  "agreed_handoff_date": null,
+  "next_actions": {
+    "Goran": "Place eight reported F-LIT-01-08 drafts in the restricted folder with IDs, versions and SHA-256; draft F-MIX-05-08 and F-OOS-02.",
+    "Sara": "Confirm authoring status for her thirteen cases and start version-specific cross-review after Goran deposits drafts.",
+    "Sara_and_Goran": "Reconcile staffing-plan hash, complete reciprocal review, agree handoff date and provide metadata with version-specific reviewer receipts.",
+    "D": "Validate metadata/receipt identities before freeze; do not open unseen final questions, answers or source texts."
+  },
+  "source_and_passage_bytes_rehashed": false,
+  "unseen_final_texts_accessed": false,
+  "d007_closed": false,
+  "final_freeze_approved": false,
+  "external_messages_sent": false
+}

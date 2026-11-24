@@ -1,0 +1,59 @@
+{
+  "version": "d013-member-a-intake-v1",
+  "date": "2026-11-21",
+  "participant": "member-a",
+  "packet_version": "member-a-A007-submissions-v3",
+  "packet_status": "received_integrity_verified_needs_clarification",
+  "checksums_manifest_sha256": "d4f238d94d562d554a8def55f99fbeee690abfc687cd7aa11385cd9d800b2247",
+  "verified_files_sha256": {
+    "README.md": "3e53928152cee23ca385fc3da204fd4d36269e0ad883b66a53648e972fbb29ff",
+    "open-questions.json": "00e7ec0303ec080aa892ccc8cc36f0d38cdd0281fdb0a4c2e9a35014e5c7f681",
+    "primary.jsonl": "8b03d11d19dc4baaacf79ab3c1fcf8a4675bdb617368d88f9c2461935d9061fa",
+    "secondary.jsonl": "6500f9a4bd3306e3fa00234a7b0b9f53a67482aaf3d6c77501460259e357e904",
+    "submission-manifest.json": "4d291b8912d24158153cf0e79009aa6d83de858eaa65c1c8400fcf9ea4c42856",
+    "validation.json": "35e530062b76bc0e15c6704554c6114827c2b8c289c745a3a4ac77f8a1285f19"
+  },
+  "frozen_allocation_sha256": "7b7cc6d3c9cb8afd4455d48075b24e8579f7a78e49295decfc09a9f04aed32a6",
+  "c002_source_manifest_sha256": "e8596143168c2631eebb60ba080f996d0f9a13efa6d236ceae1de35eaa2769c6",
+  "counts": {
+    "primary": 10,
+    "evidence_spans": 393,
+    "entities": 271,
+    "open_questions": 27,
+    "secondary": 3
+  },
+  "recorded_attestations": 13,
+  "scope_of_d_verification": "Package checksums, assignment identities, declared review metadata, internal span lengths and mention/evidence alignment, and the unresolved-question index.",
+  "canonical_text_reverification_by_d": "pending_approved_source_access_for_member_a_cases",
+  "member_a_validator_commit": "e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374",
+  "member_a_reported_structural_errors": 0,
+  "reported_reviews_needing_clarification": 13,
+  "expected_counterpart_submissions": [
+    {
+      "assignment_id": "assignment-000",
+      "received_role": "secondary",
+      "expected_other_member": "member-c",
+      "expected_other_role": "primary"
+    },
+    {
+      "assignment_id": "assignment-003",
+      "received_role": "secondary",
+      "expected_other_member": "member-c",
+      "expected_other_role": "primary"
+    },
+    {
+      "assignment_id": "assignment-006",
+      "received_role": "secondary",
+      "expected_other_member": "member-c",
+      "expected_other_role": "primary"
+    },
+    {
+      "assignment_id": "assignment-010",
+      "received_role": "primary",
+      "expected_other_member": "member-c",
+      "expected_other_role": "secondary"
+    }
+  ],
+  "overlap_with_milica_review_or_primary_assignments": 0,
+  "completed_adjudications_in_this_step": 0
+}

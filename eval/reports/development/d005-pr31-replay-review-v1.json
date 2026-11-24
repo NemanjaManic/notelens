@@ -1,0 +1,47 @@
+{
+  "version": "d005-pr31-replay-review-v1",
+  "date": "2026-11-23",
+  "pr": "https://github.com/NemanjaManic/notelens/pull/31",
+  "platform_sha": "0536cb56fdd1f99f9cc73110e28a90a22892cb01",
+  "reviewed_D_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "development_frozen_D_service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "ci": {
+    "run": 45269679204,
+    "head_sha": "0536cb56fdd1f99f9cc73110e28a90a22892cb01",
+    "status": "completed",
+    "conclusion": "success",
+    "job": "NoteLens key-free checks",
+    "verified_directly_via_github_api": true
+  },
+  "review": "Inspected pinned replay adapter, app-mode admission, exact cough admission, launcher and check/runbook. No blocking issue identified within the bounded saved-response replay scope.",
+  "scope_acceptance": "Accepted for the pinned historical D-005 saved-response replay, not fresh generation or acceptance of the latest development candidate.",
+  "local_replay_execution": "Not rerun by D; successful app replay and separate mock scenarios reported by Goran. Existing local Windows signing-policy blocker remains.",
+  "provider_calls_in_replay": 0,
+  "saved_question_count": 1,
+  "reported_checks": [
+    "authenticated saved responses",
+    "app-issued document identity",
+    "canonical SHA-256",
+    "rendered findings and summary",
+    "sufficient cough answer and exact highlights",
+    "unrecorded question refusal",
+    "listener shutdown"
+  ],
+  "separate_mock_checks_reported": [
+    "partial gaps",
+    "insufficient versus out-of-scope"
+  ],
+  "D004": "closed_bounded_service_verification",
+  "D005": "closed_D_owned_historical_smoke_and_replay_evidence",
+  "D009": "open_full_final_evaluation",
+  "B005": "formal_acceptance_pending_per_Goran",
+  "unseen_final_scored": false,
+  "deployment_accepted": false,
+  "PR_merged_or_review_posted": false,
+  "remaining": [
+    "Explicitly select joint final service/configuration; historical replay does not validate d41fa88.",
+    "Resolve eligibility disposition for F-DOC-01/02/03.",
+    "Approve joint freeze and execute/score the separate 26-case final set.",
+    "Retain failed/missing quality measurements and accepted D-011 development limitations."
+  ]
+}

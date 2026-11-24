@@ -1,0 +1,22 @@
+{
+  "version": "d009-sara-review-status-intake-v1",
+  "date": "2026-11-24",
+  "received_file_sha256": "b44b1a39e15c839608d2594ef473c2932060654f8b2c7151b17d570caf08edf3",
+  "status": "custodian_reconciled_23_prior_and_three_replacement_approvals",
+  "replacement_receipt_hash_matches_verified_original": true,
+  "case_count": 26,
+  "canonical_documents": 16,
+  "new_candidate_manifest_declared": {
+    "file": "d009-sara-qa-candidate-manifest-v3.json",
+    "sha256": "1424c2d3aa6b207346e6d3ceda219839243d1cde2134670d2a8ea75d8c1e3f4f"
+  },
+  "new_v3_manifest_bytes_received_and_rehashed": false,
+  "restricted_successor_scoring_handoff_received": false,
+  "prior_v1_runtime_and_scoring_candidates_already_received": true,
+  "new_questions_or_gold_opened": false,
+  "further_Goran_replacement_review_required": false,
+  "joint_freeze": "pending_confirmation",
+  "final_execution_authorized": false,
+  "new_provider_calls": 0,
+  "d009_closed": false
+}

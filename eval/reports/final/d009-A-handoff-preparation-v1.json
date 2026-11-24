@@ -1,0 +1,18 @@
+{
+  "version": "d009-A-handoff-preparation-v1",
+  "date": "2026-11-24",
+  "private_package": "Predaja-NoteLens/Za-Nemanju/D009-metadata-and-original-CQ-review-v1.zip",
+  "sha256": "b1fdf1593839ee0c60ce45afe6723dffd7b9fd8c3599af801c969caec5a1b9bd",
+  "final_questions_gold_or_runtime_contents_included": false,
+  "runtime_or_scoring_archive_transferred": false,
+  "original_CQ_review_found": true,
+  "original_CQ_review_sha256": "a588cbe0abd49c175d49bfa599ff8f13e625378cc89062a84d8fdd91942dfe9a",
+  "original_CQ_case_count": 5,
+  "original_CQ_dimension_scores": 35,
+  "original_label": "Draft",
+  "transcription_checked_against_original": true,
+  "corrected_answers_newly_scored": false,
+  "A_support_for_unmeasured_final_extraction_F1_recorded": true,
+  "team_scope_decision_not_inferred_from_A_support": true,
+  "external_message_sent": false
+}

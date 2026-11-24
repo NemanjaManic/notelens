@@ -1,0 +1,18 @@
+{
+  "version": "d013-adjudication-batch-01-preparation-v1",
+  "date": "2026-11-23",
+  "items": 6,
+  "question_ids": [
+    "D013-034-OMISSION-1162",
+    "D013-B-001-Q01",
+    "D013-B-001-Q02",
+    "D013-B-001-Q03",
+    "D013-B-001-Q04",
+    "D013-B-001-Q05"
+  ],
+  "canonical_source_hashes_verified": 2,
+  "source_anchors_verified": 11,
+  "source_form_sha256": "08bd97c95e1c1cc5bc50db7b0143965fd539a1c4a939638d4000d4f67bbeaa16",
+  "human_decisions_received": 0,
+  "final_qa_sources_accessed": false
+}

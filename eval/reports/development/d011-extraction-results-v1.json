@@ -1,0 +1,129 @@
+{
+  "label": "synthetic/mock structural and scoring demonstration; not real-model quality",
+  "schema_sha256": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+  "contract_status": "frozen-v1.0.0",
+  "reference_version": "d011-d013-six-document-development-v1",
+  "prediction_version": "d011-live-saved-predictions-v1",
+  "human_reviewed": false,
+  "trace": [
+    {
+      "case_id": "assignment-022",
+      "doc_id": "mtsamples-a92cb78569f46060-2047",
+      "text_sha256": "d598e335199eab257bc294188cea126ff3e0e3148eefc12a463d1a6cb2df4380",
+      "extractor_version": null,
+      "prompt_version": null,
+      "mode": null
+    },
+    {
+      "case_id": "assignment-029",
+      "doc_id": "mtsamples-a92cb78569f46060-142",
+      "text_sha256": "89393156b2bc3b30d1f5aab007e0c95bdfed972e8fc619b81919e8ecafd31d9b",
+      "extractor_version": null,
+      "prompt_version": null,
+      "mode": null
+    },
+    {
+      "case_id": "assignment-012",
+      "doc_id": "mtsamples-a92cb78569f46060-2017",
+      "text_sha256": "df1d03602f9b55ea7c55915bf5246e53ce3bac3cd0259bdd28c2e9367fe08a97",
+      "extractor_version": null,
+      "prompt_version": null,
+      "mode": null
+    },
+    {
+      "case_id": "assignment-016",
+      "doc_id": "mtsamples-a92cb78569f46060-4751",
+      "text_sha256": "27d8969cb509e5ef11fd74e43da2533265f9f64355b24fc09d875c0ded4ab6d2",
+      "extractor_version": "1.0.0",
+      "prompt_version": "1.0.0",
+      "mode": "live"
+    },
+    {
+      "case_id": "assignment-017",
+      "doc_id": "mtsamples-a92cb78569f46060-3614",
+      "text_sha256": "d9c0213f4e53decafcbfcf855299864b73c9c8959d9a01f40a035edbeb88e131",
+      "extractor_version": null,
+      "prompt_version": null,
+      "mode": null
+    },
+    {
+      "case_id": "assignment-008",
+      "doc_id": "mtsamples-a92cb78569f46060-3647",
+      "text_sha256": "0410c223b7ad1abb00645e89ea139749f9818a8fe24502f1140faff0b47cd3ac",
+      "extractor_version": null,
+      "prompt_version": null,
+      "mode": null
+    }
+  ],
+  "counts": {
+    "documents": 6,
+    "qa": 0
+  },
+  "generation": {
+    "attempts": 6,
+    "raw_validation_failures": 5,
+    "repaired_outputs": 0
+  },
+  "record_validation": {
+    "schema_valid": 1,
+    "schema_invalid": 0,
+    "evidence_or_relationship_invalid": 0,
+    "technical_errors": 5
+  },
+  "validation_issues": [
+    {
+      "case_id": "assignment-022",
+      "operation": "extract",
+      "issue": "Invalid or unavailable extraction; entity metrics withheld."
+    },
+    {
+      "case_id": "assignment-029",
+      "operation": "extract",
+      "issue": "Invalid or unavailable extraction; entity metrics withheld."
+    },
+    {
+      "case_id": "assignment-012",
+      "operation": "extract",
+      "issue": "Invalid or unavailable extraction; entity metrics withheld."
+    },
+    {
+      "case_id": "assignment-017",
+      "operation": "extract",
+      "issue": "Invalid or unavailable extraction; entity metrics withheld."
+    },
+    {
+      "case_id": "assignment-008",
+      "operation": "extract",
+      "issue": "Invalid or unavailable extraction; entity metrics withheld."
+    }
+  ],
+  "valid_returned_records": {
+    "extraction": 1,
+    "answers": 0
+  },
+  "en_declarations_on_valid_answers": 0,
+  "entities_exact": {
+    "unavailable": "At least one extraction is invalid or unavailable; no silent exclusion."
+  },
+  "entities_relaxed": {
+    "unavailable": "At least one extraction is invalid or unavailable; no silent exclusion."
+  },
+  "answerability": {
+    "answerable": 0,
+    "answered": 0,
+    "answer_rate": null,
+    "unanswerable": 0,
+    "correct_rejections": 0,
+    "rejection_rate": null,
+    "expected_state_correct": 0,
+    "evaluated": 0
+  },
+  "unavailable": {
+    "semantic_support": "Requires independent human review or an approved calibrated judge.",
+    "english_output_quality": "The en declaration and English catalog do not prove language compliance.",
+    "unsupported_item_rate": "No independent support judgments are present.",
+    "risk_vs_coverage": "Needs independent correctness labels, not quote existence alone.",
+    "classification_and_retrieval": "Requires C outputs and A corpus/relevance handoffs.",
+    "real_model_performance": "No approved live provider/model or real reference set is available."
+  }
+}

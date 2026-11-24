@@ -1,0 +1,195 @@
+{
+  "label": "offline C-003 validation classification",
+  "provenance": {
+    "model_version": "c003-tfidf-logistic-5a25811a79123350",
+    "preparation_version": "nfc-lf-v1",
+    "split_version": "c002-split-v1",
+    "handoff_version": "c002-d002-development-v1",
+    "export_version": "c003-d006-validation-v1",
+    "split_checksum": "21cbaceb2166185613628e347ccac4f3b335cae3bc745d10e77d0854c017185d",
+    "export_sha256": "95aceb8b6806a4c7e82a0bd600595b086c9590158919de3c42d3807f7420fcf0",
+    "handoff_checksum": "e8596143168c2631eebb60ba080f996d0f9a13efa6d236ceae1de35eaa2769c6",
+    "decision_policy": "forced_choice",
+    "score_type": "logistic_regression_probability"
+  },
+  "overall": {
+    "documents": 185,
+    "correct": 174,
+    "accuracy": 0.9405405405405406,
+    "macro_f1": 0.928530245825797,
+    "per_class": {
+      "Cardiovascular / Pulmonary": {
+        "support": 55,
+        "predicted": 58,
+        "true_positives": 55,
+        "precision": 0.9482758620689655,
+        "recall": 1.0,
+        "f1": 0.9734513274336283
+      },
+      "Orthopedic": {
+        "support": 47,
+        "predicted": 51,
+        "true_positives": 47,
+        "precision": 0.9215686274509803,
+        "recall": 1.0,
+        "f1": 0.9591836734693877
+      },
+      "Gastroenterology": {
+        "support": 32,
+        "predicted": 31,
+        "true_positives": 29,
+        "precision": 0.9354838709677419,
+        "recall": 0.90625,
+        "f1": 0.9206349206349206
+      },
+      "Neurology": {
+        "support": 28,
+        "predicted": 25,
+        "true_positives": 24,
+        "precision": 0.96,
+        "recall": 0.8571428571428571,
+        "f1": 0.9056603773584906
+      },
+      "Urology": {
+        "support": 23,
+        "predicted": 20,
+        "true_positives": 19,
+        "precision": 0.95,
+        "recall": 0.8260869565217391,
+        "f1": 0.8837209302325582
+      }
+    },
+    "confusion_matrix": {
+      "Cardiovascular / Pulmonary": {
+        "Cardiovascular / Pulmonary": 55,
+        "Orthopedic": 0,
+        "Gastroenterology": 0,
+        "Neurology": 0,
+        "Urology": 0
+      },
+      "Orthopedic": {
+        "Cardiovascular / Pulmonary": 0,
+        "Orthopedic": 47,
+        "Gastroenterology": 0,
+        "Neurology": 0,
+        "Urology": 0
+      },
+      "Gastroenterology": {
+        "Cardiovascular / Pulmonary": 1,
+        "Orthopedic": 1,
+        "Gastroenterology": 29,
+        "Neurology": 0,
+        "Urology": 1
+      },
+      "Neurology": {
+        "Cardiovascular / Pulmonary": 1,
+        "Orthopedic": 3,
+        "Gastroenterology": 0,
+        "Neurology": 24,
+        "Urology": 0
+      },
+      "Urology": {
+        "Cardiovascular / Pulmonary": 1,
+        "Orthopedic": 0,
+        "Gastroenterology": 2,
+        "Neurology": 1,
+        "Urology": 19
+      }
+    },
+    "coverage": 1.0
+  },
+  "validation_majority_baseline": {
+    "specialty": "Cardiovascular / Pulmonary",
+    "selection": "Most frequent validation label; ties use contract label order.",
+    "documents": 185,
+    "correct": 55,
+    "accuracy": 0.2972972972972973,
+    "macro_f1": 0.09166666666666666,
+    "per_class": {
+      "Cardiovascular / Pulmonary": {
+        "support": 55,
+        "predicted": 185,
+        "true_positives": 55,
+        "precision": 0.2972972972972973,
+        "recall": 1.0,
+        "f1": 0.4583333333333333
+      },
+      "Orthopedic": {
+        "support": 47,
+        "predicted": 0,
+        "true_positives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Gastroenterology": {
+        "support": 32,
+        "predicted": 0,
+        "true_positives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Neurology": {
+        "support": 28,
+        "predicted": 0,
+        "true_positives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Urology": {
+        "support": 23,
+        "predicted": 0,
+        "true_positives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "confusion_matrix": {
+      "Cardiovascular / Pulmonary": {
+        "Cardiovascular / Pulmonary": 55,
+        "Orthopedic": 0,
+        "Gastroenterology": 0,
+        "Neurology": 0,
+        "Urology": 0
+      },
+      "Orthopedic": {
+        "Cardiovascular / Pulmonary": 47,
+        "Orthopedic": 0,
+        "Gastroenterology": 0,
+        "Neurology": 0,
+        "Urology": 0
+      },
+      "Gastroenterology": {
+        "Cardiovascular / Pulmonary": 32,
+        "Orthopedic": 0,
+        "Gastroenterology": 0,
+        "Neurology": 0,
+        "Urology": 0
+      },
+      "Neurology": {
+        "Cardiovascular / Pulmonary": 28,
+        "Orthopedic": 0,
+        "Gastroenterology": 0,
+        "Neurology": 0,
+        "Urology": 0
+      },
+      "Urology": {
+        "Cardiovascular / Pulmonary": 23,
+        "Orthopedic": 0,
+        "Gastroenterology": 0,
+        "Neurology": 0,
+        "Urology": 0
+      }
+    }
+  },
+  "split_integrity": {
+    "validation_documents": 185,
+    "validation_groups": 185,
+    "unique_validation_canonical_hashes": 185,
+    "cross_split_leakage": "Unverified: full training and test group membership was unavailable.",
+    "training_fitted_baseline": "Unavailable: training label counts or baseline predictions were not supplied."
+  }
+}

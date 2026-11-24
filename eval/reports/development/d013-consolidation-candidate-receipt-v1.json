@@ -1,0 +1,68 @@
+{
+  "version": "d013-consolidation-v1",
+  "date": "2026-11-22",
+  "status": "private_reference_candidates_built_team_gate_and_unlisted_differences_pending",
+  "primary_records_preserved": 30,
+  "reference_candidates": 30,
+  "source_canonical_hashes_verified": 30,
+  "candidate_mentions_verified": 767,
+  "candidate_evidence_spans_verified": 1021,
+  "human_final_topic_rows_linked": 50,
+  "previous_a_question_decisions_linked": 27,
+  "previous_remaining_question_decisions_linked": 5,
+  "applied_operation_counts": {
+    "confirm_attributes": 85,
+    "exclude_under_recorded_rule": 10,
+    "preserve_source_context": 2,
+    "replace_contiguous_mention_under_human_rule": 2,
+    "add_literal_occurrence_from_human_rule": 6,
+    "consolidate_exact_evidence_without_label_change": 107
+  },
+  "evidence_unions_without_label_changes": 107,
+  "remaining_comparison_item_counts": {
+    "unlisted_attribute_difference": 29,
+    "boundary_alternative": 35,
+    "unlisted_secondary_addition": 48,
+    "candidate_not_exactly_repeated_by_secondary": 49
+  },
+  "missing_primary_assignments": 10,
+  "received_declared_human_secondary_reviews": 8,
+  "minimum_independent_reviews": 10,
+  "new_independent_review_credit": 0,
+  "canonical_reference_merge_claimed_complete": false,
+  "original_member_files_modified": false,
+  "final_qa_sources_accessed": false,
+  "provider_calls": 0,
+  "archive_sha256": "1d80e6759fd2b78dfc3481deab57f1d08b9181cc1fd1a94db82990d1b5635068",
+  "coordinator_only_package": true,
+  "team_gate": {
+    "version": "d013-team-completion-gate-v1",
+    "date": "2026-11-22",
+    "expected_primary_assignments": 40,
+    "primary_submissions_received": 30,
+    "missing_primary_assignment_ids": [
+      "assignment-020",
+      "assignment-021",
+      "assignment-022",
+      "assignment-023",
+      "assignment-024",
+      "assignment-025",
+      "assignment-026",
+      "assignment-027",
+      "assignment-028",
+      "assignment-029"
+    ],
+    "received_declared_human_secondary_reviews": 8,
+    "minimum_independent_reviews": 10,
+    "additional_eligible_reviews_needed_at_least": 2,
+    "accepted_ai_draft_034_independent_credit": 0,
+    "non_blinded_038_independent_credit": 0,
+    "d_cannot_replace_independent_review_of_own_034": true,
+    "d_prior_access_to_c_primary_labels_blocks_claiming_new_blinded_reviews_for": [
+      "assignment-001",
+      "assignment-004",
+      "assignment-007"
+    ],
+    "full_d013_closed": false
+  }
+}

@@ -1,0 +1,910 @@
+{
+  "version": "d011-extraction-improvement-v2",
+  "date": "2026-11-23",
+  "model_request_service_sha": "0873f152818e9620709a1c49470f432dd464f689",
+  "final_grounding_service_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
+  "fresh_generation_service_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
+  "output_format": "quote_hints",
+  "model": "gpt-6-luna",
+  "status": "structural_reliability_improved_quality_gate_not_cleared",
+  "groups": {
+    "observed_development_regression": {
+      "documents": 6,
+      "reference_mentions": 40,
+      "predicted_mentions": 40,
+      "partial_extractions": 1,
+      "summary_completed": 6,
+      "exact": {
+        "tp": 26,
+        "fp": 14,
+        "fn": 14,
+        "precision": 0.65,
+        "recall": 0.65,
+        "f1": 0.65,
+        "assertion": {
+          "correct": 24,
+          "matched_evaluated": 26,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9230769230769231
+        },
+        "temporality": {
+          "correct": 24,
+          "matched_evaluated": 26,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9230769230769231
+        },
+        "subject": {
+          "correct": 26,
+          "matched_evaluated": 26,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 7,
+          "matched_evaluated": 8,
+          "excluded_unresolved": 18,
+          "accuracy": 0.875
+        }
+      },
+      "relaxed": {
+        "tp": 32,
+        "fp": 8,
+        "fn": 8,
+        "precision": 0.8,
+        "recall": 0.8,
+        "f1": 0.8,
+        "assertion": {
+          "correct": 30,
+          "matched_evaluated": 32,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9375
+        },
+        "temporality": {
+          "correct": 30,
+          "matched_evaluated": 32,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9375
+        },
+        "subject": {
+          "correct": 32,
+          "matched_evaluated": 32,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 8,
+          "matched_evaluated": 10,
+          "excluded_unresolved": 22,
+          "accuracy": 0.8
+        }
+      }
+    },
+    "fresh_development_validation": {
+      "documents": 3,
+      "reference_mentions": 62,
+      "predicted_mentions": 46,
+      "partial_extractions": 0,
+      "summary_completed": 3,
+      "exact": {
+        "tp": 30,
+        "fp": 16,
+        "fn": 32,
+        "precision": 0.6521739130434783,
+        "recall": 0.4838709677419355,
+        "f1": 0.5555555555555556,
+        "assertion": {
+          "correct": 28,
+          "matched_evaluated": 30,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9333333333333333
+        },
+        "temporality": {
+          "correct": 23,
+          "matched_evaluated": 30,
+          "excluded_unresolved": 0,
+          "accuracy": 0.7666666666666667
+        },
+        "subject": {
+          "correct": 30,
+          "matched_evaluated": 30,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 7,
+          "matched_evaluated": 8,
+          "excluded_unresolved": 22,
+          "accuracy": 0.875
+        }
+      },
+      "relaxed": {
+        "tp": 36,
+        "fp": 10,
+        "fn": 26,
+        "precision": 0.782608695652174,
+        "recall": 0.5806451612903226,
+        "f1": 0.6666666666666666,
+        "assertion": {
+          "correct": 34,
+          "matched_evaluated": 36,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9444444444444444
+        },
+        "temporality": {
+          "correct": 29,
+          "matched_evaluated": 36,
+          "excluded_unresolved": 0,
+          "accuracy": 0.8055555555555556
+        },
+        "subject": {
+          "correct": 36,
+          "matched_evaluated": 36,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 8,
+          "matched_evaluated": 9,
+          "excluded_unresolved": 27,
+          "accuracy": 0.8888888888888888
+        }
+      }
+    },
+    "fresh_postfix_validation": {
+      "documents": 2,
+      "reference_mentions": 59,
+      "predicted_mentions": 50,
+      "partial_extractions": 1,
+      "summary_completed": 2,
+      "exact": {
+        "tp": 37,
+        "fp": 13,
+        "fn": 22,
+        "precision": 0.74,
+        "recall": 0.6271186440677966,
+        "f1": 0.6788990825688074,
+        "assertion": {
+          "correct": 35,
+          "matched_evaluated": 37,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9459459459459459
+        },
+        "temporality": {
+          "correct": 26,
+          "matched_evaluated": 37,
+          "excluded_unresolved": 0,
+          "accuracy": 0.7027027027027027
+        },
+        "subject": {
+          "correct": 37,
+          "matched_evaluated": 37,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 13,
+          "matched_evaluated": 14,
+          "excluded_unresolved": 23,
+          "accuracy": 0.9285714285714286
+        }
+      },
+      "relaxed": {
+        "tp": 46,
+        "fp": 4,
+        "fn": 13,
+        "precision": 0.92,
+        "recall": 0.7796610169491526,
+        "f1": 0.8440366972477065,
+        "assertion": {
+          "correct": 44,
+          "matched_evaluated": 46,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9565217391304348
+        },
+        "temporality": {
+          "correct": 35,
+          "matched_evaluated": 46,
+          "excluded_unresolved": 0,
+          "accuracy": 0.7608695652173914
+        },
+        "subject": {
+          "correct": 46,
+          "matched_evaluated": 46,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 16,
+          "matched_evaluated": 18,
+          "excluded_unresolved": 28,
+          "accuracy": 0.8888888888888888
+        }
+      }
+    }
+  },
+  "per_case": [
+    {
+      "id": "assignment-022",
+      "split": "observed_development_regression",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "896ca86739e48ade54573eeb34fd229f4c4c83a1fe822748a6ce11252282493f",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed",
+      "reference_mentions": 1,
+      "predicted_mentions": 1,
+      "scores": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "assertion": {
+          "correct": 1,
+          "matched_evaluated": 1,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 1,
+          "matched_evaluated": 1,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "subject": {
+          "correct": 1,
+          "matched_evaluated": 1,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 1,
+          "accuracy": null
+        }
+      }
+    },
+    {
+      "id": "assignment-029",
+      "split": "observed_development_regression",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "f491c9ad4d66af7d3270036158175dd812774bce4ac6534c1167c2c5b75d7444",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed",
+      "reference_mentions": 2,
+      "predicted_mentions": 2,
+      "scores": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "assertion": {
+          "correct": 2,
+          "matched_evaluated": 2,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 2,
+          "matched_evaluated": 2,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "subject": {
+          "correct": 2,
+          "matched_evaluated": 2,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 2,
+          "accuracy": null
+        }
+      }
+    },
+    {
+      "id": "assignment-012",
+      "split": "observed_development_regression",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "c7d71b42a36bc249d15a4b586cb7575b43d65dd273579bf452db421784366b39",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed",
+      "reference_mentions": 5,
+      "predicted_mentions": 4,
+      "scores": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1": 0.8888888888888888,
+        "assertion": {
+          "correct": 4,
+          "matched_evaluated": 4,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 4,
+          "matched_evaluated": 4,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "subject": {
+          "correct": 4,
+          "matched_evaluated": 4,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 3,
+          "matched_evaluated": 3,
+          "excluded_unresolved": 1,
+          "accuracy": 1.0
+        }
+      }
+    },
+    {
+      "id": "assignment-016",
+      "split": "observed_development_regression",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "0f902d463bd5c4c8ab46e887a8929574c0df02a7819a92df841af4f90108db4c",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed",
+      "reference_mentions": 1,
+      "predicted_mentions": 1,
+      "scores": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "assertion": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "temporality": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "subject": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "procedure_status": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        }
+      }
+    },
+    {
+      "id": "assignment-017",
+      "split": "observed_development_regression",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "3676d78f08a55c7bd63c7d044a7da1ed9bf2fba5e7f096877945909bf2e824cd",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed",
+      "reference_mentions": 19,
+      "predicted_mentions": 18,
+      "scores": {
+        "tp": 12,
+        "fp": 6,
+        "fn": 7,
+        "precision": 0.6666666666666666,
+        "recall": 0.631578947368421,
+        "f1": 0.6486486486486487,
+        "assertion": {
+          "correct": 11,
+          "matched_evaluated": 12,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9166666666666666
+        },
+        "temporality": {
+          "correct": 12,
+          "matched_evaluated": 12,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "subject": {
+          "correct": 12,
+          "matched_evaluated": 12,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 1,
+          "matched_evaluated": 1,
+          "excluded_unresolved": 11,
+          "accuracy": 1.0
+        }
+      }
+    },
+    {
+      "id": "assignment-008",
+      "split": "observed_development_regression",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "b9efa22d12058f110c97019a98c4623c82ece84a520f6decbc2c05e6053a4f7b",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "partial",
+      "summary_status": "completed",
+      "reference_mentions": 12,
+      "predicted_mentions": 14,
+      "scores": {
+        "tp": 7,
+        "fp": 7,
+        "fn": 5,
+        "precision": 0.5,
+        "recall": 0.5833333333333334,
+        "f1": 0.5384615384615384,
+        "assertion": {
+          "correct": 6,
+          "matched_evaluated": 7,
+          "excluded_unresolved": 0,
+          "accuracy": 0.8571428571428571
+        },
+        "temporality": {
+          "correct": 5,
+          "matched_evaluated": 7,
+          "excluded_unresolved": 0,
+          "accuracy": 0.7142857142857143
+        },
+        "subject": {
+          "correct": 7,
+          "matched_evaluated": 7,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 3,
+          "matched_evaluated": 4,
+          "excluded_unresolved": 3,
+          "accuracy": 0.75
+        }
+      }
+    },
+    {
+      "id": "assignment-019",
+      "split": "fresh_development_validation",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "b7e50c0b4f03adf0706ea3b266d27f9bcfe1903d903e9b38ba33568bb744d72d",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed",
+      "reference_mentions": 11,
+      "predicted_mentions": 9,
+      "scores": {
+        "tp": 7,
+        "fp": 2,
+        "fn": 4,
+        "precision": 0.7777777777777778,
+        "recall": 0.6363636363636364,
+        "f1": 0.7,
+        "assertion": {
+          "correct": 7,
+          "matched_evaluated": 7,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 3,
+          "matched_evaluated": 7,
+          "excluded_unresolved": 0,
+          "accuracy": 0.42857142857142855
+        },
+        "subject": {
+          "correct": 7,
+          "matched_evaluated": 7,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 2,
+          "matched_evaluated": 3,
+          "excluded_unresolved": 4,
+          "accuracy": 0.6666666666666666
+        }
+      }
+    },
+    {
+      "id": "assignment-036",
+      "split": "fresh_development_validation",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "873e3c502a48479e315377ae190d497d794e5c54f59595d48a8c0c67c89534f6",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed",
+      "reference_mentions": 27,
+      "predicted_mentions": 20,
+      "scores": {
+        "tp": 13,
+        "fp": 7,
+        "fn": 14,
+        "precision": 0.65,
+        "recall": 0.48148148148148145,
+        "f1": 0.5531914893617021,
+        "assertion": {
+          "correct": 12,
+          "matched_evaluated": 13,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9230769230769231
+        },
+        "temporality": {
+          "correct": 10,
+          "matched_evaluated": 13,
+          "excluded_unresolved": 0,
+          "accuracy": 0.7692307692307693
+        },
+        "subject": {
+          "correct": 13,
+          "matched_evaluated": 13,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 4,
+          "matched_evaluated": 4,
+          "excluded_unresolved": 9,
+          "accuracy": 1.0
+        }
+      }
+    },
+    {
+      "id": "assignment-038",
+      "split": "fresh_development_validation",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "f99319207ea57ad137a50f1d330069c5e8ed5887fec4c419e89835e869e88ae8",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed",
+      "reference_mentions": 24,
+      "predicted_mentions": 17,
+      "scores": {
+        "tp": 10,
+        "fp": 7,
+        "fn": 14,
+        "precision": 0.5882352941176471,
+        "recall": 0.4166666666666667,
+        "f1": 0.4878048780487805,
+        "assertion": {
+          "correct": 9,
+          "matched_evaluated": 10,
+          "excluded_unresolved": 0,
+          "accuracy": 0.9
+        },
+        "temporality": {
+          "correct": 10,
+          "matched_evaluated": 10,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "subject": {
+          "correct": 10,
+          "matched_evaluated": 10,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 1,
+          "matched_evaluated": 1,
+          "excluded_unresolved": 9,
+          "accuracy": 1.0
+        }
+      }
+    },
+    {
+      "id": "confirmed-01/supported",
+      "split": "observed_qa_regression",
+      "operation": "answer",
+      "status": "returned_valid",
+      "result_sha256": "1855e4ff1a934a8a4faf3964c0695b844943e7419cbc54687359f242b1617491",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "literal_proxy_correct": true,
+      "returned_state": "sufficient",
+      "expected_state": "sufficient"
+    },
+    {
+      "id": "history-01/absent",
+      "split": "observed_qa_regression",
+      "operation": "answer",
+      "status": "returned_valid",
+      "result_sha256": "c63ba0cd8bd7040871e9b44643b0d605ea569a7bd59624be444f74b84e6d4942",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "literal_proxy_correct": true,
+      "returned_state": "insufficient",
+      "expected_state": "insufficient"
+    },
+    {
+      "id": "limited-04/supported",
+      "split": "observed_qa_regression",
+      "operation": "answer",
+      "status": "returned_valid",
+      "result_sha256": "d92daeb584029cfc34c12dd13df98391eb42a4a5f636e47add1c1aff32698102",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "literal_proxy_correct": true,
+      "returned_state": "partial",
+      "expected_state": "partial"
+    },
+    {
+      "id": "assignment-001",
+      "split": "fresh_postfix_validation",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "1f7449f148684d7ee495c4be89d86ddfd2e77d0cd9b96d05c19941bfb29fca05",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "completed",
+      "summary_status": "completed",
+      "reference_mentions": 28,
+      "predicted_mentions": 25,
+      "scores": {
+        "tp": 23,
+        "fp": 2,
+        "fn": 5,
+        "precision": 0.92,
+        "recall": 0.8214285714285714,
+        "f1": 0.8679245283018868,
+        "assertion": {
+          "correct": 23,
+          "matched_evaluated": 23,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "temporality": {
+          "correct": 15,
+          "matched_evaluated": 23,
+          "excluded_unresolved": 0,
+          "accuracy": 0.6521739130434783
+        },
+        "subject": {
+          "correct": 23,
+          "matched_evaluated": 23,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 6,
+          "matched_evaluated": 6,
+          "excluded_unresolved": 17,
+          "accuracy": 1.0
+        }
+      }
+    },
+    {
+      "id": "assignment-026",
+      "split": "fresh_postfix_validation",
+      "operation": "extract",
+      "status": "returned_valid",
+      "result_sha256": "0ed6769484db502a22671868120cc0519d8ca5035df48a83cecb36a59f7064de",
+      "single_attempt_diagnostics": {
+        "attempts": 1,
+        "raw_validation_failures": 0,
+        "repairs": 0
+      },
+      "extraction_status": "partial",
+      "summary_status": "completed",
+      "reference_mentions": 31,
+      "predicted_mentions": 25,
+      "scores": {
+        "tp": 14,
+        "fp": 11,
+        "fn": 17,
+        "precision": 0.56,
+        "recall": 0.45161290322580644,
+        "f1": 0.5,
+        "assertion": {
+          "correct": 12,
+          "matched_evaluated": 14,
+          "excluded_unresolved": 0,
+          "accuracy": 0.8571428571428571
+        },
+        "temporality": {
+          "correct": 11,
+          "matched_evaluated": 14,
+          "excluded_unresolved": 0,
+          "accuracy": 0.7857142857142857
+        },
+        "subject": {
+          "correct": 14,
+          "matched_evaluated": 14,
+          "excluded_unresolved": 0,
+          "accuracy": 1.0
+        },
+        "procedure_status": {
+          "correct": 7,
+          "matched_evaluated": 8,
+          "excluded_unresolved": 6,
+          "accuracy": 0.875
+        }
+      }
+    }
+  ],
+  "baseline_same_six": {
+    "original_live_valid_extractions": 1,
+    "latest_contract_replay_valid_extractions": 2,
+    "documents": 6,
+    "end_to_end_lower_bound": {
+      "tp": 2,
+      "fp": 5,
+      "fn": 38,
+      "precision": 0.2857142857142857,
+      "recall": 0.05,
+      "f1": 0.0851063829787234,
+      "assertion": {
+        "correct": 0,
+        "matched_evaluated": 2,
+        "excluded_unresolved": 0,
+        "accuracy": 0.0
+      },
+      "temporality": {
+        "correct": 0,
+        "matched_evaluated": 2,
+        "excluded_unresolved": 0,
+        "accuracy": 0.0
+      },
+      "subject": {
+        "correct": 0,
+        "matched_evaluated": 2,
+        "excluded_unresolved": 0,
+        "accuracy": 0.0
+      },
+      "procedure_status": {
+        "correct": 0,
+        "matched_evaluated": 0,
+        "excluded_unresolved": 2,
+        "accuracy": null
+      }
+    },
+    "metric_scope": "Retain failed reference cases with no predictions, not selected valid-only F1."
+  },
+  "validated_extraction_results": 11,
+  "total_extraction_documents": 11,
+  "validated_qa_results": 3,
+  "qa_total": 3,
+  "qa_literal_proxy_correct": 3,
+  "qa_literal_proxy_denominator": 3,
+  "independent_semantic_risk": null,
+  "fresh_saved_response_http_replays": [
+    {
+      "id": "assignment-001",
+      "http_status": 200,
+      "new_generation": false
+    },
+    {
+      "id": "assignment-026",
+      "http_status": 200,
+      "new_generation": false
+    }
+  ],
+  "service_tests_passed": 130,
+  "eval_tests_last_passed": 141,
+  "new_provider_calls": 14,
+  "automatic_retries": 0,
+  "known_cumulative_max_reservation_usd": "0.0965479",
+  "actual_billing_confirmed": false,
+  "raw_hints_and_prior_failure_results_preserved": true,
+  "grounding_changes": "Unique literal quotes resolve without trusting a model occurrence number; repeated quotes require explicit validated occurrence. Irrelevant non-procedure status becomes null, missing procedure status stays unknown. Unresolvable candidates are omitted only with explicit partial/failed status and warnings, and still count as missed reference entities.",
+  "no_model_semantic_label_overwrite": true,
+  "reference_labels_or_answers_in_provider_input": false,
+  "no_threshold_reduction": true,
+  "final_cases_accessed": false,
+  "validation_limit": "The first nine model outputs were replayed after general grounding fixes; only the last two documents were generated with the fixed grounding revision. Neither set is the D-007 unseen final set. Small length-selected development samples are not clinical validation.",
+  "acceptance": {
+    "acceptance_version": "d-acceptance-adopted-v2",
+    "measurement_version": "d011-quote-protocol-fresh-acceptance-v3",
+    "sample_count": 5,
+    "criteria": [
+      {
+        "metric": "schema_validity",
+        "threshold": 1,
+        "value": 1,
+        "status": "passed"
+      },
+      {
+        "metric": "span_validity",
+        "threshold": 1,
+        "value": 1,
+        "status": "passed"
+      },
+      {
+        "metric": "entity_exact_f1",
+        "threshold": 0.9,
+        "value": 0.6788990825688074,
+        "status": "failed"
+      },
+      {
+        "metric": "topic_recall_at_5",
+        "threshold": 0.95,
+        "value": 1,
+        "status": "passed"
+      },
+      {
+        "metric": "answer_risk",
+        "threshold": 0.05,
+        "value": null,
+        "status": "measurement_missing"
+      }
+    ],
+    "status": "failed"
+  },
+  "d011_closed": false,
+  "d009_closed": false
+}

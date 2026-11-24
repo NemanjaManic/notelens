@@ -1,0 +1,371 @@
+{
+  "version": "d013-development-reference-freeze-v1",
+  "date": "2026-11-23",
+  "reference_version": "d013-development-reference-freeze-v1",
+  "status": "coordinator_approved_frozen",
+  "approved": true,
+  "approved_by": "Milica",
+  "frozen": true,
+  "source_allocation_sha256": "7b7cc6d3c9cb8afd4455d48075b24e8579f7a78e49295decfc09a9f04aed32a6",
+  "source_loaded_packet_sha256": "69cbbba5f49d906f89af98760ac0beda27ee87a7126142d8a9deae0e54850ce7",
+  "guide_sha256": "89a4b9ea93f3d5ea2a3ff98cacf50ad990e38fabf5eb840282a59e6b954c2428",
+  "prior_human_progress_sha256": "e455217ec4da7c5d6a17c34f228838774d57bad3b02224c06bc944918f21818f",
+  "source_intake_receipt": "eval/reports/development/d013-sources-020-029-intake-v1.json",
+  "reference_count": 40,
+  "mention_count": 1189,
+  "evidence_span_count": 1320,
+  "unique_development_groups": 40,
+  "primary_records_received": 40,
+  "eligible_independent_review_declarations": 12,
+  "required_independent_reviews": 10,
+  "coverage_ids_required": 250,
+  "coverage_ids_disposed": 250,
+  "previous_explicit_human_item_decisions": 64,
+  "new_agent_dispositions": 153,
+  "older_resolved_ids_preserved": 33,
+  "individual_agent_dispositions_remaining": 0,
+  "source_or_span_errors": 0,
+  "original_member_submissions_modified": false,
+  "final_coordinator_signoff_required": false,
+  "new_human_review_attestation": false,
+  "new_independent_review_credit": 0,
+  "provider_calls": 0,
+  "unseen_final_accessed": false,
+  "limitations": "Agent source/rule adjudication preserves earlier human reviews and decisions. It is not a new human review, new independent review or clinical validation. Unknown source attributes remain explicitly unknown, with rationale.",
+  "coordinator_approval_sha256": "634b6b9e10e5e491a5752f3121c739b994f73fa3b76ae33916cdb713b5859282",
+  "approved_candidate_manifest_sha256": "1b5d7f717f35f31cddcc7ecc9d4389bdbd6d1849d20ee70108e3d7ac68accc25",
+  "approved_candidate_archive_sha256": "d2135eba23a76fe0abd08706878b4d6c2a2541645f86a94677b5e662e5172a66",
+  "reference_partition": "development",
+  "unseen_final_reference_freeze": false,
+  "disposition_ledger_sha256": "bd91671347a127d7fce74c6005204900c000253f8bf8b1468f4781d072198bf2",
+  "application_audit_sha256": "3aeb2fb5b8ad2529ac1463430176b69e4c76bb527ebebc1c96b0d0937b109f7b",
+  "semantic_label_changes_after_candidate_approval": 0,
+  "personal_reread_of_all_documents": "Not claimed",
+  "full_d013_closed": true,
+  "references": [
+    {
+      "assignment_id": "assignment-000",
+      "sha256": "7e8250805f2f96b4450ee379e5f139b7db036b61b7f778ee626b69ddb4aab434",
+      "text_sha256": "ff9ce99d86944b9a0d32f67db9ec86e729e65db404c4d63daab079d79f9e7b1f",
+      "mentions": 60,
+      "evidence_spans": 78,
+      "approved_candidate_sha256": "229805a71f037b6243c28f6720a24f1e3efe40530dcaeeb885a4fb8a3f93917d"
+    },
+    {
+      "assignment_id": "assignment-001",
+      "sha256": "e7ffdc6da13d0dc9f34cb985d48e6c738a0cf79d317db63cd5850eb83d94de5a",
+      "text_sha256": "275ccf6a86fb112b9a60b9c62716dca7bbf3a796cb189670501a09451ed9dead",
+      "mentions": 28,
+      "evidence_spans": 28,
+      "approved_candidate_sha256": "97e3dfb433fe8f8265080f09fa67fd5281095797ce0e1b17afea405063d349e3"
+    },
+    {
+      "assignment_id": "assignment-002",
+      "sha256": "0a0833dfc33a510c8e718524cd1fa097ad69a7c23dc02d4065fa23c38102f1da",
+      "text_sha256": "c8e85650be0880242d34faca153a950e6a7cef66158f920ce50bfa647c3c76bb",
+      "mentions": 52,
+      "evidence_spans": 68,
+      "approved_candidate_sha256": "3488540c3f2cf4858a2338782ba7ef6c8dbb2e1ff6ae15f2deddeeb2b73d812f"
+    },
+    {
+      "assignment_id": "assignment-003",
+      "sha256": "cd3e49b5d0a0b61ae751820f04dd9094af77b7d2479d5b37bc50ed4c89f4cb41",
+      "text_sha256": "f8946d291e8fb060503c64c8a3b913255094cb167c44f06ec47b9df68892cbf2",
+      "mentions": 18,
+      "evidence_spans": 18,
+      "approved_candidate_sha256": "e5841e7e97cbc0410a19b44f7f798a97be4513628e5f99a1ca507662925a49dd"
+    },
+    {
+      "assignment_id": "assignment-004",
+      "sha256": "1d1cd2248b4ce9b15690c180a27ed7a6a040f77c486a563c8ff2381e5fee5150",
+      "text_sha256": "92ab1e39c03d63f4a4c5f8d5e64d9b0d0590935ee3908e2930d7f601a196640f",
+      "mentions": 25,
+      "evidence_spans": 30,
+      "approved_candidate_sha256": "31317ce6a1f09a79a71f89db8705481240e3cad87b231e263e570b58ad0ef226"
+    },
+    {
+      "assignment_id": "assignment-005",
+      "sha256": "a1998ce38d301e20bba58ea295620942ea9f0b6f4011f30d053ed0303abe23a4",
+      "text_sha256": "9ab5bd7cd875b79702b82bb905e42acee8e424f304b3742ab2df98c0a99b5427",
+      "mentions": 26,
+      "evidence_spans": 35,
+      "approved_candidate_sha256": "ddca5a024a0803f25cba4e2e0e4615e4f0adeca06fcbc3244b42624b2b14fa83"
+    },
+    {
+      "assignment_id": "assignment-006",
+      "sha256": "525a1a8d04a82221d9f7f5880932b405c766878fb775b90a56d4b39ffa52e418",
+      "text_sha256": "90bfded0038ec8a0e4dab17521da6849339408a5416582883d817e8338e9ef80",
+      "mentions": 19,
+      "evidence_spans": 23,
+      "approved_candidate_sha256": "3374f50f648f9b38e4de85eecba49950f42742eccadadb51f3ea001ce6f0e419"
+    },
+    {
+      "assignment_id": "assignment-007",
+      "sha256": "f1094b6d3d810a8bceaec9eca0bca4ec7573f21b5105fbcf10eeb2b492f1f997",
+      "text_sha256": "dd29712cba5e0fc26ada40283bcd13633ab68c2f735d636c2cf7bf5766c6f0cd",
+      "mentions": 44,
+      "evidence_spans": 45,
+      "approved_candidate_sha256": "f3e5465bf7a250e39fe77285362e31f5a73b000560d090eff7f3951445afd184"
+    },
+    {
+      "assignment_id": "assignment-008",
+      "sha256": "067f24d06cdf938432a640a2bd7cf6394a3448e94a48e0999cb01eb56120e9f9",
+      "text_sha256": "0410c223b7ad1abb00645e89ea139749f9818a8fe24502f1140faff0b47cd3ac",
+      "mentions": 12,
+      "evidence_spans": 12,
+      "approved_candidate_sha256": "4aec5b4f25d08fd929cf705eeabd01e04aadcdbcb7720f198759a0dd46f791dd"
+    },
+    {
+      "assignment_id": "assignment-009",
+      "sha256": "6122fbccea4cd48a807fb20991bb8549c940c1e2f5dae5b431770e5c65ada280",
+      "text_sha256": "1fade9eda2dc76b5d548d157d0e198ff21ae683bfabea9086bf6547ae0a73f23",
+      "mentions": 31,
+      "evidence_spans": 31,
+      "approved_candidate_sha256": "691d50b36cf61509bd923198fe23a2207cdfcd816281e2222560da882c0772f4"
+    },
+    {
+      "assignment_id": "assignment-010",
+      "sha256": "7a0deea6890c631b3776b1d85b51f833019fdb9a0f1d33c3569b5e8a55ee549a",
+      "text_sha256": "e65e58538aa557c9e4bcafab3b52f24409c9da4076c441d0c2ea6422adcc5bb9",
+      "mentions": 23,
+      "evidence_spans": 29,
+      "approved_candidate_sha256": "79f89495793a27e833c8da1d5b5d21101ea7af626fd32c616ee26945d428bea8"
+    },
+    {
+      "assignment_id": "assignment-011",
+      "sha256": "af841c0ed3dfbc98067212d372e471b9b328d77dacf4f6c2e665f5c6371878c6",
+      "text_sha256": "e21d2edff27a3ffea0b0aee0c60bbde327699dfbd77fe4bec8597e3e3e25d914",
+      "mentions": 47,
+      "evidence_spans": 53,
+      "approved_candidate_sha256": "d9b7c856b607bcd903a588b83f5f26cdc1e23552c862fc07cd28ebe98a2f00e8"
+    },
+    {
+      "assignment_id": "assignment-012",
+      "sha256": "e549cfc877855be9b51262766392296809fe96eb3325fa4105fd7fea476ef0c5",
+      "text_sha256": "df1d03602f9b55ea7c55915bf5246e53ce3bac3cd0259bdd28c2e9367fe08a97",
+      "mentions": 5,
+      "evidence_spans": 5,
+      "approved_candidate_sha256": "4885635c317f0636acadb65857c1d7ed04b86ef76f84edf3fae93e0e9622fe4b"
+    },
+    {
+      "assignment_id": "assignment-013",
+      "sha256": "d66be27a4e0ef7455acd5dd66344ae15b6e76833bf0fea92a6e1763c30b150b9",
+      "text_sha256": "aa79cfa2d3f5fff06a233e92e7db87af1df0939d95c8d7f716bc9eed08fa32c0",
+      "mentions": 18,
+      "evidence_spans": 28,
+      "approved_candidate_sha256": "2e6015bce322549040b4f74e261d6f52ba8b811b352519e9a792755ff651d786"
+    },
+    {
+      "assignment_id": "assignment-014",
+      "sha256": "09743b5fa7352a4938bb52632f7b541ef67e7e44b87ebd7485cd35c928ccaa88",
+      "text_sha256": "0fed16bd10cc02e2ff33f21ede8e031bd8567b34682a239cca758e6247ac395c",
+      "mentions": 19,
+      "evidence_spans": 23,
+      "approved_candidate_sha256": "43efdd1c8f7503b7836e5128b7776b99a6dbee3ad4c7fcd7468ed3f2dfd6e604"
+    },
+    {
+      "assignment_id": "assignment-015",
+      "sha256": "ce31a9baaef39ec56c74d5dd64dade5966b539312e4e287f7b6b91da16aad4ed",
+      "text_sha256": "625600be99aaedfb56da94cb0d328f958f7e649872336227f279dbe8243cae25",
+      "mentions": 20,
+      "evidence_spans": 26,
+      "approved_candidate_sha256": "2ed6fcb3b845f370aebdcc43041b688e9ef8b2a8fe64f162af3bccd18bf261af"
+    },
+    {
+      "assignment_id": "assignment-016",
+      "sha256": "0ee8b67a6bd824ab5813dab754ee61c2a862214c7785da389e9a90cd401dade0",
+      "text_sha256": "27d8969cb509e5ef11fd74e43da2533265f9f64355b24fc09d875c0ded4ab6d2",
+      "mentions": 1,
+      "evidence_spans": 1,
+      "approved_candidate_sha256": "631066aeb462d4d6fab9b91984fadd73dc30bcb7f5f98d45c8b14dbddf4114de"
+    },
+    {
+      "assignment_id": "assignment-017",
+      "sha256": "192268c983e49910b6ec34acdbfa8393cc6331b8f2996f5cb8e932ce15c57252",
+      "text_sha256": "d9c0213f4e53decafcbfcf855299864b73c9c8959d9a01f40a035edbeb88e131",
+      "mentions": 19,
+      "evidence_spans": 26,
+      "approved_candidate_sha256": "c1ff1d33ad10fde7c2b61655831fd40c61635a86315166c0244f47d81332ba08"
+    },
+    {
+      "assignment_id": "assignment-018",
+      "sha256": "874da805a1168e4a1588a2020bc2f6dddd76dfef7a0edd43364b4bc4bbe643d0",
+      "text_sha256": "823f7e6a1dfd7cb0c5d27f914432233175e1dd7d7fc96ec6effc9ffad0d220ae",
+      "mentions": 31,
+      "evidence_spans": 41,
+      "approved_candidate_sha256": "705439703182b66cd5906fb6ecf35576818af5e8cb174150c31dc46028d770b7"
+    },
+    {
+      "assignment_id": "assignment-019",
+      "sha256": "ed107d82b60afd875eae84918f94f42f6f957ec9d44e68190a04932b13f5de7d",
+      "text_sha256": "a9c103302a9fae840ebf029a112676e116216484eb06e7d696d5b23328b92f5d",
+      "mentions": 11,
+      "evidence_spans": 16,
+      "approved_candidate_sha256": "0a475d0a4d523b73f95b81f99c564973b75c0fc30cd2d9dcb1a6ec7cf87313e6"
+    },
+    {
+      "assignment_id": "assignment-020",
+      "sha256": "80bf894f4af3b46501b65840a2780d12ceb311ac27070ce53db5082722e20c31",
+      "text_sha256": "936cfa82d3da41338e24c031461a249016784b7b736a26cf5ba41f671069be04",
+      "mentions": 83,
+      "evidence_spans": 83,
+      "approved_candidate_sha256": "e64901bc4252e38a277f40273d1302b42e480799299be83b8db892c782ae95e2"
+    },
+    {
+      "assignment_id": "assignment-021",
+      "sha256": "db3eba4364347e73e47e58805b6eb896bd39b22801f0b94be6abb8b10079a093",
+      "text_sha256": "f480481645d629333a5a8c0953cf9a1ac0b8217a53ae3fad5d1bf55568d54b50",
+      "mentions": 22,
+      "evidence_spans": 23,
+      "approved_candidate_sha256": "eeb8abace65ce0b03ccf835ba0707d706ac5e9eeca8fb8f53cfda8a5d36ab50f"
+    },
+    {
+      "assignment_id": "assignment-022",
+      "sha256": "75dcd67ec901ffeb157b08453cad52aafeda8832195b6ec19527c54fdf5fdbde",
+      "text_sha256": "d598e335199eab257bc294188cea126ff3e0e3148eefc12a463d1a6cb2df4380",
+      "mentions": 1,
+      "evidence_spans": 2,
+      "approved_candidate_sha256": "00dac96cb36b79bcc385505a645881bda87d133efc041c6e59d70f8c47d15351"
+    },
+    {
+      "assignment_id": "assignment-023",
+      "sha256": "4d533cd11169a77d1fa8543eb90ac62d0cc2b035f18044f61fdfb453481071a4",
+      "text_sha256": "da23c6f52d382ef82c0c825df7638f7a0fb554d696084b57d23b75d824834ea6",
+      "mentions": 26,
+      "evidence_spans": 27,
+      "approved_candidate_sha256": "a0e4f7736ddb471f2d36f41116226f7a427d0564484df2155e6d23b4aaea0ec7"
+    },
+    {
+      "assignment_id": "assignment-024",
+      "sha256": "ab00573453a79063fbada77ef687e1217c940f4913e229dd6ee5238f44a0c19b",
+      "text_sha256": "730384e7a62a0e0b2812e0259e5698afd4dc0a507085df39ee2db322d70a2d49",
+      "mentions": 42,
+      "evidence_spans": 42,
+      "approved_candidate_sha256": "c2935f2738c3f30f14a721d89c22b26020e990ff8607784d35b5f2a7e30b8f8e"
+    },
+    {
+      "assignment_id": "assignment-025",
+      "sha256": "d190289a2452064fc0de66e2dc30c58fd4e6cc7f515dd79c53a23d4d81a153c5",
+      "text_sha256": "ca7611a81c18fae24c30745ce9b528f080febbc3864ac48886b4ac39d55e4b06",
+      "mentions": 73,
+      "evidence_spans": 75,
+      "approved_candidate_sha256": "9ac1350558e8ebf8801935ca9293e440c4168dd439af3beddb12da53508f8895"
+    },
+    {
+      "assignment_id": "assignment-026",
+      "sha256": "00340141c4f3853afc21fe1da4726d411ebb07ab9a518767cbb85cde6e640ca4",
+      "text_sha256": "899690ed54504643dd0256a63c156c464faaaf22500d7a669f5eb6dbaa698a9e",
+      "mentions": 31,
+      "evidence_spans": 31,
+      "approved_candidate_sha256": "11b6bf3bf19f70962cf156bd4dc562398c24b3f05a11c65ebdd8bf766a52db8f"
+    },
+    {
+      "assignment_id": "assignment-027",
+      "sha256": "def11eb17ea8117f7e5f4f915c39edf08c5cafaca6a05a9f5784b95ea874e477",
+      "text_sha256": "2fdb90aa2f8c4c8f0fb0cddc80c2cec9f72490dde90b1b00872d64283a7ab91a",
+      "mentions": 23,
+      "evidence_spans": 23,
+      "approved_candidate_sha256": "358f4170736ac33921845267bbc488758ecf44cdac323d891824847c6d3266ae"
+    },
+    {
+      "assignment_id": "assignment-028",
+      "sha256": "97acb3d063f534256fca028148e69deff37d25d338df09b1630a18190a1f809d",
+      "text_sha256": "40e1cc2dff5474a826c43202e107b7bee9e8998732ef4a2ad286c05ee0f12ff8",
+      "mentions": 68,
+      "evidence_spans": 78,
+      "approved_candidate_sha256": "d9fb3699dff5459c77e0bd481c00371657a14a6171462d3fe4d78aa5778cf045"
+    },
+    {
+      "assignment_id": "assignment-029",
+      "sha256": "ff98e10a9d0eafc0e63a04ab3246b3991877d055b7788ed09d69a43b33d69441",
+      "text_sha256": "89393156b2bc3b30d1f5aab007e0c95bdfed972e8fc619b81919e8ecafd31d9b",
+      "mentions": 2,
+      "evidence_spans": 3,
+      "approved_candidate_sha256": "ebdea9b70fbf9a30aba6d796a9010265ca3fc23d98d1ad6809de4be01972bd08"
+    },
+    {
+      "assignment_id": "assignment-030",
+      "sha256": "04f52f19a792137ae6dfc37f0a1579ee7c7a2f5decebc4ab5b1e44739eb99133",
+      "text_sha256": "0554ba295c3a29bb362ca72170adb82977b95fda1facc95686d0c0e82b394228",
+      "mentions": 14,
+      "evidence_spans": 14,
+      "approved_candidate_sha256": "1a075df83809286dd7939e69a8a6f30cabc2211ca55217bad809278130f42231"
+    },
+    {
+      "assignment_id": "assignment-031",
+      "sha256": "fb6d6cc74552e92110d3606e236a7c2c67b1fbfe4b5a5f0918f3026e58f3f4bb",
+      "text_sha256": "a29871b41f654e3a36d4f54edf1216eb698b3479f929aa82a4a85efa8f3933f9",
+      "mentions": 31,
+      "evidence_spans": 33,
+      "approved_candidate_sha256": "3bddaf2325bb524028e0a7db2bb9050bc4e6c919ad00e5a8da04ddbe88cb26ba"
+    },
+    {
+      "assignment_id": "assignment-032",
+      "sha256": "21d166ff20d5556c5045299d76dbbe9de4fc4c684cd7a42af69baddd0745bb0a",
+      "text_sha256": "81894c2c792e451838ad76b14c790d1dc9c381bfd2882e48e379e11179cd909f",
+      "mentions": 22,
+      "evidence_spans": 22,
+      "approved_candidate_sha256": "3ff30b6eeb9faf78e4bdc39e7f357d6646a0605c2ad0c5cfc4f132158c3be803"
+    },
+    {
+      "assignment_id": "assignment-033",
+      "sha256": "909310d96c26886d6b631d792793fa0579470e9bacdec3adeaf5e37f9a0c7d14",
+      "text_sha256": "5c7e8b6abff6e9aa54058bb8f992b59ad03386376a61322ccc17d8a7a93984d8",
+      "mentions": 44,
+      "evidence_spans": 44,
+      "approved_candidate_sha256": "29b2be2a34158b64b5afbec9dc8bc2fdb71a5a644bf13b0db1ab3214792ab2b0"
+    },
+    {
+      "assignment_id": "assignment-034",
+      "sha256": "d90bd4e0c72f32eb8e703d41b7fb965f5ba9508be13b4f77b40bbede98fd3384",
+      "text_sha256": "a96c3c6d40f221286b2063367350a1d65afd29494376804e908ada042ce1f44f",
+      "mentions": 32,
+      "evidence_spans": 32,
+      "approved_candidate_sha256": "3e355fdb4586cc6ab4ec5f6110dda1b70e01d886aad5efcab7bc09b08099afc0"
+    },
+    {
+      "assignment_id": "assignment-035",
+      "sha256": "d45c036f9258cccd985ddd35c496ed4aa5178fe6564fc092416ba45fc45ca69c",
+      "text_sha256": "b0985602ff906307b3996c04cfe7c5a0b790692f27588fe9f3098984d7f6d3f8",
+      "mentions": 54,
+      "evidence_spans": 55,
+      "approved_candidate_sha256": "c41dab24412ff71b584668ad923c8c22b6f069a928bc5cb3609744c8442d2d62"
+    },
+    {
+      "assignment_id": "assignment-036",
+      "sha256": "871f7e4f66e757ae317c6aadfb7a6a7b6370106d071b688ff18858e0ae85a338",
+      "text_sha256": "d513d7000a05c0c9ba0c4d0493fe31bdfb0fa8fedf1dd36b9916be0600e6e1dc",
+      "mentions": 27,
+      "evidence_spans": 29,
+      "approved_candidate_sha256": "d831ea26caa80af8f5a0b2364369c9b7b909aeef6ba9078d9ec34bfc7f78e588"
+    },
+    {
+      "assignment_id": "assignment-037",
+      "sha256": "efa34c80ecbb2eed28df56aa22e3fd63e0660b584f695b5035cb0bbf78b442bc",
+      "text_sha256": "99dec7112440c64c24e6289dc46937f490e1f697987751a37d1af086f097adad",
+      "mentions": 16,
+      "evidence_spans": 16,
+      "approved_candidate_sha256": "0ea400e23cd864b0332843461745d7c218357ce9549b6d5dddc751dc0747db23"
+    },
+    {
+      "assignment_id": "assignment-038",
+      "sha256": "fe158a226e67fdf251ce146b94f8792f86203471b98115314787763f2b27204e",
+      "text_sha256": "6d261e8c9f9e400578a6f04d36a8d611271ba530dbd941207f609c9a1d3fc828",
+      "mentions": 24,
+      "evidence_spans": 24,
+      "approved_candidate_sha256": "bb81fa8953818caaff86666c1782b3ca555dc19657b48a179a5b5212f0323be6"
+    },
+    {
+      "assignment_id": "assignment-039",
+      "sha256": "530e8838b5a405699c5e83c4ef1edbd3fb808867dabfb75bc37eda1d3cc2fbdc",
+      "text_sha256": "92666e3e4694649a7b4bb77ea86c35fd2e5d915574b2dc56c9e0246430763041",
+      "mentions": 45,
+      "evidence_spans": 48,
+      "approved_candidate_sha256": "d84fd0dd617eb051ebdcd63ada71d6a9e88f450d285f415ce85e225ed112c63b"
+    }
+  ],
+  "private_bundle_route": "Predaja-NoteLens/D-013/D013-development-reference-freeze-v1",
+  "private_bundle_archive_sha256": "6f9c81a75ab071b0a40f5355fa374f84f12c1d8c8718f5fa54552ea1941f42ca",
+  "private_freeze_manifest_sha256": "d74ceba873aeb75f4ae7b929b9db3d2a47fef83bb4b1972691cc54c337c52963",
+  "contains_raw_sources_or_entity_quotes": false
+}

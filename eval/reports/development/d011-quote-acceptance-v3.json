@@ -1,0 +1,38 @@
+{
+  "acceptance_version": "d-acceptance-adopted-v2",
+  "measurement_version": "d011-quote-protocol-fresh-acceptance-v3",
+  "sample_count": 5,
+  "criteria": [
+    {
+      "metric": "schema_validity",
+      "threshold": 1,
+      "value": 1,
+      "status": "passed"
+    },
+    {
+      "metric": "span_validity",
+      "threshold": 1,
+      "value": 1,
+      "status": "passed"
+    },
+    {
+      "metric": "entity_exact_f1",
+      "threshold": 0.9,
+      "value": 0.6788990825688074,
+      "status": "failed"
+    },
+    {
+      "metric": "topic_recall_at_5",
+      "threshold": 0.95,
+      "value": 1,
+      "status": "passed"
+    },
+    {
+      "metric": "answer_risk",
+      "threshold": 0.05,
+      "value": null,
+      "status": "measurement_missing"
+    }
+  ],
+  "status": "failed"
+}

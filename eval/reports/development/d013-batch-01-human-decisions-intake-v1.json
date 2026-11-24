@@ -1,0 +1,19 @@
+{
+  "version": "d013-batch-01-human-decisions-intake-v1",
+  "date": "2026-11-23",
+  "adjudicator": "Milica",
+  "source_decisions_sha256": "89507bdae135e2f22dc3773549ba8c7c7927f9d197545ec95a639863afc7f09f",
+  "source_form_sha256": "08bd97c95e1c1cc5bc50db7b0143965fd539a1c4a939638d4000d4f67bbeaa16",
+  "decisions_applied": 6,
+  "source_anchors_verified": 11,
+  "candidate_001_entities": 28,
+  "candidate_034_entities": 32,
+  "entity_changes": 9,
+  "previous_comparison_proposals_still_pending": 152,
+  "b011_questions_still_pending": 63,
+  "structural_or_span_errors": 0,
+  "new_independent_review_credit": 0,
+  "original_submissions_modified": false,
+  "canonical_references_frozen": false,
+  "full_d013_closed": false
+}

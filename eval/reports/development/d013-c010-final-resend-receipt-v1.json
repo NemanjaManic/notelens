@@ -1,0 +1,19 @@
+{
+  "version": "d013-c010-final-resend-receipt-v1",
+  "date": "2026-11-22",
+  "status": "identical_final_records_received_in_repacked_archive",
+  "archive_sha256": "1c45a159671fde474465daf91deb6c0769b91b73d97f0c4bbdeee771bacaeb75",
+  "manifest_sha256": "9d7e71d05cee8339d29b104be8117fc19ecc8ccb1417b9f62fad35ae113a6e48",
+  "checksums_verified": 12,
+  "records_identical_to_previously_verified_final_package": 11,
+  "primary": 10,
+  "secondary": 1,
+  "new_independent_review_credit": 0,
+  "previous_canonical_span_checks_reused_for_byte_identical_records": {
+    "mention_spans": 305,
+    "evidence_spans": 335
+  },
+  "human_attestation": "Sara reconfirmed full canonical document review for all eleven assignments.",
+  "new_adjudication_inputs": 0,
+  "existing_paired_comparisons_remain_current": true
+}

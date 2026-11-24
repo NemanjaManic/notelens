@@ -1,0 +1,27 @@
+{
+  "version": "d-a008-web-admission-fix-review-v1",
+  "date": "2026-11-22",
+  "remote_branch": "origin/member-b/a-008-prompt-admission",
+  "remote_sha_verified": "4fb192eb157d5e2fb47fc6afdda890af8c229d7e",
+  "parent_rag_commit_verified": "d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4",
+  "changed_files": [
+    "apps/web/src/lib/routing/demo-questions.ts",
+    "apps/web/tests/routing.test.ts"
+  ],
+  "source_snapshot_matches_commit": true,
+  "review_result": "No blocking finding in the two-file change.",
+  "scope": "One exact reviewed synthetic literature question is admitted. Regression covers literature-only and mixed question planning.",
+  "regression_command": "node --experimental-strip-types --test apps/web/tests/routing.test.ts",
+  "tests_passed": 18,
+  "tests_failed": 0,
+  "node_version": "v24.20.0",
+  "dependency_setup": "Reused existing cached platform dependencies through a private snapshot junction. franc 6.2.0 matches the reviewed commit lock.",
+  "initial_test_attempt": "Stopped before execution because franc was unavailable to the isolated snapshot; resolved by reusing the existing cached dependency.",
+  "production_build_reported_by_b": "passed",
+  "production_build_repeated_by_d": false,
+  "app_rehearsal_reported_by_b": "passed",
+  "app_rehearsal_repeated_by_d": false,
+  "development_measurement": "pending_from_nemanja",
+  "final_rag_freeze": "A-011 remains separate",
+  "provider_calls": 0
+}

@@ -1,0 +1,22 @@
+{
+  "version": "d008-sara-corrected-disclosure-intake-v1",
+  "date": "2026-11-23",
+  "files_sha256": {
+    "d008-member-c-answer-reviews.exposure-corrected.json": "5e815c2eff538f8de39ac73db2eec30dd27baab40a70b1d27ce18eb23e8a380f",
+    "d008-member-c-entity-evidence-reviews.exposure-corrected.json": "7169770312642cad5561185aa3a2cd6c5cb24eb0e7b631df9a2309dff4f7e357"
+  },
+  "answer_drafts": 7,
+  "entity_evidence_drafts": 5,
+  "replacement_item_pins_verified": 12,
+  "prior_exposure_to_replacement_items": false,
+  "preparation_involvement": "unconfirmed",
+  "human_review_completed": false,
+  "independent_review_credit": 0,
+  "included_in_agreement_counts": false,
+  "original_disclosures_preserved": true,
+  "d008_closed": false,
+  "required_followup": [
+    "Personal source/output review of all twelve items and finalized ratings with completion dates",
+    "Explicit confirmation of preparation/authorship involvement and AI assistance"
+  ]
+}

@@ -1,0 +1,178 @@
+"""Synthetic validator exercises, never human review evidence."""
+import copy
+import json
+from pathlib import Path
+import pytest
+from notelens_eval.answer_review import CURRENT_FORM_VERSION, inspect, summarize
+
+
+def blank():
+    return json.loads((Path(__file__).parents[1] / "fixtures/answer-review-template-v1.json").read_text())
+
+
+def completed():
+    record = blank()
+    record.update(review_id="synthetic-test", reviewer_alias="test-only", case_id="test", doc_id="test",
+                  text_sha256="a" * 64, response_id="test", response_sha256="b" * 64, mode="mock", extractor_or_answer_version="test",
+                  prompt_version="test", human_reviewed=True, answerable_from_document="yes",
+                  response_action="answer", critical_error=False, needs_adjudication=False,
+                  rationale="Synthetic unit test only.", completed_at="2026-11-13T12:00:00Z")
+    record["dimensions"] = dict.fromkeys(record["dimensions"], 2)
+    return record
+
+
+def test_states_and_no_mutation():
+    empty, partial, human, failure = blank(), blank(), completed(), blank()
+    partial["review_id"] = "unfinished"
+    human["dimensions"]["source_support"] = "U"
+    failure["response_action"] = "operational_error"
+    records = [empty, partial, human, failure]
+    original = copy.deepcopy(records)
+    result = summarize(records)
+    assert records == original
+    assert result["counts"] == dict(blank=1, incomplete=1, completed_declared_human_review=1, operational_error=1, invalid=0)
+    assert result["dimensions"]["source_support"] == dict(rated=0, unable_to_judge=1, mean=None, score_counts={"0": 0, "1": 0, "2": 0})
+    assert result["human_authorship_verified"] is False
+
+
+@pytest.mark.parametrize("field,value", [("text_sha256", "bad"), ("completed_at", "2026-11-13"), ("human_reviewed", "true"), ("response_action", "made-up")])
+def test_bad_metadata(field, value):
+    record = completed()
+    record[field] = value
+    with pytest.raises(ValueError):
+        inspect(record)
+
+
+def test_duplicate_and_boolean_score_rejected():
+    record = completed()
+    assert summarize([record, record])["counts"]["invalid"] == 1
+    record["dimensions"]["source_support"] = True
+    with pytest.raises(ValueError):
+        inspect(record)
+
+
+def test_operational_error_not_quality_and_missing_declaration():
+    record = completed()
+    record["human_reviewed"] = False
+    assert inspect(record) == "incomplete"
+    record["response_action"] = "operational_error"
+    with pytest.raises(ValueError):
+        inspect(record)
+
+
+def test_abstention_preserves_explicit_null_prompt_version():
+    first, second = completed(), completed()
+    first.update(response_action="abstain", answerable_from_document="no", prompt_version=None)
+    second.update(response_action="abstain", answerable_from_document="no", prompt_version=None,
+                  review_id="review-b", reviewer_alias="B")
+
+    report = summarize([first, second])
+
+    assert report["counts"]["completed_declared_human_review"] == 2
+    assert report["reviewer_agreement"]["matched_pairs"] == 1
+    del first["prompt_version"]
+    assert inspect(first) == "incomplete"
+
+
+def current_form():
+    record = completed()
+    record.update(review_form_version=CURRENT_FORM_VERSION, reviewed_output="document_answer",
+                  prior_exposure=False, self_authored_output=False, component_outcomes=[])
+    return record
+
+
+def test_current_form_requires_note_for_each_zero_one_and_unable_score():
+    record = current_form()
+    record["dimensions"].update(source_support=0, required_facts=1, evidence_gaps="U")
+    assert inspect(record) == "incomplete"
+
+    for expected in ("source_support", "required_facts", "evidence_gaps"):
+        record["claim_source_notes"].append({
+            "dimension": expected, "reason": "The synthetic evidence is insufficient.",
+            "minimum_correction": "State which evidence is missing.", "claim_id": None, "source_id": None,
+        })
+    assert inspect(record, require_current_form=True) == "completed_declared_human_review"
+    record["claim_source_notes"][0]["reason"] = " "
+    with pytest.raises(ValueError, match="dimension note"):
+        inspect(record)
+
+
+def test_current_intake_requires_form_and_keeps_exposed_reviews_out_of_pairs():
+    older = completed()
+    record = current_form()
+    assert inspect(older) == "completed_declared_human_review"
+    assert summarize([older], require_current_form=True)["counts"]["invalid"] == 1
+    record["self_authored_output"] = True
+    with pytest.raises(ValueError, match="cannot be independent"):
+        inspect(record)
+    record.update(independent_review=False, exposure_note="Reviewer authored this synthetic response.")
+    assert inspect(record) == "incomplete"
+    assert summarize([record])["reviewer_agreement"]["matched_pairs"] == 0
+
+
+def test_mixed_review_scores_surviving_content_and_records_failure_separately():
+    record = current_form()
+    record.update(reviewed_output="mixed_answer", response_action="partial_answer",
+                  source_snapshot_id="synthetic-literature", source_snapshot_sha256="c" * 64,
+                  component_outcomes=[
+                      {"route": "document", "outcome": "answer"},
+                      {"route": "literature", "outcome": "operational_error", "error_code": "provider_unavailable",
+                       "request_or_run_id": "synthetic-run"},
+                  ])
+    assert inspect(record) == "completed_declared_human_review"
+    report = summarize([record])
+    assert report["completed_outcomes"] == {"partial_answer": 1}
+    assert report["component_outcomes"] == {"document": {"answer": 1}, "literature": {"operational_error": 1}}
+    assert report["component_failures"][0]["request_or_run_id"] == "synthetic-run"
+    record["response_action"] = "abstain"
+    with pytest.raises(ValueError, match="surviving content"):
+        inspect(record)
+    record["response_action"] = "partial_answer"
+    del record["component_outcomes"][1]["request_or_run_id"]
+    with pytest.raises(ValueError, match="request or run ID"):
+        inspect(record)
+
+
+def test_literature_review_requires_snapshot_and_can_omit_document_pin():
+    record = current_form()
+    record.update(reviewed_output="literature_answer", doc_id=None, text_sha256=None)
+    assert inspect(record) == "incomplete"
+    record.update(source_snapshot_id="synthetic-literature", source_snapshot_sha256="c" * 64)
+    assert inspect(record) == "completed_declared_human_review"
+
+
+def test_agreement_uses_distinct_reviewers_and_exact_pinned_output():
+    first, second, different, duplicate = [completed() for _ in range(4)]
+    second.update(review_id="review-b", reviewer_alias="B", critical_error=True)
+    second["dimensions"].update(source_support=0, required_facts="U")
+    different.update(review_id="review-c", reviewer_alias="C", response_sha256="c" * 64)
+    duplicate.update(review_id="review-d", reviewer_alias=" b ")
+    report = summarize([first, second, different, duplicate])
+    agreement = report["reviewer_agreement"]
+    assert agreement["matched_pairs"] == 1
+    assert agreement["by_dimension"]["source_support"]["major_disagreement"] == 1
+    assert agreement["by_dimension"]["required_facts"]["comparable"] == 0
+    assert agreement["by_dimension"]["required_facts"]["unable"] == 1
+    assert agreement["adjudication_pairs"] == [{
+        "case_id": "test", "response_id": "test",
+        "review_ids": ["review-b", "synthetic-test"],
+        "dimensions": ["source_support"], "flags": ["critical_error"],
+    }]
+    assert report["counts"]["invalid"] == 1
+
+
+def test_response_artifacts_verify_exact_bytes_and_reject_path_escape(tmp_path):
+    import hashlib
+    from notelens_eval.answer_review import verify_response_artifacts
+
+    record = completed()
+    raw = b'{"synthetic": true}\n'
+    (tmp_path / "test.json").write_bytes(raw)
+    record["response_sha256"] = hashlib.sha256(raw).hexdigest()
+    assert verify_response_artifacts([record], tmp_path) == 1
+    (tmp_path / "test.json").write_bytes(b'{"synthetic":true}')
+    with pytest.raises(ValueError, match="digest mismatch"):
+        verify_response_artifacts([record], tmp_path)
+    record["response_id"] = "../escape"
+    with pytest.raises(ValueError, match="safely"):
+        verify_response_artifacts([record], tmp_path)

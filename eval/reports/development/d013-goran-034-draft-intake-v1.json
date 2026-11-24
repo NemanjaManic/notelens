@@ -1,0 +1,41 @@
+{
+  "version": "d013-goran-034-draft-intake-v1",
+  "date": "2026-11-22",
+  "assignment_id": "assignment-034",
+  "status": "content_accepted_by_milica_technical_intake_complete_goran_human_review_pending",
+  "source_draft_sha256": "cbe197b72f6723b661183cb683c01f166e946e7ceaedd056cde794f8f21e99ad",
+  "d_acceptance_artifact_sha256": "1cb99378931e3230cdb3a8019896ae7b76f2fbf504d62f09b81d2ebb12a2825b",
+  "canonical_sha256_matches_frozen_allocation": true,
+  "entities": 30,
+  "mention_spans_verified": 30,
+  "evidence_spans_verified": 30,
+  "content_validation_errors": 0,
+  "workflow_lint_errors": [
+    "document_review_not_marked_complete"
+  ],
+  "open_questions_retained": 12,
+  "draft_human_reviewed": false,
+  "draft_complete_document_review": false,
+  "goran_exposure_declaration": "pending",
+  "milica_accepted_supplied_annotation_content": true,
+  "comparison_counts": {
+    "primary_mentions": 27,
+    "secondary_mentions": 30,
+    "exact_matched_mentions": 20,
+    "missing_from_secondary": 7,
+    "extra_in_secondary": 10
+  },
+  "independent_review_credit_added": 0,
+  "original_submission_modified": false,
+  "closed_substeps": [
+    "Private draft receipt",
+    "Canonical identity and exact-span verification",
+    "D acceptance of supplied annotation content"
+  ],
+  "remaining": [
+    "Goran personal full-document review and prior-label-exposure declaration",
+    "Finalize or adjudicate twelve retained questions",
+    "Canonical reference merge and team independent-review minimum"
+  ],
+  "full_d013_task_closed": false
+}

@@ -1,0 +1,51 @@
+{
+  "version": "d007-goran-replacement-provenance-confirmation-v1",
+  "recorded_on": "2026-11-23",
+  "source": "Goran's message relayed by Milica in this conversation.",
+  "status": "owner_provenance_confirmation_recorded",
+  "source_list": {
+    "version": "d007-final-source-intake-joint-draft-v2",
+    "sha256": "6198b4085b45e702d065535e9705c5b6bf7d841230d35a247bcee327fb26ebf0",
+    "digest_matches_prior_d_intake": true,
+    "prior_d_intake": "eval/reports/development/member-d-handoff-intake-2026-11-22.json",
+    "artifact_rehashed_in_this_update": false
+  },
+  "replacement_slots": [
+    "F-MIX-05",
+    "F-MIX-06",
+    "F-MIX-07",
+    "F-MIX-08"
+  ],
+  "reported_confirmation": {
+    "author": "Goran",
+    "joint_confirmers": [
+      "Goran",
+      "Sara"
+    ],
+    "replacement_documents": "Four fresh synthetic documents from new source families.",
+    "pre_handoff_provenance_basis": "Sara's confirmation relies on Goran's account as the author.",
+    "exposure_statement": "Sara is aware of no exposure outside the restricted workflow.",
+    "previously_exposed_families": "All four remain retired from unseen final use; existing development-only exclusions remain in force.",
+    "sara_technical_check": {
+      "slots_checked": 26,
+      "known_development_exclusion_matches": 0,
+      "replacement_checksums_matched": 4
+    }
+  },
+  "interpretation": {
+    "execution_provenance": "Owner-reported provenance and technical checks; no new independent execution or source-content review by D in this update.",
+    "independence_limit": "Sara's pre-handoff provenance confirmation is based on author attestation, not independent observation of pre-handoff history. No-known-exposure is not proof of absence of all exposure.",
+    "relationship_to_prior_record": "Clarifies the basis of the previously recorded joint pre-authoring confirmation; does not add new source documents or alter the reconciled source-list bytes.",
+    "final_material_accessed": false,
+    "retirement_reversed": false,
+    "final_freeze_approved": false,
+    "unseen_final_measurement_run": false
+  },
+  "remaining": [
+    "Goran's pinned corpus access confirmation remains pending unless separately supplied.",
+    "Complete authored-case and independent-review inventory; recheck source substitutions and exclusions before the approved final source/system freeze.",
+    "Keep final source texts, questions and answer keys restricted until approved release."
+  ],
+  "full_d007_closed": false,
+  "external_messages_sent": false
+}

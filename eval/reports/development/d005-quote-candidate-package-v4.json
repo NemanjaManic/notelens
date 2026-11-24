@@ -1,0 +1,21 @@
+{
+  "version": "d005-quote-candidate-package-v4",
+  "date": "2026-11-23",
+  "service_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
+  "status": "improved_candidate_not_quality_accepted",
+  "private_package": "Predaja-NoteLens/D-005/D005-quote-candidate-v4.zip",
+  "sha256": "8ee98be70e7ddacb1c795986745f4880cc3c609c52dd1375caec319ad24a368e",
+  "runtime_source_pins": {
+    "services/extraction/src/notelens_extraction/quote_hints.py": "ac33f778424836549b0ab2550875da07fb04a635bf2b94132fcd04c1152e60b9",
+    "services/extraction/src/notelens_extraction/openai_trial.py": "30102096a2eb2a5888a05d2bf6e0323789f913d05237e6fb0e5d1416ea4de0ee",
+    "services/extraction/src/notelens_extraction/approved_provider.py": "06e6f261cb1eb6b7ffa2a9551bcb141d7e5786583b76f520d70de288622c8636",
+    "services/extraction/src/notelens_extraction/prompts/extract-quotes-v1.txt": "19c9296bc669153cf19e90398fa9463dbbedc5c2d62435a35fa1bde4a3f712b2",
+    "services/extraction/src/notelens_extraction/prompts/answer-quotes-v1.txt": "e8fc562125c5a75cd2b477de4adcb9b55f14ab31c7c430e227f16d3509a70f25"
+  },
+  "source_snapshot_and_development_examples_only": true,
+  "gold_reference_labels_included": false,
+  "final_cases_included": false,
+  "credentials_included": false,
+  "new_app_provider_calls_authorized": false,
+  "published_or_sent": false
+}

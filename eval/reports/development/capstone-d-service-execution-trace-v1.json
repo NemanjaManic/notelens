@@ -1,0 +1,133 @@
+{
+  "version": "capstone-d-service-execution-trace-v1",
+  "scope": "Actual fresh D-only mock HTTP readiness execution; not whole-web or live model",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "executed_at_utc": "2026-11-23T19:56:39.759260+00:00",
+  "contract_inspection": {
+    "status": "pass",
+    "schema_draft": "https://json-schema.org/draft/2020-12/schema",
+    "openapi_version": "3.1.1",
+    "schema_sha256": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+    "openapi_sha256": "e83ddda18a03040e4092e5f1113dbb82d296471c30acc105928f6bd8114143af",
+    "openapi_refs": 137,
+    "resolved_refs": 137,
+    "checked_d_operations": [
+      "extraction_extract",
+      "extraction_document_answer"
+    ],
+    "errors": [],
+    "contract_status": "frozen-v1.0.0"
+  },
+  "transport": {
+    "status": "pass",
+    "mode": "mock",
+    "checks": [
+      {
+        "check": "health_schema_and_mock_mode",
+        "status": "pass",
+        "detail": "extraction"
+      },
+      {
+        "check": "health_headers",
+        "status": "pass",
+        "detail": "no-store headers"
+      },
+      {
+        "check": "extract_schema_identity_and_evidence",
+        "status": "pass",
+        "detail": "4 item(s); text body omitted from report"
+      },
+      {
+        "check": "extract_headers_and_generation_diagnostics",
+        "status": "pass",
+        "detail": "request correlation, draft status, no-store, generation counters"
+      },
+      {
+        "check": "answer_schema_identity_and_evidence",
+        "status": "pass",
+        "detail": "1 claim(s); text body omitted from report"
+      },
+      {
+        "check": "answer_headers_and_generation_diagnostics",
+        "status": "pass",
+        "detail": "request correlation, draft status, no-store, generation counters"
+      },
+      {
+        "check": "invalid_question_error_envelope",
+        "status": "pass",
+        "detail": "422 safe error envelope and correlation"
+      },
+      {
+        "check": "oversized_text_rejected",
+        "status": "pass",
+        "detail": "100,001-code-point document rejected without truncation"
+      },
+      {
+        "check": "unsupported_language_rejected",
+        "status": "pass",
+        "detail": "non-English language rejected with the service's explicit error code"
+      },
+      {
+        "check": "malformed_json_rejected",
+        "status": "pass",
+        "detail": "malformed JSON maps to safe 400 error envelope"
+      },
+      {
+        "check": "/health/live_success",
+        "status": "pass",
+        "detail": "authenticated health"
+      },
+      {
+        "check": "/health/live_401_fresh_id_0",
+        "status": "pass",
+        "detail": "health ignores caller ID and returns fresh authenticated diagnostic envelope"
+      },
+      {
+        "check": "/health/live_401_fresh_id_1",
+        "status": "pass",
+        "detail": "health ignores caller ID and returns fresh authenticated diagnostic envelope"
+      },
+      {
+        "check": "/health/ready_success",
+        "status": "pass",
+        "detail": "authenticated health"
+      },
+      {
+        "check": "/health/ready_401_fresh_id_0",
+        "status": "pass",
+        "detail": "health ignores caller ID and returns fresh authenticated diagnostic envelope"
+      },
+      {
+        "check": "/health/ready_401_fresh_id_1",
+        "status": "pass",
+        "detail": "health ignores caller ID and returns fresh authenticated diagnostic envelope"
+      },
+      {
+        "check": "stale_digest_pair_rejected",
+        "status": "pass",
+        "detail": "changed canonical text with original digest is rejected"
+      },
+      {
+        "check": "opaque_document_id_propagated",
+        "status": "pass",
+        "detail": "document ID may change independently of text digest and is echoed by document sources"
+      },
+      {
+        "check": "invalid_correlation_id_rejected",
+        "status": "pass",
+        "detail": "invalid request ID rejected with a fresh diagnostic ID"
+      }
+    ],
+    "contract_status": "frozen-v1.0.0",
+    "documents": 1,
+    "request_text_included": false,
+    "provider": "deterministic synthetic fake",
+    "known_contract_questions": [],
+    "observed_provisional_behavior": {
+      "unsupported_language": "422 unsupported_language"
+    }
+  },
+  "web_executed": false,
+  "provider_calls": 0,
+  "secret_values_or_personal_reports_included": false
+}

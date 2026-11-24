@@ -1,0 +1,127 @@
+{
+  "version": "d011-bounded-development-plan-v1",
+  "date": "2026-11-23",
+  "status": "prepared_before_measurement",
+  "authority": "Milica explicitly requests completing D-011 measurements; prior funding continuation and cumulative USD 0.10 remain in force.",
+  "service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "model": "gpt-6-luna",
+  "input_format": "messages",
+  "max_new_provider_calls": 12,
+  "automatic_retries": 0,
+  "prior_known_reservation_usd": "0.0215100",
+  "new_max_reservation_usd": "0.0338955",
+  "known_combined_reservation_usd": "0.0554055",
+  "cumulative_cap_usd": "0.10",
+  "jobs": [
+    {
+      "id": "assignment-022",
+      "operation": "extract",
+      "request_sha256": "ec62ccaee1755cca515b498e14145c82059d601899443d35007cd81e2fbcce27",
+      "input_token_bound": 13191,
+      "max_output_tokens": 4096,
+      "reservation_usd": "0.0033671"
+    },
+    {
+      "id": "assignment-029",
+      "operation": "extract",
+      "request_sha256": "733e5cbcbd8796e515257c9afba6e7fb7783eb4f277defcebb887c405a7157ad",
+      "input_token_bound": 13291,
+      "max_output_tokens": 4096,
+      "reservation_usd": "0.0033771"
+    },
+    {
+      "id": "assignment-012",
+      "operation": "extract",
+      "request_sha256": "7b68a11517a5d97f9e88a69548aae6e07fcac25276b7785a29c07b6f676bdc56",
+      "input_token_bound": 13574,
+      "max_output_tokens": 4096,
+      "reservation_usd": "0.0034054"
+    },
+    {
+      "id": "assignment-016",
+      "operation": "extract",
+      "request_sha256": "43344f09833a6eb700818ed2e15f7d63f49e55b42c6c3ddcad6c5b0b918b1466",
+      "input_token_bound": 14074,
+      "max_output_tokens": 4096,
+      "reservation_usd": "0.0034554"
+    },
+    {
+      "id": "assignment-017",
+      "operation": "extract",
+      "request_sha256": "27704b8a5d353fd3de034e9265f4378ce530d9c9201f3397fdaa85fb175d1e1c",
+      "input_token_bound": 15667,
+      "max_output_tokens": 4096,
+      "reservation_usd": "0.0036147"
+    },
+    {
+      "id": "assignment-008",
+      "operation": "extract",
+      "request_sha256": "70922d591cd693e1e9c55712662e2eb2cc0fa6e1eccd46c87e67abd5f28dad4a",
+      "input_token_bound": 15905,
+      "max_output_tokens": 4096,
+      "reservation_usd": "0.0036385"
+    },
+    {
+      "id": "confirmed-01/supported",
+      "operation": "answer",
+      "request_sha256": "7e2957f915520d4757ccd612d36279ccf8dbe828846674b3cace56b9785b2038",
+      "input_token_bound": 11483,
+      "max_output_tokens": 2048,
+      "reservation_usd": "0.0021723"
+    },
+    {
+      "id": "negation-01/supported",
+      "operation": "answer",
+      "request_sha256": "b830e2880f3d4b6c86cb1f03cd2d6aa91ddec98acbb9671624b7559a89433cd2",
+      "input_token_bound": 11479,
+      "max_output_tokens": 2048,
+      "reservation_usd": "0.0021719"
+    },
+    {
+      "id": "history-01/absent",
+      "operation": "answer",
+      "request_sha256": "2bd87a22f0ca7ae105ae360f9da655b5ad6460f6b15154d24de075b72080f495",
+      "input_token_bound": 11468,
+      "max_output_tokens": 2048,
+      "reservation_usd": "0.0021708"
+    },
+    {
+      "id": "procedure-01/supported",
+      "operation": "answer",
+      "request_sha256": "83420cca2c6bd6545d59fe4818d750f7641feb207ea6f2dff5ac76f4410329fe",
+      "input_token_bound": 11485,
+      "max_output_tokens": 2048,
+      "reservation_usd": "0.0021725"
+    },
+    {
+      "id": "complex-01/supported",
+      "operation": "answer",
+      "request_sha256": "503558b78456ddc9758cd88d4c8fcb76886628f81a199ee217d05e89c53112e3",
+      "input_token_bound": 11518,
+      "max_output_tokens": 2048,
+      "reservation_usd": "0.0021758"
+    },
+    {
+      "id": "limited-04/supported",
+      "operation": "answer",
+      "request_sha256": "fb5f7b59f3f3b8be411c10dedce5b84a6d6426978413bebc559083cf5df2aed9",
+      "input_token_bound": 11500,
+      "max_output_tokens": 2048,
+      "reservation_usd": "0.002174"
+    }
+  ],
+  "private_jobs_sha256": "a024241b581235bb3edf6d7b7f68a823cb9f9c4ab9b5de89e434a4bb84745784",
+  "d013_reference_manifest_sha256": "6cb7a94ae1b3e2aeea4406ef3254297633d171f89ecb016cf3b633858971513e",
+  "synthetic_qa_fixture_sha256": "b0d1e77dbac3fd68a65d9244d098e0f30d16e3695e2f59075382b205421f0e9d",
+  "acceptance_sha256_before_measurement": "df0ed7ad21879e869e9ee8722053baa7cad9b0f84c2f4c2c50a0fc8f38a82d29",
+  "decision_record_sha256_before_measurement": "fc068b581bc4311d88ff494414789efdcb2a6abeb1b71eee3ff006cdd3f007b9",
+  "selection": "Six shortest frozen D-013 development documents, selected by canonical length then ID; six fixed synthetic QA cases covering all six fixture groups including partial/insufficient. No output-dependent selection.",
+  "limitations": [
+    "Small, length-biased pilot; not all 40 D-013 references or all 54 QA cases.",
+    "Synthetic QA literal-reference correctness is a proxy, not independent human semantic-risk scoring.",
+    "Some tiny source excerpts have intentionally limited context."
+  ],
+  "full_final_texts_opened": false,
+  "final_source_hash_overlap": 0,
+  "private_archive": "Predaja-NoteLens/D-011/D011-bounded-development-v1"
+}

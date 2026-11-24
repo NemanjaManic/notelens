@@ -1,0 +1,45 @@
+{
+  "version": "d013-complete-adjudication-verification-v1",
+  "date": "2026-11-23",
+  "review_type": "agent_executed_local_checks",
+  "returned_six_decision_file_sha256": "89507bdae135e2f22dc3773549ba8c7c7927f9d197545ec95a639863afc7f09f",
+  "complete_packet_sha256": "c54d9ac119ee5e8370c8f1b16794e6dad7b022cda8b7d19f99e1ccca10e4858b",
+  "complete_review_html_sha256": "27e9a3c866dd4825ec5b529352873844a6fee8e4da7fbff9f7740939c2e7f3ab",
+  "private_archive": "D013-complete-adjudication-v1.zip",
+  "private_archive_sha256": "2ce5a4156511abf47fda1ff9f5b10c204cf21c36f473fab757f9a11fb8dcec72",
+  "archive_files_verified": 6,
+  "checks": {
+    "evaluation_pytest": {"passed": 141, "failed": 0},
+    "synthetic_node_review_state_checks": "passed",
+    "javascript_syntax_check": "passed",
+    "git_diff_whitespace_check": "passed",
+    "chrome_file_url": {
+      "documents_rendered": 40,
+      "pending_items_rendered": 217,
+      "source_verified_documents": 30,
+      "missing_source_question_controls_disabled": 49,
+      "missing_source_document_approval_blocked": true,
+      "export_without_personal_attestation_blocked": true,
+      "known_canonical_file_import_passed": true,
+      "unmatched_synthetic_file_rejected": true,
+      "web_crypto_available": true,
+      "local_storage_available": true
+    },
+    "earlier_proposals_consistent_with_working_candidate_labels": 152,
+    "coverage_ids_accounted_for": 250,
+    "previously_resolved_ids_preserved": 33,
+    "candidate_mentions_exactly_verified": 802,
+    "candidate_evidence_spans_exactly_verified": 1064
+  },
+  "limitations": {
+    "ten_canonical_sources_020_through_029_still_missing": true,
+    "remaining_coordinator_decisions_not_yet_received": true,
+    "browser_checks_used_no_new_human_decision_exports": true,
+    "original_member_submissions_modified": false,
+    "new_independent_review_credit": 0,
+    "provider_calls": 0,
+    "unseen_final_qa_sources_accessed": false,
+    "canonical_references_frozen": false,
+    "full_d013_closed": false
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "version": "d007-goran-authoring-progress-intake-v1",
+  "date": "2026-11-23",
+  "source": "Section explicitly labelled Draft reply to Milica and Sara about D-007, relayed by Milica.",
+  "provenance": "Reported draft status, not a new signed receipt or independent runtime/content verification.",
+  "goran_snapshot_access": "reported in forwarded draft",
+  "snapshot": {
+    "file": "passages.jsonl",
+    "reported_passages": 617,
+    "reported_unique_topics": 401,
+    "reported_sha256": "4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938",
+    "matches_existing_pinned_digest": true,
+    "rehashed_by_d_this_intake": false
+  },
+  "source_planning_inventory": {
+    "file": "d007-final-source-intake-joint-draft-v2.json",
+    "reported_sha256": "6198b4085b45e702d065535e9705c5b6bf7d841230d35a247bcee327fb26ebf0",
+    "reported_planned_slots": 26,
+    "matches_prior_d_metadata_intake": true,
+    "completed_authoring_inventory": false
+  },
+  "authoring": {
+    "author": "Goran",
+    "assigned_slots": 13,
+    "reported_local_drafts": 8,
+    "draft_slots": [
+      "F-LIT-01",
+      "F-LIT-02",
+      "F-LIT-03",
+      "F-LIT-04",
+      "F-LIT-05",
+      "F-LIT-06",
+      "F-LIT-07",
+      "F-LIT-08"
+    ],
+    "still_to_draft": [
+      "F-MIX-05",
+      "F-MIX-06",
+      "F-MIX-07",
+      "F-MIX-08",
+      "F-OOS-02"
+    ],
+    "remaining_drafts": 5,
+    "slots_match_frozen_staffing_plan": true,
+    "remaining_authoring_partner": "Sara",
+    "sara_current_draft_completion_count": "not supplied by this message",
+    "total_final_cases_completed": "not established; local drafts are not reviewed final cases"
+  },
+  "cross_review": {
+    "assigned_reviewer_of_goran_cases": "Sara",
+    "completed_reviews_reported": false,
+    "reviewer_receipts_received": false,
+    "versioned_authored_case_inventory_received": false,
+    "agreed_handoff_date": null
+  },
+  "restricted_workflow": {
+    "source_texts_or_answer_keys_requested_or_accessed": false,
+    "retired_exposed_families_reactivated": false
+  },
+  "next_actions": [
+    "Goran completes F-MIX-05 through F-MIX-08 and F-OOS-02.",
+    "Sara/Goran complete their assigned authoring and cross-review in the restricted workflow.",
+    "Agree a handoff date and supply versioned metadata inventory and reviewer receipts; send no final source content or answer keys to D before approved release."
+  ],
+  "full_d007_closed": false,
+  "unseen_final_measurement_run": false,
+  "new_provider_calls": 0
+}
