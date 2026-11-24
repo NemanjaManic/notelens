@@ -146,3 +146,109 @@ def test_parallel_final_attempts_claim_one_receipt(bundle, tmp_path):
 
     with ThreadPoolExecutor(max_workers=2) as executor:
         assert sum(executor.map(attempt, range(2))) == 1
+
+
+def limited_qa_bundle(bundle, tmp_path):
+    """Synthetic setup only; no real final answers or human ratings."""
+    path, freeze, save = bundle
+    refs = json.loads((tmp_path / "extraction-references.json").read_bytes())
+    preds = json.loads((tmp_path / "extraction-predictions.json").read_bytes())
+    case, prediction = refs["cases"][0], preds["cases"][0]
+    question, answer = case["qa"][0], prediction["qa"][0]
+    qa_refs = {"version": "synthetic-final-qa", "kind": "permitted_benchmark", "partition": "final",
+               "human_reviewed": True, "cases": [{"id": "qa-final", "case_version": "v1",
+                   "group": "synthetic-final-test-group", "document": case["request"]["document"],
+                   "expected_evidence_state": question["expected_evidence_state"]}]}
+    qa_preds = {"version": "synthetic-saved-qa", "partition": "final", "system_versions": freeze["system_versions"],
+                "cases": [{"id": "qa-final", "case_version": "v1", "result": answer["result"]}]}
+    freeze["components"]["extraction"] = {"status": "unmeasured", "reason": "No final entity annotations supplied.",
+        "approved_by": "synthetic unit test", "decision_record": "synthetic unmeasured decision"}
+    freeze["components"]["answer-risk"] = {"status": "unmeasured", "reason": "No independent correctness labels supplied.",
+        "approved_by": "synthetic unit test", "decision_record": "synthetic unmeasured decision"}
+    freeze["components"]["qa"] = {
+        "references": write_json(tmp_path / "qa-references.json", qa_refs),
+        "predictions": write_json(tmp_path / "qa-predictions.json", qa_preds)}
+    return path, freeze, save, qa_refs, qa_preds
+
+
+def test_approved_unmeasured_f1_and_risk_do_not_create_dummy_scores(bundle, tmp_path):
+    path, freeze, save, _refs, _preds = limited_qa_bundle(bundle, tmp_path)
+    report, _ = execute(path, save(), tmp_path / "output")
+    assert report["status"] == "pending"
+    criteria = {row["metric"]: row for row in report["acceptance"]["criteria"]}
+    assert criteria["entity_exact_f1"]["value"] is None
+    assert criteria["answer_risk"]["value"] is None
+    assert criteria["entity_exact_f1"]["status"] == "measurement_missing"
+    assert report["components"]["qa"]["schema_validity"] == 1
+    assert report["components"]["qa"]["span_validity"] == 1
+    assert report["explicitly_unmeasured_components"] == ["answer-risk", "extraction"]
+
+
+@pytest.mark.parametrize("problem", ["no-decision", "dummy-inputs", "no-qa", "wrong-case-version", "mock-output", "wrong-case-id"])
+def test_limited_final_scope_still_rejects_unapproved_or_mismatched_artifacts(bundle, tmp_path, problem):
+    path, freeze, save, refs, preds = limited_qa_bundle(bundle, tmp_path)
+    if problem == "no-decision":
+        freeze["components"]["extraction"]["decision_record"] = ""
+    elif problem == "dummy-inputs":
+        freeze["components"]["extraction"]["references"] = {"path": "dummy.json", "sha256": "0" * 64}
+    elif problem == "no-qa":
+        del freeze["components"]["qa"]
+    elif problem == "wrong-case-version":
+        preds["cases"][0]["case_version"] = "v2"
+    elif problem == "wrong-case-id":
+        preds["cases"][0]["id"] = "other-case"
+    else:
+        preds["cases"][0]["result"]["mode"] = "mock"
+    if problem in {"wrong-case-version", "wrong-case-id", "mock-output"}:
+        freeze["components"]["qa"]["predictions"] = write_json(tmp_path / "qa-predictions.json", preds)
+    with pytest.raises(ValueError):
+        execute(path, save(), tmp_path / "output")
+
+
+def test_limited_final_technical_failure_is_not_a_correct_abstention(bundle, tmp_path):
+    path, freeze, save, _refs, preds = limited_qa_bundle(bundle, tmp_path)
+    preds["cases"][0]["result"] = None
+    preds["cases"][0]["error"] = "provider_timeout"
+    freeze["components"]["qa"]["predictions"] = write_json(tmp_path / "qa-predictions.json", preds)
+    report, _ = execute(path, save(), tmp_path / "output")
+    assert report["status"] == "failed"
+    assert report["components"]["qa"]["counts"]["technical_errors"] == 1
+    assert report["components"]["qa"]["schema_validity"] == 0
+    assert report["components"]["answer-risk"]["status"] == "unmeasured"
+
+
+def test_unmeasured_scope_does_not_waive_retrieval(bundle, tmp_path):
+    path, freeze, save, _refs, _preds = limited_qa_bundle(bundle, tmp_path)
+    freeze["components"]["retrieval"] = {"status": "unmeasured", "reason": "Test attempts an unapproved scope waiver.",
+        "approved_by": "synthetic unit test", "decision_record": "not an authorized component waiver"}
+    with pytest.raises(ValueError, match="Only approved missing extraction labels"):
+        execute(path, save(), tmp_path / "output")
+
+
+def test_limited_final_invalid_literal_quote_cannot_pass_structural_gate(bundle, tmp_path):
+    path, freeze, save, _refs, preds = limited_qa_bundle(bundle, tmp_path)
+    result = preds["cases"][0]["result"]
+    result["sources"][0]["evidence"]["quote"] = "Invented quote absent from the canonical document."
+    freeze["components"]["qa"]["predictions"] = write_json(tmp_path / "qa-predictions.json", preds)
+    report, _ = execute(path, save(), tmp_path / "output")
+    assert report["status"] == "failed"
+    assert report["components"]["qa"]["span_validity"] == 0
+
+
+def test_qa_only_component_cannot_mask_measured_extraction_failures(bundle, tmp_path):
+    path, freeze, save = bundle
+    measured = dict(freeze["components"]["extraction"])
+    limited_qa_bundle(bundle, tmp_path)
+    freeze["components"]["extraction"] = measured
+    with pytest.raises(ValueError, match="cannot mask extraction errors"):
+        execute(path, save(), tmp_path / "output")
+
+
+def test_qa_component_requires_nonempty_case_inventory(bundle, tmp_path):
+    path, freeze, save, refs, preds = limited_qa_bundle(bundle, tmp_path)
+    refs["cases"], preds["cases"] = [], []
+    freeze["components"]["qa"] = {
+        "references": write_json(tmp_path / "qa-references.json", refs),
+        "predictions": write_json(tmp_path / "qa-predictions.json", preds)}
+    with pytest.raises(ValueError):
+        execute(path, save(), tmp_path / "output")
