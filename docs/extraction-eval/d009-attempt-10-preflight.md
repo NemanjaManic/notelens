@@ -1,6 +1,8 @@
 # D-009 attempt 10 preparation
 
-Status: preparation only; no tenth provider-backed attempt has started.
+Initial preparation record. Subsequently the missing private inputs were received,
+verified and used for attempt 10. See [the measured outcome](final-report.md).
+The sections below preserve the initial local audit, rather than current blockers.
 
 The requested selection rule is one complete 26-case attempt on frozen main
 `ebe37dbd217483a152d1c33e70e0ff9fe034a1fc`, after the fixes in PRs #48, #49 and #51.
