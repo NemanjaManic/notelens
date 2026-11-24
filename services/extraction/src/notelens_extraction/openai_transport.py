@@ -3,6 +3,8 @@
 import hashlib
 import http.client
 import json
+import os
+from uuid import uuid4
 from decimal import Decimal
 from fractions import Fraction
 from pathlib import Path
@@ -93,7 +95,8 @@ class ResponsesTransport:
 
     def __init__(self, *, api_key: str, budget: TrialBudget, receipt: Path,
                  timeout_seconds: int = 30, connect=http.client.HTTPSConnection,
-                 receipt_label: str = "NoteLens synthetic extraction Responses trial"):
+                 receipt_label: str = "NoteLens synthetic extraction Responses trial",
+                 durable_accounting: bool = False):
         if not api_key or not api_key.isascii() or not api_key.isprintable() or any(c.isspace() for c in api_key):
             raise ValueError("A valid server-side credential is required.")
         if type(timeout_seconds) is not int or not 1 <= timeout_seconds <= 60:
@@ -105,23 +108,52 @@ class ResponsesTransport:
         self._budget = budget
         self._timeout = timeout_seconds
         self._connect = connect
+        self._receipt = receipt
+        self._durable_accounting = durable_accounting
+        self._journal_lock = Lock()
+
+    def _record(self, record):
+        if not self._durable_accounting:
+            return
+        with self._journal_lock, self._receipt.open("a", encoding="ascii") as handle:
+            handle.write(json.dumps(record, sort_keys=True) + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
 
     def __call__(self, payload: dict) -> dict:
         body = request_bytes(payload)
-        self._budget.reserve(payload, hashlib.sha256(body).hexdigest())
+        digest = hashlib.sha256(body).hexdigest()
+        reservation = self._budget.reserve(payload, digest)
+        call_id = str(uuid4())
+        self._record({"event": "reserved_before_dispatch", "call_id": call_id,
+                      "request_sha256": digest, "reservation": reservation})
         connection = None
+        outcome = {"event": "outcome", "call_id": call_id, "status": "uncertain_reserved"}
         try:
             connection = self._connect("api.openai.com", timeout=self._timeout)
             connection.request("POST", "/v1/responses", body=body, headers={
                 "Authorization": f"Bearer {self._api_key}", "Content-Type": "application/json",
             })
             response = connection.getresponse()
+            outcome["http_status"] = response.status
+            upstream_id = response.getheader("x-request-id")
+            if isinstance(upstream_id, str) and len(upstream_id) <= 200 and upstream_id.isprintable():
+                outcome["provider_request_id"] = upstream_id
             if response.status != 200:
                 raise provider_failure(response)
             raw = response.read(MAX_RESPONSE_BYTES + 1)
             if len(raw) > MAX_RESPONSE_BYTES:
                 raise ServiceError(502, "internal_error", "The Responses payload exceeded the size limit.")
-            return json.loads(raw)
+            result = json.loads(raw)
+            usage = result.get("usage") if isinstance(result, dict) else None
+            if isinstance(usage, dict):
+                outcome["usage"] = {key: usage[key] for key in ("input_tokens", "output_tokens", "total_tokens")
+                                    if type(usage.get(key)) is int and usage[key] >= 0}
+            outcome["status"] = "received_reserved"
+            return result
+        except ServiceError as error:
+            outcome["error_code"] = error.code
+            raise
         except TimeoutError:
             raise ServiceError(504, "timeout", "The Responses request timed out.") from None
         except (OSError, http.client.HTTPException):
@@ -131,6 +163,7 @@ class ResponsesTransport:
         finally:
             if connection is not None:
                 connection.close()
+            self._record(outcome)
 
 
 def trial_provider(*, api_key: str, budget: TrialBudget, receipt: Path,

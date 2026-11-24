@@ -1,0 +1,321 @@
+{
+  "format": "notelens-d009-branch-structural-scoring-v1",
+  "run_receipt_sha256": "1c3216b619b66d8a57180331e8164ca00dcdf3adbb5db4d78251765f557b717a",
+  "references_sha256": "a4508a6631cb1421f52081219ee109bce9994e1fecb11e3b9a16b07dbc19eb68",
+  "retrieval_references_sha256": "7522ab71087161dff281d3c21ee92b422476e3cbeec7837a2aee88aa99843e47",
+  "totals": {
+    "cases": 26,
+    "executed": 9,
+    "technical_errors": 18,
+    "route_match": 7,
+    "state_match": 7,
+    "branches": 9,
+    "branches_schema_valid": 8,
+    "branches_literal_valid": 8,
+    "branches_context_missing": 0,
+    "unsupported_branches": 0,
+    "unavailable_branches": 1,
+    "completed_cases": 8,
+    "saved_unavailable_cases": 1
+  },
+  "retrieval_cited_source_proxy": {
+    "cases": 16,
+    "executed": 1,
+    "topic_hit": 0,
+    "topic_denominator": 15,
+    "passage_denominator": 15,
+    "any_required_topic_cited_rate": 0.0,
+    "passage_group_coverage_mean": 0.0,
+    "note": "Proxy from cited literature sources; ranked top-5 retrieval was not saved. Not topic_recall@5."
+  },
+  "cases": [
+    {
+      "id": "F-DOC-01",
+      "case_version": "v2",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-02",
+      "case_version": "v2",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-03",
+      "case_version": "v2",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-04",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-05",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-06",
+      "case_version": "v2",
+      "executed": true,
+      "route_match": true,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-07",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": false,
+      "state_match": true,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-DOC-08",
+      "case_version": "v1",
+      "executed": true,
+      "route_match": true,
+      "state_match": false,
+      "branches": [
+        {
+          "origin": "document",
+          "kind": "accepted",
+          "schema_valid": true,
+          "literal_valid": true
+        }
+      ]
+    },
+    {
+      "id": "F-LIT-01",
+      "case_version": "v1",
+      "executed": true,
+      "error": "technical_error_saved_unavailable",
+      "route_match": false,
+      "state_match": false,
+      "branches": [
+        {
+          "origin": "literature",
+          "kind": "unavailable",
+          "schema_valid": false,
+          "literal_valid": false
+        }
+      ]
+    },
+    {
+      "id": "F-LIT-02",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-LIT-03",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-LIT-04",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-LIT-05",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-LIT-06",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-LIT-07",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-LIT-08",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-MIX-01",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-MIX-02",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-MIX-03",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-MIX-04",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-MIX-05",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-MIX-06",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-MIX-07",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-MIX-08",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-OOS-01",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    },
+    {
+      "id": "F-OOS-02",
+      "case_version": "v1",
+      "executed": false,
+      "error": "technical_error_not_executed"
+    }
+  ],
+  "attempt_number": 10,
+  "run_id": "7c1e46b5-ae55-4fa0-acf0-0ca0297b0963",
+  "app_sha": "ebe37dbd217483a152d1c33e70e0ff9fe034a1fc",
+  "selection_rule": "One new run after main freeze; never combine with or select the best historical run.",
+  "failure": {
+    "case_id": "F-LIT-01",
+    "stage": "answer_output",
+    "reason": "answer_service_unavailable",
+    "root_cause": "Not retained by the service receipt; no precise root cause established."
+  },
+  "accounting": {
+    "A_reserved_usd": "0.00034835350",
+    "A_measured_conservative_cost_usd": "0.00012780350",
+    "A_invoice_verified": false,
+    "A_generation_attempts": 1,
+    "A_embedding_attempts": 1,
+    "A_free_count_attempts": 1,
+    "D_actual_spend": null,
+    "D_actual_generation_calls": null,
+    "D_receipt_scope": "Startup only; in-memory enforcement, not durable per-call accounting",
+    "D_approved_cap_usd": "0.50",
+    "A_approved_cap_usd": "0.08",
+    "historical_D_spend": "unknown; must not be reset or represented as reconciled"
+  },
+  "whole_stack_watchdog": {
+    "enabled": true,
+    "triggered": false,
+    "job_drained": true,
+    "listeners_closed": [
+      "classifier",
+      "extraction",
+      "rag",
+      "web"
+    ]
+  },
+  "extraction_F1": {
+    "status": "unmeasured",
+    "reason": "Separate final extraction labels unavailable"
+  },
+  "independent_semantic_risk": {
+    "status": "unmeasured",
+    "reason": "No independent semantic ratings"
+  },
+  "pin_sha256": {
+    "approved-config.json": "0600232e3cda8a60e62b0dcb44e234f28554756fcb9be963d2ab1165ae0cc3d9",
+    "a-approved-policy.json": "9e2df86483db4abdd8dd6989913e0dc87c575e733ed1e878e916b037c1a57a14",
+    "d-approved-policy.json": "4efb8b6ebf0677c993fff7169a7a660b60bcfc0420ba2c049ebf975f5ac277d9"
+  },
+  "A_receipt_sha256": "27ad52da5b4c580074238439955a0462384121913e714e6856dfa7a8c7520236",
+  "scorer_sha256": "8ae2071c669a8707ee3fcb8d2b453c0434a9ca236c6b9f7ca861a7c927f59aa7"
+}
