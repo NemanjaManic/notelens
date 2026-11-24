@@ -1,0 +1,58 @@
+{
+  "specialties": {
+    "Cardiovascular / Pulmonary": [
+      "An exercise stress echocardiogram reported new wall-motion abnormalities at peak workload.",
+      "The sleep study recorded repeated obstructive apneas and episodes of oxygen desaturation.",
+      "Bronchoscopy found a mucus plug in the right main bronchus.",
+      "The examination described a systolic ejection murmur radiating to both carotids.",
+      "Review of the electrocardiogram confirmed sinus rhythm after catheter ablation for atrial flutter."
+    ],
+    "Orthopedic": [
+      "Radiographs after reduction showed the shoulder humeral head centered in the glenoid.",
+      "The cast check note describes a healing fracture of the metacarpal with maintained alignment.",
+      "The orthopedist documented a positive Lachman test and an effusion following a knee injury.",
+      "The operative note describes internal fixation of a displaced ankle fracture.",
+      "Ultrasound found a disruption of the Achilles tendon above its insertion."
+    ],
+    "Gastroenterology": [
+      "Endoscopy for black stools identified a bleeding duodenal ulcer.",
+      "The consultation described progressive dysphagia and reviewed the esophageal manometry findings.",
+      "A follow-up colonoscopy examined the anastomosis and removed an ascending colon polyp.",
+      "The specialist reviewed elevated bilirubin and a stone in the common bile duct.",
+      "The report describes constipation and recurrent abdominal bloating with an otherwise normal abdominal examination."
+    ],
+    "Neurology": [
+      "The neurologic examination found reduced vibration sense in both feet with absent ankle reflexes.",
+      "Electroencephalography recorded a temporal lobe seizure during the spell of staring.",
+      "The consultation evaluated new diplopia and fatigable ptosis with suspected neuromuscular weakness.",
+      "The patient was referred for a resting tremor, rigidity, and slowness of movement.",
+      "The stroke team documented sudden facial weakness and dysarthria with a small pontine infarct."
+    ],
+    "Urology": [
+      "The ureteroscopy report describes an obstructing stone at the ureteropelvic junction.",
+      "The consultation evaluated urinary retention and difficulty starting the urinary stream.",
+      "Ultrasound identified an epididymal cyst in the evaluation of scrotal swelling.",
+      "The kidney and bladder scan measured the postvoid residual and showed no hydronephrosis.",
+      "The follow-up note reviewed the prostate biopsy and the trend in prostate-specific antigen."
+    ]
+  },
+  "unrelated": [
+    "The warehouse replaced a broken valve and adjusted the pressure in the sprinkler line.",
+    "The accountant closed the books after reconciling the quarterly bank transfers.",
+    "A music teacher asked the student to repeat the second phrase at a slower tempo.",
+    "The recipe calls for sliced apples, ground cinnamon and a well-greased baking tin.",
+    "A technician inspected the front axle and checked the wheel alignment after changing a tire.",
+    "The city council voted on amendments concerning parking permits and waste collection.",
+    "A software build failed because a library was absent from the dependency list.",
+    "The boat entered the harbor after the pilot reported a change in wind direction.",
+    "The editor removed duplicate references from a term paper about nineteenth-century architecture.",
+    "zvqkzxwk vqkqxzwv"
+  ],
+  "ambiguous": [
+    "The report states that further study is needed. There is no description of the affected site.",
+    "Follow-up was arranged after review of a recent procedure and an abnormal laboratory result.",
+    "The page combines a colonoscopy note and a separate description of a distal radius fracture.",
+    "The reader checked the record and found a brief note about fatigue and lightheadedness.",
+    "Results from two consultations were received, one about urinary retention and one about recurrent seizures."
+  ]
+}

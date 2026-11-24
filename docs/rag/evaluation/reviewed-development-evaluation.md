@@ -8,6 +8,9 @@ aggregate results and limits. The [A-011 configuration handoff](../a011-freeze.m
 is complete, with unseen final measurement explicitly unexecuted. Earlier pending
 statements below retain their original meaning and date.
 
+For proposed wording for the preliminary CAP-05 assessment and the remaining
+review steps, see the [2026-11-24 evidence update](cap05-evidence-update.md).
+
 Owner: Nemanja (A). Prepared: 2026-11-21. Scope: nine public development cases.
 
 ## Received D source record, 2026-11-22

@@ -1,8 +1,10 @@
 # B-005 service integration status
 
-**Status.** B-005 remains open for provider-backed D-005 app verification.
-The fitted classifier report replay, key-free indexed RAG app check, and pinned
-D-005 mock app check passed. The default launcher and hosted CI use mocks.
+**Status.** B-005 is closed for platform transport acceptance. Goran confirmed
+Milica's agreement to use the fitted classifier, indexed RAG and D-005
+saved-response evidence below. The default launcher and hosted CI use mocks.
+Fresh provider-backed generation and D-009 final execution and scoring remain
+separate work.
 
 The platform reference for the consolidated key-free handoff is main at
 `710706af0dfff60d00708e051a1c3b45fb39cc3d`. The checks below retain their
@@ -13,6 +15,7 @@ individual execution pins and service profiles.
 | Opt-in fitted classifier | C-005 and C-008 joint Windows replay at `9cdab928923056f31dd1f37ab4b569cc638999ab` | [PR #23](https://github.com/NemanjaManic/notelens/pull/23), `e4ffaae9d31726c7be25829ee7bbc74d970dea98` |
 | Indexed RAG | Synthetic indexed service at `d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4` | [PR #26](https://github.com/NemanjaManic/notelens/pull/26), `8352dbee32d40bab93393adbc264f56a5118bba3` |
 | D-005 mock | Production app check at `00907a9c7ddb00f61fe2ad28c71000fc5564e1ad` against D handoff `e61140d3541e4b8b82a8cbd5e3d70e5b78ad0374` | [PR #28](https://github.com/NemanjaManic/notelens/pull/28), `aa25976956f46d1a6e419315be4ebc06dfb6dd30` |
+| D-005 saved-response replay | Authenticated HTTP and app recheck against the reviewed `c7d0797` and `d41fa88` service pins | [PR #31](https://github.com/NemanjaManic/notelens/pull/31), `b8cfe3b072c5d9f7d6d262a69c72133821d43a8f`; [PR #32](https://github.com/NemanjaManic/notelens/pull/32), `229ecf9ba7b0a297bd8198564eef8c4d710f74b6` |
 
 For locked Windows setup and the Python 3.13 interpreter selection, use the
 [Windows readiness runbook](deployment.md). The commands below use
@@ -221,12 +224,23 @@ abstained and showed distinct states. All four listeners closed. The default
 mock smoke, classifier report with a response double, and indexed RAG app check
 also passed on the review snapshot. [PR #28 key-free CI](https://github.com/NemanjaManic/notelens/actions/runs/45161219377)
 
-## Provider-backed D-005 handoff
+## Accepted D-005 saved-response evidence
 
-After D's authorized D-004 trial and review of the generated outputs, request
-the reviewed D-005 service SHA, locked Windows startup steps, model and prompt
-identifiers, and the output review evidence. Use the approved synthetic
-requests and verify identity, exact citation highlights, partial gaps, and
-insufficient versus out-of-scope outcomes through the app. The pinned mock
-checker uses mock-specific expectations. Record the provider-backed results
-and any gaps separately before formal B-005 acceptance.
+The [historical replay](b-005-d-005-replay.md) used app revision
+`0536cb56fdd1f99f9cc73110e28a90a22892cb01` and reviewed D service
+`c7d0797a86061c643b0f23e6d56f8caa9e7a6813`. Milica accepted its evidence for
+the saved sufficient cough answer. The pinned mock check above covers the
+partial, insufficient and out-of-scope states in its own profile.
+
+Milica also accepted B's reported key-free app recheck against D service
+`d41fa880177a7855bb92e57d98673b0a7a77d36b`. The private v2 receipt records
+10 extraction and six answer cases, document identity, citation highlights
+and the partial-answer gap. It identifies the tested app patch at
+`41b7b3433a55461eff28794745d28061df84209c`. Milica verified the receipt and
+its pins. Her acceptance was based on the reported browser run.
+
+Fresh provider-backed verification requires a separately authorized run. Record
+the exact app and service revisions, model and prompt pins, document identity,
+citation highlights, partial gaps, and insufficient and out-of-scope outcomes
+with the execution receipt. B-007 deployment, B-009 demo acceptance and D-009
+final evaluation each retain their own acceptance criteria.

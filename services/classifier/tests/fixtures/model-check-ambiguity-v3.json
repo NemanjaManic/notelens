@@ -1,0 +1,67 @@
+{
+  "specialties": {
+    "Cardiovascular / Pulmonary": [
+      "A transthoracic echo showed severe aortic stenosis. The report mentions no history of seizures.",
+      "Pulmonary function testing showed an obstructive defect with bronchodilator response.",
+      "The patient reported orthopnea. Imaging showed bilateral pleural effusions.",
+      "Coronary angiography described a stenosis of the left anterior descending artery.",
+      "Holter monitoring documented paroxysmal atrial fibrillation."
+    ],
+    "Orthopedic": [
+      "Arthroscopy confirmed a medial meniscus tear.",
+      "An X-ray showed a displaced tibial plateau fracture. No urinary symptoms were reported.",
+      "The exam found tenderness over the radial styloid after a fall on the outstretched hand.",
+      "The surgeon reviewed loosening around the femoral component of the knee prosthesis.",
+      "The orthopedist documented painful shoulder abduction and imaging evidence of a supraspinatus tear."
+    ],
+    "Gastroenterology": [
+      "Endoscopy found gastric erosions and a duodenal ulcer.",
+      "Flexible sigmoidoscopy documented ulceration and erythema of the sigmoid colon.",
+      "The note describes steatorrhea; gastrointestinal work-up focused on exocrine pancreatic insufficiency.",
+      "Abdominal MRI showed a dilated common bile duct and a filling defect.",
+      "The gastrointestinal consultation described rectal bleeding in a patient with ulcerative colitis."
+    ],
+    "Neurology": [
+      "The EEG captured a focal seizure. No history of hematuria was reported.",
+      "The patient presented with ascending weakness and absent deep tendon reflexes.",
+      "The neurological examination documented nystagmus and limb ataxia following a cerebellar infarct.",
+      "Electromyography supported a length-dependent axonal polyneuropathy.",
+      "The movement assessment noted a resting tremor and rigidity in the left arm."
+    ],
+    "Urology": [
+      "Ureteroscopy identified a stone near the vesicoureteral junction.",
+      "The urologist reviewed findings of gross hematuria and a negative urine culture.",
+      "Cystoscopy showed an enlarged prostate obstructing the bladder outlet.",
+      "The consultation documented a palpable testicular mass with a corresponding ultrasound lesion.",
+      "The urodynamic study reported detrusor overactivity; the postvoid residual was elevated."
+    ]
+  },
+  "unrelated": [
+    "The electrician checked arc protection at the panel and replaced the main breaker.",
+    "The department reconciled the equipment inventory with the procurement ledger.",
+    "Staff recorded static pressure in a ventilation duct before balancing the fan system.",
+    "The conductor asked the brass section to watch the downbeat after the pause.",
+    "The bakery packaged the rye bread and verified the printed date on each bag.",
+    "The surveyor used a tripod and a laser to confirm the road elevation.",
+    "The appeal panel scheduled oral arguments after receiving the amended brief.",
+    "The truck driver reported a sudden loss of pressure in the air brake system.",
+    "Source files compiled once the missing graphics library was added to the project.",
+    "zdkvxqwq vqzqvzkw"
+  ],
+  "ambiguous": [
+    "Colonoscopy revealed an ulcerated colonic lesion. A separate orthopedics report described a displaced ankle fracture.",
+    "Electroencephalography confirmed focal seizures; cystoscopy identified a bladder lesion.",
+    "One consultation described intermittent urinary retention and another described paroxysmal atrial fibrillation.",
+    "Radiographs described a tibial plateau fracture. The other note discussed cirrhosis and esophageal varices.",
+    "Bronchoscopy located a mucus plug in the right bronchus; an independent note described resting tremor and bradykinesia.",
+    "The patient had a displaced clavicle fracture and an obstructing ureteral stone.",
+    "The endoscopy report describes bleeding gastric ulcers. The second report documents an EEG with abnormally frequent spikes.",
+    "One record cites coronary angiography with a proximal stenosis, one about a spinal fracture with displacement.",
+    "There is a meniscus tear on knee MRI while another report describes inflammatory changes in the terminal ileum.",
+    "The visit note mentioned low energy and dizziness over the last several days.",
+    "A procedure was completed and the patient was sent for follow-up.",
+    "The report described a mild ache and a general sense of discomfort.",
+    "The patient said the symptoms improved, and repeat testing was planned.",
+    "A new referral mentioned nausea and a brief episode of feeling unwell."
+  ]
+}

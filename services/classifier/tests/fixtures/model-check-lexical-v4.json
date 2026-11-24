@@ -1,0 +1,70 @@
+{
+  "specialties": {
+    "Cardiovascular / Pulmonary": [
+      "TTE confirmed mitral regurgitation with left atrial dilation.",
+      "COPD with persistent expiratory airflow obstruction on spirometry.",
+      "A transthoracic echocardiogram found concentric left ventricular hypertrophy.",
+      "The catheterization report shows three-vessel coronary artery disease.",
+      "A chest radiograph showed pulmonary edema and enlarged cardiac silhouette."
+    ],
+    "Orthopedic": [
+      "ACL rupture with a lateral meniscal tear.",
+      "A tibial shaft fracture remained aligned after intramedullary nailing.",
+      "Postoperative knee films show a well-seated total knee arthroplasty.",
+      "The clinician described a painful rotator cuff impingement sign on shoulder examination.",
+      "The radiograph showed a comminuted intertrochanteric fracture of the femur."
+    ],
+    "Gastroenterology": [
+      "ERCP demonstrated a common bile duct stricture.",
+      "EGD showed gastric antral erosions.",
+      "Endoscopic biopsy demonstrated intestinal metaplasia of the distal esophagus.",
+      "The colonoscopy report described friable mucosa in the rectum and sigmoid colon.",
+      "The gastroenterologist reviewed a liver biopsy demonstrating extensive steatosis."
+    ],
+    "Neurology": [
+      "EMG demonstrated a chronic left L5 radiculopathy.",
+      "EEG captured left temporal sharp waves during sleep.",
+      "Nerve conduction studies supported a distal sensory polyneuropathy.",
+      "The neurology consultation describes impaired coordination after a cerebellar stroke.",
+      "The examination documented dysarthria, bradykinesia and a reduced arm swing."
+    ],
+    "Urology": [
+      "BPH with a high postvoid residual on bladder scanning.",
+      "TURP operative note describes resection of obstructing prostatic tissue.",
+      "The urology note documents treatment of an obstructing ureteral calculus by ureteroscopy.",
+      "Cystoscopy demonstrated a small papillary tumor near the left ureteral orifice.",
+      "Ultrasound showed epididymal enlargement during assessment of scrotal swelling."
+    ]
+  },
+  "low_information": [
+    "The patient reported fatigue and an occasional sensation of lightheadedness.",
+    "The clinician documented persistent discomfort without describing its location.",
+    "There was a brief episode of weakness, and the follow-up note is pending.",
+    "The patient describes varying degrees of pain and difficulty sleeping.",
+    "The report notes decreased appetite and a general feeling of malaise.",
+    "The history describes intermittent nausea and low energy without further detail.",
+    "The clinician discussed an abnormal result and arranged additional testing.",
+    "The patient noted that the condition was improving, although symptoms recur intermittently.",
+    "There is a short reference to swelling, with no site or findings specified.",
+    "The presentation involved difficulty concentrating and several days of poor sleep.",
+    "The patient reports an occasional mild ache, with no examination findings provided.",
+    "A previous result was reviewed and observation was recommended."
+  ],
+  "unrelated": [
+    "The librarian checked stock levels and moved the oversized books to the lower shelf.",
+    "The electrician verified continuity before reconnecting the outdoor lighting circuit.",
+    "A theater technician inspected the floor markings before the cast rehearsal.",
+    "The shipping company added a surcharge after confirming the dimensions of the package.",
+    "The mechanic reviewed the fuel pressure reading and replaced a clogged line in the truck.",
+    "The photographer adjusted the shutter speed to reduce motion blur.",
+    "The developer removed a redundant dependency from the web build.",
+    "vqwzpzrq zvxzqzpp"
+  ],
+  "ambiguous": [
+    "The first report described an obstructing ureteral calculus. A separate report documented a displaced proximal humerus fracture.",
+    "Endoscopy identified a bleeding gastric ulcer; a separate neurology note discussed temporal spikes on EEG.",
+    "One report describes severe aortic stenosis on echocardiography and another describes detrusor overactivity on urodynamics.",
+    "The page described an acute cerebellar infarct in one section and a torn medial meniscus in another.",
+    "Bronchoscopy showed marked airway inflammation; a second report summarized colonoscopic biopsies of inflamed mucosa."
+  ]
+}

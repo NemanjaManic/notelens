@@ -1,7 +1,8 @@
 # Quickstart Validation: Python Classification
 
-**Status**: design-stage guide. Commands labeled future are not available yet.
-Run from the repository root. No command here authorizes paid calls or business implementation.
+**Status**: C-001 audit, C-011 scaffold and C-009 contract checks are available; commands labeled future remain gated.
+Run from the repository root. C-001 is authorized; no command here authorizes paid calls
+or bypasses the remaining task dependencies.
 
 ## Available now: correct feature selection
 
@@ -14,6 +15,52 @@ $env:SPECIFY_FEATURE_NO_PERSIST = '1'
 Expected: FEATURE_DIR selects this feature regardless of Git branch. This checks paths,
 not whether an application, plan/task tests or services execute successfully.
 The installed script exists and has been verified; no feature-state file is overwritten.
+
+## Available now: local dataset audit
+
+The user-supplied CSV is in ignored `data/mtsamples/raw/mtsamples.csv`. With Python 3.11.9,
+these commands passed on 2026-11-11; they need only the standard library:
+
+```powershell
+python -B data/mtsamples/audit.py --check
+python -B -m unittest discover -s data/mtsamples/tests -v
+python -B -m json.tool data/mtsamples/manifests/source.json
+```
+
+On a new working copy, supply the authorized CSV locally and run
+`python -B data/mtsamples/audit.py` to generate the ignored nonempty target subset.
+Review its checksum against the committed manifest before accepting a new source.
+The subset is not ready for training: duplicate/conflict processing and grouped splits
+remain C-002 work. See [the measured audit](../../docs/ml/data-audit.md).
+
+## Available now: local classifier mock scaffold
+
+Follow the [service setup/start/check commands](../../services/classifier/README.md).
+The local uv executable is `.cache/classifier-tooling/Scripts/uv.exe` after setup.
+F-003/F-009 are published; the scaffold consumes their installed frozen Python package.
+
+```powershell
+$env:UV_CACHE_DIR = Join-Path (Get-Location).Path '.cache/uv'
+$env:UV_PYTHON_DOWNLOADS = 'never'
+& ./.cache/classifier-tooling/Scripts/uv.exe run --locked --offline --directory services/classifier python -B -m pytest -q
+$env:NOTELENS_CLASSIFIER_MODE = 'mock'
+$env:NOTELENS_CLASSIFIER_MOCK_SCENARIO = 'supported'
+& ./.cache/classifier-tooling/Scripts/uv.exe run --locked --offline --directory services/classifier python -m notelens_classifier
+```
+
+The launcher is loopback-only at port 8002. Tests include real local HTTP and process
+cleanup; health/readiness remains F-011 work after the shared F-004 checkpoint. The
+local contribution alone does not complete the whole F-004. B subsequently recorded
+F-004 technical completion; C-009 is checked locally in the [interface review](../../docs/ml/interface-review.md).
+See also the historical [scaffold handoff](../../docs/ml/classifier-scaffold-handoff.md).
+
+## Local development candidate
+
+The [integration handoff](../../docs/ml/integration.md) gives Windows commands
+for reproducing the provisional comparison and starting the trained candidate
+on authenticated loopback. See the [validation report](../../docs/ml/validation-report.md)
+and [model card draft](../../docs/ml/model-card.md) for the results, limitations
+and pending final measurement.
 
 ## Future: after foundation prerequisites
 
@@ -41,6 +88,7 @@ No npm run script is assumed; B must document and verify actual package scripts 
 
 ## Exit and review
 
-[Tasks](tasks.md) provide owner/path/dependency/acceptance details. All business work remains
-unchecked. Do not declare the shared foundation ready until the runnable mock flow,
+[Tasks](tasks.md) provide owner/path/dependency/acceptance details. C-001 and the local
+C-011 scaffold contribution and C-009 are checked locally; C-002 still requires F-014.
+Do not declare the shared foundation ready until the runnable mock flow,
 handoffs, separate-working-copy commands and checkpoint evidence have passed.

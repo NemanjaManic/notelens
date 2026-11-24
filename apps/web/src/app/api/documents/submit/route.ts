@@ -32,7 +32,14 @@ export async function POST(request: Request): Promise<Response> {
       ? process.env.NOTELENS_LOCAL_D005_REVIEWED_TEXT_SHA256?.split(',')
       : undefined;
     const result = await prepareSubmitted(store, owner, request, input, scope, reviewedReplayHashes);
-    if (result.kind === 'prepared') return Response.json({ document: result.docId }, { status: 201, headers });
+    if (result.kind === 'prepared') {
+      if (clients.evaluation && request.headers.get('X-NoteLens-Evaluation-Output') === '1') {
+        const prepared = store.getDocument(owner, result.docId);
+        if ('kind' in prepared) return reject(409, prepared.notice);
+        return Response.json({ document: result.docId, canonical_sha256: prepared.text_sha256 }, { status: 201, headers });
+      }
+      return Response.json({ document: result.docId }, { status: 201, headers });
+    }
     if (result.kind === 'unavailable') return reject(409, result.notice);
     return reject(result.code.endsWith('too-large') ? 413 : 422, inputErrors[result.code]);
   } catch (error) {
