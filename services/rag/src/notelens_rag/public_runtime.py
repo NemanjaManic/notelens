@@ -7,6 +7,7 @@ request or USD cap does. No question or answer text is written to the receipt.
 """
 
 import argparse
+import sys
 from decimal import Decimal
 import json
 import os
@@ -33,6 +34,7 @@ class PublicLedger(fr.Ledger):
     def halt(self, code):
         if code in STOPPING_CODES:
             return super().halt(code)
+        print(json.dumps({'rag_request_failed': code}), file=sys.stderr, flush=True)
         with self.receipt_lock:
             self.state['last_error'] = code
             self.state['failed_requests'] = self.state.get('failed_requests', 0) + 1

@@ -20,6 +20,22 @@ if [[ -z "${NOTELENS_SESSION_ORIGIN:-}" ]]; then
   fi
 fi
 
+# Free authenticated check; logs only the HTTP status, never the key.
+"$ROOT/services/rag/.venv/bin/python" - <<'PY'
+import os, urllib.request, urllib.error
+key = os.environ['OPENAI_API_KEY']
+note = ' (key has surrounding whitespace or quotes)' if key != key.strip().strip('"').strip("'") else ''
+try:
+    request = urllib.request.Request('https://api.openai.com/v1/models/gpt-6-luna',
+                                     headers={'Authorization': 'Bearer ' + key.strip()})
+    status = urllib.request.urlopen(request, timeout=15).status
+except urllib.error.HTTPError as error:
+    status = error.code
+except Exception as error:
+    status = type(error).__name__
+print(f'OpenAI key check: HTTP {status}{note}', flush=True)
+PY
+
 token() { head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n'; }
 RAG_TOKEN="$(token)"; EXTRACTION_TOKEN="$(token)"; CLASSIFIER_TOKEN="$(token)"; DEMO_TOKEN="$(token)"
 RUN_ID="$(cat /proc/sys/kernel/random/uuid)"
