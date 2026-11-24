@@ -34,5 +34,23 @@
   "web_build_and_platform_browser_rerun": "Not performed locally; current main retains B bounded-web source. Hosted CI pending PR creation.",
   "provider_calls": 0,
   "final_cases_executed": 0,
-  "D009_final_quality_pass_claimed": false
+  "D009_final_quality_pass_claimed": false,
+  "final_delta_verification": {
+    "D_source_commits": [
+      "410829b",
+      "5f44fb8",
+      "72692c3"
+    ],
+    "integration_cherry_picks": [
+      "b74097e",
+      "b326b91",
+      "aa17a52"
+    ],
+    "eval_tests_passed": 164,
+    "eval_tests_failed": 0,
+    "service_source_changed_since_137_test_pass": false,
+    "handoffs": "pass: five backlogs, 59 tasks, 111 dependency references",
+    "new_provider_calls": 0,
+    "final_outputs_scored": false
+  }
 }
