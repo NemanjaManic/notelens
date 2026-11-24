@@ -1,0 +1,80 @@
+{
+  "version": "d009-attempt13-execution-freeze-v1",
+  "approved": true,
+  "approved_by": "Milica Mileusnic",
+  "operator": "Milica Mileusnic with Codex assistance",
+  "scope": "First full-workload pass after the confirmed B unsupported-gap fix; previous attempts retained separately",
+  "run_id": "7e0e606d-4e99-4f38-96bf-632f126dd3a6",
+  "app_sha": "b5e09ea746aab812882bfc38963ff3ef1cfd80f8",
+  "service_pins": {
+    "rag": "553f1141840610f0cabaa90509c27bcda0adbeccf6523d078eab92160a5f3772",
+    "extraction": "b5e09ea746aab812882bfc38963ff3ef1cfd80f8",
+    "classifier": "affe7af9e2d0f8df46d25642fd2e0cbf0ff3e45f2a8576b9c87cc2cc257d7f32"
+  },
+  "artifact_sha256": {
+    "run_receipt_sha256": "2702e05532acc17baf8fb5f4b37b2b3c02e73ffcfed792c4c366b249c0258072",
+    "A_receipt_sha256": "ea75b7082aa26573fe3f1797880ec72e26970530aea3f5295268bd53fdc4e4b5",
+    "D_ledger_sha256": "6081a3e8aae23267740ba835d43ca4a4778efdc81dff4328e3f6f286b7a250f6",
+    "operator_config_sha256": "523837b181e3d8fb1f58d58ec0bcd522a13699968335ead797cf8c155a9a5b88",
+    "A_policy_sha256": "4933af7309c056e8aada0f2dc7d819ef8e582eb3bb638f76c3fe6f10653cb435",
+    "D_policy_sha256": "0a2f155b2e356df4ecdb6c800ed46d2ccc18d619e201de6b3f9b19492cdd53b4",
+    "runtime_manifest_sha256": "bbba7cc58f63d840fcb533475f7610d3df138c5d245f1482db8849ab38fafbda",
+    "runtime_zip_sha256": "a96ebf7829e96be6cc213e45220a215e37a04f9fd4cbb4364b5b8c3a4ff024f7",
+    "bound_structural_references_sha256": "d2097feb157712e886605f72d95d0217fa5dbf40a3fbe620dba56da44db25bee",
+    "retrieval_references_sha256": "7522ab71087161dff281d3c21ee92b422476e3cbeec7837a2aee88aa99843e47",
+    "branch_scorer_sha256": "6129c91919b6da850593ffcff7b90f013fa00fee40dbeea7ecd05f698ed9fa84",
+    "ranked_scorer_sha256": "da4326bc3552e02b5cdeba44bf8ed2fb99c9a9e1376cdef97e3d7d812a3c5089"
+  },
+  "limits": {
+    "cases": 26,
+    "D_generations": 64,
+    "D_structural_retries": 3,
+    "D_cap_usd": "0.50",
+    "A_generations": 48,
+    "A_embeddings": 16,
+    "A_count_requests": 48,
+    "A_cap_usd": "0.08",
+    "provider_timeout_seconds": 30,
+    "network_retries": 0,
+    "whole_stack_seconds": 3600,
+    "web_timeout_ms": 480000
+  },
+  "scoring_protocol": "Pinned saved-output branch structural checks plus existing ranked retrieval evaluator",
+  "not_an_official_all_component_scorer_manifest": true,
+  "extraction_F1": "unmeasured: no separate final entity annotations",
+  "independent_semantic_risk": "unmeasured: no eligible independent semantic ratings",
+  "runtime_configuration": {
+    "D": {
+      "model": "gpt-6-luna",
+      "model_pin_kind": "provider alias, not immutable weights",
+      "input_format": "messages",
+      "output_format": "quote_hints",
+      "prompt_profile": "coverage_v2",
+      "reasoning_effort": "low",
+      "extraction_prompt": "d-quote-hints-prompts-v2",
+      "answer_prompt": "d-quote-hints-prompts-v1",
+      "max_input_tokens": 64000,
+      "max_output_tokens": 12288,
+      "input_reservation": "serialized_utf8_upper_bound_v1"
+    },
+    "A": {
+      "model": "gpt-6-luna",
+      "model_pin_kind": "provider alias, not immutable weights",
+      "reasoning_effort": "none",
+      "question_parts_prompt": "literature-question-parts-v1",
+      "support_prompt": "literature-support-selection-v2",
+      "answer_prompt": "literature-answer-v1",
+      "partial_policy": "supported-subset-v1",
+      "max_output_tokens": 512,
+      "embedding_model": "text-embedding-3-small",
+      "embedding_dimensions": 1536,
+      "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+      "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146"
+    },
+    "C": {
+      "startup_stage": "development",
+      "model_version": "c008-short-text-matched-v1-ec4f77b94c735790aca7cf8a3eb8a83cdc4e263ce2ad56e599e477f219fe6e8d",
+      "artifact_sha256": "5951f751949747cb3c251987b1503ffaf1d79df9933862c7a692f01a5d65622c"
+    }
+  }
+}

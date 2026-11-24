@@ -1,132 +1,126 @@
-# NoteLens D-009 delivery evidence — final measurement pending
+# D-009 final measured delivery report
 
-Date: 2026-11-23. Delivery target: 2026-11-24.
+Date: 2026-11-24. **D-009 evaluation execution and reporting completed. Quality
+limitations remain explicit; this is not a quality-gate pass.**
 
-**Status: blocked; full joint final evaluation has not been executed.**
-Milica explicitly retained the full D-009 scope and asked to wait for Goran's
-configured app verification. No reduced development-only closure, acceptance
-waiver or release approval is recorded. This document consolidates measured
-development evidence and C's separately verified owner-final aggregate; it does
-not present them as a joint unseen-final result.
+The complete fixed 26-case workload finished once after the confirmed B budget
+fix. The selected result is attempt 13, the first pass on that repaired candidate;
+it is not a combination of earlier results or the best of repeated unchanged runs.
 
-## Available evidence
+## Frozen execution and measured results
 
-| Component | Observed evidence | Profile and limits |
-| --- | --- | --- |
-| D extraction and document QA | Earlier synthetic smoke: five supported extraction items, five summary claims and a supported cough answer; raw final results passed unchanged. | One synthetic document/question; 112 service tests and two saved-live-response HTTP replays passed. |
-| D-011 broader development pilot | Valid returned extractions 1/6; answers 5/6; 6/12 valid records. Forty reference mentions included. | **Acceptance failed.** Complete-case entity F1 and independent semantic risk unavailable. Conservative end-to-end exact F1 0.0000; five emitted literal answers had zero proxy errors. |
-| D service remediation replay | Same saved outputs: 2/6 valid extractions, 5/6 valid answers; 114 service tests pass. | Candidate f50df177; zero new generation, observed-sample regression check only. Acceptance still fails; original measurements preserved. |
-| Earlier quote-hint candidate | Source-grounded outputs validate for 11/11 development documents (nine complete, two partial) and 3/3 QA; 130 service tests pass. | Candidate 8ef63edd. Same-six exact F1 0.6500; two further post-fix fresh documents 0.6789 exact / 0.8440 relaxed. Exact target 0.90 and semantic-risk gate remain uncleared. |
-| Latest coverage/low candidate | Same six new development documents: exact F1 0.2984 baseline to 0.4679 candidate; valid extractions 4/6 to 6/6, four candidate partials; 6/6 synthetic QA validate. 137 service / 152 eval tests pass. | Candidate d41fa880. Temporal labels on common mentions regress 25/31 to 24/31. Independent semantic risk missing; quality acceptance failed. |
-| A selected vector retrieval | Development Recall@5 1.0000; MRR@5 0.909091; 22/22 all-topic supported cases. | Previously accepted A-008 development evidence, 27 total queries and 22 recall-eligible cases; no new retrieval run. |
-| C-008 classifier | Forced-choice accuracy 176/183 (0.96175), macro-F1 0.9582; selective coverage 174/183 and accuracy 169/174. | C-owned locked final aggregate, independently checked against the pinned confusion matrix; not joint system performance. |
-| D-008 calibration | Fourteen original ratings over seven paired cases, five entity-evidence reviews, initial agreement 43/49 (87.76%), six approved adjudications. | Explicitly accepted reduced mock development pilot; no new independent provider-output review credit. |
-| Security/platform | Previously verified B evidence and six successful hosted runs; recorded locked build and 160 key-free cases. | Exact revisions/profiles retained in platform intake. New Windows default/indexed reruns and rendered provider app acceptance are not claimed. |
-| Fresh D local readiness | Fresh mock contract inspection and authenticated loopback transport passed; 152 eval tests passed. | Cross-service, deployment and Chrome acceptance not executed in this update. |
+- Run UUID: `7e0e606d-4e99-4f38-96bf-632f126dd3a6`.
+- App/D candidate: `b5e09ea746aab812882bfc38963ff3ef1cfd80f8` (based on main `ebe37dbd217483a152d1c33e70e0ff9fe034a1fc`, plus the disclosed A/B/D fixes).
+- A operational launcher SHA-256: `553f1141840610f0cabaa90509c27bcda0adbeccf6523d078eab92160a5f3772`.
+- C-008 startup manifest: `affe7af9e2d0f8df46d25642fd2e0cbf0ff3e45f2a8576b9c87cc2cc257d7f32`.
+- Receipt SHA-256: `2702e05532acc17baf8fb5f4b37b2b3c02e73ffcfed792c4c366b249c0258072`.
+- [Execution freeze and artifact hashes](../../eval/config/d009-attempt13-execution-freeze-v1.json).
+- [Aggregate results, ranks and cost evidence](../../eval/reports/final/d009-attempt-13-summary-v1.json).
 
-See [D-011 methods/results](d011-development-measurement-v1.md), the
-[D-004/D-005 reviewed smoke handoff](d005-reviewed-handoff-v3.md) and the
-[machine-readable final readiness record](../../eval/reports/final/d009-final-readiness-v1.json).
-The adopted thresholds are recorded in `eval/config/acceptance.json`: schema and
-spans 100%, exact entity F1 at least 0.90, Recall@5 at least 0.95 and semantic
-answer risk at most 0.05. They are project release gates, not clinical certification.
+| Measure | Result |
+| --- | --- |
+| Fixed runtime cases saved and completed | 26/26 |
+| Technical errors | 0 |
+| Canonical source documents | 16/16 |
+| Accepted answer branches with valid schema | 28/28 |
+| Accepted branches with exact literal citations | 28/28 |
+| Explicit unsupported literature branches | 4 |
+| Answer route agreement | 20/26 |
+| Evidence-state agreement | 15/26 |
+| End-to-end topic Recall@5 (15 positive-reference cases) | 0.7333 |
+| End-to-end topic MRR@5 | 0.7333 |
+| All-required-topics@5 | 0.7333 |
+| Required passage-group coverage@5 | 0.7333 |
+| Secondary: Recall@5 only where retrieval actually ran | 1.0000 (11 positive cases) |
+| Final extraction F1 | Unmeasured |
+| Independent semantic answer risk | Unmeasured |
 
-## Reference identity freeze and custody
+Four model scope abstentions produced no ranked retrieval. They remain empty
+predictions on the primary full 15-case relevance denominator; they are not
+dropped to obtain the secondary attempted-only score. The primary end-to-end
+Recall@5 of 0.7333 is below the recorded 0.90 criterion. The route/state mismatches
+and abstentions remain measured limitations. The four unsupported branches are
+not described as correct answers merely because the pipeline completed.
 
-D-013 freezes 40 development references with 1,189 mentions and 1,320 evidence
-spans. These remain development data and cannot be relabelled unseen final.
-D-007 freezes the identities of 26 QA cases: eight document-only, eight
-literature-only, eight mixed and two out-of-scope. Twenty-five are v1 and
-F-DOC-06 is v2. Both sets of thirteen case-version-specific approvals match their
-recorded hashes. Full final source texts, questions and answer keys remain in
-Sara/Goran's restricted workflow and were not opened for this report.
+Ranked metrics use actual retained passage/topic identifiers and the existing
+`notelens_eval.retrieval_metrics.evaluate_retrieval` implementation. The separately
+reported cited-source proxy is not substituted for ranked Recall@5. Structural
+citation checks establish exact text/identity, not semantic entailment or clinical
+correctness. Extraction F1 lacks separate final annotations; independent semantic
+risk lacks eligible independent ratings. Earlier D-011 quality exceptions remain
+visible. No threshold was lowered or missing metric replaced with a passing value.
 
-Technical reviewer notes for F-DOC-01/02/03 were previously exposed to D's
-assistant. Their eligibility needs an explicit disposition before a fully unseen
-claim. Metadata/reference identity freeze is distinct from approved joint system
-freeze, actual generation and independently reviewed output scoring.
+## Confirmed cause and repairs
 
-## Candidate system and executable scoring preparation
+The reproducible 22/26 stop was in B's global run budget. A legitimate unsupported
+literature outcome was accepted by the runner but set the shared web budget's
+stopped flag. The next extraction was blocked before any D provider dispatch and
+appeared as `source_analysis_unavailable`. Attempt 12's durable D ledger proves
+there was no new D call for that failed source. The fix continues only after an
+explicit unsupported literature branch; invalid/unavailable outcomes and budget
+violations still stop. A regression failed before the fix and passed after it;
+the real built-app local-double check verified the next unique extraction.
 
-Measured D service: c7d0797a86061c643b0f23e6d56f8caa9e7a6813.
-Latest measured candidate: d41fa880177a7855bb92e57d98673b0a7a77d36b
-with explicit messages / quote_hints / coverage_v2 / low configuration,
-selected RAG manifest d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685,
-and C-008 classifier manifest fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70.
-The new D pin still needs further remediation, fresh development acceptance and
-the matching app receipt; no earlier app/smoke approval transfers automatically.
+A separate A diagnosis caught `ready` question decomposition with empty parts.
+After the already bounded retry, the new optional fallback preserves the original
+complete question as one requirement. Support and citation validation still apply;
+abstentions, timeouts and budget failures do not use that fallback. This selected
+run used the fallback **0 times**, so its successful
+completion must not be attributed to observed fallback use. Safe error frames and
+ranked source IDs are retained without question/passage bodies in the A ledger.
 
-`eval/config/d009-final-freeze-candidate-v1.json` pins known identities, the
-adopted acceptance configuration, reference identity manifest, C aggregate and
-196 known development/source identifiers. It remains **approved: false**.
-Missing restricted reference/prediction hashes stay null. Screening identifiers
-alone does not establish source-family independence; final custodians must
-confirm provenance and group declarations.
+D now has explicit, policy-gated structural re-generation (up to three), with zero
+network retries. Default live behavior remains one attempt. Reservations use the
+existing conservative serialized-UTF-8-plus-framing upper bound, retain the original
+64000-token admission ceiling, and enforce both the 64-call and USD 0.50 limits.
+The durable journal fsyncs each reservation before dispatch and retains provider
+IDs, usage and uncertain reservations. No prompt, model, canonical text, frozen
+reference or citation validation was weakened. This run used 0 D structural
+re-attempts; the observed stop removal is explained by the confirmed B fix.
 
-The saved-output final scorer is implemented and covered by key-free regression
-tests. It verifies an approved freeze, exact artifact hashes, declared final
-partition, separate development groups, selected versions and real-mode outputs.
-No final receipt was claimed and no final artifact was scored by this update.
+## Cost, shutdown and historical attempts
 
-## Required closure gates and owners
+| Component | Calls | Reserved USD | Conservative usage calculation USD |
+| --- | --- | ---: | ---: |
+| D | 32 generations | 0.2429121750 | 0.0105853 |
+| A | 40 generations, 12 embeddings, 40 free counts | 0.02846490900 | 0.02003987150 |
+| Combined | This run only | 0.27137708400 | 0.03062517150 |
 
-1. **D:** remediate failed extraction/summary/contract behavior, remeasure the
-   pinned service against development references and provide independently
-   justified answer-risk evidence. Retain thresholds and failure history.
-2. **Goran:** provide the configured app receipt with exact app/service SHAs,
-   profile and identity/highlight/partial/insufficient/out-of-scope findings.
-3. **Sara/Goran with Milica:** resolve eligibility of the three exposed-note
-   cases and retain exact final case versions, source provenance and approvals.
-4. **A/B/C/D with Milica:** approve the exact joint system/configuration/reference
-   freeze and a bounded final execution scope after the preceding gates clear.
-5. **Restricted operators/custodians:** execute the frozen 26 cases with only
-   runtime inputs, keep gold references separate and supply saved outputs,
-   usage/receipts, source-group declarations and independent correctness evidence.
-   Full final extraction scoring also needs distinct final extraction references;
-   D-013 development labels cannot be reused as unseen final references.
-6. **D:** verify the resulting artifacts, score once using the exact approved
-   freeze, then publish measured final results and the actual acceptance decision.
+Usage calculations apply the approved conservative rates, not a verified provider
+invoice. Historical D spend remains unreconciled; a fresh run ledger does not reset
+or reconcile cumulative account usage. All provider attempts remain reserved.
+The Windows job drained and all four listeners closed. No deadline fired.
 
-An apparent pass in one component cannot fill missing results for another.
-Deployment acceptance and B-005/B-007/B-009 remain with B and are not inferred.
+The [first nine attempts](../rag/d009-run-attempts-2026-11-24.md) remain preserved.
+[Attempt 10](d009-attempt-10-7c1e46b5-ae55-4fa0-acf0-0ca0297b0963.md) saved nine records
+(eight completed and one unavailable); its precise A failure was not retained.
+[Attempt 11](../../eval/reports/final/d009-attempt-11-summary-v1.json) saved 18 cases;
+[attempt 12](../../eval/reports/final/d009-attempt-12-summary-v1.json) saved 22 and
+exposed the B stop-after-gap defect. Separate paid diagnostic requests are disclosed
+in the private receipts: one query embedding, two bounded A diagnostic runs, and
+one D extraction. These diagnostic outputs are not used as final predictions.
 
-## Costs, publication and limitations
+This is a repeated protected-workload evaluation after post-hoc reliability fixes,
+not a pristine unseen first measurement. All model/prompt/reference pins and
+operator policies are recorded. The official all-component freeze CLI was not run;
+the delivered protocol is branch structural scoring plus the existing ranked
+retrieval scorer. No extraction or independent semantic acceptance is implied.
 
-Known cumulative worst-case provider reservations are USD 0.2020124 under the announced USD 0.25 expanded development bound. The original USD 0.10 trial receipt remains unchanged. They are
-not confirmed billed spending; token usage and exclusive receipts are retained
-privately. No additional final-provider spending is authorized by the unapproved
-candidate. No unseen final generation, scoring, deployment, push or external
-message was performed for this report.
+## Verification and delivery state
 
-The single-document smoke, length-biased six-document pilot, synthetic QA and
-non-independent agent support checks are explicitly bounded evidence. They
-cannot establish clinical safety, representative medical performance or a
-joint final release pass. The failed quality gate is preserved without hidden
-threshold reduction, selective sample omission or fabricated reviewer approval.
+- D: 145 offline tests passed, including explicit retry limits, no network retries,
+  exact cost/call guards, and durable pre-dispatch reservations.
+- A: the 836-test full suite passed before the source-only rank trace addition;
+  all 35 focused final-runtime tests passed after that addition.
+- B: all five budget regressions and the locked web build passed. Counted local
+  services verified continuation after a real unsupported response while preserving
+  first-error stops, ceilings, source reuse and single-use startup receipts.
+- Six D scorer regressions passed, including run-identity mismatch, repeated hashes,
+  missing-rank denominator preservation, and unavailable-versus-unsupported outcomes.
+- The full saved-output checksum inventory and all 16 document bindings verified.
 
-## Latest measured candidate and prepared review decisions
-
-See [economical improvement v4](economic-improvement-v4.md) for the paired design,
-partial outcomes, temporal regression, cost estimates and unchanged failed gates.
-[The v5 app handoff](d005-coverage-candidate-handoff-v5.md) pins the committed service
-and prompts; [remaining actions](d009-d011-remaining-actions-v2.md) lists exact owners.
-A private six-output semantic review packet and separate historical calibration
-appendix are prepared; independent ratings and protocol adoption are still absent.
-The proposed 23 unseen-candidate plus 3 exposed-note interpretation is unapproved.
-Local evidence changes await logical commits because automatic approval review
-could not run after workspace credits were exhausted; no approval bypass occurred.
-
-## D-011 development closure accepted by the team
-
-Milica reports team agreement to close D-011 as completed development with explicitly accepted limitations. Exact F1 remains 0.4679 against 0.90, partial outputs and temporal regression remain disclosed, and independent semantic risk remains missing. This is administrative development closure, not quality acceptance or a D-009 final pass. See ../../eval/reports/development/d011-team-accepted-closure-v1.json.
-
-## Supplementary semantic feedback from Milica
-
-Milica identifies reviewer mm as herself and reports human review with some AI
-guidance. The six submitted source/response hashes and packet identity match.
-This is disclosed non-independent human feedback, not independent correctness
-evidence. The original case-005 clarity score 1 and adjudication request remain;
-case-specific metadata issues and missing completion time are not silently filled.
-No independent answer-risk result is produced. D-011 remains closed development
-with accepted limitations; D-009 acceptance is unchanged. See
-[the intake record](../../eval/reports/development/d011-mm-review-intake-v1.json).
+Code and evidence are delivered on the integration branch. Main merge/reviewer
+acceptance is separate. The global handoff check still encounters an existing
+C-owned `specs/003-classification/tasks.md T011` dependency-format error; it was not
+changed under the delegated A/B/D scope. Raw inputs, outputs, indices, model bundles,
+gold references, credentials and native receipts remain private.
