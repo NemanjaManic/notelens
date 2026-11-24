@@ -48,7 +48,8 @@ case, verifies the RAG port refuses connections, then checks shutdown of all
 four listeners. It never opens the synthetic literature URL.
 
 This checks B’s app and transport behavior against the pinned key-free service.
-Provider-backed behavior and overall B-005 acceptance remain pending.
+The [B-005 acceptance record](integration-status.md) records this transport
+evidence and the separate provider-backed work.
 
 ## Local verification
 
