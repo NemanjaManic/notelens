@@ -31,7 +31,7 @@ from .runtime import IndexedBackend, RagServiceError
 
 ROOT = Path(__file__).resolve().parents[4]
 FORMAT = 'notelens-final-rag-policy-v1'
-APP_SHA = 'd846dcfee5a066dc180a59dbf0c1ed8888809f38'
+APP_SHA = '42adf725a464e1c74697dc619dd97d02c88c0332'
 INPUT_LIMITS = {'question_parts': 4096, 'support': 20000, 'answer': 4096}
 OUTPUT_LIMIT = 512
 EMBEDDING_LIMIT = 128
