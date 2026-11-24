@@ -225,5 +225,10 @@
   "replacement_review_status": "three exact v2 approvals verified",
   "runtime_candidate_received": true,
   "separate_scoring_candidate_received": true,
-  "reconciled_candidate_reference_manifest": "eval/references/qa/d009-reconciled-candidate-identity-v1.manifest.json"
+  "reconciled_candidate_reference_manifest": "eval/references/qa/d009-reconciled-candidate-identity-v1.manifest.json",
+  "final_app_candidate_sha": "229ecf9ba7b0a297bd8198564eef8c4d710f74b6",
+  "B009_key_free_main_evidence_received": true,
+  "B_platform_intake": "eval/reports/final/d009-b-platform-intake-229ecf9-v1.json",
+  "whole_web_provider_profile_ready": false,
+  "D_32_call_web_bound_verified": false
 }
