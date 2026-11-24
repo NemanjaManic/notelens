@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { validateRecord } from '@notelens/contracts/v1';
 import type { PreparedDocument, ClassificationResult, ExtractionResult, EvidenceSpan } from '@notelens/contracts/v1';
 import { consumeRecord } from '../contracts/consumer.ts';
+import type { EvaluationProfile } from '../clients/bounded-evaluation.ts';
 
 export const SCENARIOS = [
   ['ready', 'Report overview'], ['uncertain', 'Uncertain specialty'], ['unsupported', 'Unsupported specialty'],
@@ -17,7 +18,8 @@ export type Panel<T> = { state: 'ready'; record: T } | { state: 'loading' | 'emp
 export type Passage = { key: string; label: string; span: EvidenceSpan; sourceId?: string };
 export type Report = { document: PreparedDocument | null; classification: Panel<ClassificationResult>;
   extraction: Panel<ExtractionResult>; passages: Passage[] };
-export type Workspace = Report & { scenario: Scenario; selected: Passage | null; heading: string; fittedClassifier?: true; d005Replay?: true };
+export type Workspace = Report & { scenario: Scenario; selected: Passage | null; heading: string;
+  fittedClassifier?: true; d005Replay?: true; evaluation?: EvaluationProfile };
 // The frozen catalog includes intentionally invalid Unicode test inputs. Read it
 // only on the server: a JSON bundler must not reinterpret or rewrite that catalog.
 // The local preview supports the documented repository-root and apps/web commands.

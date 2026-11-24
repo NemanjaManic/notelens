@@ -3,6 +3,7 @@ import type {
   ClassificationRequest, DocumentQuestionRequest, ExtractionRequest, LiteratureAnswerRequest, Records,
 } from '@notelens/contracts/v1';
 import { consumeExchange, OPERATIONS } from '../contracts/consumer.ts';
+import { boundedEvaluation } from './bounded-evaluation.ts';
 
 type Requests = {
   classify: ClassificationRequest;
@@ -28,6 +29,8 @@ export function mockServiceClients(env: NodeJS.ProcessEnv = process.env, transpo
   const token = env.NOTELENS_DEMO_TOKEN;
   const replayProfile = env.NOTELENS_LOCAL_D005_PROFILE;
   const d005Replay = replayProfile === 'saved-replay';
+  const evaluation = boundedEvaluation(env);
+  if (env.NOTELENS_BOUNDED_EVALUATION !== undefined && (!evaluation || replayProfile !== undefined)) return null;
   if (replayProfile !== undefined && (!d005Replay ||
       !loopbackPort(/^http:\/\/localhost:([0-9]+)$/.exec(env.NOTELENS_SESSION_ORIGIN ?? '')?.[1]) ||
       !token || !/^\S+$/.test(token))) return null;
@@ -38,14 +41,16 @@ export function mockServiceClients(env: NodeJS.ProcessEnv = process.env, transpo
   };
   if (env.NOTELENS_MODE !== 'mock' || !env.NOTELENS_DEMO_RUN || !token || Object.values(ports).some(port => !port)) return null;
 
-  async function post<K extends Operation>(operation: K, body: Requests[K]): Promise<MockResult<Result<K>>> {
+  async function exchange<K extends Operation>(operation: K, body: Requests[K]): Promise<MockResult<Result<K>>> {
     const requestHeaders: [string, string][] = [['Content-Type', 'application/json'], ['X-Request-ID', randomUUID()]];
     try {
       const headers = new Headers(requestHeaders);
-      headers.set('Authorization', `Bearer ${token}`);
+      const serviceToken = !evaluation || operation === 'classify' ? token
+        : operation === 'literature-answer' ? evaluation.ragToken : evaluation.extractionToken;
+      headers.set('Authorization', `Bearer ${serviceToken}`);
       const response = await transport(`http://127.0.0.1:${ports[services[operation]]}${OPERATIONS[operation].path}`, {
         method: 'POST', headers, body: JSON.stringify(body), cache: 'no-store', redirect: 'error',
-        signal: AbortSignal.timeout(demoTimeoutMs),
+        signal: AbortSignal.timeout(evaluation?.timeoutMs ?? demoTimeoutMs),
       });
       if (response.headers.get('content-type')?.split(';', 1)[0].trim().toLowerCase() !== 'application/json') {
         return { kind: response.ok ? 'invalid' : 'unavailable' };
@@ -54,7 +59,7 @@ export function mockServiceClients(env: NodeJS.ProcessEnv = process.env, transpo
         status: response.status, requestHeaders, responseHeaders: [...response.headers],
         json: await response.text(), disposition: response.ok ? 'accepted_result' : 'failed_call',
         document: 'document' in body ? body.document : undefined,
-      }, d005Replay);
+      }, d005Replay, Boolean(evaluation && operation !== 'classify'));
       // consumeExchange validates the response with the definition for this operation.
       if (result.kind === 'accepted') return { kind: 'accepted', record: result.record as Result<K> };
       if (operation === 'literature-answer' && response.status === 422 &&
@@ -65,8 +70,15 @@ export function mockServiceClients(env: NodeJS.ProcessEnv = process.env, transpo
     }
   }
 
+  function post<K extends Operation>(operation: K, body: Requests[K]): Promise<MockResult<Result<K>>> {
+    if (!evaluation || operation === 'classify') return exchange(operation, body);
+    const source = operation === 'extract' && 'document' in body ? body.document.text_sha256 : undefined;
+    return evaluation.budget.dispatch(operation, source, () => exchange(operation, body));
+  }
+
   return {
     d005Replay,
+    evaluation: evaluation?.profile,
     classify: (document: ClassificationRequest['document']) => post('classify', { schema_version: '1.0.0', document }),
     extract: (document: ExtractionRequest['document']) => post('extract', { schema_version: '1.0.0', document }),
     documentAnswer: (document: DocumentQuestionRequest['document'], question: string) =>

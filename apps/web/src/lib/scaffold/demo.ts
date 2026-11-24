@@ -4,6 +4,7 @@ import { localFittedClassifier } from '../clients/classifier-client.ts';
 import { buildReport, fixtureWorkspace } from '../report/model.ts';
 import type { Workspace } from '../report/model.ts';
 import type { RoutedAnswer } from '../routing/answer.ts';
+import { getSessionStore } from '../sessions/route.ts';
 
 export function isDemoConfigured() {
   return mockServiceClients() !== null;
@@ -13,13 +14,15 @@ export function isBuiltinDemoDocument(document: PreparedDocument | null): boolea
   return document?.language_validation.policy_version === 'fixture-language-policy-v0';
 }
 
-export async function demoWorkspace(query: Record<string, string | string[] | undefined>, document: PreparedDocument | null):
+export async function demoWorkspace(query: Record<string, string | string[] | undefined>, document: PreparedDocument | null,
+  owner: string | null = null):
     Promise<Workspace> {
   const fitted = localFittedClassifier();
   const clients = mockServiceClients();
   const profile = {
     ...(fitted ? { fittedClassifier: true as const } : {}),
     ...(clients?.d005Replay ? { d005Replay: true as const } : {}),
+    ...(clients?.evaluation ? { evaluation: clients.evaluation } : {}),
   };
   if (!document) return { ...await fixtureWorkspace(query.document === undefined ? 'no-document' : 'unavailable'), ...profile };
   if (!clients) return fixtureWorkspace('unavailable');
@@ -27,10 +30,14 @@ export async function demoWorkspace(query: Record<string, string | string[] | un
   const [classification, extraction] = await Promise.all([
     fitted ? fitted.client?.classify(document) ?? { kind: 'unavailable' as const }
       : builtin ? clients.classify(document) : undefined,
-    clients.extract(document),
+    clients.evaluation ? owner
+      ? getSessionStore().extractionOnce(owner, document.doc_id, () => clients.extract(document))
+      : { kind: 'unavailable' as const }
+      : clients.extract(document),
   ]);
   const report = await buildReport(document, classification?.kind === 'accepted' ? classification.record : undefined,
-    extraction.kind === 'accepted' ? extraction.record : undefined, fitted ? 'live' : 'mock', clients.d005Replay ? 'live' : 'mock');
+    extraction.kind === 'accepted' ? extraction.record : undefined, fitted ? 'live' : 'mock',
+    clients.d005Replay || clients.evaluation ? 'live' : 'mock');
   if (!classification) {
     report.classification = { state: 'empty', notice: 'Mock specialty classification is available for the built-in example.' };
   } else if (classification.kind === 'unavailable' || classification.kind === 'unauthorized') {

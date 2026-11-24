@@ -5,15 +5,17 @@ import type { FormEvent, ReactNode } from 'react';
 import type { DemoQuestion } from '../lib/routing/demo-questions.ts';
 import type { QuestionTurn } from '../lib/sessions/memory.ts';
 import { QuestionAnswer } from './question-answer.tsx';
+import type { EvaluationProfile } from '../lib/clients/bounded-evaluation.ts';
 
 type Scope = 'document' | 'literature' | 'both';
 type QuestionResponse = { kind: 'saved'; id: string } | { kind: 'transient'; turn: QuestionTurn } | { notice: string };
 
-export function QuestionForm({ documentId, presets, hasHistory, children }: {
+export function QuestionForm({ documentId, presets, hasHistory, children, evaluation }: {
   documentId: string;
   presets: { key: DemoQuestion; label: string }[];
   hasHistory: boolean;
   children: ReactNode;
+  evaluation?: EvaluationProfile;
 }) {
   const [scope, setScope] = useState<Scope>('document');
   const [action, setAction] = useState<'ask' | 'clear' | null>(null);
@@ -92,7 +94,8 @@ export function QuestionForm({ documentId, presets, hasHistory, children }: {
       </li>)}</ul>
     </details>
     {(hasHistory || transient) && <button type="button" disabled={action !== null} onClick={() => void send()}>Clear conversation history</button>}
-    <p role="status">{action === 'ask' ? 'Waiting for the mock answer…' : action === 'clear' ? 'Clearing conversation history…' : notice}</p>
-    {transient ? <QuestionAnswer answer={transient.answer} /> : children}
+    <p role="status">{action === 'ask' ? evaluation ? 'Waiting for the answer…' : 'Waiting for the mock answer…'
+      : action === 'clear' ? 'Clearing conversation history…' : notice}</p>
+    {transient ? <QuestionAnswer answer={transient.answer} evaluation={evaluation} /> : children}
   </>;
 }

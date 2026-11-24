@@ -13,7 +13,9 @@ export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPa
   const extraction = view.extraction.state === 'ready' ? view.extraction.record : null;
   const summary = extraction?.summary.status === 'completed' ? extraction.summary.result : null;
   const selected = view.document && view.selected ? evidenceParts(view.document.text, view.selected.span) : null;
-  const profile = view.d005Replay ? 'D-005 saved-response replay' : view.fittedClassifier ? 'Local classifier profile' : 'Mock mode';
+  const evaluationLabel = view.evaluation === 'offline' ? 'Bounded evaluation dry run' : 'Bounded provider evaluation';
+  const profile = view.evaluation ? evaluationLabel
+    : view.d005Replay ? 'D-005 saved-response replay' : view.fittedClassifier ? 'Local classifier profile' : 'Mock mode';
   return <main>
     <a className="skip-link" href="#report-content">Skip to report</a>
     <header><a className="wordmark" href={demo ? '/demo' : '/'}>NoteLens</a><span className="badge">{profile}</span></header>
@@ -30,7 +32,7 @@ export function ReportWorkspace({ view, demo }: { view: Workspace; demo?: DemoPa
       <ul>{SCENARIOS.map(([key, label]) => <li key={key}><a href={`?scenario=${key}`} aria-current={view.scenario === key ? 'page' : undefined}>{label}</a></li>)}</ul>
     </nav>}
     <section id="report-content" aria-labelledby="report-heading">
-      <div className="report-heading"><div><p className="eyebrow">{demo ? 'English document' : 'Synthetic report · English'}</p><h2 id="report-heading">{view.heading}</h2></div><span className="badge">{view.d005Replay ? 'Saved extraction and document answers' :
+      <div className="report-heading"><div><p className="eyebrow">{demo ? 'English document' : 'Synthetic report · English'}</p><h2 id="report-heading">{view.heading}</h2></div><span className="badge">{view.evaluation ? evaluationLabel : view.d005Replay ? 'Saved extraction and document answers' :
           view.fittedClassifier ? 'Findings, summaries and answers are mocked' : demo ? 'Local mocks' : 'Fixture preview'}</span></div>
       <p className="privacy">{demo ? 'Documents stay in server memory for up to 60 minutes and are cleared when the session ends or the server restarts.'
         : 'Submitted reports are not accepted here. The planned submission flow keeps documents in server memory for at most 60 minutes and loses them on restart.'}</p>
