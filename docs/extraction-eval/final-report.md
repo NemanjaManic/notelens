@@ -119,8 +119,10 @@ retrieval scorer. No extraction or independent semantic acceptance is implied.
   missing-rank denominator preservation, and unavailable-versus-unsupported outcomes.
 - The full saved-output checksum inventory and all 16 document bindings verified.
 
-Code and evidence are delivered on the integration branch. Main merge/reviewer
-acceptance is separate. The global handoff check still encounters an existing
+Code and evidence are delivered through the team-reviewed main-integration PRs
+[#55](https://github.com/NemanjaManic/notelens/pull/55),
+[#56](https://github.com/NemanjaManic/notelens/pull/56), and
+[#57](https://github.com/NemanjaManic/notelens/pull/57). The global handoff check still encounters an existing
 C-owned `specs/003-classification/tasks.md T011` dependency-format error; it was not
 changed under the delegated A/B/D scope. Raw inputs, outputs, indices, model bundles,
 gold references, credentials and native receipts remain private.
