@@ -108,3 +108,25 @@ The locked production build passed.
 The key-free browser rehearsal passed. B-009 formal acceptance depends on
 B-005 and B-008 as listed in the [platform tasks](../../specs/002-platform/tasks.md).
 Provider-backed behavior is outside this run.
+
+## PR #32 reviewed-head rehearsal
+
+On 23 November 2026, the Windows loopback mock rehearsal passed on PR #32's
+reviewed head `7743fc87aafa94f42b6fd81e34a48612352da1f1` with Python 3.13.7,
+Node 24.22.1, and headless Chrome 158. The production build and key-free HTTP
+smoke passed.
+
+- The built-in example and pasted synthetic text each produced a sufficient mixed
+  answer. The selectable-text PDF produced a sufficient document-only answer.
+  All three submissions returned HTTP 201 and all three questions returned HTTP 200.
+- Chrome passed 73 assertions covering English controls and rejection messages,
+  the educational-demo, not-a-doctor, no-real-personal-reports and retention notices,
+  and the mock-profile label. Both mixed answers showed separate literature
+  attribution, and each flow verified two exact document highlights.
+- All four loopback listeners and the Chrome rehearsal session stopped. The
+  built-in flow's trace also recorded an incidental `/favicon.ico` HTTP 404.
+
+Receipt `B009-PR32-Chrome-rehearsal-7743fc8.json` has SHA-256
+`e8542823dd6862079feee84f6744c90ac2518727974dc4e4f3e1b74b93d009df`.
+The rehearsal used synthetic fixtures and made zero provider calls. Formal
+B-009 acceptance is pending against the accepted B-005 configuration.

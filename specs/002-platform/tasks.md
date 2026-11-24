@@ -111,11 +111,11 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 **Independent Test**: Run the tasks' owner-local verification against public/synthetic fixtures,
 with unrelated real modules absent; inspect that story's acceptance scenarios.
 
-- [ ] T006 [US3] B-011: Complete B's assigned primary annotations and independent reviews in `eval/annotations/member-b/**`
+- [X] T006 [US3] B-011: Complete B's assigned primary annotations and independent reviews in `eval/annotations/member-b/**`
   - **Owner / story**: B / US3.
   - **Dependencies**: 004-extraction-evaluation/T006 (D-003)
   - **Acceptance**: Use frozen assignment IDs, separate files for review and primary work, exact spans/status/subject; D adjudicates. No clinically validated claim.
-  - **Verify**: `python -B -m json.tool eval/annotations/member-b/submission-manifest.json`.
+  - **Verify**: D checksum-verified all ten B primary annotations and three independent reviews in the D-013 intake record `d013-b011-reviewed-intake-v1.json`. The submissions and canonical texts remain in restricted custody.
   - **Coverage**: Constitution VII; source prompt sections 7D and 8 (all-member annotation obligation)..
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
@@ -168,6 +168,7 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
   - **Dependencies**: 002-platform/T009 (B-005); 002-platform/T007 (B-008)
   - **Acceptance**: Review every visible state and generation surface in English, source attribution and all three notices; full input-to-answer rehearsal passes. Deployment/live claims require actual evidence.
   - **Verify**: `npm exec --workspace apps/web -- playwright test`.
+  - **Rehearsal evidence**: The [PR #32 key-free Chrome rehearsal](../../docs/platform/demo.md#pr-32-reviewed-head-rehearsal) passed on the exact reviewed head. Formal acceptance remains open.
   - **Coverage**: FR-001, FR-005, FR-006, FR-007, FR-012, FR-013, FR-020, FR-024, SC-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
