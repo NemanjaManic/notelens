@@ -31,7 +31,7 @@ from .runtime import IndexedBackend, RagServiceError
 
 ROOT = Path(__file__).resolve().parents[4]
 FORMAT = 'notelens-final-rag-policy-v1'
-APP_SHA = '42adf725a464e1c74697dc619dd97d02c88c0332'
+APP_SHA = '506a5930aebe77b3a10baaf1479dfcf9f4c5d76b'
 INPUT_LIMITS = {'question_parts': 4096, 'support': 20000, 'answer': 4096}
 OUTPUT_LIMIT = 512
 EMBEDDING_LIMIT = 128
@@ -40,6 +40,15 @@ TIMEOUT = 30
 WALL_SECONDS = 3600
 CAP = Decimal('0.08')
 PARAMETERS = AssessmentParameters(max_output_tokens=OUTPUT_LIMIT, reasoning_effort='none', timeout_seconds=TIMEOUT)
+# One separately reserved re-attempt is allowed after a generation response failed validation
+# or a transient provider error (5xx/connection). Timeout, rate, budget and authentication
+# failures still halt immediately; a second failure of the same stage always halts.
+VALIDATION_RETRIES = 1
+RETRY_PAUSE_SECONDS = 1.0
+HARD_STOP_CODES = frozenset({'timeout', 'rate_limit', 'budget_exceeded',
+                             'provider_authentication', 'configuration_required', 'input_limit_exceeded'})
+# Legitimate model abstentions: never re-attempted and never treated as a service failure.
+ABSTENTION_CODES = frozenset({'out_of_scope', 'needs_clarification', 'unsupported_language'})
 REQUEST_ID = ContextVar('notelens_final_rag_request_id', default=None)
 
 
@@ -78,7 +87,7 @@ def read_policy(path, *, root=ROOT):
              and policy.get('provider_timeout_seconds') == TIMEOUT
              and policy.get('wall_clock_seconds') == WALL_SECONDS
              and _amount(policy.get('a_budget_usd')) == CAP
-             and policy.get('automatic_retries') == 0)
+             and policy.get('automatic_retries') == VALIDATION_RETRIES)
     _require(isinstance(policy.get('question_sha256'), list)
              and len(policy['question_sha256']) in (0, MAX_CASES)
              and all(valid_hash(value) for value in policy['question_sha256']))
@@ -132,17 +141,19 @@ def preflight(path, *, root=ROOT):
 class Ledger:
     """One durable attempt, with reservations retained after ambiguous failures."""
 
-    def __init__(self, policy, path, policy_hash, *, clock=time.monotonic):
+    def __init__(self, policy, path, policy_hash, *, clock=time.monotonic,
+                 max_requests=MAX_CASES, cap=CAP, wall_seconds=WALL_SECONDS, question_quotas=True):
+        self.max_cases, self.cap = max_requests, cap
         self.path, self.clock = Path(path), clock
-        self.deadline = clock() + WALL_SECONDS
+        self.deadline = clock() + wall_seconds
         self.lock = threading.RLock()
         self.receipt_lock = threading.RLock()
         self.watchdog_stop = threading.Event()
-        self.quotas = Counter(policy['question_sha256'])
+        self.quotas = Counter(policy['question_sha256']) if question_quotas else None
         self.current = None
         self.state = {'format_version': 'notelens-final-rag-receipt-v1', 'run_id': policy['run_id'],
                       'policy_sha256': policy_hash, 'app_sha': APP_SHA, 'status': 'running',
-                      'budget_usd': str(CAP), 'reserved_usd': '0', 'invoice_verified': False,
+                      'budget_usd': str(cap), 'reserved_usd': '0', 'invoice_verified': False,
                       'requests': [], 'provider_attempts': 0, 'generation_attempts': 0,
                       'embedding_attempts': 0, 'free_count_attempts': 0}
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -187,24 +198,25 @@ class Ledger:
     def admit(self, request, request_id):
         self.check()
         digest = _hash(request['question'].encode('utf-8'))
-        if (self.quotas[digest] <= 0 or len(self.state['requests']) >= MAX_CASES
+        if ((self.quotas is not None and self.quotas[digest] <= 0) or len(self.state['requests']) >= self.max_cases
                 or request_id is None or any(row['request_id'] == request_id for row in self.state['requests'])):
             self.halt('unapproved_or_repeated_request')
             raise AssessmentError('validation_failure')
         with self.receipt_lock:
             self.check()
-            self.quotas[digest] -= 1
+            if self.quotas is not None:
+                self.quotas[digest] -= 1
             self.current = {'request_id': request_id, 'question_sha256': digest, 'status': 'attempted', 'operations': []}
             self.state['requests'].append(self.current)
             self.save()
 
-    def operation(self, stage, function, *, reserve=Decimal('0')):
+    def operation(self, stage, function, *, reserve=Decimal('0'), recoverable=False):
         self.check()
         _require(self.current is not None and not any(row['stage'] == stage for row in self.current['operations']))
         counter = ('free_count_attempts' if stage.endswith('_count') else
                    'embedding_attempts' if stage == 'embedding' else 'generation_attempts')
-        limit = MAX_CASES if counter == 'embedding_attempts' else MAX_CASES * 3
-        if self.state[counter] >= limit or _amount(self.state['reserved_usd']) + reserve > CAP:
+        limit = self.max_cases if counter == 'embedding_attempts' else self.max_cases * 3
+        if self.state[counter] >= limit or _amount(self.state['reserved_usd']) + reserve > self.cap:
             self.halt('budget_exceeded')
             raise AssessmentError('budget_exceeded')
         with self.receipt_lock:
@@ -237,6 +249,10 @@ class Ledger:
         if not success:
             record['status'] = 'failed_reserved'
             code = getattr(result, 'code', 'provider_unavailable')
+            record['error_code'] = code if isinstance(code, str) and len(code) <= 64 else 'unknown'
+            if recoverable and code not in HARD_STOP_CODES and self.state['status'] == 'running':
+                self.save()
+                raise result
             self.halt(code if code in {'timeout', 'rate_limit', 'provider_unavailable', 'budget_exceeded'}
                       else 'provider_or_validation_failure')
             raise result
@@ -260,10 +276,10 @@ class Providers:
     def __init__(self, ledger, client, embedder, encoder):
         self.ledger, self.client, self.embedder, self.encoder = ledger, client, embedder, encoder
 
-    def complete(self, stage, payload):
+    def complete(self, stage, payload, *, recoverable=False, attempt_suffix=''):
         count_payload = {k: v for k, v in payload.items()
                          if k not in ('max_output_tokens', 'store', 'stream', 'background')}
-        count, count_record = self.ledger.operation(stage + '_count',
+        count, count_record = self.ledger.operation(stage + attempt_suffix + '_count',
             lambda: _count_request(self.client, count_payload, INPUT_LIMITS[stage]))
         count_record['input_tokens'] = count
         self.ledger.save()
@@ -281,7 +297,8 @@ class Providers:
             upstream_id = upstream_id if isinstance(upstream_id, str) and len(upstream_id) <= 200 else None
             return raw.http_response.content, usage, upstream_id
 
-        (data, usage, upstream_id), record = self.ledger.operation(stage, completion, reserve=_cost(count, OUTPUT_LIMIT))
+        (data, usage, upstream_id), record = self.ledger.operation(
+            stage + attempt_suffix, completion, reserve=_cost(count, OUTPUT_LIMIT), recoverable=recoverable)
         record.update(input_tokens=usage['input_tokens'], output_tokens=usage['output_tokens'],
                       measured_conservative_cost_usd=str(_cost(count, usage['output_tokens'])))
         if upstream_id is not None:
@@ -289,20 +306,39 @@ class Providers:
         self.ledger.save()
         return data
 
+    def checked_stage(self, stage, payload, check):
+        """Run one generation stage; re-attempt once only after a validation failure."""
+        try:
+            return check(self.complete(stage, payload, recoverable=VALIDATION_RETRIES > 0))
+        except Exception as exc:
+            code = getattr(exc, 'code', None)
+            if (code in HARD_STOP_CODES or code in ABSTENTION_CODES
+                    or self.ledger.state['status'] != 'running' or not VALIDATION_RETRIES):
+                raise
+            with self.ledger.receipt_lock:
+                last = self.ledger.current['operations'][-1] if self.ledger.current else None
+                if last is not None and last['stage'] == stage and 'error_code' not in last:
+                    last['error_code'] = code if isinstance(code, str) and len(code) <= 64 else 'content_validation'
+                self.ledger.save()
+        if code == 'provider_unavailable':
+            time.sleep(RETRY_PAUSE_SECONDS)
+        return check(self.complete(stage, payload, attempt_suffix='_retry'))
+
     def requirements(self, request):
         _require(count_tokens(request['question'], self.encoder) <= EMBEDDING_LIMIT, 'input_limit_exceeded')
         prepared = prepare_question_parts(request)
-        return checked_question_parts_response(self.complete('question_parts', question_parts_request(prepared, PARAMETERS)),
-                                               prepared, PARAMETERS)
+        return self.checked_stage('question_parts', question_parts_request(prepared, PARAMETERS),
+                                  lambda data: checked_question_parts_response(data, prepared, PARAMETERS))
 
     def assess(self, request, candidates, requirements):
         prepared = prepare_selection(request, candidates, requirements)
-        return checked_selection_response(self.complete('support', assessment_request(prepared, PARAMETERS)),
-                                          prepared, PARAMETERS, mode='live')
+        return self.checked_stage('support', assessment_request(prepared, PARAMETERS),
+                                  lambda data: checked_selection_response(data, prepared, PARAMETERS, mode='live'))
 
     def generate(self, prepared, *, partial_policy):
-        return checked_answer_response(self.complete('answer', answer_request(prepared, PARAMETERS)),
-                                       prepared, PARAMETERS, mode='live', partial_policy=partial_policy)
+        return self.checked_stage('answer', answer_request(prepared, PARAMETERS),
+                                  lambda data: checked_answer_response(data, prepared, PARAMETERS, mode='live',
+                                                                       partial_policy=partial_policy))
 
     def embed(self, texts):
         _require(len(texts) == 1, 'validation_failure')
@@ -342,6 +378,12 @@ class BoundedBackend:
                 return result
             except Exception as exc:
                 code = getattr(exc, 'code', 'internal_error')
+                if code in ABSTENTION_CODES and self.ledger.state['status'] == 'running' and self.ledger.current:
+                    # A legitimate abstention is a completed request, not a service failure.
+                    with self.ledger.receipt_lock:
+                        self.ledger.current.update(status='completed_abstained', outcome=code)
+                        self.ledger.save()
+                    raise RagServiceError(code) from None
                 if self.ledger.state['status'] == 'running':
                     self.ledger.halt('request_failed')
                 known = {'timeout', 'rate_limit', 'provider_unavailable', 'budget_exceeded', 'validation_failure',
