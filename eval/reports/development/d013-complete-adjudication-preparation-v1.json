@@ -1,0 +1,39 @@
+{
+  "version": "d013-complete-adjudication-preparation-v1",
+  "date": "2026-11-23",
+  "packet_sha256": "c54d9ac119ee5e8370c8f1b16794e6dad7b022cda8b7d19f99e1ccca10e4858b",
+  "review_html_sha256": "27e9a3c866dd4825ec5b529352873844a6fee8e4da7fbff9f7740939c2e7f3ab",
+  "assignments_accounted_for": 40,
+  "pending_decision_items": 217,
+  "item_categories": {
+    "complete_new_paired_comparison": 2,
+    "earlier_paired_proposal": 152,
+    "question_awaiting_canonical_source": 49,
+    "remaining_source_verified_question": 14
+  },
+  "canonical_sources_verified": 30,
+  "canonical_sources_still_required": [
+    "assignment-020",
+    "assignment-021",
+    "assignment-022",
+    "assignment-023",
+    "assignment-024",
+    "assignment-025",
+    "assignment-026",
+    "assignment-027",
+    "assignment-028",
+    "assignment-029"
+  ],
+  "coverage_ids_accounted_for": 250,
+  "previously_decided_ids_preserved": 33,
+  "all_known_pending_decisions_accounted_for": true,
+  "human_decisions_generated": 0,
+  "original_submissions_modified": false,
+  "provider_calls": 0,
+  "unseen_final_qa_sources_accessed": false,
+  "full_d013_closed": false,
+  "candidate_mentions_exactly_verified": 802,
+  "candidate_evidence_spans_exactly_verified": 1064,
+  "b_primary_mentions_waiting_for_source": 373,
+  "b_primary_evidence_spans_waiting_for_source": 389
+}

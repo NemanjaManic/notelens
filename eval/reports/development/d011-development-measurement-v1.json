@@ -1,0 +1,397 @@
+{
+  "version": "d011-bounded-development-measurement-v1",
+  "acceptance_version": "d-acceptance-adopted-v2",
+  "sample_count": 12,
+  "metrics": {
+    "schema_validity": 0.5,
+    "span_validity": 0.5,
+    "entity_exact_f1": null,
+    "topic_recall_at_5": 1.0,
+    "answer_risk": null
+  },
+  "metric_interpretation": "Schema/span acceptance denominators count validated returned results over all requested results, including technical failures. Retrieval is a separately pinned earlier development sample.",
+  "independent_semantic_answer_risk_unavailable": true,
+  "literal_answer_risk_proxy": {
+    "risk": 0.0,
+    "answered": 5,
+    "incorrect": 0,
+    "technical_errors": 1,
+    "scored_cases": 6,
+    "scope": "Exact frozen synthetic required facts, state and gap tokens; not independent human semantic correctness or clinical risk."
+  },
+  "end_to_end_entity_lower_bound": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 40,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "assertion": {
+      "correct": 0,
+      "matched_evaluated": 0,
+      "excluded_unresolved": 0,
+      "accuracy": null
+    },
+    "temporality": {
+      "correct": 0,
+      "matched_evaluated": 0,
+      "excluded_unresolved": 0,
+      "accuracy": null
+    },
+    "subject": {
+      "correct": 0,
+      "matched_evaluated": 0,
+      "excluded_unresolved": 0,
+      "accuracy": null
+    },
+    "procedure_status": {
+      "correct": 0,
+      "matched_evaluated": 0,
+      "excluded_unresolved": 0,
+      "accuracy": null
+    }
+  },
+  "lower_bound_definition": "All six document references included; unavailable outputs contribute no predicted entities, not excluded cases. Official entity F1 remains unavailable until every expected extraction is valid.",
+  "extraction_cases": [
+    {
+      "id": "assignment-022",
+      "canonical_code_points": 62,
+      "reference_mentions": 1,
+      "status": "technical_error",
+      "scored_end_to_end": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "assertion": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "temporality": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "subject": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "procedure_status": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        }
+      },
+      "failure_cause": "Contract validation failed: STRUCTURE@/summary"
+    },
+    {
+      "id": "assignment-029",
+      "canonical_code_points": 112,
+      "reference_mentions": 2,
+      "status": "technical_error",
+      "scored_end_to_end": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 2,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "assertion": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "temporality": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "subject": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "procedure_status": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        }
+      },
+      "failure_cause": "Mock claim is not a literal document passage."
+    },
+    {
+      "id": "assignment-012",
+      "canonical_code_points": 253,
+      "reference_mentions": 5,
+      "status": "technical_error",
+      "scored_end_to_end": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 5,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "assertion": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "temporality": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "subject": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "procedure_status": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        }
+      },
+      "failure_cause": "(502, 'internal_error', 'Generation returned an invalid Responses envelope.')"
+    },
+    {
+      "id": "assignment-016",
+      "canonical_code_points": 503,
+      "reference_mentions": 1,
+      "status": "returned_valid",
+      "scored_end_to_end": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "assertion": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "temporality": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "subject": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "procedure_status": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        }
+      },
+      "failure_cause": null
+    },
+    {
+      "id": "assignment-017",
+      "canonical_code_points": 1299,
+      "reference_mentions": 19,
+      "status": "technical_error",
+      "scored_end_to_end": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 19,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "assertion": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "temporality": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "subject": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "procedure_status": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        }
+      },
+      "failure_cause": "(502, 'internal_error', 'Generation returned an invalid Responses envelope.')"
+    },
+    {
+      "id": "assignment-008",
+      "canonical_code_points": 1418,
+      "reference_mentions": 12,
+      "status": "technical_error",
+      "scored_end_to_end": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 12,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "assertion": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "temporality": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "subject": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        },
+        "procedure_status": {
+          "correct": 0,
+          "matched_evaluated": 0,
+          "excluded_unresolved": 0,
+          "accuracy": null
+        }
+      },
+      "failure_cause": "(502, 'internal_error', 'Generation returned an invalid Responses envelope.')"
+    }
+  ],
+  "qa_cases": [
+    {
+      "id": "confirmed-01/supported",
+      "expected_state": "sufficient",
+      "status": "returned_valid",
+      "failure_cause": null,
+      "returned_state": "sufficient",
+      "answered": true,
+      "literal_reference_proxy_correct": true,
+      "missing_required_fact_count": 0,
+      "unexpected_fact_count": 0,
+      "undisclosed_gap_count": 0
+    },
+    {
+      "id": "negation-01/supported",
+      "expected_state": "sufficient",
+      "status": "returned_valid",
+      "failure_cause": null,
+      "returned_state": "sufficient",
+      "answered": true,
+      "literal_reference_proxy_correct": true,
+      "missing_required_fact_count": 0,
+      "unexpected_fact_count": 0,
+      "undisclosed_gap_count": 0
+    },
+    {
+      "id": "history-01/absent",
+      "expected_state": "insufficient",
+      "status": "technical_error",
+      "failure_cause": "Contract validation failed: TEXT_CLAIMS@/text"
+    },
+    {
+      "id": "procedure-01/supported",
+      "expected_state": "sufficient",
+      "status": "returned_valid",
+      "failure_cause": null,
+      "returned_state": "sufficient",
+      "answered": true,
+      "literal_reference_proxy_correct": true,
+      "missing_required_fact_count": 0,
+      "unexpected_fact_count": 0,
+      "undisclosed_gap_count": 0
+    },
+    {
+      "id": "complex-01/supported",
+      "expected_state": "sufficient",
+      "status": "returned_valid",
+      "failure_cause": null,
+      "returned_state": "sufficient",
+      "answered": true,
+      "literal_reference_proxy_correct": true,
+      "missing_required_fact_count": 0,
+      "unexpected_fact_count": 0,
+      "undisclosed_gap_count": 0
+    },
+    {
+      "id": "limited-04/supported",
+      "expected_state": "partial",
+      "status": "returned_valid",
+      "failure_cause": null,
+      "returned_state": "partial",
+      "answered": true,
+      "literal_reference_proxy_correct": true,
+      "missing_required_fact_count": 0,
+      "unexpected_fact_count": 0,
+      "undisclosed_gap_count": 0
+    }
+  ],
+  "coverage": {
+    "d013_documents": 6,
+    "d013_total_available": 40,
+    "reference_mentions": 40,
+    "returned_valid_extractions": 1,
+    "synthetic_qa_cases": 6,
+    "returned_valid_answers": 5,
+    "qa_groups": [
+      "complex",
+      "confirmed",
+      "history",
+      "limited",
+      "negation",
+      "procedures"
+    ],
+    "qa_expected_states": {
+      "sufficient": 4,
+      "partial": 1,
+      "insufficient": 1
+    }
+  },
+  "retrieval_baseline": {
+    "source_archive_sha256": "5f96cc4a626a1081d41964097f16948250ba8096f867bc85ffa4d81609d05ff6",
+    "selected_method": "vector",
+    "supported_case_denominator": 22,
+    "queries_total": 27,
+    "topic_recall_at_5": 1.0,
+    "new_retrieval_execution": false,
+    "aggregate_recomputed_from_saved_case_metrics": true
+  },
+  "matched_mock_comparator": {
+    "valid_returned_extractions": 6,
+    "entity_exact_f1": 0.0,
+    "same_six_reference_documents": true
+  },
+  "selection_limit": "Six shortest documents; not representative validation. Two source excerpts have only 62 and 112 code points.",
+  "independent_human_review_of_generated_outputs": false,
+  "final_data_accessed": false
+}

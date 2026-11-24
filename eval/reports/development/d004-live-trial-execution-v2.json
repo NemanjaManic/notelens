@@ -1,0 +1,56 @@
+{
+  "version": "d004-live-trial-execution-v2",
+  "date": "2026-11-23",
+  "status": "stopped_on_first_failure",
+  "service_sha": "30fa30b372489c2a03c1579cf27081f629992bc4",
+  "model": "gpt-6-luna",
+  "input_format": "messages",
+  "max_output_tokens_each": 2048,
+  "approval_sha256": "aa161bbfef94d4aec06946a2051eab92a291e6fb0566364f47ce678128f2b2f9",
+  "proposal_sha256": "a6e7b0569d7e31179d93ef50c511c6be8db4c3c26180eedc7a0025411ebff431",
+  "operations": [
+    {
+      "operation": "extract",
+      "status": "failed_stopped_no_retry",
+      "error_code": "provider_unavailable",
+      "safe_message": "The Responses request was unsuccessful.",
+      "provider_diagnostics": {
+        "http_status": 400,
+        "provider_error_type": "invalid_request_error",
+        "provider_error_param": "input"
+      }
+    }
+  ],
+  "reserved_attempts": 1,
+  "automatic_retries": 0,
+  "stop_on_first_failure": true,
+  "unused_operations": [
+    "answer"
+  ],
+  "actual_usage": {},
+  "response_sha256": {},
+  "new_worst_case_reservation_usd": "0.0022666",
+  "known_cumulative_worst_case_reservation_usd": "0.0079120",
+  "provider_billing_balance_confirmed": false,
+  "old_receipt_preserved": true,
+  "private_execution_archive": "Predaja-NoteLens/D-004/D004-live-trial-2026-11-23-v2",
+  "execution_runner_sha256": "881044edcbc1aeafe0ac9fda861b61d4d00633c7ad9d5f2940443c6a68054751",
+  "d004_closed": false,
+  "d005_closed": false,
+  "final_measurement_executed": false,
+  "approval_terminal": true,
+  "remaining_executable_requests_under_v2_approval": 0,
+  "unused_request_slots_cancelled_by_stop_rule": 1,
+  "failure_step": "First extraction POST /v1/responses, before response-schema or semantic output review.",
+  "offline_followup": {
+    "utf8_json_valid": true,
+    "explicit_user_input_text_shape_valid": true,
+    "canonical_document_hash_matches": true,
+    "exact_approved_payload_hash_matches": true,
+    "approved_source_model_prompt_contract_pins_match": true,
+    "root_cause_proven": false,
+    "diagnostic_limitation": "Raw upstream error message/body was deliberately discarded; status/type/parameter do not prove the reason for rejection.",
+    "next_step_owner": "D agent/service integration",
+    "next_step": "Prepare a narrowly bounded diagnostic collection that can distinguish upstream input-validation causes before claiming or testing another fix. No further calls under this stopped approval."
+  }
+}

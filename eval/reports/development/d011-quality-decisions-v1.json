@@ -1,0 +1,20 @@
+{
+  "version": "d011-quality-decisions-v1",
+  "date": "2026-11-23",
+  "decision_by": "Milica (coordinator), numerical choice explicitly delegated to D assistant",
+  "authority": "Milica approves the proposal subject to D judgement and expressly permits stricter development targets; asks to retain full D-009 scope and await Goran.",
+  "thresholds": {
+    "schema_validity": 1,
+    "span_validity": 1,
+    "entity_exact_f1": 0.9,
+    "topic_recall_at_5": 0.95,
+    "answer_risk": 0.05
+  },
+  "scope": "Development evaluation and final release gates; these numbers are project targets, not clinical validation or externally mandated medical-device thresholds.",
+  "rationale": "Retain perfect structural/evidence validity and stricter point targets for medical-context demonstration; do not weaken gates after seeing results.",
+  "clinical_readiness_claim": false,
+  "representativeness_and_independent_test_evidence_required": true,
+  "guidance_context": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/good-machine-learning-practice-medical-device-development-guiding-principles",
+  "guidance_limitation": "The guidance supports representative and independent evaluation; it does not prescribe these project-specific numerical thresholds.",
+  "measured_failure_policy": "Record failures and reject acceptance; task completion of the measurement process is separate from a release pass."
+}

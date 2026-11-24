@@ -1,0 +1,126 @@
+{
+  "version": "d008-nemanja-prior-exposure-intake-v1",
+  "date": "2026-11-23",
+  "source": "Message and AI-assisted draft disclosure attributed to Nemanja, relayed by Milica.",
+  "submission_form": "Draft proposed for approval; not represented as a newly signed personal attestation.",
+  "status": "excluded_from_independent_assignment_on_reported_prior_exposure",
+  "reviewer": "Nemanja",
+  "case_disclosures": [
+    {
+      "case_id": "D008-C-REPL-01",
+      "doc_id": "942395ac-2533-5e14-89f8-5d83078f798d",
+      "text_sha256": "7ab14f32fc86c6bd27e7374ee52646f9af24f64a32f24ac66ccfb48f14729f22",
+      "response_id": "d008-c-repl-01",
+      "response_sha256": "b6d4cee5c8adf4d4269d347108f4a160a2ab7afbbd22ac04309423027343db54",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2",
+      "reported_prior_exposure_to_exact_answer": true,
+      "independent_slot_eligible": false,
+      "independent_rating_received": false
+    },
+    {
+      "case_id": "D008-C-REPL-02",
+      "doc_id": "34d4b9e6-0a22-55f1-a5f3-508d27272c55",
+      "text_sha256": "70602f423bbc3aed111734067206c4b2c3554b26ffe75f4ac9e878d13b831ac7",
+      "response_id": "d008-c-repl-02",
+      "response_sha256": "c82671527757c08993ebc91870d03de78cc88431ded69f8dfe0f36dd76ca9343",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2",
+      "reported_prior_exposure_to_exact_answer": true,
+      "independent_slot_eligible": false,
+      "independent_rating_received": false
+    },
+    {
+      "case_id": "D008-C-REPL-03",
+      "doc_id": "69418dac-162a-5986-be22-a27fe6254104",
+      "text_sha256": "4847b53b7fef6e7d8bc2444851be0972bacd0491b500b38ee628abe278231853",
+      "response_id": "d008-c-repl-03",
+      "response_sha256": "46e6bf18b3bcd0f09f16bb309c6ac948984d46955166f554301b62969e75e0f4",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2",
+      "reported_prior_exposure_to_exact_answer": true,
+      "independent_slot_eligible": false,
+      "independent_rating_received": false
+    },
+    {
+      "case_id": "D008-C-REPL-04",
+      "doc_id": "ea72293f-5648-5487-adf1-62981f7513dc",
+      "text_sha256": "acb3eb29635fa9252ec75866a344cc20cf573a80f174763a26986441078a0203",
+      "response_id": "d008-c-repl-04",
+      "response_sha256": "b7fde99766bce72940935f69d0f1d10ee1dd0e15a04227eef847ff967953202e",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2",
+      "reported_prior_exposure_to_exact_answer": true,
+      "independent_slot_eligible": false,
+      "independent_rating_received": false
+    },
+    {
+      "case_id": "D008-C-REPL-05",
+      "doc_id": "15ea9e8d-f804-50b3-b51d-5ad187873608",
+      "text_sha256": "9dfd92d1b9365f8482ce4ad717b7933adaf462f2f28237085377fe8a14171377",
+      "response_id": "d008-c-repl-05",
+      "response_sha256": "88a0facd70fdbaa8bd361442c46521ab5d426a012cebd7c5951ad6b308cd67c4",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2",
+      "reported_prior_exposure_to_exact_answer": true,
+      "independent_slot_eligible": false,
+      "independent_rating_received": false
+    },
+    {
+      "case_id": "D008-C-REPL-06",
+      "doc_id": "3334da5e-f8a9-59fa-9383-89fdfa54243a",
+      "text_sha256": "0a0327421fed19db0ffec798408015fe85e6837c1b2f69c7988c0b65b925d9d4",
+      "response_id": "d008-c-repl-06",
+      "response_sha256": "9d404a0e650e2bbc2152164b1850cc0d5112bf450a155f5ef49b965cad8dc2d5",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2",
+      "reported_prior_exposure_to_exact_answer": true,
+      "independent_slot_eligible": false,
+      "independent_rating_received": false
+    },
+    {
+      "case_id": "D008-C-REPL-07",
+      "doc_id": "c9d7e062-2d59-5dff-ab52-5a9e3bd7a95d",
+      "text_sha256": "8514b4ded57ab2edc69b50f32d0117bafaa180f995379bebc3caf2843a4bf5a9",
+      "response_id": "d008-c-repl-07",
+      "response_sha256": "52eaea4e8bdf1bd2c73ab87047487eae436526b82af420d0a7fa7a82905f545b",
+      "rubric_version": "d-answer-review-rubric-v1",
+      "review_form_version": "d-answer-review-form-v2",
+      "reported_prior_exposure_to_exact_answer": true,
+      "independent_slot_eligible": false,
+      "independent_rating_received": false
+    }
+  ],
+  "affected_cases": 7,
+  "disclosed_preparation_involvement": [
+    "AI-assisted RAG corpus preparation",
+    "literature questions",
+    "development outputs"
+  ],
+  "case_level_preparation_mapping": "unresolved; prior exposure already blocks all seven proposed independent slots regardless of this mapping",
+  "ai_assistance": "Used to draft this disclosure; no new ratings included or shared.",
+  "independent_review_return_date": null,
+  "packet_version_note": "Nemanja reports only an earlier v1 packet locally. The prepared packet/form-v2 exists in Milica's private route, but obtaining it does not erase prior exposure.",
+  "supplementary_feedback": {
+    "offered": true,
+    "approved": false,
+    "received": false,
+    "status": "Optional non-independent AI-assisted feedback only; no new work requested or counted."
+  },
+  "reviewer_plan": {
+    "nemanja_independent_slots_removed": 7,
+    "goran_eligibility": "still pending individual confirmation",
+    "confirmed_eligible_reviewers": [],
+    "ratings_needed_per_case": 2,
+    "minimum_new_reviewer_candidates_if_goran_eligible": 1,
+    "minimum_new_reviewer_candidates_if_goran_ineligible": 2,
+    "next_action": "Obtain Goran's per-case eligibility reply and identify an additional reviewer with approved private access who has not seen or prepared these exact outputs. If two eligible reviewers cannot be arranged, record the agreement limitation rather than manufacture independence.",
+    "blank_packets_preserved": true,
+    "ratings_and_reference_labels_remain_withheld": true
+  },
+  "independent_review_credit_added": 0,
+  "agreement_pairs_added": 0,
+  "external_messages_sent": false,
+  "full_d008_closed": false,
+  "d013_freeze_affected": false
+}

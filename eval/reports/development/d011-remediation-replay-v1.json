@@ -1,0 +1,89 @@
+{
+  "version": "d011-remediation-replay-v1",
+  "date": "2026-11-23",
+  "service_sha": "f50df177fe5dae3926e0e98eb8d11fb4ee664412",
+  "baseline_service_sha": "c7d0797a86061c643b0f23e6d56f8caa9e7a6813",
+  "profile": "offline replay of saved real development outputs after adapter changes; not fresh generation or independent validation",
+  "changes": [
+    "Select one explicitly final assistant message instead of concatenating commentary.",
+    "Allow repeated mention coordinates to resolve only inside unambiguously selected exact canonical evidence; retain ambiguity rejection."
+  ],
+  "official_api_reference": "https://developers.openai.com/api/reference/resources/responses/methods/create",
+  "results": [
+    {
+      "id": "assignment-022",
+      "operation": "extract",
+      "status": "rejected",
+      "cause": "Contract validation failed: STRUCTURE@/summary"
+    },
+    {
+      "id": "assignment-029",
+      "operation": "extract",
+      "status": "rejected",
+      "cause": "Mock claim is not a literal document passage."
+    },
+    {
+      "id": "assignment-012",
+      "operation": "extract",
+      "status": "rejected",
+      "cause": "(502, 'internal_error', 'Generation returned an invalid Responses envelope.')"
+    },
+    {
+      "id": "assignment-016",
+      "operation": "extract",
+      "status": "returned_valid"
+    },
+    {
+      "id": "assignment-017",
+      "operation": "extract",
+      "status": "returned_valid"
+    },
+    {
+      "id": "assignment-008",
+      "operation": "extract",
+      "status": "rejected",
+      "cause": "Contract validation failed: TEXT_CLAIMS@/summary/result/text"
+    },
+    {
+      "id": "confirmed-01/supported",
+      "operation": "answer",
+      "status": "returned_valid"
+    },
+    {
+      "id": "negation-01/supported",
+      "operation": "answer",
+      "status": "returned_valid"
+    },
+    {
+      "id": "history-01/absent",
+      "operation": "answer",
+      "status": "rejected",
+      "cause": "Contract validation failed: TEXT_CLAIMS@/text"
+    },
+    {
+      "id": "procedure-01/supported",
+      "operation": "answer",
+      "status": "returned_valid"
+    },
+    {
+      "id": "complex-01/supported",
+      "operation": "answer",
+      "status": "returned_valid"
+    },
+    {
+      "id": "limited-04/supported",
+      "operation": "answer",
+      "status": "returned_valid"
+    }
+  ],
+  "valid_extractions": 2,
+  "extraction_denominator": 6,
+  "valid_answers": 5,
+  "answer_denominator": 6,
+  "service_tests_passed": 114,
+  "new_provider_calls": 0,
+  "acceptance_still_failed": true,
+  "baseline_measurement_preserved": true,
+  "remaining_failures": "SummaryOutcome schema, literal-summary/text-claims and other structured-output failures remain; exact mention boundaries/coverage still require quality work.",
+  "clinical_validation_claim": false
+}

@@ -1,0 +1,38 @@
+{
+  "version": "d008-replacement-development-source-exclusions-v1",
+  "date": "2026-11-22",
+  "scope": "Additive development exclusions for final QA source checks. Does not amend the frozen 54-case manifest.",
+  "source_family": "d008-member-c-replacements-development-v1",
+  "partition": "development_only",
+  "reason": "D-authored synthetic calibration family exposed through D-008 review. Exclude documents and reworded family variants from unseen final.",
+  "documents": [
+    {
+      "doc_id": "942395ac-2533-5e14-89f8-5d83078f798d",
+      "canonical_text_sha256": "7ab14f32fc86c6bd27e7374ee52646f9af24f64a32f24ac66ccfb48f14729f22"
+    },
+    {
+      "doc_id": "34d4b9e6-0a22-55f1-a5f3-508d27272c55",
+      "canonical_text_sha256": "70602f423bbc3aed111734067206c4b2c3554b26ffe75f4ac9e878d13b831ac7"
+    },
+    {
+      "doc_id": "69418dac-162a-5986-be22-a27fe6254104",
+      "canonical_text_sha256": "4847b53b7fef6e7d8bc2444851be0972bacd0491b500b38ee628abe278231853"
+    },
+    {
+      "doc_id": "ea72293f-5648-5487-adf1-62981f7513dc",
+      "canonical_text_sha256": "acb3eb29635fa9252ec75866a344cc20cf573a80f174763a26986441078a0203"
+    },
+    {
+      "doc_id": "15ea9e8d-f804-50b3-b51d-5ad187873608",
+      "canonical_text_sha256": "9dfd92d1b9365f8482ce4ad717b7933adaf462f2f28237085377fe8a14171377"
+    },
+    {
+      "doc_id": "3334da5e-f8a9-59fa-9383-89fdfa54243a",
+      "canonical_text_sha256": "0a0327421fed19db0ffec798408015fe85e6837c1b2f69c7988c0b65b925d9d4"
+    },
+    {
+      "doc_id": "c9d7e062-2d59-5dff-ab52-5a9e3bd7a95d",
+      "canonical_text_sha256": "8514b4ded57ab2edc69b50f32d0117bafaa180f995379bebc3caf2843a4bf5a9"
+    }
+  ]
+}

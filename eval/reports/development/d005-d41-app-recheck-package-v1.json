@@ -1,0 +1,178 @@
+{
+  "version": "d005-d41-saved-app-recheck-v1",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "model": "gpt-6-luna",
+  "input_format": "messages",
+  "output_format": "quote_hints",
+  "prompt_profile": "coverage_v2",
+  "reasoning_effort": "low",
+  "purpose": "Key-free app recheck preparation; not new independent semantic approval or final output scoring.",
+  "new_provider_calls": 0,
+  "gold_labels_or_final_cases_included": false,
+  "items": [
+    {
+      "directory": "case-01",
+      "operation": "extract",
+      "source_sha256": "275ccf6a86fb112b9a60b9c62716dca7bbf3a796cb189670501a09451ed9dead",
+      "raw_response_sha256": "f6409905b659ebd4b85a81cdac8f77926cd4922c78a52c9a5577c2a636a66344",
+      "validated_sha256": "0814adfa187fea6b05e3c46b2c432b286a1dee6d84811c9351263e5388ed6571",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-02",
+      "operation": "extract",
+      "source_sha256": "899690ed54504643dd0256a63c156c464faaaf22500d7a669f5eb6dbaa698a9e",
+      "raw_response_sha256": "561e9313fab0a61d39936134d6ffe6ef02248280dda409dad5c5a8a9f0753755",
+      "validated_sha256": "e987c02358fb5fb3618bff6eeeed54ee0e3ad3f2698787d405208bcf7c6e7ff4",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-03",
+      "operation": "extract",
+      "source_sha256": "d9c0213f4e53decafcbfcf855299864b73c9c8959d9a01f40a035edbeb88e131",
+      "raw_response_sha256": "375803717b8c0567eb96436809501a908d4e70f23d0f6b765eef3f2f03186844",
+      "validated_sha256": "4a9fcd65bba5eb4bd51ea17fab1dbe2ebed49f1c2f096293e878822a7988b3f5",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-04",
+      "operation": "extract",
+      "source_sha256": "0410c223b7ad1abb00645e89ea139749f9818a8fe24502f1140faff0b47cd3ac",
+      "raw_response_sha256": "067fad8aa164281f6350976a6257ebbc8cec50f1c61c2c9ba0257114b2a9f919",
+      "validated_sha256": "5bc8b979e3dfd7ebc6a809b747a94c15e5a5b0d849b43530ea35327464a07c8d",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-06",
+      "operation": "extract",
+      "source_sha256": "e65e58538aa557c9e4bcafab3b52f24409c9da4076c441d0c2ea6422adcc5bb9",
+      "raw_response_sha256": "c103b5e4cbfc70f32b2bc264eaba63c52a6c752226a845b302951a05c8f065cc",
+      "validated_sha256": "54f4783059847c8cbba711e124c4f039dc2b1e84959d8f374078e77fe993249b",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-07",
+      "operation": "extract",
+      "source_sha256": "92ab1e39c03d63f4a4c5f8d5e64d9b0d0590935ee3908e2930d7f601a196640f",
+      "raw_response_sha256": "17b54ed35bdc49e7acfb6338590d57f4a362824b138610f8486599b3b05314ed",
+      "validated_sha256": "43b14f81fc8c02760b798de34a4ed1f7ffc0b1cc745ac4f4090e715ceff5130e",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-10",
+      "operation": "extract",
+      "source_sha256": "f480481645d629333a5a8c0953cf9a1ac0b8217a53ae3fad5d1bf55568d54b50",
+      "raw_response_sha256": "cfbd36a054a18332e0ee4c8cca5c12761eb9964230b1770e96ec60b107c3bd31",
+      "validated_sha256": "c3e16a9d7b4a81638218f72e345933b9d1354a3b2bf5b7d899127bde7855f160",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-11",
+      "operation": "extract",
+      "source_sha256": "99dec7112440c64c24e6289dc46937f490e1f697987751a37d1af086f097adad",
+      "raw_response_sha256": "16504b08ecdc2b7391e363564124a0d8c5efb4a9ccd04e6dc37c1928c2eb953f",
+      "validated_sha256": "bd1f57d2bc485dd85a6ac60dd5146effe24b443bf379d1fec6076d89a5cf6ae6",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-14",
+      "operation": "extract",
+      "source_sha256": "ca7611a81c18fae24c30745ce9b528f080febbc3864ac48886b4ac39d55e4b06",
+      "raw_response_sha256": "01ffc3d6beaeb7858f92e672920a9a74a3c783dd3f3edefaf4ab9f82ad942c7b",
+      "validated_sha256": "f9065b4d3b5966d1765277d37d49b671a5b95d06b93afa72a38b09cf1bbd0c8c",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-15",
+      "operation": "extract",
+      "source_sha256": "92666e3e4694649a7b4bb77ea86c35fd2e5d915574b2dc56c9e0246430763041",
+      "raw_response_sha256": "7e244adfa174bbc4a21a38051d09bfe85f757bb16a318f510749cc59e3d72863",
+      "validated_sha256": "651edfb4dc8ec555c3d449357a11291c9d2ff5738565cf0fe76eef4dfc331f0e",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-17",
+      "operation": "answer",
+      "source_sha256": "7df452a89aefd394084359510375dbc80ae5426d066657f859ee309dd068f3dd",
+      "raw_response_sha256": "c81d47c373064bb033aa4f59f8025db61d7593a766b08f7686b80d097df4dfd0",
+      "validated_sha256": "1855e4ff1a934a8a4faf3964c0695b844943e7419cbc54687359f242b1617491",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-18",
+      "operation": "answer",
+      "source_sha256": "0b2eabc5bf2ab8cb78984644218441b84220f6859ce2a98a3d2d90a7f53cb6c8",
+      "raw_response_sha256": "e8ba8971bdd5c80e4eb133e501c259f375f0cebc60fcaf09e50079dc37efa7e7",
+      "validated_sha256": "d38db6b09d411cef2e6a6533594b3f1476e1375475af47fbdbb6aa85f578cbb3",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-19",
+      "operation": "answer",
+      "source_sha256": "c01d8a830c4aa40bd343fd266f0646790d2b7ec8c904babe6b936255b1470df6",
+      "raw_response_sha256": "582e365e27348b506105ecd56811dbe5539e36390956d906cf3246ea4fffda16",
+      "validated_sha256": "c63ba0cd8bd7040871e9b44643b0d605ea569a7bd59624be444f74b84e6d4942",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-20",
+      "operation": "answer",
+      "source_sha256": "42bf8223431e8b5c9352f85750d130750c6b564aff0b2ee07473c82c0929def7",
+      "raw_response_sha256": "52635a0578a03b066d73bb201ac1752f1e4b53adae21fd398f1146860d6d776a",
+      "validated_sha256": "f1ce9583e26f910f48f0e5ea4a829a4d9c75abc71b35bf0e49890dcb87cf990b",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-21",
+      "operation": "answer",
+      "source_sha256": "8c210b507bbe6399ed1c9e405e93ca2af6313ac4619d9401d23a7179424b0f3e",
+      "raw_response_sha256": "a40a710b890cf514f51e038e35f400d055bc7c15a75cc8f6de53a3994f9855c3",
+      "validated_sha256": "a94eba55dea581f699d31138be62a4b51c247a58d46ae2ea4def12d3ac898484",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    },
+    {
+      "directory": "case-22",
+      "operation": "answer",
+      "source_sha256": "0b2eabc5bf2ab8cb78984644218441b84220f6859ce2a98a3d2d90a7f53cb6c8",
+      "raw_response_sha256": "1fb947c77efda6c9fbae0032c14624ec67c7e2c0c339d3efba8085b60115e1fa",
+      "validated_sha256": "4ef56099ffe7722a192a4cf343933da4eae6dc13307e46a3058070be2cf5241d",
+      "status": "saved_validated_development_output_for_technical_inspection",
+      "profile": "coverage_v2",
+      "reasoning_effort": "low"
+    }
+  ],
+  "private_package": "Predaja-NoteLens/D-005/D005-d41-saved-app-recheck-v1.zip",
+  "package_sha256": "d842a30b0e3b446c24c18421c9cd39ccea35deef7b49431f3cc6edadecdf960a",
+  "sent_to_Goran": false,
+  "v5_package_hash_reverified": true
+}

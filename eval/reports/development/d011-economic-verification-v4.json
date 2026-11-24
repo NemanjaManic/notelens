@@ -1,0 +1,37 @@
+{
+  "version": "d011-economic-verification-v4",
+  "date": "2026-11-23",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "service_pytest": {
+    "passed": 137,
+    "failed": 0,
+    "warnings": 1,
+    "warning": "Existing Starlette/httpx deprecation."
+  },
+  "eval_pytest": {
+    "passed": 152,
+    "failed": 0
+  },
+  "mock_readiness": {
+    "contracts": "pass",
+    "transport": "pass",
+    "cross_service": "not_run",
+    "mode": "mock"
+  },
+  "all_22_prepared_request_hashes_reproduced_without_network": true,
+  "all_saved_response_and_validated_output_pins_verified": true,
+  "runtime_sources_match_committed_service_normalized_newlines": true,
+  "pre_measurement_acceptance_hash_unchanged": true,
+  "original_D004_receipt_hash_unchanged": true,
+  "independent_semantic_score_from_blank_forms": null,
+  "independent_review_pending_cases": 6,
+  "medium_reasoning_experiment_executed": false,
+  "final_runtime_or_gold_content_opened": false,
+  "unapproved_final_candidate_rejected_before_final_artifact_access": true,
+  "final_provider_calls": 0,
+  "joint_final_scoring_executed": false,
+  "d011_closed": false,
+  "d009_closed": false,
+  "logical_commits_pending": true,
+  "approval_bypass_attempted": false
+}

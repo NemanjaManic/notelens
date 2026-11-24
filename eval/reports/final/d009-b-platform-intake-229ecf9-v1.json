@@ -1,0 +1,38 @@
+{
+  "version": "d009-b-platform-intake-229ecf9-v1",
+  "date": "2026-11-24",
+  "received_file_sha256": "69c42d600f8f731cc9559fbc3549697b1e4db15479237e74fe1df12651d2d318",
+  "app_sha": "229ecf9ba7b0a297bd8198564eef8c4d710f74b6",
+  "reviewed_PR32_sha": "7743fc87aafa94f42b6fd81e34a48612352da1f1",
+  "source_tree_equality_verified": true,
+  "tree_sha": "99b9c057f705ddc2477334450fe0f7225d82734f",
+  "D_service_and_prompt_pins_verified": true,
+  "final_candidate_and_replacement_receipt_pins_match": true,
+  "B009_profile": "Goran-reported default key-free Windows Chrome mocks",
+  "B009_reported_pass": true,
+  "B009_browser_assertions": 73,
+  "B009_flows": [
+    "built-in",
+    "pasted-text",
+    "text-pdf"
+  ],
+  "B009_browser_checks_independently_rerun_by_D": false,
+  "B007_local_key_free_readiness_reported_pass": true,
+  "production_deployment_accepted": false,
+  "classifier_manifest_in_new_handoff": "affe7af9e2d0f8df46d25642fd2e0cbf0ff3e45f2a8576b9c87cc2cc257d7f32",
+  "classifier_pin_requires_reconciliation_with_joint_candidate": true,
+  "whole_web_provider_profile_ready": false,
+  "verified_code_constraints": [
+    "Literature answers remain admitted as mock by the current consumer profile.",
+    "demoWorkspace invokes extraction on each render; no proven per-source deduplication supplied."
+  ],
+  "prior_32_D_call_bound_proven_for_web": false,
+  "operator_authorization_and_live_readiness_confirmed": false,
+  "final_execution_authorized": false,
+  "new_provider_calls": 0,
+  "final_cases_executed": 0,
+  "d009_closed": false,
+  "next_required_from_B": "Separately reviewed real-provider whole-web profile and offline counted dry run proving mode admission, bounded calls/deduplication and stop rules.",
+  "next_required_from_A": "Exact RAG/embedding runtime inventory, token bounds, rates and cost limits.",
+  "already_received": "26-case runtime/scoring archives and three exact replacement approvals; do not request duplicate source delivery."
+}

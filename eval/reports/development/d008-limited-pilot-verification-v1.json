@@ -1,0 +1,16 @@
+{
+  "version": "d008-limited-pilot-verification-v1",
+  "date": "2026-11-23",
+  "final_archive_checksum_entries_verified": 30,
+  "original_first_round_score_hashes_unchanged": true,
+  "initial_dimension_agreement_preserved": "43/49 (87.76%)",
+  "accepted_calibration_decisions": 6,
+  "adjudicated_profiles_not_counted_as_independent_reviews": true,
+  "team_acceptance_source": "Milica explicit report",
+  "original_volume_shortfalls_disclosed": true,
+  "quality_thresholds_unchanged": true,
+  "d013_reference_freeze_unchanged": true,
+  "d008_closed_in_approved_reduced_scope": true,
+  "remaining_open_d_parent_tasks": 5,
+  "errors": 0
+}

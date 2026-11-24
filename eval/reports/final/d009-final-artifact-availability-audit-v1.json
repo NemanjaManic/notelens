@@ -1,0 +1,24 @@
+{
+  "version": "d009-final-artifact-availability-audit-v1",
+  "date": "2026-11-23",
+  "requested_action": "Independently complete final replacements, freeze and scoring.",
+  "checked_locations": [
+    "Downloads final/replacement/execution metadata filenames",
+    "Predaja-NoteLens/D-007 restricted metadata and authoring readiness",
+    "Predaja-NoteLens/D-009 evidence artifacts"
+  ],
+  "restricted_readiness_sha256": "9a246c8e57450636c90736ef9121da8bf5a7db11f33198d226b4a0e71d50b02b",
+  "existing_case_identity_count": 26,
+  "available_material": "Identity inventory and review receipts, source-planning materials, development outputs and replay evidence.",
+  "missing_executable_material": [
+    "Exact final runtime questions/cases and separate references for current or replacement final set",
+    "Three replacement case files and updated approved manifest",
+    "Actual final saved outputs and complete executable freeze"
+  ],
+  "final_scoring_executed": false,
+  "new_provider_calls": 0,
+  "development_results_relabelled_as_final": false,
+  "new_final_gold_labels_fabricated": false,
+  "decision": "Full requested final execution/scoring cannot be performed from metadata-only intake. Existing D implementation and evidence work remain complete; D009 final measurement remains unexecuted.",
+  "minimum_external_handoff": "Sara/Goran provide the restricted executable final packet, updated exact manifest and separate references, plus accepted joint app pin and complete approved execution scope. No additional tuning or new generic checklists needed."
+}

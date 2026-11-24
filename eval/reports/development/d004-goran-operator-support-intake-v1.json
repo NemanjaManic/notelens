@@ -1,0 +1,40 @@
+{
+  "version": "d004-goran-operator-support-intake-v1",
+  "date": "2026-11-23",
+  "source": "Goran response relayed by Milica.",
+  "status": "proposed_operator_supported_administrator_authorization_and_setup_pending",
+  "proposed_operator": "Milica",
+  "agent_role": "Assist execution and verification",
+  "goran_supports_proposed_operator": true,
+  "administrator_authorization_confirmed": false,
+  "account_or_server_administrator_identified": false,
+  "approved_server_environment": null,
+  "server_setup_ready": false,
+  "trial_process_model_access": "unconfirmed",
+  "planned_model": "gpt-6-luna",
+  "budget_availability": "already confirmed by tutor; do not request the same confirmation again",
+  "existing_limits": {
+    "max_prepared_synthetic_requests": 2,
+    "retries": 0,
+    "cumulative_cap_usd": "0.10"
+  },
+  "existing_receipt": {
+    "path": "services/extraction/.trial-receipt-2026-11-20",
+    "expected_sha256": "16e688456c8e2f20405d8417ff5ac7cec1d142573f5692636c31b5ff464df0e4",
+    "preserve_unchanged": true
+  },
+  "prior_execution_and_spend_reconciliation": "required before a fresh attempt; current message does not establish consumed attempts/spend",
+  "live_execution": "paused_until_administrator_authorization_setup_model_access_and_trial_accounting_confirmed",
+  "handoff_after_d_review": [
+    "reviewed D-005 service SHA",
+    "locked Windows startup steps",
+    "model and prompt pins",
+    "receipt reference",
+    "review findings"
+  ],
+  "goran_app_recheck": "will prioritize after the reviewed handoff",
+  "credentials_in_chat_or_report": false,
+  "new_provider_calls": 0,
+  "full_d004_closed": false,
+  "full_d005_closed": false
+}

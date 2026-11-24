@@ -1,0 +1,164 @@
+{
+  "version": "d007-goran-cross-review-intake-v1",
+  "date": "2026-11-23",
+  "source_filename": "d007-goran-cross-review-receipts-v1.json",
+  "source_sha256": "3e6dc9da88a0ff3eff62f46fe04342adc772011b8a8a825509cf412dbfb14796",
+  "sender_reported_checksum_verified": true,
+  "status": "thirteen_version_specific_review_receipts_structurally_verified_final_reconciliation_pending",
+  "reviewer": "Goran",
+  "case_count": 13,
+  "approved_count": 13,
+  "unresolved_issues_reported": 0,
+  "receipts": [
+    {
+      "case_id": "F-DOC-01",
+      "case_version": "v1",
+      "case_file_sha256": "69f489bfbe634d58daaf50117a3ac98832ab825386564fe1d5e4eb76d0ffc68a",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-DOC-02",
+      "case_version": "v1",
+      "case_file_sha256": "b941fb1cb5452922ed2754fd264e34684d262479ae6eaeebddabdc4f357c61aa",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-DOC-03",
+      "case_version": "v1",
+      "case_file_sha256": "e2488c09eadb230987120cd464f0520d06abfaae6ee58c914064fb603719d7e4",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-DOC-04",
+      "case_version": "v1",
+      "case_file_sha256": "95a729d80189a9ba273b266d724a77b6a4d4508c5fbbd01e7c5ce6248e919dbb",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-DOC-05",
+      "case_version": "v1",
+      "case_file_sha256": "872233cdf1496579045f7cbc108f9171b6a17cfaab89249598fbe02a1e05b656",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-DOC-06",
+      "case_version": "v2",
+      "case_file_sha256": "f7f3a8d604298bc96024d7c4d59a63b0bdfb90764ddaa2a13c79d060b1ae66a4",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-DOC-07",
+      "case_version": "v1",
+      "case_file_sha256": "0bb4b8ce1033ce8a84494d3f4d688f4c51c9a31de872a4eb27d4fbcd901ab52f",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-DOC-08",
+      "case_version": "v1",
+      "case_file_sha256": "0db1906daa166b4716217e36eae44c1d8340f2c1c39a1564b1bd516233146a30",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-MIX-01",
+      "case_version": "v1",
+      "case_file_sha256": "8b1874b79a5de04805c4f08530f9f5bc66db5af4d8250081cc731d5cba9130f0",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-MIX-02",
+      "case_version": "v1",
+      "case_file_sha256": "cb2de7a25accd1b1b6b34db7ecc279c1a18db4be0c3276e13a37696c943e2a42",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-MIX-03",
+      "case_version": "v1",
+      "case_file_sha256": "c48be35406610d970d24a7907377796b8a487afbc631e36ce0947b448dc3d997",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-MIX-04",
+      "case_version": "v1",
+      "case_file_sha256": "c08f1593e779eed5b3f3c6a4e4e968358b6b0617394513038f594a9f0cf6c6cc",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    },
+    {
+      "case_id": "F-OOS-01",
+      "case_version": "v1",
+      "case_file_sha256": "59b8bda303bd1ce6f635c16eaba7aeb380f96148656e8b10449aa1ae1b641b7c",
+      "reviewer": "Goran",
+      "review_date": "2026-11-23",
+      "review_status": "complete",
+      "disposition": "approved"
+    }
+  ],
+  "disclosures": "Goran reports no prior draft exposure or preparation involvement; AI assisted verification and drafted reviewer notes. Human review is explicitly confirmed. These are reviewer attestations, not independently observed history.",
+  "f_doc_06_v2": "Receipt and personal revision confirmation hashes match. Span correctness and resolution are reviewer-reported; D did not open underlying case/source.",
+  "referenced_metadata_not_supplied": {
+    "filename": "d007-final-qa-metadata-status-v4.json",
+    "sha256": "4858c31730d4232c4d432e484480712b5d87b39cb4815d0481d0df1f76b22def"
+  },
+  "referenced_case_inventory_not_supplied": {
+    "filename": "d007-sara-case-review-inventory-v1.json",
+    "sha256": "c6eb9494640de27ac0b7cc6084185cd7c04b8e6760ff37e855908f3c44326e4f"
+  },
+  "author_release_limitation": "Top-level release describes all v1 files; final F-DOC-06 is v2. Obtain Sara author approval for the exact final v2 hash.",
+  "sara_reviews_of_goran_cases_received": 0,
+  "case_bytes_rehashed_by_D": false,
+  "receipt_hashes_matched_to_final_26_case_inventory": false,
+  "private_archive": "Predaja-NoteLens/D-007/D007-v3-and-goran-review-intake-v1",
+  "intake_exposure_note": "Initial receipt preview rendered technical observations for F-DOC-01, F-DOC-02 and F-DOC-03 to D assistant before freeze. No full case/source/answer files opened. Record this limited exposure for freeze-owner assessment; do not infer universal absence of exposure.",
+  "freeze_blockers": [
+    {
+      "owner": "Sara",
+      "needed": "Thirteen version-specific reviews of Goran-authored cases and final author-release confirmation including F-DOC-06 v2."
+    },
+    {
+      "owner": "Sara/Goran",
+      "needed": "Updated 26-case inventory with exact case versions/file hashes and corresponding review receipt identities; include referenced v4 metadata or a reconciled successor."
+    },
+    {
+      "owner": "Sara/Goran and D freeze approvers",
+      "needed": "Reconcile any outstanding author-release, exposure and handoff status before reference freeze."
+    }
+  ],
+  "d007_closed": false,
+  "final_freeze_recorded": false,
+  "external_messages_sent": false
+}

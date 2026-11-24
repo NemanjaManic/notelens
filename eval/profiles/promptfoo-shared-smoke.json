@@ -1,0 +1,18 @@
+{
+  "description": "Key-free shared contract smoke against three loopback mock services",
+  "prompts": ["Check the synthetic five-route service flow."],
+  "providers": [{"id": "file://../providers/cross_service_api.py", "label": "local-shared-service-mocks"}],
+  "tests": [
+    {
+      "description": "Classifier, extraction and RAG routes satisfy their mock contracts",
+      "assert": [
+        {"type": "is-json"},
+        {"type": "contains", "value": "\"/v1/classify\": \"supported\""},
+        {"type": "contains", "value": "\"/v1/extract\": \"completed\""},
+        {"type": "contains", "value": "\"/v1/document-answer\": \"partial\""},
+        {"type": "contains", "value": "\"/v1/retrieve\": \"sufficient\""},
+        {"type": "contains", "value": "\"/v1/literature-answer\": \"sufficient\""}
+      ]
+    }
+  ]
+}

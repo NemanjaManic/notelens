@@ -1,0 +1,65 @@
+{
+  "version": "d004-local-key-free-preparation-v1",
+  "date": "2026-11-23",
+  "source": "Milica explicitly directs continuing without obtaining unavailable administrator details.",
+  "interpretation": "Proceed with reversible local setup, offline verification and preparation. This does not establish account-level access, supply a credential or reveal prior trial spending.",
+  "external_administrator_message_required_for_local_preparation": false,
+  "local_execution_route": {
+    "platform": "Windows",
+    "service": "D extraction service",
+    "host": "127.0.0.1",
+    "port": 8003,
+    "operator_context": "Milica with agent assistance, as locally directed by Milica and supported as a proposal by Goran.",
+    "account_level_authorization_claimed": false
+  },
+  "tested_app_source_sha": "58a9e8341c0d642ea11e837e713528220d459ad9",
+  "key_free_verification": {
+    "command": "services/extraction/.venv/Scripts/python.exe -B -m pytest services/extraction/tests -q -p no:cacheprovider",
+    "tests_passed": 99,
+    "exit_code": 0,
+    "warning": "Existing Starlette/httpx TestClient deprecation warning.",
+    "scope": "Offline provider doubles, contract/evidence tests and local mock HTTP; no live provider inference."
+  },
+  "exact_prepared_requests": {
+    "extract": {
+      "request_sha256": "e4b7678ef21ea8d4647e9950736a2808743ed2e5892d94b588a687c3a4df6f75",
+      "prepared_json_utf8_bytes": 11342,
+      "matches_original_approval": true
+    },
+    "answer": {
+      "request_sha256": "9d15e922752db3374643334de3e8f0b80b687b93fda37a316f6e7de1e0151136",
+      "prepared_json_utf8_bytes": 9717,
+      "matches_original_approval": true
+    }
+  },
+  "private_preparation_route": "Predaja-NoteLens/D-004/D004-local-key-free-preparation-v1",
+  "api_key_presence": {
+    "process": false,
+    "user": false,
+    "machine": false,
+    "user_machine_presence_source": "Separate PowerShell environment-presence check in this turn; no values displayed."
+  },
+  "project_env_file_inspection": "No configured project .env file found in the selected repository root or extraction service; only .env.example.",
+  "approved_ready_live_policy_found": false,
+  "model_access": "Not verified; no credential available to the process.",
+  "prior_trial_spend_and_attempt_count": "Unknown. Existing receipt is a single-use marker, not a token-usage or billing ledger.",
+  "existing_receipt_sha256": "16e688456c8e2f20405d8417ff5ac7cec1d142573f5692636c31b5ff464df0e4",
+  "existing_receipt_preserved": true,
+  "pending_policy_activated": false,
+  "new_execution_receipt_claimed": false,
+  "new_provider_calls": 0,
+  "limits": {
+    "prepared_requests": 2,
+    "retries": 0,
+    "cumulative_cap_usd": "0.10"
+  },
+  "historical_pricing_note": "Prepared requests are checked against the existing approval artifact; this is not fresh verification of current provider prices or billing.",
+  "next_live_execution_requirements": [
+    "A valid API credential and usable model access configured server-side, not sent in chat.",
+    "Evidence or a recorded accounting decision reconciling the original trial attempts/costs under the unchanged cumulative cap. Do not invent remaining balance or reset the cap."
+  ],
+  "current_status": "local_key_free_checks_passed_live_execution_unavailable_without_credential_and_trial_accounting",
+  "full_d004_closed": false,
+  "full_d005_closed": false,
+  "unseen_final_accessed": false
+}

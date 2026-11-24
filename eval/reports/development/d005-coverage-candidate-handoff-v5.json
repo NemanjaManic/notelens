@@ -1,0 +1,56 @@
+{
+  "version": "d005-coverage-candidate-handoff-v5",
+  "date": "2026-11-23",
+  "service_sha": "d41fa880177a7855bb92e57d98673b0a7a77d36b",
+  "status": "measured_candidate_quality_failed_app_receipt_pending",
+  "configuration": {
+    "model": "gpt-6-luna",
+    "input_format": "messages",
+    "output_format": "quote_hints",
+    "prompt_profile": "coverage_v2",
+    "reasoning_effort": "low",
+    "output_version": "d-quote-hints-v2",
+    "prompt_version": "d-quote-hints-prompts-v2",
+    "prompt_versions_by_operation": {
+      "extract": "d-quote-hints-prompts-v2",
+      "answer": "d-quote-hints-prompts-v1",
+      "early_abstention": null
+    },
+    "prompt_pins": {
+      "services/extraction/src/notelens_extraction/prompts/extract-quotes-v2.txt": "e02ddaea5213c9814efbf2081a9b1e27bef2566cb657e4e7647f717f1f476cb5",
+      "services/extraction/src/notelens_extraction/prompts/answer-quotes-v1.txt": "e8fc562125c5a75cd2b477de4adcb9b55f14ab31c7c430e227f16d3509a70f25"
+    },
+    "immutable_dated_model_snapshot_established": false
+  },
+  "dependency_lock_sha256": "626b44bcd33a7f2acb782a13b0339949a80adf255a79893bbff94e287cb0dec4",
+  "contract_sha256": "707e0bb3a44cb4de71384fd4c152aa2c4038c4c0cd4089c2c531fb58103a0f78",
+  "python": "3.13.7",
+  "uv": "0.13.7",
+  "separate_B_mock_checkout": "e61140d",
+  "windows_startup": "docs/extraction-eval/d005-coverage-candidate-handoff-v5.md",
+  "development_plan": "eval/reports/development/d011-economic-comparison-plan-v4.json",
+  "development_execution": "eval/reports/development/d011-economic-execution-v4.json",
+  "private_execution_receipt": "Predaja-NoteLens/D-011/D011-economic-improvement-v4/provider.receipt",
+  "private_execution_receipt_sha256": "47eaf5bd924651f7ea75d4bedaa0aa3c2a0bfd42acbe3db12631fb56a72fe846",
+  "original_D004_receipt_sha256": "16e688456c8e2f20405d8417ff5ac7cec1d142573f5692636c31b5ff464df0e4",
+  "original_D004_receipt_preserved": true,
+  "measured_paired_documents": 6,
+  "baseline_exact_f1": 0.2984126984126984,
+  "candidate_exact_f1": 0.46786632390745503,
+  "valid_candidate_extractions": 6,
+  "partial_candidate_extractions": 4,
+  "valid_synthetic_qa": 6,
+  "same_31_mentions_temporality": {
+    "baseline_correct": 25,
+    "candidate_correct": 24,
+    "regression_accepted": false
+  },
+  "independent_semantic_risk": null,
+  "service_tests_passed": 137,
+  "eval_tests_passed": 152,
+  "goran_app_acceptance": false,
+  "deployment_accepted": false,
+  "new_app_provider_calls_authorized": false,
+  "source_committed_locally_not_pushed": true,
+  "external_message_sent": false
+}

@@ -1,0 +1,18 @@
+{
+  "version": "d-extraction-provider-policy-v1",
+  "approved": false,
+  "approved_by": null,
+  "operator": null,
+  "scope": null,
+  "model_access_confirmed": false,
+  "model": null,
+  "receipt_path": ".trial-receipt-provider-execution",
+  "automatic_retries": 0,
+  "max_input_tokens": null,
+  "max_output_tokens": null,
+  "max_provider_calls": null,
+  "remaining_budget_usd": null,
+  "input_usd_per_million_tokens": null,
+  "output_usd_per_million_tokens": null,
+  "timeout_seconds": null
+}

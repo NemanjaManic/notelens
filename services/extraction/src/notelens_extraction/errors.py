@@ -7,6 +7,7 @@ class ServiceError(Exception):
     code: str
     message: str
     retryable: bool = False
+    provider_diagnostics: dict | None = None
 
     def envelope(self, request_id: str) -> dict:
         return {"schema_version": "1.0.0", "request_id": request_id,

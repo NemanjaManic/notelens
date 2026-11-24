@@ -1,0 +1,21 @@
+{
+  "label": "offline answer risk and coverage",
+  "reference_version": "d-a-answer-risk-pilot-agent-labels-v1",
+  "prediction_version": "a-development-answer-review-packet-v2-actual-completions",
+  "overall": {
+    "cases": 2,
+    "answered": 2,
+    "incorrect_answers": 0,
+    "abstentions": 0,
+    "technical_errors": 0,
+    "coverage": 1.0,
+    "risk": 0.0,
+    "answerable": 2,
+    "answered_on_answerable": 2,
+    "answer_rate_on_answerable": 1.0,
+    "unanswerable": 0,
+    "correct_rejections": 0,
+    "correct_rejection_rate": null
+  },
+  "confidence_curve": []
+}

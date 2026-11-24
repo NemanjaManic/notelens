@@ -1,0 +1,38 @@
+{
+  "version": "d-main-integration-verification-v1",
+  "date": "2026-11-24",
+  "base_main_sha": "0162ac9ecd9db16d5f476c2761e1fdc18178c23c",
+  "merged_D_sha": "fa15a41",
+  "merge_conflicts": 0,
+  "preserved_main_shared_files": [
+    "AGENTS.md",
+    "scripts/project/scaffold_inputs.json"
+  ],
+  "scope": "Only D-owned extraction/eval/docs/specification changes relative to current main",
+  "checks": {
+    "service_pytest": {
+      "passed": 137,
+      "failed": 0,
+      "warnings": "Existing Starlette/httpx deprecation"
+    },
+    "eval_pytest": {
+      "passed": 152,
+      "failed": 0
+    },
+    "handoffs": {
+      "passed": true,
+      "backlogs": 5,
+      "tasks": 59,
+      "dependency_references": 111
+    },
+    "git_diff_check": "passed",
+    "credential_pattern_check": "No matching key-shaped values found in staged files; not an exhaustive secret guarantee"
+  },
+  "environment": "Existing locked D Python environments used for dependencies with PYTHONPATH explicitly set to integration service/eval/generated bindings; no new dependency installation or live calls.",
+  "D_owned_documentation_fix": "Moved free-form D008 dependency explanation out of machine-readable Dependencies field into Dependency scope; preserved intended reduced pilot dependency and meaning.",
+  "check_contracts_full_script": "Not run to completion: reused eval interpreter lacks openapi_spec_validator; frozen contract validation remains covered by service/eval tests. Hosted CI owns complete locked platform environment.",
+  "web_build_and_platform_browser_rerun": "Not performed locally; current main retains B bounded-web source. Hosted CI pending PR creation.",
+  "provider_calls": 0,
+  "final_cases_executed": 0,
+  "D009_final_quality_pass_claimed": false
+}

@@ -1,0 +1,77 @@
+{
+  "version": "d009-d011-delivery-evidence-package-v1",
+  "date": "2026-11-23",
+  "status": "evidence_prepared_quality_failed_final_execution_pending",
+  "private_package": "Predaja-NoteLens/D-009/D009-D011-evidence-and-open-gates-v1.zip",
+  "package_sha256": "968c6579172a791a17e871602f020532f2cb580b8f478722f24b6bacffca4455",
+  "contents": [
+    {
+      "path": "docs/extraction-eval/d009-private-handoff-request-v1.md",
+      "sha256": "9625455776a2ea7cf7349551f83f51ee070958eed1e82b9cfb43fd6fa7608200"
+    },
+    {
+      "path": "docs/extraction-eval/d011-development-measurement-v1.md",
+      "sha256": "e4a1851a5995a70e07261823446c4a579804aa79f8f54b98cebeb09dac83d161"
+    },
+    {
+      "path": "docs/extraction-eval/final-report.md",
+      "sha256": "6aac5031e252470bc0e00fa181a112a41cad811127a5baf144aa680fa2849e05"
+    },
+    {
+      "path": "eval/config/acceptance.json",
+      "sha256": "cc537d27919d56602222994f39c9914ad44aa0ece155402daf8572eb58df1992"
+    },
+    {
+      "path": "eval/config/d009-final-freeze-candidate-v1.json",
+      "sha256": "8278a94f89b90f57b2f5b59d246e863216b28291626c7483d0c168751a8c26ad"
+    },
+    {
+      "path": "eval/config/development-group-exclusions-v1.json",
+      "sha256": "f0c7adccef68b242cccd1b1453287bef15e1b9728215cf03781c88d82ef5d963"
+    },
+    {
+      "path": "eval/reports/development/d011-acceptance-results-v1.json",
+      "sha256": "b7e09763dd395a1b864809487af074f686ae238b6af405bc9e6fbac1c5eeaf9e"
+    },
+    {
+      "path": "eval/reports/development/d011-bounded-development-plan-v1.json",
+      "sha256": "d628660f28c60c76a57975afdeacf18b224a91f921b29c4508656ff4fba0f318"
+    },
+    {
+      "path": "eval/reports/development/d011-d009-verification-v1.json",
+      "sha256": "ad1f38230fca86012a11b57df8c8cbe13ceb3f73f439dc5aba9d2ca7fc9ccc0f"
+    },
+    {
+      "path": "eval/reports/development/d011-development-measurement-v1.json",
+      "sha256": "f0030226379595eeec9ef398e6200e62bfbc656d39a2508444ebf4c0d30e24f5"
+    },
+    {
+      "path": "eval/reports/development/d011-extraction-results-v1.json",
+      "sha256": "bd69f18ef454e2f2009de0ac27bc46f8799c09ecdba7c66b262dcd037fff6ed8"
+    },
+    {
+      "path": "eval/reports/development/d011-provider-execution-v1.json",
+      "sha256": "e1171803c0e2d29bbb004c0bbca1e4ee34f85699c8a46d9693225a149b011d62"
+    },
+    {
+      "path": "eval/reports/development/d011-quality-decisions-v1.json",
+      "sha256": "d78c344332a1193645878ab529214b60c15acb2fe81afd9a3567097cec8adc67"
+    },
+    {
+      "path": "eval/reports/development/d011-regression-decision-v1.json",
+      "sha256": "fa48150d38f2d4486c37b9ad3a0ab5df8e1f2259fb94edeb72ca3f13f6ece15b"
+    },
+    {
+      "path": "eval/reports/development/d011-remediation-replay-v1.json",
+      "sha256": "7394706fd8c5ed004186286b31ba6569218df7766fdc1d1536e7de6b3e812b9f"
+    },
+    {
+      "path": "eval/reports/final/d009-final-readiness-v1.json",
+      "sha256": "d26279144c2fabcc658710aa18512d7a53916e39c3526f17acaf18eb163bc472"
+    }
+  ],
+  "source_texts_questions_gold_answers_or_keys_included": false,
+  "new_external_message_sent": false,
+  "d011_closed": false,
+  "d009_closed": false
+}

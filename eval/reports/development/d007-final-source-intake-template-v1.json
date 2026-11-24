@@ -1,0 +1,372 @@
+{
+  "version": "d007-final-source-intake-template-v1",
+  "status": "blank_pre_authoring_template",
+  "date": "2026-11-22",
+  "staffing_plan_sha256": "39f05b80107ef8d04e0a070eec172ef9ea08dcd5d82619c25ff39a4979335d3e",
+  "development_exclusions_sha256": "89e01bf2bbc5be42300e3c659b0cc171344bb9ec3f61c636e561d92fb68babcf",
+  "reference_corpus": {
+    "manifest": "data/knowledge/manifests/passages.json",
+    "manifest_sha256": "6afe940765c8e4844278b65843f4d780440c99dfe3a09a5b8c2a1af239b803aa",
+    "passages_sha256": "4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938",
+    "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+    "development_index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146"
+  },
+  "source_fields": {
+    "planned_documents": [
+      "doc_id",
+      "canonical_text_sha256",
+      "source_family_id",
+      "provenance",
+      "project_permission"
+    ],
+    "planned_literature": [
+      "corpus_version",
+      "topic_id",
+      "passage_id",
+      "source_origin"
+    ]
+  },
+  "source_list_version": null,
+  "slots_checked": 0,
+  "overlaps_found": null,
+  "slots": [
+    {
+      "slot_id": "F-DOC-01",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-DOC-02",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-DOC-03",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-DOC-04",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-DOC-05",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-DOC-06",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-DOC-07",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-DOC-08",
+      "route": "document_only",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-LIT-01",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-LIT-02",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-LIT-03",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-LIT-04",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-LIT-05",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-LIT-06",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-LIT-07",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-LIT-08",
+      "route": "literature_only",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-MIX-01",
+      "route": "mixed",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-MIX-02",
+      "route": "mixed",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-MIX-03",
+      "route": "mixed",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-MIX-04",
+      "route": "mixed",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-MIX-05",
+      "route": "mixed",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-MIX-06",
+      "route": "mixed",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-MIX-07",
+      "route": "mixed",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-MIX-08",
+      "route": "mixed",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-OOS-01",
+      "route": "out_of_scope",
+      "author": "Sara",
+      "independent_reviewer": "Goran",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    },
+    {
+      "slot_id": "F-OOS-02",
+      "route": "out_of_scope",
+      "author": "Goran",
+      "independent_reviewer": "Sara",
+      "planned_documents": [],
+      "planned_literature": [],
+      "no_source_or_evidence_gap_note": null,
+      "overlap_check": {
+        "status": "pending",
+        "disposition": null
+      }
+    }
+  ]
+}

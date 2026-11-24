@@ -1,0 +1,28 @@
+{
+  "version": "d005-quote-candidate-handoff-v4",
+  "date": "2026-11-23",
+  "service_sha": "8ef63edd4ab1cb39de73b0f31b97bb12359f7731",
+  "status": "improved_candidate_quality_gate_still_failed",
+  "configuration": {
+    "model": "gpt-6-luna",
+    "input_format": "messages",
+    "output_format": "quote_hints",
+    "output_version": "d-quote-hints-v2",
+    "prompt_version": "d-quote-hints-prompts-v1",
+    "prompt_pins": {
+      "services/extraction/src/notelens_extraction/prompts/extract-quotes-v1.txt": "19c9296bc669153cf19e90398fa9463dbbedc5c2d62435a35fa1bde4a3f712b2",
+      "services/extraction/src/notelens_extraction/prompts/answer-quotes-v1.txt": "e8fc562125c5a75cd2b477de4adcb9b55f14ab31c7c430e227f16d3509a70f25"
+    }
+  },
+  "reviewed_measurement": "eval/reports/development/d011-extraction-improvement-v2.json",
+  "prior_c7_smoke_receipt_preserved": true,
+  "wire_contract_changed": false,
+  "source_schema_ids_are_server_generated": true,
+  "known_cumulative_reservation_usd": "0.0965479",
+  "goran_app_acceptance": false,
+  "deployment_accepted": false,
+  "final_run_authorized": false,
+  "next_step": "Use this exact candidate and explicit output_format when further app testing is separately approved. Do not apply previous c7-only acceptance to this configuration.",
+  "source_committed_locally_not_pushed": true,
+  "external_message_sent": false
+}

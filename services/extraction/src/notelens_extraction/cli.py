@@ -1,4 +1,4 @@
-"""Local mock CLI. JSON stdout is explicit demo/output, not a routine server log."""
+"""Local service CLI with explicit fixture output and quiet HTTP startup."""
 
 import argparse
 import json
@@ -13,9 +13,9 @@ from .service import run
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="NoteLens provisional mock service CLI")
+    parser = argparse.ArgumentParser(description="NoteLens extraction service CLI")
     commands = parser.add_subparsers(dest="command", required=True)
-    serve = commands.add_parser("serve", help="Start a mock API on loopback (default port 8003)")
+    serve = commands.add_parser("serve", help="Start the configured API on loopback (default port 8003)")
     serve.add_argument("--port", type=int, default=8003)
     demo = commands.add_parser("demo", help="Print a synthetic mock extraction/answer")
     demo.add_argument("--question")

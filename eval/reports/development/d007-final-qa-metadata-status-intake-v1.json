@@ -1,0 +1,48 @@
+{
+  "version": "d007-final-qa-metadata-status-intake-v1",
+  "date": "2026-11-23",
+  "status": "metadata_checksum_verified_staffing_plan_pin_mismatch",
+  "source_filename": "d007-final-qa-metadata-status-v1.json",
+  "source_sha256": "8d5904245990624943cce2fd64604e88779d3f29dec904dfa6d5d956376b6fd3",
+  "private_archive": "Predaja-NoteLens/D-007/D007-metadata-status-intake-v1",
+  "checksum_verified": true,
+  "planned_cases": 26,
+  "unique_case_ids_and_staffing_match": true,
+  "staffing_plan_bytes_rehashed": true,
+  "source_intake_bytes_rehashed": true,
+  "staffing_plan_sha256_matches": false,
+  "staffing_plan_reported_sha256": "39f05b80107ef8d04e0a070eec172ef9ea08dcd5d82619c25ff39a4979335d3e",
+  "staffing_plan_local_sha256": "87e635b802ed648c5c8d62352d46524acfc592213bf3011e3ed031ca6117fed3",
+  "staffing_plan_resolution_owner": "Sara/Goran: provide exact pinned plan bytes or correct the metadata pin; current 26 case assignments match the local plan.",
+  "source_intake_sha256": "6198b4085b45e702d065535e9705c5b6bf7d841230d35a247bcee327fb26ebf0",
+  "document_hash_entries_format_checked": 16,
+  "passage_hash_entries_format_checked": 17,
+  "source_and_passage_bytes_rehashed": false,
+  "case_versions_verified_in_restricted_folder": 0,
+  "reviewer_receipts_verified_in_restricted_folder": 0,
+  "cases_awaiting_completion_confirmation": 26,
+  "agreed_handoff_date": null,
+  "reported_local_drafts": {
+    "Goran": 8,
+    "case_ids": [
+      "F-LIT-01",
+      "F-LIT-02",
+      "F-LIT-03",
+      "F-LIT-04",
+      "F-LIT-05",
+      "F-LIT-06",
+      "F-LIT-07",
+      "F-LIT-08"
+    ],
+    "basis": "Previously forwarded owner draft; not delivered or independently verified completed cases."
+  },
+  "scope_limitation": "Zero confirmed versions/receipts describes the restricted folder, not absence of owner-local drafts. Hash format checks do not verify underlying source text.",
+  "owners": {
+    "Sara_and_Goran": "Reconcile versioned cases, finish authoring and reciprocal review, supply receipts and agree handoff date.",
+    "D": "Validate delivered metadata and receipts before reference/system freeze."
+  },
+  "unseen_final_texts_accessed": false,
+  "final_freeze_approved": false,
+  "d007_closed": false,
+  "external_messages_sent": false
+}

@@ -1,0 +1,108 @@
+{
+  "version": "d008-pilot-calibration-v1",
+  "date": "2026-11-23",
+  "status": "coordinator_approved_team_limitations_accepted",
+  "base_rubric": "d-answer-review-rubric-v1",
+  "base_rubric_original_unchanged": true,
+  "scope": "Seven synthetic mock development calibration cases only.",
+  "approved_by": "Milica",
+  "team_acceptance": "Reported by Milica",
+  "rules": [
+    {
+      "id": "full_saved_response",
+      "rule": "Evaluate the complete saved response including structured warnings, evidence states and citations."
+    },
+    {
+      "id": "partial_source_gap",
+      "rule": "Do not penalize correctly disclosed missing source data as an omitted available fact. Required-facts scoring concerns available requested facts."
+    },
+    {
+      "id": "justified_abstention",
+      "rule": "An appropriate abstention can meet support/required-facts criteria when the source has no requested factual answer. Score gap specificity separately. U remains unable to judge, not zero."
+    },
+    {
+      "id": "source_specific_answerability",
+      "rule": "Judge answerability from the exact source/question; identical refusal bytes do not imply identical answerability."
+    },
+    {
+      "id": "benchmark_critical",
+      "rule": "For this pilot, material false refusal and an undisclosed available required fact presented as complete are benchmark-critical. This is not a clinical harm or clinical validation claim."
+    },
+    {
+      "id": "atom_and_contradiction",
+      "rule": "Credit literal support for an emitted atom while penalizing a withheld contradictory source statement under required facts/context/gaps. Do not add an advice penalty when no advice was emitted."
+    },
+    {
+      "id": "immutable_first_round",
+      "rule": "Preserve original ratings and initial agreement. Accepted adjudication profiles are not new independent reviews and do not produce post-adjudication independent agreement."
+    }
+  ],
+  "decisions": [
+    {
+      "case_id": "D008-CAL-02",
+      "decision": {
+        "dimension_changes": {
+          "required_facts": 2,
+          "evidence_gaps": 2
+        },
+        "answerable_from_document": "partly"
+      },
+      "rationale": "Score the complete saved response, including structured warnings. The available chest-pain fact is preserved and the unavailable age is explicitly identified. Missing source data is not an output omission when correctly disclosed.",
+      "minimum_correction": "No content correction is required for this calibrated partial-answer decision; render the existing age warning clearly with the answer."
+    },
+    {
+      "case_id": "D008-CAL-03",
+      "decision": {
+        "dimension_changes": {
+          "evidence_gaps": 2
+        },
+        "answerable_from_document": "no"
+      },
+      "rationale": "The requested age is absent and specifically identified in the warning. Correct abstention with an explicit gap meets the gap criterion. With a complete source and defined convention, U is not a substitute for the justified-abstention decision.",
+      "minimum_correction": "No factual answer should be invented. Preserve the explicit age gap and abstention."
+    },
+    {
+      "case_id": "D008-CAL-04",
+      "decision": {
+        "dimension_changes": {},
+        "answerable_from_document": "no"
+      },
+      "rationale": "The administrative source contains no diagnosis. Answerability is judged from this question and source, not from identical refusal bytes seen in another case. Preserve the initial common gap score of 1 for the generic limitation.",
+      "minimum_correction": "For clearer gap wording, state that no diagnosis is recorded; do not add a diagnosis."
+    },
+    {
+      "case_id": "D008-CAL-05",
+      "decision": {
+        "dimension_changes": {
+          "uncertainty_and_context": 0
+        },
+        "critical_error": true
+      },
+      "rationale": "The source explicitly supplies the requested symptom, so refusal wrongly represents evidence availability. Retain the coordinator original major context score. Proposed benchmark-critical convention counts material false refusal of an available required fact; this is not a claim of clinical harm.",
+      "minimum_correction": "Return the source-supported symptom with its exact citation instead of asserting insufficient evidence."
+    },
+    {
+      "case_id": "D008-CAL-06",
+      "decision": {
+        "dimension_changes": {},
+        "critical_error": true
+      },
+      "rationale": "An available requested symptom is omitted while evidence is declared sufficient. Proposed benchmark-critical convention counts an undisclosed material omission presented as complete; retained correct chest-pain content does not repair the missing fact.",
+      "minimum_correction": "Include the omitted source-supported symptom with its citation and correct the completeness/evidence state."
+    },
+    {
+      "case_id": "D008-CAL-07",
+      "decision": {
+        "dimension_changes": {
+          "source_support": 2,
+          "scope_and_safety": 2
+        },
+        "critical_error": true
+      },
+      "rationale": "The emitted denial is literally supported, and there is no generated treatment advice. Penalize the missing contradictory source statement under required facts, uncertainty/context and gaps, rather than changing support for the emitted atom. Preserve the initial major context/completeness findings and critical flag.",
+      "minimum_correction": "Present both conflicting source statements with exact citations and an explicit contradiction warning; do not choose clinical truth."
+    }
+  ],
+  "new_independent_review_credit": 0,
+  "quality_thresholds_changed": false
+}
