@@ -164,12 +164,12 @@ with unrelated real modules absent; inspect that story's acceptance scenarios.
 
 **Purpose**: Establish or verify the listed prerequisites without claiming unrelated module completion.
 
-- [ ] T011 B-009: Finish English acceptance, attribution, notices and complete demo rehearsal in `apps/web/**`, `docs/platform/demo.md`
+- [X] T011 B-009: Finish English acceptance, attribution, notices and complete demo rehearsal in `apps/web/**`, `docs/platform/demo.md`
   - **Owner / story**: B / US4.
   - **Dependencies**: 002-platform/T009 (B-005); 002-platform/T007 (B-008)
   - **Acceptance**: Review every visible state and generation surface in English, source attribution and all three notices; full input-to-answer rehearsal passes. Deployment/live claims require actual evidence.
-  - **Verify**: `npm exec --workspace apps/web -- playwright test`.
-  - **Rehearsal evidence**: The [PR #32 key-free Chrome rehearsal](../../docs/platform/demo.md#pr-32-reviewed-head-rehearsal) passed on the exact reviewed head. Formal acceptance remains open.
+  - **Verify**: Run the [Windows Chrome rehearsal](../../docs/platform/demo.md#browser-rehearsal) against the production build, the default HTTP smoke, and the production mock security check.
+  - **Acceptance evidence**: The [final key-free Chrome rehearsal](../../docs/platform/demo.md#final-key-free-demo-acceptance) passed on `22fae6ee44913d0029bd9c18698f15b0e910314e`. The receipt records the built-in, pasted-text and PDF input-to-answer flows, English notices and rejection messages, exact document highlights, separate literature attribution and shutdown. Deployment and fresh provider-backed generation retain separate acceptance evidence.
   - **Coverage**: FR-001, FR-005, FR-006, FR-007, FR-012, FR-013, FR-020, FR-024, SC-006.
   - **Done**: Mock = deterministic cases pass but do not close real behavior; module = the stated deliverable and owner-local/transport checks pass; live = separately authorized actual provider/deployment evidence, or explicitly unexecuted/not applicable when this task has no live-provider/deployment requirement.
 
