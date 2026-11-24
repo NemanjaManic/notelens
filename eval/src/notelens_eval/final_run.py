@@ -19,6 +19,18 @@ from .retrieval_metrics import evaluate_retrieval, indexed_cases
 COMPONENTS = {"extraction", "retrieval", "answer-risk", "classification"}
 
 
+def unmeasured_component(declaration):
+    """An explicit recorded scope decision never becomes a numeric pass."""
+    if declaration.get("status") != "unmeasured":
+        return False
+    if not all(isinstance(declaration.get(key), str) and declaration[key].strip()
+               for key in ("reason", "approved_by", "decision_record")):
+        raise ValueError("Unmeasured final components require an explicit named scope decision.")
+    if any(key in declaration for key in ("references", "predictions")):
+        raise ValueError("An unmeasured component cannot carry dummy scoring inputs.")
+    return True
+
+
 def unique_object(pairs):
     result = {}
     for name, value in pairs:
@@ -129,8 +141,17 @@ def execute(freeze_path: Path, expected_sha256: str, output_root: Path):
     run_id = freeze["run_id"]
     if not isinstance(run_id, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,100}", run_id):
         raise ValueError("Invalid final run ID.")
-    if set(freeze["components"]) != COMPONENTS:
+    component_names = set(freeze["components"])
+    if component_names not in (COMPONENTS, COMPONENTS | {"qa"}):
         raise ValueError("The system final run requires extraction, retrieval, answer risk and classification evidence.")
+    unmeasured = {name for name, declaration in freeze["components"].items()
+                  if unmeasured_component(declaration)}
+    if unmeasured - {"extraction", "answer-risk"}:
+        raise ValueError("Only approved missing extraction labels and semantic-risk evidence may be declared unmeasured.")
+    if "extraction" in unmeasured and "qa" not in component_names:
+        raise ValueError("An unmeasured extraction component requires separate final QA structural evidence.")
+    if "qa" in component_names and "extraction" not in unmeasured:
+        raise ValueError("The QA-only structural profile requires explicitly unmeasured extraction; it cannot mask extraction errors.")
     versions = freeze["system_versions"]
     if any(not isinstance(versions.get(name), str) or not versions[name].strip()
            for name in ("rag", "classifier", "extraction")):
@@ -149,6 +170,10 @@ def execute(freeze_path: Path, expected_sha256: str, output_root: Path):
     reports = {}
     sample_count = 0
     for name, declaration in freeze["components"].items():
+        if name in unmeasured:
+            reports[name] = {"status": "unmeasured", "reason": declaration["reason"],
+                             "approved_by": declaration["approved_by"], "decision_record": declaration["decision_record"]}
+            continue
         if name == "classification":
             reports[name] = classification_report(pinned_artifact(root, declaration["report"]), versions["classifier"])
             sample_count += reports[name]["overall"]["documents"]
@@ -165,19 +190,24 @@ def execute(freeze_path: Path, expected_sha256: str, output_root: Path):
             reports[name]["label"] = "Frozen final extraction and document-answer scoring"
             reports[name]["reference_review_declared"] = True
             reports[name]["unavailable"].pop("real_model_performance", None)
+        elif name == "qa":
+            from .final_qa import evaluate_saved_qa
+            reports[name] = evaluate_saved_qa(references, predictions)
         else:
             scorer = evaluate_retrieval if name == "retrieval" else evaluate_answer_risk
             reports[name] = scorer(references, predictions)
         sample_count += len(references["cases"])
 
     extraction = reports["extraction"]
-    expected_records = extraction["counts"]["documents"] + extraction["counts"]["qa"]
+    qa = reports.get("qa")
+    expected_records = (extraction["counts"]["documents"] + extraction["counts"]["qa"]
+                        if "extraction" not in unmeasured else None)
     metrics = {
-        "schema_validity": extraction["record_validation"]["schema_valid"] / expected_records,
-        "span_validity": sum(extraction["valid_returned_records"].values()) / expected_records,
-        "entity_exact_f1": extraction["entities_exact"].get("f1"),
+        "schema_validity": qa["schema_validity"] if qa else extraction["record_validation"]["schema_valid"] / expected_records,
+        "span_validity": qa["span_validity"] if qa else sum(extraction["valid_returned_records"].values()) / expected_records,
+        "entity_exact_f1": None if "extraction" in unmeasured else extraction["entities_exact"].get("f1"),
         "topic_recall_at_5": reports["retrieval"]["overall"]["topic_recall_at_5"],
-        "answer_risk": reports["answer-risk"]["overall"]["risk"],
+        "answer_risk": None if "answer-risk" in unmeasured else reports["answer-risk"]["overall"]["risk"],
     }
     if not set(metrics).issubset(acceptance["criteria"]):
         raise ValueError("Final acceptance requires the structural, extraction, retrieval and answer-risk criteria.")
@@ -192,15 +222,18 @@ def execute(freeze_path: Path, expected_sha256: str, output_root: Path):
         "status": decision["status"], "acceptance": decision,
         "sample_count_unit": "Component case observations, including owner classification documents; source groups can be shared across components.",
         "components": reports, "new_provider_calls": 0,
+        "explicitly_unmeasured_components": sorted(unmeasured),
+        "metric_scope": (qa["metric_scope"] if qa else "Saved final extraction and document-QA records."),
         "scorer_source_sha256": {
             name: hashlib.sha256((Path(__file__).parent / name).read_bytes()).hexdigest()
-            for name in ("final_run.py", "run.py", "metrics.py", "classification.py",
+            for name in ("final_run.py", "final_qa.py", "run.py", "metrics.py", "classification.py",
                          "retrieval_metrics.py", "answer_risk.py", "acceptance.py", "annotations.py")
         },
         "limitations": [
             "Scores existing frozen outputs and C's pinned aggregate classification evidence.",
             "Source support and English quality require the recorded human review; literal validity alone does not establish them.",
             "Project release and platform acceptance retain their named owner decisions.",
+            *(qa["limits"] + ["QA-only schema/span rates do not certify extraction-output structural validity."] if qa else []),
         ],
     }
     output_root = output_root.resolve()
