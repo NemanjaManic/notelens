@@ -1,5 +1,5 @@
 # NoteLens public live demo: Next.js web + live RAG, live extraction and the fitted
-# classifier in one container (Railway). Select with RAILWAY_DOCKERFILE_PATH=Dockerfile.live.
+# classifier in one container (Railway). Select with RAILWAY_DOCKERFILE_PATH=infra/railway/Dockerfile.live.
 # Runtime artifacts (prepared corpus, Chroma index, tokenizer cache, classifier model) are
 # uploaded from the operator's local deploy-artifacts/ folder by `railway up`; they are never
 # committed. Files matching .gitignore patterns (for example *.sqlite3) are uploaded with an
@@ -8,6 +8,7 @@ FROM node:24-bookworm-slim
 
 COPY --from=ghcr.io/astral-sh/uv:0.11 /uv /uvx /bin/
 
+# Build with the repository root as context: RAILWAY_DOCKERFILE_PATH=infra/railway/Dockerfile.live.
 # The slim base has no system CA bundle; Python services need it for TLS to api.openai.com.
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates \
