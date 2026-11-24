@@ -7,6 +7,8 @@ request or USD cap does. No question or answer text is written to the receipt.
 """
 
 import argparse
+import dataclasses
+import hashlib
 import sys
 from decimal import Decimal
 import json
@@ -18,14 +20,44 @@ import uuid
 import openai
 import uvicorn
 
+from importlib.resources import files
+
 from . import final_runtime as fr
+from . import question_parts as qp
 from .answers import PARTIAL_POLICY
+from .assessor import AssessmentError
 from .embeddings import OpenAIEmbedder, TokenBudget, local_tokenizer
 from .ingestion import DEFAULT_MANIFEST, load_corpus
 from .main import Settings, create_app
 from .runtime import IndexedBackend
 
 STOPPING_CODES = frozenset({'budget_exceeded', 'unapproved_or_repeated_request'})
+PUBLIC_QUESTION_PROMPT = 'prompts/question-parts-public-v2.txt'
+PUBLIC_QUESTION_PROMPT_VERSION = 'literature-question-parts-public-v2'
+_frozen_prepare_question_parts = qp.prepare_question_parts
+
+
+def _public_prepare_question_parts(request):
+    """Prepare question parts with the public scope prompt.
+
+    The frozen v1 prompt treats general treatment questions as out of scope. The public
+    service uses v2, which keeps personal diagnosis/treatment decisions out of scope but
+    accepts general medical information questions. Binding, schema and anchor checks are
+    unchanged; the frozen evaluation runtime and its pinned files keep using v1.
+    """
+    frozen = _frozen_prepare_question_parts(request)
+    try:
+        instructions = files('notelens_rag').joinpath(PUBLIC_QUESTION_PROMPT).read_bytes().decode('utf-8')
+    except (OSError, UnicodeError):
+        raise AssessmentError('configuration_required') from None
+    return dataclasses.replace(frozen, prompt_sha256=hashlib.sha256(instructions.encode()).hexdigest(),
+                               instructions=instructions, prompt_version=PUBLIC_QUESTION_PROMPT_VERSION)
+
+
+def use_public_question_scope():
+    """Bind the public prompt for both preparation and response checking in this process."""
+    qp.prepare_question_parts = _public_prepare_question_parts
+    fr.prepare_question_parts = _public_prepare_question_parts
 
 
 class PublicLedger(fr.Ledger):
@@ -59,6 +91,7 @@ def load_freeze(root):
 
 def build_app(root=fr.ROOT):
     root = Path(root).resolve()
+    use_public_question_scope()
     fr._require(os.environ.get('NOTELENS_RAG_ALLOW_PAID_EMBEDDINGS') == 'true'
                 and os.environ.get('NOTELENS_RAG_ALLOW_PAID_ASSESSMENTS') == 'true')
     key, token = os.environ.get('OPENAI_API_KEY'), os.environ.get('NOTELENS_RAG_SERVICE_TOKEN')
