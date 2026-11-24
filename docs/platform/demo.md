@@ -105,9 +105,9 @@ The locked production build passed.
 - All six missing, null and foreign-origin requests returned HTTP 403 without
   issuing a session cookie or redirect. All four rehearsal listeners stopped.
 
-The key-free browser rehearsal passed. B-009 formal acceptance depends on
-B-005 and B-008 as listed in the [platform tasks](../../specs/002-platform/tasks.md).
-Provider-backed behavior is outside this run.
+The key-free browser rehearsal passed. At the time, formal acceptance was
+still pending under the B-005 and B-008 dependencies in the
+[platform tasks](../../specs/002-platform/tasks.md).
 
 ## PR #32 reviewed-head rehearsal
 
@@ -129,4 +129,57 @@ smoke passed.
 Receipt `B009-PR32-Chrome-rehearsal-7743fc8.json` has SHA-256
 `e8542823dd6862079feee84f6744c90ac2518727974dc4e4f3e1b74b93d009df`.
 The rehearsal used synthetic fixtures and made zero provider calls. Formal
-B-009 acceptance is pending against the accepted B-005 configuration.
+B-009 acceptance was still pending at this revision.
+
+## Final key-free demo acceptance
+
+B-009 passed the Windows Chrome rehearsal against `main` at
+`22fae6ee44913d0029bd9c18698f15b0e910314e` on 24 November 2026. B-005 platform
+transport acceptance and B-008 security acceptance were already recorded in
+Spec 002. The production build used the locked dependencies with Python 3.13.7,
+Node 24.22.1, npm 11.19.1 and headless Chrome 158.0.0.0. The default loopback
+profile used mock classifier, extraction and RAG services and synthetic inputs.
+
+| Chrome flow | Submission | Answer | Exact document highlights (Unicode code points) |
+| --- | --- | --- | --- |
+| Built-in **Chest pain report** | HTTP 201, **Report overview** | HTTP 200, sufficient mixed answer | `[7, 21)` and `[47, 61)` |
+| Pasted synthetic text | HTTP 201, **Prepared document** | HTTP 200, sufficient mixed answer | `[106, 120)` and `[172, 186)` |
+| Selectable-text PDF | HTTP 201, **Prepared document** | HTTP 200, sufficient document-only answer | `[106, 120)` and `[170, 184)` |
+
+- Chrome passed 73 core assertions across picker notices, the three complete
+  flows, and the 12 submitted-input policy cases. English notices covered the
+  educational demonstration, doctor disclaimer, no real personal reports,
+  60-minute memory retention and mock mode. English rejection messages covered
+  non-English and mixed-language reports.
+- All answer links retained the app document and answer identities. Clicking
+  the second pasted-text citation selected the correct repeated quote. Both mixed
+  answers and the literature-only preset showed the separate synthetic title
+  and fixture URL. The browser left the fixture URL unopened.
+- Chrome displayed the partial answer's two citations and explicit missing-age
+  gap. Insufficient evidence and out-of-scope questions showed distinct English
+  states with zero document citations.
+- The default HTTP smoke and production mock security checks passed. All six
+  missing, null and foreign-origin requests to the built-in endpoint returned
+  HTTP 403 and issued neither a session cookie nor a redirect. DevTools recorded
+  one incidental `/favicon.ico` HTTP 404. All four rehearsal listeners and the
+  throwaway Chrome session stopped.
+
+To repeat the run, use the [Windows demo setup](#start-the-windows-demo) and
+[browser steps](#browser-rehearsal). The tracked
+`apps/web/tests/submitted-input-browser.scenarios.js` supplies the synthetic
+pasted text, PDF and rejection cases. Run both finite checks from the built
+checkout:
+
+```powershell
+& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/smoke_mock.py
+& ./scripts/project/.venv/Scripts/python.exe -B scripts/project/check_mock_security.py
+```
+
+Local receipt `B009-main-Chrome-rehearsal-22fae6e.json` has SHA-256
+`9180d728d2b26f43aeb6736dd92e1b2f00bb5570dc5e92b156229ee4beb972fb`.
+This is agent-executed evidence for key-free demo acceptance. Deployment and
+fresh provider-backed generation have separate acceptance evidence.
+
+After the admission fix and A runtime landed, the production build, all four
+components' local readiness checks, and the default input-to-answer HTTP smoke
+passed on `main` at `bce9f23d25cc5116653fce33c830a78919ae18e0`.
