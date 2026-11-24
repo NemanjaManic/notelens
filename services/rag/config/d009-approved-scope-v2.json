@@ -1,0 +1,108 @@
+{
+  "format_version": "notelens-d009-approved-scope-v2",
+  "recorded_on": "2026-11-24",
+  "authority": "Milica scope approval relayed explicitly by the user; latest user instruction designates Goran and requires technical readiness before dispatch.",
+  "approval_id": "user-relayed-milica-d009-2026-11-24",
+  "scope_approved": true,
+  "repeat_scope_approval_required": false,
+  "designated_operator": "Goran",
+  "operator_authenticated_readiness_confirmed_here": false,
+  "technical_dispatch_ready": false,
+  "paid_dispatch_performed": false,
+  "final_passes": 1,
+  "cases": {
+    "total": 26,
+    "document_only": 8,
+    "literature_only": 8,
+    "mixed": 8,
+    "out_of_scope": 2,
+    "distinct_documents": 16
+  },
+  "caps_usd": {
+    "combined": "0.58",
+    "D": "0.50",
+    "A": "0.08",
+    "historical_ledgers": "closed_unchanged"
+  },
+  "max_calls": {
+    "D_generation": 32,
+    "A_generation": 48,
+    "A_query_embedding": 16,
+    "A_free_input_count": 48,
+    "A_provider_HTTP_total": 112,
+    "whole_system_provider_HTTP_total": 144,
+    "additional_D_provider_HTTP_allowance": 0,
+    "corpus_reembedding": 0
+  },
+  "D_tokens_per_call": {
+    "input": 64000,
+    "output": 12288
+  },
+  "A_tokens_per_call": {
+    "embedding_input": 128,
+    "question_parts_input": 4096,
+    "support_input": 20000,
+    "answer_input": 4096,
+    "output_per_generation": 512
+  },
+  "token_totals": {
+    "generation_input": 2499072,
+    "generation_output": 417792,
+    "embedding_input": 2048
+  },
+  "timeouts": {
+    "provider_HTTP_absolute_seconds": 30,
+    "A_branch_provider_wait_seconds": 210,
+    "web_HTTP_ms": 240000,
+    "global_hard_stop_seconds": 3600,
+    "serial_provider_wait_seconds": 4320,
+    "serial_provider_wait_minutes": 72,
+    "completion_guaranteed": false
+  },
+  "stop_policy": {
+    "automatic_retries": 0,
+    "repair_generations": 0,
+    "first_unexpected_error": true,
+    "preserve_partial_outputs_errors_usage_reservations": true,
+    "automatic_restart": false
+  },
+  "quality_limits": {
+    "final_extraction_F1": "unmeasured_accepted",
+    "independent_semantic_risk": "unmeasured_accepted",
+    "final_case_model_tuning": false
+  },
+  "pins": {
+    "app_candidate_sha": "9fc7c333ca74971768e1df13ed6238798c48e90e",
+    "rag_baseline_sha": "d2f85fbe97ec451ac3eda52a7b48ff101fc99dc4",
+    "launcher_sha256": "20d5413834172eb4ed15f7439eba27212ee16af4c13f1f3acc6c2b6ea8084341",
+    "policy_template_sha256": "0af119c48df50f0dffcbb9cef3995f12d87d722ebe886a9e32969f3ae7de15ff",
+    "selection_manifest_sha256": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
+    "corpus_version": "2922f29e08b74bf668272c33a7f3f0599d8d16fc90d2242976e3d4476010579b",
+    "index_version": "209656e7be0e9db1885407de4fef824b5e0209c78a7d2fdc71e418c7a3d4a146",
+    "passages_sha256": "4915adc09d6719f84e3315f8a0ea0ac37bc363d8b1a178c6d14f449aac85c938",
+    "D_PR35_head": "20385b9c7b83382f5cea9e9a6fdf1fb91d4263ab",
+    "D_candidate_config_sha256": "699bd95c747d67679d0a74ba9a3077b919422b28ba62a74e947e63a465c01713",
+    "D_candidate_identity_manifest_sha256": "3c1cf38c209f68e41262f961bc59b9b67e43260e65a6bdc58cc591c9990e17f3",
+    "actual_final_reference_sha256": null,
+    "actual_operator_policy_sha256": null,
+    "selected_global_watchdog_sha256": null
+  },
+  "technical_inputs_awaited_from_Goran": [
+    "Approved run_id and exact 16 literature-branch question hashes, preserving multiplicity",
+    "Applicable account pricing and model access confirmation",
+    "Server-side bearer/key configuration and authenticated live readiness",
+    "Selected 3600-second global watchdog and 240000-ms web timeout configuration",
+    "Final configuration/reference identity digests from their custodians"
+  ],
+  "verification": {
+    "focused_tests_passed_after_30_second_alignment": 100,
+    "runtime_checks": 19,
+    "historical_file_pins_verified": 56,
+    "corpus_passages_verified": 617,
+    "preflight_scope_approved": true,
+    "preflight_status": "preflight_blocked_technical_inputs_missing",
+    "preflight_provider_calls": 0,
+    "final_questions_accessed": false,
+    "reference_content_exposed": false
+  }
+}

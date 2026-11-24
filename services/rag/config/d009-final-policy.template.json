@@ -1,0 +1,17 @@
+{
+  "format_version": "notelens-final-rag-policy-v1",
+  "approved": true,
+  "pricing_confirmed": false,
+  "approval_id": "user-relayed-milica-d009-2026-11-24",
+  "operator": "Goran",
+  "app_sha": "d846dcfee5a066dc180a59dbf0c1ed8888809f38",
+  "freeze_manifest_sha256": "d0502196edabc1301b06b55f2d1ddb1f888ac678b51502227d0f9a0fd5a67685",
+  "launcher_sha256": "3a60beed0aceca76ebe9b425167dd412557c8ea4ec1c79f08f8cff4723a0a785",
+  "run_id": "00000000-0000-4000-8000-000000000000",
+  "receipt_path": "services/rag/.cache/final/00000000-0000-4000-8000-000000000000/receipt.json",
+  "question_sha256": [],
+  "provider_timeout_seconds": 30,
+  "wall_clock_seconds": 3600,
+  "a_budget_usd": "0.08",
+  "automatic_retries": 0
+}
