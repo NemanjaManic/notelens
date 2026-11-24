@@ -8,8 +8,8 @@
     "classifier": "fd87686bddfe7d3f86103b562161c64c241f6e4759ca69467d1360d35283ac70",
     "extraction": "d41fa880177a7855bb92e57d98673b0a7a77d36b"
   },
-  "freeze_candidate": "eval/config/d009-final-freeze-candidate-v1.json",
-  "freeze_candidate_sha256": "116386f4841cba0db272e2447760574e3132ce6c88a4390a67d03e2ea8064ad6",
+  "freeze_candidate": "eval/config/d009-final-freeze-candidate-v2.json",
+  "freeze_candidate_sha256": "699bd95c747d67679d0a74ba9a3077b919422b28ba62a74e947e63a465c01713",
   "final_case_identity_count": 26,
   "final_versions": {
     "v1": 25,
@@ -241,5 +241,7 @@
   "coordinator_execution_scope_approval": "eval/reports/final/d009-coordinator-bounded-scope-approval-v1.json",
   "A_preflight_intake": "eval/reports/final/d009-A-preflight-intake-v1.json",
   "combined_new_cap_usd_approved": "0.58",
-  "final_extraction_F1_disposition": "explicitly approved unmeasured"
+  "final_extraction_F1_disposition": "explicitly approved unmeasured",
+  "classifier_runtime_published_manifest_reconciliation": "Known stage-only manifest difference; same model/artifact. Keep published fd pin for owner final aggregate and affe pin for runtime startup.",
+  "final_extraction_and_independent_risk": "explicitly unmeasured per accepted final scope; never substitute development or literal proxy scores"
 }
